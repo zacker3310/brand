@@ -19,4 +19,4 @@ I’ll be backing up custom CSS from my Super.so websites here too.
 - Cover/header images
 - Fonts and colors
 - Style notes
-- ✨ Custom CSS for [acker.cloud](https://acker.cloud) and [thrivecmd.com](https://thrivecmd.com)
+- Custom CSS for [acker.cloud](https://acker.cloud) and [thrivecmd.com](https://thrivecmd.com)
