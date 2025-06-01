@@ -1,0 +1,114 @@
+<style>
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 10vh 2rem;
+  background: #0d0d0d;
+  color: white;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 960px;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.contact-image img {
+  width: 300px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(255, 46, 99, 0.25);
+  transition: transform 0.4s ease;
+}
+
+.contact-image img:hover {
+  transform: scale(1.03);
+}
+
+.contact-content {
+  flex: 1;
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+  max-width: 500px;
+}
+
+.contact-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.5px;
+}
+
+.contact-subtext {
+  font-size: 1.125rem;
+  margin-bottom: 2rem;
+  color: #aaa;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.1rem;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.contact-btn:hover {
+  background-color: #ff2e63;
+  color: white;
+  border-color: #ff2e63;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .contact-image img {
+    width: 220px;
+  }
+}
+
+/* Hide icon and title everywhere */
+.notion-header__icon,
+.notion-header__title,
+.notion-page-icon-wrapper,
+.notion-page-title {
+  display: none !important;
+}
+
+/* Collapse the entire header space */
+.notion-header,
+.super-content > div:first-child {
+  display: none !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+<style>
