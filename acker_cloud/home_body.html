@@ -1,0 +1,33 @@
+<body>
+<div id="scroll-progress-container">
+  <div id="scroll-progress-bar"></div>
+</div>
+
+<div class="acker-hero">
+  <!-- Animated floating wave -->
+  <div class="hero-wave-bg">
+    <div class="blob"></div>
+  </div>
+
+  <h1>Hey, I’m Zac Acker</h1>
+  <p>Husband. Father. Integrations Architect. Data Whisperer. Transformation Strategist. People Leader. Music Nerd.</p>
+
+  <a class="hero-cta" href="#1f32e1a9f5678055ab5cc2a2e19b009b">See What I Do</a>
+
+  <a href="#1f32e1a9f5678055ab5cc2a2e19b009b" class="scroll-chevron">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </a>
+</div>
+
+<script>
+  document.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    const bar = document.getElementById('scroll-progress-bar');
+    if (bar) bar.style.width = scrollPercent + '%';
+  });
+</script>
+</body>
