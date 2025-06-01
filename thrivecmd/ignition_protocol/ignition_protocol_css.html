@@ -1,0 +1,107 @@
+<style>
+/* === STARFIELD BACKGROUND LAYERS === */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.9;
+  z-index: -3;
+  animation: spaceDrift 120s linear infinite;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 200%; height: 200%;
+  background: url('https://cdn.jsdelivr.net/gh/matttproud/starfield/starfield.png') repeat;
+  opacity: 0.25;
+  animation: starsTwinkle 100s linear infinite;
+  z-index: -2;
+}
+
+/* === FLOATING NEBULA ORB === */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #69e2ff, #0a192f);
+  width: 120px;
+  height: 120px;
+  animation: floatOrb 40s infinite ease-in-out alternate;
+  filter: blur(3px);
+  z-index: -1;
+}
+
+/* === GLOW AROUND NOTION CONTENT BLOCKS === */
+.notion-page-content > div {
+  border: 1px solid rgba(141, 239, 255, 0.2);
+  box-shadow: 0 0 10px rgba(141, 239, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+/* === CONSTELLATION SVG FLOATING IN CORNER === */
+.constellation {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 200px;
+  height: auto;
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  animation: floatConstellation 30s ease-in-out infinite;
+}
+
+/* === TYPOGRAPHY ENHANCEMENT === */
+h1, h2, h3, .notion-header, .notion-page-title {
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 1.2px;
+  color: #8defff !important;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+/* === LINK HIGHLIGHT EFFECT === */
+a {
+  color: #8defff !important;
+  text-decoration: none;
+  position: relative;
+}
+a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #8defff;
+  transition: width 0.3s ease;
+}
+a:hover::after {
+  width: 100%;
+}
+
+/* === ANIMATIONS === */
+@keyframes spaceDrift {
+  from { background-position: 0 0; }
+  to { background-position: 10000px 10000px; }
+}
+@keyframes starsTwinkle {
+  from { background-position: 0 0; }
+  to { background-position: -1000px -1000px; }
+}
+@keyframes floatOrb {
+  0% { transform: translateY(0px) translateX(0px); }
+  50% { transform: translateY(-20px) translateX(10px); }
+  100% { transform: translateY(0px) translateX(-10px); }
+}
+@keyframes floatConstellation {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+</style>
