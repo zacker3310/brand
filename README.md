@@ -1,19 +1,13 @@
 # brand
 
-This is the repo for my personal brand assets.
+This is the repo for my personal brand and media brand assets.
 
-Currently used to host my profile photo for [acker.cloud](https://acker.cloud).  
-I’ll be backing up custom CSS from my Super.so websites here too.
-
----
-
-## Current Files
-
-- `acker.jpeg` – Personal headshot used on the site
+Currently used to host some photos for [acker.cloud](https://acker.cloud).  
+I also use this as a backup for custom CSS from my Super.so websites.
 
 ---
 
-## Plans (Eventually)
+## Contents (Eventually)
 
 - Logos (light/dark)
 - Cover/header images
