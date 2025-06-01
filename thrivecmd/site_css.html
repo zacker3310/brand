@@ -1,0 +1,24 @@
+<style>
+/* === PILLARS OF CREATION BACKGROUND WITH TOP/BOTTOM FADE === */
+html::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  opacity: 0.85;
+  background: 
+    linear-gradient(to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.85) 10%,
+      rgba(0, 0, 0, 0.0) 25%,
+      rgba(0, 0, 0, 0.0) 75%,
+      rgba(0, 0, 0, 0.85) 90%,
+      black 100%),
+    url("https://cdn.spacetelescope.org/archives/images/screen/heic2226a.jpg") center center / cover no-repeat;
+  background-attachment: fixed;
+  pointer-events: none;
+}
+</style>
