@@ -1,6 +1,6 @@
 # brand
 
-This is the central GitHub repository for all my **personal and professional brand assets**.
+This is the central repository for all my **personal and professional brand assets**.
 
 It supports both of my sites:
 
