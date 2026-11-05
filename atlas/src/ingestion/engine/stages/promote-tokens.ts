@@ -292,7 +292,7 @@ export async function resolveSystemTokens(pc: PromoteContext, refsBySet: Map<str
       const cols = resolutionColumns(res);
       let resolvedValue = res ? (cols.resolvedValue ?? null) : (t.rawValue ?? null);
       const isAlias = res ? cols.isAlias : false;
-      let aliasState = res ? cols.aliasState : null;
+      let aliasState: string | null = res ? cols.aliasState : null;
       let valueText = formatTokenValue(resolvedValue, t.type);
       let themedTarget: { byName: Map<string, ScopeToken>; res: TokenResolution } | null = null;
       if (variants.length && res && (cols.aliasState === "external" || cols.aliasState === "unresolved")) {
@@ -309,7 +309,7 @@ export async function resolveSystemTokens(pc: PromoteContext, refsBySet: Map<str
             valueText = formatTokenValue(resolvedValue, t.type);
           } else {
             resolvedValue = { $themes: Object.fromEntries(perTheme.map((p) => [p.label, p.value])) } as typeof resolvedValue;
-            aliasState = "theme-dependent" as typeof aliasState;
+            aliasState = "theme-dependent";
             valueText = perTheme.map((p) => `${p.label}: ${formatTokenValue(p.value, t.type) ?? "?"}`).join(" · ");
           }
           themedTarget = { byName: perTheme[0]!.byName, res: perTheme[0]!.res };
