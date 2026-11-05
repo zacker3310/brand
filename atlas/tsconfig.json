@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "strict": true,
@@ -15,9 +19,45 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [{ "name": "next" }],
-    "paths": { "@/*": ["./src/*"] }
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts"],
-  "exclude": ["node_modules", ".next*", ".cache", "playwright-report", "test-results"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next-integrator/types/**/*.ts",
+    ".next-integrator/dev/types/**/*.ts",
+    ".next-ui-discovery/types/**/*.ts",
+    ".next-ui-discovery/dev/types/**/*.ts",
+    ".next-ui-components/types/**/*.ts",
+    ".next-ui-components/dev/types/**/*.ts",
+    ".next-ui-compare/types/**/*.ts",
+    ".next-ui-compare/dev/types/**/*.ts",
+    ".next-ui-tokens/types/**/*.ts",
+    ".next-ui-tokens/dev/types/**/*.ts",
+    ".next-ui-ops/types/**/*.ts",
+    ".next-ui-ops/dev/types/**/*.ts",
+    ".next-qa/types/**/*.ts",
+    ".next-qa/dev/types/**/*.ts",
+    ".next-e2e/types/**/*.ts",
+    ".next-e2e/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next*",
+    ".cache",
+    "playwright-report",
+    "test-results"
+  ]
 }
