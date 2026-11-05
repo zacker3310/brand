@@ -88,9 +88,9 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                   <span
                     className={cn(
                       "text-[11px]",
-                      state === "done" && "text-verified",
-                      state === "current" && "text-info",
-                      state === "failed" && "text-conflicting",
+                      state === "done" && "text-[color-mix(in_oklch,var(--verified)_75%,var(--foreground))]",
+                      state === "current" && "text-[color-mix(in_oklch,var(--info)_80%,var(--foreground))]",
+                      state === "failed" && "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]",
                       state === "pending" && "text-muted-foreground",
                     )}
                   >
@@ -112,7 +112,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                       <ul className="space-y-0.5">
                         {run.checkpoint[s].map((o) => (
                           <li key={o.outcome} className="flex justify-between gap-2 text-[13px]">
-                            <span className={cn("text-muted-foreground", (o.outcome === "error" || o.outcome === "blocked") && "text-conflicting")}>{o.outcome}</span>
+                            <span className={cn("text-muted-foreground", (o.outcome === "error" || o.outcome === "blocked") && "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]")}>{o.outcome}</span>
                             <span className="tabular font-mono text-xs">{formatCount(o.n)}</span>
                           </li>
                         ))}
@@ -146,7 +146,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
               .map(([k, v]) => (
                 <div key={k} className="bg-card px-3 py-2.5">
                   <dt className="truncate font-mono text-[11px] text-muted-foreground">{k}</dt>
-                  <dd className={cn("tabular text-sm font-medium", /error|quarantined|blocked/i.test(k) && v > 0 && "text-conflicting")}>{k === "durationMs" ? formatDuration(v) : formatCount(v)}</dd>
+                  <dd className={cn("tabular text-sm font-medium", /error|quarantined|blocked/i.test(k) && v > 0 && "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]")}>{k === "durationMs" ? formatDuration(v) : formatCount(v)}</dd>
                 </div>
               ))}
           </dl>
@@ -263,7 +263,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                 aria-current={validation === v ? "page" : undefined}
                 className={cn("rounded-full border px-3 py-1 text-xs", validation === v ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
               >
-                {v} <span className="tabular opacity-70">{run.extractionSummary.filter((s) => s.validation === v).reduce((a, s) => a + s.n, 0)}</span>
+                {v} <span className="tabular">{run.extractionSummary.filter((s) => s.validation === v).reduce((a, s) => a + s.n, 0)}</span>
               </Link>
             ))}
           </nav>
@@ -321,7 +321,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                         <ul className="space-y-0.5">
                           {x.issues.slice(0, 4).map((i, k) => (
                             <li key={k} className="text-xs">
-                              <Mono className={i.severity === "error" ? "text-conflicting" : "text-inferred"}>{i.code}</Mono> <span className="text-muted-foreground">{i.message}</span>
+                              <Mono className={i.severity === "error" ? "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]" : "text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]"}>{i.code}</Mono> <span className="text-muted-foreground">{i.message}</span>
                               {i.path && <Mono className="text-muted-foreground"> @{i.path}</Mono>}
                             </li>
                           ))}
@@ -351,7 +351,7 @@ function ErrorText({ text }: { text: string }) {
   const [first, ...rest] = text.split("\n");
   return (
     <details className="text-xs">
-      <summary className="cursor-pointer truncate text-conflicting">{first}</summary>
+      <summary className="cursor-pointer truncate text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]">{first}</summary>
       {rest.length > 0 && <pre className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{rest.join("\n")}</pre>}
     </details>
   );

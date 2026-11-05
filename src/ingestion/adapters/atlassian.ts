@@ -262,7 +262,7 @@ export const adapter: SourceAdapter = {
       case DOC_KINDS.guidancePage:
         return frag({ type: "guidance-page", stamp, page: parseDocsPage(body, doc.url) });
       case DOC_KINDS.systemPage:
-        return frag({ type: "system-page", stamp, key: meta.key ?? "other", page: parseDocsPage(body, doc.url) });
+        return frag({ type: "system-page", stamp, key: meta.key ?? "other", page: parseDocsPage(body, doc.url, { mainText: meta.key === "license" }) });
       default:
         ctx.log.warn(`atlassian: unknown docKind ${doc.docKind}`);
         return null;

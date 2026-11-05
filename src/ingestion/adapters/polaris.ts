@@ -319,7 +319,7 @@ export const adapter: SourceAdapter = {
         const resolver = new DtsResolver(load, files ? (p) => files.has(p) : undefined);
         const res = await resolver.props(file, meta.propsName ?? "");
         const props: ReactProp[] = [];
-        for (const p of res?.props ?? []) props.push({ ...p, allowedValues: await resolver.allowedValues(p.file, p.type) });
+        for (const p of res?.props ?? []) props.push({ ...p, allowedValues: await resolver.allowedValues(p.file, p.type), responsive: await resolver.mentions(p.file, p.type, /\bResponsiveProp\b/) });
         return frag(
           { type: "react-dts", stamp, npm, docPath: meta.docPath ?? null, dir: meta.dir ?? "", file, propsName: meta.propsName ?? "", found: !!res, props, unresolved: res?.unresolved ?? [], files: res?.files ?? [] },
           res ? undefined : [`${meta.propsName} not found in ${file}`],

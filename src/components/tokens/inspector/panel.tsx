@@ -196,7 +196,7 @@ function EdgeTree({ fromId, edges, depth = 0, seen }: { fromId: string; edges: C
             </div>
             {e.state === "theme-dependent" && <p className="mt-1 ml-5 text-[11px] text-muted-foreground">Resolves to a different value in each themed set; one is shown here.</p>}
             {e.state === "external" && <p className="mt-1 ml-5 text-[11px] text-muted-foreground">Target is outside the sets ATLAS indexed: <code className="font-mono">{e.ref}</code></p>}
-            {loop ? <p className="mt-1 ml-5 text-[11px] text-conflicting">Reference loops back (cycle).</p> : e.targetId && <EdgeTree fromId={e.targetId} edges={edges} depth={depth + 1} seen={next} />}
+            {loop ? <p className="mt-1 ml-5 text-[11px] text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]">Reference loops back (cycle).</p> : e.targetId && <EdgeTree fromId={e.targetId} edges={edges} depth={depth + 1} seen={next} />}
           </li>
         );
       })}
@@ -266,7 +266,7 @@ function InspectorContent({ data, onClose, contrastHref }: { data: InspectorData
               {t.tierState === "inferred" && <VerificationBadge state="inferred" compact detail="Tier inferred by ATLAS from naming and alias structure; the source does not declare it." />}
             </span>
           )}
-          {t.deprecated && <span className="rounded border border-conflicting/30 bg-conflicting-soft px-1.5 py-0.5 text-[11px] leading-none text-conflicting">Deprecated</span>}
+          {t.deprecated && <span className="rounded border border-conflicting/30 bg-conflicting-soft px-1.5 py-0.5 text-[11px] leading-none text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]">Deprecated</span>}
         </div>
         <p className="text-xs text-muted-foreground">{meta.description}</p>
       </div>

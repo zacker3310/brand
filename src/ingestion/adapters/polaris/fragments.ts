@@ -19,6 +19,8 @@ export interface ReactProp extends DtsMember {
   from: string;
   file: string;
   allowedValues: string[] | null;
+  /** Type is (or aliases) ResponsiveProp<…>: values may be set per breakpoint. */
+  responsive?: boolean;
 }
 
 export interface StoryRef {

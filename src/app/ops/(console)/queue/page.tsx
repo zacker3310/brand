@@ -75,7 +75,7 @@ export default async function QueuePage({ searchParams }: { searchParams: Promis
                           td,
                           "tabular text-right font-mono text-xs",
                           !m.counts[s] && "text-muted-foreground",
-                          (s === "failed" || s === "dead") && m.counts[s] && "text-conflicting",
+                          (s === "failed" || s === "dead") && m.counts[s] && "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]",
                         )}
                       >
                         {formatCount(m.counts[s] ?? 0)}
@@ -204,7 +204,7 @@ function JobTable({ rows, returnTo, empty, showError, showLock, showRunAt }: { r
                   <td className={`${td} max-w-md`}>
                     {j.lastError ? (
                       <details className="text-xs">
-                        <summary className="cursor-pointer truncate text-conflicting">{j.lastError.split("\n")[0]}</summary>
+                        <summary className="cursor-pointer truncate text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]">{j.lastError.split("\n")[0]}</summary>
                         <pre className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{j.lastError}</pre>
                       </details>
                     ) : (

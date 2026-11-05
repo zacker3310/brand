@@ -123,6 +123,13 @@ describe("polaris shopify.dev markdown", () => {
     expect(p.api[1]!.props.map((x) => x.name)).toEqual(["clickDelegate"]);
   });
 
+  it("keeps prose of non-API sections as guidelines instead of phantom subcomponents", () => {
+    const p = parseWcPage(`---\ntitle: Image\n---\n\n# Image\n\nThe image component embeds an image.\n\n## Properties\n\n* **alt**\n\n  **string**\n\n  Alternative text.\n\n## Content guidelines\n\nAlt text should be accurate:\n\n* Indicate it's an image.\n`);
+    expect(p.api.map((a) => a.heading)).toEqual([""]);
+    expect(p.api[0]!.props.map((x) => x.name)).toEqual(["alt"]);
+    expect(p.guidelines).toEqual(["Alt text should be accurate: Indicate it's an image."]);
+  });
+
   it("reads pattern pages and system pages", () => {
     const pat = parsePatternPage(fx("pattern-account-connection.md"));
     expect(pat.title).toBe("Account connection");
@@ -214,6 +221,8 @@ describe("polaris React declarations", () => {
     expect(modal.props.map((p) => p.name)).toEqual(["open", "size", "onClose", "primaryAction", "secondaryActions"]); // footer omitted
     expect(modal.props.find((p) => p.name === "open")!.optional).toBe(false);
     expect(modal.files).toContain("build/ts/src/components/Modal/components/Footer/Footer.d.ts");
+    expect(await r.mentions("build/ts/src/components/Badge/Badge.d.ts", "Size", /\bsmall\b/)).toBe(true); // follows the imported alias
+    expect(await r.mentions("build/ts/src/components/Badge/Badge.d.ts", "string", /\bsmall\b/)).toBe(false);
   });
 
   it("never requests module candidates a listing says are missing", async () => {
@@ -296,7 +305,6 @@ describe("polaris normalize", () => {
     const cem = parsePolarisCem(fx("custom-elements.json"));
     const btnPage = parseWcPage(fx("wc-button.md"));
     const tablePage = parseWcPage(fx("wc-table.md"));
-    const r = new DtsResolver(dtsLoader);
     return [
       { type: "cem", stamp: stamp("https://cdn.jsdelivr.net/npm/@shopify/polaris-types@2.0.0/dist/custom-elements.json"), npm: typesNpm, file: "dist/custom-elements.json", schemaVersion: cem.schemaVersion, elements: cem.elements },
       { type: "wc-index", stamp: stamp(WC), page: parseIndexPage(fx("wc-index.md"), WC_PREFIX) },

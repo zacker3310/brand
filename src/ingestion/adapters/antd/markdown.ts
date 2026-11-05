@@ -331,7 +331,7 @@ export function componentSlugFromLink(href: string, origin: string): string | nu
       return null;
     }
   }
-  const m = /^\/(?:zh\/)?components\/([a-z0-9-]+)(?:-cn)?\/?(?:[#?].*)?$/.exec(path);
+  const m = /^\/(?:zh\/)?components\/([a-z0-9-]+?)(?:-cn)?\/?(?:[#?].*)?$/.exec(path);
   return m ? m[1]! : null;
 }
 

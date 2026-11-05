@@ -14,9 +14,9 @@ interface Opts {
 const DEFAULTS: Opts = { maxItems: 2, maxString: 140, maxDepth: 7 };
 
 const K = "text-foreground";
-const S = "text-verified";
-const N = "text-info";
-const L = "text-inferred";
+const S = "text-[color-mix(in_oklch,var(--verified)_75%,var(--foreground))]";
+const N = "text-[color-mix(in_oklch,var(--info)_80%,var(--foreground))]";
+const L = "text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]";
 const C = "text-muted-foreground italic";
 const P = "text-muted-foreground";
 

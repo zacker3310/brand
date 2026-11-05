@@ -500,6 +500,17 @@ export class DtsResolver {
     return out;
   }
 
+  /** True when the type text, or a local/imported type alias it names, mentions `pattern` (e.g. ResponsiveProp). */
+  async mentions(file: string, type: string | null, pattern: RegExp, depth = 0): Promise<boolean> {
+    if (!type || depth > 3) return false;
+    if (pattern.test(type)) return true;
+    for (const id of new Set(type.match(/\b[A-Z][A-Za-z0-9_$]*\b/g) ?? [])) {
+      const hit = await this.findDecl(file, id);
+      if (hit && hit.decl.kind === "type" && (await this.mentions(hit.file, hit.decl.body, pattern, depth + 1))) return true;
+    }
+    return false;
+  }
+
   /** Literal values of a member type, following local/imported type aliases (e.g. `size?: Size`). */
   async allowedValues(file: string, type: string | null, depth = 0): Promise<string[] | null> {
     if (!type || depth > 4) return null;

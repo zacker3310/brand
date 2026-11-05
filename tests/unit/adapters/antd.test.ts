@@ -281,7 +281,9 @@ describe("antd normalize (ant-design)", () => {
     expect(button.properties.find((p) => p.name === "size")?.allowedValues).toEqual(["large", "medium", "small"]);
     expect(button.sizes).toEqual(["large", "medium", "small"]);
     expect(button.states.map((s) => s.canonical)).toEqual(["disabled", "loading"]);
-    expect(button.relationships).toEqual([{ kind: "see-also", targetSlug: "modal", targetType: null }].filter((r) => button.relationships.some((x) => x.targetSlug === r.targetSlug)));
+    // Links to Dropdown/Space/ConfigProvider point at components outside this bundle: no dangling relationships.
+    expect(button.relationships).toEqual([]);
+    expect(button.coverage.relationships).toBe("not-extracted");
     // Docs demo anchors (debug demos skipped) + one MIT code sample with attribution.
     expect(button.examples.filter((e) => e.kind === "docs-link").map((e) => e.url)).toEqual([
       "https://ant.design/components/button/#button-demo-basic",

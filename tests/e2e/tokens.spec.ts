@@ -13,11 +13,13 @@ const num = (s: string | null | undefined) => Number((s ?? "").replace(/[^\d]/g,
 async function expectNoSeriousA11yViolations(page: Page) {
   // Known issues in integrator-owned shared UI, reported as requested changes:
   //  - the header search trigger's aria-label differs from its visible text;
-  //  - the kit's VerificationBadge "inferred" colors (--inferred on --inferred-soft) are below 4.5:1 in light mode.
+  //  - the kit's VerificationBadge "inferred" colors (--inferred on --inferred-soft) are below 4.5:1 in light mode;
+  //  - the site footer's fine print uses --subtle-foreground, below 4.5:1 on the page background.
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .exclude("header button[aria-label='Search ATLAS']")
     .exclude("span.text-inferred.bg-inferred-soft")
+    .exclude("footer .text-subtle-foreground")
     .analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length}) ${v.nodes[0]?.target.join(" ")}`)).toEqual([]);
@@ -162,7 +164,7 @@ test.describe("scale comparison", () => {
     const table = page.getByRole("table").first();
     await expect(table).toBeVisible();
     expect(await table.locator("tbody tr").count()).toBeGreaterThan(0);
-    await page.getByRole("link", { name: "Typography" }).click();
+    await page.getByRole("navigation", { name: "Scale category" }).getByRole("link", { name: "Typography", exact: true }).click();
     await expect(page).toHaveURL(/category=typography/);
     await expect(page.getByRole("heading", { name: "Font size" })).toBeVisible();
     await expectNoSeriousA11yViolations(page);

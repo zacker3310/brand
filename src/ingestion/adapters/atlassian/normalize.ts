@@ -163,7 +163,8 @@ export function normalizeAtlassian(fragments: AtlFragmentData[], opts: Normalize
   const llms = byType("llms")[0] ?? null;
 
   /* ---------------------------------- tokens ---------------------------------- */
-  const tokenSets = buildTokenSets(byType("tokens"), byType("token-names")[0] ?? null, npmByPkg.get(TOKENS_PKG) ?? null, log);
+  const licensePage = byType("system-page").find((f) => f.key === "license" && !f.page.notFound) ?? null;
+  const tokenSets = buildTokenSets(byType("tokens"), byType("token-names")[0] ?? null, npmByPkg.get(TOKENS_PKG) ?? null, licensePage, log);
 
   /* -------------------------------- components -------------------------------- */
   const components: NormalizedComponent[] = [];
@@ -258,7 +259,10 @@ export function normalizeAtlassian(fragments: AtlFragmentData[], opts: Normalize
 /* Tokens                                                                                      */
 /* ------------------------------------------------------------------------------------------ */
 
-function buildTokenSets(frags: Frag<"tokens">[], names: Frag<"token-names"> | null, tokensNpm: Frag<"npm"> | null, log: (m: string) => void): NormalizedTokenSet[] {
+function buildTokenSets(frags: Frag<"tokens">[], names: Frag<"token-names"> | null, tokensNpm: Frag<"npm"> | null, licensePage: Frag<"system-page"> | null, log: (m: string) => void): NormalizedTokenSet[] {
+  // The clause that makes the token artifacts non-redistributable ("(d) distribute or transfer the ADS ...").
+  const clause = licensePage?.page.mainText ? (/\(d\)\s*distribute[^;.]*/i.exec(licensePage.page.mainText)?.[0] ?? null) : null;
+  const licenseExcerpt = clause ? `License restrictions: you may not ${clause}` : shortText(licensePage?.page.lead ?? null, 280);
   const bySlug = new Map(frags.map((f) => [f.setSlug, f]));
   const palettes = TOKEN_SETS.filter((s) => s.kind === "palette")
     .map((s) => bySlug.get(s.slug)?.tokens)
@@ -308,6 +312,15 @@ function buildTokenSets(frags: Frag<"tokens">[], names: Frag<"token-names"> | nu
           location: "dist-tags.latest",
           excerpt: `${TOKENS_PKG} latest ${tokensNpm.info.version}; npm license field ${tokensNpm.info.license ?? "n/a"} (ADS License Agreement applies)`,
           confidence: 0.95,
+        }),
+      );
+    if (licensePage && licenseExcerpt)
+      evidence.push(
+        ev(licensePage.stamp, "license", METHOD.docsHtml, {
+          title: licensePage.page.title ?? "License",
+          location: clause ? "#main-content (2. License Restrictions)" : "#main-content",
+          excerpt: licenseExcerpt,
+          confidence: 0.9,
         }),
       );
     out.push({

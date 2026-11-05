@@ -17,29 +17,14 @@ import type {
 } from "@/lib/contracts";
 import { canonicalState, classifyComponentName, classifyPatternName } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
-import {
-  ADAPTER_ID,
-  ATTRIBUTION_CODE,
-  ATTRIBUTION_DOCS,
-  DOCS_ORIGIN,
-  DOCS_SLUG_FOR_FRONTEND,
-  NPM_PKG,
-  PRINCIPLES_URL,
-  SETTINGS_FILES,
-  TOKEN_SET_META,
-  componentSrcDir,
-  docsUrlFor,
-  frontendTree,
-  mitLicense,
-  normKey,
-  pkgFile,
-  type TokenSetKey,
-} from "./constants";
+import { ADAPTER_ID, GOVUK, componentSrcDir, docsUrlFor, frontendTree, normKey, profileFor, type FrontendProfile, type TokenSetKey } from "./constants";
 import { lifecycleFromStatus, type ComponentDoc, type DocColour, type HomeData, type LifecycleRules, type PatternDoc, type Principle } from "./docs";
 import { clip, firstSentences } from "./markdown";
 import { humanizeMethod, type JsInfo, type TemplateInfo } from "./markup";
 import { optionToComponent, statesFromExamples, statesFromParams, type ParsedParams } from "./params";
 import { tokenCategory, tokenTier, tokenType, type MixinAnalysis, type SettingsParse, type SettingsToken } from "./scss";
+
+const TOKEN_SET_ORDER: TokenSetKey[] = ["colour-palette", "functional-colours", "applied-colours", "organisation-colours", "spacing", "typography", "layout", "component-settings"];
 
 /* ------------------------------- fragments -------------------------------- */
 
@@ -63,13 +48,14 @@ export type GovukFragment =
   | { t: "docs-pattern"; docSlug: string; data: PatternDoc; ev: Ev }
   | { t: "readme"; name: string; title: string | null; guidance: string | null; ev: Ev }
   | { t: "params"; name: string; data: ParsedParams; fromTag: boolean; version: string; ev: Ev }
-  | { t: "template"; name: string; data: TemplateInfo; ev: Ev }
+  | { t: "template"; name: string; data: TemplateInfo; fromTag?: boolean; ev: Ev }
   | { t: "styles"; name: string; file: string; data: MixinAnalysis; ev: Ev }
   | { t: "js"; name: string; data: JsInfo; ev: Ev }
   | { t: "html-example"; name: string; html: string | null; version: string; ev: Ev }
   | { t: "settings"; file: string; set: TokenSetKey; order: number; data: SettingsParse; version: string; ev: Ev }
   | { t: "css"; customProperties: string[]; ev: Ev }
   | { t: "macros"; macros: Record<string, string>; ev: Ev }
+  | { t: "macro"; name: string; macroName: string | null; ev: Ev }
   | { t: "colours-json"; colours: DocColour[]; ev: Ev }
   | { t: "lifecycle"; rules: LifecycleRules; ev: Ev }
   | { t: "home"; data: HomeData; ev: Ev }
@@ -124,12 +110,12 @@ export interface PlanItem {
 }
 
 /** Components = govuk-frontend component folders (with a macro) ∪ docs component pages. */
-export function planComponents(listing: F<"listing"> | undefined, sitemap: F<"sitemap"> | undefined, docSlugsFetched: string[], limit?: number): PlanItem[] {
+export function planComponents(listing: F<"listing"> | undefined, sitemap: F<"sitemap"> | undefined, docSlugsFetched: string[], limit?: number, profile: FrontendProfile = GOVUK): PlanItem[] {
   const docs = new Set(sitemap ? sitemap.components : docSlugsFetched);
   const items = new Map<string, PlanItem>();
   for (const c of listing?.components ?? []) {
     if (!c.files.includes("macro.njk") && !c.files.includes("template.njk")) continue;
-    const mapped = DOCS_SLUG_FOR_FRONTEND[c.name];
+    const mapped = profile.docsSlugForFrontend[c.name];
     const docSlug = mapped && docs.has(mapped) ? mapped : docs.has(c.name) ? c.name : null;
     const slug = docSlug ?? c.name;
     items.set(slug, { slug, frontend: c.name, docSlug, files: c.files });
@@ -141,10 +127,10 @@ export function planComponents(listing: F<"listing"> | undefined, sitemap: F<"si
 
 /* ---------------------------- classification ------------------------------ */
 
-function classify(name: string, frontend: string | null, aliases: string[]): { slug: string; state: "inferred"; method: string; confidence: number } | null {
+function classify(name: string, frontend: string | null, aliases: string[], pkg: string): { slug: string; state: "inferred"; method: string; confidence: number } | null {
   const tries: { n: string; label: string | null; min: number; cap: number }[] = [
     { n: name, label: null, min: 0.75, cap: 1 },
-    ...(frontend ? [{ n: frontend, label: `govuk-frontend folder "${frontend}"`, min: 0.75, cap: 0.8 }] : []),
+    ...(frontend ? [{ n: frontend, label: `${pkg} folder "${frontend}"`, min: 0.75, cap: 0.8 }] : []),
     ...aliases.map((a) => ({ n: a, label: `docs alias "${a}"`, min: 0.85, cap: 0.6 })),
     { n: name, label: null, min: 0, cap: 1 },
   ];
@@ -195,6 +181,7 @@ function sectionFor(doc: ComponentDoc | null, block: string, mod: string): Compo
 interface ByComponent {
   docs?: F<"docs-component">;
   readme?: F<"readme">;
+  macro?: F<"macro">;
   params?: F<"params">;
   template?: F<"template">;
   styles?: F<"styles">;
@@ -203,6 +190,7 @@ interface ByComponent {
 }
 
 interface Ctx {
+  profile: FrontendProfile;
   version: string | null;
   macros?: F<"macros">;
   lifecycle?: F<"lifecycle">;
@@ -216,8 +204,9 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
   const ev: EvidenceInput[] = [];
   const coverage: Record<string, CoverageState> = {};
   const doc = f.docs?.data ?? null;
-  const docsUrl = item.docSlug ? docsUrlFor("components", item.docSlug) : null;
-  const block = item.frontend ? `govuk-${item.frontend}` : null;
+  const P = cx.profile;
+  const docsUrl = item.docSlug ? docsUrlFor(P, "components", item.docSlug) : null;
+  const block = item.frontend ? `${P.prefix}-${item.frontend}` : null;
 
   // Identity
   if (f.docs) ev.push(evidence("*", f.docs.ev, "docs-markdown", 0.95, { location: `${f.docs.ev.location}#frontmatter.title`, excerpt: doc?.title ?? null }));
@@ -268,14 +257,18 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
 
   // Frameworks
   const frameworks: NormalizedComponent["frameworks"] = [];
-  const macroName = item.frontend ? (cx.macros?.macros[item.frontend] ?? null) : null;
-  const srcDir = item.frontend && f.params?.fromTag && cx.version ? frontendTree(cx.version, componentSrcDir(item.frontend)) : null;
+  const kitMacro = item.frontend ? (cx.macros?.macros[item.frontend] ?? null) : null;
+  const macroName = kitMacro ?? f.macro?.macroName ?? null;
+  // Source folder link only when a file was read from that folder at the release tag.
+  const fromTag = !!f.params?.fromTag || !!f.template?.fromTag;
+  const srcDir = item.frontend && fromTag && cx.version ? frontendTree(P, cx.version, componentSrcDir(P, item.frontend)) : null;
   if (item.frontend && (macroName || item.files.includes("macro.njk"))) {
-    frameworks.push({ slug: "nunjucks", packageName: NPM_PKG, importName: macroName, sourceUrl: srcDir });
-    if (macroName) ev.push(evidence("frameworks", cx.macros!.ev, "prototype-kit-config", 0.95, { location: `${cx.macros!.ev.location}#nunjucksMacros (${macroName})` }));
+    frameworks.push({ slug: "nunjucks", packageName: P.npmPkg, importName: macroName, sourceUrl: srcDir });
+    if (kitMacro) ev.push(evidence("frameworks", cx.macros!.ev, "prototype-kit-config", 0.95, { location: `${cx.macros!.ev.location}#nunjucksMacros (${kitMacro})` }));
+    else if (f.macro?.macroName) ev.push(evidence("frameworks", f.macro.ev, "macro-njk", 0.95, { location: `${f.macro.ev.location} ({% macro ${f.macro.macroName} %})` }));
   }
   if (item.frontend && (f.html || item.files.includes("template.njk"))) {
-    frameworks.push({ slug: "html-css", packageName: NPM_PKG, importName: block, sourceUrl: srcDir });
+    frameworks.push({ slug: "html-css", packageName: P.npmPkg, importName: block, sourceUrl: srcDir });
     if (f.html) ev.push(evidence("frameworks", f.html.ev, "html-fixture", 0.9));
   }
   if (doc?.htmlAndNunjucks) ev.push(evidence("frameworks", f.docs!.ev, "docs-markdown", 0.9, { location: `${f.docs!.ev.location}#How it works`, excerpt: "You can use HTML or ... the Nunjucks macro." }));
@@ -403,13 +396,13 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
     addEx(`${itemSlug === item.slug ? "" : `${itemSlug}-`}${e.example}`, {
       title: `${humanize(e.example)}${e.heading ? ` (${e.heading})` : ""}`,
       kind: "docs-link",
-      url: `${DOCS_ORIGIN}/${group}/${itemSlug}/${e.example}/index.html`,
-      attribution: ATTRIBUTION_DOCS,
+      url: P.docs.exampleUrl(group, itemSlug, e.example),
+      attribution: P.docsAttribution,
     });
   }
   if (doc?.examples.length) ev.push(evidence("examples", f.docs!.ev, "docs-markdown", 0.9, { location: `${f.docs!.ev.location} (example() calls)` }));
   if (f.html?.html && cx.version) {
-    addEx("default-html", { title: "Default example (HTML)", kind: "code-snippet", language: "html", code: f.html.html, url: f.html.ev.sourceUrl, attribution: ATTRIBUTION_CODE(cx.version) });
+    addEx("default-html", { title: "Default example (HTML)", kind: "code-snippet", language: "html", code: f.html.html, url: f.html.ev.sourceUrl, attribution: P.codeAttribution(cx.version) });
     ev.push(evidence("examples", f.html.ev, "html-fixture", 0.95));
   }
   coverage.examples = examples.length ? "documented" : f.docs ? "not-documented" : "not-extracted";
@@ -436,7 +429,7 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
     (a) => a.toLowerCase(),
   );
 
-  const cls = classify(name, item.frontend, doc?.aliases ?? []);
+  const cls = classify(name, item.frontend, doc?.aliases ?? [], P.npmPkg);
   return {
     slug: item.slug,
     name,
@@ -490,10 +483,13 @@ function tokenDescription(t: SettingsToken, extra: string[]): string | null {
 
 const CSS_VAR_RULES: { re: RegExp; cssVar: (m: RegExpExecArray) => string }[] = [
   { re: /^govuk-functional-colours\.([\w-]+)$/, cssVar: (m) => `--govuk-${m[1]}-colour` },
-  { re: /^govuk-breakpoints\.([\w-]+)$/, cssVar: (m) => `--govuk-breakpoint-${m[1]}` },
+  { re: /^(govuk|nhsuk)-breakpoints\.([\w-]+)$/, cssVar: (m) => `--${m[1]}-breakpoint-${m[2]}` },
+  { re: /^nhsuk-colours\.([\w-]+)$/, cssVar: (m) => `--nhsuk-${m[1]}-colour` },
+  { re: /^(nhsuk-[\w-]+-colour)$/, cssVar: (m) => `--${m[1]}` },
 ];
 
 function buildTokenSets(
+  P: FrontendProfile,
   settings: F<"settings">[],
   css: F<"css"> | undefined,
   colours: F<"colours-json"> | undefined,
@@ -501,7 +497,7 @@ function buildTokenSets(
 ): { sets: NormalizedTokenSet[]; names: Set<string>; fix: (r: string) => string } {
   const declared = new Set(css?.customProperties ?? []);
   const docColours = new Map((colours?.colours ?? []).map((c) => [c.name, c]));
-  const fileOrder = new Map(SETTINGS_FILES.map((s, i) => [s.file, i]));
+  const fileOrder = new Map(P.settingsFiles.map((s, i) => [s.file, i]));
   const ordered = [...settings].sort((a, b) => (fileOrder.get(a.file) ?? 99) - (fileOrder.get(b.file) ?? 99) || a.file.localeCompare(b.file));
   const allNames = new Set<string>();
   for (const s of ordered) for (const t of s.data.tokens) allNames.add(t.name);
@@ -538,12 +534,12 @@ function buildTokenSets(
         references,
         description: tokenDescription(t, extra),
         deprecated: t.deprecated,
-        location: `dist/govuk/${s.file.startsWith("components/") ? "" : "settings/"}${s.file}#L${t.line}`,
+        location: `${s.file.startsWith("components/") ? P.componentsDir.replace(/\/components$/, "") : P.settingsDir}/${s.file}#L${t.line}`,
       });
     }
   }
   const sets: NormalizedTokenSet[] = [];
-  const keys = [...bySet.keys()].sort((a, b) => Object.keys(TOKEN_SET_META).indexOf(a) - Object.keys(TOKEN_SET_META).indexOf(b));
+  const keys = [...bySet.keys()].sort((a, b) => TOKEN_SET_ORDER.indexOf(a) - TOKEN_SET_ORDER.indexOf(b));
   for (const key of keys) {
     const g = bySet.get(key)!;
     if (!g.tokens.length) continue;
@@ -558,13 +554,13 @@ function buildTokenSets(
     if (colours && key === "functional-colours") ev.push(evidence("description", colours.ev, "docs-colours-json", 0.85, { location: `${colours.ev.location}#/functional` }));
     sets.push({
       slug: key,
-      name: `${TOKEN_SET_META[key].name} (govuk-frontend ${version})`,
+      name: `${P.setNames[key] ?? key} (${P.npmPkg} ${version})`,
       theme: null,
       format: "scss",
       sourceUrl: first.ev.sourceUrl,
-      packageName: NPM_PKG,
+      packageName: P.npmPkg,
       packageVersion: version,
-      license: mitLicense(version),
+      license: P.license(version),
       redistribution: "permitted",
       tokens: g.tokens,
       evidence: ev,
@@ -577,7 +573,7 @@ function buildTokenSets(
 
 const THEME_TYPES: Record<string, string> = { "ask users for": "data-entry" };
 
-function buildPatterns(frags: F<"docs-pattern">[], slugByDoc: Map<string, string>, limit?: number): NormalizedPattern[] {
+function buildPatterns(P: FrontendProfile, frags: F<"docs-pattern">[], slugByDoc: Map<string, string>, limit?: number): NormalizedPattern[] {
   const live = sortBy(frags.filter((p) => !p.data.archived && p.data.title), (p) => p.docSlug);
   return (limit ? live.slice(0, limit) : live).map((p) => {
     const d = p.data;
@@ -617,7 +613,7 @@ function buildPatterns(frags: F<"docs-pattern">[], slugByDoc: Map<string, string
       slug: slugify(p.docSlug),
       name,
       description: d.description,
-      docsUrl: docsUrlFor("patterns", p.docSlug),
+      docsUrl: docsUrlFor(P, "patterns", p.docSlug),
       canonicalType,
       classification: cls,
       componentSlugs,
@@ -637,7 +633,15 @@ function buildPatterns(frags: F<"docs-pattern">[], slugByDoc: Map<string, string
 
 /* ---------------------------------- facts ---------------------------------- */
 
-function buildFacts(pkg: F<"pkg"> | undefined, home: F<"home"> | undefined, principles: F<"principles"> | undefined, macros: F<"macros"> | undefined, listing: F<"listing"> | undefined): NormalizedSystemFacts | null {
+function buildFacts(
+  P: FrontendProfile,
+  pkg: F<"pkg"> | undefined,
+  home: F<"home"> | undefined,
+  principles: F<"principles"> | undefined,
+  macros: F<"macros"> | undefined,
+  listing: F<"listing"> | undefined,
+  macroFrags: F<"macro">[],
+): NormalizedSystemFacts | null {
   const ev: EvidenceInput[] = [];
   const facts: NormalizedSystemFacts = { evidence: ev };
   if (pkg) {
@@ -648,24 +652,27 @@ function buildFacts(pkg: F<"pkg"> | undefined, home: F<"home"> | undefined, prin
       ev.push(evidence("latestReleaseAt", pkg.ev, "npm-registry", 0.95, { excerpt: `published ${pkg.publishedAt}` }));
     }
   }
-  const followsPrinciples = !!home?.data.principleLinks.some((l) => l.url.startsWith(PRINCIPLES_URL));
-  if (home?.data.principlesText && followsPrinciples) {
-    facts.philosophy =
-      "ATLAS summary: the GOV.UK Design System exists to help teams that work on government services follow the Government Design Principles and the GOV.UK Service Manual.";
+  const humanUrl = P.principles.humanUrl;
+  // GOV.UK: the principles live on GOV.UK and the design system states that it follows them;
+  // NHS: the principles page is part of the design system section of the service manual.
+  const followsPrinciples = P.principles.kind === "docs-page" || !!home?.data.principleLinks.some((l) => l.url.startsWith(humanUrl));
+  if (P.id === "govuk" && home?.data.principlesText && followsPrinciples) {
+    facts.philosophy = "ATLAS summary: the GOV.UK Design System exists to help teams that work on government services follow the Government Design Principles and the GOV.UK Service Manual.";
     ev.push(evidence("philosophy", home.ev, "docs-home", 0.85, { location: `${home.ev.location} ("Principles we follow")`, excerpt: home.data.principlesText }));
+  } else if (P.id === "nhs" && home?.data.description) {
+    facts.philosophy = "ATLAS summary: the NHS design system aims to help teams build consistent, accessible NHS services for the public and staff, drawing on the research and experience of other NHS digital teams.";
+    ev.push(evidence("philosophy", home.ev, "docs-home", 0.85, { location: `${home.ev.location} (pageDescription)`, excerpt: home.data.description }));
   }
   if (principles?.principles.length && followsPrinciples) {
-    facts.principles = principles.principles.map((p) => ({ name: p.name, sourceUrl: p.anchor ? `${PRINCIPLES_URL}#${p.anchor}` : PRINCIPLES_URL }));
-    ev.push(evidence("principles", principles.ev, "govuk-content-api", 0.9, { excerpt: `${principles.title ?? "Government Design Principles"}: ${principles.principles.map((p) => p.name).join("; ")}` }));
-    ev.push(evidence("principles", home!.ev, "docs-home", 0.85, { location: `${home!.ev.location} (links to Government Design Principles)`, excerpt: home!.data.principlesText }));
+    facts.principles = principles.principles.map((p) => ({ name: p.name, sourceUrl: p.anchor ? `${humanUrl}#${p.anchor}` : humanUrl }));
+    ev.push(evidence("principles", principles.ev, P.principles.kind === "govuk-content-api" ? "govuk-content-api" : "docs-principles", 0.9, { excerpt: `${principles.title ?? "Design principles"}: ${principles.principles.map((p) => p.name).join("; ")}` }));
+    if (P.principles.kind === "govuk-content-api" && home) ev.push(evidence("principles", home.ev, "docs-home", 0.85, { location: `${home.ev.location} (links to Government Design Principles)`, excerpt: home.data.principlesText }));
   }
-  const nMacros = macros ? Object.keys(macros.macros).length : 0;
+  const nMacros = macros ? Object.keys(macros.macros).length : macroFrags.filter((m) => m.macroName).length;
   if (nMacros || listing) {
-    facts.frameworks = [
-      ...(listing ? [{ slug: "html-css", packageName: NPM_PKG }] : []),
-      ...(nMacros ? [{ slug: "nunjucks", packageName: NPM_PKG }] : []),
-    ];
+    facts.frameworks = [...(listing ? [{ slug: "html-css", packageName: P.npmPkg }] : []), ...(nMacros ? [{ slug: "nunjucks", packageName: P.npmPkg }] : [])];
     if (macros && nMacros) ev.push(evidence("frameworks", macros.ev, "prototype-kit-config", 0.95, { location: `${macros.ev.location}#nunjucksMacros`, excerpt: `${nMacros} Nunjucks macros` }));
+    else if (nMacros) ev.push(evidence("frameworks", macroFrags.find((m) => m.macroName)!.ev, "macro-njk", 0.9, { excerpt: `${nMacros} component macro.njk files with a Nunjucks macro` }));
     if (listing) ev.push(evidence("frameworks", listing.ev, "npm-listing", 0.9, { excerpt: `${listing.components.length} component folders with HTML templates` }));
   }
   return ev.length ? facts : null;
@@ -680,7 +687,8 @@ export interface NormalizeResult {
   colourMismatches: { name: string; source: string; docs: string }[];
 }
 
-export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[], opts: { limit?: number } = {}): NormalizeResult {
+export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[], opts: { limit?: number; profile?: FrontendProfile } = {}): NormalizeResult {
+  const P = opts.profile ?? profileFor(systemSlug) ?? GOVUK;
   const frags = fragments.map((f) => f.data as GovukFragment).filter((f) => f && typeof f === "object" && "t" in f);
   const warnings: string[] = [];
   const one = <K extends GovukFragment["t"]>(t: K) => frags.find((f) => f.t === t) as F<K> | undefined;
@@ -691,11 +699,11 @@ export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[
   const version = pkg?.version ?? listing?.version ?? null;
 
   const docsComponents = all("docs-component");
-  const plan = planComponents(listing, sitemap, docsComponents.map((d) => d.docSlug), opts.limit);
+  const plan = planComponents(listing, sitemap, docsComponents.map((d) => d.docSlug), opts.limit, P);
   const slugByFrontend = new Map(plan.filter((p) => p.frontend).map((p) => [p.frontend!, p.slug]));
   const slugByDoc = new Map(plan.filter((p) => p.docSlug).map((p) => [p.docSlug!, p.slug]));
 
-  const tok = buildTokenSets(all("settings"), one("css"), one("colours-json"), warnings);
+  const tok = buildTokenSets(P, all("settings"), one("css"), one("colours-json"), warnings);
 
   const byComp = new Map<string, ByComponent>();
   const get = (slug: string | undefined) => {
@@ -713,6 +721,7 @@ export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[
     const b = get(slugByFrontend.get((f as { name: string }).name));
     if (!b) continue;
     if (f.t === "readme") b.readme = f;
+    else if (f.t === "macro") b.macro = f;
     else if (f.t === "params") b.params = !b.params || (f.fromTag && !b.params.fromTag) ? f : b.params;
     else if (f.t === "template") b.template = f;
     else if (f.t === "styles") b.styles = f;
@@ -720,7 +729,7 @@ export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[
     else if (f.t === "html-example") b.html = f;
   }
 
-  const cx: Ctx = { version, macros: one("macros"), lifecycle: one("lifecycle"), slugByFrontend, slugByDoc, tokenNames: tok.names, fixRef: tok.fix };
+  const cx: Ctx = { profile: P, version, macros: one("macros"), lifecycle: one("lifecycle"), slugByFrontend, slugByDoc, tokenNames: tok.names, fixRef: tok.fix };
   const components: NormalizedComponent[] = [];
   for (const item of plan) {
     const f = byComp.get(item.slug) ?? {};
@@ -731,7 +740,7 @@ export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[
     components.push(buildComponent(item, f, cx));
   }
 
-  const patterns = buildPatterns(all("docs-pattern"), slugByDoc, opts.limit);
+  const patterns = buildPatterns(P, all("docs-pattern"), slugByDoc, opts.limit);
 
   // Cross-check: functional colour defaults vs docs colour table.
   const colourMismatches: NormalizeResult["colourMismatches"] = [];
@@ -745,8 +754,7 @@ export function normalizeGovuk(systemSlug: string, fragments: { data: unknown }[
     if (typeof resolved === "string" && resolved.toLowerCase() !== c.colour) colourMismatches.push({ name: c.name, source: resolved, docs: c.colour });
   }
 
-  const facts = buildFacts(pkg, one("home"), one("principles"), one("macros"), listing);
+  const facts = buildFacts(P, pkg, one("home"), one("principles"), one("macros"), listing, all("macro"));
   return { bundle: { systemSlug, components, tokenSets: tok.sets, patterns, facts }, warnings, colourMismatches };
 }
 
-export { pkgFile };

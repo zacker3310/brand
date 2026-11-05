@@ -295,7 +295,7 @@ function ParamTable({ title, rows }: { title: string; rows: ParamRow[] }) {
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code className="font-mono text-[12.5px] font-medium">{r.name}</code>
               <span className="font-mono text-[11px] text-muted-foreground">{r.in}</span>
-              <span className="font-mono text-[11px] break-all text-info">{r.type}</span>
+              <span className="font-mono text-[11px] break-all text-[color-mix(in_oklch,var(--info)_80%,var(--foreground))]">{r.type}</span>
               {r.required ? <span className="text-[11px] font-medium text-foreground/80">required</span> : null}
               {r.def !== null && <span className="font-mono text-[11px] text-muted-foreground">default {r.def}</span>}
             </div>
@@ -313,7 +313,7 @@ function MethodTag({ method, small }: { method: "GET" | "POST"; small?: boolean 
       className={cn(
         "inline-flex shrink-0 items-center justify-center rounded border font-mono font-semibold tracking-wide",
         small ? "w-9 py-px text-[9.5px]" : "px-1.5 py-0.5 text-[11px]",
-        method === "GET" ? "border-info/30 bg-info-soft text-info" : "border-inferred/30 bg-inferred-soft text-inferred",
+        method === "GET" ? "border-info/30 bg-info-soft text-[color-mix(in_oklch,var(--info)_80%,var(--foreground))]" : "border-inferred/30 bg-inferred-soft text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]",
       )}
     >
       {method}

@@ -560,7 +560,7 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
     if (usages.length && r.css) push(r.css.stamp, "tokens", METHOD.reactCss, { location: `${r.css.file} .Polaris-${dir}`, excerpt: `${uniq(usages.map((u) => u.tokenName)).length} Polaris tokens referenced via var(--p-*) in ${usages.length} declarations`, state: "inferred", confidence: 0.8 });
 
     // responsive props (ResponsiveProp<…> values per breakpoint)
-    const responsiveProps = props.filter((p) => /\bResponsiveProp\b|\bResponsive[A-Z]\w*/.test(p.type ?? "")).map((p) => p.name);
+    const responsiveProps = (dts?.found ? dts.props : []).filter((p) => p.responsive || /\bResponsiveProp\b/.test(p.type ?? "")).map((p) => p.name);
     const responsiveGuidance = responsiveProps.length ? clip(`Responsive props (type ResponsiveProp, values per breakpoint alias): ${responsiveProps.join(", ")}.`, 800) : null;
     if (responsiveGuidance && dts) push(dts.stamp, "responsive", METHOD.dts, { location: `${dts.file}#${dts.propsName}`, excerpt: responsiveGuidance });
 

@@ -104,9 +104,11 @@ export default async function ComponentTypePage({ params }: Props) {
               </Link>
             </Button>
           </div>
-          {compareSystems.length >= 2 && (
-            <p className="text-xs text-muted-foreground">Compares the {compareSystems.length} best-documented implementations, one per system.</p>
-          )}
+          <p className="text-xs text-muted-foreground">
+            {compareSystems.length >= 2
+              ? `Compares the ${compareSystems.length} best-documented implementations, one per system.`
+              : "Comparison needs implementations in at least two indexed systems."}
+          </p>
           {type.implementations.length > 0 && (
             <div className="max-w-2xl space-y-1.5 pt-3">
               <p className="font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase">Called, in indexed systems</p>

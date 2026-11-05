@@ -26,7 +26,7 @@ function NameCell({ t, p, label, sub }: { t: ExplorerToken; p: ViewProps; label:
     <span className="min-w-0">
       <span className="block truncate font-mono text-[12.5px]" title={t.name}>
         {relName(t.name, label)}
-        {t.deprecated && <span className="ml-1.5 font-sans text-[10px] text-conflicting uppercase">deprecated</span>}
+        {t.deprecated && <span className="ml-1.5 font-sans text-[10px] text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))] uppercase">deprecated</span>}
       </span>
       <span className="block truncate font-mono text-[11px] text-muted-foreground">
         {chain ? `→ ${chain}` : null}

@@ -76,7 +76,7 @@ export function TableView({ tokens, hrefFor, setById, sourceFor }: { tokens: Exp
                 <td className="whitespace-nowrap">
                   <TierMark tier={t.tier} tierState={t.tierState} plain />
                 </td>
-                <td>{t.deprecated ? <span className="text-conflicting">Yes</span> : <span className="text-muted-foreground">No</span>}</td>
+                <td>{t.deprecated ? <span className="text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]">Yes</span> : <span className="text-muted-foreground">No</span>}</td>
                 <td className="max-w-[18rem]">
                   <span className="block truncate text-muted-foreground" title={set?.name}>
                     {set?.slug ?? t.setSlug}

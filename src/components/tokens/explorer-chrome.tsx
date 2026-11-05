@@ -51,10 +51,10 @@ export function formatDate(iso: string | null | undefined): string | null {
 }
 
 const REDIST_META: Record<Redistribution, { label: string; className: string }> = {
-  permitted: { label: "Redistribution permitted", className: "border-verified/30 bg-verified-soft text-verified" },
+  permitted: { label: "Redistribution permitted", className: "border-verified/30 bg-verified-soft text-[color:color-mix(in_oklch,var(--verified)_70%,var(--foreground))]" },
   conditional: { label: "Redistribution conditional", className: "border-inferred/30 bg-inferred-soft text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]" },
-  restricted: { label: "Redistribution restricted", className: "border-conflicting/30 bg-conflicting-soft text-conflicting" },
-  unknown: { label: "Redistribution unknown", className: "border-dashed border-unavailable/50 text-unavailable" },
+  restricted: { label: "Redistribution restricted", className: "border-conflicting/30 bg-conflicting-soft text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]" },
+  unknown: { label: "Redistribution unknown", className: "border-dashed border-unavailable/50 text-[color:color-mix(in_oklch,var(--unavailable)_70%,var(--foreground))]" },
 };
 
 export function RedistributionChip({ value }: { value: Redistribution }) {

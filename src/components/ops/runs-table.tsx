@@ -86,8 +86,8 @@ export function RunsTable({ rows, emptyText = "No ingestion runs yet. Enqueue on
                 <td className={`${td} tabular text-right font-mono text-xs`}>
                   {r.errors || r.quarantined || r.warnings ? (
                     <span className="inline-flex flex-col items-end gap-0.5">
-                      {r.errors > 0 && <span className="text-conflicting">{r.errors} err</span>}
-                      {r.quarantined > 0 && <span className="text-inferred">{r.quarantined} quar.</span>}
+                      {r.errors > 0 && <span className="text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]">{r.errors} err</span>}
+                      {r.quarantined > 0 && <span className="text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]">{r.quarantined} quar.</span>}
                       {r.warnings > 0 && <span className="text-muted-foreground">{r.warnings} warn</span>}
                     </span>
                   ) : (

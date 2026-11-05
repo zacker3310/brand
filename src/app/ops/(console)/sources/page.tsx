@@ -68,7 +68,7 @@ export default async function SourcesPage() {
                       <td className={`${td} text-xs`}>
                         <Time at={s.newest} />
                       </td>
-                      <td className={`${td} tabular text-right font-mono text-xs ${s.notActive ? "text-inferred" : "text-muted-foreground"}`}>{s.notActive}</td>
+                      <td className={`${td} tabular text-right font-mono text-xs ${s.notActive ? "text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]" : "text-muted-foreground"}`}>{s.notActive}</td>
                     </tr>
                   ))
                 )}
@@ -160,7 +160,7 @@ export default async function SourcesPage() {
                     <td className={td}>
                       <Mono className="text-muted-foreground">{b.kind}</Mono>
                     </td>
-                    <td className={`${td} tabular font-mono text-xs ${b.lastStatus && b.lastStatus >= 400 ? "text-conflicting" : ""}`}>{b.lastStatus ?? "—"}</td>
+                    <td className={`${td} tabular font-mono text-xs ${b.lastStatus && b.lastStatus >= 400 ? "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]" : ""}`}>{b.lastStatus ?? "—"}</td>
                     <td className={`${td} max-w-xs text-xs text-muted-foreground`}>{b.lastError ?? "—"}</td>
                     <td className={`${td} text-xs`}>
                       <Time at={b.lastCheckedAt} />

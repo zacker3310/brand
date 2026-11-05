@@ -1,7 +1,6 @@
 import { PlayIcon } from "lucide-react";
 import Link from "next/link";
 import { requireAdminPage } from "@/server/admin";
-import { adapterIdFor } from "@/server/api/engine-bridge";
 import { SYSTEM_SORTS, opsSystems, type SystemSort } from "@/server/queries/ops";
 import { SystemMark } from "@/components/atlas";
 import { Button } from "@/components/ui/button";
@@ -9,7 +8,6 @@ import { FilterForm, FilterInput, FilterSelect } from "@/components/ops/filters"
 import { EmptyRow, Mono, OpsNotice, StatusPill, TableFrame, Time, one, qs, stickyCell, td, th } from "@/components/ops/ui";
 import { INGESTION_STATUSES } from "@/lib/contracts";
 import { cn, formatCount } from "@/lib/utils";
-import { enqueueRunAction } from "@/app/ops/enqueue-action";
 
 export const metadata = { title: "Systems" };
 
@@ -24,7 +22,6 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
   const registry = one(sp.registry) === "all" ? "all" : "verified";
   const rows = await opsSystems({ q, status, sort, registry });
   const returnTo = `/ops/systems${qs({ q, status, sort: sort === "name" ? undefined : sort, registry: registry === "all" ? "all" : undefined })}`;
-  const withAdapter = new Map(rows.map((r) => [r.slug, adapterIdFor(r.slug)]));
   const sortHref = (s: SystemSort) => `/ops/systems${qs({ q, status, sort: s === "name" ? undefined : s, registry: registry === "all" ? "all" : undefined })}`;
   const SortHead = ({ s, children, right }: { s: SystemSort; children: React.ReactNode; right?: boolean }) => (
     <th scope="col" className={cn(th, right && "text-right")} aria-sort={sort === s ? (s === "name" || s === "status" ? "ascending" : "descending") : undefined}>
@@ -40,8 +37,8 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
       <header className="space-y-1">
         <h1 className="text-xl font-semibold tracking-tight">Systems</h1>
         <p className="max-w-3xl text-sm text-muted-foreground">
-          Per-system index depth from published records. “Enqueue run” only inserts a run and its job; a worker (npm run worker) does the work. Systems without an adapter stay at
-          metadata level.
+          Per-system index depth from published records. “Enqueue run” only inserts a run and its job; a worker (npm run worker) does the work. Systems no adapter handles are
+          refused with a notice and stay at metadata level.
         </p>
       </header>
       <OpsNotice sp={sp} />
@@ -52,7 +49,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
         {sort !== "name" && <input type="hidden" name="sort" value={sort} />}
       </FilterForm>
       <p className="text-xs text-muted-foreground" aria-live="polite">
-        {formatCount(rows.length)} system{rows.length === 1 ? "" : "s"} · {formatCount(rows.filter((r) => withAdapter.get(r.slug)).length)} with an ingestion adapter
+        {formatCount(rows.length)} system{rows.length === 1 ? "" : "s"} · {formatCount(rows.filter((r) => r.lastRun).length)} ingested at least once
       </p>
       <TableFrame label="Systems">
         <table className="w-full min-w-[1120px] border-collapse">
@@ -96,7 +93,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
               <EmptyRow colSpan={11}>No systems match these filters.</EmptyRow>
             ) : (
               rows.map((r) => {
-                const adapter = withAdapter.get(r.slug);
+                const adapter = r.adapterId;
                 const ingested = !NOT_INGESTED.has(r.ingestionStatus);
                 return (
                   <tr key={r.id} className="hover:bg-muted/40">
@@ -107,7 +104,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                           <Link href={`/systems/${r.slug}`} className="block max-w-48 truncate font-medium hover:underline">
                             {r.name}
                           </Link>
-                          <Mono className="text-[11px] text-muted-foreground">{adapter ? `adapter: ${adapter}` : "no adapter"}</Mono>
+                          <Mono className="text-[11px] text-muted-foreground">{adapter ? `adapter: ${adapter}` : "not ingested yet"}</Mono>
                         </div>
                       </div>
                     </td>
@@ -140,7 +137,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                     <Num v={r.tokens} sub={r.tokenSets ? `${r.tokenSets} sets` : undefined} ingested={ingested} />
                     <Num v={r.patterns} ingested={ingested} />
                     <Num v={r.evidence} />
-                    <td className={`${td} tabular text-right font-mono text-xs ${r.openErrors ? "text-conflicting" : "text-muted-foreground"}`}>
+                    <td className={`${td} tabular text-right font-mono text-xs ${r.openErrors ? "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]" : "text-muted-foreground"}`}>
                       {r.openErrors ? (
                         <Link href={`/ops/errors?system=${r.slug}`} className="hover:underline">
                           {r.openErrors}
@@ -162,8 +159,8 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                       )}
                     </td>
                     <td className={`${td} text-right`}>
-                      {adapter && r.registryStatus === "verified" ? (
-                        <form action={enqueueRunAction}>
+                      {r.registryStatus === "verified" ? (
+                        <form method="post" action="/ops/enqueue">
                           <input type="hidden" name="system" value={r.slug} />
                           <input type="hidden" name="returnTo" value={returnTo} />
                           <Button
@@ -176,7 +173,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                           </Button>
                         </form>
                       ) : (
-                        <span className="text-[11px] text-muted-foreground">metadata only</span>
+                        <span className="text-[11px] text-muted-foreground">not in registry</span>
                       )}
                     </td>
                   </tr>

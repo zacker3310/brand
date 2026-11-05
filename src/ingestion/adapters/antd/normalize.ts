@@ -688,8 +688,12 @@ function buildAntdComponent(f: F<"component-doc">, a: AntdBuildCtx): NormalizedC
   const useSeen = new Set<string>();
   for (const key of keys) {
     const entry = a.tjF?.entries[key];
-    for (const g of entry?.global ?? []) if (a.tok.globalNames.has(g) && !useSeen.has(g)) (useSeen.add(g), usages.push({ tokenName: g, property: null }));
-    for (const n of a.tok.componentTokens.get(key) ?? []) if (!useSeen.has(n)) (useSeen.add(n), usages.push({ tokenName: n, property: null }));
+    const names = [...(entry?.global ?? []).filter((g) => a.tok.globalNames.has(g)), ...(a.tok.componentTokens.get(key) ?? [])];
+    for (const n of names) {
+      if (useSeen.has(n)) continue;
+      useSeen.add(n);
+      usages.push({ tokenName: n, property: null });
+    }
   }
   usages.sort((x, y) => x.tokenName.localeCompare(y.tokenName));
   coverage.tokens = usages.length ? "documented" : keys.length ? "not-extracted" : "not-documented";

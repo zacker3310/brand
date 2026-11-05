@@ -56,41 +56,55 @@ export function parseSassDoc(doc: string | null): SassDoc {
 /* ------------------------------ value rewriting ------------------------------ */
 
 const NS = String.raw`(?:[\w-]+\.)?`;
-const COLOUR_CALL = new RegExp(String.raw`${NS}govuk-colour\(\s*["']?([\w-]+)["']?\s*(?:,\s*(?:\$variant\s*:\s*)?["']?([\w-]+)["']?\s*)?\)`, "g");
-const FUNCTIONAL_CALL = new RegExp(String.raw`${NS}govuk-functional-colour\(\s*["']?([\w-]+)["']?\s*\)`, "g");
-const SPACING_CALL = new RegExp(String.raw`${NS}govuk-spacing\(\s*(\d)\s*\)`, "g");
-const VAR_REF = new RegExp(String.raw`${NS}\$(govuk-[\w-]+)`, "g");
+export type Prefix = "govuk" | "nhsuk";
+
+const RULES = new Map<Prefix, { colour: RegExp; functional: RegExp | null; spacing: RegExp; varRef: RegExp }>(
+  (["govuk", "nhsuk"] as const).map((px) => [
+    px,
+    {
+      colour: new RegExp(String.raw`${NS}${px}-colour\(\s*["']?([\w-]+)["']?\s*(?:,\s*(?:\$variant\s*:\s*)?["']?([\w-]+)["']?\s*)?\)`, "g"),
+      functional: px === "govuk" ? new RegExp(String.raw`${NS}govuk-functional-colour\(\s*["']?([\w-]+)["']?\s*\)`, "g") : null,
+      spacing: new RegExp(String.raw`${NS}${px}-spacing\(\s*(\d)\s*\)`, "g"),
+      varRef: new RegExp(String.raw`${NS}\$(${px}-[\w-]+)`, "g"),
+    },
+  ]),
+);
 const UNQUOTE = new RegExp(String.raw`^${NS}unquote\(\s*(["'])(.*)\1\s*\)$`);
 
-export const paletteRef = (name: string, variant: string | null | undefined) => `govuk-palette.${name}.${variant ?? "primary"}`;
+/** GOV.UK palette entries have variants (`primary` by default); the NHS palette is a flat map. */
+export const paletteRef = (name: string, variant: string | null | undefined, prefix: Prefix = "govuk") =>
+  prefix === "govuk" ? `govuk-palette.${name}.${variant ?? "primary"}` : `nhsuk-colours.${name}`;
 
 /** Rewrite helper calls / variable refs in an SCSS value; returns the raw value and reference names. */
-export function rewriteScssValue(raw: string, opts: { localVars?: Set<string> } = {}): { rawValue: string | number; references: string[] } {
+export function rewriteScssValue(raw: string, opts: { localVars?: Set<string>; prefix?: Prefix } = {}): { rawValue: string | number; references: string[] } {
+  const prefix = opts.prefix ?? "govuk";
+  const rules = RULES.get(prefix)!;
   const refs: string[] = [];
   let v = collapse(raw);
   const unq = UNQUOTE.exec(v);
   if (unq) v = unq[2]!;
-  const pre = /^"([\w-]+)"\s+"([\w-]+)"$/.exec(v);
+  const pre = prefix === "govuk" ? /^"([\w-]+)"\s+"([\w-]+)"$/.exec(v) : null;
   if (pre) {
     const r = paletteRef(pre[1]!, pre[2]!);
     return { rawValue: `{${r}}`, references: [r] };
   }
-  v = v.replace(COLOUR_CALL, (_m, n: string, variant?: string) => {
-    const r = paletteRef(n, variant);
+  v = v.replace(rules.colour, (_m, n: string, variant?: string) => {
+    const r = paletteRef(n, variant, prefix);
     refs.push(r);
     return `{${r}}`;
   });
-  v = v.replace(FUNCTIONAL_CALL, (_m, n: string) => {
-    const r = `govuk-functional-colours.${n}`;
+  if (rules.functional)
+    v = v.replace(rules.functional, (_m, n: string) => {
+      const r = `govuk-functional-colours.${n}`;
+      refs.push(r);
+      return `{${r}}`;
+    });
+  v = v.replace(rules.spacing, (_m, n: string) => {
+    const r = `${prefix}-spacing-points.${n}`;
     refs.push(r);
     return `{${r}}`;
   });
-  v = v.replace(SPACING_CALL, (_m, n: string) => {
-    const r = `govuk-spacing-points.${n}`;
-    refs.push(r);
-    return `{${r}}`;
-  });
-  v = v.replace(VAR_REF, (m, n: string) => {
+  v = v.replace(rules.varRef, (m, n: string) => {
     if (opts.localVars?.has(n)) return m;
     refs.push(n);
     return `{${n}}`;
@@ -210,7 +224,8 @@ const unquote = (s: string) => s.trim().replace(/^["']|["']$/g, "");
  *  - Later reassignments of an already emitted variable are skipped (internal merges).
  *  - Map entries named `deprecation-message` mark sibling tokens deprecated instead of becoming tokens.
  */
-export function parseSettingsFile(text: string, opts: { entryComments?: boolean } = {}): SettingsParse {
+export function parseSettingsFile(text: string, opts: { entryComments?: boolean; prefix?: Prefix } = {}): SettingsParse {
+  const prefix = opts.prefix ?? "govuk";
   const src = unwrapDoubleParens(text);
   const lines = text.split("\n");
   const res = parseScssVariables(src, { includeFunctionReturnMaps: false });
@@ -251,7 +266,7 @@ export function parseSettingsFile(text: string, opts: { entryComments?: boolean 
     };
     const walk = (val: ScssValue, path: string[], line: number, depth: number) => {
       if (depth > 8) return;
-      if (val.kind === "map" && isColourRefMap(val)) {
+      if (prefix === "govuk" && val.kind === "map" && isColourRefMap(val)) {
         const n = unquote((val.entries.find((e) => e.key === "name")!.value as { raw: string }).raw);
         const variantEntry = val.entries.find((e) => e.key === "variant");
         const variant = variantEntry ? unquote((variantEntry.value as { raw: string }).raw) : null;
@@ -273,7 +288,7 @@ export function parseSettingsFile(text: string, opts: { entryComments?: boolean 
         return;
       }
       const rawText = val.kind === "scalar" ? val.raw : listText(val);
-      const { rawValue, references } = rewriteScssValue(rawText);
+      const { rawValue, references } = rewriteScssValue(rawText, { prefix });
       tokens.push({ ...base, name: path.join("."), path, rawValue, references, comment: opts.entryComments && depth > 0 ? commentAbove(lines, line) : null, line });
     };
     walk(v.value, [name], v.line, 0);
@@ -296,7 +311,7 @@ const isLength = (v: unknown) => typeof v === "number" || (typeof v === "string"
 
 export function tokenType(setKey: TokenSetKey, name: string, rawValue: unknown): string | null {
   const last = name.split(".").pop() ?? name;
-  if (setKey === "colour-palette" || setKey === "functional-colours" || setKey === "organisation-colours" || /colou?r$/.test(name)) {
+  if (setKey === "colour-palette" || setKey === "functional-colours" || setKey === "applied-colours" || setKey === "organisation-colours" || /colou?r$/.test(name)) {
     return isHexColour(rawValue) || isRefValue(rawValue) ? "color" : null;
   }
   if (/font-family/.test(name)) return typeof rawValue === "string" && !isRefValue(rawValue) ? "fontFamily" : null;
@@ -308,11 +323,12 @@ export function tokenType(setKey: TokenSetKey, name: string, rawValue: unknown):
 }
 
 export function tokenCategory(setKey: TokenSetKey, name: string): TokenCategory {
-  if (setKey === "colour-palette" || setKey === "functional-colours" || setKey === "organisation-colours") return "color";
+  if (setKey === "colour-palette" || setKey === "functional-colours" || setKey === "applied-colours" || setKey === "organisation-colours") return "color";
   if (setKey === "spacing") return "spacing";
-  if (setKey === "typography") return "typography";
   if (/colou?r/.test(name)) return "color";
-  if (/border-width|focus-width|hover-width/.test(name)) return "shape";
+  if (/border-width|focus-width|hover-width|border-radius|-border$|chevron-border|shadow-size/.test(name)) return "shape";
+  if (/page-width|grid-widths|gutter|breakpoint/.test(name)) return "layout";
+  if (setKey === "typography") return "typography";
   if (setKey === "layout") return "layout";
   return "other";
 }
@@ -323,9 +339,10 @@ export function tokenTier(setKey: TokenSetKey, name: string): TokenTier | null {
     case "organisation-colours":
       return "primitive";
     case "functional-colours":
+    case "applied-colours":
       return "semantic";
     case "spacing":
-      return name.startsWith("govuk-spacing-points.") ? "primitive" : "semantic";
+      return /^[a-z]+-spacing-points\./.test(name) ? "primitive" : "semantic";
     case "component-settings":
       return "component";
     default:
@@ -355,7 +372,7 @@ export interface MixinAnalysis {
 }
 
 /** Analyse a component stylesheet (`_mixin.scss` / `_index.scss`). */
-export function analyseComponentScss(text: string): MixinAnalysis {
+export function analyseComponentScss(text: string, prefix: Prefix = "govuk"): MixinAnalysis {
   const lines = text.split("\n");
   const modifiers: ModifierRef[] = [];
   const usages: TokenUsageRef[] = [];
@@ -365,13 +382,13 @@ export function analyseComponentScss(text: string): MixinAnalysis {
   // Local (mixin-scoped) variables are not tokens.
   const localVars = new Set<string>();
   for (const l of lines) {
-    const m = /^\s+\$(govuk-[\w-]+)\s*:/.exec(l);
+    const m = new RegExp(String.raw`^\s+\$(${prefix}-[\w-]+)\s*:`).exec(l);
     if (m) localVars.add(m[1]!);
   }
   lines.forEach((raw, i) => {
     const line = raw.replace(/\/\/.*$/, "");
-    if (/govuk-media-query\(/.test(line)) mediaQueries++;
-    for (const m of line.matchAll(/\.(govuk-[a-z0-9]+(?:-[a-z0-9]+)*)--([a-z0-9]+(?:-[a-z0-9]+)*)/g)) {
+    if (/(govuk|nhsuk)-media-query\(/.test(line)) mediaQueries++;
+    for (const m of line.matchAll(new RegExp(String.raw`\.(${prefix}-[a-z0-9]+(?:-[a-z0-9]+)*)--([a-z0-9]+(?:-[a-z0-9]+)*)`, "g"))) {
       const block = m[1]!;
       if (block.includes("__")) continue;
       const k = `${block}--${m[2]}`;
@@ -381,7 +398,7 @@ export function analyseComponentScss(text: string): MixinAnalysis {
     }
     const decl = /^\s*([a-z-]+)\s*:\s*(.+)$/.exec(line);
     const prop = decl && !line.trim().startsWith("$") ? decl[1]! : null;
-    const { references } = rewriteScssValue(line, { localVars });
+    const { references } = rewriteScssValue(line, { localVars, prefix });
     for (const r of references) {
       const k = `${r}|${prop}`;
       if (seenUse.has(k)) continue;
@@ -395,9 +412,9 @@ export function analyseComponentScss(text: string): MixinAnalysis {
 /* ------------------------------ compiled CSS ------------------------------ */
 
 /** Custom properties declared in compiled CSS (`--govuk-brand-colour:`), unique, sorted. */
-export function declaredCustomProperties(css: string): string[] {
+export function declaredCustomProperties(css: string, prefix: Prefix = "govuk"): string[] {
   const out = new Set<string>();
-  for (const m of css.matchAll(/(?:^|[;{\s])(--govuk-[a-z0-9-]+)\s*:/g)) out.add(m[1]!);
+  for (const m of css.matchAll(new RegExp(String.raw`(?:^|[;{\s])(--${prefix}-[a-z0-9-]+)\s*:`, "g"))) out.add(m[1]!);
   return [...out].sort();
 }
 

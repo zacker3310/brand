@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Concepts/Developer/Accessibility/Components/Button" />
+
+# Button Accessibility Spec
+
+`Button` triggers an action or event when activated. It is the foundational building block for more specialized button variants in this package — `CompoundButton`, `MenuButton`, `SplitButton`, and `ToggleButton` — each of which has its own accessibility considerations beyond what is covered here.
+
+By default, `Button` renders a native HTML `<button>` element and inherits all of its built-in accessibility behavior. When rendered as an anchor (`as="a"`), additional ARIA attributes and keyboard handlers are applied to make it behave like a button.
+
+## Semantics
+
+| Element                          | Role mapping | States and properties                                                 |
+| -------------------------------- | ------------ | --------------------------------------------------------------------- |
+| Default (`<button>`)             | button       | `type="button"`, `disabled` or `aria-disabled="true"` when disabled   |
+| Anchor with `href` (`as="a"`)    | link         | `aria-disabled="true"` and `role="link"` when disabled (no `href`)    |
+| Anchor without `href` (`as="a"`) | button       | `role="button"`, `tabIndex="0"`, `aria-disabled="true"` when disabled |
+
+## Keyboard interaction
+
+### Navigate to button
+
+`Button` is a single tab stop.
+
+| Key                               | Result                                              |
+| --------------------------------- | --------------------------------------------------- |
+| <kbd>Tab</kbd>                    | Moves focus to the button                           |
+| <kbd>Shift</kbd> + <kbd>Tab</kbd> | Moves focus to the button from a later focus target |
+
+When either `disabled` or `disabledFocusable` is set, the button is removed from in the tab order.
+
+### Activate button
+
+| Key              | Result                                                |
+| ---------------- | ----------------------------------------------------- |
+| <kbd>Enter</kbd> | Activates the button (fires `onClick`)                |
+| <kbd>Space</kbd> | Activates the button on key release (fires `onClick`) |
+
+For native `<button>` elements, this behavior comes from the browser. For anchors rendered with `as="a"`, `useARIAButtonProps` from `@fluentui/react-aria` attaches `onKeyDown` and `onKeyUp` handlers to call `click()` on <kbd>Enter</kbd> and <kbd>Space</kbd>, matching native button behavior. <kbd>Space</kbd> activates on key release (matching the platform convention) and the default scroll behavior is suppressed on key down.
+
+When the button is disabled (`disabled`, `disabledFocusable`, or `aria-disabled="true"`), <kbd>Enter</kbd> and <kbd>Space</kbd> activation is blocked and the click event is not fired.
+

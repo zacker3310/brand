@@ -55,7 +55,7 @@ export default async function RegistryPage() {
               <li key={e.slug} className="flex items-center justify-between gap-3 px-4 py-2 text-sm">
                 <span className="truncate">{e.name}</span>
                 <span className="flex shrink-0 items-center gap-3 text-xs text-muted-foreground">
-                  {e.failedChecks > 0 && <span className="text-inferred">{e.failedChecks} failed checks</span>}
+                  {e.failedChecks > 0 && <span className="text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]">{e.failedChecks} failed checks</span>}
                   <Mono>{e.confidence.toFixed(2)}</Mono>
                 </span>
               </li>

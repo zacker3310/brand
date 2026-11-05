@@ -83,7 +83,7 @@ export default async function ErrorsPage({ searchParams }: { searchParams: Promi
                 <div className="min-w-0 space-y-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <StatusPill status={e.severity} />
-                    {e.resolvedAt ? <span className="text-[11px] text-verified">resolved <Time at={e.resolvedAt} /></span> : <span className="text-[11px] text-muted-foreground">open</span>}
+                    {e.resolvedAt ? <span className="text-[11px] text-[color-mix(in_oklch,var(--verified)_75%,var(--foreground))]">resolved <Time at={e.resolvedAt} /></span> : <span className="text-[11px] text-muted-foreground">open</span>}
                     <span className="text-[11px] text-muted-foreground">
                       <Time at={e.createdAt} />
                     </span>
@@ -172,7 +172,7 @@ export default async function ErrorsPage({ searchParams }: { searchParams: Promi
                         <td className={td}>
                           <Mono className="text-muted-foreground">{g.stage}</Mono>
                         </td>
-                        <td className={`${td} tabular text-right font-mono text-xs ${g.open ? (g.severity === "error" ? "text-conflicting" : "text-inferred") : "text-muted-foreground"}`}>{g.open}</td>
+                        <td className={`${td} tabular text-right font-mono text-xs ${g.open ? (g.severity === "error" ? "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]" : "text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]") : "text-muted-foreground"}`}>{g.open}</td>
                         <td className={`${td} tabular text-right font-mono text-xs text-muted-foreground`}>{g.resolved}</td>
                         <td className={`${td} max-w-md`}>
                           <p className="line-clamp-2 text-xs text-muted-foreground">{g.sampleMessage}</p>

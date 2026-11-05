@@ -99,7 +99,7 @@ export default async function QuarantinePage({ searchParams }: { searchParams: P
                         <ul className="space-y-1">
                           {x.issues.map((i, k) => (
                             <li key={k} className="text-xs">
-                              <Mono className={i.severity === "error" ? "text-conflicting" : "text-inferred"}>{i.code}</Mono> <span className="text-foreground/85">{i.message}</span>
+                              <Mono className={i.severity === "error" ? "text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]" : "text-[color-mix(in_oklch,var(--inferred)_62%,var(--foreground))]"}>{i.code}</Mono> <span className="text-foreground/85">{i.message}</span>
                               {i.path && <Mono className="text-muted-foreground"> at {i.path}</Mono>}
                             </li>
                           ))}

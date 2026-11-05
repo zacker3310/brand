@@ -15,7 +15,7 @@ export const ALIAS_STATE_META: Record<AliasStateName, { label: string; short: st
     label: "Resolved",
     short: "Resolved",
     description: "An alias that ATLAS followed to a concrete value inside the indexed sets.",
-    className: "border-verified/30 bg-verified-soft text-verified",
+    className: "border-verified/30 bg-verified-soft text-[color:color-mix(in_oklch,var(--verified)_70%,var(--foreground))]",
     bar: "bg-verified",
   },
   "theme-dependent": {
@@ -29,7 +29,7 @@ export const ALIAS_STATE_META: Record<AliasStateName, { label: string; short: st
     label: "External",
     short: "External",
     description: "Points outside the token files ATLAS indexed (another package or file). The target value is not shown.",
-    className: "border-dashed border-unavailable/50 text-unavailable",
+    className: "border-dashed border-unavailable/50 text-[color:color-mix(in_oklch,var(--unavailable)_70%,var(--foreground))]",
     bar: "bg-unavailable",
   },
   unresolved: {
@@ -43,7 +43,7 @@ export const ALIAS_STATE_META: Record<AliasStateName, { label: string; short: st
     label: "Cycle",
     short: "Cycle",
     description: "Part of a reference loop, so it has no concrete value.",
-    className: "border-conflicting/30 bg-conflicting-soft text-conflicting",
+    className: "border-conflicting/30 bg-conflicting-soft text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]",
     bar: "bg-conflicting",
   },
 };

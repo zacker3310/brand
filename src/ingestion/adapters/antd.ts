@@ -529,7 +529,11 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
       return frag({ t: "m-theme-css", stamp, part: meta.part ?? "default", theme: parseMobileThemeCss(body) });
     case DOC_KINDS.mobileGuideMd: {
       const d = parseDoc(body);
-      const deprecatedVars = [...body.matchAll(/(--adm-[a-z0-9-]+)\s+variable has been deprecated since version\s+([0-9.]+)[^.]*?(?:replace it with\s+(--adm-[a-z0-9-]+))?/gi)].map((m) => ({ name: m[1]!, since: m[2] ?? null, replacement: m[3] ?? null }));
+      const deprecatedVars = [...body.matchAll(/(--adm-[a-z0-9-]+)\s+variable has been deprecated since version\s+([0-9.]+)([^<]*)/gi)].map((m) => ({
+        name: m[1]!,
+        since: m[2]!.replace(/\.$/, ""),
+        replacement: /replace it with\s+(--adm-[a-z0-9-]+)/i.exec(m[3] ?? "")?.[1] ?? null,
+      }));
       return frag({ t: "m-guide", stamp, key: meta.key ?? "guide", docsUrl: meta.docsUrl!, doc: d, deprecatedVars });
     }
     default:
@@ -542,7 +546,7 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1",
   systems: SYSTEMS,
   description:
     "Ant Design + Ant Design Mobile: repo docs markdown at the release tag (frontmatter, API/Props tables, demos, CSS Variables tables, spec pages, mobile nav config), antd npm token-meta.json/token.json/dist CSS custom properties/seed + alias sources, antd-mobile theme CSS (npm via jsDelivr, pinned to latest), ant.design sitemap.",

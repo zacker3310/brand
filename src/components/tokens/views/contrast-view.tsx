@@ -21,7 +21,9 @@ function Pass({ ok, label }: { ok: boolean; label: string }) {
     <span
       className={cn(
         "inline-flex items-center gap-0.5 rounded border px-1 py-px text-[10.5px] leading-none font-medium whitespace-nowrap",
-        ok ? "border-verified/30 bg-verified-soft text-verified" : "border-conflicting/30 bg-conflicting-soft text-conflicting",
+        ok
+          ? "border-verified/30 bg-verified-soft text-[color:color-mix(in_oklch,var(--verified)_70%,var(--foreground))]"
+          : "border-conflicting/30 bg-conflicting-soft text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]",
       )}
     >
       {ok ? <CheckIcon className="size-2.5" aria-hidden /> : <XIcon className="size-2.5" aria-hidden />}
@@ -38,9 +40,8 @@ function Sample({ fg, bg, className }: { fg: unknown; bg: unknown; className?: s
     <span className={cn("relative inline-grid shrink-0 place-items-center overflow-hidden rounded-md ring-1 ring-black/10 ring-inset dark:ring-white/10", className)} aria-hidden>
       <span className="checker absolute inset-0" />
       <span className="absolute inset-0" style={{ background: b ?? undefined }} />
-      <span className="relative font-semibold" style={{ color: f ?? undefined }}>
-        Aa
-      </span>
+      {/* Decorative specimen: the glyphs come from CSS content so they are not page text (the pair may fail by design). */}
+      <span className="relative font-semibold before:content-['Aa']" style={{ color: f ?? undefined }} />
     </span>
   );
 }
@@ -113,7 +114,7 @@ export function ContrastView({
         </Form>
         <div aria-live="polite">
           {(fg?.kind === "invalid" || bg?.kind === "invalid") && (
-            <ul className="space-y-1 text-xs text-conflicting">
+            <ul className="space-y-1 text-xs text-[color:color-mix(in_oklch,var(--conflicting)_70%,var(--foreground))]">
               {fg?.kind === "invalid" && <li>Foreground “{fg.input}”: {fg.reason}</li>}
               {bg?.kind === "invalid" && <li>Background “{bg.input}”: {bg.reason}</li>}
             </ul>
