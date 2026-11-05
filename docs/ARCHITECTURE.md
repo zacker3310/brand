@@ -51,12 +51,29 @@ links back to official documentation. It is not a mirror.
 
 1. **Discover**: adapter enumerates documents (repo files via raw.githubusercontent.com, package files via jsDelivr, sitemaps, docs pages). Upserts `source` + `source_document`; documents no longer discovered are marked `gone`.
 2. **Fetch**: conditional GET (ETag / Last-Modified); new content hash ⇒ new `source_snapshot`. Errors become `ingestion_error` rows; partial failure ⇒ run status `partial`. Checkpointed per document.
-3. **Parse**: static parsing only, cached in `parsed_fragment` keyed by (document, adapter version, content hash).
+3. **Parse**: static parsing only, cached in `parsed_fragment` keyed by (document, adapter version, content hash, `doc_key`). `doc_key` hashes the discovered descriptor parse() receives (docKind, meta, title, evidence URL, source), so a URL whose role changes between runs is re-parsed even when its bytes are identical.
 4. **Normalize**: fragments ⇒ `NormalizedBundle` (contract-validated).
 5. **Validate**: generic rules (required fields, URL validity, duplicates, token value validity, unknown taxonomy types, framework consistency, suspicious results, missing evidence) + adapter rules ⇒ `extraction` rows with issues.
 6. **Publish**: valid/warning extractions promoted in transactions; unchanged content hash ⇒ no write; changed ⇒ child rows replaced and a `change_event` recorded; absent ⇒ `retired`. Token aliases resolved across the system's sets.
 7. **Enrich**: taxonomy classification (marked `inferred`), coverage summaries, search documents.
 8. **Refresh**: re-running is incremental (304s, unchanged hashes skip work); change events form the history.
+
+## Queue and workers
+
+- Jobs live in `ingestion_job` (Postgres): `FOR UPDATE SKIP LOCKED` claims, `dedupe_key` per (run, stage),
+  exponential backoff, dead letter, heartbeats and stale-lock reaping. Each stage enqueues the next on the
+  same queue.
+- Background workers (`npm run worker`) claim only the shared `ingest` queue. `npm run ingest -- --inline`
+  puts its run on a private `inline` queue and processes it in-process (claiming by run id), so a
+  long-running worker can never execute an inline run's stages. Ctrl-C releases the in-flight job;
+  `npm run ingest -- --resume <runId>` (without `--inline`) hands an interrupted inline run to the workers.
+- Every run records the adapter id and version it was enqueued for. A process whose loaded adapter differs
+  fails the stage (non-retryable, with an explanatory error) instead of publishing output from other code,
+  and a new enqueue supersedes an active run made for other adapter code.
+- Publish refuses to retire records or delete tokens when any parsed document's fragments are missing
+  (`FRAGMENTS_MISSING`), when the run is limited, or when fetch/parse/bundle errors occurred.
+- `PoliteFetcher` follows RFC 9309: robots.txt 4xx ⇒ allow, 5xx/unreachable ⇒ disallow all. The unreachable
+  verdict is cached for 30 s only, so retries re-check instead of blocking a host for the process lifetime.
 
 ## Trust model
 

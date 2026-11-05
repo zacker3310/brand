@@ -51,9 +51,11 @@ concrete gap observed, not a hypothetical.
    component frameworks (Carbon Angular/Vue).
 7. **Extraction retention**: `extraction` rows accumulate per run; add a retention job (keep latest N runs
    per system plus quarantined rows) — the lookup index exists (`extraction_lookup_idx`).
-8. **Adapter code version on jobs.** Inline runs now use a private queue (audit deep-2 R4), but a
-   long-running worker still keeps the adapter code it loaded at start. Stamp jobs with a hash of the
-   adapter module at enqueue and have workers release jobs whose hash differs from their own.
+8. **Adapter code hash on runs.** Inline runs use a private queue and runs are pinned to the adapter
+   version they were enqueued for (both done). Versions are bumped by hand, so a worker started before an
+   unversioned adapter edit still runs old code; stamp runs with a hash of the adapter module instead.
+   Lifecycle values derived by rule (semver 0.x ⇒ experimental) need an `inferred` provenance marker
+   (audit deep-1 request 5).
 9. **Per-host rate overrides** in `PoliteFetcher` (raw.githubusercontent.com could take a shorter gap;
    Fluent React spends most of its 3.5 min waiting on 750 ms spacing).
 10. **Schema additions requested by UI**: `design_pattern.classification_method`,
