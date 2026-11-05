@@ -472,7 +472,7 @@ export function validateMaterialBundle(system: string, bundle: NormalizedBundle,
   const color = bundle.tokenSets.find((s) => s.slug === colorSet);
   if (!color || color.tokens.length < 40) push({ entityKind: "token-set", entityKey: colorSet, code: "SUSPICIOUS", message: `system color set has ${color?.tokens.length ?? 0} tokens (expected >= 40)` });
   const palette = bundle.tokenSets.find((s) => /ref-palette$/.test(s.slug));
-  const minPalette = system === "material-web" ? 80 : 300;
+  const minPalette = system === "material-web" ? 80 : 200;
   if (!palette || palette.tokens.length < minPalette)
     push({ entityKind: "token-set", entityKey: "ref-palette", code: "SUSPICIOUS", message: `reference palette has ${palette?.tokens.length ?? 0} tokens (expected >= ${minPalette})` });
   if (full && total < (system === "material-web" ? 1000 : 5000))

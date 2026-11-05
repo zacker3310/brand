@@ -264,7 +264,8 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
       if (seenVariant.has(norm(name))) return;
       seenVariant.add(norm(name));
       const section = doc.sections.find((s) => norm(s.title) === norm(name) && s.depth === 2) ?? doc.sections.find((s) => norm(s.title) === norm(name));
-      const anchor = section?.anchor ?? (doc.types.includes(name) ? "types" : undefined);
+      const apiAnchor = el?.api ? githubAnchor(`${el.api.className} <${el.api.tagName}>`) : undefined;
+      const anchor = section?.anchor ?? (doc.types.includes(name) ? "types" : apiAnchor);
       const sentence = firstSentence(section?.firstParagraph ?? null, 240) ?? (el?.cem ? firstSentence(el.cem.summary, 240) : null);
       variants.push({
         axis: "type",
@@ -278,7 +279,7 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
     for (const r of famEls.filter((x) => x.role === "variant")) addVariant(r.variantName!, r);
     if (variants.length) {
       coverage.variants = "documented";
-      ev.push(evidence(prov, "variants", "mwc-docs-md", { location: `${prov.file}#types`, excerpt: variants.map((v) => v.name).join(", ") }));
+      ev.push(evidence(prov, "variants", "mwc-docs-md", { location: `${prov.file}#${doc.types.length ? "types" : "api"}`, excerpt: variants.map((v) => v.name).join(", ") }));
     }
 
     // properties (merged across family elements)

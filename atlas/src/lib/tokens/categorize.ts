@@ -116,12 +116,14 @@ const NAME_RULES: [RegExp, Cat, string, number][] = [
   [w("z-index|zindex|z|layer-index|stack-order"), ["elevation", "zIndex"], "name:z-index", 0.85],
   // layout
   [w("breakpoint|breakpoints|bp|screen|screens|media|viewport"), ["layout", "breakpoint"], "name:breakpoint", 0.8],
-  [w("container|max-width|min-width|content-width|page-width|measure"), ["layout", "container"], "name:container", 0.65],
+  // "container" alone is ambiguous (Material: component container); require a width-ish word (see COMPOUND_RULES)
+  [w("max-width|min-width|content-width|page-width|measure|max-inline-size"), ["layout", "container"], "name:container", 0.65],
   [w("grid|column|columns|gutter-width|col"), ["layout", "grid"], "name:grid", 0.6],
   // shape
   [w("border-width|borderwidth|stroke-width|outline-width|border-size|hairline|divider-width|focus-ring-width|ring-width"), ["shape", "borderWidth"], "name:border-width", 0.85],
   [w("radius|radii|rounded|rounding|corner|corners|border-radius|borderradius"), ["shape", "radius"], "name:radius", 0.85],
   [w("border-style|stroke-style|outline-style"), ["shape", "strokeStyle"], "name:stroke-style", 0.8],
+  [w("shape|shapes"), ["shape", null], "name:shape", 0.6],
   // opacity
   [w("opacity|alpha|transparency"), ["opacity", "opacity"], "name:opacity", 0.8],
   // motion
@@ -235,6 +237,7 @@ const COMPOUND_RULES: [(has: (...w: string[]) => boolean) => boolean, Cat, strin
   [(h) => (h("z") && h("index")) || h("zindex") || (h("layer", "stack") && h("index", "order")), ["elevation", "zIndex"], "name:z-index", 0.85],
   [(h) => h("border", "stroke", "outline", "divider", "ring", "hairline") && h("width", "thickness", "weight"), ["shape", "borderWidth"], "name:border-width", 0.85],
   [(h) => h("thickness"), ["shape", "borderWidth"], "name:thickness", 0.7],
+  [(h) => h("container", "content", "page", "layout") && h("width", "max", "min") && !h("border", "stroke", "outline"), ["layout", "container"], "name:container-width", 0.65],
   [(h) => h("border", "stroke", "outline") && h("style"), ["shape", "strokeStyle"], "name:stroke-style", 0.8],
   [(h) => h("font", "text", "type", "typography", "typescale", "fontsize") && h("size", "sizes", "fontsize"), ["typography", "fontSize"], "name:font-size", 0.8],
   [(h) => h("font", "text", "type", "typography", "typescale") && h("weight", "weights"), ["typography", "fontWeight"], "name:font-weight", 0.8],
