@@ -15,7 +15,13 @@
  *  - Custom elements in custom-elements.json that have no docs page (labs/*, field/*) are emitted
  *    from the manifest only; labs elements carry lifecycle "experimental" (labs/README.md).
  */
-import type { CoverageMap, EvidenceInput, NormalizedComponent, NormalizedExample, NormalizedProperty, NormalizedState, NormalizedVariant } from "@/lib/contracts";
+import type { CoverageState, EvidenceInput, NormalizedComponent } from "@/lib/contracts";
+
+type NormalizedProperty = NormalizedComponent["properties"][number];
+type NormalizedState = NormalizedComponent["states"][number];
+type NormalizedVariant = NormalizedComponent["variants"][number];
+type NormalizedExample = NormalizedComponent["examples"][number];
+type CoverageMap = Record<string, CoverageState>;
 import { canonicalState, classifyComponentName } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
 import { githubBlobUrl } from "@/ingestion/http";

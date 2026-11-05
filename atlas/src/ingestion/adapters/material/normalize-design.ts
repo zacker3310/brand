@@ -8,7 +8,10 @@
  * "(Disabled)", ...). The association token file -> M3 component is an ATLAS mapping, so the
  * tokens/states coverage is "inferred". Everything else is marked "not-extracted".
  */
-import type { CoverageMap, EvidenceInput, NormalizedComponent, NormalizedState } from "@/lib/contracts";
+import type { CoverageState, EvidenceInput, NormalizedComponent } from "@/lib/contracts";
+
+type NormalizedState = NormalizedComponent["states"][number];
+type CoverageMap = Record<string, CoverageState>;
 import { canonicalState } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
 import { titleMatchesSlug, type M3PageMeta } from "./m3-html";
