@@ -440,6 +440,7 @@ const REL_LABEL: Record<string, string> = {
   related: "Related",
   "see-also": "See also",
   "replaced-by": "Replaced by",
+  extends: "Extends",
   replaces: "Replaces",
 };
 

@@ -47,6 +47,11 @@ export function classifyComponent(c: Pick<NormalizedComponent, "name" | "canonic
       confidence: c.classification?.confidence ?? null,
     };
   }
+  // An adapter may deliberately leave a component unclassified (e.g. MUI Collapse is a transition utility, not an
+  // accordion). Honour that: method "adapter:unclassified" / "adapter-unclassified..." with no canonicalType.
+  if (!c.canonicalType && c.classification?.method && /^adapter[:-]unclassified/.test(c.classification.method)) {
+    return { typeSlug: null, typeId: null, state: "unverified", method: c.classification.method, confidence: null };
+  }
   const cls = classifyComponentName(c.name) ?? c.aliases.map((a) => classifyComponentName(a)).find((x) => x) ?? null;
   if (cls) return { typeSlug: cls.slug, typeId: typeIds.get(cls.slug) ?? null, state: "inferred", method: `heuristic:${cls.method}`, confidence: cls.confidence };
   return { typeSlug: null, typeId: null, state: "unverified", method: null, confidence: null };
