@@ -52,6 +52,13 @@ export async function loadStageContext(job: Job, signal: AbortSignal, db: DB = g
   const cfg = engineConfig();
   const adapter = cfg.resolveAdapter(system.slug);
   if (!adapter) throw new NonRetryableError(`no adapter handles system "${system.slug}"`);
+  // A long-running worker keeps the adapter code it loaded at start. Never let it execute a run that
+  // was enqueued for different adapter code: it would publish stale output and report success.
+  if (run.adapterId !== adapter.id || (run.adapterVersion && run.adapterVersion !== adapter.version)) {
+    throw new NonRetryableError(
+      `adapter mismatch: run ${run.id.slice(0, 8)} was enqueued for ${run.adapterId}@${run.adapterVersion ?? "?"} but this process has ${adapter.id}@${adapter.version}; restart stale workers and start a new run`,
+    );
+  }
   const checkpoint = checkpointOf(run);
   const base = cfg.log;
   const prefix = `[${system.slug}:${run.id.slice(0, 8)}:${job.kind}]`;

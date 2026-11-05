@@ -206,7 +206,7 @@ export const PATTERN_TYPES: PatternTypeDef[] = [
   { slug: "checkout", name: "Checkout", description: "Purchase and payment flows.", aliases: ["checkout", "payment", "pay", "payments"] },
   { slug: "dashboards", name: "Dashboards", description: "Overviews composed of metrics, charts and summaries.", aliases: ["dashboard", "dashboards", "overview"] },
   { slug: "bulk-actions", name: "Bulk actions", description: "Selecting many items and acting on them at once.", aliases: ["bulk actions", "batch", "selection"] },
-  { slug: "dialogs-and-confirmation", name: "Dialogs & confirmation", description: "Interrupting a flow to confirm, warn or collect focused input.", aliases: ["confirmation", "destructive actions", "confirm", "modals"] },
+  { slug: "dialogs-and-confirmation", name: "Dialogs & confirmation", description: "Interrupting a flow to confirm, warn or collect focused input.", aliases: ["confirmation dialog", "confirmation dialogs", "confirm dialog", "interruption pages", "destructive actions", "modals"] },
   { slug: "content-and-writing", name: "Content & writing", description: "Voice, tone, and writing guidance for interface copy.", aliases: ["content", "writing", "voice and tone", "content design", "ux writing", "grammar"] },
   { slug: "accessibility", name: "Accessibility", description: "System-level guidance for inclusive design.", aliases: ["accessibility", "a11y", "inclusive design"] },
   { slug: "data-entry", name: "Data entry", description: "Patterns for entering specific kinds of data: dates, addresses, names, numbers.", aliases: ["dates", "addresses", "names", "phone numbers", "email addresses", "bank details", "national insurance numbers"] },

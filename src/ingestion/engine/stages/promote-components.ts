@@ -199,7 +199,8 @@ export async function promoteComponents(pc: PromoteContext, entities: ValidatedE
         docsUrl: c.docsUrl ?? null,
         sourceCodeUrl: c.sourceCodeUrl ?? null,
         lifecycle: c.lifecycle,
-        sizes: c.sizes ?? null,
+        // [] means "the source says there are none" only when coverage says so; otherwise unknown (audit deep-1).
+        sizes: c.sizes?.length || c.coverage.sizes === "documented-none" ? (c.sizes ?? []) : null,
         responsiveGuidance: c.responsiveGuidance ?? null,
         coverage: c.coverage,
         licenseId: pc.licenseId,

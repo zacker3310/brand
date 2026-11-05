@@ -220,8 +220,8 @@ export function VariantsBlock({ variants }: { variants: ComponentVariantRow[] })
 }
 
 export function SizesBlock({ sizes, state }: { sizes: string[] | null; state: CoverageState }) {
-  if (sizes === null) return <Missing state={state === "documented" ? "not-extracted" : state} what="sizes" />;
-  if (sizes.length === 0) return <Missing state="documented-none" what="sizes" />;
+  // An empty list is "documented none" only when the coverage state says so (audit deep-1).
+  if (sizes === null || sizes.length === 0) return <Missing state={state === "documented" ? "not-extracted" : state} what="sizes" />;
   return (
     <ul className="flex flex-wrap gap-1.5" aria-label="Sizes">
       {sizes.map((s) => (

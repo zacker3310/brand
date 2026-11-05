@@ -67,7 +67,7 @@ export declare type OptionProps = {
 describe("fluent web components: relationships named in TSDoc", () => {
   it("an element whose TSDoc names another element is not-extracted for relationships (DropdownOption)", () => {
     const dts = `/**
- * A Dropdown Custom HTML Element.
+ * A Dropdown Custom HTML Element. Implements the {@link https://www.w3.org/TR/wai-aria-1.1/#combobox | ARIA combobox }.
  *
  * @tag fluent-dropdown
  *
@@ -76,6 +76,13 @@ describe("fluent web components: relationships named in TSDoc", () => {
 export declare class Dropdown extends FASTElement {
     disabled?: boolean;
 }
+
+/**
+ * The definition for the \`<fluent-dropdown>\` element.
+ *
+ * @public
+ */
+export declare const DropdownDefinition: PartialFASTElementDefinition;
 
 /**
  * A DropdownOption Custom HTML Element.
@@ -90,6 +97,13 @@ export declare class Dropdown extends FASTElement {
 export declare class DropdownOption extends FASTElement {
     value: string;
 }
+
+/**
+ * The definition for the \`<fluent-dropdown-option>\` element.
+ *
+ * @public
+ */
+export declare const DropdownOptionDefinition: PartialFASTElementDefinition;
 `;
     const frags: FluentFragment[] = [
       {
@@ -166,6 +180,10 @@ Carbon surfaces the labeling of radio buttons and groups to screen readers and o
     expect(radio.screenReaderSectionFound).toBe(false);
     expect(radio.screenReaderMentioned).toBe(true);
     expect(radio.ariaPattern).toBe("radiobutton");
+    // "Pressing Tab again will move focus out of the radio button group" without a "Focus" heading
+    const focus = parseA11y(`## Keyboard interactions\n\nA group of radio buttons takes a single tab stop. Pressing Tab again will move focus out of the radio button group.`);
+    expect(focus.focusSectionFound).toBe(false);
+    expect(focus.focusMentioned).toBe(true);
   });
 
   it("APG links in other URL forms are flagged instead of reported as no pattern (pagination, tile)", () => {

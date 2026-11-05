@@ -236,7 +236,9 @@ export function toCssColor(value: unknown): string | null {
   if (!c) return null;
   try {
     if (c.mode === "rgb") return toHex(c);
-    return formatCss(c) ?? null;
+    // culori scales stored fractions back to percentages (0.262 -> 26.200000000000003%); strip the
+    // float noise without changing the value (audit deep-1).
+    return formatCss(c)?.replace(/-?\d+\.\d{7,}/g, (x) => String(parseFloat(Number(x).toPrecision(10)))) ?? null;
   } catch {
     return null;
   }

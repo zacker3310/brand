@@ -377,7 +377,7 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.1.2", // deep-1 audit: guidance sentences keep the sentence(s) they depend on
+  version: "1.1.3", // deep-2 R1: bare list items are not guidance (1.1.2: guidance keeps the sentence(s) it depends on)
   systems: PROFILES.map((p) => p.systemSlug),
   description:
     "GOV.UK Frontend family. GOV.UK Design System: alphagov/govuk-design-system Markdown docs + sitemap, govuk-frontend component YAML at the release tag, govuk-frontend npm package (templates, stylesheets, JS, HTML fixtures, settings SCSS tokens, compiled CSS, prototype-kit macros), GOV.UK Content API principles. NHS design system: nhsuk-service-manual page templates + sitemap, nhsuk-frontend npm package (macro options, macros, templates at the release tag, stylesheets, JS, fixtures, settings SCSS, compiled CSS). npm via jsDelivr, pinned to latest.",

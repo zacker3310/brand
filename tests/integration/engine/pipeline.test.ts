@@ -224,6 +224,19 @@ describe("pipeline: idempotency", () => {
     expect(run.stats).toMatchObject({ parsed: 1, parseReused: 7, removed: 1 });
   });
 
+  it("fails (never publishes) a run enqueued for a different adapter version than the executing process", async () => {
+    const e = await engine.enqueueSystemRun(SLUG); // enqueued for fake@1.0.0
+    adapter = createFakeAdapter({ systems: [SLUG], version: "2.0.0" }); // the process now runs other adapter code
+    configure();
+    const run = await engine.processRunInline(e.runId, { heartbeatMs: 60_000 });
+    expect(run.status).toBe("failed");
+    expect(adapter.parseCalls.length).toBe(0);
+    const published = await db().select().from(s.components).where(eq(s.components.designSystemId, systemId));
+    expect(published.length).toBe(0);
+    const [err] = await db().select().from(s.ingestionErrors).where(eq(s.ingestionErrors.runId, e.runId));
+    expect(err?.message ?? "").toMatch(/adapter mismatch/);
+  });
+
   it("enqueueSystemRun is idempotent while a run is active", async () => {
     const a = await engine.enqueueSystemRun(SLUG);
     const b = await engine.enqueueSystemRun(SLUG);

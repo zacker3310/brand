@@ -381,7 +381,7 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
     (f.styles?.data.usages ?? []).map((u) => ({ tokenName: cx.fixRef(u.tokenName), property: u.property })).filter((u) => cx.tokenNames.has(u.tokenName)),
     (u) => `${u.tokenName}|${u.property}`,
   ).slice(0, 200);
-  if (tokenUsages.length) ev.push(evidence("tokens", f.styles!.ev, "scss-static", 0.9, { location: `${f.styles!.ev.location} (helper calls and $govuk-* settings)` }));
+  if (tokenUsages.length) ev.push(evidence("tokens", f.styles!.ev, "scss-static", 0.9, { location: `${f.styles!.ev.location} (helper calls and $${P.prefix}-* settings)` }));
   coverage.tokens = tokenUsages.length ? "documented" : f.styles ? "not-documented" : "not-extracted";
 
   // Examples

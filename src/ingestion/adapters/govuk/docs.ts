@@ -320,6 +320,8 @@ export function sentencesMatching(blocks: string[], re: RegExp, max: number): st
     const sentences = splitSentences(b);
     for (const [i, s] of sentences.entries()) {
       if (!re.test(s) || CALL_FOR_RESEARCH_RE.test(s)) continue;
+      // A bare list item ("accessibility" in a footer's list of link examples) is not guidance (audit deep-2 R1).
+      if (s.trim().split(/\s+/).length < 4) continue;
       // Walk back over a chain of dependent sentences (at most two) to the one that names the subject.
       let start = i;
       while (start > 0 && i - start < 2 && DEPENDENT_START_RE.test(sentences[start]!)) start--;
