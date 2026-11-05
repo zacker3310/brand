@@ -82,12 +82,16 @@ export interface ClaimOptions {
   runId?: string;
 }
 
-/** Move a run's queued jobs to another queue (e.g. hand an interrupted inline run back to workers). */
+/**
+ * Move a run's live jobs to another queue (e.g. hand an interrupted inline run back to workers).
+ * Running jobs move too: the queue only matters when a job is claimed, so a job left running by a
+ * dead inline process is reaped onto the new queue instead of back onto the private one.
+ */
 export async function moveRunJobs(runId: string, queue: string, db: DB = getDb()): Promise<number> {
   const rows = await db
     .update(ingestionJobs)
     .set({ queue, updatedAt: sql`now()` })
-    .where(and(eq(ingestionJobs.runId, runId), eq(ingestionJobs.status, "queued"), sql`${ingestionJobs.queue} <> ${queue}`))
+    .where(and(eq(ingestionJobs.runId, runId), inArray(ingestionJobs.status, ["queued", "running"]), sql`${ingestionJobs.queue} <> ${queue}`))
     .returning({ id: ingestionJobs.id });
   return rows.length;
 }
@@ -181,11 +185,13 @@ export async function cancel(jobId: string, db: DB = getDb()): Promise<boolean> 
  * Ops retry: failed/dead/cancelled -> queued with attempts reset. If another live job already
  * holds the same dedupe key, the retry is skipped and that live job is returned.
  */
-export async function retry(jobId: string, db: DB = getDb()): Promise<Job | null> {
+export async function retry(jobId: string, db: DB = getDb(), queue: string = DEFAULT_QUEUE): Promise<Job | null> {
   try {
+    // Retried jobs go to the shared queue by default: a retried stage of an inline run would otherwise
+    // wait on the private queue, which no worker claims.
     const rows = await db
       .update(ingestionJobs)
-      .set({ status: "queued", attempts: 0, runAt: sql`now()`, finishedAt: null, lockedAt: null, lockedBy: null, updatedAt: sql`now()` })
+      .set({ queue, status: "queued", attempts: 0, runAt: sql`now()`, finishedAt: null, lockedAt: null, lockedBy: null, updatedAt: sql`now()` })
       .where(and(eq(ingestionJobs.id, jobId), inArray(ingestionJobs.status, ["failed", "dead", "cancelled"])))
       .returning();
     return rows[0] ?? null;

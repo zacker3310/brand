@@ -222,6 +222,51 @@ describe("pipeline: idempotency", () => {
     expect(run.status).toBe("succeeded");
     expect(adapter.parseCalls.slice(callsBefore)).toEqual([`${FAKE_ORIGIN}${moved.path}`]);
     expect(run.stats).toMatchObject({ parsed: 1, parseReused: 7, removed: 1 });
+    // Flip back: both descriptor variants now have fragment rows for the same bytes. Publish must pick
+    // the row of the current descriptor (not whichever row the heap returns last).
+    moved.kind = "component";
+    setFile(site, "/manifest.json", manifest);
+    const callsBack = adapter.parseCalls.length;
+    const back = await runOnce();
+    expect(back.status).toBe("succeeded");
+    expect(adapter.parseCalls.length).toBe(callsBack);
+    expect(back.stats).toMatchObject({ parsed: 0, parseReused: 8 });
+    const slug = moved.path.replace(/^\/components\//, "").replace(/\.json$/, "");
+    expect((await component(slug))!.publishState).toBe("published");
+  });
+
+  it("never retires records when parsed fragments are missing at publish", async () => {
+    await runOnce();
+    const manifest = JSON.parse(site.files.get("/manifest.json")!) as { docs: { path: string; kind: string }[] };
+    const victim = manifest.docs.find((d) => d.kind === "component")!;
+    configure({
+      hooks: {
+        afterStage: async ({ stage, runId }) => {
+          if (stage !== "parse") return;
+          // simulate fragments that went missing between parse and publish (e.g. a run spanning migration 0003)
+          await db().execute(sql`delete from parsed_fragment where source_document_id in (select id from source_document where url = ${`${FAKE_ORIGIN}${victim.path}`})`);
+          void runId;
+        },
+      },
+    });
+    const run = await runOnce({ kind: "full" });
+    expect(run.stats).toMatchObject({ removed: 0 });
+    const slug = victim.path.replace(/^\/components\//, "").replace(/\.json$/, "");
+    expect((await component(slug))!.publishState).toBe("published");
+    const errs = await db().select().from(s.ingestionErrors).where(and(eq(s.ingestionErrors.runId, run.id), eq(s.ingestionErrors.code, "FRAGMENTS_MISSING")));
+    expect(errs.length).toBe(1);
+  });
+
+  it("supersedes an active run enqueued for other adapter code instead of deduping into it", async () => {
+    const old = await engine.enqueueSystemRun(SLUG); // fake@1.0.0, never processed
+    adapter = createFakeAdapter({ systems: [SLUG], version: "2.0.0" });
+    configure();
+    const fresh = await engine.enqueueSystemRun(SLUG);
+    expect(fresh.deduped).toBe(false);
+    expect(fresh.runId).not.toBe(old.runId);
+    expect((await engine.getRun(old.runId))!.status).toBe("cancelled");
+    const run = await engine.processRunInline(fresh.runId, { heartbeatMs: 60_000 });
+    expect(run.status).toBe("succeeded");
   });
 
   it("fails (never publishes) a run enqueued for a different adapter version than the executing process", async () => {
@@ -542,6 +587,37 @@ describe("worker", () => {
     await started;
     expect((await engine.getRun(orphan.runId))!.status).toBe("succeeded");
     expect(w.processed).toBe(5);
+  });
+
+  it("a crashed inline run (job left running) resumed without --inline is finished by a worker", async () => {
+    const e = await engine.enqueueSystemRun(SLUG, { queue: engine.INLINE_QUEUE });
+    const [claimed] = await engine.claim("dead-inline-process", { runId: e.runId, limit: 1 });
+    expect(claimed!.queue).toBe(engine.INLINE_QUEUE);
+    await db().update(s.ingestionJobs).set({ lockedAt: new Date(Date.now() - 10 * 60_000) }).where(eq(s.ingestionJobs.id, claimed!.id));
+    await engine.resumeRun(e.runId);
+    const w = new engine.Worker({ concurrency: 1, pollMs: 20, heartbeatMs: 60_000, lockTimeoutMs: 60_000, reapEveryMs: 20, shutdownTimeoutMs: 2_000 });
+    const started = w.start();
+    for (let i = 0; i < 300; i++) {
+      const r = await engine.getRun(e.runId);
+      if (r && ["succeeded", "partial", "failed"].includes(r.status)) break;
+      await new Promise((res) => setTimeout(res, 50));
+    }
+    await w.stop();
+    await started;
+    expect((await engine.getRun(e.runId))!.status).toBe("succeeded");
+  });
+
+  it("a plain enqueue that dedupes onto a live inline run leaves it on the private queue", async () => {
+    const e = await engine.enqueueSystemRun(SLUG, { queue: engine.INLINE_QUEUE });
+    const again = await engine.enqueueSystemRun(SLUG); // e.g. Ops 'Enqueue run' while the inline process waits
+    expect(again).toMatchObject({ runId: e.runId, deduped: true });
+    const queues = await db().selectDistinct({ q: s.ingestionJobs.queue }).from(s.ingestionJobs).where(eq(s.ingestionJobs.runId, e.runId));
+    expect(queues.map((r) => r.q)).toEqual([engine.INLINE_QUEUE]);
+    // an explicit inline caller does take a worker run over
+    const w = await engine.enqueueSystemRun("fake-system", { queue: engine.DEFAULT_QUEUE });
+    expect(w.runId).toBe(e.runId);
+    const moved = await db().selectDistinct({ q: s.ingestionJobs.queue }).from(s.ingestionJobs).where(eq(s.ingestionJobs.runId, e.runId));
+    expect(moved.map((r) => r.q)).toEqual([engine.DEFAULT_QUEUE]);
   });
 
   it("releases a job that does not finish within the shutdown timeout", async () => {

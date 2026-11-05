@@ -37,13 +37,19 @@ export interface PublishSummary {
   bundleIssues: ValidationIssue[];
 }
 
-async function loadFragments(sc: StageContext): Promise<ParsedFragment[]> {
+/** Documents the parse checkpoint says were parsed/reused but whose fragments publish could not find. */
+interface LoadedFragments {
+  fragments: ParsedFragment[];
+  missing: string[];
+}
+
+async function loadFragments(sc: StageContext): Promise<LoadedFragments> {
   const parseDone = sc.checkpoint.parse?.done ?? {};
   const docs = (sc.checkpoint.discover?.docs ?? []).filter((cd) => {
     const o = parseDone[cd.id];
     return o && (o.outcome === "parsed" || o.outcome === "reused") && o.hash;
   });
-  if (!docs.length) return [];
+  if (!docs.length) return { fragments: [], missing: [] };
   const rows = [];
   for (let i = 0; i < docs.length; i += 500) {
     rows.push(
@@ -61,7 +67,17 @@ async function loadFragments(sc: StageContext): Promise<ParsedFragment[]> {
   }
   const byKey = new Map(rows.map((r) => [`${r.docId}:${r.hash}:${r.key}`, r.fragments as ParsedFragment[]]));
   // Discovery order (priority, then URL) keeps normalize input deterministic across runs.
-  return docs.flatMap((cd) => byKey.get(`${cd.id}:${parseDone[cd.id]!.hash}:${docKey(cd.doc)}`) ?? []);
+  const fragments: ParsedFragment[] = [];
+  const missing: string[] = [];
+  for (const cd of docs) {
+    const hash = parseDone[cd.id]!.hash;
+    // Rows written before migration 0003 carry doc_key '': a run whose parse finished before the
+    // migration still finds them. Fresh parses always write the exact key, which wins.
+    const found = byKey.get(`${cd.id}:${hash}:${docKey(cd.doc)}`) ?? byKey.get(`${cd.id}:${hash}:`);
+    if (found) fragments.push(...found);
+    else missing.push(cd.doc.url);
+  }
+  return { fragments, missing };
 }
 
 function recomputeValidation(e: ValidatedEntity) {
@@ -71,7 +87,11 @@ function recomputeValidation(e: ValidatedEntity) {
 
 export async function publishStage(sc: StageContext): Promise<PublishSummary> {
   const { db, run, system, adapter, actx } = sc;
-  const fragments = await loadFragments(sc);
+  const { fragments, missing: missingFragments } = await loadFragments(sc);
+  if (missingFragments.length) {
+    // Never publish (and never retire records) from an incomplete set of parsed documents.
+    await recordError({ runId: run.id, jobId: sc.job.id, designSystemId: system.id, stage: "publish", code: "FRAGMENTS_MISSING", message: `${missingFragments.length} parsed document(s) have no stored fragments; removals disabled`, url: missingFragments[0], details: { sample: missingFragments.slice(0, 10) } }, db);
+  }
 
   let bundle: unknown;
   try {
@@ -155,8 +175,8 @@ export async function publishStage(sc: StageContext): Promise<PublishSummary> {
   const fstats = fetchStats(sc.checkpoint.fetch?.done ?? {});
   const pstats = parseStats(sc.checkpoint.parse?.done ?? {});
   const limited = sc.checkpoint.limit != null;
-  const allowRemovals = !limited && fstats.fetchErrors === 0 && pstats.parseErrors === 0 && !v.blockRemovals;
-  if (!allowRemovals) sc.log.info(`removals disabled for this run (limited=${limited}, fetchErrors=${fstats.fetchErrors}, parseErrors=${pstats.parseErrors}, bundleErrors=${v.blockRemovals})`);
+  const allowRemovals = !limited && fstats.fetchErrors === 0 && pstats.parseErrors === 0 && !v.blockRemovals && missingFragments.length === 0;
+  if (!allowRemovals) sc.log.info(`removals disabled for this run (limited=${limited}, fetchErrors=${fstats.fetchErrors}, parseErrors=${pstats.parseErrors}, bundleErrors=${v.blockRemovals}, missingFragments=${missingFragments.length})`);
 
   const promotable = (kind: ValidatedEntity["kind"]) => v.entities.filter((e) => e.kind === kind && e.parsed && (e.validation === "valid" || e.validation === "warning"));
   const keysOf = (kind: ValidatedEntity["kind"]) => new Set(v.entities.filter((e) => e.kind === kind).map((e) => e.key));
@@ -198,7 +218,7 @@ export async function publishStage(sc: StageContext): Promise<PublishSummary> {
       lookup,
       runDate,
       allowRemovals,
-      allowTokenDeletion: !limited,
+      allowTokenDeletion: !limited && missingFragments.length === 0,
       onEntityError: async (e, err) => {
         entityErrors.push({ e, err });
       },

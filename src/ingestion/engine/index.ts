@@ -45,12 +45,25 @@ export async function enqueueSystemRun(systemSlug: string, opts: RunOptions = {}
       .from(ingestionRuns)
       .where(and(eq(ingestionRuns.designSystemId, system.id), inArray(ingestionRuns.status, ["pending", "running"])))
       .orderBy(desc(ingestionRuns.createdAt));
+    const stale: typeof active = [];
     for (const r of active) {
       const live = await tx.select().from(ingestionJobs).where(and(eq(ingestionJobs.runId, r.id), inArray(ingestionJobs.status, ["queued", "running"]))).limit(1);
-      if (live[0]) {
-        await moveRunJobs(r.id, opts.queue ?? DEFAULT_QUEUE, tx as unknown as DB);
-        return { runId: r.id, jobId: live[0].id, deduped: true };
+      if (!live[0]) continue;
+      if (r.adapterId !== adapter.id || (r.adapterVersion && r.adapterVersion !== adapter.version)) {
+        // Enqueued for other adapter code: it can only fail the adapter-version guard. Supersede it.
+        stale.push(r);
+        continue;
       }
+      // Only an explicit queue request (an inline caller taking the run over) moves jobs; a plain
+      // enqueue must not hand another process's inline run to the shared workers.
+      if (opts.queue) await moveRunJobs(r.id, opts.queue, tx as unknown as DB);
+      return { runId: r.id, jobId: live[0].id, deduped: true };
+    }
+    for (const r of stale) {
+      await tx
+        .update(ingestionJobs)
+        .set({ status: "cancelled", finishedAt: sql`now()`, lockedAt: null, lockedBy: null, updatedAt: sql`now()` })
+        .where(and(eq(ingestionJobs.runId, r.id), inArray(ingestionJobs.status, ["queued", "running"])));
     }
     const checkpoint: RunCheckpoint = { systemSlug, kind, limit: opts.limit ?? null };
     const [run] = await tx
@@ -67,10 +80,10 @@ export async function enqueueSystemRun(systemSlug: string, opts: RunOptions = {}
         stats: {},
       })
       .returning({ id: ingestionRuns.id });
-    // Interrupted runs with nothing left queued are superseded (still resumable by id).
+    // Interrupted runs with nothing left queued, and runs for other adapter code, are superseded.
     for (const r of active) {
       await tx.update(ingestionRuns).set({ status: "cancelled", finishedAt: sql`now()` }).where(eq(ingestionRuns.id, r.id));
-      await recordError({ runId: r.id, designSystemId: system.id, stage: r.stage ?? "run", code: "SUPERSEDED", severity: "warning", message: `interrupted run superseded by ${run!.id}` }, tx as unknown as DB);
+      await recordError({ runId: r.id, designSystemId: system.id, stage: r.stage ?? "run", code: "SUPERSEDED", severity: "warning", message: stale.includes(r) ? `run for ${r.adapterId}@${r.adapterVersion ?? "?"} superseded by ${run!.id} (${adapter.id}@${adapter.version})` : `interrupted run superseded by ${run!.id}` }, tx as unknown as DB);
     }
     const job = await enqueue(
       { queue: opts.queue, kind: "run-system", runId: run!.id, designSystemId: system.id, payload: { runId: run!.id, systemSlug }, dedupeKey: `${run!.id}:run-system`, priority: opts.priority ?? 100, maxAttempts: engineConfig().stageMaxAttempts },

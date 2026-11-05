@@ -53,6 +53,20 @@ describe("queue: enqueue", () => {
   });
 });
 
+describe("queue: retry", () => {
+  it("returns a dead job of an inline run to the shared queue (an Ops retry hands it to workers)", async () => {
+    const j = await q.enqueue({ kind: "fetch", queue: q.INLINE_QUEUE, dedupeKey: "run-r:fetch" });
+    await db().update(ingestionJobs).set({ status: "dead" }).where(eq(ingestionJobs.id, j.id));
+    const r = await q.retry(j.id);
+    expect(r).toMatchObject({ id: j.id, status: "queued", queue: q.DEFAULT_QUEUE });
+    const [claimed] = await q.claim("worker", { limit: 1 });
+    expect(claimed?.id).toBe(j.id);
+  });
+
+  // moveRunJobs moving running jobs is covered end to end in pipeline.test.ts
+  // ("a crashed inline run (job left running) resumed without --inline is finished by a worker").
+});
+
 describe("queue: claim", () => {
   it("claims by priority then run_at, sets lock fields and increments attempts", async () => {
     const low = await q.enqueue({ kind: "a", priority: 200 });

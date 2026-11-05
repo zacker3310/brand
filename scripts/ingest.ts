@@ -62,11 +62,29 @@ async function summarize(run: Run) {
 }
 
 async function runInline(runId: string) {
-  const run = await processRunInline(runId, {
-    onJob: (job, res) => console.log(`  ${job.kind.padEnd(10)} -> ${res.outcome}${res.error ? `: ${res.error.split("\n")[0]}` : ""}`),
-  });
+  // Ctrl-C / SIGTERM: stop claiming and release the in-flight job (instead of leaving it locked on the
+  // private inline queue until its lock expires). A second signal exits immediately.
+  const ac = new AbortController();
+  const stop = () => {
+    console.log("\nstopping: releasing the current job (press Ctrl-C again to exit immediately)");
+    ac.abort("signal");
+  };
+  process.once("SIGINT", stop);
+  process.once("SIGTERM", stop);
+  let run: Run;
+  try {
+    run = await processRunInline(runId, {
+      signal: ac.signal,
+      onJob: (job, res) => console.log(`  ${job.kind.padEnd(10)} -> ${res.outcome}${res.error ? `: ${res.error.split("\n")[0]}` : ""}`),
+    });
+  } finally {
+    process.off("SIGINT", stop);
+    process.off("SIGTERM", stop);
+  }
   await summarize(run);
-  if (run.status === "running" || run.status === "pending") console.log(`run is not finished (no runnable jobs); resume with: npm run ingest -- --resume ${run.id} --inline`);
+  if (run.status === "running" || run.status === "pending")
+    console.log(`run is not finished; resume in-process with: npm run ingest -- --resume ${run.id} --inline (or hand it to workers: npm run ingest -- --resume ${run.id})`);
+  if (ac.signal.aborted) process.exitCode = 130;
   return run;
 }
 
@@ -138,13 +156,14 @@ async function main() {
         if (has("--inline")) {
           const run = await runInline(e.runId);
           if (run.status === "failed") failed++;
+          if (process.exitCode === 130) break; // interrupted: do not start the next system
         }
       } catch (err) {
         failed++;
         console.error(`${slug}: ${(err as Error).message}`);
       }
     }
-    if (failed) process.exitCode = 1;
+    if (failed && process.exitCode !== 130) process.exitCode = 1;
     return;
   }
   usage();
