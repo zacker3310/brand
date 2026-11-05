@@ -300,7 +300,9 @@ function buildComponent(
       ariaPattern: a11y?.ariaPattern ? "documented" : "not-documented",
       wcagCriteria: "not-extracted",
     };
-    if (!isPage) for (const k of Object.keys(acov)) if (k !== "keyboard") acov[k] = "not-extracted";
+    // Without a parsed accessibility tab (child components, or the tab failed to fetch) nothing
+    // beyond keyboard was checked, so those sub-fields are unknown rather than undocumented.
+    if (!isPage || !f.a11y) for (const k of Object.keys(acov)) if (k !== "keyboard") acov[k] = "not-extracted";
     accessibility = {
       ariaPattern: isPage ? (a11y?.ariaPattern ?? null) : null,
       roles: isPage && a11y?.roles.length ? a11y.roles : null,
@@ -359,7 +361,7 @@ function buildComponent(
   }
   if (usage?.related.some((l) => l.componentDocSlug)) ev.push(evidence("relationships", f.usage!.ev, "mdx-usage", 0.85, { location: `${f.usage!.ev.location}#Related` }));
   if (!isPage && item.parentSlug) relationships.push({ kind: "related", targetSlug: item.parentSlug, targetType: null });
-  coverage.relationships = relationships.length ? "documented" : f.usage && usage?.relatedSectionFound ? "not-extracted" : "not-documented";
+  coverage.relationships = relationships.length ? "documented" : !f.usage ? "not-extracted" : usage?.relatedSectionFound ? "not-extracted" : "not-documented";
 
   // Lifecycle (live status label, React implementation status)
   let lifecycle: NormalizedComponent["lifecycle"] = "unknown";

@@ -71,7 +71,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified as design-system (guidelines + tokens + React component library). Docs are served under a /v1/ path prefix (e.g. /web/overview redirects to /v1/web/overview). Page <title> extraction returns a stray ', Opens a new tab' string on doc pages (SVG title), so identity was confirmed from the homepage title 'Welcome to Gestalt - Pinterest's Design System' and the repo/npm metadata (npm homepage points to gestalt.pinterest.systems). The repo CHANGELOG lists 177.0.13 (Jan 7, 2026, docs-only patch) which is not the npm latest; latestVersion records the npm 'latest' dist-tag. No official Figma community file was found linked from the docs, so figmaUrl is null (not-documented).",
+    "notes": "Classified as design-system (guidelines + tokens + React component library). Docs are served under a /v1/ path prefix (e.g. /web/overview redirects to /v1/web/overview). Page <title> extraction returns a stray ', Opens a new tab' string on doc pages (SVG title), so identity was confirmed from the homepage title 'Welcome to Gestalt - Pinterest's Design System' and the repo/npm metadata (npm homepage points to gestalt.pinterest.systems). The repo CHANGELOG lists 177.0.13 (Jan 7, 2026, docs-only patch) which is not the npm latest; latestVersion records the npm 'latest' dist-tag. No official Figma community file was found linked from the docs, so figmaUrl is null (not-documented). audited 2026-11-05: all checks re-run; added commit-history evidence (latest master commit 2026-10-05) for 'active'; homepage has no Figma links.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -79,7 +79,7 @@
         "status": 200,
         "finalUrl": "https://gestalt.pinterest.systems/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:28.101Z",
+        "checkedAt": "2026-11-05T04:11:22.488Z",
         "method": "http-check",
         "note": "Title 'Welcome to Gestalt - Pinterest's Design System'"
       },
@@ -89,7 +89,7 @@
         "status": 200,
         "finalUrl": "https://gestalt.pinterest.systems/v1/web/overview",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:56.446Z",
+        "checkedAt": "2026-11-05T04:11:22.794Z",
         "method": "http-check",
         "note": "Web overview docs page (200); /web/overview redirects here"
       },
@@ -99,7 +99,7 @@
         "status": 200,
         "finalUrl": "https://github.com/pinterest/gestalt",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:27.163Z",
+        "checkedAt": "2026-11-05T04:11:28.639Z",
         "method": "http-check",
         "note": "Repo description: 'A set of React UI components that supports Pinterest's design language'"
       },
@@ -109,7 +109,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/pinterest/gestalt/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:57.582Z",
+        "checkedAt": "2026-11-05T04:11:25.839Z",
         "method": "repo-metadata",
         "note": "LICENSE is Apache License 2.0"
       },
@@ -119,7 +119,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/pinterest/gestalt/master/CHANGELOG.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:59.682Z",
+        "checkedAt": "2026-11-05T04:11:25.540Z",
         "method": "repo-metadata",
         "note": "CHANGELOG top entries: 177.0.13 (Jan 7, 2026), 177.0.12 (Dec 9, 2025) — activity within 12 months"
       },
@@ -129,7 +129,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/gestalt",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:13.814Z",
+        "checkedAt": "2026-11-05T04:11:34.734Z",
         "method": "package-metadata",
         "note": "npm latest 177.0.12 published 2025-12-09; license Apache-2.0. repository github.com/pinterest/gestalt; homepage gestalt.pinterest.systems"
       },
@@ -139,7 +139,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/gestalt-datepicker",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:55.693Z",
+        "checkedAt": "2026-11-05T04:11:35.056Z",
         "method": "package-metadata",
         "note": "npm latest 177.0.12 published 2025-12-09; license Apache-2.0"
       },
@@ -149,7 +149,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/gestalt-design-tokens",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:55.991Z",
+        "checkedAt": "2026-11-05T04:11:35.320Z",
         "method": "package-metadata",
         "note": "npm latest 177.0.12 published 2025-12-09; license Apache-2.0"
       },
@@ -159,13 +159,23 @@
         "status": 200,
         "finalUrl": "https://www.pinterest.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.705Z",
+        "checkedAt": "2026-11-05T04:11:22.176Z",
         "method": "http-check",
         "note": "Pinterest homepage (200)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/pinterest/gestalt/commits/master",
+        "status": 200,
+        "finalUrl": "https://github.com/pinterest/gestalt/commits/master",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:50.742Z",
+        "method": "page-content",
+        "note": "Commit history on master: latest commits dated 2026-10-05 and 2026-08-06 (activity within 12 months)"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:55.991Z"
+    "verifiedAt": "2026-11-05T04:26:50.742Z"
   },
   {
     "rank": 82,
@@ -182,7 +192,7 @@
       "websiteUrl": "https://www.kiwi.com/en/"
     },
     "category": "design-system",
-    "summary": "Orbit is Kiwi.com's open-source design system for travel products. It ships a React component library (@kiwicom/orbit-components), design tokens and a Tailwind CSS preset, with separate official SwiftUI and Jetpack Compose libraries for native apps.",
+    "summary": "Orbit is Kiwi.com's open-source design system for its travel products, distributed as a React component library (@kiwicom/orbit-components) with design tokens and a Tailwind CSS preset. Its separate SwiftUI and Jetpack Compose libraries were archived in May 2025.",
     "homepageUrl": "https://github.com/kiwicom/orbit",
     "docsUrl": "https://kiwicom.github.io/orbit/",
     "repositoryUrl": "https://github.com/kiwicom/orbit",
@@ -223,37 +233,24 @@
         "slug": "react",
         "packageName": "@kiwicom/orbit-components",
         "support": "official"
-      },
-      {
-        "slug": "swiftui",
-        "packageName": null,
-        "support": "official"
-      },
-      {
-        "slug": "jetpack-compose",
-        "packageName": null,
-        "support": "official"
       }
     ],
     "platforms": [
-      "web",
-      "ios",
-      "android"
+      "web"
     ],
     "tags": [
       "open-source",
       "travel",
       "react",
       "tailwind",
-      "design-tokens",
-      "mobile"
+      "design-tokens"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "The repo README names https://orbit.kiwi as the official documentation site, but orbit.kiwi could not be reached from the research environment (DNS ENOTFOUND / proxy 502, host outside the session's allowed network domains), so it is NOT recorded; homepageUrl uses the official repo and docsUrl/storybookUrl the official Storybook at kiwicom.github.io/orbit. Integrator: re-check https://orbit.kiwi/ from an unrestricted network and, if it resolves, set homepageUrl/docsUrl to it. latestVersion is the latest stable release from the CHANGELOG (27.7.0, 2025-10-31); the npm 'latest' dist-tag currently points to prerelease 27.7.1-alpha.0 (2025-11-25). Maintenance marked active on that ~11-month-old prerelease; release cadence has slowed. Native libraries live in kiwicom/orbit-swiftui and kiwicom/orbit-compose (package coordinates not extracted).",
+    "notes": "The repo README names https://orbit.kiwi as the docs site, but orbit.kiwi is refused by the research network proxy (CONNECT 502 / ENOTFOUND), so it is NOT recorded; homepageUrl uses the official repo and docsUrl/storybookUrl the official Storybook at kiwicom.github.io/orbit (linked from the README). Integrator: re-check https://orbit.kiwi/ from an unrestricted network and, if it resolves, set homepageUrl/docsUrl to it. latestVersion is the latest stable release from the CHANGELOG (27.7.0, 2025-10-31); the npm 'latest' dist-tag points to prerelease 27.7.1-alpha.0 (2025-11-25). Status 'active' rests on the last master commit (2026-01-23) and that prerelease; release cadence has slowed. audited 2026-11-05: kiwicom/orbit-swiftui and kiwicom/orbit-compose are archived (2025-05-07), so swiftui/jetpack-compose were removed from frameworks, ios/android from platforms and 'mobile' from tags; summary updated; added commit-history check; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -261,7 +258,7 @@
         "status": null,
         "finalUrl": "https://orbit.kiwi/",
         "ok": false,
-        "checkedAt": "2026-11-05T03:59:59.313Z",
+        "checkedAt": "2026-11-05T04:11:22.205Z",
         "method": "http-check",
         "note": "orbit.kiwi (docs site named in README) unreachable from research env: DNS ENOTFOUND; not recorded"
       },
@@ -271,7 +268,7 @@
         "status": 200,
         "finalUrl": "https://github.com/kiwicom/orbit",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:27.464Z",
+        "checkedAt": "2026-11-05T04:11:26.361Z",
         "method": "http-check",
         "note": "Repo: 'React components of open-source Orbit design system by Kiwi.com'"
       },
@@ -281,9 +278,9 @@
         "status": 200,
         "finalUrl": "https://kiwicom.github.io/orbit/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:12.091Z",
+        "checkedAt": "2026-11-05T04:11:21.769Z",
         "method": "http-check",
-        "note": "Official Orbit Storybook on kiwicom GitHub Pages (title '@storybook/core - Storybook')"
+        "note": "Official Orbit Storybook on kiwicom GitHub Pages (title '@storybook/core - Storybook'); the repo README links it ('For live preview check out Storybook')"
       },
       {
         "field": "homepageUrl",
@@ -291,7 +288,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/kiwicom/orbit/master/readme.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:00.663Z",
+        "checkedAt": "2026-11-05T04:11:24.341Z",
         "method": "repo-metadata",
         "note": "README links https://orbit.kiwi as the Orbit site and describes orbit-components as Kiwi.com's React component library"
       },
@@ -301,7 +298,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/kiwicom/orbit/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:57.882Z",
+        "checkedAt": "2026-11-05T04:11:23.740Z",
         "method": "repo-metadata",
         "note": "MIT License, Copyright (c) 2019 Kiwi.com"
       },
@@ -311,7 +308,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/kiwicom/orbit/master/packages/orbit-components/CHANGELOG.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:58.182Z",
+        "checkedAt": "2026-11-05T04:11:24.041Z",
         "method": "repo-metadata",
         "note": "CHANGELOG: 27.7.0 dated 2025-10-31 is the latest stable release"
       },
@@ -321,7 +318,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@kiwicom/orbit-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:06.444Z",
+        "checkedAt": "2026-11-05T04:11:25.371Z",
         "method": "package-metadata",
         "note": "npm latest 27.7.1-alpha.0 published 2025-11-25; license MIT. npm 'latest' tag is a prerelease; latest stable per CHANGELOG is 27.7.0"
       },
@@ -331,7 +328,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@kiwicom/orbit-design-tokens",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:56.255Z",
+        "checkedAt": "2026-11-05T04:11:25.696Z",
         "method": "package-metadata",
         "note": "npm latest 11.0.0 published 2025-08-14; license MIT"
       },
@@ -341,7 +338,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@kiwicom/orbit-tailwind-preset",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:56.654Z",
+        "checkedAt": "2026-11-05T04:11:26.040Z",
         "method": "package-metadata",
         "note": "npm latest 7.4.0 published 2025-08-14; license MIT"
       },
@@ -351,9 +348,9 @@
         "status": 200,
         "finalUrl": "https://github.com/kiwicom/orbit-swiftui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:58.891Z",
+        "checkedAt": "2026-11-05T04:11:26.961Z",
         "method": "http-check",
-        "note": "Official repo 'Kiwi.com Orbit design system library' (SwiftUI)"
+        "note": "Repo 'Kiwi.com Orbit design system library' (SwiftUI) was archived by the owner on May 7, 2025 (read-only); not listed as a supported framework"
       },
       {
         "field": "frameworks",
@@ -361,9 +358,9 @@
         "status": 200,
         "finalUrl": "https://github.com/kiwicom/orbit-compose",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:59.191Z",
+        "checkedAt": "2026-11-05T04:11:26.660Z",
         "method": "http-check",
-        "note": "Official repo: Android Jetpack Compose components of Orbit"
+        "note": "Repo 'Android Jetpack Compose components of Orbit' was archived by the owner on May 7, 2025 (read-only); not listed as a supported framework"
       },
       {
         "field": "organization",
@@ -371,13 +368,23 @@
         "status": 200,
         "finalUrl": "https://www.kiwi.com/en/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.721Z",
+        "checkedAt": "2026-11-05T04:11:22.177Z",
         "method": "http-check",
         "note": "Kiwi.com homepage (redirects to /en/)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/kiwicom/orbit/commits/master",
+        "status": 200,
+        "finalUrl": "https://github.com/kiwicom/orbit/commits/master",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.055Z",
+        "method": "page-content",
+        "note": "Commit history on master: latest commit 2026-01-23 (activity within 12 months); last stable 27.7.0 on 2025-10-31"
       }
     ],
     "confidence": 0.8,
-    "verifiedAt": "2026-11-05T04:01:56.654Z"
+    "verifiedAt": "2026-11-05T04:26:51.055Z"
   },
   {
     "rank": 83,
@@ -395,7 +402,7 @@
       "websiteUrl": "https://www.pluralsight.com/"
     },
     "category": "design-system",
-    "summary": "Pluralsight's design system for its technology-learning platform. The current generation, Pando, is documented on a public zeroheight site (reached from design.pluralsight.com) covering foundations, components and tokens; the earlier React library (PSDS Classic) remains on GitHub in maintenance mode.",
+    "summary": "Pluralsight's design system for its technology-learning platform. The current generation, Pando, is documented on a public zeroheight site (reached from design.pluralsight.com) covering foundations, components and tokens; the earlier React library (PSDS Classic) is archived on GitHub.",
     "homepageUrl": "https://pando.zeroheight.com/92687036d/p/498dc1-pando-design-system",
     "docsUrl": "https://pando.zeroheight.com/92687036d/p/498dc1-pando-design-system",
     "repositoryUrl": "https://github.com/pluralsight/classic-design-system",
@@ -457,7 +464,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "design.pluralsight.com and pando.pluralsight.com both redirect to the Pando zeroheight site (page data shows has_password:false, i.e. public); it lists foundations, ~50 components, design tokens, 'Pando v1' migration guides and legacy 'PSDS Classic' docs. Pando npm packages (@pluralsight/react, headless-styles, panda-preset) point to github.com/pluralsight/pando, which returns 404 publicly; their last public publishes are 'next' prereleases on 2024-08-09 (latest tag 0.7.1, 2023-09-07). The classic repo README states it is in maintenance mode and points to a 'TVA project' at pluralsight.github.io/tva, which returns 404. Because the current generation's code/distribution is not publicly verifiable and no public release exists within 12 months, maintenanceStatus is 'unknown'. The zeroheight site links a Figma 'Pando UI kit (Web)' file that redirects to Figma login (not public), so figmaUrl is null. The referenced storybook.pluralsight.com does not resolve.",
+    "notes": "design.pluralsight.com and pando.pluralsight.com both redirect to the public Pando zeroheight site (has_password:false), which lists foundations, ~50 components, tokens, 'Pando v1' migration guides and legacy 'PSDS Classic' docs. Pando npm packages (@pluralsight/react, headless-styles, panda-preset) point to github.com/pluralsight/pando, which returns 404; their last public publishes are 'next' prereleases on 2024-08-09 (latest tag 0.7.1, 2023-09-07). The classic repo README says maintenance mode and points to pluralsight.github.io/tva, which returns 404. maintenanceStatus is 'unknown': the docs were edited recently (zeroheight updated_at 2026-11-03) but no public code release exists within 12 months. The docs link a Figma 'Pando UI kit (Web)' file that redirects to Figma login, so figmaUrl is null; storybook.pluralsight.com does not resolve. audited 2026-11-05: classic-design-system is archived (2024-11-15), so the summary no longer calls it 'in maintenance mode'; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -465,7 +472,7 @@
         "status": 200,
         "finalUrl": "https://pando.zeroheight.com/92687036d/p/498dc1-pando-design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:28.113Z",
+        "checkedAt": "2026-11-05T04:11:22.694Z",
         "method": "http-check",
         "note": "Redirects to the Pando zeroheight site (title 'Pando Design System')"
       },
@@ -475,7 +482,7 @@
         "status": 200,
         "finalUrl": "https://pando.zeroheight.com/92687036d/p/498dc1-pando-design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:28.080Z",
+        "checkedAt": "2026-11-05T04:11:22.694Z",
         "method": "http-check",
         "note": "Also redirects to the same Pando zeroheight page"
       },
@@ -485,9 +492,9 @@
         "status": 200,
         "finalUrl": "https://pando.zeroheight.com/92687036d/p/498dc1-pando-design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T04:04:18.728Z",
+        "checkedAt": "2026-11-05T04:11:22.143Z",
         "method": "page-content",
-        "note": "zeroheight page data has_password:false/needs_page_password:false; nav lists Foundations, Components, Design tokens, Pando v1 migration guides, PSDS Classic"
+        "note": "zeroheight page data has_password:false/needs_page_password:false; nav lists Foundations, Components, Design tokens, Pando v1 migration guides, PSDS Classic; styleguide metadata updated_at 2026-11-03"
       },
       {
         "field": "repositoryUrl",
@@ -495,9 +502,9 @@
         "status": 200,
         "finalUrl": "https://github.com/pluralsight/classic-design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T04:04:33.820Z",
+        "checkedAt": "2026-11-05T04:11:29.024Z",
         "method": "http-check",
-        "note": "Classic repo (renamed from pluralsight/design-system): 'officially in maintenance mode only'"
+        "note": "Classic repo (renamed from pluralsight/design-system); archived by the owner on Nov 15, 2024 (read-only); description: 'officially in maintenance mode only'"
       },
       {
         "field": "maintenance",
@@ -505,7 +512,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/pluralsight/classic-design-system/master/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:58.782Z",
+        "checkedAt": "2026-11-05T04:11:26.440Z",
         "method": "repo-metadata",
         "note": "README: 'This library (classic) is officially in maintenance mode only. We will only fix bugs'"
       },
@@ -515,7 +522,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/pluralsight/classic-design-system/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:58.483Z",
+        "checkedAt": "2026-11-05T04:11:26.141Z",
         "method": "repo-metadata",
         "note": "Apache License 2.0"
       },
@@ -525,7 +532,7 @@
         "status": 404,
         "finalUrl": "https://github.com/pluralsight/pando",
         "ok": false,
-        "checkedAt": "2026-11-05T03:49:27.766Z",
+        "checkedAt": "2026-11-05T04:11:29.236Z",
         "method": "http-check",
         "note": "Pando repo referenced by npm metadata returns 404 (not public)"
       },
@@ -535,7 +542,7 @@
         "status": 404,
         "finalUrl": "https://pluralsight.github.io/tva/",
         "ok": false,
-        "checkedAt": "2026-11-05T03:50:12.113Z",
+        "checkedAt": "2026-11-05T04:11:21.769Z",
         "method": "http-check",
         "note": "'TVA project' successor URL from classic README returns 404"
       },
@@ -545,7 +552,7 @@
         "status": 200,
         "finalUrl": "https://www.figma.com/login",
         "ok": false,
-        "checkedAt": "2026-11-05T04:04:34.554Z",
+        "checkedAt": "2026-11-05T04:11:22.377Z",
         "method": "http-check",
         "note": "Figma file linked from docs redirects to Figma login: not public, not recorded"
       },
@@ -555,7 +562,7 @@
         "status": null,
         "finalUrl": "https://storybook.pluralsight.com/storybook",
         "ok": false,
-        "checkedAt": "2026-11-05T04:04:34.293Z",
+        "checkedAt": "2026-11-05T04:11:22.211Z",
         "method": "http-check",
         "note": "Storybook host referenced in zeroheight config does not resolve (ENOTFOUND)"
       },
@@ -565,7 +572,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@pluralsight/react",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:27.873Z",
+        "checkedAt": "2026-11-05T04:11:28.049Z",
         "method": "package-metadata",
         "note": "npm latest 0.7.1 published 2023-09-07; license Apache 2.0. repository github.com/pluralsight/pando; homepage design.pluralsight.com; newest prerelease 0.7.1-next-681463 on 2024-08-09"
       },
@@ -575,7 +582,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@pluralsight/headless-styles",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:28.245Z",
+        "checkedAt": "2026-11-05T04:11:26.813Z",
         "method": "package-metadata",
         "note": "npm latest 0.7.1 published 2023-09-07; license Apache 2.0"
       },
@@ -585,7 +592,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@pluralsight/panda-preset",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:06.604Z",
+        "checkedAt": "2026-11-05T04:11:27.139Z",
         "method": "package-metadata",
         "note": "npm latest 0.7.1-next-a777b1 published 2023-09-11; license Apache 2.0"
       },
@@ -595,7 +602,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@pluralsight/ps-design-system-core",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:57.052Z",
+        "checkedAt": "2026-11-05T04:11:27.548Z",
         "method": "package-metadata",
         "note": "npm latest 10.0.4 published 2022-03-31; license Apache-2.0. Classic (PSDS) core package"
       },
@@ -605,21 +612,21 @@
         "status": 200,
         "finalUrl": "https://www.pluralsight.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.634Z",
+        "checkedAt": "2026-11-05T04:11:22.141Z",
         "method": "http-check",
         "note": "Pluralsight homepage"
       }
     ],
     "confidence": 0.75,
-    "verifiedAt": "2026-11-05T04:04:34.554Z"
+    "verifiedAt": "2026-11-05T04:11:29.236Z"
   },
   {
     "rank": 84,
     "slug": "seek-braid",
     "name": "Braid Design System",
     "aliases": [
-      "SEEK Style Guide",
-      "Braid Design System"
+      "Braid",
+      "SEEK Style Guide"
     ],
     "organization": {
       "slug": "seek",
@@ -674,7 +681,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Entry covers the SEEK lineage: the older SEEK Style Guide (seek-style-guide, React + CSS Modules + Less; docs still online at seek-oss.github.io/seek-style-guide) is deprecated on npm 'in favour of braid-design-system' (last publish 42.0.0, 2020-07-29), so both names map to this one entry rather than two systems. Braid docs include components, foundations, patterns/templates, guides, releases and a Playroom. Organization URL uses au.seek.com/about (www.seek.com/www.seek.com.au return bot-protection 403s to the checker). No official Figma community file was found, so figmaUrl is null.",
+    "notes": "Entry covers the SEEK lineage: the older SEEK Style Guide (seek-style-guide, React + CSS Modules + Less; docs still online at seek-oss.github.io/seek-style-guide) is deprecated on npm 'in favour of braid-design-system' (last publish 42.0.0, 2020-07-29), so both names map to this one entry rather than two systems. Braid docs include components, foundations, patterns/templates, guides, releases and a Playroom. Organization URL uses au.seek.com/about (www.seek.com/www.seek.com.au return bot-protection 403s to the checker). No official Figma community file was found, so figmaUrl is null. audited 2026-11-05: removed the alias 'Braid Design System' (it repeated the name) and added 'Braid'; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -682,7 +689,7 @@
         "status": 200,
         "finalUrl": "https://seek-oss.github.io/braid-design-system/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:27.253Z",
+        "checkedAt": "2026-11-05T04:11:21.815Z",
         "method": "http-check",
         "note": "Title 'Braid Design System'; description 'Themeable design system for the SEEK Group'"
       },
@@ -692,7 +699,7 @@
         "status": 200,
         "finalUrl": "https://seek-oss.github.io/braid-design-system/components/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.514Z",
+        "checkedAt": "2026-11-05T04:11:22.133Z",
         "method": "http-check",
         "note": "Components docs ('Components — Braid Design System')"
       },
@@ -702,7 +709,7 @@
         "status": 200,
         "finalUrl": "https://seek-oss.github.io/braid-design-system/releases/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.814Z",
+        "checkedAt": "2026-11-05T04:11:22.720Z",
         "method": "http-check",
         "note": "Releases page present"
       },
@@ -712,7 +719,7 @@
         "status": 200,
         "finalUrl": "https://github.com/seek-oss/braid-design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:28.362Z",
+        "checkedAt": "2026-11-05T04:11:29.836Z",
         "method": "http-check",
         "note": "Official repo 'Themeable design system for the SEEK Group'"
       },
@@ -722,7 +729,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/seek-oss/braid-design-system/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:59.082Z",
+        "checkedAt": "2026-11-05T04:11:27.041Z",
         "method": "repo-metadata",
         "note": "MIT License, Copyright (c) 2018 SEEK"
       },
@@ -732,7 +739,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/braid-design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:14.223Z",
+        "checkedAt": "2026-11-05T04:11:32.920Z",
         "method": "package-metadata",
         "note": "npm latest 34.10.0 published 2026-10-19; license MIT. homepage seek-oss.github.io/braid-design-system"
       },
@@ -742,7 +749,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/seek-style-guide",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:14.583Z",
+        "checkedAt": "2026-11-05T04:11:37.353Z",
         "method": "package-metadata",
         "note": "npm latest 42.0.0 published 2020-07-29; license MIT; DEPRECATED: This project has been deprecated in favour of braid-design-system.. Predecessor package (alias 'SEEK Style Guide')"
       },
@@ -752,7 +759,7 @@
         "status": 200,
         "finalUrl": "https://github.com/seek-oss/seek-style-guide",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:28.735Z",
+        "checkedAt": "2026-11-05T04:11:30.135Z",
         "method": "http-check",
         "note": "Legacy repo 'Living style guide for SEEK, powered by React, webpack, CSS Modules and Less'"
       },
@@ -762,7 +769,7 @@
         "status": 200,
         "finalUrl": "https://seek-oss.github.io/seek-style-guide/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:12.399Z",
+        "checkedAt": "2026-11-05T04:11:23.034Z",
         "method": "http-check",
         "note": "Legacy SEEK Style Guide site still online"
       },
@@ -772,13 +779,13 @@
         "status": 200,
         "finalUrl": "https://au.seek.com/about",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:53.943Z",
+        "checkedAt": "2026-11-05T04:11:21.570Z",
         "method": "http-check",
         "note": "'About SEEK' page"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:53.943Z"
+    "verifiedAt": "2026-11-05T04:11:37.353Z"
   },
   {
     "rank": 85,
@@ -791,7 +798,7 @@
     "organization": {
       "slug": "rei",
       "name": "REI Co-op",
-      "websiteUrl": "https://www.rei.com/"
+      "websiteUrl": null
     },
     "category": "design-system",
     "summary": "Cedar is REI Co-op's open-source design system: a Vue 3 component library (@rei/cedar), design tokens published for web, iOS and Android, and guidelines, patterns and content standards based on REI's visual language.",
@@ -849,7 +856,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Components are Vue 3 only (repo: 'REI Cedar component library for Vue 3'). iOS/Android appear as platforms because the docs publish platform token pages (/tokens/ios, /tokens/android) — no native component libraries were found. Storybook at rei.github.io/rei-cedar is the npm 'homepage' of @rei/cedar. Some footer links (Confluence, Slack, SharePoint, DAM) are REI-internal, but the documentation itself is public. Organization URL www.rei.com returns a bot-protection 403 to the checker; it is linked from the cedar.rei.com footer. No public Figma link found; figmaUrl null.",
+    "notes": "Components are Vue 3 only (repo: 'REI Cedar component library for Vue 3'). iOS/Android appear as platforms because the docs publish platform token pages (/tokens/ios, /tokens/android) — no native component libraries were found. Storybook at rei.github.io/rei-cedar is the npm 'homepage' of @rei/cedar. Some footer links (Confluence, Slack, SharePoint, DAM) are REI-internal, but the documentation itself is public. www.rei.com (linked from the cedar.rei.com footer) returns a bot-protection 403 to the checker, so organization.websiteUrl is null (unverifiable). No public Figma link found; figmaUrl null. audited 2026-11-05: organization.websiteUrl set to null (failing 403 check); added Android tokens check and a README check confirming the Storybook link; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -857,7 +864,7 @@
         "status": 200,
         "finalUrl": "https://cedar.rei.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:27.489Z",
+        "checkedAt": "2026-11-05T04:11:21.882Z",
         "method": "http-check",
         "note": "Title 'Cedar Design System | REI Co-op'; 'REI Co-op's open-source design system'"
       },
@@ -867,7 +874,7 @@
         "status": 200,
         "finalUrl": "https://cedar.rei.com/components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.707Z",
+        "checkedAt": "2026-11-05T04:11:22.190Z",
         "method": "http-check",
         "note": "Components index (200)"
       },
@@ -877,7 +884,7 @@
         "status": 200,
         "finalUrl": "https://cedar.rei.com/tools-resources/installing-cedar",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:56.108Z",
+        "checkedAt": "2026-11-05T04:11:22.794Z",
         "method": "http-check",
         "note": "'Installing Cedar' developer page"
       },
@@ -887,7 +894,7 @@
         "status": 200,
         "finalUrl": "https://cedar.rei.com/whats-new/releases/cedar-17",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:56.441Z",
+        "checkedAt": "2026-11-05T04:11:23.081Z",
         "method": "http-check",
         "note": "Release notes page 'Cedar 17'"
       },
@@ -897,7 +904,7 @@
         "status": 200,
         "finalUrl": "https://cedar.rei.com/tokens/ios",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:56.611Z",
+        "checkedAt": "2026-11-05T04:11:22.484Z",
         "method": "http-check",
         "note": "'Ios tokens' page (platform token docs)"
       },
@@ -907,7 +914,7 @@
         "status": 200,
         "finalUrl": "https://github.com/rei/rei-cedar",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:29.018Z",
+        "checkedAt": "2026-11-05T04:11:29.536Z",
         "method": "http-check",
         "note": "Repo 'REI Cedar component library for Vue 3'"
       },
@@ -917,7 +924,7 @@
         "status": 200,
         "finalUrl": "https://rei.github.io/rei-cedar/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:55.520Z",
+        "checkedAt": "2026-11-05T04:11:21.838Z",
         "method": "http-check",
         "note": "Storybook (npm homepage of @rei/cedar)"
       },
@@ -927,7 +934,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/rei/rei-cedar/next/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:59.383Z",
+        "checkedAt": "2026-11-05T04:11:26.741Z",
         "method": "repo-metadata",
         "note": "The MIT License, Copyright (c) 2016 Recreational Equipment, Inc."
       },
@@ -937,7 +944,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@rei/cedar",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:15.112Z",
+        "checkedAt": "2026-11-05T04:11:30.448Z",
         "method": "package-metadata",
         "note": "npm latest 17.1.0 published 2026-07-31; license MIT. repository github.com/rei/rei-cedar"
       },
@@ -947,7 +954,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@rei/cdr-tokens",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:01.745Z",
+        "checkedAt": "2026-11-05T04:11:29.912Z",
         "method": "package-metadata",
         "note": "npm latest 14.0.2 published 2026-07-07; license ISC. token package; repository github.com/rei/rei-cedar-tokens"
       },
@@ -957,13 +964,33 @@
         "status": 403,
         "finalUrl": "https://www.rei.com/",
         "ok": false,
-        "checkedAt": "2026-11-05T03:52:55.607Z",
+        "checkedAt": "2026-11-05T04:11:22.123Z",
         "method": "http-check",
         "note": "rei.com returns 403 'Access Denied' to the checker (bot protection); domain linked from cedar.rei.com footer"
+      },
+      {
+        "field": "platforms",
+        "url": "https://cedar.rei.com/tokens/android",
+        "status": 200,
+        "finalUrl": "https://cedar.rei.com/tokens/android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:50.899Z",
+        "method": "http-check",
+        "note": "'Android tokens' page (platform token docs)"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://raw.githubusercontent.com/rei/rei-cedar/next/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/rei/rei-cedar/next/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:27:52.420Z",
+        "method": "repo-metadata",
+        "note": "README: the Cedar team publishes a Storybook through GitHub Pages at https://rei.github.io/rei-cedar/; main docs are cedar.rei.com"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:00:01.745Z"
+    "verifiedAt": "2026-11-05T04:27:52.420Z"
   },
   {
     "rank": 86,
@@ -977,7 +1004,7 @@
     "organization": {
       "slug": "hashicorp",
       "name": "HashiCorp",
-      "websiteUrl": "https://www.hashicorp.com/"
+      "websiteUrl": null
     },
     "category": "design-system",
     "summary": "Helios is HashiCorp's open-source design system, providing Ember.js components (@hashicorp/design-system-components), design tokens, the Flight icon set, and foundations and patterns used across HashiCorp's product UIs.",
@@ -1040,7 +1067,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Ember-only component library. The designer getting-started page states that many resources and links (e.g. Figma libraries) are only available to IBM employees, and the docs include 'Carbonization' guides for aligning HDS with IBM's Carbon (hence relatedSlugs carbon). Figma links on the site are internal /design/ files, not community files, so figmaUrl is null. Organization URL hashicorp.com returned a 429 bot checkpoint to the checker; identity is established by the Helios site and repo.",
+    "notes": "Ember-only component library. The designer getting-started page states that many resources and links (e.g. Figma libraries) are only available to IBM employees, and the docs include 'Carbonization' guides for aligning HDS with IBM's Carbon (hence relatedSlugs carbon). Figma links on the site are internal /design/ files, not community files, so figmaUrl is null. hashicorp.com returned a 429 bot checkpoint to the checker, so organization.websiteUrl is null; identity is established by the Helios site, repo and npm scope. audited 2026-11-05: organization.websiteUrl set to null (failing 429 check); added checks for the designer page (IBM-only resources), the Carbonization guide and recent commits; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1048,7 +1075,7 @@
         "status": 200,
         "finalUrl": "https://helios.hashicorp.design/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.588Z",
+        "checkedAt": "2026-11-05T04:11:21.808Z",
         "method": "http-check",
         "note": "Title 'Helios Design System'; 'The Helios Design System from HashiCorp provides the open source building blocks...'"
       },
@@ -1058,7 +1085,7 @@
         "status": 200,
         "finalUrl": "https://helios.hashicorp.design/getting-started/for-engineers",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.888Z",
+        "checkedAt": "2026-11-05T04:11:22.457Z",
         "method": "http-check",
         "note": "'Getting started for engineers | Helios Design System'"
       },
@@ -1068,7 +1095,7 @@
         "status": 200,
         "finalUrl": "https://helios.hashicorp.design/components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:58.559Z",
+        "checkedAt": "2026-11-05T04:11:22.125Z",
         "method": "http-check",
         "note": "'Components | Helios Design System'"
       },
@@ -1078,7 +1105,7 @@
         "status": 200,
         "finalUrl": "https://github.com/hashicorp/design-system",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.184Z",
+        "checkedAt": "2026-11-05T04:11:26.060Z",
         "method": "http-check",
         "note": "Repo 'Helios Design System'"
       },
@@ -1088,7 +1115,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/hashicorp/design-system/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:04.449Z",
+        "checkedAt": "2026-11-05T04:11:23.440Z",
         "method": "repo-metadata",
         "note": "Copyright (c) 2021 HashiCorp, Inc. Mozilla Public License Version 2.0"
       },
@@ -1098,7 +1125,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@hashicorp/design-system-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:25.257Z",
+        "checkedAt": "2026-11-05T04:11:24.490Z",
         "method": "package-metadata",
         "note": "npm latest 7.0.0 published 2026-10-07; license MPL-2.0. repository github.com/hashicorp/design-system"
       },
@@ -1108,7 +1135,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@hashicorp/design-system-tokens",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:25.595Z",
+        "checkedAt": "2026-11-05T04:11:24.657Z",
         "method": "package-metadata",
         "note": "npm latest 6.0.0 published 2026-10-07; license MPL-2.0"
       },
@@ -1118,7 +1145,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@hashicorp/flight-icons",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:06.160Z",
+        "checkedAt": "2026-11-05T04:11:24.984Z",
         "method": "package-metadata",
         "note": "npm latest 5.3.0 published 2026-10-07; license MPL-2.0"
       },
@@ -1128,13 +1155,43 @@
         "status": 429,
         "finalUrl": "https://www.hashicorp.com/",
         "ok": false,
-        "checkedAt": "2026-11-05T03:53:23.092Z",
+        "checkedAt": "2026-11-05T04:11:22.932Z",
         "method": "http-check",
         "note": "hashicorp.com returned 429 (Vercel security checkpoint) to the checker"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://helios.hashicorp.design/getting-started/for-designers",
+        "status": 200,
+        "finalUrl": "https://helios.hashicorp.design/getting-started/for-designers",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:50.865Z",
+        "method": "page-content",
+        "note": "Designer page: 'Many resources and links on this page are only available to IBM employees'; Figma libraries linked as private /design/ files"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://helios.hashicorp.design/carbonization/introduction",
+        "status": 200,
+        "finalUrl": "https://helios.hashicorp.design/carbonization/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.164Z",
+        "method": "http-check",
+        "note": "'From Helios to Carbon' Carbonization guide (relation to IBM Carbon)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/hashicorp/design-system/commits/main",
+        "status": 200,
+        "finalUrl": "https://github.com/hashicorp/design-system/commits/main",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.380Z",
+        "method": "page-content",
+        "note": "Commit history on main: multiple commits dated 2026-11-03"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T03:55:06.160Z"
+    "verifiedAt": "2026-11-05T04:26:51.380Z"
   },
   {
     "rank": 87,
@@ -1148,7 +1205,7 @@
       "name": "Elastic",
       "websiteUrl": "https://www.elastic.co/"
     },
-    "category": "component-library",
+    "category": "design-system",
     "summary": "Queue duplicate of the Elastic UI Framework (EUI), Elastic's React component library and design system used in Kibana and other Elastic products. The canonical registry record is 'elastic-ui'.",
     "homepageUrl": "https://eui.elastic.co/",
     "docsUrl": "https://eui.elastic.co/",
@@ -1190,7 +1247,7 @@
     "duplicateOf": "elastic-ui",
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Integrator decision: 'elastic-ui' (rank 63) is canonical; this rank-87 queue item names the same system (same site eui.elastic.co, repo elastic/eui, package @elastic/eui). License left null here deliberately (npm declares 'SEE LICENSE IN LICENSE.txt'; the canonical entry owns licence details).",
+    "notes": "Integrator decision: 'elastic-ui' (rank 63) is canonical; this rank-87 queue item names the same system (same site eui.elastic.co, repo elastic/eui, package @elastic/eui). License left null here deliberately (npm declares 'SEE LICENSE IN LICENSE.txt'; the canonical entry owns licence details). audited 2026-11-05: category changed from component-library to design-system to match the canonical elastic-ui record; duplicate decision confirmed (same site, repo and package); all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1198,7 +1255,7 @@
         "status": 200,
         "finalUrl": "https://eui.elastic.co/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.339Z",
+        "checkedAt": "2026-11-05T04:11:21.441Z",
         "method": "http-check",
         "note": "Title 'Elastic UI Framework | Elastic UI Framework'"
       },
@@ -1208,7 +1265,7 @@
         "status": 200,
         "finalUrl": "https://github.com/elastic/eui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.483Z",
+        "checkedAt": "2026-11-05T04:11:24.860Z",
         "method": "http-check",
         "note": "Repo 'Elastic UI Framework'"
       },
@@ -1218,7 +1275,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@elastic/eui",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:02.498Z",
+        "checkedAt": "2026-11-05T04:11:23.681Z",
         "method": "package-metadata",
         "note": "npm latest 123.3.0 published 2026-10-27; license SEE LICENSE IN LICENSE.txt. same package as canonical elastic-ui"
       },
@@ -1228,13 +1285,13 @@
         "status": 200,
         "finalUrl": "https://www.elastic.co/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.604Z",
+        "checkedAt": "2026-11-05T04:11:21.811Z",
         "method": "http-check",
         "note": "Elastic homepage"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:00:02.498Z"
+    "verifiedAt": "2026-11-05T04:11:24.860Z"
   },
   {
     "rank": 88,
@@ -1250,7 +1307,7 @@
       "websiteUrl": "https://www.thumbtack.com/"
     },
     "category": "design-system",
-    "summary": "Thumbprint is Thumbtack's design system, open-sourced with React components, SCSS and atomic CSS utilities, design tokens and separate iOS and Android libraries; documentation (guidelines, components, tokens) is published at thumbprint.design.",
+    "summary": "Thumbprint is Thumbtack's design system, open-sourced with React components, SCSS and atomic CSS utilities, design tokens and iOS/Android libraries, and documented at thumbprint.design. Its main web repository was archived in September 2025.",
     "homepageUrl": "https://thumbprint.design/",
     "docsUrl": "https://thumbprint.design/components/overview",
     "repositoryUrl": "https://github.com/thumbtack/thumbprint",
@@ -1283,7 +1340,7 @@
       "notes": "Web repo and npm packages are Apache-2.0; iOS and Android READMEs also state Apache License 2.0."
     },
     "docAccess": "partial",
-    "maintenanceStatus": "unknown",
+    "maintenanceStatus": "archived",
     "latestVersion": "14.18.2",
     "latestReleaseAt": "2024-04-03T20:14:02.918Z",
     "frameworks": [
@@ -1315,7 +1372,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "READMEs say Thumbprint's primary purpose is Thumbtack's own products and it is open-sourced for transparency. Docs include per-platform component pages (React, SCSS, iOS); '/internal/*' pages redirect to a Thumbtack login gate, hence docAccess 'partial'. Native code lives in thumbtack/thumbprint-ios and thumbtack/thumbprint-android (Android via JitPack); their UI framework (UIKit vs SwiftUI, Views vs Compose) was not extracted, so only web frameworks are listed. maintenanceStatus 'unknown': repo is not archived, but the newest npm release is 14.18.2 (2024-04-03), >12 months ago, and commit activity could not be verified (GitHub API blocked).",
+    "notes": "READMEs say Thumbprint's primary purpose is Thumbtack's own products and it is open-sourced for transparency. Docs include per-platform component pages (React, SCSS, iOS); '/internal/*' pages redirect to a Thumbtack login gate, hence docAccess 'partial'. Native code lives in thumbtack/thumbprint-ios and thumbtack/thumbprint-android (Android via JitPack); their UI framework (UIKit vs SwiftUI, Views vs Compose) was not extracted, so only web frameworks are listed. Newest npm release is 14.18.2 (2024-04-03). The docs site thumbprint.design is still online, so the entry stays verified. audited 2026-11-05: the researcher's claim that the repo is not archived was wrong: thumbtack/thumbprint was archived on 2025-09-09 and thumbprint-ios on 2024-11-13, so maintenanceStatus changed from unknown to archived and the summary was updated. thumbprint-android is not archived (last commits 2025-11-21). All checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1323,7 +1380,7 @@
         "status": 200,
         "finalUrl": "https://thumbprint.design/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.982Z",
+        "checkedAt": "2026-11-05T04:11:21.888Z",
         "method": "http-check",
         "note": "Title 'Thumbprint'"
       },
@@ -1333,7 +1390,7 @@
         "status": 200,
         "finalUrl": "https://thumbprint.design/components/overview",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:59.074Z",
+        "checkedAt": "2026-11-05T04:11:22.190Z",
         "method": "http-check",
         "note": "'Overview | Thumbprint' — 'Our components and the platforms they're available in'"
       },
@@ -1343,7 +1400,7 @@
         "status": 202,
         "finalUrl": "https://go.thumbtack.io/thumbprint-gate",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:59.374Z",
+        "checkedAt": "2026-11-05T04:11:22.489Z",
         "method": "http-check",
         "note": "Internal docs redirect to go.thumbtack.io/thumbprint-gate (login gate)"
       },
@@ -1353,9 +1410,9 @@
         "status": 200,
         "finalUrl": "https://github.com/thumbtack/thumbprint",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.784Z",
+        "checkedAt": "2026-11-05T04:11:31.335Z",
         "method": "http-check",
-        "note": "Repo 'Thumbprint is the design system at Thumbtack.' (not archived)"
+        "note": "Repo 'Thumbprint is the design system at Thumbtack.'; archived by the owner on Sep 9, 2025 (read-only)"
       },
       {
         "field": "license",
@@ -1363,7 +1420,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/thumbtack/thumbprint/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:03.549Z",
+        "checkedAt": "2026-11-05T04:11:27.941Z",
         "method": "repo-metadata",
         "note": "Apache License 2.0"
       },
@@ -1373,7 +1430,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/thumbtack/thumbprint/master/packages/thumbprint-react/CHANGELOG.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:03.849Z",
+        "checkedAt": "2026-11-05T04:11:28.241Z",
         "method": "repo-metadata",
         "note": "Latest changelog entry 14.18.2 - 2024-04-03"
       },
@@ -1383,7 +1440,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@thumbtack/thumbprint-react",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:26.002Z",
+        "checkedAt": "2026-11-05T04:11:32.050Z",
         "method": "package-metadata",
         "note": "npm latest 14.18.2 published 2024-04-03; license Apache-2.0"
       },
@@ -1393,7 +1450,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@thumbtack/thumbprint-scss",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:05.814Z",
+        "checkedAt": "2026-11-05T04:11:32.361Z",
         "method": "package-metadata",
         "note": "npm latest 4.0.3 published 2022-05-09; license Apache-2.0"
       },
@@ -1403,7 +1460,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@thumbtack/thumbprint-tokens",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:26.357Z",
+        "checkedAt": "2026-11-05T04:11:32.751Z",
         "method": "package-metadata",
         "note": "npm latest 13.0.1 published 2023-04-28; license Apache-2.0. homepage thumbprint.design/tokens"
       },
@@ -1413,9 +1470,9 @@
         "status": 200,
         "finalUrl": "https://github.com/thumbtack/thumbprint-ios",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:58.458Z",
+        "checkedAt": "2026-11-05T04:11:31.935Z",
         "method": "http-check",
-        "note": "Official iOS repo"
+        "note": "Official iOS repo; archived by the owner on Nov 13, 2024 (read-only)"
       },
       {
         "field": "platforms",
@@ -1423,7 +1480,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/thumbtack/thumbprint-ios/main/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:00.964Z",
+        "checkedAt": "2026-11-05T04:11:27.640Z",
         "method": "repo-metadata",
         "note": "iOS README: documented at thumbprint.design; Apache License 2.0"
       },
@@ -1433,9 +1490,9 @@
         "status": 200,
         "finalUrl": "https://github.com/thumbtack/thumbprint-android",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:58.759Z",
+        "checkedAt": "2026-11-05T04:11:31.635Z",
         "method": "http-check",
-        "note": "Official Android repo"
+        "note": "Official Android repo (not archived)"
       },
       {
         "field": "platforms",
@@ -1443,7 +1500,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/thumbtack/thumbprint-android/main/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:01.263Z",
+        "checkedAt": "2026-11-05T04:11:27.339Z",
         "method": "repo-metadata",
         "note": "Android README: published via JitPack; Apache License 2.0"
       },
@@ -1453,13 +1510,23 @@
         "status": 202,
         "finalUrl": "https://www.thumbtack.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.332Z",
+        "checkedAt": "2026-11-05T04:11:21.989Z",
         "method": "http-check",
         "note": "Thumbtack homepage (202)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/thumbtack/thumbprint-android/commits/main",
+        "status": 200,
+        "finalUrl": "https://github.com/thumbtack/thumbprint-android/commits/main",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.643Z",
+        "method": "page-content",
+        "note": "Android commit history: latest commits 2025-11-18 to 2025-11-21; the web and iOS repos are archived"
       }
     ],
     "confidence": 0.85,
-    "verifiedAt": "2026-11-05T04:00:01.263Z"
+    "verifiedAt": "2026-11-05T04:26:51.643Z"
   },
   {
     "rank": 89,
@@ -1471,7 +1538,7 @@
     "organization": {
       "slug": "localtapiola",
       "name": "LocalTapiola",
-      "websiteUrl": null
+      "websiteUrl": "https://www.lahitapiola.fi/en/personal/"
     },
     "category": "design-system",
     "summary": "Duet is the design system of the Finnish LocalTapiola group and Turva, providing Stencil-based web components with React and CSS packages, design tokens, page templates and brand guidelines for their digital products. Docs are public; code is proprietary.",
@@ -1547,7 +1614,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Proprietary despite public docs: do not ingest or redistribute package code; store facts and short excerpts only. Components are built with Stencil (@stencil/core devDependency). The developers page lists @duetds/angular for Angular 7.2.1–13 and says support is deprecated from Angular 14 (last publish 8.4.2, 2024-05-14), so Angular is not listed as a supported framework. The site has a password login (/login/) for some content, hence docAccess 'partial'. GitHub org github.com/duetds exists but no public component source repo was found (an earlier date-picker repo URL now 404s), so repositoryUrl is null. Organization website (localtapiola.fi) returned 503 to the checker, so websiteUrl is null.",
+    "notes": "Proprietary despite public docs: do not ingest or redistribute package code. The duetds.com terms of use also limit use of the website to work for LocalTapiola, so store only facts and short excerpts. Components are built with Stencil (@stencil/core devDependency). The developers page lists @duetds/angular for Angular 7.2.1–13 and says support is deprecated from Angular 14 (last publish 8.4.2, 2024-05-14), so Angular is not listed. The site has a password login (/login/) for 'additional system documentation', hence docAccess 'partial'. The GitHub org github.com/duetds has no public source repo for the component library, so repositoryUrl is null. audited 2026-11-05: corrected the date-picker claim: github.com/duetds/date-picker exists (MIT standalone date picker, archived 2024-09-02; the 404 URL was a wrong guess). Set organization.websiteUrl to LocalTapiola's English site on lahitapiola.fi, because localtapiola.fi returns 503. All checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1555,7 +1622,7 @@
         "status": 200,
         "finalUrl": "https://www.duetds.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.895Z",
+        "checkedAt": "2026-11-05T04:11:22.122Z",
         "method": "http-check",
         "note": "Title 'Duet Design System'; foundation for LocalTapiola and Turva digital products"
       },
@@ -1565,7 +1632,7 @@
         "status": 200,
         "finalUrl": "https://www.duetds.com/developers/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:58.787Z",
+        "checkedAt": "2026-11-05T04:11:22.722Z",
         "method": "http-check",
         "note": "'Developers | Duet Design System' — lists @duetds/components, @duetds/react, @duetds/css, @duetds/tokens"
       },
@@ -1575,7 +1642,7 @@
         "status": 200,
         "finalUrl": "https://www.duetds.com/getting-started/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:58.486Z",
+        "checkedAt": "2026-11-05T04:11:23.074Z",
         "method": "http-check",
         "note": "'Getting Started | Duet Design System'"
       },
@@ -1585,7 +1652,7 @@
         "status": 200,
         "finalUrl": "https://www.duetds.com/changelog/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:59.386Z",
+        "checkedAt": "2026-11-05T04:11:22.457Z",
         "method": "http-check",
         "note": "Changelog page"
       },
@@ -1595,7 +1662,7 @@
         "status": 200,
         "finalUrl": "https://www.duetds.com/login/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:59.686Z",
+        "checkedAt": "2026-11-05T04:11:23.390Z",
         "method": "http-check",
         "note": "Password login page for restricted content"
       },
@@ -1605,7 +1672,7 @@
         "status": 200,
         "finalUrl": "https://www.duetds.com/terms/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:59.087Z",
+        "checkedAt": "2026-11-05T04:11:23.675Z",
         "method": "http-check",
         "note": "'Terms of Use | Duet Design System'"
       },
@@ -1615,7 +1682,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@duetds/components@10.8.2/LICENSE.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:03.578Z",
+        "checkedAt": "2026-11-05T04:11:21.351Z",
         "method": "repo-metadata",
         "note": "LICENSE.md: limited revocable licence 'solely for the purpose of performing your duties for and on behalf of LocalTapiola'"
       },
@@ -1625,7 +1692,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@duetds/components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:26.734Z",
+        "checkedAt": "2026-11-05T04:11:22.383Z",
         "method": "package-metadata",
         "note": "npm latest 10.8.2 published 2026-10-30; license SEE LICENSE IN LICENSE.md"
       },
@@ -1635,7 +1702,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@duetds/react",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:05.157Z",
+        "checkedAt": "2026-11-05T04:11:23.113Z",
         "method": "package-metadata",
         "note": "npm latest 10.8.2 published 2026-10-30; license SEE LICENSE IN LICENSE.md"
       },
@@ -1645,7 +1712,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@duetds/css",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:05.499Z",
+        "checkedAt": "2026-11-05T04:11:22.770Z",
         "method": "package-metadata",
         "note": "npm latest 5.2.1 published 2026-10-30; license SEE LICENSE IN LICENSE.md"
       },
@@ -1655,7 +1722,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@duetds/tokens",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:27.070Z",
+        "checkedAt": "2026-11-05T04:11:23.454Z",
         "method": "package-metadata",
         "note": "npm latest 5.1.7 published 2026-10-30; license SEE LICENSE IN LICENSE.md"
       },
@@ -1665,7 +1732,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@duetds/angular",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:02.130Z",
+        "checkedAt": "2026-11-05T04:11:22.077Z",
         "method": "package-metadata",
         "note": "npm latest 8.4.2 published 2024-05-14; license SEE LICENSE IN LICENSE.md. Angular wrapper; docs state deprecated from Angular 14"
       },
@@ -1675,7 +1742,7 @@
         "status": 200,
         "finalUrl": "https://github.com/duetds",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:23.083Z",
+        "checkedAt": "2026-11-05T04:11:24.262Z",
         "method": "http-check",
         "note": "GitHub org 'Duet Design System' exists; no public component source repo found"
       },
@@ -1685,9 +1752,9 @@
         "status": 404,
         "finalUrl": "https://github.com/duetds/duet-date-picker",
         "ok": false,
-        "checkedAt": "2026-11-05T03:53:23.384Z",
+        "checkedAt": "2026-11-05T04:11:24.562Z",
         "method": "http-check",
-        "note": "Former repo URL returns 404"
+        "note": "Wrong guess at a repo URL (404); the actual repo is github.com/duetds/date-picker"
       },
       {
         "field": "organization",
@@ -1695,13 +1762,43 @@
         "status": 503,
         "finalUrl": "https://www.localtapiola.fi/",
         "ok": false,
-        "checkedAt": "2026-11-05T03:55:00.590Z",
+        "checkedAt": "2026-11-05T04:11:24.293Z",
         "method": "http-check",
         "note": "Returned 503 to the checker; websiteUrl left null"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.lahitapiola.fi/en/personal/",
+        "status": 200,
+        "finalUrl": "https://www.lahitapiola.fi/en/personal/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:50.886Z",
+        "method": "http-check",
+        "note": "LocalTapiola English site (title 'LocalTapiola insurance company'); duetds.com links lahitapiola.fi (Finnish name LähiTapiola)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/duetds/date-picker",
+        "status": 200,
+        "finalUrl": "https://github.com/duetds/date-picker",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.941Z",
+        "method": "http-check",
+        "note": "Only component repo found: 'Duet Date Picker is an open source version of Duet Design System's accessible date picker' (MIT); archived by the owner on Sep 2, 2024"
+      },
+      {
+        "field": "notes",
+        "url": "https://cdn.jsdelivr.net/npm/@duetds/components@10.8.2/package.json",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@duetds/components@10.8.2/package.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:27:52.414Z",
+        "method": "repo-metadata",
+        "note": "package.json: devDependencies include @stencil/core and @stencil/sass; license 'SEE LICENSE IN LICENSE.md'"
       }
     ],
     "confidence": 0.9,
-    "verifiedAt": "2026-11-05T04:00:02.130Z"
+    "verifiedAt": "2026-11-05T04:27:52.414Z"
   },
   {
     "rank": 90,
@@ -1760,7 +1857,7 @@
     "duplicateOf": "react-aria",
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Integrator decision: 'react-aria' (rank 37) is canonical; 'Adobe React Aria' is the same project. The old docs URL react-spectrum.adobe.com/react-aria/ now redirects to react-aria.adobe.com. License left null here deliberately (react-aria-components declares Apache-2.0 on npm; the canonical entry owns licence details).",
+    "notes": "Integrator decision: 'react-aria' (rank 37) is canonical; 'Adobe React Aria' is the same project. The old docs URL react-spectrum.adobe.com/react-aria/ now redirects to react-aria.adobe.com. License left null here deliberately (react-aria-components declares Apache-2.0 on npm; the canonical entry owns licence details). audited 2026-11-05: duplicate decision confirmed (same site, repo and npm package as react-aria); all checks re-run; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1768,7 +1865,7 @@
         "status": 200,
         "finalUrl": "https://react-aria.adobe.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.540Z",
+        "checkedAt": "2026-11-05T04:11:21.768Z",
         "method": "http-check",
         "note": "Redirects to react-aria.adobe.com (title 'React Aria')"
       },
@@ -1778,7 +1875,7 @@
         "status": 200,
         "finalUrl": "https://github.com/adobe/react-spectrum",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:23.685Z",
+        "checkedAt": "2026-11-05T04:11:23.390Z",
         "method": "http-check",
         "note": "adobe/react-spectrum monorepo"
       },
@@ -1788,7 +1885,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/react-aria-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:27.200Z",
+        "checkedAt": "2026-11-05T04:11:36.980Z",
         "method": "package-metadata",
         "note": "npm latest 1.22.1 published 2026-10-09; license Apache-2.0. same project as canonical react-aria"
       },
@@ -1798,13 +1895,13 @@
         "status": 200,
         "finalUrl": "https://www.adobe.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:53:22.535Z",
+        "checkedAt": "2026-11-05T04:11:21.830Z",
         "method": "http-check",
         "note": "Adobe homepage"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T03:53:27.200Z"
+    "verifiedAt": "2026-11-05T04:11:36.980Z"
   },
   {
     "rank": 91,
@@ -1871,7 +1968,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Distinct implementation with its own component catalog (Storybook) from Fluent UI React; same design language as fluent-2. v3.1.4 package.json peer-depends on @microsoft/fast-element ^3 and depends on @fluentui/tokens (relation to microsoft-fast). The Microsoft Learn overview (homepageUrl) was last updated 2024-01-18 and describes the earlier FAST-foundation-based architecture; current component docs are the official Storybook at storybooks.fluentui.dev/web-components (web-components.fluentui.dev redirects there), used as docsUrl.",
+    "notes": "Distinct implementation with its own component catalog (Storybook) from Fluent UI React; same design language as fluent-2. v3.1.4 package.json peer-depends on @microsoft/fast-element ^3 and depends on @fluentui/tokens (relation to microsoft-fast). The Microsoft Learn overview (homepageUrl) was last updated 2024-01-18 and describes the earlier FAST-foundation-based architecture; current component docs are the official Storybook at storybooks.fluentui.dev/web-components (web-components.fluentui.dev redirects there), used as docsUrl. audited 2026-11-05: re-checked package.json (peerDependencies @microsoft/fast-element ^3.0.0) and the Learn page date (ms.date 2024-01-18); all checks re-run; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1879,7 +1976,7 @@
         "status": 200,
         "finalUrl": "https://learn.microsoft.com/en-us/fluent-ui/web-components/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.425Z",
+        "checkedAt": "2026-11-05T04:11:21.774Z",
         "method": "http-check",
         "note": "'Fluent UI Web Components Overview | Microsoft Learn'"
       },
@@ -1889,7 +1986,7 @@
         "status": 200,
         "finalUrl": "https://storybooks.fluentui.dev/web-components/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:41.150Z",
+        "checkedAt": "2026-11-05T04:11:22.135Z",
         "method": "http-check",
         "note": "Redirects to storybooks.fluentui.dev/web-components/ — 'Fluent UI Web Components is a set of UI components and utilities built with web standards.'"
       },
@@ -1899,7 +1996,7 @@
         "status": 200,
         "finalUrl": "https://github.com/microsoft/fluentui/tree/master/packages/web-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.527Z",
+        "checkedAt": "2026-11-05T04:11:28.277Z",
         "method": "http-check",
         "note": "packages/web-components in microsoft/fluentui"
       },
@@ -1909,7 +2006,7 @@
         "status": 200,
         "finalUrl": "https://github.com/microsoft/fluentui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.330Z",
+        "checkedAt": "2026-11-05T04:11:27.862Z",
         "method": "http-check",
         "note": "microsoft/fluentui monorepo: 'utilities, React components, and web components'"
       },
@@ -1919,7 +2016,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:23.806Z",
+        "checkedAt": "2026-11-05T04:11:25.240Z",
         "method": "repo-metadata",
         "note": "MIT License, Copyright (c) Microsoft Corporation"
       },
@@ -1929,7 +2026,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.1.4/package.json",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:55.087Z",
+        "checkedAt": "2026-11-05T04:11:21.651Z",
         "method": "repo-metadata",
         "note": "peerDependencies @microsoft/fast-element ^3.0.0; dependencies @fluentui/tokens"
       },
@@ -1939,7 +2036,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@fluentui/web-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:25.626Z",
+        "checkedAt": "2026-11-05T04:11:23.939Z",
         "method": "package-metadata",
         "note": "npm latest 3.1.4 published 2026-11-04; license MIT. repository microsoft/fluentui"
       },
@@ -1949,7 +2046,7 @@
         "status": 200,
         "finalUrl": "https://fluent2.microsoft.design/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.585Z",
+        "checkedAt": "2026-11-05T04:11:21.687Z",
         "method": "http-check",
         "note": "Fluent 2 Design System site"
       },
@@ -1959,13 +2056,13 @@
         "status": 200,
         "finalUrl": "https://www.microsoft.com/en-us",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.364Z",
+        "checkedAt": "2026-11-05T04:11:21.985Z",
         "method": "http-check",
         "note": "Microsoft homepage"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:55.087Z"
+    "verifiedAt": "2026-11-05T04:11:28.277Z"
   },
   {
     "rank": 92,
@@ -2029,7 +2126,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Distinct implementation of Carbon (relatedSlugs carbon) with its own Storybook catalog. Code history: originally carbon-design-system/carbon-web-components (README: moved into the Carbon for IBM.com monorepo for v2), now packages/web-components in the main carbon monorepo (its package.json there is @carbon/web-components). The legacy carbon-web-components repo page still loads. carbondesignsystem.com/developing/frameworks/web-components/ redirects to the 'Carbon Core' web components page used as homepageUrl. Depends on lit and @lit/context.",
+    "notes": "Distinct implementation of Carbon (relatedSlugs carbon) with its own Storybook catalog. Code history: originally carbon-design-system/carbon-web-components (README: moved into the Carbon for IBM.com monorepo for v2), now packages/web-components in the main carbon monorepo (its package.json there is @carbon/web-components). The legacy carbon-web-components repo was archived on 2023-03-08. carbondesignsystem.com/developing/frameworks/web-components/ redirects to the 'Carbon Core' web components page used as homepageUrl. Depends on lit and @lit/context. audited 2026-11-05: the legacy repo is recorded as archived; Lit dependency confirmed (lit ^3.1.0, @lit/context); all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2037,7 +2134,7 @@
         "status": 200,
         "finalUrl": "https://www.carbondesignsystem.com/getting-started/developing/carbon-core/web-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.751Z",
+        "checkedAt": "2026-11-05T04:11:21.985Z",
         "method": "http-check",
         "note": "Redirects to carbondesignsystem.com Carbon Core web components page"
       },
@@ -2047,7 +2144,7 @@
         "status": 200,
         "finalUrl": "https://web-components.carbondesignsystem.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.469Z",
+        "checkedAt": "2026-11-05T04:11:22.141Z",
         "method": "http-check",
         "note": "Storybook: 'This is the web components implementation of the Carbon Design System.'"
       },
@@ -2057,7 +2154,7 @@
         "status": 200,
         "finalUrl": "https://github.com/carbon-design-system/carbon/tree/main/packages/web-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.206Z",
+        "checkedAt": "2026-11-05T04:11:24.059Z",
         "method": "http-check",
         "note": "packages/web-components in carbon monorepo"
       },
@@ -2067,7 +2164,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/packages/web-components/package.json",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:23.507Z",
+        "checkedAt": "2026-11-05T04:11:21.640Z",
         "method": "repo-metadata",
         "note": "package.json name @carbon/web-components, 'Web components for the Carbon Design System'"
       },
@@ -2077,9 +2174,9 @@
         "status": 200,
         "finalUrl": "https://github.com/carbon-design-system/carbon-web-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.939Z",
+        "checkedAt": "2026-11-05T04:11:23.674Z",
         "method": "http-check",
-        "note": "Legacy repo; README states it has moved"
+        "note": "Legacy repo, archived by the owner on Mar 8, 2023 (read-only); its README says the code has moved"
       },
       {
         "field": "license",
@@ -2087,7 +2184,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:23.205Z",
+        "checkedAt": "2026-11-05T04:11:21.340Z",
         "method": "repo-metadata",
         "note": "Apache License 2.0"
       },
@@ -2097,7 +2194,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@carbon/web-components",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:26.185Z",
+        "checkedAt": "2026-11-05T04:11:21.610Z",
         "method": "package-metadata",
         "note": "npm latest 2.67.0 published 2026-11-04; license Apache-2.0. repository carbon-design-system/carbon"
       },
@@ -2107,7 +2204,7 @@
         "status": 200,
         "finalUrl": "https://www.carbondesignsystem.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.251Z",
+        "checkedAt": "2026-11-05T04:11:21.815Z",
         "method": "http-check",
         "note": "'Carbon is IBM's open source design system'"
       },
@@ -2117,13 +2214,13 @@
         "status": 200,
         "finalUrl": "https://www.ibm.com/us-en",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.567Z",
+        "checkedAt": "2026-11-05T04:11:21.978Z",
         "method": "http-check",
         "note": "IBM homepage"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T03:56:41.567Z"
+    "verifiedAt": "2026-11-05T04:11:24.059Z"
   },
   {
     "rank": 93,
@@ -2189,7 +2286,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Web components implementation of Material Design 3 (relatedSlugs material-design). README note: 'MWC is in maintenance mode pending new maintainers' linking discussion #5642; a release (2.5.0, 2026-07-15) still shipped within 12 months, so status is 'maintenance' rather than deprecated. README recommends Angular Material for Angular users. Depends on lit and @lit/context.",
+    "notes": "Web components implementation of Material Design 3 (relatedSlugs material-design). README note: 'MWC is in maintenance mode pending new maintainers' linking discussion #5642; a release (2.5.0, 2026-07-15) still shipped within 12 months, so status is 'maintenance' rather than deprecated. README recommends Angular Material for Angular users. Depends on lit and @lit/context. audited 2026-11-05: maintenance-mode notice confirmed in the README and on material-web.dev; all checks re-run; no field changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2197,9 +2294,9 @@
         "status": 200,
         "finalUrl": "https://material-web.dev/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.445Z",
+        "checkedAt": "2026-11-05T04:11:21.666Z",
         "method": "http-check",
-        "note": "Title 'Material Web'"
+        "note": "Title 'Material Web'; site also shows 'MWC is in maintenance mode pending new maintainers'"
       },
       {
         "field": "docsUrl",
@@ -2207,7 +2304,7 @@
         "status": 200,
         "finalUrl": "https://material-web.dev/about/intro/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.745Z",
+        "checkedAt": "2026-11-05T04:11:21.969Z",
         "method": "http-check",
         "note": "'Material Web - Introduction'"
       },
@@ -2217,7 +2314,7 @@
         "status": 200,
         "finalUrl": "https://github.com/material-components/material-web",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:41.229Z",
+        "checkedAt": "2026-11-05T04:11:27.262Z",
         "method": "http-check",
         "note": "Repo 'Material Design Web Components'"
       },
@@ -2227,7 +2324,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/material-components/material-web/main/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.906Z",
+        "checkedAt": "2026-11-05T04:11:24.941Z",
         "method": "repo-metadata",
         "note": "README: 'MWC is in maintenance mode pending new maintainers'"
       },
@@ -2237,7 +2334,7 @@
         "status": 200,
         "finalUrl": "https://github.com/material-components/material-web/discussions/5642",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.406Z",
+        "checkedAt": "2026-11-05T04:11:27.561Z",
         "method": "http-check",
         "note": "Discussion #5642 '❗MWC is in maintenance mode'"
       },
@@ -2247,7 +2344,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/material-components/material-web/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.606Z",
+        "checkedAt": "2026-11-05T04:11:24.641Z",
         "method": "repo-metadata",
         "note": "Apache License 2.0"
       },
@@ -2257,7 +2354,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@material/web",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:26.249Z",
+        "checkedAt": "2026-11-05T04:11:26.144Z",
         "method": "package-metadata",
         "note": "npm latest 2.5.0 published 2026-07-15; license Apache-2.0. repository material-components/material-web"
       },
@@ -2267,7 +2364,7 @@
         "status": 200,
         "finalUrl": "https://m3.material.io/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.317Z",
+        "checkedAt": "2026-11-05T04:11:21.624Z",
         "method": "http-check",
         "note": "Material Design 3 site"
       },
@@ -2277,13 +2374,13 @@
         "status": 200,
         "finalUrl": "https://about.google/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.210Z",
+        "checkedAt": "2026-11-05T04:11:21.420Z",
         "method": "http-check",
         "note": "About Google"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T03:56:26.249Z"
+    "verifiedAt": "2026-11-05T04:11:27.561Z"
   },
   {
     "rank": 94,
@@ -2353,7 +2450,7 @@
     "duplicateOf": "flutter-material",
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "No distinct project: the material_ui README states it 'was previously built directly into the core Flutter framework as package:flutter/material.dart' and has been decoupled into flutter/packages, with a dart fix migrating imports. Same widget catalog and maintainers as Flutter Material, so recorded as duplicateOf flutter-material (canonical per integrator), which also lists material_ui as its package. Not related to MUI (the React library).",
+    "notes": "No distinct project: the material_ui README states it 'was previously built directly into the core Flutter framework as package:flutter/material.dart' and has been decoupled into flutter/packages, with a dart fix migrating imports. Same widget catalog and maintainers as Flutter Material, so recorded as duplicateOf flutter-material (canonical per integrator), which also lists material_ui as its package. Not related to MUI (the React library). audited 2026-11-05: duplicate decision confirmed (README: previously package:flutter/material.dart); added an organization check; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2361,7 +2458,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/packages/material_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.312Z",
+        "checkedAt": "2026-11-05T04:11:22.622Z",
         "method": "http-check",
         "note": "'The official Flutter Material UI Library, implementing Google's Material Design design system.'"
       },
@@ -2371,7 +2468,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/documentation/material_ui/latest/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.173Z",
+        "checkedAt": "2026-11-05T04:11:21.969Z",
         "method": "http-check",
         "note": "'material_ui - Dart API docs'"
       },
@@ -2381,7 +2478,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/api/packages/material_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.618Z",
+        "checkedAt": "2026-11-05T04:11:21.958Z",
         "method": "package-metadata",
         "note": "pub.dev API: latest 1.10.0 published 2026-11-03; publisher flutter.dev; repository flutter/packages/packages/material_ui"
       },
@@ -2391,7 +2488,7 @@
         "status": 200,
         "finalUrl": "https://github.com/flutter/packages/tree/main/packages/material_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.806Z",
+        "checkedAt": "2026-11-05T04:11:25.761Z",
         "method": "http-check",
         "note": "packages/material_ui in flutter/packages"
       },
@@ -2401,7 +2498,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/api/packages/material_ui/publisher",
         "ok": true,
-        "checkedAt": "2026-11-05T04:06:08.553Z",
+        "checkedAt": "2026-11-05T04:11:22.257Z",
         "method": "package-metadata",
         "note": "pub.dev publisherId flutter.dev (verified official publisher)"
       },
@@ -2411,7 +2508,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.407Z",
+        "checkedAt": "2026-11-05T04:11:23.140Z",
         "method": "repo-metadata",
         "note": "README: previously built into the Flutter framework as package:flutter/material.dart; decoupled into flutter/packages"
       },
@@ -2421,13 +2518,23 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.106Z",
+        "checkedAt": "2026-11-05T04:11:22.840Z",
         "method": "repo-metadata",
         "note": "Copyright 2013 The Flutter Authors; BSD 3-clause terms"
+      },
+      {
+        "field": "organization",
+        "url": "https://about.google/",
+        "status": 200,
+        "finalUrl": "https://about.google/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:21.420Z",
+        "method": "http-check",
+        "note": "About Google (organization websiteUrl)"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:06:08.553Z"
+    "verifiedAt": "2026-11-05T04:11:25.761Z"
   },
   {
     "rank": 95,
@@ -2502,7 +2609,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Canonical record (integrator decision) for Flutter's Material widgets; 'material-ui-for-flutter' is a duplicate. Distinct implementation of Material Design (relatedSlugs material-design) with its own widget catalog. Source moved from flutter/flutter (packages/flutter/lib/src/material) to flutter/packages/packages/material_ui; latestVersion is the material_ui pub release (1.10.0, 2026-11-03, publisher flutter.dev). api.flutter.dev still documents the SDK-bundled material library. Platforms are Flutter's supported targets.",
+    "notes": "Canonical record (integrator decision) for Flutter's Material widgets; 'material-ui-for-flutter' is a duplicate. Distinct implementation of Material Design (relatedSlugs material-design) with its own widget catalog. Source moved from flutter/flutter (packages/flutter/lib/src/material) to flutter/packages/packages/material_ui; latestVersion is the material_ui pub release (1.10.0, 2026-11-03, publisher flutter.dev). api.flutter.dev still documents the SDK-bundled material library. Platforms are Flutter's supported targets. audited 2026-11-05: added a check for the organization websiteUrl (about.google); README decoupling claims confirmed; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2510,7 +2617,7 @@
         "status": 200,
         "finalUrl": "https://docs.flutter.dev/ui/widgets/material",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.667Z",
+        "checkedAt": "2026-11-05T04:11:21.967Z",
         "method": "http-check",
         "note": "'Material component widgets' catalog: widgets implementing the Material 3 design specification"
       },
@@ -2520,7 +2627,7 @@
         "status": 200,
         "finalUrl": "https://api.flutter.dev/flutter/material/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.502Z",
+        "checkedAt": "2026-11-05T04:11:21.969Z",
         "method": "http-check",
         "note": "'material library - Dart API'"
       },
@@ -2530,7 +2637,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/documentation/material_ui/latest/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.173Z",
+        "checkedAt": "2026-11-05T04:11:21.969Z",
         "method": "http-check",
         "note": "'material_ui - Dart API docs'"
       },
@@ -2540,7 +2647,7 @@
         "status": 200,
         "finalUrl": "https://github.com/flutter/packages/tree/main/packages/material_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.806Z",
+        "checkedAt": "2026-11-05T04:11:25.761Z",
         "method": "http-check",
         "note": "packages/material_ui in flutter/packages"
       },
@@ -2550,7 +2657,7 @@
         "status": 200,
         "finalUrl": "https://github.com/flutter/flutter",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:41.531Z",
+        "checkedAt": "2026-11-05T04:11:25.161Z",
         "method": "http-check",
         "note": "flutter/flutter (historical home of package:flutter/material.dart)"
       },
@@ -2560,7 +2667,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.407Z",
+        "checkedAt": "2026-11-05T04:11:23.140Z",
         "method": "repo-metadata",
         "note": "README: material_ui was previously built into the framework as package:flutter/material.dart"
       },
@@ -2570,7 +2677,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.106Z",
+        "checkedAt": "2026-11-05T04:11:22.840Z",
         "method": "repo-metadata",
         "note": "Copyright 2013 The Flutter Authors; BSD 3-clause"
       },
@@ -2580,7 +2687,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/flutter/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:25.307Z",
+        "checkedAt": "2026-11-05T04:11:21.940Z",
         "method": "repo-metadata",
         "note": "Flutter SDK LICENSE: Copyright 2014 The Flutter Authors; BSD 3-clause"
       },
@@ -2590,7 +2697,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/api/packages/material_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.618Z",
+        "checkedAt": "2026-11-05T04:11:21.958Z",
         "method": "package-metadata",
         "note": "pub.dev API: latest 1.10.0 published 2026-11-03; publisher flutter.dev"
       },
@@ -2600,7 +2707,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/packages/material_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.312Z",
+        "checkedAt": "2026-11-05T04:11:22.622Z",
         "method": "http-check",
         "note": "pub.dev package page: 'The official Flutter Material UI Library'"
       },
@@ -2610,7 +2717,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/api/packages/material_ui/publisher",
         "ok": true,
-        "checkedAt": "2026-11-05T04:06:08.553Z",
+        "checkedAt": "2026-11-05T04:11:22.257Z",
         "method": "package-metadata",
         "note": "pub.dev publisherId flutter.dev"
       },
@@ -2620,13 +2727,23 @@
         "status": 200,
         "finalUrl": "https://flutter.dev/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.382Z",
+        "checkedAt": "2026-11-05T04:11:21.654Z",
         "method": "http-check",
         "note": "Flutter homepage"
+      },
+      {
+        "field": "organization",
+        "url": "https://about.google/",
+        "status": 200,
+        "finalUrl": "https://about.google/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:21.420Z",
+        "method": "http-check",
+        "note": "About Google (organization websiteUrl)"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:06:08.553Z"
+    "verifiedAt": "2026-11-05T04:11:25.761Z"
   },
   {
     "rank": 96,
@@ -2693,7 +2810,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Third-party (Google/Flutter) implementation of Apple-style UI, not an Apple product (relatedSlugs apple-hig). Platforms list the design targets named in the docs (iOS and macOS); as Flutter widgets they also render on Flutter's other targets. Source moved from flutter/flutter to flutter/packages/packages/cupertino_ui; latestVersion is the cupertino_ui pub release (1.1.6, 2026-11-03, publisher flutter.dev).",
+    "notes": "Third-party (Google/Flutter) implementation of Apple-style UI, not an Apple product (relatedSlugs apple-hig). Platforms list the design targets named in the docs (iOS and macOS); as Flutter widgets they also render on Flutter's other targets. Source moved from flutter/flutter to flutter/packages/packages/cupertino_ui; latestVersion is the cupertino_ui pub release (1.1.6, 2026-11-03, publisher flutter.dev). audited 2026-11-05: added a check for the organization websiteUrl (about.google); README decoupling claims confirmed; all checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2701,7 +2818,7 @@
         "status": 200,
         "finalUrl": "https://docs.flutter.dev/ui/widgets/cupertino",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.967Z",
+        "checkedAt": "2026-11-05T04:11:21.614Z",
         "method": "http-check",
         "note": "'Cupertino widgets' catalog aligned with Apple's Human Interface Guidelines for iOS and macOS"
       },
@@ -2711,7 +2828,7 @@
         "status": 200,
         "finalUrl": "https://api.flutter.dev/flutter/cupertino/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.802Z",
+        "checkedAt": "2026-11-05T04:11:21.622Z",
         "method": "http-check",
         "note": "'cupertino library - Dart API'"
       },
@@ -2721,7 +2838,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/documentation/cupertino_ui/latest/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.474Z",
+        "checkedAt": "2026-11-05T04:11:21.620Z",
         "method": "http-check",
         "note": "'cupertino_ui - Dart API docs'"
       },
@@ -2731,7 +2848,7 @@
         "status": 200,
         "finalUrl": "https://github.com/flutter/packages/tree/main/packages/cupertino_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.107Z",
+        "checkedAt": "2026-11-05T04:11:25.460Z",
         "method": "http-check",
         "note": "packages/cupertino_ui in flutter/packages"
       },
@@ -2741,7 +2858,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:25.006Z",
+        "checkedAt": "2026-11-05T04:11:22.540Z",
         "method": "repo-metadata",
         "note": "README: official Flutter Cupertino library implementing Apple's HIG; previously package:flutter/cupertino.dart"
       },
@@ -2751,7 +2868,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.706Z",
+        "checkedAt": "2026-11-05T04:11:22.241Z",
         "method": "repo-metadata",
         "note": "Copyright 2013 The Flutter Authors; BSD 3-clause"
       },
@@ -2761,7 +2878,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/api/packages/cupertino_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.918Z",
+        "checkedAt": "2026-11-05T04:11:21.357Z",
         "method": "package-metadata",
         "note": "pub.dev API: latest 1.1.6 published 2026-11-03; publisher flutter.dev"
       },
@@ -2771,7 +2888,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/packages/cupertino_ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:55:40.661Z",
+        "checkedAt": "2026-11-05T04:11:22.228Z",
         "method": "http-check",
         "note": "'The official Flutter Cupertino Design Library, implementing the iOS design system.'"
       },
@@ -2781,7 +2898,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/api/packages/cupertino_ui/publisher",
         "ok": true,
-        "checkedAt": "2026-11-05T04:06:08.853Z",
+        "checkedAt": "2026-11-05T04:11:21.656Z",
         "method": "package-metadata",
         "note": "pub.dev publisherId flutter.dev"
       },
@@ -2791,13 +2908,23 @@
         "status": 200,
         "finalUrl": "https://pub.dev/publishers/flutter.dev/packages",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.774Z",
+        "checkedAt": "2026-11-05T04:11:22.879Z",
         "method": "http-check",
         "note": "pub.dev publisher flutter.dev package list"
+      },
+      {
+        "field": "organization",
+        "url": "https://about.google/",
+        "status": 200,
+        "finalUrl": "https://about.google/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:21.420Z",
+        "method": "http-check",
+        "note": "About Google (organization websiteUrl)"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:06:08.853Z"
+    "verifiedAt": "2026-11-05T04:11:25.460Z"
   },
   {
     "rank": 97,
@@ -2898,7 +3025,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified commercial-suite. Each framework flavour is a separate native library with its own docs; Angular/React/Vue are split into per-component npm packages (e.g. @progress/kendo-angular-grid, @progress/kendo-react-grid, @progress/kendo-vue-grid), so framework packageName is null except jQuery. latestVersion is the jQuery bundle (@progress/kendo-ui 2026.3.1015); other flavours version independently (KendoReact grid 16.3.0, Angular grid 25.3.0, Vue grid 10.1.0). repositoryUrl is the official open-source Kendo UI Core repo only; the full commercial source is not public. Telerik UI for Blazor/ASP.NET are separate Telerik product lines, not counted here. Figma kits were not checked; figmaUrl null.",
+    "notes": "Classified commercial-suite. Each framework flavour is a separate native library with its own docs; Angular/React/Vue are split into per-component npm packages (e.g. @progress/kendo-angular-grid, @progress/kendo-react-grid, @progress/kendo-vue-grid), so framework packageName is null except jQuery. latestVersion is the jQuery bundle (@progress/kendo-ui 2026.3.1015); other flavours version independently (KendoReact grid 16.3.0, Angular grid 25.3.0, Vue grid 10.1.0). repositoryUrl is the official open-source Kendo UI Core repo only; the full commercial source is not public. Telerik UI for Blazor/ASP.NET are separate Telerik product lines, not counted here. Figma kits were not checked; figmaUrl null. audited 2026-11-05: all checks re-run; licence and package facts confirmed; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2906,7 +3033,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/kendo-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.503Z",
+        "checkedAt": "2026-11-05T04:11:23.342Z",
         "method": "http-check",
         "note": "'Progress Kendo UI' — libraries for jQuery, Angular, React, and Vue"
       },
@@ -2916,7 +3043,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/kendo-jquery-ui/documentation/introduction",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.871Z",
+        "checkedAt": "2026-11-05T04:11:22.780Z",
         "method": "http-check",
         "note": "'jQuery Introduction - Kendo UI for jQuery' — product flavours, licensing"
       },
@@ -2926,7 +3053,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/kendo-angular-ui/components/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:42.103Z",
+        "checkedAt": "2026-11-05T04:11:22.457Z",
         "method": "http-check",
         "note": "'Kendo UI for Angular Components Hub'"
       },
@@ -2936,7 +3063,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/kendo-react-ui/components/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:42.403Z",
+        "checkedAt": "2026-11-05T04:11:23.065Z",
         "method": "http-check",
         "note": "'React Components Documentation - KendoReact'"
       },
@@ -2946,7 +3073,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/kendo-vue-ui/components/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:42.705Z",
+        "checkedAt": "2026-11-05T04:11:23.673Z",
         "method": "http-check",
         "note": "'Vue Components Documentation - Kendo UI for Vue'"
       },
@@ -2956,7 +3083,7 @@
         "status": 200,
         "finalUrl": "https://github.com/telerik/kendo-ui-core",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.355Z",
+        "checkedAt": "2026-11-05T04:11:31.036Z",
         "method": "http-check",
         "note": "Official repo 'An HTML5, jQuery-based widget library' (open-source core)"
       },
@@ -2966,7 +3093,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/purchase/license-agreement/kendo-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.316Z",
+        "checkedAt": "2026-11-05T04:11:24.242Z",
         "method": "http-check",
         "note": "Redirects to 'End user license agreement for Progress Kendo UI'"
       },
@@ -2976,7 +3103,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@progress/kendo-ui@2026.3.1015/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:54.488Z",
+        "checkedAt": "2026-11-05T04:11:21.951Z",
         "method": "repo-metadata",
         "note": "'Kendo UI commercial licenses may be obtained at ... If you do not own a commercial license, this file shall be governed by the trial license terms.'"
       },
@@ -2986,7 +3113,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@progress/kendo-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:54.939Z",
+        "checkedAt": "2026-11-05T04:11:29.252Z",
         "method": "package-metadata",
         "note": "npm latest 2026.3.1015 published 2026-10-15; license LicenseRef-LICENSE"
       },
@@ -2996,7 +3123,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/kendo-ui-core",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:55.098Z",
+        "checkedAt": "2026-11-05T04:11:36.652Z",
         "method": "package-metadata",
         "note": "npm latest 2026.3.1015 published 2026-10-15; license Apache 2.0. open-source subset; repository telerik/kendo-ui-core"
       },
@@ -3006,7 +3133,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@progress/kendo-angular-grid",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:55.679Z",
+        "checkedAt": "2026-11-05T04:11:28.445Z",
         "method": "package-metadata",
         "note": "npm latest 25.3.0 published 2026-10-07; license SEE LICENSE IN LICENSE.md"
       },
@@ -3016,7 +3143,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@progress/kendo-react-grid",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:55.922Z",
+        "checkedAt": "2026-11-05T04:11:28.971Z",
         "method": "package-metadata",
         "note": "npm latest 16.3.0 published 2026-11-02; license SEE LICENSE IN LICENSE.md. repository telerik/kendo-react"
       },
@@ -3026,7 +3153,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@progress/kendo-vue-grid",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:56.258Z",
+        "checkedAt": "2026-11-05T04:11:29.551Z",
         "method": "package-metadata",
         "note": "npm latest 10.1.0 published 2026-10-07; license SEE LICENSE IN LICENSE.md. repository telerik/kendo-vue"
       },
@@ -3036,7 +3163,7 @@
         "status": 200,
         "finalUrl": "https://www.telerik.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.648Z",
+        "checkedAt": "2026-11-05T04:11:22.142Z",
         "method": "http-check",
         "note": "Telerik & Kendo UI site"
       },
@@ -3046,13 +3173,13 @@
         "status": 200,
         "finalUrl": "https://www.progress.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.353Z",
+        "checkedAt": "2026-11-05T04:11:21.986Z",
         "method": "http-check",
         "note": "Progress Software homepage"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:54.488Z"
+    "verifiedAt": "2026-11-05T04:11:36.652Z"
   },
   {
     "rank": 98,
@@ -3071,7 +3198,7 @@
     "category": "commercial-suite",
     "summary": "Essential Studio is Syncfusion's commercial suite of UI components and document-processing libraries for web (JavaScript/TypeScript, React, Angular, Vue, Blazor, ASP.NET), mobile and desktop (.NET MAUI, Flutter, WinUI, WPF, WinForms); its web components are branded Essential JS 2.",
     "homepageUrl": "https://www.syncfusion.com/ui-component-suite",
-    "docsUrl": "https://help.syncfusion.com/",
+    "docsUrl": "https://ej2.syncfusion.com/documentation/introduction",
     "repositoryUrl": "https://github.com/syncfusion/ej2-javascript-ui-controls",
     "figmaUrl": null,
     "storybookUrl": null,
@@ -3097,9 +3224,9 @@
         "url": "https://www.npmjs.com/package/@syncfusion/ej2-vue-grids"
       },
       {
-        "name": "Syncfusion.Blazor",
+        "name": "Syncfusion.Blazor.Grid",
         "registry": "nuget",
-        "url": "https://www.nuget.org/packages/Syncfusion.Blazor"
+        "url": "https://www.nuget.org/packages/Syncfusion.Blazor.Grid"
       }
     ],
     "license": {
@@ -3133,7 +3260,7 @@
       },
       {
         "slug": "blazor",
-        "packageName": "Syncfusion.Blazor",
+        "packageName": null,
         "support": "official"
       },
       {
@@ -3174,7 +3301,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified commercial-suite. products/essential-studio redirects to the '1,600+ UI Components' suite page (homepageUrl). Web components (Essential JS 2) are split into per-component npm packages per framework (e.g. @syncfusion/ej2-react-grids), so framework packageName is null except the Blazor NuGet bundle. latestVersion is the @syncfusion/ej2 umbrella npm package (35.1.43); other platforms version separately. Flutter widgets are published on pub.dev by publisher syncfusion.com. WPF/WinForms/UWP/Xamarin are also offered but have no ATLAS framework slug. repositoryUrl is the official EJ2 JavaScript source repo; other platform sources are not all public.",
+    "notes": "Classified commercial-suite. products/essential-studio redirects to the '1,600+ UI Components' suite page (homepageUrl). Web components (Essential JS 2) are split into per-component npm packages per framework (e.g. @syncfusion/ej2-react-grids), so framework packageName is null. latestVersion is the @syncfusion/ej2 umbrella npm package (35.1.43); other platforms version separately. Flutter widgets are published on pub.dev by publisher syncfusion.com. WPF/WinForms/UWP/Xamarin are also offered but have no ATLAS framework slug. repositoryUrl is the official EJ2 JavaScript source repo. audited 2026-11-05: the NuGet umbrella package Syncfusion.Blazor is deprecated and unlisted (Volume 2 2026), so it was replaced in packages by Syncfusion.Blazor.Grid and the blazor packageName set to null. help.syncfusion.com timed out on every re-check, so docsUrl now points to the verified EJ2 documentation (the integrator may restore help.syncfusion.com once it verifies). All other checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3182,7 +3309,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/ui-component-suite",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.521Z",
+        "checkedAt": "2026-11-05T04:11:24.091Z",
         "method": "http-check",
         "note": "Redirects to syncfusion.com/ui-component-suite ('1,600+ UI Components for Web, Mobile and Desktop Apps')"
       },
@@ -3202,7 +3329,7 @@
         "status": 200,
         "finalUrl": "https://ej2.syncfusion.com/documentation/introduction",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.469Z",
+        "checkedAt": "2026-11-05T04:11:21.652Z",
         "method": "http-check",
         "note": "Essential JS 2 docs (redirects to /documentation/introduction)"
       },
@@ -3212,7 +3339,7 @@
         "status": 200,
         "finalUrl": "https://blazor.syncfusion.com/documentation/introduction",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.332Z",
+        "checkedAt": "2026-11-05T04:11:21.571Z",
         "method": "http-check",
         "note": "Blazor components docs"
       },
@@ -3222,7 +3349,7 @@
         "status": 200,
         "finalUrl": "https://github.com/syncfusion/ej2-javascript-ui-controls",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.547Z",
+        "checkedAt": "2026-11-05T04:11:30.736Z",
         "method": "http-check",
         "note": "Official repo of Syncfusion JavaScript UI controls"
       },
@@ -3232,7 +3359,7 @@
         "status": 200,
         "finalUrl": "https://github.com/syncfusion",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.670Z",
+        "checkedAt": "2026-11-05T04:11:30.434Z",
         "method": "http-check",
         "note": "Syncfusion GitHub org: Blazor, .NET MAUI, React, Vue, Angular, JavaScript, ASP.NET MVC/Core, WinForms, WPF, UWP, Xamarin"
       },
@@ -3242,7 +3369,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/content/downloads/syncfusion_license.pdf",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.272Z",
+        "checkedAt": "2026-11-05T04:11:22.780Z",
         "method": "http-check",
         "note": "Syncfusion licence PDF (200)"
       },
@@ -3252,7 +3379,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/products/communitylicense",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.577Z",
+        "checkedAt": "2026-11-05T04:11:23.792Z",
         "method": "http-check",
         "note": "Community License page"
       },
@@ -3262,7 +3389,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@syncfusion/ej2-base/license",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:54.186Z",
+        "checkedAt": "2026-11-05T04:11:22.251Z",
         "method": "repo-metadata",
         "note": "'licensed either under the Syncfusion Community License Program or the Syncfusion commercial license'"
       },
@@ -3272,7 +3399,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:56.832Z",
+        "checkedAt": "2026-11-05T04:11:30.709Z",
         "method": "package-metadata",
         "note": "npm latest 35.1.43 published 2026-11-03; license SEE LICENSE IN license. repository syncfusion/ej2-javascript-ui-controls"
       },
@@ -3282,7 +3409,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2-react-grids",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:57.180Z",
+        "checkedAt": "2026-11-05T04:11:31.249Z",
         "method": "package-metadata",
         "note": "npm latest 35.1.42 published 2026-10-27; license SEE LICENSE IN license"
       },
@@ -3292,7 +3419,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2-angular-grids",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:57.398Z",
+        "checkedAt": "2026-11-05T04:11:30.893Z",
         "method": "package-metadata",
         "note": "npm latest 35.1.42 published 2026-10-27; license SEE LICENSE IN license"
       },
@@ -3302,7 +3429,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2-vue-grids",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:57.753Z",
+        "checkedAt": "2026-11-05T04:11:31.581Z",
         "method": "package-metadata",
         "note": "npm latest 35.1.42 published 2026-10-27; license SEE LICENSE IN license"
       },
@@ -3312,9 +3439,9 @@
         "status": 200,
         "finalUrl": "https://www.nuget.org/packages/Syncfusion.Blazor",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:30.884Z",
+        "checkedAt": "2026-11-05T04:11:22.457Z",
         "method": "package-metadata",
-        "note": "NuGet Gallery page for Syncfusion.Blazor"
+        "note": "NuGet: 'The Syncfusion.Blazor package has been deprecated and unlisted as of Volume 2 2026'; last 33.2.15; replaced by per-component packages"
       },
       {
         "field": "frameworks",
@@ -3322,7 +3449,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/maui-controls",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:30.940Z",
+        "checkedAt": "2026-11-05T04:11:23.491Z",
         "method": "http-check",
         "note": ".NET MAUI controls product page"
       },
@@ -3332,7 +3459,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/flutter-widgets",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:32.440Z",
+        "checkedAt": "2026-11-05T04:11:23.188Z",
         "method": "http-check",
         "note": "Flutter widgets product page"
       },
@@ -3342,7 +3469,7 @@
         "status": 200,
         "finalUrl": "https://pub.dev/publishers/syncfusion.com/packages",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:30.507Z",
+        "checkedAt": "2026-11-05T04:11:23.130Z",
         "method": "http-check",
         "note": "pub.dev publisher syncfusion.com"
       },
@@ -3352,7 +3479,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/winui-controls",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:30.640Z",
+        "checkedAt": "2026-11-05T04:11:24.688Z",
         "method": "http-check",
         "note": "WinUI controls product page"
       },
@@ -3362,7 +3489,7 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/aspnet-core-ui-controls",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:32.741Z",
+        "checkedAt": "2026-11-05T04:11:22.458Z",
         "method": "http-check",
         "note": "ASP.NET Core UI controls product page"
       },
@@ -3372,13 +3499,43 @@
         "status": 200,
         "finalUrl": "https://www.syncfusion.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.872Z",
+        "checkedAt": "2026-11-05T04:11:22.143Z",
         "method": "http-check",
         "note": "Syncfusion homepage"
+      },
+      {
+        "field": "package:Syncfusion.Blazor.Grid",
+        "url": "https://www.nuget.org/packages/Syncfusion.Blazor.Grid",
+        "status": 200,
+        "finalUrl": "https://www.nuget.org/packages/Syncfusion.Blazor.Grid",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:50.806Z",
+        "method": "package-metadata",
+        "note": "NuGet Gallery: Syncfusion.Blazor.Grid 35.1.43, last updated 2026-11-02 (per-component Blazor package)"
+      },
+      {
+        "field": "package:Syncfusion.Blazor",
+        "url": "https://api.nuget.org/v3-flatcontainer/syncfusion.blazor/index.json",
+        "status": 200,
+        "finalUrl": "https://api.nuget.org/v3-flatcontainer/syncfusion.blazor/index.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:27:53.195Z",
+        "method": "package-metadata",
+        "note": "NuGet version index for the deprecated umbrella package"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://help.syncfusion.com/",
+        "status": null,
+        "finalUrl": "https://help.syncfusion.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:27:11.171Z",
+        "method": "http-check",
+        "note": "Audit re-check: TIMEOUT on 4 check.ts attempts 04:11-04:27Z (earlier 200 at 04:01Z); docsUrl moved to the EJ2 docs"
       }
     ],
-    "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:54.186Z"
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:27:53.195Z"
   },
   {
     "rank": 99,
@@ -3469,7 +3626,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified commercial-suite. All four packages are published from the DevExpress/DevExtreme monorepo and version in lockstep (26.1.6). The DevExpress ASP.NET/Blazor/WinForms suites are separate products and not counted here. No official public Figma link checked; figmaUrl null.",
+    "notes": "Classified commercial-suite. All four packages are published from the DevExpress/DevExtreme monorepo and version in lockstep (26.1.6). The DevExpress ASP.NET/Blazor/WinForms suites are separate products and not counted here. No official public Figma link checked; figmaUrl null. audited 2026-11-05: Licensing FAQ confirms a licence is required for commercial projects (30-day trial otherwise); all checks re-run; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3477,7 +3634,7 @@
         "status": 200,
         "finalUrl": "https://js.devexpress.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.560Z",
+        "checkedAt": "2026-11-05T04:11:21.905Z",
         "method": "http-check",
         "note": "'DevExtreme - JavaScript UI Components for Angular, React, Vue and jQuery by DevExpress'"
       },
@@ -3487,7 +3644,7 @@
         "status": 200,
         "finalUrl": "https://js.devexpress.com/Documentation/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.338Z",
+        "checkedAt": "2026-11-05T04:11:22.210Z",
         "method": "http-check",
         "note": "'DevExtreme JavaScript Documentation'"
       },
@@ -3497,7 +3654,7 @@
         "status": 200,
         "finalUrl": "https://js.devexpress.com/jQuery/Documentation/Guide/jQuery_Components/Add_DevExtreme_to_a_jQuery_Application/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.648Z",
+        "checkedAt": "2026-11-05T04:11:23.358Z",
         "method": "http-check",
         "note": "jQuery getting-started guide"
       },
@@ -3507,7 +3664,7 @@
         "status": 200,
         "finalUrl": "https://github.com/DevExpress/DevExtreme",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.984Z",
+        "checkedAt": "2026-11-05T04:11:21.578Z",
         "method": "http-check",
         "note": "Official repo 'HTML5 JavaScript Component Suite for Responsive Web Development'"
       },
@@ -3517,7 +3674,7 @@
         "status": 200,
         "finalUrl": "https://js.devexpress.com/Licensing/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.944Z",
+        "checkedAt": "2026-11-05T04:11:23.055Z",
         "method": "http-check",
         "note": "'Licensing FAQ: DevExtreme' — EULAs and FAQ"
       },
@@ -3527,7 +3684,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/devextreme@26.1.6/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:54.786Z",
+        "checkedAt": "2026-11-05T04:11:22.551Z",
         "method": "repo-metadata",
         "note": "README links Pricing and Licensing (js.devexpress.com/licensing)"
       },
@@ -3537,7 +3694,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/devextreme",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:58.059Z",
+        "checkedAt": "2026-11-05T04:11:33.208Z",
         "method": "package-metadata",
         "note": "npm latest 26.1.6 published 2026-10-23; license SEE LICENSE IN README.md. repository DevExpress/DevExtreme"
       },
@@ -3547,7 +3704,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/devextreme-angular",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:58.925Z",
+        "checkedAt": "2026-11-05T04:11:33.785Z",
         "method": "package-metadata",
         "note": "npm latest 26.1.6 published 2026-10-23; license MIT"
       },
@@ -3557,7 +3714,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/devextreme-react",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:58.214Z",
+        "checkedAt": "2026-11-05T04:11:33.896Z",
         "method": "package-metadata",
         "note": "npm latest 26.1.6 published 2026-10-23; license MIT"
       },
@@ -3567,7 +3724,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/devextreme-vue",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:59.104Z",
+        "checkedAt": "2026-11-05T04:11:34.245Z",
         "method": "package-metadata",
         "note": "npm latest 26.1.6 published 2026-10-23; license MIT"
       },
@@ -3577,13 +3734,13 @@
         "status": 200,
         "finalUrl": "https://www.devexpress.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.321Z",
+        "checkedAt": "2026-11-05T04:11:22.142Z",
         "method": "http-check",
         "note": "DevExpress homepage"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:54.786Z"
+    "verifiedAt": "2026-11-05T04:11:34.245Z"
   },
   {
     "rank": 100,
@@ -3603,10 +3760,10 @@
       "websiteUrl": "https://www.infragistics.com/"
     },
     "category": "commercial-suite",
-    "summary": "Ignite UI is Infragistics' family of UI component libraries for Angular, React, Web Components, Blazor, jQuery and ASP.NET, centred on data grids, charts and dock management. It is sold commercially, with parts of several libraries released under MIT.",
+    "summary": "Ignite UI is Infragistics' family of UI component libraries for Angular, React, Web Components, Blazor, jQuery and ASP.NET, including data grids, charts and a dock manager. It is sold commercially, and parts of several libraries are released under MIT.",
     "homepageUrl": "https://www.infragistics.com/products/ignite-ui",
     "docsUrl": "https://www.infragistics.com/products/ignite-ui-angular/angular/components/general/getting-started",
-    "repositoryUrl": "https://github.com/IgniteUI",
+    "repositoryUrl": "https://github.com/IgniteUI/igniteui-angular",
     "figmaUrl": null,
     "storybookUrl": null,
     "packages": [
@@ -3631,9 +3788,9 @@
         "url": "https://www.npmjs.com/package/ignite-ui"
       },
       {
-        "name": "IgniteUI.Blazor",
+        "name": "IgniteUI.Blazor.Trial",
         "registry": "nuget",
-        "url": "https://www.nuget.org/packages/IgniteUI.Blazor"
+        "url": "https://www.nuget.org/packages/IgniteUI.Blazor.Trial"
       }
     ],
     "license": {
@@ -3643,7 +3800,7 @@
       "url": "https://www.infragistics.com/legal/license",
       "isOpenSource": false,
       "redistribution": "conditional",
-      "notes": "Mixed licensing: igniteui-angular is dual-licensed (its LICENSE lists components under MIT; all other parts under the Infragistics Commercial License); igniteui-react and igniteui-webcomponents declare MIT on npm; the jQuery package ignite-ui declares Apache-2.0; other products/grids are commercial."
+      "notes": "Mixed licensing: igniteui-angular is dual-licensed (its LICENSE lists components under MIT; all other parts under the Infragistics Commercial License); igniteui-react and igniteui-webcomponents declare MIT on npm; Ignite UI for Blazor docs state 50+ components are MIT and premium components (grids, dock manager, charts) need a commercial licence; the jQuery package ignite-ui declares Apache-2.0."
     },
     "docAccess": "public",
     "maintenanceStatus": "active",
@@ -3695,7 +3852,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified commercial-suite even though some libraries are partly MIT ('open-source' tag reflects those subsets). repositoryUrl is the official IgniteUI GitHub organisation because each framework has its own repo (igniteui-angular, igniteui-webcomponents, igniteui-react, ignite-ui). latestVersion is the flagship igniteui-angular (22.2.5, 2026-11-02); other libraries version independently (igniteui-react 19.9.0, igniteui-webcomponents 7.4.1, ignite-ui 25.1.3). docsUrl is the Angular getting-started guide; React/Web Components/Blazor have parallel docs. Infragistics desktop (WPF/WinForms) products are separate and not counted.",
+    "notes": "Classified commercial-suite even though some libraries are partly MIT (the 'open-source' tag reflects those subsets). Each framework has its own repo under github.com/IgniteUI (igniteui-angular, igniteui-webcomponents, igniteui-react, ignite-ui); repositoryUrl is the flagship igniteui-angular, which is also the source of latestVersion (22.2.5, 2026-11-02). Other libraries version independently (igniteui-react 19.9.0, igniteui-webcomponents 7.4.1, ignite-ui 25.1.3). docsUrl is the Angular getting-started guide; React, Web Components and Blazor have parallel docs. Infragistics desktop (WPF/WinForms) products are separate and not counted. audited 2026-11-05: the nuget.org IgniteUI.Blazor listing is unlisted and stale (22.2.24, 2022), so packages now lists IgniteUI.Blazor.Trial (26.1.98); the blazor packageName stays IgniteUI.Blazor (private feed, per the docs). repositoryUrl changed from the org page to the flagship repo. The summary dropped 'centred on ... dock management'. Blazor MIT subset added to licence notes. All checks re-run.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3703,7 +3860,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:41.773Z",
+        "checkedAt": "2026-11-05T04:11:22.619Z",
         "method": "http-check",
         "note": "Ignite UI product page: components for Angular, ASP.NET, Blazor, jQuery, React and Web Components"
       },
@@ -3713,7 +3870,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-angular/angular/components/general/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.373Z",
+        "checkedAt": "2026-11-05T04:11:22.967Z",
         "method": "http-check",
         "note": "'Getting Started | Ignite UI for Angular'"
       },
@@ -3723,7 +3880,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-react/react/components/general-getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.674Z",
+        "checkedAt": "2026-11-05T04:11:24.480Z",
         "method": "http-check",
         "note": "'Getting Started | Ignite UI for React'"
       },
@@ -3733,7 +3890,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-web-components/web-components/components/general-getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.997Z",
+        "checkedAt": "2026-11-05T04:11:24.781Z",
         "method": "http-check",
         "note": "'Getting Started | Ignite UI for Web Components'"
       },
@@ -3743,7 +3900,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:42.273Z",
+        "checkedAt": "2026-11-05T04:11:23.898Z",
         "method": "http-check",
         "note": "'Getting Started | Ignite UI for Blazor'"
       },
@@ -3753,7 +3910,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-jquery",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:42.573Z",
+        "checkedAt": "2026-11-05T04:11:24.180Z",
         "method": "http-check",
         "note": "Ignite UI for jQuery product page"
       },
@@ -3763,7 +3920,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-aspnet-core",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:30.719Z",
+        "checkedAt": "2026-11-05T04:11:23.673Z",
         "method": "http-check",
         "note": "Ignite UI for ASP.NET Core product page"
       },
@@ -3773,7 +3930,7 @@
         "status": 200,
         "finalUrl": "https://github.com/IgniteUI",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:41.240Z",
+        "checkedAt": "2026-11-05T04:11:21.880Z",
         "method": "http-check",
         "note": "Official GitHub org 'Ignite UI'"
       },
@@ -3783,7 +3940,7 @@
         "status": 200,
         "finalUrl": "https://github.com/IgniteUI/igniteui-angular",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:42.255Z",
+        "checkedAt": "2026-11-05T04:11:22.355Z",
         "method": "http-check",
         "note": "igniteui-angular repo"
       },
@@ -3793,7 +3950,7 @@
         "status": 200,
         "finalUrl": "https://github.com/IgniteUI/igniteui-webcomponents",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:42.555Z",
+        "checkedAt": "2026-11-05T04:11:22.779Z",
         "method": "http-check",
         "note": "igniteui-webcomponents repo"
       },
@@ -3803,7 +3960,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/legal/license",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:42.873Z",
+        "checkedAt": "2026-11-05T04:11:22.305Z",
         "method": "http-check",
         "note": "'Infragistics Products | License Agreements'"
       },
@@ -3813,7 +3970,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/igniteui-angular@22.2.5/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:53.886Z",
+        "checkedAt": "2026-11-05T04:11:22.852Z",
         "method": "repo-metadata",
         "note": "'Dual License for Ignite UI for Angular' — MIT for listed components, Infragistics Commercial License for the rest"
       },
@@ -3823,7 +3980,7 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/products/ignite-ui-angular/open-source",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:31.040Z",
+        "checkedAt": "2026-11-05T04:11:23.297Z",
         "method": "http-check",
         "note": "'Free Open-Source Angular Components' — MIT-licensed subset"
       },
@@ -3833,7 +3990,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/igniteui-angular",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:59.421Z",
+        "checkedAt": "2026-11-05T04:11:35.853Z",
         "method": "package-metadata",
         "note": "npm latest 22.2.5 published 2026-11-02; license SEE LICENSE IN LICENSE"
       },
@@ -3843,7 +4000,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/igniteui-react",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:59.963Z",
+        "checkedAt": "2026-11-05T04:11:36.094Z",
         "method": "package-metadata",
         "note": "npm latest 19.9.0 published 2026-09-28; license MIT"
       },
@@ -3853,7 +4010,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/igniteui-webcomponents",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:59.574Z",
+        "checkedAt": "2026-11-05T04:11:36.402Z",
         "method": "package-metadata",
         "note": "npm latest 7.4.1 published 2026-09-25; license MIT"
       },
@@ -3863,7 +4020,7 @@
         "status": 200,
         "finalUrl": "https://registry.npmjs.org/ignite-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:00.267Z",
+        "checkedAt": "2026-11-05T04:11:35.496Z",
         "method": "package-metadata",
         "note": "npm latest 25.1.3 published 2025-12-16; license Apache-2.0. jQuery library; repository IgniteUI/ignite-ui"
       },
@@ -3873,9 +4030,9 @@
         "status": 200,
         "finalUrl": "https://www.nuget.org/packages/IgniteUI.Blazor",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:31.184Z",
+        "checkedAt": "2026-11-05T04:11:22.136Z",
         "method": "package-metadata",
-        "note": "NuGet Gallery page for IgniteUI.Blazor"
+        "note": "nuget.org IgniteUI.Blazor listing is unlisted by the owner: latest 22.2.24, last updated 2022-11-11 (stale); licensed package is served from the Infragistics private feed"
       },
       {
         "field": "organization",
@@ -3883,12 +4040,62 @@
         "status": 200,
         "finalUrl": "https://www.infragistics.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:43.172Z",
+        "checkedAt": "2026-11-05T04:11:21.991Z",
         "method": "http-check",
         "note": "Infragistics homepage"
+      },
+      {
+        "field": "package:IgniteUI.Blazor.Trial",
+        "url": "https://www.nuget.org/packages/IgniteUI.Blazor.Trial",
+        "status": 200,
+        "finalUrl": "https://www.nuget.org/packages/IgniteUI.Blazor.Trial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.106Z",
+        "method": "package-metadata",
+        "note": "NuGet Gallery: IgniteUI.Blazor.Trial 26.1.98 (public trial package)"
+      },
+      {
+        "field": "package:IgniteUI.Blazor.Trial",
+        "url": "https://api.nuget.org/v3-flatcontainer/igniteui.blazor.trial/index.json",
+        "status": 200,
+        "finalUrl": "https://api.nuget.org/v3-flatcontainer/igniteui.blazor.trial/index.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:27:52.893Z",
+        "method": "package-metadata",
+        "note": "NuGet version index: newest 26.1.98"
+      },
+      {
+        "field": "package:IgniteUI.Blazor",
+        "url": "https://api.nuget.org/v3-flatcontainer/igniteui.blazor/index.json",
+        "status": 200,
+        "finalUrl": "https://api.nuget.org/v3-flatcontainer/igniteui.blazor/index.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:27:52.594Z",
+        "method": "package-metadata",
+        "note": "NuGet version index for IgniteUI.Blazor on nuget.org ends at 22.2.24"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-installing-blazor",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-installing-blazor",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.059Z",
+        "method": "page-content",
+        "note": "Install guide: licensed users use IgniteUI.Blazor (26.1.98) from the Infragistics private NuGet feed; trial users the nuget.org trial package"
+      },
+      {
+        "field": "license",
+        "url": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-open-source-vs-premium",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-open-source-vs-premium",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:26:51.380Z",
+        "method": "page-content",
+        "note": "'over 50 UI components available under the MIT license'; premium components (grids, dock manager, charts) require a commercial license"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:53.886Z"
+    "verifiedAt": "2026-11-05T04:27:52.893Z"
   }
 ]
