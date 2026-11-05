@@ -84,7 +84,7 @@ const ROLE_TYPES: Record<string, string> = {
   tooltip: "tooltip",
 };
 
-function classify(name: string, altNames: string[], roles: string[]): NormalizedComponent["classification"] & { slug: string } | null {
+function classify(name: string, altNames: string[], roles: string[]): { slug: string; state: "verified" | "inferred"; method: string; confidence: number } | null {
   const candidates: { slug: string; method: string; confidence: number }[] = [];
   const add = (n: string, label: string | null) => {
     const c = classifyComponentName(n);
@@ -257,8 +257,7 @@ function buildComponent(
     ev.push(evidence("properties", wca!.ev, "wca-manifest", 0.9, { location: `${wca!.ev.location}#${t.pointer} (${t.name})` }));
     aliases.push(t.name);
   }
-  const plannedImpl = item.react.length > 0;
-  coverage.properties = properties.length ? "documented" : item.family ? "not-documented" : plannedImpl || tags.length ? "not-extracted" : "not-extracted";
+  coverage.properties = properties.length ? "documented" : "not-extracted";
 
   const reactPrimary = reactFound[0] ?? null;
   const codeLabels = (code?.frameworks ?? []).filter((x) => !x.community).map((x) => x.label.toLowerCase());

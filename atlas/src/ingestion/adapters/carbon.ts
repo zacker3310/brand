@@ -13,7 +13,7 @@
  *    (compiled CSS, used only to verify --cds-* custom property names).
  */
 import type { NormalizedBundle, ValidationIssue } from "@/lib/contracts";
-import { excerpt, githubBlobUrl, listFiles, npmFileUrl, npmLatest, npmListingUrl, type FetchResult } from "../http";
+import { listFiles, npmFileUrl, npmLatest, npmListingUrl, type FetchResult } from "../http";
 import type { AdapterContext, DiscoveredDocument, FetchedDocument, ParsedFragment, SourceAdapter } from "../types";
 import {
   ADAPTER_ID,
@@ -543,5 +543,3 @@ export const adapter: SourceAdapter = {
   validate,
 };
 
-// Re-exported for tests.
-export { excerpt as _excerpt, githubBlobUrl as _githubBlobUrl };
