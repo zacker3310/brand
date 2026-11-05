@@ -34,7 +34,9 @@ async function main() {
       for (let r = queue.shift(); r; r = queue.shift()) {
         // HEAD first (cheap); some servers reject HEAD, so fall back to GET.
         let res = await http.get(r.url, { method: "HEAD", timeoutMs: 15_000, maxRetries: 1 });
-        if (!res.blockedByRobots && (res.status === 405 || res.status === 403 || res.status === 0 || res.status >= 500))
+        // Fall back to GET on any HEAD failure: several servers answer HEAD with 404/405/403 for pages that
+        // GET serves fine (nuget.org, webawesome.com, skyscanner.design).
+        if (!res.blockedByRobots && !res.ok)
           res = await http.get(r.url, { timeoutMs: 20_000, maxRetries: 1, maxBytes: 5 * 1024 * 1024 });
         const robots = res.blockedByRobots;
         // 401/403/429 mean "access restricted for automated clients" (e.g. npmjs.com bot challenge), not a

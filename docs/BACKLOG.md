@@ -83,6 +83,11 @@ concrete gap observed, not a hypothetical.
 
 ## 5. Operations
 
+0. **Generic source grouping URL.** The generic adapter groups component pages under a `docs` source whose
+   URL is the docs origin root (e.g. `https://ui5.github.io/`, which answers 404). Source rows are counted,
+   not rendered as links, so nothing user-facing breaks, but the link check flags it. Use the target's index
+   directory (`.../webcomponents/`) as the grouping URL and migrate document rows to it.
+
 1. Move the repository's former brand assets consumers (acker.cloud, thrivecmd.com Super.so injections) to
    the immutable jsDelivr pin `@fdace58` (the files no longer exist on `main`).
 2. CI: run typecheck, lint, unit/integration and e2e (against a seeded fixture DB) on every push.
