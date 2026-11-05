@@ -494,7 +494,10 @@ export function normalizeCarbon(systemSlug: string, fragments: { data: unknown }
     return by.get(slug)!;
   };
   for (const f of frs) {
-    if (f.t === "usage" || f.t === "style" || f.t === "code" || f.t === "a11y") (get(f.slug) as Record<string, unknown>)[f.t] = f;
+    if (f.t === "usage") get(f.slug).usage = f;
+    else if (f.t === "style") get(f.slug).style = f;
+    else if (f.t === "code") get(f.slug).code = f;
+    else if (f.t === "a11y") get(f.slug).a11y = f;
     else if (f.t === "live") get(f.slug).live = f;
     else if (f.t === "react") get(f.slug).react.push(f);
   }

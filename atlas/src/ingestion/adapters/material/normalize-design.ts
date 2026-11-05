@@ -160,15 +160,29 @@ export function normalizeM3Components(pages: M3PageInput[], links: M3TokenLink[]
             confidence: 0.85,
           }),
         );
-        for (const s of statesFromGroups(l.groups)) {
-          if (states.some((x) => x.name === s)) continue;
-          states.push({
-            name: s,
-            canonical: canonicalState(s.toLowerCase()),
-            description: `State named in M3 component token groups (${l.stem}).`,
-            sourceUrl: l.prov.sourceUrl,
-          });
+      }
+      // One state per canonical meaning; M3 files label the same state "Focus"/"Focused" etc.,
+      // so keep the label used by the most token files (ties: alphabetical).
+      const tally = new Map<string, { label: string; files: M3TokenLink[] }[]>();
+      for (const l of links) {
+        for (const label of statesFromGroups(l.groups)) {
+          const canon = canonicalState(label.toLowerCase()) ?? label.toLowerCase();
+          const arr = tally.get(canon) ?? [];
+          const rec = arr.find((r) => r.label === label);
+          if (rec) rec.files.push(l);
+          else arr.push({ label, files: [l] });
+          tally.set(canon, arr);
         }
+      }
+      for (const [canon, arr] of tally) {
+        const best = [...arr].sort((a, b) => b.files.length - a.files.length || (a.label < b.label ? -1 : 1))[0]!;
+        const allFiles = uniq(arr.flatMap((r) => r.files.map((f) => f.stem)));
+        states.push({
+          name: best.label,
+          canonical: canon,
+          description: clip(`State named in M3 component token groups (${allFiles.length} file${allFiles.length > 1 ? "s" : ""}, e.g. ${allFiles[0]}).`, 300),
+          sourceUrl: best.files[0]!.prov.sourceUrl,
+        });
       }
       if (states.length) {
         coverage.states = "inferred";

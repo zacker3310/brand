@@ -102,7 +102,7 @@ const ev = (stamp: SourceStamp, field: string, method: string, opts: { location?
   confidence: opts.confidence ?? 0.9,
 });
 
-const DOCS_STATUS: Record<string, Lifecycle> = { ready: "stable", stable: "stable", experimental: "experimental", beta: "beta", deprecated: "deprecated" };
+const DOCS_STATUS: Record<string, Lifecycle> = { ready: "stable", stable: "stable", experimental: "experimental", draft: "experimental", beta: "beta", deprecated: "deprecated" };
 const DOCSJSON_STATUS: Record<string, Lifecycle> = { deprecated: "deprecated", draft: "experimental", beta: "beta" };
 
 function mitLicense(npm: NpmInfo, licenseUrl: string | null, copyright: string | null): LicenseRef | null {

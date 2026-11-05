@@ -405,7 +405,11 @@ export function parseComponentPage(html: string, url: string, pageType: Componen
         const n = blocks[j]!;
         if (n.kind === "h" && n.level <= b.level) break;
         if ((n.kind === "p" || n.kind === "li") && n.text.length >= 30) {
-          responsive = { text: shortText(n.text, 280)!, anchor: b.id, heading: b.text };
+          let text = n.text;
+          // "Some strategies ... include:" -> append the list items that follow.
+          const wantsList = text.endsWith(":");
+          for (let k = j + 1; wantsList && k < blocks.length && blocks[k]!.kind === "li"; k++) text += ` ${blocks[k]!.text};`;
+          responsive = { text: shortText(text.replace(/;$/, "."), 280)!, anchor: b.id, heading: b.text };
           break;
         }
       }
