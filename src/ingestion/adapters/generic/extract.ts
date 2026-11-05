@@ -121,7 +121,10 @@ export interface Candidate {
 export interface CompiledTarget {
   include: RegExp;
   exclude: RegExp[];
-  titleSuffix: RegExp | null;
+  /** target.titleSuffix patterns (global), applied in order. Empty when unset. */
+  titleSuffix: RegExp[];
+  /** target.preferDoc: preferred document among those capturing one component. */
+  prefer: RegExp | null;
 }
 
 const compiled = new WeakMap<GenericTarget, CompiledTarget>();
@@ -129,13 +132,26 @@ const compiled = new WeakMap<GenericTarget, CompiledTarget>();
 export function compileTarget(t: GenericTarget): CompiledTarget {
   const hit = compiled.get(t);
   if (hit) return hit;
+  const suffixes = t.titleSuffix === undefined ? [] : Array.isArray(t.titleSuffix) ? t.titleSuffix : [t.titleSuffix];
   const c: CompiledTarget = {
     include: new RegExp(t.include),
     exclude: (t.exclude ?? []).map((x) => new RegExp(x)),
-    titleSuffix: t.titleSuffix ? new RegExp(t.titleSuffix, "g") : null,
+    titleSuffix: suffixes.filter(Boolean).map((x) => new RegExp(x, "g")),
+    prefer: t.preferDoc ? new RegExp(t.preferDoc) : null,
   };
   compiled.set(t, c);
   return c;
+}
+
+/** Title decoration patterns: one RegExp, several (applied in order), or none. */
+export type Decoration = RegExp | readonly RegExp[] | null | undefined;
+
+/** Strip site decoration (target.titleSuffix): each pattern applied once, in order, globally. */
+export function stripDecoration(s: string, patterns: Decoration): string {
+  const list: readonly RegExp[] = !patterns ? [] : patterns instanceof RegExp ? [patterns] : patterns;
+  let out = clean(s);
+  for (const re of list) out = clean(out.replace(re, ""));
+  return out;
 }
 
 /** Normalize a URL for matching: absolute, no hash, no query. */
@@ -197,17 +213,25 @@ function parentPart(value: string, segment: string): string | null {
   return idx > 0 ? parts[idx - 1]! : null;
 }
 
-const better = (a: { value: string }, b: { value: string }) => a.value.length < b.value.length || (a.value.length === b.value.length && a.value < b.value);
-
 /**
  * Filter raw values (URLs or paths) through the target rules, dedupe by segment key and sort
- * deterministically by key. For one key the shortest, then lexicographically first value wins.
- * With `distinctPages` (sitemap/nav), different documents capturing the same segment (e.g.
- * /forms/text/ and /display/text/) are kept as separate components keyed "<parent>-<segment>";
- * URL variants of one document (trailing slash, .html) still collapse.
+ * deterministically by key. For one key the value matching target.preferDoc wins, then the
+ * shortest, then the lexicographically first.
+ * With `distinctPages` (sitemap/nav), different documents capturing the same segment are separate
+ * components keyed "<parent>-<segment>" when they live under different parents (/forms/text/ vs
+ * /display/text/); documents under the same parent (tab or sub-pages of one component:
+ * /button/overview-x, /button/web-y) stay one component with the plain key. URL variants of one
+ * document (trailing slash, .html) always collapse.
  */
 export function selectCandidates(values: { value: string; text?: string | null }[], c: CompiledTarget, opts: { distinctPages?: boolean } = {}): Candidate[] {
   type Hit = { segment: string; value: string; text: string | null };
+  const rank = (v: string) => (c.prefer?.test(v) ? 0 : 1);
+  const better = (a: { value: string }, b: { value: string }) => {
+    const ra = rank(a.value);
+    const rb = rank(b.value);
+    if (ra !== rb) return ra < rb;
+    return a.value.length < b.value.length || (a.value.length === b.value.length && a.value < b.value);
+  };
   const groups = new Map<string, Hit[]>();
   for (const { value, text } of values) {
     const seg = matchOne(value, c);
@@ -242,15 +266,16 @@ export function selectCandidates(values: { value: string; text?: string | null }
       g.push(h);
       docs.set(id, g);
     }
-    if (docs.size === 1) {
+    const picks = [...docs.values()].map(pick);
+    const parents = picks.map((h) => parentPart(h.value, h.segment));
+    if (docs.size === 1 || new Set(parents).size === 1) {
       put(key, pick(hits));
       continue;
     }
-    for (const g of docs.values()) {
-      const h = pick(g);
-      const parent = parentPart(h.value, h.segment);
+    picks.forEach((h, i) => {
+      const parent = parents[i];
       put(parent ? segmentKey(`${parent}-${h.segment}`) || key : key, h);
-    }
+    });
   }
   return [...out.values()].sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
 }
@@ -273,6 +298,69 @@ export function extractNavLinks(html: string, baseUrl: string, selector?: string
     out.push({ value: abs, text: clean($(el).text()) });
   });
   return out;
+}
+
+/** Never part of an outline: inert, media and metadata elements (no link text, never selector-relevant for links). */
+const OUTLINE_DROP = "script, style, noscript, template, svg, img, picture, video, audio, iframe, canvas, object, embed, link, meta, base";
+const VOID_ELEMENTS = new Set(["area", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"]);
+const OUTLINE_LABEL_MAX = 120;
+const OUTLINE_ATTR_MAX = 200;
+
+/**
+ * Link outline of an HTML page: every <a href> with its full subtree, every ancestor of a link
+ * (tag, id, class and short attributes kept), and the other children of those ancestors reduced to
+ * short labels (element + its text, truncated). Everything else (page prose, scripts, media,
+ * comments, <head>) is dropped.
+ *
+ * This is what the generic adapter stores for a nav page: it depends only on the page (never on a
+ * target), and extractNavLinks(outline, base, selector) returns the same links as on the full page
+ * for selectors built from ancestry, attributes, positions and :has()/:contains() on labels. Target
+ * selectors are therefore applied in normalize() and a selector edit needs no re-parse.
+ */
+export function navOutline(html: string): string {
+  const $ = cheerio.load(html);
+  $(OUTLINE_DROP).remove();
+  $("head").empty();
+  const links = new Set<object>();
+  const ancestors = new Set<object>();
+  $("a[href]").each((_, a) => {
+    links.add(a);
+    $(a)
+      .parents()
+      .each((__, p) => {
+        if (ancestors.has(p)) return false;
+        ancestors.add(p);
+        return undefined;
+      });
+  });
+  const reduce = (parent: Parameters<typeof $>[0]) => {
+    $(parent)
+      .contents()
+      .each((_, n) => {
+        if (n.type === "comment") {
+          $(n).remove();
+          return;
+        }
+        if (n.type === "text") {
+          const t = clean(n.data);
+          n.data = t ? t.slice(0, OUTLINE_LABEL_MAX) : " ";
+          return;
+        }
+        if (n.type !== "tag" || links.has(n)) return; // link subtrees are kept whole
+        if (ancestors.has(n)) {
+          reduce(n);
+          return;
+        }
+        if (!VOID_ELEMENTS.has(n.name)) $(n).text(clean($(n).text()).slice(0, OUTLINE_LABEL_MAX)); // label
+      });
+  };
+  reduce($.root().get(0));
+  $("*").each((_, el) => {
+    for (const [k, v] of Object.entries(el.attribs ?? {})) {
+      if (k === "style" || k.startsWith("on") || (k !== "href" && v.length > OUTLINE_ATTR_MAX)) $(el).removeAttr(k);
+    }
+  });
+  return $.html();
 }
 
 /* -------------------------------------------------------------------------- */
@@ -354,10 +442,47 @@ const stripMdInline = (s: string) =>
 /** Unquote a simple YAML scalar ("Button", 'Button', Button). */
 const yamlScalar = (v: string) => clean(v.replace(/^(["'])(.*)\1$/, "$2"));
 
+const unescapeJs = (s: string) => s.replace(/\\(.)/g, (_, ch: string) => (ch === "n" ? " " : ch === "t" ? " " : ch));
+
 /**
- * Static metadata from a Markdown/MDX docs source file: frontmatter title/description, the first
- * level-1 heading, and the first prose paragraph directly under it (before any sub-heading,
- * skipping lists, tables, admonitions (:::), HTML/JSX, imports and code fences).
+ * Next.js-style MDX page metadata: `export const meta = { title: '...', description: '...' }`.
+ * Only top-level string-literal values ('...', "...", or `...` without interpolation) are read;
+ * nested objects, identifiers and expressions are ignored (never evaluated).
+ */
+export function parseMdxExportMeta(md: string): { title: string | null; description: string | null } | null {
+  const start = /^export\s+const\s+meta\s*(?::[^=\n]+)?=\s*\{/m.exec(md);
+  if (!start) return null;
+  const from = start.index + start[0].length;
+  const lineEnd = md.indexOf("\n", from);
+  const rest = md.slice(from, lineEnd < 0 ? undefined : lineEnd);
+  let block: string;
+  let topIndent: number | null = null;
+  if (/\}\s*;?\s*$/.test(rest)) block = rest.replace(/\}\s*;?\s*$/, ""); // single-line object
+  else {
+    const close = /^\}\s*;?\s*$/m.exec(md.slice(from));
+    if (!close) return null;
+    block = md.slice(from, from + close.index);
+    const indents = [...block.matchAll(/^([ \t]*)[A-Za-z_$"'][\w$"']*\s*:/gm)].map((m) => m[1]!.length);
+    topIndent = indents.length ? Math.min(...indents) : null;
+  }
+  const value = (key: string): string | null => {
+    const re = new RegExp(`(?:^|[,{])([ \\t]*)["']?${key}["']?\\s*:\\s*('(?:[^'\\\\\\n]|\\\\.)*'|"(?:[^"\\\\\\n]|\\\\.)*"|\`[^\`$]*\`)`, "gm");
+    for (const m of block.matchAll(re)) {
+      if (topIndent !== null && m[1]!.length !== topIndent) continue;
+      const v = clean(unescapeJs(m[2]!.slice(1, -1)));
+      if (v) return v;
+    }
+    return null;
+  };
+  const title = value("title");
+  const description = value("description");
+  return title || description ? { title, description } : null;
+}
+
+/**
+ * Static metadata from a Markdown/MDX docs source file: frontmatter (or MDX `export const meta`)
+ * title/description, the first level-1 heading, and the first prose paragraph directly under it
+ * (before any sub-heading, skipping lists, tables, admonitions (:::), HTML/JSX, imports and code fences).
  */
 export function parseMarkdownMeta(md: string): PageMeta {
   let body = md.replace(/^\uFEFF/, "");
@@ -371,6 +496,11 @@ export function parseMarkdownMeta(md: string): PageMeta {
       if (m && m[1] === "description") fmDesc = yamlScalar(m[2]!) || null;
     }
     body = body.slice(fm[0].length);
+  }
+  const mdx = parseMdxExportMeta(body);
+  if (mdx) {
+    fmTitle ??= mdx.title;
+    fmDesc ??= mdx.description;
   }
   const lines = body.split(/\r?\n/);
   let h1: string | null = null;
@@ -442,10 +572,9 @@ const plausibleName = (s: string | null | undefined): s is string => {
  * Strip the configured site decoration (titleSuffix), then split on title separators.
  * Returns the part that names the segment (best) and the first part (first).
  */
-export function cleanTitle(title: string, segment: string, suffix: RegExp | null): { best: string | null; first: string | null; decorated: boolean } {
+export function cleanTitle(title: string, segment: string, suffix: Decoration): { best: string | null; first: string | null; decorated: boolean } {
   const raw = clean(title);
-  let t = raw;
-  if (suffix) t = clean(t.replace(suffix, ""));
+  const t = stripDecoration(raw, suffix);
   if (!t) return { best: null, first: null, decorated: false };
   const parts = t.split(/\s+[|–—·•]\s+|\s+-\s+/).map(clean).filter(Boolean);
   if (parts.length > 1) return { best: parts.find((p) => relatesToSegment(p, segment)) ?? null, first: parts[0] ?? null, decorated: true };
@@ -454,13 +583,32 @@ export function cleanTitle(title: string, segment: string, suffix: RegExp | null
 
 const GENERIC_PART = /^(overview|basic|basics|default|usage|examples?|docs|documentation|introduction|components?)$/i;
 
-const stripComponentWord = (s: string) => clean(s.replace(/\s+(component|components|element|web component)$/i, ""));
-const strip = (s: string | null | undefined, suffix: RegExp | null): string | null => {
+const KIND_WORD = /\s+(component|components|element|web component)$/i;
+
+/**
+ * Drop a trailing kind word ("Button Component" -> "Button"), unless the component's own segment ends
+ * with that word ("details-component" stays "Details Component", distinct from "details").
+ */
+export function stripComponentWord(s: string, segment?: string): string {
+  const v = clean(s);
+  const m = KIND_WORD.exec(v);
+  if (!m) return v;
+  if (segment) {
+    const key = segmentKey(segment.split("/").filter(Boolean).pop() ?? segment);
+    const word = m[1]!.toLowerCase().replace(/\s+/g, "-");
+    if (key === word || key.endsWith(`-${word}`)) return v;
+  }
+  return clean(v.slice(0, m.index));
+}
+const strip = (s: string | null | undefined, suffix: Decoration, segment?: string): string | null => {
   if (!s) return null;
-  const v = stripComponentWord(suffix ? clean(clean(s).replace(suffix, "")) : clean(s));
+  const v = stripComponentWord(stripDecoration(s, suffix), segment);
   return v || null;
 };
 const sameText = (a: string | null, b: string | null) => !!a && !!b && a.toLowerCase() === b.toLowerCase();
+const allCaps = (s: string) => /[A-Z]/.test(s) && !/[a-z]/.test(s);
+/** A heading equal to the title up to case: the title's casing wins (lowercase CSS-capitalised h1s), unless it is all caps. */
+const titleCasing = (heading: string, title: string) => (allCaps(title) && !allCaps(heading) ? heading : title);
 
 export type NameSource = "h1" | "title" | "link" | "segment";
 
@@ -469,13 +617,14 @@ export type NameSource = "h1" | "title" | "link" | "segment";
  *  1. the heading that agrees with the page title (h1 own text first: drops status badges like "Button Ready"),
  *  2. h1 / title / h1 own text that plausibly names the URL segment,
  *  3. nav link text that names the segment, 4. the humanized segment.
- * `suffix` (target.titleSuffix) strips site decoration from both <title> and <h1>.
+ * `suffix` (target.titleSuffix) strips site decoration from both <title> and <h1>. A heading that equals
+ * the title up to case takes the title's casing.
  */
 export function chooseName(
   segment: string,
   page: Pick<PageMeta, "title" | "h1" | "h1Own"> | null,
   linkText: string | null | undefined,
-  suffix: RegExp | null,
+  suffix: Decoration,
 ): { name: string; from: NameSource } {
   const r = chooseNameRaw(segment, page, linkText, suffix);
   // Versioned modules ("calendar2", "date-picker2") whose docs heading omits the version ("Calendar"):
@@ -489,26 +638,30 @@ function chooseNameRaw(
   segment: string,
   page: Pick<PageMeta, "title" | "h1" | "h1Own"> | null,
   linkText: string | null | undefined,
-  suffix: RegExp | null,
+  suffix: Decoration,
 ): { name: string; from: NameSource } {
   const ok = (s: string | null | undefined): s is string => plausibleName(s);
   const rel = (s: string | null | undefined): s is string => ok(s) && relatesToSegment(s, segment);
   if (page) {
-    const h1 = strip(page.h1, suffix);
-    const h1Own = strip(page.h1Own, suffix);
+    const h1 = strip(page.h1, suffix, segment);
+    const h1Own = strip(page.h1Own, suffix, segment);
     const t = page.title ? cleanTitle(page.title, segment, suffix) : { best: null, first: null, decorated: false };
-    const title = strip(t.best, null);
-    const titleFirst = strip(t.first, null);
+    const title = strip(t.best, null, segment);
+    const titleFirst = strip(t.first, null, segment);
     // A heading equal to the page-specific part of a decorated title ("<Name> | <Site>") names the page,
     // even when it does not repeat the URL segment ("Basic number field" at /forms/numeric/).
-    for (const h of [h1Own, h1]) if (ok(h) && (sameText(h, title) || (t.decorated && sameText(h, titleFirst))) && (t.decorated || rel(h))) return { name: h, from: "h1" };
+    for (const h of [h1Own, h1]) {
+      if (!ok(h) || !(t.decorated || rel(h))) continue;
+      if (sameText(h, title)) return { name: titleCasing(h, title!), from: "h1" };
+      if (t.decorated && sameText(h, titleFirst)) return { name: titleCasing(h, titleFirst!), from: "h1" };
+    }
     if (rel(h1)) return { name: h1, from: "h1" };
     if (rel(title)) return { name: title, from: "title" };
     if (rel(h1Own)) return { name: h1Own, from: "h1" };
   }
   // Link texts may be breadcrumbs ("Components/DataTable/Basic"): use the deepest specific part that
   // names the end of the segment, else the deepest part that names it at all.
-  const linkParts = (linkText ?? "").split(/\s*[/›»>]\s*/).map((x) => strip(x, null)).filter((x): x is string => !!x).reverse();
+  const linkParts = (linkText ?? "").split(/\s*[/›»>]\s*/).map((x) => strip(x, null, segment)).filter((x): x is string => !!x).reverse();
   if (linkParts.length > 1) {
     const segC = compact(humanizeSegment(segment));
     const specific = linkParts.filter((x) => !GENERIC_PART.test(x));
@@ -526,7 +679,7 @@ function chooseNameRaw(
     const any = specific.find((x) => rel(x));
     if (any) return { name: any, from: "link" };
   }
-  const link = strip(linkText, null);
+  const link = strip(linkText, null, segment);
   if (rel(link)) return { name: link, from: "link" };
   return { name: humanizeSegment(segment), from: "segment" };
 }

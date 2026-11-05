@@ -78,6 +78,18 @@ async function expect404(request: APIRequestContext, url: string, notFoundCopy?:
   }
 }
 
+/**
+ * Whether this client may use /ops (localhost mode or an admin session). A 200 that carries a
+ * streamed NEXT_REDIRECT is the soft redirect this spec exists to catch, not access.
+ */
+async function opsAccess(request: APIRequestContext): Promise<"granted" | "denied"> {
+  const res = await raw(request, "/ops");
+  if (res.status() >= 300 && res.status() < 400) return "denied";
+  expect(res.status(), "/ops").toBe(200);
+  expect((await res.text()).includes("NEXT_REDIRECT"), "/ops answered 200 with a streamed redirect instead of an HTTP redirect").toBe(false);
+  return "granted";
+}
+
 async function expect200(request: APIRequestContext, url: string) {
   const res = await raw(request, url);
   expect(res.status(), `${url} should be 200`).toBe(200);
@@ -117,14 +129,12 @@ test.describe("unknown slugs are real 404s on every dynamic route", () => {
   });
 
   test("ops/runs/[id]: auth first, then a real 404", async ({ request }) => {
-    const ops = await raw(request, "/ops");
-    if (ops.status() >= 300 && ops.status() < 400) {
+    if ((await opsAccess(request)) === "denied") {
       // No admin access from this client: unknown ids must not leak existence, just redirect to login.
       const res = await raw(request, `/ops/runs/${NOPE_UUID}`);
       expect(res.status()).toBe(307);
       expect(res.headers().location).toContain("/ops/login?next=%2Fops%2Fruns%2F");
     } else {
-      expect(ops.status()).toBe(200);
       await expect404(request, `/ops/runs/${NOPE_UUID}`, "Run not found");
       await expect404(request, "/ops/runs/not-a-uuid", "Run not found");
     }
@@ -195,8 +205,8 @@ test.describe("redirect() is an HTTP redirect", () => {
   });
 
   test("/ops without admin access -> /ops/login", async ({ request }) => {
+    test.skip((await opsAccess(request)) === "granted", "this client has admin access (localhost mode or session), so /ops does not redirect");
     const res = await raw(request, "/ops");
-    test.skip(res.status() === 200, "this client has admin access (localhost mode or session), so /ops does not redirect");
     expect(res.status()).toBe(307);
     expect(res.headers().location).toMatch(/^\/ops\/login\?next=%2Fops&reason=/);
   });
