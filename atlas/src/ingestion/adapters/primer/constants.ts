@@ -15,6 +15,7 @@ export const SITEMAP_URL = `${DOCS_ORIGIN}/sitemap.xml`;
 export const STORYBOOK_STORY_URL = (storyId: string) => `${DOCS_ORIGIN}/react/storybook/?path=/story/${encodeURIComponent(storyId)}`;
 
 export const DOC_KINDS = {
+  sitemap: "primer-sitemap",
   componentsJson: "primer-components-json",
   license: "primer-license",
   componentCss: "primer-react-css",

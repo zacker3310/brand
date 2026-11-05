@@ -57,8 +57,7 @@
       "open-source",
       "theming",
       "design-tokens",
-      "mobile",
-      "accessibility"
+      "mobile"
     ],
     "relatedSlugs": [
       "material-web",
@@ -160,10 +159,20 @@
         "checkedAt": "2026-11-05T03:52:48.330Z",
         "method": "package-metadata",
         "note": "npm latest 2.5.0 published 2026-07-15; license Apache-2.0; deprecated: no; repo git+https://github.com/material-components/material-web.git; Material Web implementation (separate entry material-web)"
+      },
+      {
+        "field": "tags",
+        "url": "https://m3.material.io/foundations/design-tokens/overview",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/foundations/design-tokens/overview",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:02.847Z",
+        "method": "http-check",
+        "note": "title 'Design tokens – Material Design 3'"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T03:55:44.514Z"
+    "verifiedAt": "2026-11-05T04:07:02.847Z"
   },
   {
     "rank": 2,
@@ -232,7 +241,6 @@
     "tags": [
       "guidelines",
       "mobile",
-      "accessibility",
       "figma-kit",
       "native"
     ],
@@ -385,8 +393,7 @@
       "open-source",
       "design-tokens",
       "theming",
-      "figma-kit",
-      "accessibility"
+      "figma-kit"
     ],
     "relatedSlugs": [
       "fluent-ui-react",
@@ -576,7 +583,6 @@
     "tags": [
       "enterprise",
       "open-source",
-      "accessibility",
       "design-tokens",
       "theming",
       "figma-kit",
@@ -682,6 +688,16 @@
         "note": "npm latest 2.67.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
       },
       {
+        "field": "tags",
+        "url": "https://carbondesignsystem.com/elements/color/tokens/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/building-blocks/foundations/color/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:03.205Z",
+        "method": "http-check",
+        "note": "redirects to building-blocks/foundations/color/tokens; color tokens docs"
+      },
+      {
         "field": "figmaUrl",
         "url": "https://www.figma.com/community/file/1157761560874207208",
         "status": 403,
@@ -693,7 +709,7 @@
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:55:44.974Z"
+    "verifiedAt": "2026-11-05T04:07:03.205Z"
   },
   {
     "rank": 5,
@@ -761,8 +777,7 @@
       "enterprise",
       "saas",
       "open-source",
-      "design-tokens",
-      "accessibility"
+      "design-tokens"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
@@ -777,7 +792,7 @@
         "status": 200,
         "finalUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:51.305Z",
+        "checkedAt": "2026-11-05T04:07:03.511Z",
         "method": "http-check",
         "note": "redirects to /2e1ef8501; title 'Lightning Design System 2' (zeroheight)"
       },
@@ -790,6 +805,16 @@
         "checkedAt": "2026-11-05T03:53:01.789Z",
         "method": "http-check",
         "note": "SLDS 1 documentation site still online; title 'Lightning Design System'"
+      },
+      {
+        "field": "tags",
+        "url": "https://v1.lightningdesignsystem.com/design-tokens/",
+        "status": 200,
+        "finalUrl": "https://v1.lightningdesignsystem.com/design-tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:20.830Z",
+        "method": "http-check",
+        "note": "title 'Design Tokens - Lightning Design System' (SLDS 1)"
       },
       {
         "field": "repositoryUrl",
@@ -853,7 +878,7 @@
       }
     ],
     "confidence": 0.93,
-    "verifiedAt": "2026-11-05T03:53:02.361Z"
+    "verifiedAt": "2026-11-05T04:07:20.830Z"
   },
   {
     "rank": 6,
@@ -936,7 +961,6 @@
       "enterprise",
       "open-source",
       "design-tokens",
-      "accessibility",
       "theming",
       "web-components"
     ],
@@ -1189,8 +1213,7 @@
       "enterprise",
       "saas",
       "design-tokens",
-      "developer-tools",
-      "accessibility"
+      "developer-tools"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
@@ -1257,7 +1280,17 @@
         "ok": true,
         "checkedAt": "2026-11-05T03:57:29.943Z",
         "method": "package-metadata",
-        "note": "npm latest 20.9.0 published 2026-11-02; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+        "note": "npm latest 20.9.0 published 2026-11-02; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git; npm homepage atlassian.design/components/tokens"
+      },
+      {
+        "field": "tags",
+        "url": "https://atlassian.design/components/tokens",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/components/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:04.888Z",
+        "method": "http-check",
+        "note": "tokens docs page (200; client-rendered)"
       },
       {
         "field": "package:@atlaskit/primitives",
@@ -1281,7 +1314,7 @@
       }
     ],
     "confidence": 0.9,
-    "verifiedAt": "2026-11-05T03:58:08.383Z"
+    "verifiedAt": "2026-11-05T04:07:04.888Z"
   },
   {
     "rank": 8,
@@ -1343,8 +1376,7 @@
       "ecommerce",
       "saas",
       "web-components",
-      "design-tokens",
-      "commercial"
+      "design-tokens"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
@@ -1676,10 +1708,20 @@
         "checkedAt": "2026-11-05T03:57:34.230Z",
         "method": "package-metadata",
         "note": "npm latest 0.53.5 published 2026-09-11; license MIT; deprecated: no; repo git+https://github.com/primer/view_components.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://primer.style/accessibility",
+        "status": 200,
+        "finalUrl": "https://primer.style/accessibility/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:20.750Z",
+        "method": "http-check",
+        "note": "title 'Accessibility'; how to create accessible interfaces for GitHub"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:58:07.215Z"
+    "verifiedAt": "2026-11-05T04:07:20.750Z"
   },
   {
     "rank": 10,
@@ -1905,8 +1947,7 @@
       "data-dense",
       "web-components",
       "open-source",
-      "theming",
-      "accessibility"
+      "theming"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
@@ -2084,7 +2125,7 @@
       "websiteUrl": "https://www.oracle.com/"
     },
     "category": "design-system",
-    "summary": "Oracle's design system used across Oracle Cloud applications; its web implementation is the Redwood theme and components of Oracle JET (JavaScript Extension Toolkit), documented on docs.oracle.com.",
+    "summary": "Oracle's design system; its documented web implementation is the Redwood theme and components of Oracle JET (JavaScript Extension Toolkit), described in the JET developer guide on docs.oracle.com.",
     "homepageUrl": "https://redwood.oracle.com/",
     "docsUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
     "repositoryUrl": "https://github.com/oracle/oraclejet",
@@ -2123,8 +2164,6 @@
     "tags": [
       "enterprise",
       "saas",
-      "data-dense",
-      "design-tokens",
       "theming"
     ],
     "relatedSlugs": [],
@@ -2279,15 +2318,14 @@
       "data-dense",
       "developer-tools",
       "saas",
-      "design-tokens",
-      "accessibility"
+      "design-tokens"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Components page states components are built with React. latestVersion = @cloudscape-design/components (continuous patch releases). AWS origin stated per ATLAS knowledge of the project and the AWS-run GitHub org; the homepage meta describes guidelines, components, design resources and tooling. No Figma link verified.",
+    "notes": "Components page states components are built with React. latestVersion = @cloudscape-design/components (continuous patch releases). About page: created for and used by Amazon Web Services (AWS) since 2016 to improve UX across AWS service web applications. No Figma link verified.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2318,6 +2356,16 @@
         "checkedAt": "2026-11-05T04:00:45.170Z",
         "method": "http-check",
         "note": "title 'Get started - Cloudscape Design System'"
+      },
+      {
+        "field": "summary",
+        "url": "https://cloudscape.design/about/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/about/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.348Z",
+        "method": "page-content",
+        "note": "About page: 'Created for and used by Amazon Web Services (AWS) since 2016'"
       },
       {
         "field": "repositoryUrl",
@@ -2361,7 +2409,7 @@
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:02:17.167Z"
+    "verifiedAt": "2026-11-05T04:04:00.348Z"
   },
   {
     "rank": 14,
@@ -2546,7 +2594,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Rejected: no public documentation. airbnb.design (former Airbnb Design site that hosted DLS articles) now redirects to the airbnb.com booking homepage, and the 'building-a-visual-language' article URL redirects to airbnb.com/404. The Medium copy of the article returned 403 (bot challenge). Neither the Airbnb GitHub org nor the tech blog exposes a DLS component catalog, package or token set, so there is nothing for ATLAS to index. Unrelated Airbnb open-source (e.g. Lottie, react-dates) is not the DLS. license null: none published.",
+    "notes": "Rejected: no public documentation. airbnb.design (former Airbnb Design site that hosted DLS articles) now redirects to the airbnb.com booking homepage, and the 'building-a-visual-language' article URL redirects to airbnb.com/404. The Medium copy of the article returned 403 (bot challenge). Neither the Airbnb GitHub org nor the tech blog exposes a DLS component catalog, package or token set, so there is nothing for ATLAS to index. license null: none published.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2601,5 +2649,698 @@
     ],
     "confidence": 0.85,
     "verifiedAt": "2026-11-05T04:02:18.652Z"
+  },
+  {
+    "rank": 16,
+    "slug": "ant-design",
+    "name": "Ant Design",
+    "aliases": [
+      "antd",
+      "AntD"
+    ],
+    "organization": {
+      "slug": "ant-group",
+      "name": "Ant Group",
+      "websiteUrl": "https://ant.design/"
+    },
+    "category": "design-system",
+    "summary": "Enterprise-oriented design language and React component library (npm antd) maintained by the Ant Design team at Ant Group, aimed at enterprise web applications.",
+    "homepageUrl": "https://ant.design/",
+    "docsUrl": "https://ant.design/components/overview/",
+    "repositoryUrl": "https://github.com/ant-design/ant-design",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "antd",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/antd"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/ant-design/ant-design/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2015-present Ant UED."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "6.7.0",
+    "latestReleaseAt": "2026-11-04T03:59:45.205Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "antd",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "china",
+      "theming",
+      "design-tokens"
+    ],
+    "relatedSlugs": [
+      "ant-design-mobile"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Self-described 'enterprise-class UI design language and React UI library'; classified design-system (spec + implementation). Only React is official; Vue/Angular ports (ant-design-vue, ng-zorro-antd) are community projects and are not claimed. Ant Design Mobile is a separate implementation with its own catalog (ant-design-mobile). No Figma link verified.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ant.design/",
+        "status": 200,
+        "finalUrl": "https://ant.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.259Z",
+        "method": "http-check",
+        "note": "title 'Ant Design - ...React UI framework'; meta: enterprise-class UI design language and React UI library"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ant.design/components/overview",
+        "status": 200,
+        "finalUrl": "https://ant.design/components/overview/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.558Z",
+        "method": "http-check",
+        "note": "redirects to /components/overview/; title 'Components Overview - Ant Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ant.design/docs/react/introduce",
+        "status": 200,
+        "finalUrl": "https://ant.design/docs/react/introduce/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:46.967Z",
+        "method": "http-check",
+        "note": "title 'Ant Design of React - Ant Design'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/ant-design/ant-design",
+        "status": 200,
+        "finalUrl": "https://github.com/ant-design/ant-design",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.255Z",
+        "method": "http-check",
+        "note": "ant-design/ant-design repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/ant-design/ant-design/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/ant-design/ant-design/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:08.337Z",
+        "method": "repo-metadata",
+        "note": "MIT LICENSE, Copyright (c) 2015-present Ant UED"
+      },
+      {
+        "field": "package:antd",
+        "url": "https://www.npmjs.com/package/antd",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:11.272Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.7.0 published 2026-11-04; license MIT; deprecated: no; repo git+https://github.com/ant-design/ant-design.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://ant.design/docs/react/customize-theme",
+        "status": 200,
+        "finalUrl": "https://ant.design/docs/react/customize-theme/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:03.029Z",
+        "method": "http-check",
+        "note": "title 'Customize Theme - Ant Design' (design-token based theming)"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T04:07:03.029Z"
+  },
+  {
+    "rank": 17,
+    "slug": "ant-design-mobile",
+    "name": "Ant Design Mobile",
+    "aliases": [
+      "antd-mobile",
+      "antd mobile"
+    ],
+    "organization": {
+      "slug": "ant-group",
+      "name": "Ant Group",
+      "websiteUrl": "https://ant.design/"
+    },
+    "category": "component-library",
+    "summary": "React component library for mobile web applications (npm antd-mobile) from the Ant Design team at Ant Group, following Ant Design principles with a mobile-specific component catalog.",
+    "homepageUrl": "https://mobile.ant.design/",
+    "docsUrl": "https://mobile.ant.design/components/button/",
+    "repositoryUrl": "https://github.com/ant-design/ant-design-mobile",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "antd-mobile",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/antd-mobile"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/ant-design/ant-design-mobile/master/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2016-present Alipay.com."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.43.0",
+    "latestReleaseAt": "2026-09-14T09:02:40.702Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "antd-mobile",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "mobile-web"
+    ],
+    "tags": [
+      "mobile",
+      "open-source",
+      "china",
+      "theming"
+    ],
+    "relatedSlugs": [
+      "ant-design"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct implementation with its own catalog and package, so verified separately from ant-design (not a duplicate). Targets mobile web (site/repo: 'Essential UI blocks for building mobile web apps'); a React Native variant is not claimed here. docsUrl is the Button page because the site has no separate docs landing beyond the homepage.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://mobile.ant.design/",
+        "status": 200,
+        "finalUrl": "https://mobile.ant.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.504Z",
+        "method": "http-check",
+        "note": "title 'Ant Design Mobile'; 'Essential UI blocks for building mobile web apps.'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://mobile.ant.design/components/button",
+        "status": 200,
+        "finalUrl": "https://mobile.ant.design/components/button/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:47.043Z",
+        "method": "http-check",
+        "note": "redirects to /components/button/; title 'Button - Ant Design Mobile'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/ant-design/ant-design-mobile",
+        "status": 200,
+        "finalUrl": "https://github.com/ant-design/ant-design-mobile",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.556Z",
+        "method": "http-check",
+        "note": "ant-design/ant-design-mobile repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/ant-design/ant-design-mobile/master/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/ant-design/ant-design-mobile/master/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:08.638Z",
+        "method": "repo-metadata",
+        "note": "MIT LICENSE, Copyright (c) 2016-present Alipay.com"
+      },
+      {
+        "field": "package:antd-mobile",
+        "url": "https://www.npmjs.com/package/antd-mobile",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:11.403Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.43.0 published 2026-09-14; license MIT; deprecated: no; repo git+https://github.com/ant-design/ant-design-mobile.git"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:05:11.403Z"
+  },
+  {
+    "rank": 18,
+    "slug": "alibaba-fusion",
+    "name": "Alibaba Fusion Design",
+    "aliases": [
+      "Fusion Design",
+      "Fusion Next",
+      "@alifd/next"
+    ],
+    "organization": {
+      "slug": "alibaba",
+      "name": "Alibaba Group",
+      "websiteUrl": "https://www.alibabagroup.com/"
+    },
+    "category": "design-system",
+    "summary": "Alibaba's Fusion Design platform for enterprise web products, combining design guidelines and theming tools with Fusion Next (@alifd/next), a configurable React component library.",
+    "homepageUrl": "https://fusion.design/",
+    "docsUrl": "https://github.com/alibaba-fusion/next/tree/master/docs",
+    "repositoryUrl": "https://github.com/alibaba-fusion/next",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@alifd/next",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@alifd/next"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/alibaba-fusion/next/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2018-present Alibaba Group Holding Limited."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.27.34",
+    "latestReleaseAt": "2026-03-31T11:30:34.745Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@alifd/next",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "china",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "fusion.design is a client-rendered app that returns the same 200 shell for every path (even non-existent ones), so component doc URLs on it cannot be verified statically; docsUrl therefore points to the docs folder in the official repo (note: GitHub robots disallow /tree/ paths for crawlers; ingest via raw.githubusercontent.com). Site app data names the owner as Alibaba.com international UED (阿里巴巴国际站UED) and lib @alifd/next. maintenanceStatus active on the basis of npm 1.27.34 published 2026-03-31 (within 12 months); release cadence is slower than other systems in this batch.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fusion.design/",
+        "status": 200,
+        "finalUrl": "https://fusion.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:02.275Z",
+        "method": "page-content",
+        "note": "meta: 'Fusion Design is an enterprise-level solution for building web products...'; app data: company 阿里巴巴国际站UED, npm @alifd/next"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fusion.design/pc/component/basic/button",
+        "status": 200,
+        "finalUrl": "https://fusion.design/pc/component/basic/button",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:48.582Z",
+        "method": "http-check",
+        "note": "SPA returns generic 200 shell for arbitrary paths, so not usable as evidence of a docs page"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://github.com/alibaba-fusion/next/tree/master/docs",
+        "status": 200,
+        "finalUrl": "https://github.com/alibaba-fusion/next/tree/master/docs",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:10.569Z",
+        "method": "http-check",
+        "note": "title 'next/docs at master · alibaba-fusion/next'; robotsAllowed=false"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/alibaba-fusion/next",
+        "status": 200,
+        "finalUrl": "https://github.com/alibaba-fusion/next",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:00.854Z",
+        "method": "http-check",
+        "note": "alibaba-fusion/next: configurable component library for web built on React"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/alibaba-fusion/next/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/alibaba-fusion/next/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:08.937Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2018-present Alibaba Group Holding Limited"
+      },
+      {
+        "field": "package:@alifd/next",
+        "url": "https://www.npmjs.com/package/@alifd/next",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:11.861Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.27.34 published 2026-03-31; license MIT; deprecated: no; repo git+https://github.com/alibaba-fusion/next.git"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:05:11.861Z"
+  },
+  {
+    "rank": 19,
+    "slug": "semi-design",
+    "name": "ByteDance Semi Design",
+    "aliases": [
+      "Semi Design",
+      "Semi UI",
+      "@douyinfe/semi-ui"
+    ],
+    "organization": {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "websiteUrl": "https://www.bytedance.com/"
+    },
+    "category": "design-system",
+    "summary": "Design system and React component library maintained by ByteDance's Douyin front-end and UED teams, with an emphasis on theme customization.",
+    "homepageUrl": "https://semi.design/",
+    "docsUrl": "https://semi.design/en-US/start/introduction",
+    "repositoryUrl": "https://github.com/DouyinFE/semi-design",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@douyinfe/semi-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@douyinfe/semi-ui"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/DouyinFE/semi-design/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2021 DouyinFE."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.104.0",
+    "latestReleaseAt": "2026-10-09T09:12:26.764Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@douyinfe/semi-ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "china",
+      "theming",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Maintainer per site meta ('由抖音前端与 UED 团队维护' = maintained by the Douyin front-end and UED teams); repo under DouyinFE org. Docs available in English and Chinese (en-US / zh-CN paths). No Figma link verified.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://semi.design/",
+        "status": 200,
+        "finalUrl": "https://semi.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:01.810Z",
+        "method": "http-check",
+        "note": "title 'Semi Design'; meta: customizable modern design system, maintained by Douyin FE and UED teams"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://semi.design/en-US/start/introduction",
+        "status": 200,
+        "finalUrl": "https://semi.design/en-US/start/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:48.655Z",
+        "method": "http-check",
+        "note": "title 'Introduction - Semi Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://semi.design/zh-CN/start/introduction",
+        "status": 200,
+        "finalUrl": "https://semi.design/zh-CN/start/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:48.354Z",
+        "method": "http-check",
+        "note": "Chinese docs: 'Introduction 介绍 - Semi Design'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/DouyinFE/semi-design",
+        "status": 200,
+        "finalUrl": "https://github.com/DouyinFE/semi-design",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:01.156Z",
+        "method": "http-check",
+        "note": "DouyinFE/semi-design: design system and React UI library"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/DouyinFE/semi-design/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/DouyinFE/semi-design/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:09.237Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2021 DouyinFE"
+      },
+      {
+        "field": "package:@douyinfe/semi-ui",
+        "url": "https://www.npmjs.com/package/@douyinfe/semi-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:12.740Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.104.0 published 2026-10-09; license MIT; deprecated: no; repo git+https://github.com/DouyinFE/semi-design.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://semi.design/en-US/basic/tokens",
+        "status": 200,
+        "finalUrl": "https://semi.design/en-US/basic/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:22.669Z",
+        "method": "http-check",
+        "note": "title 'Tokens - Semi Design'"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:07:22.669Z"
+  },
+  {
+    "rank": 20,
+    "slug": "arco-design",
+    "name": "Arco Design",
+    "aliases": [
+      "Arco",
+      "@arco-design/web-react",
+      "@arco-design/web-vue"
+    ],
+    "organization": {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "websiteUrl": "https://www.bytedance.com/"
+    },
+    "category": "design-system",
+    "summary": "ByteDance's enterprise design system with design guidance and official component libraries for React (@arco-design/web-react) and Vue 3 (@arco-design/web-vue).",
+    "homepageUrl": "https://arco.design/",
+    "docsUrl": "https://arco.design/react/docs/start",
+    "repositoryUrl": "https://github.com/arco-design/arco-design",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@arco-design/web-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@arco-design/web-react"
+      },
+      {
+        "name": "@arco-design/web-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@arco-design/web-vue"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/arco-design/arco-design/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2021 Bytedance, Inc. and its affiliates. Vue repo carries the same MIT text."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.66.18",
+    "latestReleaseAt": "2026-10-12T08:00:30.712Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@arco-design/web-react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@arco-design/web-vue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "china",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Homepage title (Chinese) describes a complete design and development solution for enterprise products. repositoryUrl = React library repo; Vue 3 library lives in arco-design/arco-design-vue (docs at arco.design/vue). latestVersion = @arco-design/web-react. Organization ByteDance per LICENSE copyright. No Figma link verified.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://arco.design/",
+        "status": 200,
+        "finalUrl": "https://arco.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:01.622Z",
+        "method": "http-check",
+        "note": "title 'Arco Design - 企业级产品的完整设计和开发解决方案'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://arco.design/react/docs/start",
+        "status": 200,
+        "finalUrl": "https://arco.design/react/docs/start",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:48.075Z",
+        "method": "http-check",
+        "note": "React docs start page (200)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://arco.design/vue/docs/start",
+        "status": 200,
+        "finalUrl": "https://arco.design/vue/docs/start",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:48.375Z",
+        "method": "http-check",
+        "note": "title 'Arco Design Vue'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/arco-design/arco-design",
+        "status": 200,
+        "finalUrl": "https://github.com/arco-design/arco-design",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:01.455Z",
+        "method": "http-check",
+        "note": "React UI components library based on Arco Design"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/arco-design/arco-design-vue",
+        "status": 200,
+        "finalUrl": "https://github.com/arco-design/arco-design-vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:04:01.756Z",
+        "method": "http-check",
+        "note": "Vue.js 3 UI library based on Arco Design"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/arco-design/arco-design/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/arco-design/arco-design/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:09.537Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2021 Bytedance, Inc. and its affiliates"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/arco-design/arco-design-vue/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/arco-design/arco-design-vue/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:09.838Z",
+        "method": "repo-metadata",
+        "note": "MIT License (Vue repo), Bytedance"
+      },
+      {
+        "field": "package:@arco-design/web-react",
+        "url": "https://www.npmjs.com/package/@arco-design/web-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:12.836Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.66.18 published 2026-10-12; license MIT; deprecated: no; repo git+https://github.com/arco-design/arco-design.git"
+      },
+      {
+        "field": "package:@arco-design/web-vue",
+        "url": "https://www.npmjs.com/package/@arco-design/web-vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:13.210Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.59.0 published 2026-10-20; license MIT; deprecated: no; repo git+https://github.com/arco-design/arco-design-vue.git"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:05:13.210Z"
   }
 ]

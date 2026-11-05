@@ -66,6 +66,8 @@ export interface ParsedSimplePage {
   metaDescription: string | null;
   headings: PageHeading[];
   componentLinks: string[];
+  /** First few content paragraphs, each a short excerpt (<= 280 chars). */
+  paragraphs: string[];
 }
 
 const clean = (s: string | undefined | null) => (s ?? "").replace(/\s+/g, " ").trim();
@@ -154,14 +156,9 @@ function parseImplementations($: CheerioAPI, main: Sel, pageUrl: string): Implem
   main.find('[class*="implementationLabel"]').each((_, el) => {
     const label = clean($(el).text());
     if (!label) return;
+    // Climb to the nearest ancestor that holds this card's links footer (label -> stack -> stack -> card).
     let card = $(el).parent();
-    for (let i = 0; i < 6 && card.length; i++) {
-      if (card.find('a[class*="implementationLink"], [class*="statusLabel"]').length) {
-        // climb until the card contains the links footer
-        if (card.find('a[class*="implementationLink"]').length || i >= 4) break;
-      }
-      card = card.parent();
-    }
+    for (let i = 0; i < 6 && card.length && !card.find('a[class*="implementationLink"]').length; i++) card = card.parent();
     const status = clean(card.find('[class*="statusLabel"]').first().text()).toLowerCase() || null;
     const links: { text: string; href: string }[] = [];
     card.find('a[class*="implementationLink"]').each((__, a) => {
@@ -389,6 +386,11 @@ export function parseComponentPage(html: string, url: string, pageType: Componen
 export function parseSimplePage(html: string, url: string): ParsedSimplePage {
   const { $, main, content, meta } = loadMain(html);
   const { title, description } = headerDescription($, main);
+  const paragraphs = linearize($, content)
+    .filter((b) => b.kind === "p" && b.text.length >= 30)
+    .slice(0, 3)
+    .map((b) => shortText(b.text, 280)!)
+    .filter(Boolean);
   return {
     url,
     title,
@@ -396,5 +398,6 @@ export function parseSimplePage(html: string, url: string): ParsedSimplePage {
     metaDescription: meta,
     headings: collectHeadings($, content),
     componentLinks: collectComponentLinks($, content, url, null),
+    paragraphs,
   };
 }

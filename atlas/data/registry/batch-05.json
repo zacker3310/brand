@@ -13,7 +13,7 @@
       "websiteUrl": "https://www.pinterest.com/"
     },
     "category": "design-system",
-    "summary": "Gestalt is Pinterest's open-source design system: React components, design tokens, a date picker and charts package, plus foundations and usage guidelines for Pinterest's web products. Maintained by Pinterest in the pinterest/gestalt repository.",
+    "summary": "Gestalt is Pinterest's open-source design system: React components, design tokens and a date-picker package, plus foundations and usage guidelines for Pinterest's web products. Maintained by Pinterest in the pinterest/gestalt repository.",
     "homepageUrl": "https://gestalt.pinterest.systems/",
     "docsUrl": "https://gestalt.pinterest.systems/v1/web/overview",
     "repositoryUrl": "https://github.com/pinterest/gestalt",
@@ -544,10 +544,20 @@
         "url": "https://www.figma.com/design/ZmH4XsZS5WnKeo28ylM5x1/Pando-UI-kit--Web-",
         "status": 200,
         "finalUrl": "https://www.figma.com/login",
-        "ok": true,
+        "ok": false,
         "checkedAt": "2026-11-05T04:04:34.554Z",
         "method": "http-check",
         "note": "Figma file linked from docs redirects to Figma login: not public, not recorded"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://storybook.pluralsight.com/storybook",
+        "status": null,
+        "finalUrl": "https://storybook.pluralsight.com/storybook",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:04:34.293Z",
+        "method": "http-check",
+        "note": "Storybook host referenced in zeroheight config does not resolve (ENOTFOUND)"
       },
       {
         "field": "package:@pluralsight/react",
@@ -617,7 +627,7 @@
       "websiteUrl": "https://au.seek.com/about"
     },
     "category": "design-system",
-    "summary": "Braid is SEEK's open-source, themeable design system for its employment-marketplace products, distributed as a React component library with multiple brand themes and a Playroom prototyping environment. It superseded the now-deprecated SEEK Style Guide.",
+    "summary": "Braid is SEEK's open-source, themeable design system for its employment-marketplace products, distributed as a themeable React component library with a Playroom prototyping environment. It superseded the now-deprecated SEEK Style Guide.",
     "homepageUrl": "https://seek-oss.github.io/braid-design-system/",
     "docsUrl": "https://seek-oss.github.io/braid-design-system/components/",
     "repositoryUrl": "https://github.com/seek-oss/braid-design-system",
@@ -970,7 +980,7 @@
       "websiteUrl": "https://www.hashicorp.com/"
     },
     "category": "design-system",
-    "summary": "Helios is HashiCorp's open-source design system, providing Ember.js components (@hashicorp/design-system-components), design tokens, the Flight icon set, and foundations, patterns and content guidelines used across HashiCorp's product UIs.",
+    "summary": "Helios is HashiCorp's open-source design system, providing Ember.js components (@hashicorp/design-system-components), design tokens, the Flight icon set, and foundations and patterns used across HashiCorp's product UIs.",
     "homepageUrl": "https://helios.hashicorp.design/",
     "docsUrl": "https://helios.hashicorp.design/getting-started/for-engineers",
     "repositoryUrl": "https://github.com/hashicorp/design-system",
@@ -1795,5 +1805,2090 @@
     ],
     "confidence": 0.95,
     "verifiedAt": "2026-11-05T03:53:27.200Z"
+  },
+  {
+    "rank": 91,
+    "slug": "fluent-ui-web-components",
+    "name": "Fluent UI Web Components",
+    "aliases": [
+      "@fluentui/web-components",
+      "Fluent Web Components"
+    ],
+    "organization": {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "websiteUrl": "https://www.microsoft.com/en-us"
+    },
+    "category": "web-components",
+    "summary": "Microsoft's framework-agnostic web component implementation of the Fluent design language, published as @fluentui/web-components from the microsoft/fluentui monorepo. Version 3 targets Fluent 2 and is built on Microsoft's FAST element library.",
+    "homepageUrl": "https://learn.microsoft.com/en-us/fluent-ui/web-components/",
+    "docsUrl": "https://storybooks.fluentui.dev/web-components/",
+    "repositoryUrl": "https://github.com/microsoft/fluentui/tree/master/packages/web-components",
+    "figmaUrl": null,
+    "storybookUrl": "https://storybooks.fluentui.dev/web-components/",
+    "packages": [
+      {
+        "name": "@fluentui/web-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/web-components"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "microsoft/fluentui LICENSE: MIT, Copyright (c) Microsoft Corporation; package declares MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.1.4",
+    "latestReleaseAt": "2026-11-04T17:15:31.710Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@fluentui/web-components",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "enterprise",
+      "design-tokens"
+    ],
+    "relatedSlugs": [
+      "fluent-2",
+      "fluent-ui-react",
+      "microsoft-fast"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct implementation with its own component catalog (Storybook) from Fluent UI React; same design language as fluent-2. v3.1.4 package.json peer-depends on @microsoft/fast-element ^3 and depends on @fluentui/tokens (relation to microsoft-fast). The Microsoft Learn overview (homepageUrl) was last updated 2024-01-18 and describes the earlier FAST-foundation-based architecture; current component docs are the official Storybook at storybooks.fluentui.dev/web-components (web-components.fluentui.dev redirects there), used as docsUrl.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://learn.microsoft.com/en-us/fluent-ui/web-components/",
+        "status": 200,
+        "finalUrl": "https://learn.microsoft.com/en-us/fluent-ui/web-components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.425Z",
+        "method": "http-check",
+        "note": "'Fluent UI Web Components Overview | Microsoft Learn'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://web-components.fluentui.dev/",
+        "status": 200,
+        "finalUrl": "https://storybooks.fluentui.dev/web-components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:41.150Z",
+        "method": "http-check",
+        "note": "Redirects to storybooks.fluentui.dev/web-components/ — 'Fluent UI Web Components is a set of UI components and utilities built with web standards.'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fluentui/tree/master/packages/web-components",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui/tree/master/packages/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.527Z",
+        "method": "http-check",
+        "note": "packages/web-components in microsoft/fluentui"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fluentui",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.330Z",
+        "method": "http-check",
+        "note": "microsoft/fluentui monorepo: 'utilities, React components, and web components'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.806Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Microsoft Corporation"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.1.4/package.json",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.1.4/package.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:55.087Z",
+        "method": "repo-metadata",
+        "note": "peerDependencies @microsoft/fast-element ^3.0.0; dependencies @fluentui/tokens"
+      },
+      {
+        "field": "package:@fluentui/web-components",
+        "url": "https://registry.npmjs.org/@fluentui/web-components",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@fluentui/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.626Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.1.4 published 2026-11-04; license MIT. repository microsoft/fluentui"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://fluent2.microsoft.design/",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.585Z",
+        "method": "http-check",
+        "note": "Fluent 2 Design System site"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.microsoft.com/",
+        "status": 200,
+        "finalUrl": "https://www.microsoft.com/en-us",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.364Z",
+        "method": "http-check",
+        "note": "Microsoft homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:55.087Z"
+  },
+  {
+    "rank": 92,
+    "slug": "carbon-web-components",
+    "name": "Carbon Web Components",
+    "aliases": [
+      "@carbon/web-components",
+      "Carbon for Web Components"
+    ],
+    "organization": {
+      "slug": "ibm",
+      "name": "IBM",
+      "websiteUrl": "https://www.ibm.com/us-en"
+    },
+    "category": "web-components",
+    "summary": "IBM's Lit-based web component implementation of the Carbon Design System, published as @carbon/web-components and now developed in the carbon-design-system/carbon monorepo, with component documentation in an official Storybook.",
+    "homepageUrl": "https://www.carbondesignsystem.com/getting-started/developing/carbon-core/web-components",
+    "docsUrl": "https://web-components.carbondesignsystem.com/",
+    "repositoryUrl": "https://github.com/carbon-design-system/carbon/tree/main/packages/web-components",
+    "figmaUrl": null,
+    "storybookUrl": "https://web-components.carbondesignsystem.com/",
+    "packages": [
+      {
+        "name": "@carbon/web-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/web-components"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "carbon monorepo LICENSE is Apache 2.0; package declares Apache-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.67.0",
+    "latestReleaseAt": "2026-11-04T14:10:06.750Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@carbon/web-components",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "enterprise"
+    ],
+    "relatedSlugs": [
+      "carbon"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct implementation of Carbon (relatedSlugs carbon) with its own Storybook catalog. Code history: originally carbon-design-system/carbon-web-components (README: moved into the Carbon for IBM.com monorepo for v2), now packages/web-components in the main carbon monorepo (its package.json there is @carbon/web-components). The legacy carbon-web-components repo page still loads. carbondesignsystem.com/developing/frameworks/web-components/ redirects to the 'Carbon Core' web components page used as homepageUrl. Depends on lit and @lit/context.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://carbondesignsystem.com/developing/frameworks/web-components/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/getting-started/developing/carbon-core/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.751Z",
+        "method": "http-check",
+        "note": "Redirects to carbondesignsystem.com Carbon Core web components page"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://web-components.carbondesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://web-components.carbondesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.469Z",
+        "method": "http-check",
+        "note": "Storybook: 'This is the web components implementation of the Carbon Design System.'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/carbon-design-system/carbon/tree/main/packages/web-components",
+        "status": 200,
+        "finalUrl": "https://github.com/carbon-design-system/carbon/tree/main/packages/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.206Z",
+        "method": "http-check",
+        "note": "packages/web-components in carbon monorepo"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/packages/web-components/package.json",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/packages/web-components/package.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.507Z",
+        "method": "repo-metadata",
+        "note": "package.json name @carbon/web-components, 'Web components for the Carbon Design System'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/carbon-design-system/carbon-web-components",
+        "status": 200,
+        "finalUrl": "https://github.com/carbon-design-system/carbon-web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.939Z",
+        "method": "http-check",
+        "note": "Legacy repo; README states it has moved"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.205Z",
+        "method": "repo-metadata",
+        "note": "Apache License 2.0"
+      },
+      {
+        "field": "package:@carbon/web-components",
+        "url": "https://registry.npmjs.org/@carbon/web-components",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@carbon/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:26.185Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.67.0 published 2026-11-04; license Apache-2.0. repository carbon-design-system/carbon"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://www.carbondesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.251Z",
+        "method": "http-check",
+        "note": "'Carbon is IBM's open source design system'"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.ibm.com/us-en",
+        "status": 200,
+        "finalUrl": "https://www.ibm.com/us-en",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.567Z",
+        "method": "http-check",
+        "note": "IBM homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T03:56:41.567Z"
+  },
+  {
+    "rank": 93,
+    "slug": "material-web",
+    "name": "Material Web",
+    "aliases": [
+      "MWC",
+      "Material Web Components",
+      "@material/web"
+    ],
+    "organization": {
+      "slug": "google",
+      "name": "Google",
+      "websiteUrl": "https://about.google/"
+    },
+    "category": "web-components",
+    "summary": "Material Web is Google's Lit-based library of Material 3 web components, published as @material/web. Its repository states the project is in maintenance mode pending new maintainers.",
+    "homepageUrl": "https://material-web.dev/",
+    "docsUrl": "https://material-web.dev/about/intro/",
+    "repositoryUrl": "https://github.com/material-components/material-web",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@material/web",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@material/web"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/material-components/material-web/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "Repo LICENSE Apache 2.0; package declares Apache-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "maintenance",
+    "latestVersion": "2.5.0",
+    "latestReleaseAt": "2026-07-15T14:39:18.532Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@material/web",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "material"
+    ],
+    "relatedSlugs": [
+      "material-design",
+      "flutter-material"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Web components implementation of Material Design 3 (relatedSlugs material-design). README note: 'MWC is in maintenance mode pending new maintainers' linking discussion #5642; a release (2.5.0, 2026-07-15) still shipped within 12 months, so status is 'maintenance' rather than deprecated. README recommends Angular Material for Angular users. Depends on lit and @lit/context.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://material-web.dev/",
+        "status": 200,
+        "finalUrl": "https://material-web.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.445Z",
+        "method": "http-check",
+        "note": "Title 'Material Web'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://material-web.dev/about/intro/",
+        "status": 200,
+        "finalUrl": "https://material-web.dev/about/intro/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.745Z",
+        "method": "http-check",
+        "note": "'Material Web - Introduction'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/material-components/material-web",
+        "status": 200,
+        "finalUrl": "https://github.com/material-components/material-web",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:41.229Z",
+        "method": "http-check",
+        "note": "Repo 'Material Design Web Components'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/material-components/material-web/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/material-components/material-web/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.906Z",
+        "method": "repo-metadata",
+        "note": "README: 'MWC is in maintenance mode pending new maintainers'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/material-components/material-web/discussions/5642",
+        "status": 200,
+        "finalUrl": "https://github.com/material-components/material-web/discussions/5642",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.406Z",
+        "method": "http-check",
+        "note": "Discussion #5642 '❗MWC is in maintenance mode'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/material-components/material-web/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/material-components/material-web/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.606Z",
+        "method": "repo-metadata",
+        "note": "Apache License 2.0"
+      },
+      {
+        "field": "package:@material/web",
+        "url": "https://registry.npmjs.org/@material/web",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@material/web",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:26.249Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.5.0 published 2026-07-15; license Apache-2.0. repository material-components/material-web"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://m3.material.io/",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.317Z",
+        "method": "http-check",
+        "note": "Material Design 3 site"
+      },
+      {
+        "field": "organization",
+        "url": "https://about.google/",
+        "status": 200,
+        "finalUrl": "https://about.google/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.210Z",
+        "method": "http-check",
+        "note": "About Google"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T03:56:26.249Z"
+  },
+  {
+    "rank": 94,
+    "slug": "material-ui-for-flutter",
+    "name": "Material UI for Flutter",
+    "aliases": [
+      "material_ui"
+    ],
+    "organization": {
+      "slug": "google",
+      "name": "Google",
+      "websiteUrl": "https://about.google/"
+    },
+    "category": "component-library",
+    "summary": "Queue item naming the official material_ui package on pub.dev (publisher flutter.dev), which is Flutter's Material Design widget library decoupled from the Flutter SDK. It is the same system as the canonical 'flutter-material' record.",
+    "homepageUrl": "https://pub.dev/packages/material_ui",
+    "docsUrl": "https://pub.dev/documentation/material_ui/latest/",
+    "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/material_ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "material_ui",
+        "registry": "pub",
+        "url": "https://pub.dev/packages/material_ui"
+      }
+    ],
+    "license": {
+      "slug": "bsd-3-clause",
+      "spdxId": "BSD-3-Clause",
+      "name": "BSD 3-Clause License",
+      "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "Copyright 2013 The Flutter Authors; BSD-style 3-clause text."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.10.0",
+    "latestReleaseAt": "2026-11-03T22:58:33.191Z",
+    "frameworks": [
+      {
+        "slug": "flutter",
+        "packageName": "material_ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "android",
+      "ios",
+      "web",
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "tags": [
+      "open-source",
+      "mobile",
+      "material",
+      "cross-platform"
+    ],
+    "relatedSlugs": [
+      "flutter-material",
+      "material-design"
+    ],
+    "registryStatus": "duplicate",
+    "duplicateOf": "flutter-material",
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "No distinct project: the material_ui README states it 'was previously built directly into the core Flutter framework as package:flutter/material.dart' and has been decoupled into flutter/packages, with a dart fix migrating imports. Same widget catalog and maintainers as Flutter Material, so recorded as duplicateOf flutter-material (canonical per integrator), which also lists material_ui as its package. Not related to MUI (the React library).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://pub.dev/packages/material_ui",
+        "status": 200,
+        "finalUrl": "https://pub.dev/packages/material_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.312Z",
+        "method": "http-check",
+        "note": "'The official Flutter Material UI Library, implementing Google's Material Design design system.'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://pub.dev/documentation/material_ui/latest/",
+        "status": 200,
+        "finalUrl": "https://pub.dev/documentation/material_ui/latest/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.173Z",
+        "method": "http-check",
+        "note": "'material_ui - Dart API docs'"
+      },
+      {
+        "field": "package:material_ui",
+        "url": "https://pub.dev/api/packages/material_ui",
+        "status": 200,
+        "finalUrl": "https://pub.dev/api/packages/material_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.618Z",
+        "method": "package-metadata",
+        "note": "pub.dev API: latest 1.10.0 published 2026-11-03; publisher flutter.dev; repository flutter/packages/packages/material_ui"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/flutter/packages/tree/main/packages/material_ui",
+        "status": 200,
+        "finalUrl": "https://github.com/flutter/packages/tree/main/packages/material_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.806Z",
+        "method": "http-check",
+        "note": "packages/material_ui in flutter/packages"
+      },
+      {
+        "field": "package:material_ui",
+        "url": "https://pub.dev/api/packages/material_ui/publisher",
+        "status": 200,
+        "finalUrl": "https://pub.dev/api/packages/material_ui/publisher",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:06:08.553Z",
+        "method": "package-metadata",
+        "note": "pub.dev publisherId flutter.dev (verified official publisher)"
+      },
+      {
+        "field": "duplicateOf",
+        "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.407Z",
+        "method": "repo-metadata",
+        "note": "README: previously built into the Flutter framework as package:flutter/material.dart; decoupled into flutter/packages"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.106Z",
+        "method": "repo-metadata",
+        "note": "Copyright 2013 The Flutter Authors; BSD 3-clause terms"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:06:08.553Z"
+  },
+  {
+    "rank": 95,
+    "slug": "flutter-material",
+    "name": "Flutter Material",
+    "aliases": [
+      "Material Components for Flutter",
+      "material_ui",
+      "package:flutter/material.dart",
+      "Material UI for Flutter"
+    ],
+    "organization": {
+      "slug": "google",
+      "name": "Google",
+      "websiteUrl": "https://about.google/"
+    },
+    "category": "component-library",
+    "summary": "Flutter's official library of Material Design (Material 3) widgets, maintained by the Flutter team at Google. Long shipped inside the Flutter SDK as package:flutter/material.dart, it is now also published as the standalone material_ui package on pub.dev.",
+    "homepageUrl": "https://docs.flutter.dev/ui/widgets/material",
+    "docsUrl": "https://api.flutter.dev/flutter/material/",
+    "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/material_ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "material_ui",
+        "registry": "pub",
+        "url": "https://pub.dev/packages/material_ui"
+      }
+    ],
+    "license": {
+      "slug": "bsd-3-clause",
+      "spdxId": "BSD-3-Clause",
+      "name": "BSD 3-Clause License",
+      "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "material_ui LICENSE: Copyright 2013 The Flutter Authors (BSD 3-clause). The Flutter SDK repo (flutter/flutter) is also BSD 3-clause."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.10.0",
+    "latestReleaseAt": "2026-11-03T22:58:33.191Z",
+    "frameworks": [
+      {
+        "slug": "flutter",
+        "packageName": "material_ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "android",
+      "ios",
+      "web",
+      "windows",
+      "macos",
+      "linux"
+    ],
+    "tags": [
+      "open-source",
+      "mobile",
+      "material",
+      "cross-platform"
+    ],
+    "relatedSlugs": [
+      "material-design",
+      "material-web",
+      "material-ui-for-flutter",
+      "flutter-cupertino"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Canonical record (integrator decision) for Flutter's Material widgets; 'material-ui-for-flutter' is a duplicate. Distinct implementation of Material Design (relatedSlugs material-design) with its own widget catalog. Source moved from flutter/flutter (packages/flutter/lib/src/material) to flutter/packages/packages/material_ui; latestVersion is the material_ui pub release (1.10.0, 2026-11-03, publisher flutter.dev). api.flutter.dev still documents the SDK-bundled material library. Platforms are Flutter's supported targets.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://docs.flutter.dev/ui/widgets/material",
+        "status": 200,
+        "finalUrl": "https://docs.flutter.dev/ui/widgets/material",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.667Z",
+        "method": "http-check",
+        "note": "'Material component widgets' catalog: widgets implementing the Material 3 design specification"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://api.flutter.dev/flutter/material/",
+        "status": 200,
+        "finalUrl": "https://api.flutter.dev/flutter/material/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.502Z",
+        "method": "http-check",
+        "note": "'material library - Dart API'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://pub.dev/documentation/material_ui/latest/",
+        "status": 200,
+        "finalUrl": "https://pub.dev/documentation/material_ui/latest/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.173Z",
+        "method": "http-check",
+        "note": "'material_ui - Dart API docs'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/flutter/packages/tree/main/packages/material_ui",
+        "status": 200,
+        "finalUrl": "https://github.com/flutter/packages/tree/main/packages/material_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.806Z",
+        "method": "http-check",
+        "note": "packages/material_ui in flutter/packages"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/flutter/flutter",
+        "status": 200,
+        "finalUrl": "https://github.com/flutter/flutter",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:41.531Z",
+        "method": "http-check",
+        "note": "flutter/flutter (historical home of package:flutter/material.dart)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.407Z",
+        "method": "repo-metadata",
+        "note": "README: material_ui was previously built into the framework as package:flutter/material.dart"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/material_ui/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.106Z",
+        "method": "repo-metadata",
+        "note": "Copyright 2013 The Flutter Authors; BSD 3-clause"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/flutter/flutter/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/flutter/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.307Z",
+        "method": "repo-metadata",
+        "note": "Flutter SDK LICENSE: Copyright 2014 The Flutter Authors; BSD 3-clause"
+      },
+      {
+        "field": "package:material_ui",
+        "url": "https://pub.dev/api/packages/material_ui",
+        "status": 200,
+        "finalUrl": "https://pub.dev/api/packages/material_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.618Z",
+        "method": "package-metadata",
+        "note": "pub.dev API: latest 1.10.0 published 2026-11-03; publisher flutter.dev"
+      },
+      {
+        "field": "package:material_ui",
+        "url": "https://pub.dev/packages/material_ui",
+        "status": 200,
+        "finalUrl": "https://pub.dev/packages/material_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.312Z",
+        "method": "http-check",
+        "note": "pub.dev package page: 'The official Flutter Material UI Library'"
+      },
+      {
+        "field": "package:material_ui",
+        "url": "https://pub.dev/api/packages/material_ui/publisher",
+        "status": 200,
+        "finalUrl": "https://pub.dev/api/packages/material_ui/publisher",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:06:08.553Z",
+        "method": "package-metadata",
+        "note": "pub.dev publisherId flutter.dev"
+      },
+      {
+        "field": "organization",
+        "url": "https://flutter.dev/",
+        "status": 200,
+        "finalUrl": "https://flutter.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.382Z",
+        "method": "http-check",
+        "note": "Flutter homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:06:08.553Z"
+  },
+  {
+    "rank": 96,
+    "slug": "flutter-cupertino",
+    "name": "Flutter Cupertino",
+    "aliases": [
+      "Cupertino widgets",
+      "cupertino_ui",
+      "package:flutter/cupertino.dart"
+    ],
+    "organization": {
+      "slug": "google",
+      "name": "Google",
+      "websiteUrl": "https://about.google/"
+    },
+    "category": "component-library",
+    "summary": "Flutter's official library of iOS- and macOS-style (Cupertino) widgets that follow Apple's Human Interface Guidelines, maintained by the Flutter team. Formerly bundled in the SDK as package:flutter/cupertino.dart, it is now also published as the standalone cupertino_ui package.",
+    "homepageUrl": "https://docs.flutter.dev/ui/widgets/cupertino",
+    "docsUrl": "https://api.flutter.dev/flutter/cupertino/",
+    "repositoryUrl": "https://github.com/flutter/packages/tree/main/packages/cupertino_ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "cupertino_ui",
+        "registry": "pub",
+        "url": "https://pub.dev/packages/cupertino_ui"
+      }
+    ],
+    "license": {
+      "slug": "bsd-3-clause",
+      "spdxId": "BSD-3-Clause",
+      "name": "BSD 3-Clause License",
+      "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "cupertino_ui LICENSE: Copyright 2013 The Flutter Authors (BSD 3-clause)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.1.6",
+    "latestReleaseAt": "2026-11-03T22:58:58.606Z",
+    "frameworks": [
+      {
+        "slug": "flutter",
+        "packageName": "cupertino_ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "ios",
+      "macos"
+    ],
+    "tags": [
+      "open-source",
+      "mobile",
+      "cross-platform"
+    ],
+    "relatedSlugs": [
+      "apple-hig",
+      "flutter-material"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Third-party (Google/Flutter) implementation of Apple-style UI, not an Apple product (relatedSlugs apple-hig). Platforms list the design targets named in the docs (iOS and macOS); as Flutter widgets they also render on Flutter's other targets. Source moved from flutter/flutter to flutter/packages/packages/cupertino_ui; latestVersion is the cupertino_ui pub release (1.1.6, 2026-11-03, publisher flutter.dev).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://docs.flutter.dev/ui/widgets/cupertino",
+        "status": 200,
+        "finalUrl": "https://docs.flutter.dev/ui/widgets/cupertino",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.967Z",
+        "method": "http-check",
+        "note": "'Cupertino widgets' catalog aligned with Apple's Human Interface Guidelines for iOS and macOS"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://api.flutter.dev/flutter/cupertino/",
+        "status": 200,
+        "finalUrl": "https://api.flutter.dev/flutter/cupertino/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.802Z",
+        "method": "http-check",
+        "note": "'cupertino library - Dart API'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://pub.dev/documentation/cupertino_ui/latest/",
+        "status": 200,
+        "finalUrl": "https://pub.dev/documentation/cupertino_ui/latest/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.474Z",
+        "method": "http-check",
+        "note": "'cupertino_ui - Dart API docs'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/flutter/packages/tree/main/packages/cupertino_ui",
+        "status": 200,
+        "finalUrl": "https://github.com/flutter/packages/tree/main/packages/cupertino_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.107Z",
+        "method": "http-check",
+        "note": "packages/cupertino_ui in flutter/packages"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.006Z",
+        "method": "repo-metadata",
+        "note": "README: official Flutter Cupertino library implementing Apple's HIG; previously package:flutter/cupertino.dart"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/flutter/packages/main/packages/cupertino_ui/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.706Z",
+        "method": "repo-metadata",
+        "note": "Copyright 2013 The Flutter Authors; BSD 3-clause"
+      },
+      {
+        "field": "package:cupertino_ui",
+        "url": "https://pub.dev/api/packages/cupertino_ui",
+        "status": 200,
+        "finalUrl": "https://pub.dev/api/packages/cupertino_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.918Z",
+        "method": "package-metadata",
+        "note": "pub.dev API: latest 1.1.6 published 2026-11-03; publisher flutter.dev"
+      },
+      {
+        "field": "package:cupertino_ui",
+        "url": "https://pub.dev/packages/cupertino_ui",
+        "status": 200,
+        "finalUrl": "https://pub.dev/packages/cupertino_ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:40.661Z",
+        "method": "http-check",
+        "note": "'The official Flutter Cupertino Design Library, implementing the iOS design system.'"
+      },
+      {
+        "field": "package:cupertino_ui",
+        "url": "https://pub.dev/api/packages/cupertino_ui/publisher",
+        "status": 200,
+        "finalUrl": "https://pub.dev/api/packages/cupertino_ui/publisher",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:06:08.853Z",
+        "method": "package-metadata",
+        "note": "pub.dev publisherId flutter.dev"
+      },
+      {
+        "field": "organization",
+        "url": "https://pub.dev/publishers/flutter.dev",
+        "status": 200,
+        "finalUrl": "https://pub.dev/publishers/flutter.dev/packages",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.774Z",
+        "method": "http-check",
+        "note": "pub.dev publisher flutter.dev package list"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:06:08.853Z"
+  },
+  {
+    "rank": 97,
+    "slug": "kendo-ui",
+    "name": "Kendo UI",
+    "aliases": [
+      "Telerik Kendo UI",
+      "Progress Kendo UI",
+      "Kendo UI for jQuery",
+      "Kendo UI for Angular",
+      "KendoReact",
+      "Kendo UI for Vue"
+    ],
+    "organization": {
+      "slug": "progress",
+      "name": "Progress Software (Telerik)",
+      "websiteUrl": "https://www.telerik.com/"
+    },
+    "category": "commercial-suite",
+    "summary": "Kendo UI is Progress Software's commercial suite of JavaScript UI components, sold under the Telerik brand as separate native libraries for jQuery, Angular, React (KendoReact) and Vue, including data grid components. A subset of the jQuery library is open-sourced as Kendo UI Core.",
+    "homepageUrl": "https://www.telerik.com/kendo-ui",
+    "docsUrl": "https://www.telerik.com/kendo-jquery-ui/documentation/introduction",
+    "repositoryUrl": "https://github.com/telerik/kendo-ui-core",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@progress/kendo-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@progress/kendo-ui"
+      },
+      {
+        "name": "kendo-ui-core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/kendo-ui-core"
+      },
+      {
+        "name": "@progress/kendo-angular-grid",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@progress/kendo-angular-grid"
+      },
+      {
+        "name": "@progress/kendo-react-grid",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@progress/kendo-react-grid"
+      },
+      {
+        "name": "@progress/kendo-vue-grid",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@progress/kendo-vue-grid"
+      }
+    ],
+    "license": {
+      "slug": "commercial-progress",
+      "spdxId": null,
+      "name": "Progress Kendo UI End User License Agreement",
+      "url": "https://www.telerik.com/purchase/license-agreement/kendo-ui",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "@progress/kendo-ui LICENSE: commercial licence required, otherwise governed by trial terms. Angular/React/Vue packages declare 'SEE LICENSE IN LICENSE.md' (commercial EULA, e.g. KendoReact EULA). Exception: kendo-ui-core (open-source subset of Kendo UI for jQuery) is Apache-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2026.3.1015",
+    "latestReleaseAt": "2026-10-15T07:08:38.545Z",
+    "frameworks": [
+      {
+        "slug": "jquery",
+        "packageName": "@progress/kendo-ui",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial",
+      "enterprise",
+      "data-dense"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified commercial-suite. Each framework flavour is a separate native library with its own docs; Angular/React/Vue are split into per-component npm packages (e.g. @progress/kendo-angular-grid, @progress/kendo-react-grid, @progress/kendo-vue-grid), so framework packageName is null except jQuery. latestVersion is the jQuery bundle (@progress/kendo-ui 2026.3.1015); other flavours version independently (KendoReact grid 16.3.0, Angular grid 25.3.0, Vue grid 10.1.0). repositoryUrl is the official open-source Kendo UI Core repo only; the full commercial source is not public. Telerik UI for Blazor/ASP.NET are separate Telerik product lines, not counted here. Figma kits were not checked; figmaUrl null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.telerik.com/kendo-ui",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/kendo-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.503Z",
+        "method": "http-check",
+        "note": "'Progress Kendo UI' — libraries for jQuery, Angular, React, and Vue"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.telerik.com/kendo-jquery-ui/documentation/introduction",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/kendo-jquery-ui/documentation/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.871Z",
+        "method": "http-check",
+        "note": "'jQuery Introduction - Kendo UI for jQuery' — product flavours, licensing"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.telerik.com/kendo-angular-ui/components/",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/kendo-angular-ui/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:42.103Z",
+        "method": "http-check",
+        "note": "'Kendo UI for Angular Components Hub'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.telerik.com/kendo-react-ui/components/",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/kendo-react-ui/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:42.403Z",
+        "method": "http-check",
+        "note": "'React Components Documentation - KendoReact'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.telerik.com/kendo-vue-ui/components/",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/kendo-vue-ui/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:42.705Z",
+        "method": "http-check",
+        "note": "'Vue Components Documentation - Kendo UI for Vue'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/telerik/kendo-ui-core",
+        "status": 200,
+        "finalUrl": "https://github.com/telerik/kendo-ui-core",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.355Z",
+        "method": "http-check",
+        "note": "Official repo 'An HTML5, jQuery-based widget library' (open-source core)"
+      },
+      {
+        "field": "license",
+        "url": "https://www.telerik.com/purchase/license-agreement/kendo-ui-complete",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/purchase/license-agreement/kendo-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.316Z",
+        "method": "http-check",
+        "note": "Redirects to 'End user license agreement for Progress Kendo UI'"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/@progress/kendo-ui@2026.3.1015/LICENSE",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@progress/kendo-ui@2026.3.1015/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:54.488Z",
+        "method": "repo-metadata",
+        "note": "'Kendo UI commercial licenses may be obtained at ... If you do not own a commercial license, this file shall be governed by the trial license terms.'"
+      },
+      {
+        "field": "package:@progress/kendo-ui",
+        "url": "https://registry.npmjs.org/@progress/kendo-ui",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@progress/kendo-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:54.939Z",
+        "method": "package-metadata",
+        "note": "npm latest 2026.3.1015 published 2026-10-15; license LicenseRef-LICENSE"
+      },
+      {
+        "field": "package:kendo-ui-core",
+        "url": "https://registry.npmjs.org/kendo-ui-core",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/kendo-ui-core",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:55.098Z",
+        "method": "package-metadata",
+        "note": "npm latest 2026.3.1015 published 2026-10-15; license Apache 2.0. open-source subset; repository telerik/kendo-ui-core"
+      },
+      {
+        "field": "package:@progress/kendo-angular-grid",
+        "url": "https://registry.npmjs.org/@progress/kendo-angular-grid",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@progress/kendo-angular-grid",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:55.679Z",
+        "method": "package-metadata",
+        "note": "npm latest 25.3.0 published 2026-10-07; license SEE LICENSE IN LICENSE.md"
+      },
+      {
+        "field": "package:@progress/kendo-react-grid",
+        "url": "https://registry.npmjs.org/@progress/kendo-react-grid",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@progress/kendo-react-grid",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:55.922Z",
+        "method": "package-metadata",
+        "note": "npm latest 16.3.0 published 2026-11-02; license SEE LICENSE IN LICENSE.md. repository telerik/kendo-react"
+      },
+      {
+        "field": "package:@progress/kendo-vue-grid",
+        "url": "https://registry.npmjs.org/@progress/kendo-vue-grid",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@progress/kendo-vue-grid",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:56.258Z",
+        "method": "package-metadata",
+        "note": "npm latest 10.1.0 published 2026-10-07; license SEE LICENSE IN LICENSE.md. repository telerik/kendo-vue"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.telerik.com/",
+        "status": 200,
+        "finalUrl": "https://www.telerik.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.648Z",
+        "method": "http-check",
+        "note": "Telerik & Kendo UI site"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.progress.com/",
+        "status": 200,
+        "finalUrl": "https://www.progress.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.353Z",
+        "method": "http-check",
+        "note": "Progress Software homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:54.488Z"
+  },
+  {
+    "rank": 98,
+    "slug": "syncfusion-essential-studio",
+    "name": "Syncfusion Essential Studio",
+    "aliases": [
+      "Essential Studio",
+      "Essential JS 2",
+      "EJ2"
+    ],
+    "organization": {
+      "slug": "syncfusion",
+      "name": "Syncfusion",
+      "websiteUrl": "https://www.syncfusion.com/"
+    },
+    "category": "commercial-suite",
+    "summary": "Essential Studio is Syncfusion's commercial suite of UI components and document-processing libraries for web (JavaScript/TypeScript, React, Angular, Vue, Blazor, ASP.NET), mobile and desktop (.NET MAUI, Flutter, WinUI, WPF, WinForms); its web components are branded Essential JS 2.",
+    "homepageUrl": "https://www.syncfusion.com/ui-component-suite",
+    "docsUrl": "https://help.syncfusion.com/",
+    "repositoryUrl": "https://github.com/syncfusion/ej2-javascript-ui-controls",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@syncfusion/ej2",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@syncfusion/ej2"
+      },
+      {
+        "name": "@syncfusion/ej2-react-grids",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@syncfusion/ej2-react-grids"
+      },
+      {
+        "name": "@syncfusion/ej2-angular-grids",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@syncfusion/ej2-angular-grids"
+      },
+      {
+        "name": "@syncfusion/ej2-vue-grids",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@syncfusion/ej2-vue-grids"
+      },
+      {
+        "name": "Syncfusion.Blazor",
+        "registry": "nuget",
+        "url": "https://www.nuget.org/packages/Syncfusion.Blazor"
+      }
+    ],
+    "license": {
+      "slug": "commercial-syncfusion",
+      "spdxId": null,
+      "name": "Syncfusion Essential Studio License (commercial or Community License)",
+      "url": "https://www.syncfusion.com/content/downloads/syncfusion_license.pdf",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "npm packages declare 'SEE LICENSE IN license'. The licence file states use requires either a Syncfusion Community License (organisations under US$1M annual gross revenue and fewer than five developers) or a commercial licence, under the terms in syncfusion_license.pdf. Source is published on GitHub but is not open source."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "35.1.43",
+    "latestReleaseAt": "2026-11-03T01:36:19.815Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "blazor",
+        "packageName": "Syncfusion.Blazor",
+        "support": "official"
+      },
+      {
+        "slug": "asp-net",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "dotnet-maui",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "flutter",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "winui",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "windows",
+      "android",
+      "ios",
+      "macos"
+    ],
+    "tags": [
+      "commercial",
+      "enterprise",
+      "data-dense"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified commercial-suite. products/essential-studio redirects to the '1,600+ UI Components' suite page (homepageUrl). Web components (Essential JS 2) are split into per-component npm packages per framework (e.g. @syncfusion/ej2-react-grids), so framework packageName is null except the Blazor NuGet bundle. latestVersion is the @syncfusion/ej2 umbrella npm package (35.1.43); other platforms version separately. Flutter widgets are published on pub.dev by publisher syncfusion.com. WPF/WinForms/UWP/Xamarin are also offered but have no ATLAS framework slug. repositoryUrl is the official EJ2 JavaScript source repo; other platform sources are not all public.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.syncfusion.com/products/essential-studio",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/ui-component-suite",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.521Z",
+        "method": "http-check",
+        "note": "Redirects to syncfusion.com/ui-component-suite ('1,600+ UI Components for Web, Mobile and Desktop Apps')"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://help.syncfusion.com/",
+        "status": 200,
+        "finalUrl": "https://help.syncfusion.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.675Z",
+        "method": "http-check",
+        "note": "'Documentation and resources for Syncfusion products'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ej2.syncfusion.com/documentation/",
+        "status": 200,
+        "finalUrl": "https://ej2.syncfusion.com/documentation/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.469Z",
+        "method": "http-check",
+        "note": "Essential JS 2 docs (redirects to /documentation/introduction)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://blazor.syncfusion.com/documentation/introduction",
+        "status": 200,
+        "finalUrl": "https://blazor.syncfusion.com/documentation/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.332Z",
+        "method": "http-check",
+        "note": "Blazor components docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/syncfusion/ej2-javascript-ui-controls",
+        "status": 200,
+        "finalUrl": "https://github.com/syncfusion/ej2-javascript-ui-controls",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.547Z",
+        "method": "http-check",
+        "note": "Official repo of Syncfusion JavaScript UI controls"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/syncfusion",
+        "status": 200,
+        "finalUrl": "https://github.com/syncfusion",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.670Z",
+        "method": "http-check",
+        "note": "Syncfusion GitHub org: Blazor, .NET MAUI, React, Vue, Angular, JavaScript, ASP.NET MVC/Core, WinForms, WPF, UWP, Xamarin"
+      },
+      {
+        "field": "license",
+        "url": "https://www.syncfusion.com/content/downloads/syncfusion_license.pdf",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/content/downloads/syncfusion_license.pdf",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.272Z",
+        "method": "http-check",
+        "note": "Syncfusion licence PDF (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://www.syncfusion.com/products/communitylicense",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/products/communitylicense",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.577Z",
+        "method": "http-check",
+        "note": "Community License page"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/@syncfusion/ej2-base/license",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@syncfusion/ej2-base/license",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:54.186Z",
+        "method": "repo-metadata",
+        "note": "'licensed either under the Syncfusion Community License Program or the Syncfusion commercial license'"
+      },
+      {
+        "field": "package:@syncfusion/ej2",
+        "url": "https://registry.npmjs.org/@syncfusion/ej2",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:56.832Z",
+        "method": "package-metadata",
+        "note": "npm latest 35.1.43 published 2026-11-03; license SEE LICENSE IN license. repository syncfusion/ej2-javascript-ui-controls"
+      },
+      {
+        "field": "package:@syncfusion/ej2-react-grids",
+        "url": "https://registry.npmjs.org/@syncfusion/ej2-react-grids",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2-react-grids",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:57.180Z",
+        "method": "package-metadata",
+        "note": "npm latest 35.1.42 published 2026-10-27; license SEE LICENSE IN license"
+      },
+      {
+        "field": "package:@syncfusion/ej2-angular-grids",
+        "url": "https://registry.npmjs.org/@syncfusion/ej2-angular-grids",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2-angular-grids",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:57.398Z",
+        "method": "package-metadata",
+        "note": "npm latest 35.1.42 published 2026-10-27; license SEE LICENSE IN license"
+      },
+      {
+        "field": "package:@syncfusion/ej2-vue-grids",
+        "url": "https://registry.npmjs.org/@syncfusion/ej2-vue-grids",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/@syncfusion/ej2-vue-grids",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:57.753Z",
+        "method": "package-metadata",
+        "note": "npm latest 35.1.42 published 2026-10-27; license SEE LICENSE IN license"
+      },
+      {
+        "field": "package:Syncfusion.Blazor",
+        "url": "https://www.nuget.org/packages/Syncfusion.Blazor",
+        "status": 200,
+        "finalUrl": "https://www.nuget.org/packages/Syncfusion.Blazor",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:30.884Z",
+        "method": "package-metadata",
+        "note": "NuGet Gallery page for Syncfusion.Blazor"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.syncfusion.com/maui-controls",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/maui-controls",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:30.940Z",
+        "method": "http-check",
+        "note": ".NET MAUI controls product page"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.syncfusion.com/flutter-widgets",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/flutter-widgets",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:32.440Z",
+        "method": "http-check",
+        "note": "Flutter widgets product page"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://pub.dev/publishers/syncfusion.com",
+        "status": 200,
+        "finalUrl": "https://pub.dev/publishers/syncfusion.com/packages",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:30.507Z",
+        "method": "http-check",
+        "note": "pub.dev publisher syncfusion.com"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.syncfusion.com/winui-controls",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/winui-controls",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:30.640Z",
+        "method": "http-check",
+        "note": "WinUI controls product page"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.syncfusion.com/aspnet-core-ui-controls",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/aspnet-core-ui-controls",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:32.741Z",
+        "method": "http-check",
+        "note": "ASP.NET Core UI controls product page"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.syncfusion.com/",
+        "status": 200,
+        "finalUrl": "https://www.syncfusion.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.872Z",
+        "method": "http-check",
+        "note": "Syncfusion homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:54.186Z"
+  },
+  {
+    "rank": 99,
+    "slug": "devextreme",
+    "name": "DevExtreme",
+    "aliases": [
+      "DevExpress DevExtreme"
+    ],
+    "organization": {
+      "slug": "devexpress",
+      "name": "DevExpress",
+      "websiteUrl": "https://www.devexpress.com/"
+    },
+    "category": "commercial-suite",
+    "summary": "DevExtreme is DevExpress's commercial suite of JavaScript UI components (data grids, charts, data editors and other widgets) for jQuery, with official Angular, React and Vue wrappers. Source is published on GitHub under the commercial licence.",
+    "homepageUrl": "https://js.devexpress.com/",
+    "docsUrl": "https://js.devexpress.com/Documentation/",
+    "repositoryUrl": "https://github.com/DevExpress/DevExtreme",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "devextreme",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/devextreme"
+      },
+      {
+        "name": "devextreme-angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/devextreme-angular"
+      },
+      {
+        "name": "devextreme-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/devextreme-react"
+      },
+      {
+        "name": "devextreme-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/devextreme-vue"
+      }
+    ],
+    "license": {
+      "slug": "commercial-devexpress",
+      "spdxId": null,
+      "name": "DevExtreme End-User License Agreement",
+      "url": "https://js.devexpress.com/Licensing/",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "devextreme declares 'SEE LICENSE IN README.md', which points to js.devexpress.com/Licensing; the licensing page requires a paid subscription for commercial use (30-day trial otherwise). The framework wrapper packages (devextreme-angular/-react/-vue) declare MIT, but they require the commercial devextreme core."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "26.1.6",
+    "latestReleaseAt": "2026-10-23T09:04:35.114Z",
+    "frameworks": [
+      {
+        "slug": "jquery",
+        "packageName": "devextreme",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "devextreme-angular",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "devextreme-react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "devextreme-vue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial",
+      "enterprise",
+      "data-dense"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified commercial-suite. All four packages are published from the DevExpress/DevExtreme monorepo and version in lockstep (26.1.6). The DevExpress ASP.NET/Blazor/WinForms suites are separate products and not counted here. No official public Figma link checked; figmaUrl null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://js.devexpress.com/",
+        "status": 200,
+        "finalUrl": "https://js.devexpress.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.560Z",
+        "method": "http-check",
+        "note": "'DevExtreme - JavaScript UI Components for Angular, React, Vue and jQuery by DevExpress'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://js.devexpress.com/Documentation/",
+        "status": 200,
+        "finalUrl": "https://js.devexpress.com/Documentation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.338Z",
+        "method": "http-check",
+        "note": "'DevExtreme JavaScript Documentation'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://js.devexpress.com/jQuery/Documentation/Guide/jQuery_Components/Add_DevExtreme_to_a_jQuery_Application/",
+        "status": 200,
+        "finalUrl": "https://js.devexpress.com/jQuery/Documentation/Guide/jQuery_Components/Add_DevExtreme_to_a_jQuery_Application/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.648Z",
+        "method": "http-check",
+        "note": "jQuery getting-started guide"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/DevExpress/DevExtreme",
+        "status": 200,
+        "finalUrl": "https://github.com/DevExpress/DevExtreme",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.984Z",
+        "method": "http-check",
+        "note": "Official repo 'HTML5 JavaScript Component Suite for Responsive Web Development'"
+      },
+      {
+        "field": "license",
+        "url": "https://js.devexpress.com/Licensing/",
+        "status": 200,
+        "finalUrl": "https://js.devexpress.com/Licensing/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.944Z",
+        "method": "http-check",
+        "note": "'Licensing FAQ: DevExtreme' — EULAs and FAQ"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/devextreme@26.1.6/README.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/devextreme@26.1.6/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:54.786Z",
+        "method": "repo-metadata",
+        "note": "README links Pricing and Licensing (js.devexpress.com/licensing)"
+      },
+      {
+        "field": "package:devextreme",
+        "url": "https://registry.npmjs.org/devextreme",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/devextreme",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:58.059Z",
+        "method": "package-metadata",
+        "note": "npm latest 26.1.6 published 2026-10-23; license SEE LICENSE IN README.md. repository DevExpress/DevExtreme"
+      },
+      {
+        "field": "package:devextreme-angular",
+        "url": "https://registry.npmjs.org/devextreme-angular",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/devextreme-angular",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:58.925Z",
+        "method": "package-metadata",
+        "note": "npm latest 26.1.6 published 2026-10-23; license MIT"
+      },
+      {
+        "field": "package:devextreme-react",
+        "url": "https://registry.npmjs.org/devextreme-react",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/devextreme-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:58.214Z",
+        "method": "package-metadata",
+        "note": "npm latest 26.1.6 published 2026-10-23; license MIT"
+      },
+      {
+        "field": "package:devextreme-vue",
+        "url": "https://registry.npmjs.org/devextreme-vue",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/devextreme-vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:59.104Z",
+        "method": "package-metadata",
+        "note": "npm latest 26.1.6 published 2026-10-23; license MIT"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.devexpress.com/",
+        "status": 200,
+        "finalUrl": "https://www.devexpress.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.321Z",
+        "method": "http-check",
+        "note": "DevExpress homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:54.786Z"
+  },
+  {
+    "rank": 100,
+    "slug": "ignite-ui",
+    "name": "Ignite UI",
+    "aliases": [
+      "Infragistics Ignite UI",
+      "Ignite UI for Angular",
+      "Ignite UI for React",
+      "Ignite UI for Web Components",
+      "Ignite UI for Blazor",
+      "Ignite UI for jQuery"
+    ],
+    "organization": {
+      "slug": "infragistics",
+      "name": "Infragistics",
+      "websiteUrl": "https://www.infragistics.com/"
+    },
+    "category": "commercial-suite",
+    "summary": "Ignite UI is Infragistics' family of UI component libraries for Angular, React, Web Components, Blazor, jQuery and ASP.NET, centred on data grids, charts and dock management. It is sold commercially, with parts of several libraries released under MIT.",
+    "homepageUrl": "https://www.infragistics.com/products/ignite-ui",
+    "docsUrl": "https://www.infragistics.com/products/ignite-ui-angular/angular/components/general/getting-started",
+    "repositoryUrl": "https://github.com/IgniteUI",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "igniteui-angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/igniteui-angular"
+      },
+      {
+        "name": "igniteui-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/igniteui-react"
+      },
+      {
+        "name": "igniteui-webcomponents",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/igniteui-webcomponents"
+      },
+      {
+        "name": "ignite-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/ignite-ui"
+      },
+      {
+        "name": "IgniteUI.Blazor",
+        "registry": "nuget",
+        "url": "https://www.nuget.org/packages/IgniteUI.Blazor"
+      }
+    ],
+    "license": {
+      "slug": "commercial-infragistics",
+      "spdxId": null,
+      "name": "Infragistics commercial license (with MIT-licensed subsets)",
+      "url": "https://www.infragistics.com/legal/license",
+      "isOpenSource": false,
+      "redistribution": "conditional",
+      "notes": "Mixed licensing: igniteui-angular is dual-licensed (its LICENSE lists components under MIT; all other parts under the Infragistics Commercial License); igniteui-react and igniteui-webcomponents declare MIT on npm; the jQuery package ignite-ui declares Apache-2.0; other products/grids are commercial."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "22.2.5",
+    "latestReleaseAt": "2026-11-02T15:22:31.710Z",
+    "frameworks": [
+      {
+        "slug": "angular",
+        "packageName": "igniteui-angular",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "igniteui-react",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "igniteui-webcomponents",
+        "support": "official"
+      },
+      {
+        "slug": "blazor",
+        "packageName": "IgniteUI.Blazor",
+        "support": "official"
+      },
+      {
+        "slug": "jquery",
+        "packageName": "ignite-ui",
+        "support": "official"
+      },
+      {
+        "slug": "asp-net",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial",
+      "enterprise",
+      "data-dense",
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified commercial-suite even though some libraries are partly MIT ('open-source' tag reflects those subsets). repositoryUrl is the official IgniteUI GitHub organisation because each framework has its own repo (igniteui-angular, igniteui-webcomponents, igniteui-react, ignite-ui). latestVersion is the flagship igniteui-angular (22.2.5, 2026-11-02); other libraries version independently (igniteui-react 19.9.0, igniteui-webcomponents 7.4.1, ignite-ui 25.1.3). docsUrl is the Angular getting-started guide; React/Web Components/Blazor have parallel docs. Infragistics desktop (WPF/WinForms) products are separate and not counted.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.infragistics.com/products/ignite-ui",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:41.773Z",
+        "method": "http-check",
+        "note": "Ignite UI product page: components for Angular, ASP.NET, Blazor, jQuery, React and Web Components"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.infragistics.com/products/ignite-ui-angular/angular/components/general/getting-started",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-angular/angular/components/general/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.373Z",
+        "method": "http-check",
+        "note": "'Getting Started | Ignite UI for Angular'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.infragistics.com/products/ignite-ui-react/react/components/general-getting-started",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-react/react/components/general-getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.674Z",
+        "method": "http-check",
+        "note": "'Getting Started | Ignite UI for React'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.infragistics.com/products/ignite-ui-web-components/web-components/components/general-getting-started",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-web-components/web-components/components/general-getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.997Z",
+        "method": "http-check",
+        "note": "'Getting Started | Ignite UI for Web Components'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-getting-started",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-blazor/blazor/components/general-getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:42.273Z",
+        "method": "http-check",
+        "note": "'Getting Started | Ignite UI for Blazor'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.infragistics.com/products/ignite-ui-jquery",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-jquery",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:42.573Z",
+        "method": "http-check",
+        "note": "Ignite UI for jQuery product page"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.infragistics.com/products/ignite-ui-aspnet-core",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-aspnet-core",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:30.719Z",
+        "method": "http-check",
+        "note": "Ignite UI for ASP.NET Core product page"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/IgniteUI",
+        "status": 200,
+        "finalUrl": "https://github.com/IgniteUI",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:41.240Z",
+        "method": "http-check",
+        "note": "Official GitHub org 'Ignite UI'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/IgniteUI/igniteui-angular",
+        "status": 200,
+        "finalUrl": "https://github.com/IgniteUI/igniteui-angular",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:42.255Z",
+        "method": "http-check",
+        "note": "igniteui-angular repo"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/IgniteUI/igniteui-webcomponents",
+        "status": 200,
+        "finalUrl": "https://github.com/IgniteUI/igniteui-webcomponents",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:42.555Z",
+        "method": "http-check",
+        "note": "igniteui-webcomponents repo"
+      },
+      {
+        "field": "license",
+        "url": "https://www.infragistics.com/legal/license",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/legal/license",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:42.873Z",
+        "method": "http-check",
+        "note": "'Infragistics Products | License Agreements'"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/igniteui-angular@22.2.5/LICENSE",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/igniteui-angular@22.2.5/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:53.886Z",
+        "method": "repo-metadata",
+        "note": "'Dual License for Ignite UI for Angular' — MIT for listed components, Infragistics Commercial License for the rest"
+      },
+      {
+        "field": "license",
+        "url": "https://www.infragistics.com/products/ignite-ui-angular/open-source",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/products/ignite-ui-angular/open-source",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:31.040Z",
+        "method": "http-check",
+        "note": "'Free Open-Source Angular Components' — MIT-licensed subset"
+      },
+      {
+        "field": "package:igniteui-angular",
+        "url": "https://registry.npmjs.org/igniteui-angular",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/igniteui-angular",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:59.421Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.2.5 published 2026-11-02; license SEE LICENSE IN LICENSE"
+      },
+      {
+        "field": "package:igniteui-react",
+        "url": "https://registry.npmjs.org/igniteui-react",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/igniteui-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:59.963Z",
+        "method": "package-metadata",
+        "note": "npm latest 19.9.0 published 2026-09-28; license MIT"
+      },
+      {
+        "field": "package:igniteui-webcomponents",
+        "url": "https://registry.npmjs.org/igniteui-webcomponents",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/igniteui-webcomponents",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:59.574Z",
+        "method": "package-metadata",
+        "note": "npm latest 7.4.1 published 2026-09-25; license MIT"
+      },
+      {
+        "field": "package:ignite-ui",
+        "url": "https://registry.npmjs.org/ignite-ui",
+        "status": 200,
+        "finalUrl": "https://registry.npmjs.org/ignite-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:00.267Z",
+        "method": "package-metadata",
+        "note": "npm latest 25.1.3 published 2025-12-16; license Apache-2.0. jQuery library; repository IgniteUI/ignite-ui"
+      },
+      {
+        "field": "package:IgniteUI.Blazor",
+        "url": "https://www.nuget.org/packages/IgniteUI.Blazor",
+        "status": 200,
+        "finalUrl": "https://www.nuget.org/packages/IgniteUI.Blazor",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:31.184Z",
+        "method": "package-metadata",
+        "note": "NuGet Gallery page for IgniteUI.Blazor"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.infragistics.com/",
+        "status": 200,
+        "finalUrl": "https://www.infragistics.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:43.172Z",
+        "method": "http-check",
+        "note": "Infragistics homepage"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:53.886Z"
   }
 ]

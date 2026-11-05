@@ -35,6 +35,7 @@ const HL_START = "⟦"; // ⟦
 const HL_STOP = "⟧"; // ⟧
 const UPSERT_BATCH = 1000;
 const FACET_LIMIT = 30;
+const HL_WHOLE_MAX = 240;
 
 class Params {
   readonly values: unknown[] = [];
@@ -340,11 +341,15 @@ export function buildSearchSql(q: ParsedQuery): { text: string; values: unknown[
   // Browse mode (no text): rank by priors only, still adding interpreted-filter bonuses.
   const score = `((${parts.length ? parts.join(" + ") : "0"}) + ${hasText ? "0" : "1"}) * ${entityWeightSql()} * d.boost`;
 
+  // Short bodies (most descriptions) are highlighted whole; long ones get one fragment.
   const highlight = hasText
-    ? `case when d.body is not null and d.body <> '' then ts_headline('english'::regconfig, d.body, ${or([tq!.strict, tq!.main, ...(tq!.exp ? [tq!.exp] : [])])}, ${p.add(
-        `StartSel=${HL_START}, StopSel=${HL_STOP}, MaxWords=26, MinWords=10, ShortWord=2, MaxFragments=1`,
-      )}) end`
+    ? `case when d.body is not null and d.body <> '' then ts_headline('english'::regconfig, d.body, ${or([tq!.strict, tq!.main, ...(tq!.exp ? [tq!.exp] : [])])},
+         case when length(d.body) <= ${HL_WHOLE_MAX} then ${p.add(`StartSel=${HL_START}, StopSel=${HL_STOP}, HighlightAll=true`)}
+              else ${p.add(`StartSel=${HL_START}, StopSel=${HL_STOP}, MaxWords=26, MinWords=10, ShortWord=2, MaxFragments=1`)} end) end`
     : `null::text`;
+  // Disjunctive entity-type facet: with an explicit type filter, count what the other types
+  // would return too (UI tabs); an interpreted type filter ("tokens") counts the filtered set.
+  const entityFacetSource = q.filters.types?.length && !q.interpretedHard.types ? "matched_all" : "matched";
 
   const limit = p.add(q.limit);
   const offset = p.add(q.offset);
@@ -372,7 +377,7 @@ select
       'system_slug', d.system_slug, 'score', d.score, 'highlight', d.highlight, 'facets', d.facets)
     order by d.score desc, d.title asc, d.entity_id asc) from page d) as hits,
   (select json_agg(json_build_object('value', v, 'count', c) order by c desc, v) from (
-     select entity_type as v, count(*) as c from matched_all group by 1) x) as f_entity,
+     select entity_type as v, count(*) as c from ${entityFacetSource} group by 1) x) as f_entity,
   (select json_agg(json_build_object('value', v, 'count', c) order by c desc, v) from (
      select system_slug as v, count(*) as c from matched where system_slug is not null group by 1 order by 2 desc, 1 limit ${FACET_LIMIT}) x) as f_system,
   (select json_agg(json_build_object('value', v, 'count', c) order by c desc, v) from (
