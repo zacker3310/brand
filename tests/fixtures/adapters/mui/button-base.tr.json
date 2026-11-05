@@ -1,0 +1,14 @@
+{
+  "componentDescription": "`ButtonBase` contains as few styles as possible.\nIt aims to be a simple building block for creating a button.\nIt contains a load of style reset and some focus/ripple logic.",
+  "propDescriptions": {
+    "centerRipple": {
+      "description": "If <code>true</code>, the ripples are centered. They won&#39;t start at the cursor interaction position."
+    },
+    "children": {
+      "description": "The content of the component."
+    },
+    "disabled": {
+      "description": "If <code>true</code>, the component is disabled."
+    }
+  }
+}

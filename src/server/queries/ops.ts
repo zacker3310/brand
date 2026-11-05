@@ -927,3 +927,77 @@ export async function systemOptions(db?: DB): Promise<{ slug: string; name: stri
   const r = await d.execute<{ slug: string; name: string }>(sql`select slug, name from design_system order by lower(name)`);
   return r.rows;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Public methodology figures (/about)                                          */
+/* -------------------------------------------------------------------------- */
+
+export interface MethodologyStats {
+  registry: Record<string, number>;
+  rankedCandidates: number;
+  replacements: { from: string; to: string; toSlug: string; reason: "rejected" | "duplicate" | string }[];
+  docAccess: Record<string, number>;
+  evidenceByState: Record<string, number>;
+  evidenceTotal: number;
+  evidenceSources: number;
+  classification: Record<string, number>;
+  unclassified: number;
+  componentsTotal: number;
+  coverageStates: Record<string, number>;
+  examples: { total: number; withCode: number };
+  tokenSetsByRedistribution: Record<string, number>;
+  tokens: number;
+  documents: number;
+  blockedDocuments: number;
+  indexedSystems: number;
+  lastIngestedAt: string | null;
+}
+
+export async function methodologyStats(db?: DB): Promise<MethodologyStats> {
+  const d = await d_(db);
+  const agg = (q: SQL) => sql`(select coalesce(jsonb_object_agg(k, n), '{}'::jsonb) from (${q}) x)`;
+  const r = await d.execute<Row>(sql`
+    select
+      ${agg(sql`select registry_status::text k, count(*)::int n from design_system group by 1`)} as registry,
+      (select count(*)::int from design_system where registry_rank is not null) as ranked,
+      (select coalesce(jsonb_agg(jsonb_build_object('from', coalesce(o.name, d.replaces_slug), 'to', d.name, 'toSlug', d.slug, 'reason', coalesce(o.registry_status::text, 'unknown')) order by d.name), '[]'::jsonb)
+         from design_system d left join design_system o on o.slug = d.replaces_slug where d.replaces_slug is not null) as replacements,
+      ${agg(sql`select doc_access::text k, count(*)::int n from design_system where registry_status = 'verified' group by 1`)} as doc_access,
+      ${agg(sql`select state::text k, count(*)::int n from verification_evidence group by 1`)} as evidence,
+      (select count(*)::int from verification_evidence) as evidence_total,
+      (select count(distinct source_url)::int from verification_evidence) as evidence_sources,
+      ${agg(sql`select classification_state::text k, count(*)::int n from component where publish_state = 'published' and component_type_id is not null group by 1`)} as classification,
+      (select count(*)::int from component where publish_state = 'published' and component_type_id is null) as unclassified,
+      (select count(*)::int from component where publish_state = 'published') as components,
+      ${agg(sql`select value #>> '{}' k, count(*)::int n from component c, jsonb_each(c.coverage) where c.publish_state = 'published' group by 1`)} as coverage,
+      (select count(*)::int from component_example) as examples,
+      (select count(*)::int from component_example where code is not null) as examples_code,
+      ${agg(sql`select redistribution::text k, count(*)::int n from token_set where publish_state = 'published' group by 1`)} as token_sets,
+      (select count(*)::int from token t join token_set s on s.id = t.token_set_id where s.publish_state = 'published') as tokens,
+      (select count(*)::int from source_document) as documents,
+      (select count(*)::int from source_document where status = 'blocked') as blocked,
+      (select count(*)::int from design_system where registry_status = 'verified' and ingestion_status in ('indexed', 'partial')) as indexed,
+      (select max(last_ingested_at) from design_system) as last_ingested
+  `);
+  const x = r.rows[0]!;
+  return {
+    registry: x.registry as Record<string, number>,
+    rankedCandidates: num(x.ranked),
+    replacements: x.replacements as MethodologyStats["replacements"],
+    docAccess: x.doc_access as Record<string, number>,
+    evidenceByState: x.evidence as Record<string, number>,
+    evidenceTotal: num(x.evidence_total),
+    evidenceSources: num(x.evidence_sources),
+    classification: x.classification as Record<string, number>,
+    unclassified: num(x.unclassified),
+    componentsTotal: num(x.components),
+    coverageStates: x.coverage as Record<string, number>,
+    examples: { total: num(x.examples), withCode: num(x.examples_code) },
+    tokenSetsByRedistribution: x.token_sets as Record<string, number>,
+    tokens: num(x.tokens),
+    documents: num(x.documents),
+    blockedDocuments: num(x.blocked),
+    indexedSystems: num(x.indexed),
+    lastIngestedAt: iso(x.last_ingested as Date | null),
+  };
+}

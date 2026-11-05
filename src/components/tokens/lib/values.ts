@@ -78,6 +78,14 @@ export function themeShortLabel(theme: string | null | undefined, fallback: stri
     .replace(/ ([HM]) C$/, " $1C");
 }
 
+/** Column/legend labels for themed sets; falls back to set names when several sets share a theme. */
+export function themeLabels(keys: readonly string[], info: (key: string) => { name: string; theme: string | null } | undefined): Map<string, string> {
+  const base = new Map(keys.map((k) => [k, themeShortLabel(info(k)?.theme, info(k)?.name ?? k)]));
+  const counts = new Map<string, number>();
+  for (const v of base.values()) counts.set(v, (counts.get(v) ?? 0) + 1);
+  return new Map(keys.map((k) => [k, (counts.get(base.get(k)!) ?? 0) > 1 ? (info(k)?.name ?? k) : base.get(k)!]));
+}
+
 /* -------------------------------------------------------------------------- */
 /* Typography                                                                  */
 /* -------------------------------------------------------------------------- */

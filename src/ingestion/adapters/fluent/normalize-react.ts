@@ -69,7 +69,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     const main = mainName(p);
     const listed = new Set(p.meta.subcomponents);
     for (const c of dts.components) {
-      if (c.name === main || mainNames.has(c.name)) continue;
+      if (c.name === main || mainNames.has(c.name) || c.internal) continue;
       const documented = listed.has(c.name);
       // Structural rule: longest page-component prefix within the same package wins.
       const prefixOwner = pages
@@ -83,6 +83,23 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
   }
   const subSlug = new Map<string, string>();
   for (const name of [...subs.keys()].sort()) subSlug.set(name, claim(name, "react"));
+
+  // Weak (containment) matches on compound names defer to the page component they extend
+  // ("CardHeader" -> card rather than a header-like type).
+  const mainCls = new Map<string, ReturnType<typeof classifyComponentName>>();
+  for (const p of pages) {
+    const n = mainName(p);
+    mainCls.set(n, strongest([classifyComponentName(n), classifyComponentName(humanize(n)), classifyComponentName(p.page.leaf), classifyComponentName(n.replace(/(?<=[a-z])list$/i, " list"))]));
+  }
+  const classify = (name: string, own: ReturnType<typeof classifyComponentName>) => {
+    if (own && own.confidence > 0.6) return own;
+    const parent = [...mainCls.keys()].filter((m) => m !== name && name.startsWith(m) && mainCls.get(m)).sort((a, b) => b.length - a.length)[0];
+    if (parent) {
+      const pc = mainCls.get(parent)!;
+      return { slug: pc.slug, method: `parent-prefix:${parent}(${pc.method})`, confidence: Math.min(pc.confidence, 0.5) };
+    }
+    return own;
+  };
 
   const storiesFor = (docId: string) =>
     (sbIndex?.entries ?? [])
@@ -118,7 +135,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     // description
     let description: string | null = null;
     if (p.description) {
-      description = firstSentence(p.description.text);
+      description = describingSentence(p.description.text);
       if (description) ev.push(evidence(p.description.prov, "description", "story-description-md", { excerpt: description }));
     }
     if (!description && comp?.summary && dts) {
@@ -130,7 +147,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     // properties / variants / sizes / states
     const properties = buildProps(comp, p.page.pkg, version);
     if (comp && dts) {
-      coverage.properties = properties.length ? "documented" : "not-documented";
+      coverage.properties = properties.length ? "documented" : comp.unresolved.length ? "not-extracted" : "not-documented";
       ev.push(
         evidence(dts.prov, "properties", "dts-props", {
           location: `dist/index.d.ts#L${comp.line}`,
@@ -175,7 +192,8 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
         },
       };
       coverage.accessibility = "documented";
-      coverage.keyboard = kb.length ? "documented" : "not-documented";
+      coverage.keyboard = kb.length ? "documented" : spec.spec.keyboardSection ? "not-extracted" : "not-documented";
+      if (!kb.length && spec.spec.keyboardSection && accessibility.coverage) accessibility.coverage.keyboard = "not-extracted";
       ev.push(evidence(spec.prov, "accessibility", "a11y-spec-mdx", { location: spec.prov.file, excerpt: spec.spec.intro ?? spec.spec.title ?? "Accessibility spec" }));
       if (kb.length) ev.push(evidence(spec.prov, "keyboard", "a11y-spec-mdx", { location: `${spec.prov.file}#keyboard-interaction`, excerpt: kb.slice(0, 4).map((k) => `${k.keys}: ${k.action}`).join("; ") }));
     } else if (a11yGroups.length) {
@@ -221,7 +239,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     const lifecycle = comp?.deprecated ? "deprecated" : lifecycleFromVersion(version, { preview: p.page.section === "Preview Components" });
     if (version) ev.push(evidence(dts!.prov, "lifecycle", "npm-version", { location: `${p.page.pkg}@${version}`, excerpt: `${p.page.pkg}@${version}${p.page.section !== "Components" ? ` (Storybook section "${p.page.section}")` : ""}` }));
 
-    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name)), classifyComponentName(p.page.leaf), classifyComponentName(name.replace(/(?<=[a-z])list$/i, " list"))]);
+    const cls = classify(name, mainCls.get(name) ?? null);
     components.push({
       slug,
       name,
@@ -259,7 +277,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     if (description) ev.push(evidence(dts.prov, "description", "dts-tsdoc", { location: `dist/index.d.ts#L${s.comp.line}`, excerpt: description }));
     const url = npmFile(s.pkg, dts.version, "dist/index.d.ts");
     const properties = sortBy(s.comp.props, (p) => p.name).map((p) => toProperty(p, "react", url));
-    coverage.properties = properties.length ? "documented" : "not-documented";
+    coverage.properties = properties.length ? "documented" : s.comp.unresolved.length ? "not-extracted" : "not-documented";
     if (properties.length) ev.push(evidence(dts.prov, "properties", "dts-props", { location: `dist/index.d.ts#${s.comp.propsType}`, excerpt: `${s.comp.propsType}: ${properties.length} props${s.comp.unresolved.length ? `; also extends ${s.comp.unresolved.slice(0, 4).join(", ")} (not resolved)` : ""}` }));
     const variants = variantsFromProps(s.comp.props, url, "dist/index.d.ts");
     const sizes = sizesFromProps(s.comp.props);
@@ -280,7 +298,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     coverage.examples = "documented";
     coverage.accessibility = "not-extracted";
     coverage.keyboard = "not-extracted";
-    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name))]);
+    const cls = classify(name, strongest([classifyComponentName(name), classifyComponentName(humanize(name))]));
     components.push({
       slug,
       name,
@@ -314,6 +332,24 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
   const slugs = new Set(out.map((c) => c.slug));
   out = out.map((c) => ({ ...c, relationships: c.relationships.filter((r) => !r.targetSlug || slugs.has(r.targetSlug)) }));
   return { components: out, warnings };
+}
+
+/**
+ * First sentence that describes the component: skips pointer sentences ("For detailed guidance …
+ * go to Fluent 2 …") and leading callout emoji.
+ */
+export function describingSentence(text: string | null | undefined): string | null {
+  if (!text) return null;
+  const sentences = text
+    .replace(/\s+/g, " ")
+    .trim()
+    .split(/(?<!\b(?:e\.g|i\.e|etc|vs))(?<=[.!?])\s+(?=[A-Z("'`<\p{Extended_Pictographic}])/u);
+  for (const raw of sentences) {
+    const s = raw.replace(/^[\p{Extended_Pictographic}\uFE0F\s]+/u, "").trim();
+    if (!s || /^(for (detailed|more) (guidance|information)|see |go to |learn more)/i.test(s) || /go to Fluent 2/i.test(s)) continue;
+    return firstSentence(s);
+  }
+  return null;
 }
 
 /** ATLAS-authored short statement for facts, only from README statements that were found. */

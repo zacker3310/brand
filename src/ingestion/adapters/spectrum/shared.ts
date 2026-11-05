@@ -90,3 +90,6 @@ export function lifecycleFromStatus(s: string | null | undefined): "stable" | "b
   if (/alpha|experimental|unstable|incubat|draft/.test(v)) return "experimental";
   return "unknown";
 }
+
+/** Locale-independent string comparison (code point order) for deterministic output. */
+export const cmp = (a: string, b: string): number => (a < b ? -1 : a > b ? 1 : 0);

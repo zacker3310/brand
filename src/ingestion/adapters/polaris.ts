@@ -60,6 +60,8 @@ const MAX_MDX = 250;
 const prefetched = new Map<string, FetchResult>();
 /** Linked declaration files loaded while resolving React props (per pinned URL, per process). */
 const dtsBodies = new Map<string, Promise<string | null>>();
+/** Package file listings seen in discover() ("pkg@version" -> files), used to skip non-existent module candidates. */
+const listings = new Map<string, Set<string>>();
 
 async function npmInfo(ctx: AdapterContext, pkg: string): Promise<NpmInfo> {
   const r = await npmLatest(ctx.http, pkg);
@@ -194,6 +196,7 @@ export const adapter: SourceAdapter = {
 
     // React declarations: docs title / <Props componentName> -> build/ts/src/components/<Dir>/<Dir>.d.ts
     const dirs = new Map<string, string>();
+    if (listing.files.length) listings.set(`${REACT_PKG}@${react.version}`, new Set(listing.files));
     for (const f of listing.files) {
       const m = /^build\/ts\/src\/components\/([A-Za-z0-9]+)\/\1\.d\.ts$/.exec(f);
       if (m) dirs.set(norm(m[1]!), m[1]!);
@@ -304,7 +307,8 @@ export const adapter: SourceAdapter = {
           }
           return p;
         };
-        const resolver = new DtsResolver(load);
+        const files = listings.get(`${REACT_PKG}@${npm.version}`);
+        const resolver = new DtsResolver(load, files ? (p) => files.has(p) : undefined);
         const res = await resolver.props(file, meta.propsName ?? "");
         const props: ReactProp[] = [];
         for (const p of res?.props ?? []) props.push({ ...p, allowedValues: await resolver.allowedValues(p.file, p.type) });

@@ -1,0 +1,41 @@
+# Menu
+
+<Subtitle>A list of actions in a dropdown, enhanced with keyboard navigation.</Subtitle>
+<Meta
+  name="description"
+  content="A high-quality, unstyled React menu component that displays list of actions in a dropdown, enhanced with keyboard navigation."
+/>
+
+import { DemoMenuHero } from './demos/hero';
+
+<DemoMenuHero />
+
+## Examples
+
+### Open on hover
+
+Text.
+
+### Filtering
+
+#### Focus and keyboard
+
+Opening the menu with a click or the keyboard focuses the input. Opening it on hover, touch, or with a pen does not, so the on-screen keyboard stays hidden.
+The arrow keys move the highlight while the input keeps focus. <kbd>Tab</kbd> closes the menu, and <kbd>Shift</kbd>+<kbd>Tab</kbd> returns focus to the trigger.
+The popup is a `dialog` that holds the `searchbox` input and the `menu` list.
+
+#### Submenus
+
+Wrap each searchable `<Menu.SubmenuRoot>` in its own `<Menu.FilterProvider>`.
+Submenus without a provider remain unfiltered.
+
+#### Filtering with detached triggers
+
+Use the same `Menu.createHandle()` handle for the root and its detached trigger:
+
+```jsx title="Detached trigger"
+const handle = Menu.createHandle();
+
+<Menu.Trigger handle={handle}>Actions</Menu.Trigger>
+<Menu.FilterProvider>
+  <Menu.Root handle={handle}>{/* menu parts */}</Menu.Root>

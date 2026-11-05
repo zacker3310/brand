@@ -4,6 +4,7 @@ import { SourceLink } from "@/components/atlas";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn, formatCount } from "@/lib/utils";
 import type { SystemDetail } from "@/server/queries/systems";
+import { INFERRED_TEXT } from "../badges";
 import { buildHref } from "../lib/params";
 import { pickSwatches } from "../lib/swatches";
 
@@ -140,7 +141,7 @@ export function TokensSection({ detail }: { detail: SystemDetail }) {
                 <span key={tier}>
                   {i > 0 && " · "}
                   <span className="text-foreground/85">{tier}</span> {formatCount(v.verified + v.inferred)}
-                  {v.inferred > 0 && v.verified === 0 && <span className="text-inferred"> (inferred)</span>}
+                  {v.inferred > 0 && v.verified === 0 && <span className={INFERRED_TEXT}> (inferred)</span>}
                   {v.inferred > 0 && v.verified > 0 && <span> ({formatCount(v.inferred)} inferred)</span>}
                 </span>
               ))}
@@ -153,7 +154,7 @@ export function TokensSection({ detail }: { detail: SystemDetail }) {
         <table className="w-full min-w-[720px] text-sm">
           <caption className="sr-only">Published token sets with theme, format, token count and source package</caption>
           <thead>
-            <tr className="border-b text-left text-[10.5px] font-medium tracking-wide text-subtle-foreground uppercase">
+            <tr className="border-b text-left text-[10.5px] font-medium tracking-wide text-muted-foreground uppercase">
               <th scope="col" className="px-4 py-2 font-medium">Set</th>
               <th scope="col" className="px-3 py-2 font-medium">Theme</th>
               <th scope="col" className="px-3 py-2 font-medium">Format</th>

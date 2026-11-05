@@ -4,6 +4,7 @@ import type { CoverageState } from "@/lib/contracts";
 import { COMPONENT_GROUPS } from "@/lib/taxonomy";
 import { cn } from "@/lib/utils";
 import type { DetailComponent } from "@/server/queries/systems";
+import { INFERRED_TEXT } from "../badges";
 import { percent, plural } from "../lib/format";
 
 function CountOrCoverage({ n, state, noun }: { n: number; state: CoverageState | undefined; noun: string }) {
@@ -24,7 +25,7 @@ export function ClassificationBadge({ c }: { c: Pick<DetailComponent, "classific
     state === "verified"
       ? `Declared by the official source${c.classificationMethod ? ` (${c.classificationMethod})` : ""}.`
       : `Matched by ATLAS taxonomy heuristics${c.classificationMethod ? ` (${c.classificationMethod})` : ""}, confidence ${percent(c.confidence)}. Not a claim made by the source.`;
-  return <VerificationBadge state={state} compact detail={how} />;
+  return <VerificationBadge state={state} compact detail={how} className={state === "inferred" ? INFERRED_TEXT : undefined} />;
 }
 
 /** Components grouped by ATLAS taxonomy group, each row with classification and coverage. */
@@ -53,7 +54,7 @@ export function ComponentsSection({ systemSlug, components }: { systemSlug: stri
               {s.n}
               <span className="text-sm font-normal text-muted-foreground"> / {s.of}</span>
             </dd>
-            {s.hint && <dd className="text-[11px] text-subtle-foreground">{s.hint}</dd>}
+            {s.hint && <dd className="text-[11px] text-muted-foreground">{s.hint}</dd>}
           </div>
         ))}
       </dl>
@@ -72,7 +73,7 @@ export function ComponentsSection({ systemSlug, components }: { systemSlug: stri
                 </span>
               )}
             </summary>
-            <div className="hidden border-t border-border/70 px-4 py-1.5 text-[10.5px] font-medium tracking-wide text-subtle-foreground uppercase md:grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)_repeat(3,minmax(0,0.7fr))] md:gap-4">
+            <div className="hidden border-t border-border/70 px-4 py-1.5 text-[10.5px] font-medium tracking-wide text-muted-foreground uppercase md:grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)_repeat(3,minmax(0,0.7fr))] md:gap-4">
               <span>Component</span>
               <span>Canonical type</span>
               <span>Variants</span>
@@ -102,7 +103,7 @@ export function ComponentsSection({ systemSlug, components }: { systemSlug: stri
                         <ClassificationBadge c={c} />
                       </>
                     ) : (
-                      <span className="text-xs text-subtle-foreground">No taxonomy match</span>
+                      <span className="text-xs text-muted-foreground">No taxonomy match</span>
                     )}
                   </div>
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 md:contents">

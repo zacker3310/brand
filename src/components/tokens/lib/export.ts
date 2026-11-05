@@ -38,6 +38,12 @@ export interface ExportToken {
   location: string | null;
 }
 
+/** SPDX licenses link to their canonical SPDX page; others to the recorded license URL. */
+export function licenseHref(l: { spdxId: string | null; url: string | null }): string | null {
+  if (l.spdxId && /^[A-Za-z0-9.+-]+$/.test(l.spdxId)) return `https://spdx.org/licenses/${l.spdxId}.html`;
+  return l.url;
+}
+
 export type ExportDecision = { allowed: true } | { allowed: false; reason: string };
 
 const REASONS: Record<Exclude<Redistribution, "permitted">, string> = {
@@ -130,7 +136,8 @@ export function buildExportCss(meta: ExportSetMeta, tokens: readonly ExportToken
   lines.push("/*");
   lines.push(` * ${sanitizeComment(attributionLine(meta))}`);
   lines.push(` * Source: ${sanitizeComment(meta.sourceUrl)}`);
-  if (meta.license?.url) lines.push(` * License: ${sanitizeComment(meta.license.url)}`);
+  const lic = meta.license ? licenseHref(meta.license) : null;
+  if (lic) lines.push(` * License: ${sanitizeComment(lic)}`);
   if (meta.theme) lines.push(` * Theme: ${sanitizeComment(meta.theme)} (selector below is :root; scope it to your theme mechanism)`);
   lines.push(` * Retrieved: ${meta.retrievedAt ?? "unknown"} · Exported by ATLAS: ${exportedAt}`);
   lines.push(" * Values as authored, with ATLAS alias resolution where resolvable. Verify against the source before use.");

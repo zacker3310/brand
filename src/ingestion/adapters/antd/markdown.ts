@@ -18,14 +18,13 @@ export function parseMarkdown(md: string): Root {
 
 export function splitFrontmatter(text: string): { frontmatter: Record<string, unknown>; body: string; bodyOffsetLines: number } {
   if (!/^---\r?\n/.test(text)) return { frontmatter: {}, body: text, bodyOffsetLines: 0 };
-  const end = text.indexOf("\n---", 3);
-  const offset = end >= 0 ? text.slice(0, end + 4).split("\n").length : 0;
+  const offsetOf = (body: string) => (text.endsWith(body) ? text.slice(0, text.length - body.length).split("\n").length - 1 : 0);
   try {
     const m = matter(text);
-    return { frontmatter: (m.data ?? {}) as Record<string, unknown>, body: m.content, bodyOffsetLines: Math.max(0, offset - 1) };
+    return { frontmatter: (m.data ?? {}) as Record<string, unknown>, body: m.content, bodyOffsetLines: offsetOf(m.content) };
   } catch {
     const body = text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
-    return { frontmatter: {}, body, bodyOffsetLines: Math.max(0, offset - 1) };
+    return { frontmatter: {}, body, bodyOffsetLines: offsetOf(body) };
   }
 }
 
@@ -236,10 +235,13 @@ export function parseDoc(text: string): ParsedDoc {
       }
       continue;
     }
-    if (node.type === "html") {
-      for (const m of node.value.matchAll(/<embed\s+[^>]*src=["']([^"']+\.md)["']/g)) embeds.push({ src: m[1]!, headings: stack.map((x) => ({ ...x })), line: lineOf(node) });
+    // <embed src="x.md"></embed> is block HTML or (not being a CommonMark block tag) inline HTML in a paragraph.
+    const htmlText = node.type === "html" ? node.value : node.type === "paragraph" ? node.children.filter((c) => c.type === "html").map((c) => (c as { value: string }).value).join("") : "";
+    if (htmlText.includes("<embed")) {
+      for (const m of htmlText.matchAll(/<embed\s+[^>]*src=["']([^"']+\.md)["']/g)) embeds.push({ src: m[1]!, headings: stack.map((x) => ({ ...x })), line: lineOf(node) });
       continue;
     }
+    if (node.type === "html") continue;
     if (node.type === "table") {
       const t = node as Table;
       const [head, ...rest] = t.children;

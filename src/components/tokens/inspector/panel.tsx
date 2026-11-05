@@ -9,7 +9,7 @@ import type { ChainEdge, InspectorData } from "@/server/queries/tokens";
 import { cn, formatCount } from "@/lib/utils";
 import { AliasStateBadge, ALIAS_STATE_META } from "../alias-state";
 import { Swatch } from "../swatch";
-import { authoredLabel, colorLabel, previewValue, swatchColor, themeShortLabel, themeValues } from "../lib/values";
+import { authoredLabel, colorLabel, previewValue, swatchColor, themeLabels, themeValues } from "../lib/values";
 import { useInspector } from "./context";
 
 function useIsXl() {
@@ -42,36 +42,32 @@ export function TokenInspector({ initial, contrastHref }: { initial: InspectorDa
   const { selectedId, clear } = useInspector();
   const isXl = useIsXl();
   const hydrated = useHydrated();
-  const [state, setState] = useState<State>(initial ? { status: "ready", data: initial } : { status: "idle" });
-  const cache = useRef(new Map<string, InspectorData>(initial ? [[initial.token.id, initial]] : []));
+  const [loaded, setLoaded] = useState<Record<string, InspectorData>>(() => (initial ? { [initial.token.id]: initial } : {}));
+  const [failed, setFailed] = useState<Record<string, string>>({});
+  const state: State = !selectedId
+    ? { status: "idle" }
+    : loaded[selectedId]
+      ? { status: "ready", data: loaded[selectedId]! }
+      : failed[selectedId]
+        ? { status: "error", id: selectedId, message: failed[selectedId]! }
+        : { status: "loading", id: selectedId };
+  const need = selectedId && !loaded[selectedId] && !failed[selectedId] ? selectedId : null;
 
   useEffect(() => {
-    if (!selectedId) {
-      setState({ status: "idle" });
-      return;
-    }
-    const hit = cache.current.get(selectedId);
-    if (hit) {
-      setState({ status: "ready", data: hit });
-      return;
-    }
+    if (!need) return;
     const ac = new AbortController();
-    setState({ status: "loading", id: selectedId });
-    fetch(`/tokens/inspect/${selectedId}`, { signal: ac.signal, headers: { accept: "application/json" } })
+    fetch(`/tokens/inspect/${need}`, { signal: ac.signal, headers: { accept: "application/json" } })
       .then(async (r) => {
         if (!r.ok) throw new Error(r.status === 404 ? "This token is not in the index (it may have been retired)." : `Request failed (${r.status}).`);
         return (await r.json()) as InspectorData;
       })
-      .then((d) => {
-        cache.current.set(d.token.id, d);
-        setState({ status: "ready", data: d });
-      })
+      .then((d) => setLoaded((m) => ({ ...m, [need]: d })))
       .catch((e: unknown) => {
         if (ac.signal.aborted) return;
-        setState({ status: "error", id: selectedId, message: e instanceof Error ? e.message : "Could not load token." });
+        setFailed((m) => ({ ...m, [need]: e instanceof Error ? e.message : "Could not load token." }));
       });
     return () => ac.abort();
-  }, [selectedId]);
+  }, [need]);
 
   const body = <InspectorBody state={state} onClose={clear} contrastHref={contrastHref} />;
   const open = !!selectedId;
@@ -324,11 +320,15 @@ function InspectorContent({ data, onClose, contrastHref }: { data: InspectorData
           <ul className="space-y-1.5">
             {tv.map((v) => {
               const s = data.setThemes[v.setSlug];
+              const label = themeLabels(
+                tv.map((x) => x.setSlug),
+                (k) => data.setThemes[k],
+              ).get(v.setSlug);
               return (
                 <li key={v.setSlug} className="flex items-center gap-2 text-[12px]">
                   <Swatch value={v.value} className="size-4" />
-                  <span className="w-24 shrink-0 truncate" title={s?.name ?? v.setSlug}>
-                    {themeShortLabel(s?.theme, v.setSlug)}
+                  <span className="w-28 shrink-0 truncate" title={s?.name ?? v.setSlug}>
+                    {label}
                   </span>
                   <code className="min-w-0 truncate font-mono text-muted-foreground">{swatchColor(v.value) ? colorLabel(v.value) : authoredLabel(v.value)}</code>
                 </li>

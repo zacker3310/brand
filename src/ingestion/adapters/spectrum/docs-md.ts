@@ -6,7 +6,7 @@
  * relatedPages). Line-based scanning: API tables contain unescaped `|` inside code spans, which a
  * GFM table parser would split, so table rows are split with code-span awareness. Nothing is executed.
  */
-import { collapse } from "./shared";
+import { collapse, cmp } from "./shared";
 
 /* -------------------------------- llms.txt -------------------------------- */
 
@@ -29,7 +29,7 @@ export function parseLlms(text: string): LlmsEntry[] {
     const d = m[3] ? collapse(m[3]) : "";
     out.push({ title: collapse(m[1]!), page, description: d && !d.startsWith("<") ? d : null });
   }
-  return out.sort((a, b) => a.page.localeCompare(b.page));
+  return out.sort((a, b) => cmp(a.page, b.page));
 }
 
 /** Top-level PascalCase component pages ("Button", "ComboBox"), not guides/blog/hook pages. */

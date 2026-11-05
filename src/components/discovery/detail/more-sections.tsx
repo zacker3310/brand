@@ -33,7 +33,7 @@ export function PatternsSection({ detail }: { detail: SystemDetail }) {
                 <ClassificationBadge c={{ classificationState: p.classificationState, classificationMethod: null, confidence: 0 }} />
               </>
             ) : (
-              <span className="text-subtle-foreground">No pattern-type match</span>
+              <span className="text-muted-foreground">No pattern-type match</span>
             )}
           </div>
           {p.description ? (
@@ -154,7 +154,7 @@ export function AccessibilitySection({ detail }: { detail: SystemDetail }) {
               <MissingValue state="not-extracted" /> No component in this system has an extracted ARIA pattern reference.
             </p>
           )}
-          <p className="text-[11px] text-subtle-foreground">
+          <p className="text-[11px] text-muted-foreground">
             {plural(a.withKeyboardInteractions, "component")} with extracted keyboard interaction tables.
           </p>
         </div>
@@ -165,7 +165,7 @@ export function AccessibilitySection({ detail }: { detail: SystemDetail }) {
               {a.wcag.map((w) => (
                 <li key={w.criterion}>
                   <Chip className="font-mono">
-                    {w.criterion} <span className="ml-1 text-subtle-foreground">×{w.count}</span>
+                    {w.criterion} <span className="ml-1 text-muted-foreground">×{w.count}</span>
                   </Chip>
                 </li>
               ))}
@@ -194,7 +194,7 @@ export function FrameworksSection({ detail }: { detail: SystemDetail }) {
           <table className="w-full min-w-[520px] text-sm">
             <caption className="sr-only">Frameworks with support level, package and verification state</caption>
             <thead>
-              <tr className="border-b text-left text-[10.5px] font-medium tracking-wide text-subtle-foreground uppercase">
+              <tr className="border-b text-left text-[10.5px] font-medium tracking-wide text-muted-foreground uppercase">
                 <th scope="col" className="px-4 py-2 font-medium">Framework</th>
                 <th scope="col" className="px-3 py-2 font-medium">Support</th>
                 <th scope="col" className="px-3 py-2 font-medium">Package</th>
@@ -277,7 +277,7 @@ export function ResourcesSection({ detail }: { detail: SystemDetail }) {
         <table className="w-full min-w-[760px] text-sm">
           <caption className="sr-only">Official sources with kind, last check status, robots status and ingested documents</caption>
           <thead>
-            <tr className="border-b text-left text-[10.5px] font-medium tracking-wide text-subtle-foreground uppercase">
+            <tr className="border-b text-left text-[10.5px] font-medium tracking-wide text-muted-foreground uppercase">
               <th scope="col" className="sticky left-0 bg-card px-4 py-2 font-medium">Source</th>
               <th scope="col" className="px-3 py-2 font-medium">Kind</th>
               <th scope="col" className="px-3 py-2 font-medium">Last check</th>
@@ -327,7 +327,7 @@ export function ResourcesSection({ detail }: { detail: SystemDetail }) {
           </tbody>
         </table>
       </div>
-      <p className="text-[11px] text-subtle-foreground">
+      <p className="text-[11px] text-muted-foreground">
         {plural(counts.documents, "document")} fetched through the polite crawler (robots.txt respected, rate-limited, conditional requests). HTTP 304 means the cached copy
         was still current.
       </p>
@@ -375,7 +375,7 @@ export function ChangesSection({
                 )}
                 aria-hidden
               />
-              {showDay && <p className="mb-1 font-mono text-[10.5px] text-subtle-foreground">{day}</p>}
+              {showDay && <p className="mb-1 font-mono text-[10.5px] text-muted-foreground">{day}</p>}
               <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[13px]">
                 <span className="font-medium">{CHANGE_KIND_LABELS[c.changeKind] ?? c.changeKind}</span>
                 <span>
@@ -383,7 +383,7 @@ export function ChangesSection({
                   <span className="text-muted-foreground">{noun}</span>
                   {c.count === 1 && c.labels[0] && <span className="text-foreground/90"> {c.labels[0]}</span>}
                 </span>
-                <span className="ml-auto font-mono text-[10.5px] text-subtle-foreground">
+                <span className="ml-auto font-mono text-[10.5px] text-muted-foreground">
                   <time dateTime={c.occurredAt}>{time}</time> · {c.runId ? `run ${c.runId.slice(0, 8)}` : "registry"}
                 </span>
               </div>
@@ -392,7 +392,7 @@ export function ChangesSection({
                   {c.summaries.slice(0, 3).map((s) => (
                     <li key={s.summary} className="line-clamp-1">
                       {s.summary}
-                      {c.count > 1 && s.count !== c.count && <span className="tabular text-subtle-foreground"> ×{s.count}</span>}
+                      {c.count > 1 && s.count !== c.count && <span className="tabular text-muted-foreground"> ×{s.count}</span>}
                     </li>
                   ))}
                 </ul>
@@ -465,7 +465,7 @@ export function EvidenceSection({ detail }: { detail: SystemDetail }) {
           <div key={subject} className="min-w-[9rem] flex-1 bg-card px-4 py-3">
             <dt className="text-[11px] text-muted-foreground">{SUBJECT_LABELS[subject] ?? subject}</dt>
             <dd className="tabular text-lg font-semibold tracking-tight">{formatCount(v.total)}</dd>
-            <dd className="text-[11px] text-subtle-foreground">
+            <dd className="text-[11px] text-muted-foreground">
               {[...v.states.entries()].map(([s, n], i) => (
                 <span key={s}>
                   {i > 0 && " · "}
@@ -479,7 +479,7 @@ export function EvidenceSection({ detail }: { detail: SystemDetail }) {
       <div className="space-y-2">
         <h3 className="text-xs font-medium text-muted-foreground">System-level evidence ({rows.length})</h3>
         <EvidenceList rows={rows} emptyLabel="No system-level evidence recorded." />
-        <p className="text-[11px] text-subtle-foreground">Component, token and pattern evidence is shown on each record&apos;s own page.</p>
+        <p className="text-[11px] text-muted-foreground">Component, token and pattern evidence is shown on each record&apos;s own page.</p>
       </div>
     </div>
   );

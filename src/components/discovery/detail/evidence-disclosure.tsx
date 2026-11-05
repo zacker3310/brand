@@ -20,7 +20,7 @@ export function aggregateState(rows: FactEvidence[]): VerificationState | null {
  */
 export function EvidenceDisclosure({ rows, className, emptyLabel = "No evidence row recorded" }: { rows: FactEvidence[]; className?: string; emptyLabel?: string }) {
   const state = aggregateState(rows);
-  if (!state) return <span className={cn("text-[11px] text-subtle-foreground", className)}>{emptyLabel}</span>;
+  if (!state) return <span className={cn("text-[11px] text-muted-foreground", className)}>{emptyLabel}</span>;
   const meta = VERIFICATION_META[state];
   const Icon = meta.icon;
   return (
@@ -50,7 +50,7 @@ export function EvidenceDisclosure({ rows, className, emptyLabel = "No evidence 
               </SourceLink>
             </div>
             {r.excerpt && <p className="text-muted-foreground">“{r.excerpt}”</p>}
-            <p className="flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[10.5px] text-subtle-foreground">
+            <p className="flex flex-wrap gap-x-3 gap-y-0.5 font-mono text-[10.5px] text-muted-foreground">
               <span>{r.extractionMethod}</span>
               <time dateTime={r.retrievedAt}>{formatDateTime(r.retrievedAt)}</time>
               <span>conf. {percent(r.confidence)}</span>

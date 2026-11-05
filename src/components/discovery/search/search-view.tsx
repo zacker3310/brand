@@ -5,6 +5,7 @@ import type { SearchEntityType, SearchHit, SearchResult } from "@/lib/contracts"
 import { COMPONENT_GROUPS, FRAMEWORKS, PATTERN_TYPES, componentTypeBySlug } from "@/lib/taxonomy";
 import { SYSTEM_CATEGORY_LABELS, type SystemCategory } from "@/lib/contracts";
 import { cn, formatCount } from "@/lib/utils";
+import { INFERRED_TEXT } from "../badges";
 import { toggle } from "../lib/params";
 import {
   ENTITY_LABELS,
@@ -79,7 +80,7 @@ export function Interpretation({ result, systemNames }: { result: SearchResult; 
         </span>
       )}
       {relaxed.length > 0 && (
-        <span className="text-inferred">
+        <span className={INFERRED_TEXT}>
           No exact match, so the search was relaxed ({relaxed.map((r) => (r === "filters" ? "interpreted filters became preferences" : r === "fuzzy" ? "typo-tolerant matching" : "any word may match")).join(", ")}).
         </span>
       )}
@@ -209,7 +210,7 @@ function HitRow({ hit, systemNames, showType }: { hit: SearchHit; systemNames: R
               dangerouslySetInnerHTML={{ __html: sanitizeHighlight(hit.highlight) }}
             />
           )}
-          <span className="block truncate font-mono text-[10.5px] text-subtle-foreground">
+          <span className="block truncate font-mono text-[10.5px] text-muted-foreground">
             {sysName && hit.entityType !== "system" ? `${sysName} · ` : ""}
             {hit.url}
           </span>

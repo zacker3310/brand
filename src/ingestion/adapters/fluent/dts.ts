@@ -811,27 +811,47 @@ export function memberDescription(doc: JsDoc | null | undefined): string | null 
 export interface DtsComponent {
   name: string;
   doc: JsDoc | null;
+  /** Props type name, or the inline props type text. */
   propsType: string;
   members: PropMember[];
   unresolved: string[];
   primarySlots: string[];
+  /** TSDoc marks the export @internal (kept so documented pages can still use it). */
+  internal: boolean;
   line: number;
 }
 
-const COMPONENT_TYPE = /(?:^|[\s&|(<.])(?:ForwardRefComponent|FC|FunctionComponent|ForwardRefExoticComponent|ComponentType|NamedExoticComponent|MemoExoticComponent)\s*<\s*([A-Za-z_$][\w$]*)\s*>/;
+const COMPONENT_TYPE = /(?:^|[\s&|(<.])(?:ForwardRefComponent|FC|FunctionComponent|ForwardRefExoticComponent|ComponentType|NamedExoticComponent|MemoExoticComponent)\s*</;
+
+/** Props type argument of a component type (`ForwardRefComponent<ButtonProps>` -> "ButtonProps"). */
+export function componentPropsArg(typeText: string): string | null {
+  const t = ` ${typeText}`;
+  const m = COMPONENT_TYPE.exec(t);
+  if (!m) return null;
+  const open = m.index + m[0].length - 1;
+  const close = scanTo(t, open + 1, [">"], true);
+  if (close < 0) return null;
+  const arg = t.slice(open + 1, close).trim();
+  return arg || null;
+}
 
 /** Exported React components of a Fluent package roll-up: `export declare const X: ForwardRefComponent<XProps>`. */
 export function reactComponentsOf(file: DtsFile): DtsComponent[] {
   const out: DtsComponent[] = [];
-  for (const [name, decls] of file.decls) {
+  const names = new Map<string, string>(); // exported name -> local decl name
+  for (const [name, decls] of file.decls) if (decls.some((d) => d.kind === "const" && d.exported)) names.set(name, name);
+  for (const [exported, local] of file.exportAliases) if (!names.has(exported)) names.set(exported, local);
+  for (const [name, local] of names) {
     if (!/^[A-Z]/.test(name)) continue;
-    const d = decls.find((x) => x.kind === "const" && x.exported);
-    if (!d || hasTag(d.doc, "internal")) continue;
-    const m = COMPONENT_TYPE.exec(` ${d.text}`);
-    if (!m || !/Props$/.test(m[1]!)) continue;
-    if (/(Provider|Context)$/.test(name)) continue;
-    const r = resolveProps(m[1]!, file);
-    out.push({ name, doc: d.doc, propsType: m[1]!, members: r.members, unresolved: r.unresolved, primarySlots: r.primarySlots, line: d.line });
+    const d = (file.decls.get(local) ?? []).find((x) => x.kind === "const");
+    if (!d) continue;
+    const arg = componentPropsArg(d.text);
+    if (!arg) continue;
+    const ident = /^[A-Za-z_$][\w$]*$/.test(arg);
+    if (ident && !/Props$/.test(arg)) continue;
+    if (!ident && !/[{&]/.test(arg)) continue;
+    const r = resolveProps(arg, file);
+    out.push({ name, doc: d.doc, propsType: ident ? arg : `${name} props (inline)`, members: r.members, unresolved: r.unresolved, primarySlots: r.primarySlots, internal: hasTag(d.doc, "internal"), line: d.line });
   }
   return out.sort((a, b) => (a.name < b.name ? -1 : 1));
 }

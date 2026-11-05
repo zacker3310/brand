@@ -63,7 +63,7 @@ export function SystemHeader({ detail }: { detail: SystemDetail }) {
         <div className="flex min-w-0 items-start gap-4">
           <SystemMark name={core.name} slug={core.slug} size="lg" className="mt-1 hidden sm:grid" />
           <div className="min-w-0 space-y-3">
-            <p className="type-eyebrow">
+            <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">
               {SYSTEM_CATEGORY_LABELS[core.category]}
               {core.organization && <> · {core.organization.name}</>}
             </p>

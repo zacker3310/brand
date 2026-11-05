@@ -53,7 +53,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
   return (
     <PageContainer className="space-y-6">
       <PageHeader
-        eyebrow="Directory"
+        eyebrow={<span className="text-muted-foreground">Directory</span>}
         title="Design systems"
         display
         description={
@@ -167,7 +167,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
                   <span className="tabular font-medium text-foreground">{result.total}</span>
                   {result.total === result.universe ? ` ${result.total === 1 ? "system" : "systems"}` : ` of ${result.universe} systems`}
                   {params.q && <> matching “{params.q}”</>}
-                  <span className="text-subtle-foreground"> · sorted by {SORT_LABELS[result.sort].toLowerCase()}</span>
+                  <span className="text-muted-foreground"> · sorted by {SORT_LABELS[result.sort].toLowerCase()}</span>
                 </h2>
               </div>
 

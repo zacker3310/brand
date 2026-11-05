@@ -54,11 +54,25 @@ function npmStamp(npm: NpmInfo, retrievedAt: string): Stamp {
   return { url: `https://registry.npmjs.org/${npm.packageName.replace("/", "%2F")}`, evidenceUrl: npmPage(npm.packageName), retrievedAt, hash: null };
 }
 
-function classify(names: string[], ariaPattern: string | null): NormalizedComponent["classification"] & { slug: string | null } {
+/**
+ * Taxonomy classification (inferred unless the source names the WAI-ARIA pattern). Weak "contained alias"
+ * matches are kept only when the alias is the trailing head noun ("Index filters" -> filter) and never for
+ * subcomponents ("Table header" is not a page header); everything else stays unclassified.
+ */
+export function classify(names: string[], ariaPattern: string | null, opts: { subcomponent?: boolean } = {}): NormalizedComponent["classification"] & { slug: string | null } {
   if (ariaPattern && componentTypeBySlug.has(ariaPattern)) return { slug: ariaPattern, state: "verified", method: `source-aria-pattern:${ariaPattern}`, confidence: 0.95 };
   for (const n of names) {
     const c = classifyComponentName(n);
-    if (c) return { slug: c.slug, state: "inferred", method: c.method, confidence: c.confidence };
+    if (!c) continue;
+    const contained = /^alias-contained:(.+)$/.exec(c.method);
+    if (contained) {
+      if (opts.subcomponent) continue;
+      const words = n.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+      const alias = contained[1]!;
+      const singular = words.replace(/s$/, "");
+      if (!(words.endsWith(` ${alias}`) || words === alias || singular.endsWith(` ${alias}`))) continue;
+    }
+    return { slug: c.slug, state: "inferred", method: c.method, confidence: c.confidence };
   }
   return { slug: null, state: "inferred", method: "unclassified", confidence: 0 };
 }
@@ -249,7 +263,7 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
       if (sec.main) continue;
       const el = byNorm.get(norm(sec.heading));
       if (!el) {
-        log(`web components: subcomponent "${sec.heading}" on ${slug} has no manifest element`);
+        if (sec.props.length || sec.events.length || sec.slots.length) log(`web components: API section "${sec.heading}" on ${slug} has no manifest element`);
         continue;
       }
       const subSlug = wcSlugFromTag(el.tagName);
@@ -331,7 +345,7 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
     }
     if (relationships.length) ev((pf ?? sub?.page)!.stamp, "relationships", METHOD.devMd, { location: sub && !pf ? `## ${sub.section.heading}` : "intro / subcomponent sections", excerpt: relationships.map((r) => `${r.kind}: ${r.targetSlug}`).join(", ") });
 
-    const cls = classify([name, el.className], null);
+    const cls = classify([name, el.className], null, { subcomponent: !!sub });
     const coverage: CoverageMap = {
       description: description ? "documented" : "not-documented",
       variants: variants.length ? "documented" : "not-documented",

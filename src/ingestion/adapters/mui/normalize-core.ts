@@ -12,7 +12,7 @@ import type { CoverageState, EvidenceInput, NormalizedBundle, NormalizedComponen
 import { canonicalState, classifyComponentName, componentTypeBySlug } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
 import { mdInlineToText, splitComponentDescription, type ApiDoc, type ApiTranslations } from "./api-json";
-import { CORE_PROFILES, CORE_REPO, MUI_OWNER, PARSERS, mitLicense, prioritize, type CoreProfile } from "./constants";
+import { CORE_PROFILES, CORE_REPO, MUI_OWNER, PARSERS, classifyFor, mitLicense, prioritize, type CoreProfile } from "./constants";
 import { byKind, type FragOf, type MuiFragment, type NpmPin } from "./fragments";
 import { apgSlugs, plainBlocks, rolesIn, type MuiA11y } from "./markdown";
 import { clip, evidence, firstSentence, isPrerelease, literalUnion, normKey, sortBy, uniq } from "./shared";
@@ -255,7 +255,7 @@ function buildComponent(c: Ctx, slug: string): NormalizedComponent | null {
   if (lcEv) evidenceList.push(lcEv);
 
   // Classification: inferred from the name; verified when the primary page's waiAria names the matching APG pattern.
-  const cls = classifyComponentName(api.name.replace(/^Unstable_/, ""));
+  const cls = classifyFor(c.profile.system, api.name, classifyComponentName);
   const a11y = a11yOf(c, tr, primaryPages, memberPages);
   let classification: NormalizedComponent["classification"] = null;
   if (cls) {

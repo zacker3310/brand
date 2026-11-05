@@ -52,7 +52,7 @@ export function SectionNav({ sections }: { sections: NavSection[] }) {
 
   return (
     <nav aria-label="On this page" className="text-[13px]">
-      <p className="type-eyebrow mb-3 hidden lg:block">On this page</p>
+      <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground mb-3 hidden lg:block">On this page</p>
       <ul
         ref={barRef}
         className="flex gap-1 overflow-x-auto px-4 py-2 [scrollbar-width:none] sm:px-6 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 lg:py-0 [&::-webkit-scrollbar]:hidden"
@@ -73,7 +73,7 @@ export function SectionNav({ sections }: { sections: NavSection[] }) {
                 )}
               >
                 <span>{s.label}</span>
-                {s.count !== undefined && s.count !== null && <span className="tabular text-[11px] text-subtle-foreground">{s.count.toLocaleString("en-US")}</span>}
+                {s.count !== undefined && s.count !== null && <span className="tabular text-[11px] text-muted-foreground">{s.count.toLocaleString("en-US")}</span>}
               </a>
             </li>
           );

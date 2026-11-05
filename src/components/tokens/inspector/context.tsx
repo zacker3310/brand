@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
+import { createContext, useContext, useRef, useState } from "react";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -35,39 +35,33 @@ export function InspectorProvider({ children, className, defaultId = null }: { c
   const selectedId = raw && UUID.test(raw) ? raw.toLowerCase() : dismissed ? null : defaultId;
   const lastTrigger = useRef<HTMLElement | null>(null);
 
-  const hrefWith = useCallback(
-    (id: string | null) => {
-      const next = new URLSearchParams(sp.toString());
-      if (id) next.set("token", id);
-      else next.delete("token");
-      const s = next.toString();
-      return s ? `${pathname}?${s}` : pathname;
-    },
-    [sp, pathname],
-  );
+  const hrefWith = (id: string | null) => {
+    const next = new URLSearchParams(sp.toString());
+    if (id) next.set("token", id);
+    else next.delete("token");
+    const s = next.toString();
+    return s ? `${pathname}?${s}` : pathname;
+  };
 
-  const select = useCallback((id: string) => window.history.pushState(null, "", hrefWith(id)), [hrefWith]);
-  const clear = useCallback(() => {
+  const select = (id: string) => window.history.pushState(null, "", hrefWith(id));
+  const clear = () => {
     setDismissed(true);
     window.history.pushState(null, "", hrefWith(null));
     const t = lastTrigger.current;
     if (t && document.contains(t)) requestAnimationFrame(() => t.focus());
-  }, [hrefWith]);
+  };
 
-  const onClickCapture = useCallback(
-    (e: React.MouseEvent) => {
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[data-inspect]");
-      const id = a?.dataset.inspect;
-      if (!a || !id || !UUID.test(id)) return;
-      e.preventDefault();
-      lastTrigger.current = a;
-      select(id.toLowerCase());
-    },
-    [select],
-  );
+  const onClickCapture = (e: React.MouseEvent) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = (e.target as HTMLElement).closest<HTMLAnchorElement>("a[data-inspect]");
+    const id = a?.dataset.inspect;
+    if (!a || !id || !UUID.test(id)) return;
+    e.preventDefault();
+    lastTrigger.current = a;
+    select(id.toLowerCase());
+  };
 
-  const value = useMemo(() => ({ selectedId, select, clear, lastTrigger }), [selectedId, select, clear]);
+  const value = { selectedId, select, clear, lastTrigger };
   return (
     <Ctx.Provider value={value}>
       <div onClickCapture={onClickCapture} className={className} data-inspecting={selectedId ? "true" : "false"}>

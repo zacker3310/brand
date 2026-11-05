@@ -80,6 +80,8 @@ interface ComponentPlan {
   entry: NavEntry;
   tabs: { tab: string; path: string }[];
   packageName: string | null;
+  /** Navigation entries nested under this component (visible only on its own pages). */
+  children: NavEntry[];
 }
 
 async function planComponent(ctx: AdapterContext, entry: NavEntry): Promise<ComponentPlan> {
@@ -101,14 +103,15 @@ async function planComponent(ctx: AdapterContext, entry: NavEntry): Promise<Comp
   }
   if (!first) {
     ctx.log.warn(`atlassian: no readable docs tab for ${entry.path}`);
-    return { entry, tabs: [], packageName: null };
+    return { entry, tabs: [], packageName: null, children: [] };
   }
   const paths = uniq([docsPath(first.url), ...tabPathsFromHtml(first.html)]);
   const tabs = paths
     .filter((p) => p.startsWith(`${entry.path}/`) && !p.slice(entry.path.length + 1).includes("/"))
     .map((p) => ({ tab: p.slice(entry.path.length + 1), path: p }))
     .filter((t) => (COMPONENT_TABS as readonly string[]).includes(t.tab));
-  return { entry, tabs, packageName: first.url === codeUrl ? packageFromCodeHtml(first.html) : null };
+  const children = /aria-expanded="true"/.test(first.html) ? parseIndexPage(first.html).entries.filter((e) => e.path.startsWith(`${entry.path}/`)) : [];
+  return { entry, tabs, packageName: first.url === codeUrl ? packageFromCodeHtml(first.html) : null, children };
 }
 
 export const adapter: SourceAdapter = {
@@ -137,8 +140,12 @@ export const adapter: SourceAdapter = {
     const tokInfo = tokRes.ok && tokRes.body ? parseNpmManifest(tokRes.body) : null;
     if (!tokInfo) ctx.log.warn(`atlassian: ${TOKENS_PKG} manifest unavailable (HTTP ${tokRes.status} ${tokRes.error ?? ""}); tokens skipped`);
 
-    // 3. Per-component docs tabs (code tab first: it names the npm package and lists the tabs)
+    // 3. Per-component docs tabs (code tab first: it names the npm package and lists the tabs). Sub-pages
+    //    (e.g. Button > Icon button) only appear in the navigation of their parent's pages: second wave.
     const plans = await Promise.all(selected.map((e) => planComponent(ctx, e)));
+    const planned = new Set(plans.map((p) => p.entry.path));
+    const withChildren = selectComponentEntries([...entries, ...plans.flatMap((p) => p.children)], ctx.limit).filter((e) => !planned.has(e.path));
+    plans.push(...(await Promise.all(withChildren.map((e) => planComponent(ctx, e)))));
     ctx.log.info(`atlassian: ${selected.length} components planned (${plans.filter((p) => p.tabs.length).length} with docs tabs)`);
     let i = 0;
     for (const plan of plans) {
@@ -229,7 +236,7 @@ export const adapter: SourceAdapter = {
         return frag({ type: "index", stamp, entries, navPaths }, entries.length ? undefined : ["no navigation entries"]);
       }
       case DOC_KINDS.componentPage: {
-        const page = parseDocsPage(body, doc.url, { code: meta.tab === "code" });
+        const page = parseDocsPage(body, doc.url, { code: meta.tab === "code", navUnder: meta.componentPath });
         return frag({ type: "component-page", stamp, componentPath: meta.componentPath ?? docsPath(doc.url), tab: meta.tab ?? "examples", page }, page.notFound ? ["404 page"] : undefined);
       }
       case DOC_KINDS.npmManifest:

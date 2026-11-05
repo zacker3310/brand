@@ -119,7 +119,7 @@ export function displayType(type: string | null, max = 240): string | null {
       head.push(p);
       len += p.length + 3;
     }
-    return `${head.join(" | ")} | … (${parts.length} members)`;
+    return `${head.join(" | ")} | … (${parts.length} values in total)`;
   }
   return `${type.slice(0, max - 1)}…`;
 }

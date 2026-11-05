@@ -1,0 +1,26 @@
+{
+  "componentDescription": "",
+  "propDescriptions": {
+    "children": {
+      "description": "The content of the component."
+    },
+    "color": {
+      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>."
+    },
+    "disabled": {
+      "description": "If <code>true</code>, the component is disabled."
+    },
+    "href": {
+      "description": "The URL to link to when the button is clicked. If defined, an <code>a</code> element will be used as the root node."
+    },
+    "loading": {
+      "description": "If <code>true</code>, the loading indicator is visible and the button is disabled. If <code>true | false</code>, the loading wrapper is always rendered before the children to prevent <a href=\"https://github.com/mui/material-ui/issues/27853\">Google Translation Crash</a>."
+    },
+    "size": {
+      "description": "The size of the component. <code>small</code> is equivalent to the dense button styling."
+    },
+    "variant": {
+      "description": "The variant to use."
+    }
+  }
+}

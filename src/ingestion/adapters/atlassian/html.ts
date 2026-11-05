@@ -109,6 +109,8 @@ export interface ParsedDocsPage {
   /** Internal links in the main content (not navigation) to component docs (paths, in order). */
   componentLinks: string[];
   code: CodeTab | null;
+  /** Side-navigation entries nested under `navUnder` (sub-pages that only appear in an expanded navigation). */
+  navChildren: NavEntry[];
   /** True when the page is the site's 404 template. */
   notFound: boolean;
 }
@@ -403,7 +405,7 @@ export function parseCodeTab($: CheerioAPI, panel: Sel): CodeTab {
 /* Pages                                                                                       */
 /* ------------------------------------------------------------------------------------------ */
 
-export function parseDocsPage(html: string, url: string, opts: { code?: boolean } = {}): ParsedDocsPage {
+export function parseDocsPage(html: string, url: string, opts: { code?: boolean; navUnder?: string } = {}): ParsedDocsPage {
   const $ = loadPage(html);
   const main = $("#main-content").first();
   const root = main.length ? main : $("body");
@@ -457,6 +459,7 @@ export function parseDocsPage(html: string, url: string, opts: { code?: boolean 
     sections,
     componentLinks,
     code: opts.code ? parseCodeTab($, content) : null,
+    navChildren: opts.navUnder ? parseNav($).filter((e) => e.path.startsWith(`${opts.navUnder}/`)) : [],
     notFound,
   };
 }

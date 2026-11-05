@@ -8,7 +8,7 @@ import { cn, formatCount, hostname } from "@/lib/utils";
 import type { AliasStateKey, ScopeStats, TokenSetInfo, TokenSystemDetail, TokenSystemOption } from "@/server/queries/tokens";
 import { ALIAS_STATE_META } from "./alias-state";
 import { NativeSelect, NoJsSubmit } from "./controls";
-import { exportDecision } from "./lib/export";
+import { exportDecision, licenseHref } from "./lib/export";
 import { explorerHref, type ExplorerParams, type ExplorerView } from "./lib/params";
 import { themeShortLabel } from "./lib/values";
 
@@ -48,12 +48,6 @@ export function formatDate(iso: string | null | undefined): string | null {
   const d = new Date(iso.trim().replace(" ", "T").replace(/([+-]\d{2})$/, "$1:00"));
   if (Number.isNaN(d.getTime())) return null;
   return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(d);
-}
-
-/** SPDX licenses link to their canonical SPDX page; others to the recorded license URL. */
-export function licenseHref(l: { spdxId: string | null; url: string | null }): string | null {
-  if (l.spdxId && /^[A-Za-z0-9.+-]+$/.test(l.spdxId)) return `https://spdx.org/licenses/${l.spdxId}.html`;
-  return l.url;
 }
 
 const REDIST_META: Record<Redistribution, { label: string; className: string }> = {

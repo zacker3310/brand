@@ -11,7 +11,7 @@
  */
 import * as cheerio from "cheerio";
 import type { CheerioAPI } from "cheerio";
-import { collapse } from "./shared";
+import { collapse, cmp } from "./shared";
 
 /* ------------------------------ query index ------------------------------ */
 
@@ -51,7 +51,7 @@ export function parseSiteIndex(text: string): { rows: SiteRow[]; total: number |
       tags: list(x.tags),
     });
   }
-  rows.sort((a, b) => a.path.localeCompare(b.path));
+  rows.sort((a, b) => cmp(a.path, b.path));
   return { rows, total: typeof o.total === "number" ? o.total : null };
 }
 
@@ -90,13 +90,13 @@ export function siteComponents(rows: SiteRow[]): SiteComponent[] {
     c.description = c.pages.find((p) => p.description)?.description ?? null;
     c.fragments.sort();
   }
-  return out.sort((a, b) => a.slug.localeCompare(b.slug));
+  return out.sort((a, b) => cmp(a.slug, b.slug));
 }
 
 /** Site sections used as ATLAS patterns: content design guidance and app-frame composition. */
 export const PATTERN_PATH_RE = /^\/(content\/.+|foundations\/app-frame\/.+)$/;
 export function sitePatternRows(rows: SiteRow[]): SiteRow[] {
-  return rows.filter((r) => PATTERN_PATH_RE.test(r.path) && r.title).sort((a, b) => a.path.localeCompare(b.path));
+  return rows.filter((r) => PATTERN_PATH_RE.test(r.path) && r.title).sort((a, b) => cmp(a.path, b.path));
 }
 
 /* ------------------------------- HTML blocks ------------------------------ */

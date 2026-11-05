@@ -10,7 +10,7 @@
 import type { CoverageState, EvidenceInput, NormalizedBundle, NormalizedComponent, NormalizedPattern, NormalizedSystemFacts } from "@/lib/contracts";
 import { canonicalState, classifyComponentName, classifyPatternName } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
-import { BASE_DOCS_ORIGIN, BASE_REPO, MUI_OWNER, PARSERS, prioritize } from "./constants";
+import { BASE_DOCS_ORIGIN, BASE_REPO, MUI_OWNER, PARSERS, classifyFor, prioritize } from "./constants";
 import { byKind, type FragOf, type MuiFragment, type NpmPin } from "./fragments";
 import { keyboardFromBlocks } from "./markdown";
 import { clip, evidence, isPrerelease, literalUnion, sortBy, uniq } from "./shared";
@@ -94,7 +94,7 @@ function buildComponent(b: BuildCtx, entry: FragOf<"base-index">["entries"][numb
   const lifecycle: NormalizedComponent["lifecycle"] = isPrerelease(b.pin.version) ? "unknown" : "stable";
   if (lifecycle === "stable") ev.push(b.npm("lifecycle", `documented in ${b.pin.pkg}@${b.pin.version} (stable, non-prerelease release)`));
 
-  const cls = classifyComponentName(entry.name);
+  const cls = classifyFor("base-ui", entry.name, classifyComponentName);
   const frameworks: NormalizedComponent["frameworks"] = [{ slug: "react", packageName: p?.importPath ?? b.pin.pkg, importName: importName ?? entry.name.replace(/\s+/g, ""), sourceUrl: docsUrl }];
   coverage.frameworks = "documented";
   if (page && p?.importPath) ev.push(evidence(page.prov, "frameworks", PARSERS.basePage, { location: `${page.prov.file}#anatomy`, excerpt: `import { ${importName} } from '${p.importPath}'` }));

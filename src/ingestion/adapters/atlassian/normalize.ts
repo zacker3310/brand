@@ -158,8 +158,13 @@ export function normalizeAtlassian(fragments: AtlFragmentData[], opts: Normalize
 
   /* -------------------------------- components -------------------------------- */
   const components: NormalizedComponent[] = [];
-  const entries = index ? selectComponentEntries(index.entries, opts.limit) : [];
-  const slugs = assignSlugs(index ? index.entries.filter(isComponentEntry) : []);
+  // Navigation entries: the index page plus sub-pages listed in the expanded navigation of component pages.
+  const allEntries = new Map<string, NavEntry>();
+  for (const e of index?.entries ?? []) allEntries.set(e.path, e);
+  for (const f of sortBy(byType("component-page"), (x) => x.page.url)) for (const e of f.page.navChildren ?? []) if (!allEntries.has(e.path)) allEntries.set(e.path, e);
+  const navEntries = [...allEntries.values()];
+  const entries = index ? selectComponentEntries(navEntries, opts.limit) : [];
+  const slugs = assignSlugs(navEntries.filter(isComponentEntry));
   const known = new Set(entries.map((e) => e.path));
   const pagesByPath = new Map<string, ComponentPages>();
   for (const f of byType("component-page")) {
@@ -187,7 +192,7 @@ export function normalizeAtlassian(fragments: AtlFragmentData[], opts: Normalize
 
   /* --------------------------------- patterns --------------------------------- */
   const patterns: NormalizedPattern[] = [];
-  const allComponentPaths = new Set(index ? index.entries.filter(isComponentEntry).map((e) => e.path) : []);
+  const allComponentPaths = new Set(navEntries.filter(isComponentEntry).map((e) => e.path));
   const usedPatternSlugs = new Set<string>();
   for (const f of sortBy(byType("guidance-page"), (x) => x.page.path)) {
     const p = f.page;
@@ -450,14 +455,13 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   let lifecycle: Lifecycle = "unknown";
   const notes = [code, examples, usage, pages.overview, pages.about].filter((p): p is PageRef => !!p).flatMap((p) => p.page.statusNotes.map((n) => ({ n, p })));
   const phaseNote = notes.find(({ n }) => lifecycleFrom(n.heading));
-  const llmsEntry: LlmsComponentEntry | null = pkg && a.llms ? (a.llms.entries.find((x) => x.packageName === pkg && normKey(x.exportName) === normKey(name)) ?? null) : null;
-  // Package-level status: every export of the package listed with the same status (main docs page of the package only).
-  const pkgEntries = pkg && a.llms && !llmsEntry && entry.path === `/components/${pkg.replace(/^@atlaskit\//, "")}` ? a.llms.entries.filter((x) => x.packageName === pkg) : [];
-  // (isPackageMain is computed below; the same path test is inlined here because llms runs first)
-  const pkgStatus = pkgEntries.length && pkgEntries.every((x) => x.status && x.status === pkgEntries[0]!.status) ? pkgEntries[0]!.status : null;
   const segs = entry.path.split("/").filter(Boolean);
   const isPackageMain = !!pkg && entry.path === `/components/${pkg.replace(/^@atlaskit\//, "")}`;
-  const subPage = segs.length === 3 && npm?.info?.website?.subPages.find((sp) => sp.id === segs[2]) || null;
+  const llmsEntry: LlmsComponentEntry | null = pkg && a.llms ? (a.llms.entries.find((x) => x.packageName === pkg && normKey(x.exportName) === normKey(name)) ?? null) : null;
+  // Package-level status: every export of the package listed with the same status (main docs page of the package only).
+  const pkgEntries = isPackageMain && a.llms && !llmsEntry ? a.llms.entries.filter((x) => x.packageName === pkg) : [];
+  const pkgStatus = pkgEntries.length && pkgEntries.every((x) => x.status && x.status === pkgEntries[0]!.status) ? pkgEntries[0]!.status : null;
+  const subPage = (segs.length === 3 && npm?.info?.website?.subPages.find((sp) => sp.id === segs[2])) || null;
   const pkgWebsiteStatus = isPackageMain ? (npm?.info?.website?.status ?? null) : null;
   if (phaseNote) {
     lifecycle = lifecycleFrom(phaseNote.n.heading)!;

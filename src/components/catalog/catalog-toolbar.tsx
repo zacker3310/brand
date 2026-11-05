@@ -50,7 +50,7 @@ export function CatalogSearchInput({ params }: { params: CatalogParams }) {
         type="search"
         name="q"
         defaultValue={params.q}
-        placeholder="Filter by name, alias or type: combobox, snackbar, UnderlineNav…"
+        placeholder="Name, alias or type: combobox, snackbar…"
         autoComplete="off"
         spellCheck={false}
         className="h-9 w-full min-w-0 rounded-md border border-input bg-background pr-3 pl-8.5 text-sm shadow-xs transition-[color,box-shadow] outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:bg-input/30 [&::-webkit-search-cancel-button]:opacity-60"

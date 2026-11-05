@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import type { ExplorerToken, TokenIndexRow } from "@/server/queries/tokens";
 import type { GroupSlice, Ramp } from "../lib/grouping";
-import { colorLabel, previewValue, swatchColor, themeShortLabel, themeValues } from "../lib/values";
+import { colorLabel, previewValue, swatchColor, themeLabels, themeValues } from "../lib/values";
 import { AliasStateBadge } from "../alias-state";
 import { Swatch } from "../swatch";
 import { chainLabel, GroupHeader, GroupList, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
@@ -112,6 +112,7 @@ function ThemedMatrix({ rows, p, group }: { rows: TokenIndexRow[]; p: ViewProps;
   let cols = [...keys].sort((a, b) => (p.setOrder.indexOf(a) === -1 ? 1e9 : p.setOrder.indexOf(a)) - (p.setOrder.indexOf(b) === -1 ? 1e9 : p.setOrder.indexOf(b)));
   if (p.theme) cols = cols.filter((c) => setBySlug.get(c)?.theme === p.theme);
   if (!cols.length) cols = [...keys];
+  const labels = themeLabels(cols, (k) => setBySlug.get(k));
   return (
     <div className="space-y-2">
       <p className="text-xs text-muted-foreground">
@@ -129,7 +130,7 @@ function ThemedMatrix({ rows, p, group }: { rows: TokenIndexRow[]; p: ViewProps;
                 const s = setBySlug.get(c);
                 return (
                   <th key={c} scope="col" className="px-3 py-2 text-[11px] font-medium whitespace-nowrap text-muted-foreground" title={s?.name ?? c}>
-                    {themeShortLabel(s?.theme, c)}
+                    {labels.get(c)}
                   </th>
                 );
               })}

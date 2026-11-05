@@ -16,7 +16,7 @@ export const CreateComparisonInput = z
       .string()
       .trim()
       .max(140)
-      .transform((s) => s.replace(/[\u0000-\u001f\u007f]+/g, " ").trim())
+      .transform((s) => s.replace(/[\u0000-\u001f\u007f]+/g, " ").replace(/\s+/g, " ").trim())
       .nullish(),
     criteria: z.array(z.enum(CRITERIA)).max(CRITERIA.length).nullish(),
     picks: z.record(z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(100), z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).max(100)).nullish(),

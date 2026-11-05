@@ -239,7 +239,10 @@ describe("generic planning and normalization", () => {
       ["docsUrl", "adapter:generic:page"],
       ["description", "adapter:generic:page-meta"],
     ]);
-    for (const e of button.evidence) expect(e.confidence).toBeGreaterThanOrEqual(0.6), expect(e.confidence).toBeLessThanOrEqual(0.7);
+    for (const e of button.evidence) {
+      expect(e.confidence).toBeGreaterThanOrEqual(0.6);
+      expect(e.confidence).toBeLessThanOrEqual(0.7);
+    }
 
     // Shared boilerplate description is rejected, name still from the page.
     expect(by.get("date-picker")!.description).toBeNull();

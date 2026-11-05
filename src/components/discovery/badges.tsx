@@ -4,6 +4,12 @@ import type { IngestionStatus, MaintenanceStatus, Redistribution } from "@/lib/c
 import { cn } from "@/lib/utils";
 import { DEPTH_DESCRIPTIONS, DEPTH_LABELS, MAINTENANCE_LABELS, depthOf, type Depth } from "./lib/directory";
 
+/**
+ * Light-mode --inferred (oklch 0.58) on --inferred-soft measures 3.9:1, below WCAG AA for 11px text.
+ * Until the token is darkened (requested), discovery surfaces use this AA-safe override (5.5:1).
+ */
+export const INFERRED_TEXT = "text-[oklch(0.5_0.11_65)]! dark:text-inferred!";
+
 const MAINTENANCE_META: Record<MaintenanceStatus, { icon: LucideIcon; className: string; description: string }> = {
   active: {
     icon: CircleDotIcon,
@@ -12,7 +18,7 @@ const MAINTENANCE_META: Record<MaintenanceStatus, { icon: LucideIcon; className:
   },
   maintenance: {
     icon: WrenchIcon,
-    className: "border-inferred/30 text-inferred",
+    className: `border-inferred/30 ${INFERRED_TEXT}`,
     description: "Receives fixes but no major development, per official sources.",
   },
   deprecated: {

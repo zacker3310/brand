@@ -131,3 +131,45 @@ export function prioritize(slugs: string[], system: MuiSystem, limit?: number): 
   });
   return limit && limit > 0 ? sorted.slice(0, limit) : sorted;
 }
+
+/**
+ * Per-system corrections to the shared name heuristic (classifyComponentName). `slug: null` leaves a
+ * component unclassified where the heuristic's alias match is wrong for what MUI documents; a slug is
+ * used only where the component's own documented description matches the taxonomy definition.
+ * Every result stays "inferred".
+ */
+export const CLASSIFICATION_RULES: Record<MuiSystem, Record<string, { slug: string | null; reason: string }>> = {
+  mui: {
+    SpeedDial: { slug: null, reason: "FAB that reveals related actions; the 'dial' alias match to gauge is wrong" },
+    SpeedDialAction: { slug: null, reason: "action inside a SpeedDial; the 'dial' alias match to gauge is wrong" },
+    CardHeader: { slug: null, reason: "header region of a Card; the 'header' alias match to navigation-bar is wrong" },
+    TabPanel: { slug: null, reason: "panel content of Tabs; the 'panel' alias match to sheet is wrong" },
+    TableSortLabel: { slug: null, reason: "sort control in a table header cell, not a form label" },
+    StepLabel: { slug: null, reason: "label of a Stepper step, not a form label" },
+    ImageList: { slug: null, reason: "grid of images; the 'image' alias match is wrong" },
+    ImageListItem: { slug: null, reason: "item of an image grid; the 'list' alias match is wrong" },
+    ImageListItemBar: { slug: null, reason: "title bar of an image grid item; the 'list' alias match is wrong" },
+    Collapse: { slug: null, reason: "transition component; the 'collapse' alias match to accordion is wrong" },
+    InputLabel: { slug: "label", reason: "documented as the label of a form input; the 'input' alias match to text-field is wrong" },
+  },
+  "joy-ui": {
+    Sheet: { slug: "box", reason: "documented as 'a generic container that supports Joy UI's global variants' (a surface, not an overlay sheet)" },
+    TabPanel: { slug: null, reason: "panel content of Tabs; the 'panel' alias match to sheet is wrong" },
+  },
+  "base-ui": {
+    "Navigation Menu": { slug: null, reason: "site navigation links with dropdown panels; the 'menu' alias match (action menu) is wrong" },
+    "OTP Field": { slug: "pin-input", reason: "documented as 'a one-time password input composed of individual character slots'" },
+    Toggle: { slug: "toggle-button", reason: "documented as 'a two-state button that can be on or off'" },
+  },
+};
+
+/** classifyComponentName() with the per-system corrections above. */
+export function classifyFor(
+  system: MuiSystem,
+  name: string,
+  classify: (n: string) => { slug: string; method: string; confidence: number } | null,
+): { slug: string; method: string; confidence: number } | null {
+  const rule = CLASSIFICATION_RULES[system][name];
+  if (rule) return rule.slug ? { slug: rule.slug, method: `adapter-rule:${rule.reason}`, confidence: 0.7 } : null;
+  return classify(name.replace(/^Unstable_/, ""));
+}

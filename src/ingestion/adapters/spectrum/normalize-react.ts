@@ -13,7 +13,7 @@ import { slugify } from "@/lib/utils";
 import { CODE_ATTRIBUTION, PKG, RAC_ORIGIN, RSP_ORIGIN } from "./constants";
 import type { MdApiSection, MdPage } from "./docs-md";
 import { fragsOf, pick, type Frag, type ReactSystem } from "./fragments";
-import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy, type Ev } from "./shared";
+import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy, type Ev, cmp } from "./shared";
 
 export const MAX_PROPS_PER_IMPL = 150;
 const MAX_EXAMPLES = 6;
@@ -298,7 +298,7 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
 
 function buildPatterns(guides: Frag<"guide">[], slugByPage: Map<string, string>): NormalizedPattern[] {
   return [...guides]
-    .sort((a, b) => a.page.localeCompare(b.page))
+    .sort((a, b) => cmp(a.page, b.page))
     .map((g) => {
       const name = g.md.title ?? g.page;
       const raw = classifyPatternName(name);
@@ -354,11 +354,11 @@ function buildFacts(system: ReactSystem, pkg: Frag<"pkg"> | undefined, quality: 
 
 export function normalizeReact(system: ReactSystem, fragments: { data: unknown }[]): NormalizedBundle {
   const frs = fragsOf(fragments);
-  const mds = pick(frs, "md").sort((a, b) => a.page.localeCompare(b.page));
+  const mds = pick(frs, "md").sort((a, b) => cmp(a.page, b.page));
   const mdxBy = new Map(pick(frs, "mdx").map((f) => [f.page, f]));
   const srcBy = new Map(pick(frs, "src").map((f) => [f.page, f]));
   const hooksBy = new Map<string, Frag<"hook">[]>();
-  for (const h of pick(frs, "hook").sort((a, b) => a.hook.localeCompare(b.hook))) {
+  for (const h of pick(frs, "hook").sort((a, b) => cmp(a.hook, b.hook))) {
     const l = hooksBy.get(h.component) ?? [];
     l.push(h);
     hooksBy.set(h.component, l);
@@ -368,7 +368,7 @@ export function normalizeReact(system: ReactSystem, fragments: { data: unknown }
   if (system === "react-spectrum") {
     const fragsBySlug = new Map<string, Frag<"site-fragment">[]>();
     for (const f of pick(frs, "site-fragment")) fragsBySlug.set(f.slug, [...(fragsBySlug.get(f.slug) ?? []), f]);
-    for (const sp of pick(frs, "site-page").sort((a, b) => a.slug.localeCompare(b.slug))) {
+    for (const sp of pick(frs, "site-page").sort((a, b) => cmp(a.slug, b.slug))) {
       if (sp.impl !== "rsp" || !sp.page.dataName || siteByExport.has(sp.page.dataName)) continue;
       const fr = fragsBySlug.get(sp.slug) ?? [];
       siteByExport.set(sp.page.dataName, { page: sp, states: fr.find((f) => f.section === "states"), a11y: fr.find((f) => f.section === "accessibility") });

@@ -381,7 +381,11 @@ function joinPath(base: string, rel: string): string {
 
 export class DtsResolver {
   private cache = new Map<string, Promise<DtsFile | null>>();
-  constructor(private load: DtsLoader) {}
+  /** `exists` (optional) answers from a package file listing so missing candidates are never requested. */
+  constructor(
+    private load: DtsLoader,
+    private exists?: (path: string) => boolean | undefined,
+  ) {}
 
   file(path: string): Promise<DtsFile | null> {
     let p = this.cache.get(path);
@@ -397,6 +401,7 @@ export class DtsResolver {
     if (!spec.startsWith(".")) return null;
     const base = joinPath(dirname(fromFile), spec);
     for (const cand of [`${base}.d.ts`, `${base}/index.d.ts`]) {
+      if (this.exists?.(cand) === false) continue;
       if (await this.file(cand)) return cand;
     }
     return null;

@@ -43,6 +43,7 @@ export interface ReactComponentLite {
   props: ExtractedProp[];
   unresolved: string[];
   primarySlots: string[];
+  internal?: boolean;
   line: number;
 }
 

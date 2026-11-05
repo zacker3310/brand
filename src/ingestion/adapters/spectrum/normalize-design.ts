@@ -17,7 +17,7 @@ import { slugify } from "@/lib/utils";
 import { PKG, siteUrl } from "./constants";
 import { fragsOf, pick, type Frag } from "./fragments";
 import type { ComponentSchema } from "./schema";
-import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy } from "./shared";
+import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy, cmp } from "./shared";
 import { siteComponents, sitePatternRows, type SiteComponent, type SiteProp } from "./site";
 import { buildTokenSets } from "./tokens";
 
@@ -208,7 +208,7 @@ function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; i
   const designOnly = implPages.length > 0 && implPages.every((p) => p.impl === "design-only");
   if (designOnly && ctx.index && !frameworks.length) ev.push(evidence("frameworks", ctx.index.ev, "site-index", 0.85, { location: `${ctx.index.ev.location}#path=${primaryPage!.path} (published as design-only)` }));
   coverage.frameworks = frameworks.length ? "documented" : designOnly ? "documented-none" : schema ? "not-documented" : "not-extracted";
-  frameworks.sort((a, b) => a.slug.localeCompare(b.slug));
+  frameworks.sort((a, b) => cmp(a.slug, b.slug));
 
   // Accessibility: keyboard + WCAG tables (guidelines), ARIA role + WCAG (schema).
   const a11yFrag = frag("accessibility");
@@ -293,18 +293,21 @@ function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; i
   }
 
   // Classification
+  // An ARIA role is not a component type (Picker uses role combobox, Color area uses slider), so the
+  // source-declared role only upgrades a name-based classification to verified when both agree.
   let canonicalType: string | null = null;
   let classification: NormalizedComponent["classification"] = null;
   const roleType = schema?.role ? ROLE_TYPES[schema.role] : undefined;
-  if (roleType) {
+  const byName = classifyComponentName(name) ?? (schema?.displayName ? classifyComponentName(schema.displayName) : null);
+  if (byName && roleType === byName.slug) {
+    canonicalType = byName.slug;
+    classification = { state: "verified", method: `${byName.method} + aria-role:${schema!.role} (design-data accessibility.role)`, confidence: 0.9 };
+  } else if (byName) {
+    canonicalType = byName.slug;
+    classification = { state: "inferred", method: byName.method, confidence: byName.confidence };
+  } else if (roleType) {
     canonicalType = roleType;
-    classification = { state: "verified", method: `aria-role:${schema!.role} (design-data accessibility.role)`, confidence: 0.85 };
-  } else {
-    const c = classifyComponentName(name) ?? (schema?.displayName ? classifyComponentName(schema.displayName) : null);
-    if (c) {
-      canonicalType = c.slug;
-      classification = { state: "inferred", method: c.method, confidence: c.confidence };
-    }
+    classification = { state: "inferred", method: `aria-role:${schema!.role} (design-data accessibility.role)`, confidence: 0.6 };
   }
 
   const aliases: string[] = [];
@@ -385,7 +388,7 @@ function buildFacts(pkg: Frag<"pkg"> | undefined, principles: Frag<"principles">
   }
   const fw = new Map<string, string | null>();
   let fwEv: Frag<"schema"> | undefined;
-  for (const s of [...schemas].sort((a, b) => a.name.localeCompare(b.name))) {
+  for (const s of [...schemas].sort((a, b) => cmp(a.name, b.name))) {
     for (const im of s.schema.implementations) {
       const f = frameworkSlugFor(im.packageName, im.importPath);
       if (f && !fw.has(f)) {
@@ -401,7 +404,7 @@ function buildFacts(pkg: Frag<"pkg"> | undefined, principles: Frag<"principles">
     latestReleaseAt: pkg?.publishedAt ?? null,
     philosophy: philosophy ? philosophy.slice(0, 1500) : null,
     principles: pr,
-    frameworks: fw.size ? [...fw.entries()].sort((a, b) => a[0].localeCompare(b[0])).map(([slug, packageName]) => ({ slug, packageName })) : null,
+    frameworks: fw.size ? [...fw.entries()].sort((a, b) => cmp(a[0], b[0])).map(([slug, packageName]) => ({ slug, packageName })) : null,
     evidence: ev,
   };
 }
@@ -409,7 +412,7 @@ function buildFacts(pkg: Frag<"pkg"> | undefined, principles: Frag<"principles">
 export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: number } = {}): NormalizedBundle & { tokenReport: { skipped: string[]; themedToScale: string[] } } {
   const frs = fragsOf(fragments);
   const index = pick(frs, "site-index")[0];
-  const schemas = pick(frs, "schema").sort((a, b) => a.name.localeCompare(b.name));
+  const schemas = pick(frs, "schema").sort((a, b) => cmp(a.name, b.name));
   const pages = pick(frs, "site-page");
   const sfrags = pick(frs, "site-fragment");
 
@@ -422,7 +425,7 @@ export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: 
     { pkg: PKG.tokens, version: tokPkg?.version ?? tokFiles[0]?.ev.sourceUrl.match(/@(\d+\.\d+\.\d+[^/]*)\//)?.[1] ?? "unknown", cssVars: css ? new Set(css.names) : null, cssEv: css?.ev ?? null },
   );
   const tokenNames = new Set(built.sets.flatMap((s) => s.tokens.map((t) => t.name)));
-  const firstTokFile = [...tokFiles].sort((a, b) => a.file.localeCompare(b.file))[0];
+  const firstTokFile = [...tokFiles].sort((a, b) => cmp(a.file, b.file))[0];
   const tokensEv = firstTokFile ? evidence("tokens", { ...firstTokFile.ev, location: `${PKG.tokens} src/*.json` }, "tokens-json", 0.9) : null;
 
   // Component identity: guideline pages (by slug) + design-data schemas (by name).
@@ -439,11 +442,11 @@ export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: 
   for (const f of sfrags) bySlug.get(f.slug)?.frags.push(f);
   const slugs = new Set(bySlug.keys());
   const components = [...bySlug.entries()]
-    .sort((a, b) => a[0].localeCompare(b[0]))
+    .sort((a, b) => cmp(a[0], b[0]))
     .filter(([, p]) => p.site || p.schema)
     .map(([slug, p]) => {
-      p.pages.sort((a, b) => a.impl.localeCompare(b.impl));
-      p.frags.sort((a, b) => a.section.localeCompare(b.section));
+      p.pages.sort((a, b) => cmp(a.impl, b.impl));
+      p.frags.sort((a, b) => cmp(a.section, b.section));
       return buildComponent(slug, p, { slugs, index, componentTokens: built.componentTokens, tokenNames, tokensEv });
     });
 

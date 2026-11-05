@@ -139,6 +139,8 @@ export interface A11ySpec {
   screenReader: string | null;
   wcag: string[];
   sectionTitles: string[];
+  /** A keyboard section exists (tables may be absent: prose only). */
+  keyboardSection: boolean;
 }
 
 const ROLE_WORD = /^[a-z]+$/;
@@ -169,7 +171,7 @@ export function parseA11ySpec(mdx: string): A11ySpec {
       const rows = tableRows(n);
       const head = (rows[0] ?? []).map((h) => h.toLowerCase());
       const roleCol = head.findIndex((h) => /role/.test(h));
-      const keyCol = head.findIndex((h) => /^key/.test(h));
+      const keyCol = head.findIndex((h) => /\bkeys?\b/.test(h) && !/state/.test(h));
       const resCol = head.findIndex((h) => /(result|action|behavior|description)/.test(h));
       if (roleCol >= 0 && /semantic|role/i.test(trail)) {
         for (const r of rows.slice(1)) {
@@ -198,5 +200,6 @@ export function parseA11ySpec(mdx: string): A11ySpec {
     screenReader: sr.length ? collapse(sr.join(" ")) : null,
     wcag: [...wcag].sort(),
     sectionTitles: secs.filter((s) => s.depth >= 2).map((s) => s.title),
+    keyboardSection: secs.some((s) => /keyboard/i.test(s.title)),
   };
 }

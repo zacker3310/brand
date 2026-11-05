@@ -1,4 +1,15 @@
 {
+  "component-l-bold": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/typography.json",
+    "value": {
+      "fontFamily": "{sans-serif-font-family}",
+      "fontSize": "{font-size-200}",
+      "fontWeight": "{bold-font-weight}",
+      "letterSpacing": "{letter-spacing}",
+      "lineHeight": "{line-height-font-size-200}"
+    },
+    "uuid": "861ac736-b95b-4350-b40b-0dde0036c796"
+  },
   "font-size-100": {
     "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/scale-set.json",
     "uuid": "ee894aad-f166-42eb-b08b-859f73db742a",
@@ -15,15 +26,20 @@
       }
     }
   },
-  "component-l-bold": {
-    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/typography.json",
-    "value": {
-      "fontFamily": "{sans-serif-font-family}",
-      "fontSize": "{font-size-200}",
-      "fontWeight": "{bold-font-weight}",
-      "letterSpacing": "{letter-spacing}",
-      "lineHeight": "{line-height-font-size-200}"
-    },
-    "uuid": "861ac736-b95b-4350-b40b-0dde0036c796"
+  "font-size-200": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/scale-set.json",
+    "uuid": "fe457dd7-582a-4f0a-badc-7850adfd8cb7",
+    "sets": {
+      "desktop": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/font-size.json",
+        "value": "16px",
+        "uuid": "b36caaa3-7047-4dfb-8a84-f990a8ac3a91"
+      },
+      "mobile": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/font-size.json",
+        "value": "19px",
+        "uuid": "7e51ff4e-2749-49d1-b9ed-75de92a73991"
+      }
+    }
   }
 }

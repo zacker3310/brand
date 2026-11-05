@@ -19,7 +19,7 @@
 import type { EvidenceInput, NormalizedToken, NormalizedTokenSet, TokenTier } from "@/lib/contracts";
 import { categorizeToken } from "@/lib/tokens/categorize";
 import { LICENSE_APACHE } from "./constants";
-import { evidence, type Ev } from "./shared";
+import { evidence, type Ev, cmp } from "./shared";
 
 export const THEME_KEYS = ["light", "dark", "darkest", "wireframe"] as const;
 export const SCALE_KEYS = ["desktop", "mobile"] as const;
@@ -189,7 +189,7 @@ export interface BuildResult {
 }
 
 export function buildTokenSets(files: TokenFileInput[], opts: BuildOptions): BuildResult {
-  const ordered = [...files].sort((a, b) => a.file.localeCompare(b.file));
+  const ordered = [...files].sort((a, b) => cmp(a.file, b.file));
   const all = new Map<string, { t: RawToken; ev: Ev }>();
   for (const f of ordered) for (const t of f.tokens) if (!all.has(t.name)) all.set(t.name, { t, ev: f.ev });
 
@@ -334,7 +334,7 @@ export function buildTokenSets(files: TokenFileInput[], opts: BuildOptions): Bui
   const sets: NormalizedTokenSet[] = [];
   const finish = (slug: string, name: string, theme: string | null, tokens: NormalizedToken[], files: Set<string>, note: string) => {
     if (!tokens.length) return;
-    const sorted = [...tokens].sort((a, b) => a.name.localeCompare(b.name));
+    const sorted = [...tokens].sort((a, b) => cmp(a.name, b.name));
     const ev = setEvidence(files, note);
     if (opts.cssEv && sorted.some((t) => t.cssVar)) ev.push(evidence("cssVar", opts.cssEv, "spectrum-css-vars", 0.85, { location: `${opts.cssEv.location} (declared --spectrum-* custom properties)` }));
     const first = [...files].sort()[0]!;

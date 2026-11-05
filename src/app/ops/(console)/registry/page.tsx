@@ -24,9 +24,11 @@ export default async function RegistryPage() {
       </header>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
-        {(["verified", "rejected", "duplicate", "replaced", "candidate"] as const).map((s) => (
-          <Tile key={s} label={s[0]!.toUpperCase() + s.slice(1)} value={r.counts[s] ?? 0} tone={s === "verified" ? "ok" : undefined} />
-        ))}
+        <Tile label="Verified (published)" value={r.counts.verified ?? 0} tone="ok" />
+        <Tile label="Rejected" value={r.counts.rejected ?? 0} hint="No public docs, discontinued…" />
+        <Tile label="Duplicates" value={r.counts.duplicate ?? 0} hint="Same system as another entry" />
+        <Tile label="Replacements" value={r.replacements.length} hint="Verified systems added in their place" />
+        <Tile label="Ranked candidates audited" value={r.rankedCandidates} hint={r.counts.candidate ? `${r.counts.candidate} still in research` : "None left in research"} />
       </div>
 
       <div className="grid gap-8 lg:grid-cols-2">

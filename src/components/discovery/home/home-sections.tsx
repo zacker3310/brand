@@ -6,6 +6,7 @@ import { SYSTEM_CATEGORY_LABELS, type SystemCategory } from "@/lib/contracts";
 import { cn, formatCount, relativeTime } from "@/lib/utils";
 import type { CuratedCollection, FeaturedRow, GroupStat, HomeStats, RecentSystem } from "@/server/queries/home";
 import { COMPARISON_RULE, FEATURED_RULE, depthLabel, humanizeRegistrySummaries, summarizeActivity, type ComparisonSuggestion } from "../lib/home";
+import { INFERRED_TEXT } from "../badges";
 import { formatDate, plural } from "../lib/format";
 import { PaletteHint } from "./palette-hint";
 
@@ -34,7 +35,7 @@ export function HomeSection({
     <section id={id} aria-labelledby={`${id}-title`} className={cn("space-y-5", className)}>
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-border/70 pb-3">
         <div className="space-y-1">
-          {eyebrow && <p className="type-eyebrow">{eyebrow}</p>}
+          {eyebrow && <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">{eyebrow}</p>}
           <h2 id={`${id}-title`} className="text-lg font-semibold tracking-tight">
             {title}
           </h2>
@@ -66,7 +67,7 @@ export function Hero({ stats }: { stats: HomeStats }) {
   return (
     <div className="grid grid-cols-1 gap-10 pt-6 pb-2 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
       <div className="space-y-7">
-        <p className="type-eyebrow">
+        <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">
           Design system intelligence
           {stats.lastIngestedAt && <> · updated {formatDate(stats.lastIngestedAt)}</>}
         </p>
@@ -134,10 +135,10 @@ function LibraryLedger({ stats }: { stats: HomeStats }) {
   return (
     <aside aria-labelledby="ledger-title" className="rounded-xl border bg-card">
       <div className="flex items-baseline justify-between border-b border-border/70 px-4 py-3">
-        <h2 id="ledger-title" className="type-eyebrow">
+        <h2 id="ledger-title" className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">
           The library
         </h2>
-        <span className="text-[11px] text-subtle-foreground">live counts</span>
+        <span className="text-[11px] text-muted-foreground">live counts</span>
       </div>
       <dl className="divide-y divide-border/60">
         {rows.map((r) => (
@@ -188,7 +189,7 @@ export function FeaturedSystems({ rows }: { rows: FeaturedRow[] }) {
                       {r.organization ?? "—"} · {SYSTEM_CATEGORY_LABELS[r.category as SystemCategory] ?? r.category}
                     </p>
                   </div>
-                  <span className="tabular font-mono text-[11px] text-subtle-foreground" aria-label={`Rank ${i + 1}`}>
+                  <span className="tabular font-mono text-[11px] text-muted-foreground" aria-label={`Rank ${i + 1}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -206,7 +207,7 @@ export function FeaturedSystems({ rows }: { rows: FeaturedRow[] }) {
                     </div>
                   ))}
                 </dl>
-                <p className="mt-auto pt-3 text-[11px] text-subtle-foreground">
+                <p className="mt-auto pt-3 text-[11px] text-muted-foreground">
                   {r.frameworks.length ? r.frameworks.slice(0, 3).join(" · ") : "Frameworks not verified"}
                   {r.lastIngestedAt && <> · ingested {relativeTime(r.lastIngestedAt)}</>}
                 </p>
@@ -256,7 +257,7 @@ export function ComponentGroups({ groups, indexedSystems }: { groups: GroupStat[
                     "No implementations indexed yet"
                   )}
                 </span>
-                {g.topTypes.length > 0 && <span className="mt-1 block truncate text-[11px] text-subtle-foreground">{g.topTypes.map((t) => t.name).join(", ")}</span>}
+                {g.topTypes.length > 0 && <span className="mt-1 block truncate text-[11px] text-muted-foreground">{g.topTypes.map((t) => t.name).join(", ")}</span>}
               </span>
             </Link>
           </li>
@@ -282,7 +283,7 @@ export function SuggestedComparisons({ items }: { items: ComparisonSuggestion[] 
           {COMPARISON_RULE}
           {allInferred && (
             <span className="mt-1 flex items-center gap-1.5">
-              <VerificationBadge state="inferred" compact detail="Every implementation linked here was matched to its canonical type by ATLAS heuristics, not declared by the source." />
+              <VerificationBadge state="inferred" compact className={INFERRED_TEXT} detail="Every implementation linked here was matched to its canonical type by ATLAS heuristics, not declared by the source." />
               Type matches are inferred by ATLAS; compare the originals before relying on them.
             </span>
           )}
@@ -303,7 +304,7 @@ export function SuggestedComparisons({ items }: { items: ComparisonSuggestion[] 
                   <span className="flex items-center gap-2">
                     <span className="text-sm font-medium group-hover:underline">{c.typeName}</span>
                     {c.allInferred && !allInferred && (
-                      <span className="rounded border border-inferred/30 bg-inferred-soft px-1 text-[10px] font-medium text-inferred">inferred matches</span>
+                      <span className={`rounded border border-inferred/30 bg-inferred-soft px-1 text-[10px] font-medium ${INFERRED_TEXT}`}>inferred matches</span>
                     )}
                   </span>
                   <span className="mt-0.5 block truncate text-xs text-muted-foreground">
@@ -353,7 +354,7 @@ export function RecentlyUpdated({ rows }: { rows: RecentSystem[] }) {
                     {r.name}
                   </Link>
                   <span className="text-[11px] text-muted-foreground">{r.kind === "ingest" ? "Ingested" : "Registry re-verified"}</span>
-                  <time dateTime={r.lastActivityAt} className="ml-auto font-mono text-[10.5px] text-subtle-foreground" title={formatDate(r.lastActivityAt) ?? undefined}>
+                  <time dateTime={r.lastActivityAt} className="ml-auto font-mono text-[10.5px] text-muted-foreground" title={formatDate(r.lastActivityAt) ?? undefined}>
                     {relativeTime(r.lastActivityAt)}
                   </time>
                 </div>
@@ -412,7 +413,7 @@ export function HonestyStrip({ stats }: { stats: HomeStats }) {
       fact: `${formatCount(stats.evidenceVerified)} of ${formatCount(stats.evidence)} evidence records are verified`,
     },
     {
-      badge: <VerificationBadge state="inferred" />,
+      badge: <VerificationBadge state="inferred" className={INFERRED_TEXT} />,
       title: "Inferred",
       body: "Derived by ATLAS, such as mapping a system's “Snackbar” to the canonical Toast type. Always labelled, never presented as the source's claim.",
       fact: `${formatCount(inferredClassifications)} of ${formatCount(stats.componentsClassified)} component classifications are inferred`,
@@ -434,7 +435,7 @@ export function HonestyStrip({ stats }: { stats: HomeStats }) {
     <section aria-labelledby="honesty-title" className="rounded-2xl border bg-surface-1 p-5 sm:p-7">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="space-y-1">
-          <p className="type-eyebrow">Coverage honesty</p>
+          <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">Coverage honesty</p>
           <h2 id="honesty-title" className="text-lg font-semibold tracking-tight">
             Unknown is never shown as none
           </h2>

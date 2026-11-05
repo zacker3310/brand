@@ -181,11 +181,11 @@ export function OverviewSection({ detail }: { detail: SystemDetail }) {
               <dt className="pt-px text-xs font-medium text-muted-foreground">{f.label}</dt>
               <dd className="min-w-0 text-sm">
                 {f.value}
-                {f.note && <p className="mt-0.5 text-[11px] text-subtle-foreground">{f.note}</p>}
+                {f.note && <p className="mt-0.5 text-[11px] text-muted-foreground">{f.note}</p>}
               </dd>
               <dd className="sm:max-w-[26rem] sm:justify-self-end sm:text-right [&_ul]:text-left">
                 {f.label === "Category" ? (
-                  <span className="text-[11px] text-subtle-foreground">Classification</span>
+                  <span className="text-[11px] text-muted-foreground">Classification</span>
                 ) : (
                   <EvidenceDisclosure rows={f.evidence} emptyLabel="No evidence row" />
                 )}
@@ -220,7 +220,7 @@ export function PhilosophySection({ detail }: { detail: SystemDetail }) {
           <MissingValue state="not-extracted" />
         )}
         <EvidenceDisclosure rows={evidence} />
-        <p className="text-[11px] text-subtle-foreground">ATLAS-authored synthesis of documented statements; quoted text is attributed to the source.</p>
+        <p className="text-[11px] text-muted-foreground">ATLAS-authored synthesis of documented statements; quoted text is attributed to the source.</p>
       </div>
       <div className="space-y-2">
         <h3 className="text-xs font-medium text-muted-foreground">Documented principles</h3>
@@ -228,7 +228,7 @@ export function PhilosophySection({ detail }: { detail: SystemDetail }) {
           <ol className="space-y-1.5">
             {core.principles.map((p, i) => (
               <li key={p.name} className="flex gap-2.5 text-sm">
-                <span className="tabular w-4 shrink-0 pt-px font-mono text-[11px] text-subtle-foreground">{String(i + 1).padStart(2, "0")}</span>
+                <span className="tabular w-4 shrink-0 pt-px font-mono text-[11px] text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
                 <SourceLink href={p.sourceUrl}>{p.name}</SourceLink>
               </li>
             ))}

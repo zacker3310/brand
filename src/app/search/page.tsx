@@ -116,7 +116,7 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <PageContainer className="space-y-6">
       <header className="space-y-4 border-b border-border/70 pb-6">
-        <p className="type-eyebrow">Search</p>
+        <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">Search</p>
         <h1 className="text-2xl font-semibold tracking-tight break-words sm:text-3xl">
           {state.q ? (
             <>
@@ -173,7 +173,7 @@ export default async function SearchPage({ searchParams }: Props) {
               <p id="results-count" className="text-sm text-muted-foreground" role="status" aria-live="polite">
                 <span className="tabular font-medium text-foreground">{formatCount(result.total)}</span> {result.total === 1 ? "result" : "results"}
                 {state.types.length > 0 && <> in {state.types.map((t) => ENTITY_LABELS[t as SearchEntityType]?.many.toLowerCase() ?? t).join(", ")}</>}
-                <span className="text-subtle-foreground"> · {result.tookMs} ms</span>
+                <span className="text-muted-foreground"> · {result.tookMs} ms</span>
               </p>
               {result.total > 0 && (
                 <SegmentedLinks

@@ -258,6 +258,7 @@ export function reactDtsComponents(src: string): ReactComponentLite[] {
     props: c.members.map((m) => extractProp(m, file)),
     unresolved: c.unresolved,
     primarySlots: c.primarySlots,
+    internal: c.internal,
     line: c.line,
   }));
 }
