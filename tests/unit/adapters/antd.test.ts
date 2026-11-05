@@ -463,3 +463,14 @@ describe("antd links", () => {
     expect(d.links).toContain("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type");
   });
 });
+
+describe("antd classification", () => {
+  it("uses the shared classifier and documented overrides (always inferred)", async () => {
+    const { classify } = await import("@/ingestion/adapters/antd/normalize");
+    expect(classify(SLUG_ANTD, "Button")).toEqual({ canonicalType: "button", classification: { state: "inferred", method: "taxonomy:alias-exact:button", confidence: 0.9 } });
+    expect(classify(SLUG_ANTD, "Anchor").canonicalType).toBe("anchor-navigation");
+    expect(classify(SLUG_MOBILE, "Stepper")).toEqual({ canonicalType: "number-field", classification: { state: "inferred", method: "adapter-override:number-field", confidence: 0.7 } });
+    expect(classify(SLUG_MOBILE, "NumberKeyboard")).toEqual({ canonicalType: null, classification: null });
+    expect(classify(SLUG_ANTD, "Stepper").canonicalType).toBe("stepper");
+  });
+});

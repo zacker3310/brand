@@ -189,25 +189,30 @@ function accessibilityFrom(doc: ParsedDoc, props: DocProp[], name: string, docsU
   };
 }
 
-/** Components where the shared taxonomy's name match is known to be wrong for the documented behavior. */
-const CLASSIFICATION_SKIP: Record<string, Record<string, string>> = {
+/**
+ * Names where the shared taxonomy's match is wrong for the documented behavior. `slug` is the taxonomy
+ * type that fits the documented description (still "inferred"); null leaves the component unclassified.
+ */
+export const CLASSIFICATION_OVERRIDES: Record<string, Record<string, { slug: string | null; why: string }>> = {
   [SLUG_ANTD]: {
-    Anchor: "In-page navigation (scroll-spy table of contents); the 'anchor' alias match to link is wrong.",
+    Anchor: { slug: "anchor-navigation", why: "documented as hyperlinks to scroll on one page; the 'anchor' alias resolves to link first" },
   },
   [SLUG_MOBILE]: {
-    Popup: "Edge-anchored overlay panel; the 'popup' alias match to popover is wrong.",
-    CascaderView: "Cascading option view; the 'view' token match to box is wrong.",
-    PageIndicator: "Carousel page dots; the 'indicator' token match to badge is wrong.",
-    NumberKeyboard: "On-screen numeric keypad; the 'keyboard' token match to kbd is wrong.",
-    ResultPage: "Full result page template; the 'page' token match to container is wrong.",
-    ImageUploader: "Image upload control; the 'image' token match to image is wrong.",
-    ImageViewer: "Full-screen image preview; the 'image' token match to image is wrong.",
-    Stepper: "Numeric increment/decrement input; the 'stepper' alias (step indicator) is wrong.",
+    Popup: { slug: "sheet", why: "documented as sliding a content area out from the screen edge; 'popup' alias maps to popover" },
+    Stepper: { slug: "number-field", why: "documented as increasing/decreasing a numeric value; 'stepper' alias maps to the step indicator" },
+    ImageUploader: { slug: "file-upload", why: "image upload control; the head noun match is unrelated" },
+    PickerView: { slug: "select", why: "inline panel of Picker (taxonomy alias 'picker'); the 'view' head noun maps to box" },
+    CalendarPickerView: { slug: "date-picker", why: "inline panel of CalendarPicker (taxonomy alias 'calendar picker'); the 'view' head noun maps to box" },
+    CascaderView: { slug: null, why: "inline cascading option panel; the 'view' head noun match to box is wrong" },
+    PageIndicator: { slug: null, why: "carousel page dots; the 'indicator' token match to badge is wrong" },
+    NumberKeyboard: { slug: null, why: "on-screen numeric keypad; the 'keyboard' token match to kbd is wrong" },
+    ImageViewer: { slug: null, why: "full-screen image preview; no matching taxonomy type" },
   },
 };
 
-function classify(systemSlug: string, name: string): { canonicalType: string | null; classification: NormalizedComponent["classification"] } {
-  if (CLASSIFICATION_SKIP[systemSlug]?.[name]) return { canonicalType: null, classification: null };
+export function classify(systemSlug: string, name: string): { canonicalType: string | null; classification: NormalizedComponent["classification"] } {
+  const o = CLASSIFICATION_OVERRIDES[systemSlug]?.[name];
+  if (o) return o.slug ? { canonicalType: o.slug, classification: { state: "inferred", method: `adapter-override:${o.slug}`, confidence: 0.7 } } : { canonicalType: null, classification: null };
   const c = classifyComponentName(name);
   if (!c) return { canonicalType: null, classification: null };
   return { canonicalType: c.slug, classification: { state: "inferred", method: `taxonomy:${c.method}`, confidence: c.confidence } };

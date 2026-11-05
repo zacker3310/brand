@@ -19,7 +19,7 @@ import { canonicalState, classifyComponentName, classifyPatternName } from "@/li
 import { slugify } from "@/lib/utils";
 import { ADAPTER_ID, GOVUK, componentSrcDir, docsUrlFor, frontendTree, normKey, profileFor, type FrontendProfile, type TokenSetKey } from "./constants";
 import { lifecycleFromStatus, type ComponentDoc, type DocColour, type HomeData, type LifecycleRules, type PatternDoc, type Principle } from "./docs";
-import { clip, firstSentences } from "./markdown";
+import { clip } from "./markdown";
 import { humanizeMethod, type JsInfo, type TemplateInfo } from "./markup";
 import { optionToComponent, statesFromExamples, statesFromParams, type ParsedParams } from "./params";
 import { tokenCategory, tokenTier, tokenType, type MixinAnalysis, type SettingsParse, type SettingsToken } from "./scss";
