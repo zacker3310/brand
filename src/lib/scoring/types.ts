@@ -273,4 +273,6 @@ export interface ComponentMatrix {
   groups: MatrixGroup[];
   rowCount: number;
   differingRowCount: number;
+  /** "indexed": sameness ignores columns without a component (they hold no data). */
+  sameBasis: "all" | "indexed";
 }

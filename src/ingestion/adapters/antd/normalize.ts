@@ -221,7 +221,7 @@ function variantsStatesSizes(props: DocProp[], sourceUrl: string, file: string) 
     const k = `${v.axis}|${v.name}`;
     if (vseen.has(k)) continue;
     vseen.add(k);
-    variants.push({ axis: v.axis, name: v.name, description: null, sourceUrl, location: `${file}#L${v.prop.line} (prop \`${v.prop.name}\`)` });
+    variants.push({ axis: v.axis, name: v.name, description: null, sourceUrl, location: `${v.prop.file ?? file}#L${v.prop.line} (prop \`${v.prop.name}\`)` });
   }
   const states: NormalizedComponent["states"] = d.states.map((s) => ({
     name: s.name,
@@ -597,7 +597,8 @@ function buildAntdComponent(f: F<"component-doc">, a: AntdBuildCtx): NormalizedC
   coverage.description = description ? "documented" : "not-documented";
   if (description) evidence.push(ev(f.stamp, "description", METHOD.docsMd, { location: fmString(fm, "description") ? `${file}#frontmatter.description` : `${file} (When To Use)`, excerpt: description }));
 
-  if (properties.length && firstApi) evidence.push(ev(f.stamp, "properties", METHOD.apiTable, { location: `${file}#L${firstApi.line}`, excerpt: `${properties.length} props from API tables (Property | Description | Type | Default | Version)`, confidence: 0.9 }));
+  if (properties.length && firstApi) evidence.push(ev(f.stamp, "properties", METHOD.apiTable, { location: `${firstApi.file ?? file}#L${firstApi.line}`, excerpt: `${properties.length} props from API tables (Property | Description | Type | Default | Version)`, confidence: 0.9 }));
+  for (const st of f.embedded ?? []) evidence.push(ev(st, "properties", METHOD.apiTable, { location: `${st.file} (embedded in ${file} API section)`, excerpt: `Shared API table included via <embed src>`, confidence: 0.9 }));
 
   // Variants / sizes / states
   const { variants, states, sizes } = variantsStatesSizes(props, sourceUrl, file);

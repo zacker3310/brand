@@ -1,0 +1,45 @@
+[
+ {
+  "attribute": "variant",
+  "property": "variant",
+  "type": "\"accent\" | \"negative\" | \"primary\" | \"secondary\"",
+  "kind": "enum",
+  "values": [
+   "primary",
+   "secondary",
+   "accent",
+   "negative"
+  ],
+  "optional": false,
+  "default": "'primary'",
+  "description": "The visual variant of the button.\n\n`outline` fill-style is only supported with `primary` and `secondary`.\n`static-color` is only supported with `primary` and `secondary`.",
+  "since": "2.0.0-beta.1"
+ },
+ {
+  "attribute": "fill-style",
+  "property": "fillStyle",
+  "type": "\"fill\" | \"outline\"",
+  "kind": "enum",
+  "values": [
+   "fill",
+   "outline"
+  ],
+  "optional": false,
+  "default": "'fill'",
+  "description": "The fill style of the button.\n\n`outline` is only supported with `primary` and `secondary` variants.",
+  "since": "2.0.0-beta.1"
+ },
+ {
+  "attribute": "static-color",
+  "property": "staticColor",
+  "type": "\"white\" | \"black\"",
+  "kind": "enum",
+  "values": [
+   "white",
+   "black"
+  ],
+  "optional": true,
+  "description": "Static color treatment for display over colored or image backgrounds.\nOnly supported with `primary` and `secondary` variants.",
+  "since": "2.0.0-beta.1"
+ }
+]

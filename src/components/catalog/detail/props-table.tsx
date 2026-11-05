@@ -2,6 +2,7 @@
 
 import { SearchIcon } from "lucide-react";
 import { Fragment, useDeferredValue, useMemo, useState } from "react";
+import { useHydrated } from "../filter-form";
 import { isLiteralUnionOf } from "../lib/format";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
@@ -45,7 +46,7 @@ const MAX_ALLOWED = 12;
 
 function Unstated({ what }: { what: string }) {
   return (
-    <span className="text-[11px] text-subtle-foreground italic" title={`The source does not state ${what}.`}>
+    <span className="text-[11px] text-muted-foreground italic" title={`The source does not state ${what}.`}>
       not stated
     </span>
   );
@@ -67,6 +68,7 @@ export function PropsTable({
   const [impl, setImpl] = useState(implementations.some((i) => i.key === initialImpl) ? initialImpl : (implementations[0]?.key ?? ""));
   const [filter, setFilter] = useState(initialFilter);
   const deferred = useDeferredValue(filter);
+  const ready = useHydrated();
   const active = implementations.find((i) => i.key === impl) ?? implementations[0];
   const rows = useMemo(() => (active ? active.props.filter((p) => matches(p, deferred.trim())) : []), [active, deferred]);
   if (!active) return null;
@@ -80,7 +82,7 @@ export function PropsTable({
       <table className="w-full min-w-[760px] border-separate border-spacing-0 text-[13px]">
         <caption className="sr-only">Props documented for the {active.label} implementation</caption>
         <thead>
-          <tr className="text-left font-mono text-[11px] tracking-[0.1em] text-subtle-foreground uppercase">
+          <tr className="text-left font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
             <th scope="col" className="sticky left-0 z-10 w-52 border-r border-b bg-surface-1 px-3 py-2 font-medium">
               Name
             </th>
@@ -208,7 +210,7 @@ export function PropsTable({
 
   if (!multi) {
     return (
-      <div className="space-y-3">
+      <div className="space-y-3" data-ready={ready ? "" : undefined}>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-[13px] font-medium">{active.label}</p>
           {filterForm}
@@ -220,7 +222,7 @@ export function PropsTable({
   }
 
   return (
-    <Tabs value={impl} onValueChange={changeImpl} className="gap-3">
+    <Tabs value={impl} onValueChange={changeImpl} className="gap-3" data-ready={ready ? "" : undefined}>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <TabsList aria-label="Implementation" className="h-auto max-w-full flex-wrap justify-start">
           {implementations.map((i) => (

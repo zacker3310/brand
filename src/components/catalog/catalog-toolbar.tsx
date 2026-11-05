@@ -105,7 +105,7 @@ export function ExpansionNote({ expansion }: { expansion: QueryExpansion }) {
           <Link href={`/components/${r.slug}`} className="link-underline text-foreground/90">
             {r.name}
           </Link>
-          <span className="text-subtle-foreground"> ({r.via})</span>
+          <span className="text-muted-foreground"> ({r.via})</span>
         </span>
       ))}
       . Names stay system-specific: related types are not interchangeable.

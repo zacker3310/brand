@@ -27,7 +27,7 @@ export default async function QueuePage({ searchParams }: { searchParams: Promis
       </header>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-        <Tile label="Due now" value={q.due} hint={`Oldest queued ${q.oldestQueuedAt ? "" : "—"}`} />
+        <Tile label="Due now" value={q.due} hint="Queued with run_at in the past" />
         <Tile label="Scheduled (backoff)" value={q.scheduled} hint="Queued with a future run_at" />
         <Tile label="Running" value={total("running")} />
         <Tile label="Failed + dead" value={total("failed") + total("dead")} tone={total("failed") + total("dead") ? "bad" : "ok"} />

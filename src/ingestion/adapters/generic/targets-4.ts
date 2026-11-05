@@ -167,7 +167,7 @@ export const TARGETS_4: GenericTarget[] = [
     frameworks: ["html-css"],
     fetchPages: false,
     notes:
-      "The getuikit.com docs sidebar (static HTML; robots.txt 404 => allowed, no sitemap) has a 'Getting started' list and a 'Components' list. Getting-started pages are excluded, and so are 17 entries UIkit files under 'Components' that are CSS utility/base-style modules rather than UI components (Align, Animation, Background, Base, Column, Flex, Height, Inverse, Margin, Padding, Position, Print, Text, Transition, Utility, Visibility, Width); 69 components remain. Pages are not fetched: they share one site-wide meta description and the nav texts are the component names.",
+      "The getuikit.com docs sidebar (static HTML; robots.txt 404 => allowed, no sitemap) has a 'Getting started' list and a 'Components' list. Getting-started pages are excluded, and so are 17 entries UIkit files under 'Components' that are CSS utility/base-style modules rather than UI components (Align, Animation, Background, Base, Column, Flex, Height, Inverse, Margin, Padding, Position, Print, Text, Transition, Utility, Visibility, Width); 64 components remain. Pages are not fetched: they share one site-wide meta description and the nav texts are the component names.",
   },
   {
     slug: "uswds",
@@ -178,7 +178,7 @@ export const TARGETS_4: GenericTarget[] = [
     frameworks: ["html-css"],
     titleSuffix: "\\s+\\|\\s+U\\.S\\. Web Design System \\(USWDS\\)$",
     notes:
-      "designsystem.digital.gov/sitemap.xml (declared in robots.txt, which allows all) lists each component page plus its /accessibility-tests/ subpage (outside the include rule). Excluded: the components overview, status, lifecycle and packages pages, 'Data visualizations' (guidance only, no component code) and 'Typography' (type-style guidance; tokens are documented separately): 46 components. Most pages share a site-wide meta description, which the adapter drops.",
+      "designsystem.digital.gov/sitemap.xml (declared in robots.txt, which allows all) lists each component page plus its /accessibility-tests/ subpage (outside the include rule). Excluded: the components overview, status, lifecycle and packages pages, 'Data visualizations' (guidance only, no component code) and 'Typography' (type-style guidance; tokens are documented separately): 45 components. Most pages share a site-wide meta description, which the adapter drops.",
   },
   {
     slug: "vercel-geist",

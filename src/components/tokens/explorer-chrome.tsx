@@ -44,9 +44,16 @@ export function nav(m: Pick<ExplorerModel, "params">, patch: Partial<ExplorerPar
 
 export function formatDate(iso: string | null | undefined): string | null {
   if (!iso) return null;
-  const d = new Date(iso.replace(" ", "T"));
+  // Postgres ::text timestamps look like "2026-11-05 04:41:55.538+00"; make them ISO 8601.
+  const d = new Date(iso.trim().replace(" ", "T").replace(/([+-]\d{2})$/, "$1:00"));
   if (Number.isNaN(d.getTime())) return null;
   return new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(d);
+}
+
+/** SPDX licenses link to their canonical SPDX page; others to the recorded license URL. */
+export function licenseHref(l: { spdxId: string | null; url: string | null }): string | null {
+  if (l.spdxId && /^[A-Za-z0-9.+-]+$/.test(l.spdxId)) return `https://spdx.org/licenses/${l.spdxId}.html`;
+  return l.url;
 }
 
 const REDIST_META: Record<Redistribution, { label: string; className: string }> = {
@@ -240,8 +247,8 @@ export function ScopeSummary({ m }: { m: ExplorerModel }) {
               <dt className="sr-only">License</dt>
               <dd>
                 {s.license ? (
-                  s.license.url ? (
-                    <a className="link-underline" href={s.license.url} target="_blank" rel="noopener noreferrer">
+                  licenseHref(s.license) ? (
+                    <a className="link-underline" href={licenseHref(s.license)!} target="_blank" rel="noopener noreferrer">
                       {s.license.spdxId ?? s.license.name}
                     </a>
                   ) : (

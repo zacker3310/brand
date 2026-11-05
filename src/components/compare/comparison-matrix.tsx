@@ -64,7 +64,7 @@ function ColumnHeader({ col, links, typeName }: { col: ComparisonColumn; links: 
   );
 }
 
-function RowLabel({ row }: { row: MatrixRow }) {
+function RowLabel({ row, sameLabel }: { row: MatrixRow; sameLabel: string }) {
   return (
     <div className="space-y-1">
       <div className={cn("text-[13px] leading-snug font-medium break-words", row.alignment && "font-mono text-xs")}>{row.label}</div>
@@ -76,7 +76,7 @@ function RowLabel({ row }: { row: MatrixRow }) {
       ) : row.hint ? (
         <div className="text-[11px] leading-snug text-subtle-foreground">{row.hint}</div>
       ) : null}
-      {row.same && !row.span && <div className="text-[11px] text-subtle-foreground">Same in all columns</div>}
+      {row.same && !row.span && <div className="text-[11px] text-subtle-foreground">{sameLabel}</div>}
     </div>
   );
 }
@@ -84,7 +84,7 @@ function RowLabel({ row }: { row: MatrixRow }) {
 function GroupHeading({ group, id }: { group: MatrixGroup; id: string }) {
   return (
     <div className="space-y-1">
-      <h3 id={id} className="text-sm font-semibold tracking-tight">
+      <h3 id={id} className="scroll-mt-48 text-sm font-semibold tracking-tight max-lg:scroll-mt-20">
         {group.title}
       </h3>
       {group.description && <p className="text-xs font-normal text-muted-foreground">{group.description}</p>}
@@ -135,7 +135,7 @@ function DesktopMatrix({ matrix, columns, links, typeName }: { matrix: Component
           {g.rows.map((r) => (
             <tr key={r.id} className={cn("transition-colors hover:bg-surface-1/60", r.same && DIFF_HIDE, r.overflow && OVERFLOW_HIDE)}>
               <th scope="row" className="border-t px-3 py-3 text-left align-top font-normal">
-                <RowLabel row={r} />
+                <RowLabel row={r} sameLabel={matrix.sameBasis === "indexed" ? "Same in all indexed columns" : "Same in all columns"} />
               </th>
               {r.span ? (
                 <td colSpan={n} className="border-t border-l border-l-border/60 px-3 py-3 align-top">

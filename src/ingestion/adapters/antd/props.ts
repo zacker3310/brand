@@ -20,6 +20,8 @@ export interface DocProp {
   /** True when every union member is a string literal. */
   allLiteral: boolean;
   line: number;
+  /** Repository file of the table (embedded includes), else the page itself. */
+  file: string | null;
 }
 
 const NAME_HEADERS = /^(property|properties|prop|props|name|param|params|parameter|attribute)$/i;
@@ -27,9 +29,19 @@ const TYPE_HEADERS = /^type$/i;
 const SKIP_HEADING = /^(ref|refs|methods?|.*\bmethods?\b|.*\(\)$|events?|css variables|hooks?|semantic dom|design token|faq|imperative.*|static method.*)$/i;
 const TS_TYPE_WORDS = new Set(["string", "number", "boolean", "reactnode", "object", "function", "null", "undefined", "any", "void", "never", "unknown", "true", "false"]);
 
-/** Normalize a heading into an owner name: "Select props" -> "Select", "DatePicker\[picker=week]" -> "DatePicker[picker=week]". */
-function ownerName(h: string): string {
-  return collapse(h.replace(/\\/g, "").replace(/\s+props?$/i, "").replace(/<[^>]+>/g, "")).trim();
+/**
+ * Normalize a heading into an owner name: "Select props" -> "Select", "DatePicker\[picker=week]" ->
+ * "DatePicker[picker=week]", "Avatar.Group 4.5.0+" -> "Avatar.Group", "Statistic.Countdown Deprecated" -> "Statistic.Countdown".
+ */
+export function ownerName(h: string): string {
+  return collapse(
+    h
+      .replace(/\\/g, "")
+      .replace(/<[^>]+>/g, "")
+      .replace(/\s+(?:v?\d+\.\d+(?:\.\d+)?\+?|deprecated|experimental)\s*$/gi, "")
+      .replace(/\s+(?:v?\d+\.\d+(?:\.\d+)?\+?|deprecated|experimental)\s*$/gi, "")
+      .replace(/\s+props?$/i, ""),
+  ).trim();
 }
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
@@ -83,10 +95,14 @@ export function extractProps(tables: MdTable[], opts: { mainNames: string[]; sco
     const descIdx = t.headers.findIndex((h) => /^description$/i.test(h));
     const defIdx = t.headers.findIndex((h) => /^default( value)?$/i.test(h));
     const verIdx = t.headers.findIndex((h) => /^version$/i.test(h));
-    const nearest = t.headings[t.headings.length - 1]?.text ?? "";
-    if (SKIP_HEADING.test(nearest)) continue;
+    const nearestRaw = t.headings[t.headings.length - 1]?.text ?? "";
+    if (SKIP_HEADING.test(ownerName(nearestRaw))) continue;
     const ownerRaw = opts.ownerOf(t);
-    const owner = ownerRaw && !main.has(norm(ownerName(ownerRaw))) ? ownerName(ownerRaw) : null;
+    const ownerClean = ownerRaw ? ownerName(ownerRaw) : null;
+    // "Radio/Radio.Button" documents the component itself (and an alias); treat as main.
+    const isMain = !ownerClean || main.has(norm(ownerClean)) || ownerClean.split("/").some((x) => main.has(norm(x)));
+    const owner = isMain ? null : ownerClean;
+    const ownerDeprecated = !!ownerRaw && /\bdeprecated\b/i.test(ownerRaw);
     for (const row of t.rows) {
       const nameCell = row[nameIdx];
       if (!nameCell) continue;
@@ -98,7 +114,7 @@ export function extractProps(tables: MdTable[], opts: { mainNames: string[]; sco
       const typeCell = row[typeIdx];
       const { literals, allLiteral } = typeCell ? parseLiterals(typeCell) : { literals: [], allLiteral: false };
       const description = cleanCell(row[descIdx]);
-      const deprecated = nameCell.struck || /^(deprecated|废弃)\b|\bdeprecated\b|please use .* instead/i.test(description ?? "");
+      const deprecated = ownerDeprecated || nameCell.struck || /^(deprecated|废弃)\b|\bdeprecated\b|please use .* instead/i.test(description ?? "");
       out.push({
         owner,
         name,
@@ -110,6 +126,7 @@ export function extractProps(tables: MdTable[], opts: { mainNames: string[]; sco
         literals,
         allLiteral,
         line: t.line,
+        file: t.file ?? null,
       });
     }
   }
@@ -163,7 +180,8 @@ export function deriveFromProps(props: DocProp[]): Derived {
     if (key === "size" && p.literals.length >= 2 && !sizes) sizes = { values: p.literals, prop: p };
     const axis = VARIANT_AXES[key];
     if (axis && p.literals.length >= 2) {
-      if (key === "status") {
+      const stateLike = p.literals.filter((v) => canonicalState(v)).length;
+      if (key === "status" && stateLike * 2 >= p.literals.length && !p.literals.some((v) => /^\d+$/.test(v))) {
         // Validation status values are states, not visual variants.
         for (const v of p.literals) {
           const c = canonicalState(v);

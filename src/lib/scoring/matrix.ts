@@ -106,7 +106,10 @@ function row(ctx: Ctx, id: string, label: string, fn: (c: ComponentDetail, col: 
   for (const col of ctx.columns) {
     cells[col.system.slug] = col.component ? fn(col.component, col) : covCell("not-extracted", MISSING_NOTE[col.missing ?? "no-component"]);
   }
-  const keys = Object.values(cells).map((c) => c.cmp);
+  // Columns without a component carry no information; compare the columns that have data.
+  const withData = ctx.columns.filter((c) => c.component);
+  const basis = withData.length >= 2 ? withData : ctx.columns;
+  const keys = basis.map((c) => cells[c.system.slug]!.cmp);
   const same = ctx.columns.length >= 2 && keys.every((k) => k === keys[0]);
   return { id, label, cells, same, ...extra };
 }
@@ -459,5 +462,12 @@ export function buildComponentMatrix(type: CompareTypeInfo, columns: ComparisonC
     evidenceGroup(ctx),
   ];
   const rows = groups.flatMap((g) => g.rows).filter((r) => !r.span);
-  return { columns: columns.map((c) => c.system.slug), groups, rowCount: rows.length, differingRowCount: rows.filter((r) => !r.same).length };
+  const withData = columns.filter((c) => c.component).length;
+  return {
+    columns: columns.map((c) => c.system.slug),
+    groups,
+    rowCount: rows.length,
+    differingRowCount: rows.filter((r) => !r.same).length,
+    sameBasis: withData >= 2 && withData < columns.length ? "indexed" : "all",
+  };
 }

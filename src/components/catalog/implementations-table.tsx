@@ -20,7 +20,7 @@ export function ImplementationsTable({ rows }: { rows: TypeImplementation[] }) {
       <table className="w-full min-w-[960px] border-separate border-spacing-0 text-[13px]">
         <caption className="sr-only">Implementations of this canonical type across indexed design systems</caption>
         <thead>
-          <tr className="text-left font-mono text-[11px] tracking-[0.1em] text-subtle-foreground uppercase">
+          <tr className="text-left font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
             <th scope="col" className="sticky left-0 z-10 border-r border-b bg-surface-1 px-3 py-2.5 font-medium">
               Implementation
             </th>

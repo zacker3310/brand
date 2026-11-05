@@ -1,8 +1,14 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useTransition, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useSyncExternalStore, useTransition, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
+
+const noopSubscribe = () => () => {};
+/** True once hydrated (false during SSR), without a setState-in-effect round trip. */
+export function useHydrated() {
+  return useSyncExternalStore(noopSubscribe, () => true, () => false);
+}
 
 /**
  * A plain GET form (works without JavaScript) that, when JS is available, submits on change
@@ -25,6 +31,7 @@ export function FilterForm({
   const ref = useRef<HTMLFormElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [pending, startTransition] = useTransition();
+  const ready = useHydrated();
 
   const submit = useCallback(() => {
     const form = ref.current;
@@ -69,6 +76,7 @@ export function FilterForm({
       role="search"
       aria-label={label}
       data-pending={pending ? "" : undefined}
+      data-ready={ready ? "" : undefined}
       aria-busy={pending || undefined}
       className={cn("group/catalog", className)}
       onSubmit={(e) => {

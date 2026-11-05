@@ -23,8 +23,10 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
   const [{ id }, sp] = await Promise.all([params, searchParams]);
   await requireAdminPage(`/ops/runs/${id}`);
   if (!UUID.test(id)) notFound();
-  const validation = VALIDATIONS.includes(one(sp.validation) ?? "") ? one(sp.validation) : undefined;
+  const vparam = one(sp.validation);
+  const validation = vparam === "all" ? "all" : VALIDATIONS.includes(vparam ?? "") ? vparam! : "problems";
   const run = await getRunDetail(id, { validation });
+  const validCount = run?.extractionSummary.filter((s) => s.validation === "valid").reduce((a, s) => a + s.n, 0) ?? 0;
   if (!run) notFound();
   const stageIdx = STAGES.indexOf((run.stage ?? "") as (typeof STAGES)[number]);
   const done = run.stage === "done" || run.status === "succeeded" || run.status === "partial";
@@ -239,18 +241,21 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
       </section>
 
       <section aria-labelledby="extractions-title">
-        <SectionTitle id="extractions-title" count={run.extractionTotal} description="Normalized observations staged by this run, with validation results. Only valid and warning rows are published.">
+        <SectionTitle id="extractions-title" description="Normalized observations staged by this run, with validation results. Only valid and warning rows are published; “Needs review” hides valid rows.">
           Extractions
         </SectionTitle>
         {run.extractionSummary.length > 0 && (
           <nav aria-label="Filter extractions by validation" className="mb-3 flex flex-wrap gap-2">
-            <Link
-              href={`/ops/runs/${run.id}#extractions-title`}
-              aria-current={!validation ? "page" : undefined}
-              className={cn("rounded-full border px-3 py-1 text-xs", !validation ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
-            >
-              All
-            </Link>
+            {(["problems", "all"] as const).map((v) => (
+              <Link
+                key={v}
+                href={`/ops/runs/${run.id}${qs({ validation: v === "problems" ? undefined : v })}#extractions-title`}
+                aria-current={validation === v ? "page" : undefined}
+                className={cn("rounded-full border px-3 py-1 text-xs", validation === v ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground")}
+              >
+                {v === "problems" ? "Needs review" : "All"}
+              </Link>
+            ))}
             {VALIDATIONS.filter((v) => run.extractionSummary.some((s) => s.validation === v)).map((v) => (
               <Link
                 key={v}
@@ -286,7 +291,18 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
             </thead>
             <tbody className="divide-y">
               {run.extractions.length === 0 ? (
-                <EmptyRow colSpan={5}>No extractions{validation ? ` with validation “${validation}”` : ""}.</EmptyRow>
+                <EmptyRow colSpan={5}>
+                  {validation === "problems" ? (
+                    <>
+                      No extraction needs review: all {formatCount(validCount)} passed validation.{" "}
+                      <Link href={`/ops/runs/${run.id}?validation=all#extractions-title`} className="font-medium text-foreground hover:underline">
+                        Show all
+                      </Link>
+                    </>
+                  ) : (
+                    <>No extractions{validation !== "all" ? ` with validation “${validation}”` : ""}.</>
+                  )}
+                </EmptyRow>
               ) : (
                 run.extractions.map((x) => (
                   <tr key={x.id}>
@@ -323,7 +339,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
         </TableFrame>
         {run.extractionTotal > run.extractions.length && (
           <p className="mt-2 text-xs text-muted-foreground">
-            Showing the first {run.extractions.length} of {formatCount(run.extractionTotal)}, problems first.
+            Showing the first {run.extractions.length} of {formatCount(run.extractionTotal)}.
           </p>
         )}
       </section>

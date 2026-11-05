@@ -73,7 +73,7 @@ export function CoverageMatrix({
             <tr>
               <th
                 scope="col"
-                className="sticky top-0 left-0 z-30 min-w-36 border-r border-b bg-surface-1 px-3 py-2.5 text-left align-bottom font-mono text-[11px] font-medium tracking-[0.12em] text-subtle-foreground uppercase sm:min-w-52"
+                className="sticky top-0 left-0 z-30 min-w-36 border-r border-b bg-surface-1 px-3 py-2.5 text-left align-bottom font-mono text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase sm:min-w-52"
               >
                 Type
               </th>
@@ -100,7 +100,7 @@ export function CoverageMatrix({
                   <th
                     scope="colgroup"
                     colSpan={columns.length + 1}
-                    className="sticky left-0 border-b bg-card px-3 pt-4 pb-1.5 text-left font-mono text-[11px] font-medium tracking-[0.12em] text-subtle-foreground uppercase"
+                    className="sticky left-0 border-b bg-card px-3 pt-4 pb-1.5 text-left font-mono text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase"
                   >
                     {g.name}
                   </th>
@@ -121,7 +121,7 @@ export function CoverageMatrix({
                         const impls = bySystem.get(c.slug);
                         if (!impls?.length) {
                           return (
-                            <td key={c.slug} className="border-b border-border/60 px-3 py-2 align-top text-subtle-foreground/70">
+                            <td key={c.slug} className="border-b border-border/60 px-3 py-2 align-top text-muted-foreground">
                               <span aria-hidden>–</span>
                               <span className="sr-only">Not found in ATLAS&apos;s index of {c.name}</span>
                             </td>

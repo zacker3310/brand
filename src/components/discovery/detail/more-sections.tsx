@@ -356,15 +356,14 @@ export function ChangesSection({
 }) {
   if (!changes.total) return <p className="text-sm text-muted-foreground">No change events recorded.</p>;
   const href = (p: number) => (p <= 1 ? `/systems/${slug}#changes` : `/systems/${slug}?changes=${p}#changes`);
-  let lastDay = "";
+  const days = changes.rows.map((c) => formatDate(c.occurredAt) ?? "");
   return (
     <div className="space-y-3">
       {changes.rows.length === 0 && <p className="text-sm text-muted-foreground">This page is past the end of the history.</p>}
       <ol className="relative border-l border-border/80 pl-5">
-        {changes.rows.map((c) => {
-          const day = formatDate(c.occurredAt) ?? "";
-          const showDay = day !== lastDay;
-          lastDay = day;
+        {changes.rows.map((c, i) => {
+          const day = days[i]!;
+          const showDay = i === 0 || day !== days[i - 1];
           const noun = c.count === 1 ? (ENTITY_TYPE_LABELS[c.entityType] ?? c.entityType).toLowerCase() : (ENTITY_PLURAL[c.entityType] ?? c.entityType);
           const time = formatDateTime(c.occurredAt)?.split(", ").slice(-1)[0];
           return (

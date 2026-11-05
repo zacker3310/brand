@@ -287,7 +287,8 @@ export async function getRunDetail(id: string, opts: { validation?: string } = {
   `);
   const r = res.rows[0];
   if (!r) return null;
-  const validationFilter = opts.validation ? sql`and validation = ${opts.validation}` : sql``;
+  const validationFilter =
+    opts.validation === "problems" ? sql`and validation <> 'valid'` : opts.validation && opts.validation !== "all" ? sql`and validation = ${opts.validation}` : sql``;
   const [jobs, errors, summary, extractions] = await Promise.all([
     d.execute<Row>(sql`select id, kind, status::text as status, attempts, max_attempts, last_error, created_at, finished_at, run_at, locked_by from ingestion_job where run_id = ${id} order by created_at`),
     d.execute<Row>(sql`select id, stage, severity, code, message, url, resolved_at, created_at, count(*) over() as total from ingestion_error where run_id = ${id} order by severity, created_at limit 200`),

@@ -27,7 +27,7 @@ export type AntdFragment =
   | { t: "pkg"; stamp: Stamp; pkg: PkgInfo; /** peerDependencies names from the version manifest. */ peers: string[] }
   | { t: "license"; stamp: Stamp; copyright: string | null; spdx: string | null }
   | { t: "sitemap"; stamp: Stamp; components: string[]; spec: string[]; trailingSlash: boolean }
-  | { t: "component-doc"; stamp: Stamp; slug: string; dir: string; docsUrl: string | null; order: number; doc: ParsedDoc }
+  | { t: "component-doc"; stamp: Stamp; slug: string; dir: string; docsUrl: string | null; order: number; doc: ParsedDoc; embedded?: Stamp[] }
   | { t: "spec-doc"; stamp: Stamp; slug: string; docsUrl: string; doc: ParsedDoc }
   | { t: "demo"; stamp: Stamp; slug: string; demo: string; title: string | null; code: string | null; anchor: string | null }
   | { t: "token-meta"; stamp: Stamp; meta: TokenMeta }
@@ -61,5 +61,6 @@ export interface AntdDocMeta {
   part?: "default" | "dark";
   key?: string;
   trailingSlash?: boolean;
+  fallbackUrl?: string;
   [k: string]: unknown;
 }

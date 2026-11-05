@@ -35,6 +35,21 @@ export function ariaRefs(raw: string[]): { roles: string[]; patterns: string[] }
 
 const cleanClass = (n: string) => n.replace(/_\d+$/, "");
 
+/**
+ * Drop a leading "A Foo Custom HTML Element." sentence when Foo is not the documented class
+ * (upstream copy-paste, e.g. MenuItem's TSDoc starts "A Switch Custom HTML Element.").
+ */
+export function dropMismatchedLead(summary: string | null, className: string): string | null {
+  if (!summary) return null;
+  const m = /^An?\s+([A-Za-z ]+?)\s+Custom HTML Element\.?\s*/.exec(summary);
+  if (!m) return summary;
+  const said = m[1]!.replace(/\s+/g, "").toLowerCase();
+  const cls = className.toLowerCase();
+  if (cls.includes(said) || said.includes(cls)) return summary;
+  const rest = summary.slice(m[0].length).trim();
+  return rest || summary;
+}
+
 export function normalizeWc(frags: FluentFragment[], opts: { limit?: number } = {}): { components: NormalizedComponent[]; warnings: string[] } {
   const warnings: string[] = [];
   const dts = pick(frags, "wc-dts")[0];
@@ -60,11 +75,12 @@ export function normalizeWc(frags: FluentFragment[], opts: { limit?: number } = 
   for (const el of elements) {
     const slug = tagToSlug.get(el.tagName)!;
     const dir = el.tagName.replace(/^fluent-/, "");
-    const page = byDir.get(dir) ?? null;
+    // Exact story directory, else the longest documented directory the tag extends (drawer-body -> drawer).
+    const page = byDir.get(dir) ?? sortBy([...byDir.values()].filter((p) => dir.startsWith(`${p.dir}-`)), (p) => String(100 - p.dir.length))[0] ?? null;
     const name = cleanClass(el.className);
     const ev: EvidenceInput[] = [evidence(dts.prov, "*", "dts-custom-element", { location: `dist/web-components.d.ts#L${el.line}`, excerpt: `class ${el.className} (${el.chain.join(" > ")}) defines <${el.tagName}>` })];
     const coverage = baseCoverage("not-extracted");
-    const description = leadSentences(el.summary, 280);
+    const description = leadSentences(dropMismatchedLead(el.summary, name), 280);
     coverage.description = description ? "documented" : "not-documented";
     if (description) ev.push(evidence(dts.prov, "description", "dts-tsdoc", { location: `dist/web-components.d.ts#L${el.line}`, excerpt: description }));
 
@@ -129,7 +145,7 @@ export function normalizeWc(frags: FluentFragment[], opts: { limit?: number } = 
     const lifecycle = el.deprecated ? "deprecated" : lifecycleFromVersion(version);
     ev.push(evidence(dts.prov, "lifecycle", "npm-version", { location: `${PKG.webComponents}@${version}`, excerpt: `${PKG.webComponents}@${version}` }));
 
-    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name)), classifyComponentName(dir.replace(/-/g, " "))]);
+    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name)), classifyComponentName(dir.replace(/-/g, " ")), classifyComponentName(name.replace(/(?<=[a-z])list$/i, " list"))]);
     let canonicalType = cls?.slug ?? null;
     let classification: NormalizedComponent["classification"] = cls ? { state: "inferred", method: cls.method, confidence: cls.confidence } : null;
     if (cls && aria.roles.includes(cls.slug)) classification = { state: "verified", method: `${cls.method} + tsdoc-aria-role:${cls.slug}`, confidence: Math.max(cls.confidence, 0.9) };

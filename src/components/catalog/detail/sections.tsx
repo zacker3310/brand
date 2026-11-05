@@ -67,7 +67,7 @@ export function SectionNav({ items }: { items: { id: string; label: string; coun
   // A zero count is not shown as "0": empty sections explain why on the page (not documented vs not extracted).
   return (
     <nav aria-label="On this page" className="text-[13px]">
-      <p className="type-eyebrow mb-2 hidden lg:block">On this page</p>
+      <p className="type-eyebrow text-muted-foreground mb-2 hidden lg:block">On this page</p>
       <ul className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0">
         {items.map((it) => (
           <li key={it.id} className="shrink-0">
@@ -75,12 +75,12 @@ export function SectionNav({ items }: { items: { id: string; label: string; coun
               href={`#${it.id}`}
               className={cn(
                 "flex items-center justify-between gap-3 rounded-md border px-2.5 py-1 whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground lg:border-transparent lg:px-2 lg:py-1.5 lg:hover:bg-accent/60",
-                (it.muted || it.count === 0) && "text-subtle-foreground",
+                (it.muted || it.count === 0) && "text-muted-foreground",
               )}
             >
               {it.label}
               {it.count !== undefined && it.count !== null && it.count > 0 && (
-                <span className="tabular font-mono text-[10.5px] text-subtle-foreground">{formatCount(it.count)}</span>
+                <span className="tabular font-mono text-[10.5px] text-muted-foreground">{formatCount(it.count)}</span>
               )}
             </a>
           </li>
@@ -157,7 +157,7 @@ export function FrameworksList({ frameworks }: { frameworks: ComponentFramework[
         <li key={f.slug} className="rounded-lg border bg-card px-3 py-2.5">
           <div className="flex items-center justify-between gap-2">
             <span className="text-[13px] font-medium">{f.name}</span>
-            <span className="font-mono text-[10px] text-subtle-foreground uppercase">{f.kind === "design" ? "Design asset" : f.kind}</span>
+            <span className="font-mono text-[10px] text-muted-foreground uppercase">{f.kind === "design" ? "Design asset" : f.kind}</span>
           </div>
           <dl className="mt-1 space-y-0.5 text-xs text-muted-foreground">
             {f.packageName && (
@@ -200,7 +200,7 @@ export function VariantsBlock({ variants }: { variants: ComponentVariantRow[] })
               {list.map((v) => (
                 <div key={v.name} className="grid gap-1 px-3 py-2.5 sm:grid-cols-[12rem_minmax(0,1fr)] sm:gap-4">
                   <dt className="font-mono text-[12.5px]">{v.name}</dt>
-                  <dd className="text-[13px] text-foreground/85">{v.description ?? <span className="text-subtle-foreground italic">no description stated</span>}</dd>
+                  <dd className="text-[13px] text-foreground/85">{v.description ?? <span className="text-muted-foreground italic">no description stated</span>}</dd>
                 </div>
               ))}
             </dl>
@@ -239,7 +239,7 @@ export function StatesTable({ states }: { states: ComponentStateRow[] }) {
       <table className="w-full text-[13px]">
         <caption className="sr-only">Documented states and their ATLAS canonical state</caption>
         <thead className="border-b bg-surface-1 text-left">
-          <tr className="font-mono text-[11px] tracking-[0.1em] text-subtle-foreground uppercase">
+          <tr className="font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
             <th scope="col" className="px-3 py-2 font-medium">
               System name
             </th>
@@ -266,7 +266,7 @@ export function StatesTable({ states }: { states: ComponentStateRow[] }) {
                   </span>
                 )}
               </td>
-              <td className="px-3 py-2 text-foreground/85">{s.description ?? <span className="text-subtle-foreground italic">no description stated</span>}</td>
+              <td className="px-3 py-2 text-foreground/85">{s.description ?? <span className="text-muted-foreground italic">no description stated</span>}</td>
             </tr>
           ))}
         </tbody>
@@ -380,7 +380,7 @@ export function AccessibilityBlock({
             <table className="w-full text-[13px]">
               <caption className="sr-only">Documented keyboard interactions</caption>
               <thead className="border-b bg-surface-1 text-left">
-                <tr className="font-mono text-[11px] tracking-[0.1em] text-subtle-foreground uppercase">
+                <tr className="font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
                   <th scope="col" className="w-56 px-3 py-2 font-medium">
                     Keys
                   </th>
@@ -460,14 +460,14 @@ export function RelationshipsBlock({ rels, systemSlug }: { rels: ComponentRelati
                     {i > 0 && <span aria-hidden className="text-subtle-foreground">{" · "}</span>}
                     {r.target ? (
                       <span className="inline-flex items-center gap-1.5">
-                        <Link href={componentHref(r.target.systemSlug, r.target.slug)} className="hover:underline hover:underline-offset-4">
+                        <Link href={componentHref(r.target.systemSlug, r.target.slug)} className="underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground">
                           {r.target.name}
                         </Link>
                         {r.target.systemSlug !== systemSlug && <span className="text-xs text-muted-foreground">({r.target.systemName})</span>}
                         <LifecycleBadge lifecycle={r.target.lifecycle} dense />
                       </span>
                     ) : r.targetType ? (
-                      <Link href={componentTypeHref(r.targetType.slug)} className="hover:underline hover:underline-offset-4">
+                      <Link href={componentTypeHref(r.targetType.slug)} className="underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground">
                         {r.targetType.name} <span className="text-xs text-muted-foreground">(canonical type)</span>
                       </Link>
                     ) : (
@@ -544,7 +544,7 @@ function LinkList({ items }: { items: ComponentExampleRow[] }) {
       {items.map((e) => (
         <li key={e.slug} className="flex items-center justify-between gap-3 px-3 py-2">
           {e.url ? <SourceLink href={e.url}>{e.title}</SourceLink> : <span>{e.title}</span>}
-          <span className="hidden font-mono text-[10.5px] text-subtle-foreground sm:inline">{hostname(e.url)}</span>
+          <span className="hidden font-mono text-[10.5px] text-muted-foreground sm:inline">{hostname(e.url)}</span>
         </li>
       ))}
     </ul>

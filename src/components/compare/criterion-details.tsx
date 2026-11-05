@@ -17,11 +17,13 @@ function InputRow({ i }: { i: RubricInput }) {
         {informational ? "info" : `w ${i.weight}`}
         {!informational && known && ` · ${Math.round((i.value as number) * 100)}%`}
       </span>
-      <span className={cn("col-span-2 text-xs leading-snug", known || informational ? "text-muted-foreground" : "text-unavailable")}>
+      <span className={cn("col-span-2 text-xs leading-snug break-words", known || informational ? "text-muted-foreground" : "text-unavailable")}>
         {i.display}
         {!known && !informational && <span className="ml-1 rounded border border-dashed border-unavailable/50 px-1 text-[10px]">unknown · excluded from score</span>}
         {known && !informational && i.coverage < 1 && (
-          <span className="ml-1 rounded border border-inferred/30 bg-inferred-soft px-1 text-[10px] text-inferred">weak evidence ({Math.round(i.coverage * 100)}%)</span>
+          <span className="ml-1 rounded border border-inferred/30 bg-inferred-soft px-1 text-[10px] text-inferred">
+            {i.value === 0 ? "not found; weak evidence" : `observed for ${Math.round(i.coverage * 100)}%`}
+          </span>
         )}
       </span>
       {i.note && <span className="col-span-2 text-[11px] leading-snug text-subtle-foreground">{i.note}</span>}
@@ -61,12 +63,12 @@ export function CriterionDetails({ criterion, systems }: { criterion: CriterionI
           <p className="text-subtle-foreground">{CONFIDENCE_NOTE}</p>
         </div>
       </details>
-      <ul className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
         {systems.map((s) => {
           const r = s.results.find((x) => x.criterion === criterion);
           if (!r) return null;
           return (
-            <li key={s.slug} id={`${criterion}-${s.slug}`} className="scroll-mt-20 rounded-lg border bg-card target:ring-2 target:ring-ring/50">
+            <li key={s.slug} id={`${criterion}-${s.slug}`} className="min-w-0 scroll-mt-20 rounded-lg border bg-card target:ring-2 target:ring-ring/50">
               <div className="space-y-2 border-b px-3 py-3">
                 <div className="flex items-center justify-between gap-3">
                   <span className="flex min-w-0 items-center gap-2">
@@ -79,7 +81,7 @@ export function CriterionDetails({ criterion, systems }: { criterion: CriterionI
                 <ConfidenceLine r={r} />
               </div>
               <div className="space-y-2 px-3 py-3">
-                <p className="text-[13px] leading-relaxed text-foreground/90">{r.explanation}</p>
+                <p className="text-[13px] leading-relaxed break-words text-foreground/90">{r.explanation}</p>
                 {r.caps.length > 0 && (
                   <ul className="space-y-1">
                     {r.caps.map((c) => (

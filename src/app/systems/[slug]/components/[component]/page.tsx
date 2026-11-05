@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CATALOG_SCOPE } from "@/components/catalog/lib/scope";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRightIcon, ArchiveIcon, BookOpenIcon, CodeIcon, PenToolIcon, PanelsTopLeftIcon } from "lucide-react";
@@ -94,7 +95,7 @@ export default async function ComponentDetailPage({ params, searchParams }: Prop
   ];
 
   return (
-    <PageContainer>
+    <PageContainer className={CATALOG_SCOPE}>
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>

@@ -1,0 +1,35 @@
+@use "warnings--internal";
+
+////
+/// @group settings/colours
+////
+
+/// Organisation colour palette
+///
+/// @type Map
+///
+/// @prop $organisation.colour - Colour for the given `$organisation`
+/// @prop $organisation.contrast-safe - 'Contrast safe' colour for the given
+///   `$organisation`. This colour has at least a 4.5:1 contrast against
+///   white, to be used for copy and meet the AAA (large text) and AA (smaller
+///   copy) WCAG guidelines.
+/// @prop $organisation.deprecation-message - Marks this organisation as
+///   deprecated (usually because it has ceased to exist). The value is the
+///   deprecation message output to the terminal when compiling Sass.
+///
+/// @access public
+
+$govuk-colours-organisations: (
+  "attorney-generals-office": (
+    colour: #a91c8e
+  ),
+  "cabinet-office": (
+    colour: #0056b8
+  ),
+  "department-for-business-trade": (
+    colour: #e52d13,
+    contrast-safe: #e02c13,
+    deprecation-message:
+      "`department-for-business-trade` was renamed to `department-for-business-innovation-science-trade` in July 2026."
+  )
+) !default;

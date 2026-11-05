@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CATALOG_SCOPE } from "@/components/catalog/lib/scope";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRightIcon, Grid3x3Icon, ShapesIcon } from "lucide-react";
@@ -53,7 +54,7 @@ export default async function ComponentTypePage({ params }: Props) {
   const unindexed = Math.max(0, type.systemsPublished - type.systemsWithComponents);
 
   return (
-    <PageContainer>
+    <PageContainer className={CATALOG_SCOPE}>
       <Breadcrumb className="mb-6">
         <BreadcrumbList>
           <BreadcrumbItem>
@@ -76,10 +77,10 @@ export default async function ComponentTypePage({ params }: Props) {
 
       <header className="grid gap-8 border-b border-border/70 pb-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-12">
         <div className="min-w-0 space-y-4">
-          <p className="type-eyebrow">Canonical type · {type.group.name}</p>
+          <p className="type-eyebrow text-muted-foreground">Canonical type · {type.group.name}</p>
           <h1 className="type-display text-5xl sm:text-6xl">{type.name}</h1>
           <div className="max-w-2xl space-y-1.5">
-            <p className="font-mono text-[11px] tracking-[0.12em] text-subtle-foreground uppercase">ATLAS definition</p>
+            <p className="font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase">ATLAS definition</p>
             <p className="text-lg leading-relaxed text-foreground/90">{type.description}</p>
             <p className="text-xs text-muted-foreground">
               Written by ATLAS as a cross-system reference. System documentation may define its own component differently.
@@ -108,13 +109,13 @@ export default async function ComponentTypePage({ params }: Props) {
           )}
           {type.implementations.length > 0 && (
             <div className="max-w-2xl space-y-1.5 pt-3">
-              <p className="font-mono text-[11px] tracking-[0.12em] text-subtle-foreground uppercase">Called, in indexed systems</p>
+              <p className="font-mono text-[11px] tracking-[0.12em] text-muted-foreground uppercase">Called, in indexed systems</p>
               <p className="text-[15px] leading-7 text-pretty">
                 {type.implementations.map((i, idx) => (
                   <span key={i.id}>
                     {idx > 0 && <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>}
                     <span className="whitespace-nowrap">
-                      <Link href={componentHref(i.systemSlug, i.slug)} className={cn("hover:underline hover:underline-offset-4", i.lifecycle === "deprecated" && "text-muted-foreground line-through")}>
+                      <Link href={componentHref(i.systemSlug, i.slug)} className={cn("underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground", i.lifecycle === "deprecated" && "text-muted-foreground line-through")}>
                         {i.name}
                       </Link>{" "}
                       <span className="text-muted-foreground">({i.systemName})</span>
@@ -128,7 +129,7 @@ export default async function ComponentTypePage({ params }: Props) {
 
         <dl className="grid content-start gap-5 text-sm lg:border-l lg:border-border/70 lg:pl-8">
           <div className="space-y-1">
-            <dt className="type-eyebrow">Indexed implementations</dt>
+            <dt className="type-eyebrow text-muted-foreground">Indexed implementations</dt>
             <dd>
               <span className="tabular text-3xl font-semibold tracking-tight">{systemsImplementing.size}</span>
               <span className="text-muted-foreground"> of {plural(type.systemsWithComponents, "system")} with component data</span>
@@ -139,7 +140,7 @@ export default async function ComponentTypePage({ params }: Props) {
             </dd>
           </div>
           <div className="space-y-1.5">
-            <dt className="type-eyebrow">Interaction pattern</dt>
+            <dt className="type-eyebrow text-muted-foreground">Interaction pattern</dt>
             <dd>
               {aria ? (
                 <div className="space-y-0.5">
@@ -156,18 +157,18 @@ export default async function ComponentTypePage({ params }: Props) {
             </dd>
           </div>
           <div className="space-y-1.5">
-            <dt className="type-eyebrow">Also known as</dt>
+            <dt className="type-eyebrow text-muted-foreground">Also known as</dt>
             <dd className="flex flex-wrap gap-1.5">
               {type.aliases.length ? (
                 type.aliases.map((a) => <Chip key={a}>{a}</Chip>)
               ) : (
                 <span className="text-muted-foreground">No aliases recorded</span>
               )}
+              <p className="w-full text-xs text-muted-foreground">Names ATLAS treats as this type when classifying.</p>
             </dd>
-            <p className="text-xs text-muted-foreground">Names ATLAS treats as this type when classifying.</p>
           </div>
           <div className="space-y-1.5">
-            <dt className="type-eyebrow">Near-synonyms</dt>
+            <dt className="type-eyebrow text-muted-foreground">Near-synonyms</dt>
             <dd className="flex flex-wrap gap-1.5">
               {type.nearSynonyms.length ? (
                 type.nearSynonyms.map((n) => {
@@ -181,10 +182,10 @@ export default async function ComponentTypePage({ params }: Props) {
               ) : (
                 <span className="text-muted-foreground">None recorded</span>
               )}
+              {type.nearSynonyms.length > 0 && (
+                <p className="w-full text-xs text-muted-foreground">Related but not interchangeable: often confused with {type.name}, but a different component.</p>
+              )}
             </dd>
-            {type.nearSynonyms.length > 0 && (
-              <p className="text-xs text-muted-foreground">Related but not interchangeable: often confused with {type.name}, but a different component.</p>
-            )}
           </div>
         </dl>
       </header>

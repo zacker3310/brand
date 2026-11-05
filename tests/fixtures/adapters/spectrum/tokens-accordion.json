@@ -1,0 +1,36 @@
+{
+  "accordion-bottom-to-text-extra-large": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/scale-set.json",
+    "component": "accordion",
+    "uuid": "3f045028-2598-426a-91bd-443549a4c5f1",
+    "deprecated": true,
+    "deprecated_comment": "Use semantic token base-padding-vertical-2x-large instead. Major refactor necessary",
+    "sets": {
+      "desktop": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/dimension.json",
+        "value": "12px",
+        "uuid": "47f2bc45-5fa5-439a-a705-ef965c6ea010"
+      },
+      "mobile": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/dimension.json",
+        "value": "15px",
+        "uuid": "5ce86cfe-434b-42ab-b334-c574bae01e6f"
+      }
+    },
+    "renamed": "base-padding-vertical-2x-large"
+  },
+  "accordion-bottom-to-text-regular-extra-large": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/alias.json",
+    "component": "accordion",
+    "value": "{accordion-bottom-to-text-extra-large}",
+    "uuid": "8c199212-a745-414c-8f6b-22d2445ade3c",
+    "deprecated": true
+  },
+  "accordion-disclosure-indicator-to-text": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/dimension.json",
+    "component": "accordion",
+    "value": "0px",
+    "uuid": "27b481a4-0ea9-4e1c-a283-4a799d18d642",
+    "deprecated": true
+  }
+}

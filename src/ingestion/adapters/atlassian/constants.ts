@@ -108,6 +108,7 @@ export const VARIANT_AXIS_PROPS: Record<string, string> = {
   shape: "shape",
   emphasis: "emphasis",
   tone: "tone",
+  color: "color",
 };
 
 /** Boolean props that correspond directly to a component state (prop -> canonical state). */
@@ -157,6 +158,12 @@ export const CLASSIFICATION_OVERRIDES: Record<string, { slug: string | null; rea
   Bleed: { slug: null, reason: "negative-margin layout utility; no taxonomy type" },
   Inline: { slug: "stack", reason: "horizontal stack primitive" },
   Page: { slug: "grid", reason: "Atlassian Page provides the page grid layout" },
+  "Date label": { slug: null, reason: "date display lozenge; the 'label' alias match to form label is wrong" },
+  "Date time picker": { slug: "date-picker", reason: "DateTimePicker selects a date and a time; the name match picks time-picker only" },
+  "Inline edit": { slug: null, reason: "view/edit toggle for a field; the 'inline' alias match to stack is wrong" },
+  "Table tree": { slug: "tree", reason: "table with expandable hierarchical rows" },
+  "Filter button": { slug: "button", reason: "button that opens filter options" },
+  "Atlassian navigation": { slug: "navigation-bar", reason: "horizontal top navigation of Atlassian apps" },
 };
 
 /** Patterns classification skips (alias match known wrong for the Atlassian page). */

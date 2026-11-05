@@ -221,7 +221,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     const lifecycle = comp?.deprecated ? "deprecated" : lifecycleFromVersion(version, { preview: p.page.section === "Preview Components" });
     if (version) ev.push(evidence(dts!.prov, "lifecycle", "npm-version", { location: `${p.page.pkg}@${version}`, excerpt: `${p.page.pkg}@${version}${p.page.section !== "Components" ? ` (Storybook section "${p.page.section}")` : ""}` }));
 
-    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name)), classifyComponentName(p.page.leaf)]);
+    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name)), classifyComponentName(p.page.leaf), classifyComponentName(name.replace(/(?<=[a-z])list$/i, " list"))]);
     components.push({
       slug,
       name,

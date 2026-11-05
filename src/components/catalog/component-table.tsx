@@ -22,7 +22,7 @@ export function ComponentTable({ rows, systems }: { rows: CatalogComponentRow[];
         <table className="w-full text-[13px]">
           <caption className="sr-only">Published components matching the current filters</caption>
           <thead className="border-b bg-surface-1 text-left">
-            <tr className="font-mono text-[11px] tracking-[0.1em] text-subtle-foreground uppercase">
+            <tr className="font-mono text-[11px] tracking-[0.1em] text-muted-foreground uppercase">
               <th scope="col" className="px-3 py-2.5 font-medium">
                 Component
               </th>
@@ -59,7 +59,7 @@ export function ComponentTable({ rows, systems }: { rows: CatalogComponentRow[];
                   {r.description ? (
                     <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{r.description}</p>
                   ) : (
-                    <p className="mt-0.5 font-mono text-[11px] text-subtle-foreground">{r.slug}</p>
+                    <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{r.slug}</p>
                   )}
                 </td>
                 <td className="px-3 py-2.5 align-top whitespace-nowrap">

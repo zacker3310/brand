@@ -1,0 +1,12 @@
+{
+  "accent-color-100": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/alias.json",
+    "value": "{blue-100}",
+    "uuid": "2e080bb5-6f2c-4fd9-96a2-bf9fc19d2649"
+  },
+  "accent-color-900": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/alias.json",
+    "value": "{blue-900}",
+    "uuid": "90d82778-1cbb-47c0-aab9-b6e38a9cdc54"
+  }
+}

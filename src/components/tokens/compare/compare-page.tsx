@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { InfoIcon, RulerIcon } from "lucide-react";
 import { EmptyState, PageContainer, PageHeader, SystemMark } from "@/components/atlas";
-import { compareScales, extractScale, SCALE_COMPARISON_NOTE } from "@/lib/tokens/compare";
+import { compareScales, extractScale } from "@/lib/tokens/compare";
 import { cn, formatCount } from "@/lib/utils";
 import { getScaleTokens, getSystemsBySlugs, listTokenSystems } from "@/server/queries/tokens";
 import { buildScaleComparison, COMPARE_CATEGORIES, formatScaleValue, type CompareCategory, type ScaleComparisonView } from "../lib/scales";
@@ -70,7 +70,9 @@ export async function ComparePage({ raw }: { raw: Raw }) {
         <InfoIcon className="mt-0.5 size-4 shrink-0 text-info" aria-hidden />
         <div className="space-y-0.5">
           <p className="font-medium">Aligned by value, not by meaning; ATLAS does not imply semantic equivalence.</p>
-          <p className="text-muted-foreground">{SCALE_COMPARISON_NOTE} rem and em are converted at a 16px root.</p>
+          <p className="text-muted-foreground">
+            Token names are not compared: a shared row only means each system defines a token with that numeric value. rem and em are converted at a 16px root.
+          </p>
         </div>
       </div>
 
@@ -144,7 +146,7 @@ export async function ComparePage({ raw }: { raw: Raw }) {
       ) : (
         <div className="mt-8 space-y-14">
           {views.map((v) => (
-            <ScaleSection key={v.key} v={v} systems={systems} tokenCounts={tokenCounts} tiers={p.tiers} />
+            <ScaleSection key={v.key} v={v} systems={systems} tokenCounts={tokenCounts} tiers={p.tiers} categoryNoun={p.category} />
           ))}
         </div>
       )}
@@ -152,7 +154,19 @@ export async function ComparePage({ raw }: { raw: Raw }) {
   );
 }
 
-function ScaleSection({ v, systems, tokenCounts, tiers }: { v: ScaleComparisonView; systems: { slug: string; name: string }[]; tokenCounts: number[]; tiers: boolean }) {
+function ScaleSection({
+  v,
+  systems,
+  tokenCounts,
+  tiers,
+  categoryNoun,
+}: {
+  v: ScaleComparisonView;
+  systems: { slug: string; name: string }[];
+  tokenCounts: number[];
+  tiers: boolean;
+  categoryNoun: string;
+}) {
   const total = v.perSystem.reduce((a, s) => a + s.steps.length, 0);
   const maxPx = Math.max(0, ...v.rows.filter((r) => r.unit === "px").map((r) => Math.abs(r.value)));
   const id = `scale-${v.key}`;
@@ -179,7 +193,7 @@ function ScaleSection({ v, systems, tokenCounts, tiers }: { v: ScaleComparisonVi
                   </p>
                 ) : (
                   <p className="text-muted-foreground">
-                    None among {formatCount(tokenCounts[i] ?? 0)} indexed tokens{tiers ? "" : " (component tier excluded)"}. Not evidence the system has none.
+                    None of its {formatCount(tokenCounts[i] ?? 0)} indexed {categoryNoun} tokens{tiers ? "" : " (component tier excluded)"} is a numeric {v.label.toLowerCase()} value. Not evidence the system has none.
                   </p>
                 )}
                 {ov && ps.steps.length > 0 && (

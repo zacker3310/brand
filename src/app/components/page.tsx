@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CATALOG_SCOPE } from "@/components/catalog/lib/scope";
 import Link from "next/link";
 import { SearchXIcon } from "lucide-react";
 import { EmptyState, PageContainer, PageHeader } from "@/components/atlas";
@@ -60,9 +61,9 @@ export default async function ComponentsCatalogPage({ searchParams }: Props) {
     params.view === "components" ? facets.matching === 0 : types ? types.typesShown + types.emptyShown + types.unclassified.length === 0 : true;
 
   return (
-    <PageContainer>
+    <PageContainer className={CATALOG_SCOPE}>
       <PageHeader
-        eyebrow="Universal component catalog"
+        eyebrow={<span className="text-muted-foreground">Universal component catalog</span>}
         title="Components"
         display
         description={
@@ -74,7 +75,7 @@ export default async function ComponentsCatalogPage({ searchParams }: Props) {
           </>
         }
       >
-        <p className="text-xs text-subtle-foreground">
+        <p className="text-xs text-muted-foreground">
           Component-level data exists for {facets.systemsWithComponents} of {facets.systemsPublished} verified systems so far. The rest are
           registry entries only, so absence here is never evidence that a system lacks a component.{" "}
           <Link href="/systems" className="link-underline text-muted-foreground">

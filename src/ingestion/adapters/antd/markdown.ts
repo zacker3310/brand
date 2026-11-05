@@ -143,6 +143,8 @@ export interface MdTable {
   headings: { depth: number; text: string }[];
   /** 1-based line of the table start in the original file. */
   line: number;
+  /** Repository file the table came from when it was merged from an <embed src> include. */
+  file?: string;
 }
 
 /* --------------------------------- document --------------------------------- */
@@ -182,6 +184,8 @@ export interface ParsedDoc {
   mentionsDeprecated: boolean;
   /** Packages named in install instructions ("npm install @ant-design/icons"). */
   installs: string[];
+  /** <embed src="./shared/x.md"></embed> includes with their enclosing headings. */
+  embeds: { src: string; headings: { depth: number; text: string }[]; line: number }[];
 }
 
 const A11Y_RE = /\b(accessib\w*|screen[- ]readers?|aria-[a-z]+|a11y|wai-aria|assistive technolog\w+|keyboard (?:navigation|users?|focus|interaction|operation)s?|focus (?:trap|management|order|ring))\b/i;
@@ -204,6 +208,7 @@ export function parseDoc(text: string): ParsedDoc {
   const tables: MdTable[] = [];
   const stack: { depth: number; text: string }[] = [];
   const sectionText: Record<string, string> = {};
+  const embeds: ParsedDoc["embeds"] = [];
   const a11y: string[] = [];
   let lead: string | null = null;
   let h1: string | null = null;
@@ -229,6 +234,10 @@ export function parseDoc(text: string): ParsedDoc {
         currentH2 = ht;
         sawH2 = true;
       }
+      continue;
+    }
+    if (node.type === "html") {
+      for (const m of node.value.matchAll(/<embed\s+[^>]*src=["']([^"']+\.md)["']/g)) embeds.push({ src: m[1]!, headings: stack.map((x) => ({ ...x })), line: lineOf(node) });
       continue;
     }
     if (node.type === "table") {
@@ -294,6 +303,7 @@ export function parseDoc(text: string): ParsedDoc {
     a11yNotes: a11y,
     mentionsResponsive: /\bresponsive\b|\bbreakpoints?\b/i.test(plain),
     mentionsDeprecated: /\bdeprecated\b/i.test(plain),
+    embeds,
     installs: [...new Set([...body.matchAll(/\b(?:npm (?:install|i)|yarn add|pnpm (?:add|install)|bun add)\s+(?:--save\s+)?((?:@[a-z0-9-]+\/)?[a-z0-9][a-z0-9.-]*)/g)].map((m) => m[1]!))],
   };
 }

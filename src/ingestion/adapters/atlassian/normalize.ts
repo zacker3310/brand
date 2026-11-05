@@ -353,9 +353,12 @@ const KEY_PATTERNS: [RegExp, string][] = [
   [/\b(?:up|down) arrow(?: key)?\b/i, "ArrowUp / ArrowDown"],
   [/\barrow keys?\b/i, "Arrow keys"],
   [/\btab key\b|\bpress(?:ing|es)? (?:the )?tab\b|\b(?:use|using) (?:the )?tab\b|\btab(?:bing)? (?:to|through|into|out of)\b/i, "Tab"],
+  [/\btab press(?:es)?\b/i, "Tab"],
   [/\benter key\b|\bpress(?:ing|es)? enter\b|\benter or space\b|\bspace or enter\b|\benter\/space\b/i, "Enter"],
   [/\bspace ?bar\b|\bspace key\b|\bpress(?:ing|es)? space\b|\benter or space\b|\bspace or enter\b/i, "Space"],
-  [/\b(?:esc|escape) key\b|\bpress(?:ing|es)? (?:esc|escape)\b|\bESC\b|\bEscape\b/, "Escape"],
+  [/\b(?:esc|escape) key\b|\bpress(?:ing|es)? (?:the )?(?:esc|escape)\b|\bESC\b|\bEscape\b/i, "Escape"],
+  [/\bdelete key\b|\bpress(?:ing|es)? delete\b|\bbackspace\b/i, "Delete"],
+  [/\bctrl\s*\+\s*([a-z])\b/i, "Ctrl+A"],
   [/\bhome (?:and end )?keys?\b|\bhome and end\b/i, "Home / End"],
   [/\bpage up\b|\bpage down\b/i, "PageUp / PageDown"],
 ];
@@ -450,8 +453,12 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   const llmsEntry: LlmsComponentEntry | null = pkg && a.llms ? (a.llms.entries.find((x) => x.packageName === pkg && normKey(x.exportName) === normKey(name)) ?? null) : null;
   // Package-level status: every export of the package listed with the same status (main docs page of the package only).
   const pkgEntries = pkg && a.llms && !llmsEntry && entry.path === `/components/${pkg.replace(/^@atlaskit\//, "")}` ? a.llms.entries.filter((x) => x.packageName === pkg) : [];
+  // (isPackageMain is computed below; the same path test is inlined here because llms runs first)
   const pkgStatus = pkgEntries.length && pkgEntries.every((x) => x.status && x.status === pkgEntries[0]!.status) ? pkgEntries[0]!.status : null;
-  const subPage = npm?.info?.website?.subPages.find((sp) => normKey(sp.title) === normKey(name) || sp.id === entry.path.split("/").pop());
+  const segs = entry.path.split("/").filter(Boolean);
+  const isPackageMain = !!pkg && entry.path === `/components/${pkg.replace(/^@atlaskit\//, "")}`;
+  const subPage = segs.length === 3 && npm?.info?.website?.subPages.find((sp) => sp.id === segs[2]) || null;
+  const pkgWebsiteStatus = isPackageMain ? (npm?.info?.website?.status ?? null) : null;
   if (phaseNote) {
     lifecycle = lifecycleFrom(phaseNote.n.heading)!;
     evidence.push(ev(phaseNote.p.stamp, "lifecycle", METHOD.docsHtml, { location: "#main-content section (status message)", excerpt: `${phaseNote.n.heading}: ${phaseNote.n.text}`, confidence: 0.95 }));
@@ -464,6 +471,9 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   } else if (lifecycleFrom(subPage?.status ?? null)) {
     lifecycle = lifecycleFrom(subPage!.status)!;
     evidence.push(ev(npm!.stamp, "lifecycle", METHOD.npm, { url: npmPageUrl(npm!.packageName, npm!.info!.version), location: "atlassian.website.subPages[].status", excerpt: `${subPage!.title}: ${subPage!.status}${subPage!.statusDescription ? ` (${subPage!.statusDescription})` : ""}`, confidence: 0.85 }));
+  } else if (lifecycleFrom(pkgWebsiteStatus)) {
+    lifecycle = lifecycleFrom(pkgWebsiteStatus)!;
+    evidence.push(ev(npm!.stamp, "lifecycle", METHOD.npm, { url: npmPageUrl(npm!.packageName, npm!.info!.version), location: "atlassian.website.status", excerpt: `${npm!.packageName} website status: ${pkgWebsiteStatus}${npm!.info!.website?.statusDescription ? ` (${npm!.info!.website.statusDescription})` : ""}`, confidence: 0.85 }));
   } else if (lifecycleFrom(llmsEntry?.status ?? null)) {
     lifecycle = lifecycleFrom(llmsEntry!.status)!;
     evidence.push(ev(a.llms!.stamp, "lifecycle", METHOD.llms, { location: `line ${llmsEntry!.line}`, excerpt: `${llmsEntry!.packageName} ${llmsEntry!.exportName}: Status ${llmsEntry!.status}`, confidence: 0.85 }));

@@ -79,7 +79,7 @@ export function TypeGroups({
                           <span className="whitespace-nowrap">
                             <Link
                               href={componentHref(i.systemSlug, i.slug)}
-                              className={cn("text-foreground/90 hover:text-foreground hover:underline hover:underline-offset-4", i.lifecycle === "deprecated" && "text-muted-foreground line-through decoration-muted-foreground/50")}
+                              className={cn("text-foreground/90 hover:text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground", i.lifecycle === "deprecated" && "text-muted-foreground line-through")}
                             >
                               {i.name}
                             </Link>{" "}
@@ -91,7 +91,7 @@ export function TypeGroups({
                       {more > 0 && (
                         <>
                           <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
-                          <Link href={componentTypeHref(t.slug)} className="whitespace-nowrap text-muted-foreground hover:text-foreground">
+                          <Link href={componentTypeHref(t.slug)} className="whitespace-nowrap text-muted-foreground hover:text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground">
                             +{more} more
                           </Link>
                         </>
@@ -111,7 +111,7 @@ export function TypeGroups({
           {g.empty.length > 0 && (
             <p className="pt-2.5 text-xs leading-relaxed text-muted-foreground">
               <span className="font-medium text-foreground/80">Not found in ATLAS&apos;s index</span>
-              {filtered && <span className="text-subtle-foreground"> under the current filters</span>}:{" "}
+              {filtered && <span className="text-muted-foreground"> under the current filters</span>}:{" "}
               {g.empty.map((e, i) => (
                 <Fragment key={e.slug}>
                   {i > 0 && ", "}
@@ -141,7 +141,7 @@ export function TypeGroups({
                   <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
                 )}
                 <span className="whitespace-nowrap">
-                  <Link href={componentHref(u.systemSlug, u.slug)} className="hover:underline hover:underline-offset-4">
+                  <Link href={componentHref(u.systemSlug, u.slug)} className="underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground">
                     {u.name}
                   </Link>{" "}
                   <span className="text-muted-foreground">({systems.get(u.systemSlug)?.shortName ?? u.systemName})</span>

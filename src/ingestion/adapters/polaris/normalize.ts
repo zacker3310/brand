@@ -98,7 +98,7 @@ function statesFromProps(props: NormalizedProperty[], sourceUrl: string | null):
   const seen = new Set<string>();
   for (const p of props) {
     const state = STATE_PROPS[p.name];
-    if (!state || seen.has(state)) continue;
+    if (!state || seen.has(state) || p.type === "event" || p.type === "slot") continue;
     const isBool = /^(boolean|true|false)(\s*\|\s*(null|undefined))*$/.test((p.type ?? "").trim()) || /\bboolean\b/.test(p.type ?? "");
     if (!isBool && p.name !== "error") continue;
     seen.add(state);
@@ -112,7 +112,8 @@ function sizesFromProps(props: NormalizedProperty[]): string[] {
   return p ? [...p.allowedValues!] : [];
 }
 
-const A11Y_RE = /\b(accessib\w*|screen readers?|assistive technolog\w*|keyboard|focus(?:ed|able)?|aria-[a-z]+|tab order)\b/i;
+const A11Y_RE =
+  /\b(accessibility\w*|accessible (?:name|label)s?|screen readers?|assistive technolog\w*|keyboard|focusable|(?:receive|move|moves|keep|trap|return)s? focus|focus (?:state|ring|order|indicator|management)|aria-[a-z]+|tab order|alt text|alternative text)\b/i;
 
 function dedupeExamples(ex: NormalizedComponent["examples"]): NormalizedComponent["examples"] {
   const seen = new Set<string>();
@@ -455,7 +456,7 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       lifecycle = "deprecated";
       push(m.stamp, "lifecycle", METHOD.mdx, { location: `${mdxLoc}#frontmatter.status`, excerpt: `status: ${doc.status}` });
     }
-    if (r.readme?.archived && r.readme.statement) push(r.readme.stamp, "lifecycle", METHOD.mdx, { location: "README.md", excerpt: r.readme.statement, confidence: 0.9 });
+    if (r.readme?.archived && r.readme.statement) push(r.readme.stamp, "lifecycle", METHOD.readme, { location: "README.md", excerpt: r.readme.statement, confidence: 0.9 });
 
     // frameworks
     const frameworks: NormalizedComponent["frameworks"] = [];
@@ -671,7 +672,7 @@ function buildFacts(o: { typesNpm: NpmInfo | null; overview: Frag<"system-page">
       facts.philosophy =
         "ATLAS summary: Polaris is Shopify's unified UI framework for apps on every Shopify surface (App Home, admin, checkout, customer accounts, POS), delivered as framework-agnostic web components so apps look and behave like native Shopify; the earlier Polaris React library is archived.";
       ev.push(evidence(o.overview.stamp, "philosophy", METHOD.devMd, { location: "Polaris references", excerpt: statement }));
-      if (o.readme?.statement) ev.push(evidence(o.readme.stamp, "philosophy", METHOD.mdx, { location: "README.md", excerpt: o.readme.statement, confidence: 0.85 }));
+      if (o.readme?.statement) ev.push(evidence(o.readme.stamp, "philosophy", METHOD.readme, { location: "README.md", excerpt: o.readme.statement, confidence: 0.85 }));
     }
   }
   return ev.length ? facts : null;

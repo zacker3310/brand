@@ -38,7 +38,7 @@ export function FacetControl({
         name={name}
         value={option.value}
         defaultChecked={option.selected}
-        className="peer sr-only"
+        className="peer absolute inset-0 z-10 size-full cursor-pointer appearance-none rounded-md opacity-0"
       />
       <span
         aria-hidden
@@ -85,7 +85,7 @@ export function FacetGroup({
   options.forEach((o, i) => (i < visible || o.selected ? head : tail).push(o));
   return (
     <fieldset className="min-w-0 space-y-1">
-      <legend className="mb-1.5 px-2 font-mono text-[11px] font-medium tracking-[0.12em] text-subtle-foreground uppercase">{legend}</legend>
+      <legend className="mb-1.5 px-2 font-mono text-[11px] font-medium tracking-[0.12em] text-muted-foreground uppercase">{legend}</legend>
       {description && <p className="px-2 pb-1 text-[11px] leading-snug text-muted-foreground">{description}</p>}
       <div className="space-y-px">
         {head.map((o) => (

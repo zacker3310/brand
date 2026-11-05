@@ -32,7 +32,7 @@ function ValueCell({ row }: { row: TokenUsageRow }) {
     <ul className="space-y-0.5">
       {shown.map((e, i) => (
         <li key={`${e.label ?? ""}-${i}`} className="flex min-w-0 items-center gap-1.5">
-          {e.label && <span className="w-24 shrink-0 truncate font-mono text-[10px] text-subtle-foreground" title={e.label}>{e.label}</span>}
+          {e.label && <span className="w-24 shrink-0 truncate font-mono text-[10px] text-muted-foreground" title={e.label}>{e.label}</span>}
           {row.category === "color" && <Swatch value={e.value} />}
           {e.text ? (
             <code className="min-w-0 truncate font-mono text-[11.5px] text-foreground/85" title={e.text}>

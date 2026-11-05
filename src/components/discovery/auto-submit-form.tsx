@@ -1,10 +1,11 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState, useTransition, type ReactNode } from "react";
+import { useEffect, useRef, useSyncExternalStore, useTransition, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type Field = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+const noopSubscribe = () => () => {};
 const isField = (el: Element): el is Field => el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement;
 
 /**
@@ -38,12 +39,13 @@ export function AutoSubmitForm({
   const ref = useRef<HTMLFormElement>(null);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [pending, startTransition] = useTransition();
-  const [enhanced, setEnhanced] = useState(false);
+  // true once hydrated (false during SSR), without a setState-in-effect round trip
+  const enhanced = useSyncExternalStore(noopSubscribe, () => true, () => false);
 
   useEffect(() => {
-    setEnhanced(true);
+    const t = timer;
     return () => {
-      if (timer.current) clearTimeout(timer.current);
+      if (t.current) clearTimeout(t.current);
     };
   }, []);
 

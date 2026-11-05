@@ -1,0 +1,7 @@
+{
+  "spacing-100": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/dimension.json",
+    "value": "8px",
+    "uuid": "507c0b4a-9dbc-4242-89fd-5efc4d1c35b9"
+  }
+}

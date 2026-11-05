@@ -3,6 +3,11 @@ import { getExportSet, getExportTokens } from "@/server/queries/tokens";
 
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
+function toIso(pgText: string): string {
+  const d = new Date(pgText.trim().replace(" ", "T").replace(/([+-]\d{2})$/, "$1:00"));
+  return Number.isNaN(d.getTime()) ? pgText : d.toISOString();
+}
+
 /**
  * Download a token set as JSON or CSS. Only sets whose license permits redistribution are served; every
  * other set answers 403 with the reason and the official source to use instead.
@@ -40,7 +45,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ system: string;
     packageVersion: s.packageVersion,
     redistribution: s.redistribution,
     license: s.license ? { slug: s.license.slug, name: s.license.name, spdxId: s.license.spdxId, url: s.license.url } : null,
-    retrievedAt: s.retrievedAt,
+    retrievedAt: s.retrievedAt ? toIso(s.retrievedAt) : null,
   };
   const tokens = await getExportTokens(s.id);
   const now = new Date().toISOString();

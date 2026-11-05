@@ -442,13 +442,14 @@ const plausibleName = (s: string | null | undefined): s is string => {
  * Strip the configured site decoration (titleSuffix), then split on title separators.
  * Returns the part that names the segment (best) and the first part (first).
  */
-export function cleanTitle(title: string, segment: string, suffix: RegExp | null): { best: string | null; first: string | null } {
-  let t = clean(title);
+export function cleanTitle(title: string, segment: string, suffix: RegExp | null): { best: string | null; first: string | null; decorated: boolean } {
+  const raw = clean(title);
+  let t = raw;
   if (suffix) t = clean(t.replace(suffix, ""));
-  if (!t) return { best: null, first: null };
+  if (!t) return { best: null, first: null, decorated: false };
   const parts = t.split(/\s+[|–—·•]\s+|\s+-\s+/).map(clean).filter(Boolean);
-  if (parts.length > 1) return { best: parts.find((p) => relatesToSegment(p, segment)) ?? null, first: parts[0] ?? null };
-  return { best: t, first: t };
+  if (parts.length > 1) return { best: parts.find((p) => relatesToSegment(p, segment)) ?? null, first: parts[0] ?? null, decorated: true };
+  return { best: t, first: t, decorated: t !== raw };
 }
 
 const GENERIC_PART = /^(overview|basic|basics|default|usage|examples?|docs|documentation|introduction|components?)$/i;
@@ -495,10 +496,12 @@ function chooseNameRaw(
   if (page) {
     const h1 = strip(page.h1, suffix);
     const h1Own = strip(page.h1Own, suffix);
-    const t = page.title ? cleanTitle(page.title, segment, suffix) : { best: null, first: null };
+    const t = page.title ? cleanTitle(page.title, segment, suffix) : { best: null, first: null, decorated: false };
     const title = strip(t.best, null);
     const titleFirst = strip(t.first, null);
-    for (const h of [h1Own, h1]) if (ok(h) && (sameText(h, title) || sameText(h, titleFirst))) return { name: h, from: "h1" };
+    // A heading equal to the page-specific part of a decorated title ("<Name> | <Site>") names the page,
+    // even when it does not repeat the URL segment ("Basic number field" at /forms/numeric/).
+    for (const h of [h1Own, h1]) if (ok(h) && (sameText(h, title) || (t.decorated && sameText(h, titleFirst))) && (t.decorated || rel(h))) return { name: h, from: "h1" };
     if (rel(h1)) return { name: h1, from: "h1" };
     if (rel(title)) return { name: title, from: "title" };
     if (rel(h1Own)) return { name: h1Own, from: "h1" };

@@ -31,7 +31,7 @@ export function CatalogRouteError({
         description={
           <>
             The index could not be read just now. Nothing was changed. Retry, or come back in a moment.
-            {error.digest && <span className="mt-1 block font-mono text-xs text-subtle-foreground">ref {error.digest}</span>}
+            {error.digest && <span className="mt-1 block font-mono text-xs text-muted-foreground">ref {error.digest}</span>}
           </>
         }
         action={

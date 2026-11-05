@@ -191,8 +191,24 @@ export async function ComponentComparisonView({ params: p }: { params: Component
                 differingCount={matrix.differingRowCount}
                 rowCount={matrix.rowCount}
               />
-              <p className="text-xs text-muted-foreground">Hover or focus any status chip for its meaning.</p>
+              <p className="hidden text-xs text-muted-foreground sm:block">Hover or focus any status chip for its meaning.</p>
             </div>
+            <nav aria-label="Comparison sections" className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+              {(["g", "m"] as const).map((prefix) => (
+                <ul key={prefix} className={prefix === "g" ? "hidden flex-wrap gap-1.5 lg:flex" : "flex w-max gap-1.5 lg:hidden"}>
+                  {matrix.groups.map((g) => (
+                    <li key={g.id} className={g.allSame ? "group-data-[diff=on]/matrix:hidden" : undefined}>
+                      <a
+                        href={`#${prefix}-${g.id}`}
+                        className="inline-flex h-7 items-center rounded-full border px-2.5 text-xs whitespace-nowrap text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+                      >
+                        {g.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ))}
+            </nav>
             <CoverageLegend />
           </div>
           <ComparisonMatrix matrix={matrix} columns={data.columns} links={links} typeName={data.type.name} />

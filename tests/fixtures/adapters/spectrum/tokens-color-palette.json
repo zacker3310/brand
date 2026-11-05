@@ -1,0 +1,55 @@
+{
+  "blue-100": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color-set.json",
+    "uuid": "482037db-2e5c-4deb-bfa5-986a46cdcf33",
+    "private": true,
+    "sets": {
+      "light": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+        "value": "rgb(245, 249, 255)",
+        "uuid": "bb610367-a43d-4ba9-b667-84b4d8da69b2"
+      },
+      "dark": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+        "value": "rgb(14, 23, 63)",
+        "uuid": "7d56ac58-fd58-41b3-9bbd-448ae0a7dd85"
+      },
+      "wireframe": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+        "value": "rgb(246, 248, 252)",
+        "uuid": "05ffb7a9-8bd9-46cd-bfb0-66217d52ceb1"
+      }
+    }
+  },
+  "blue-900": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color-set.json",
+    "uuid": "81bffb1e-f9d6-49c8-be17-8c298bcfc0e0",
+    "private": true,
+    "sets": {
+      "light": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+        "value": "rgb(59, 99, 251)",
+        "uuid": "3451c170-3e78-449b-86f2-8b7dbea24c1c"
+      },
+      "dark": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+        "value": "rgb(86, 129, 255)",
+        "uuid": "82b09b04-6a70-4a95-9eb5-a321a66a6465"
+      },
+      "wireframe": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+        "value": "rgb(74, 111, 195)",
+        "uuid": "895407bb-8fda-4857-92a9-bf0cc06f2c3f"
+      }
+    }
+  },
+  "black": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/color.json",
+    "value": "rgb(0, 0, 0)",
+    "uuid": "28dea8b0-4e9a-46f9-babb-c8910e6ae783",
+    "deprecated": true,
+    "deprecated_comment": "Replaced with transparent-static-black-1000",
+    "private": true,
+    "renamed": "transparent-static-black-1000"
+  }
+}

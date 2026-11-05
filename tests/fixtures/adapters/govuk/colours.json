@@ -1,0 +1,30 @@
+{
+  "functional": {
+    "Text": [
+      {
+        "name": "text",
+        "colour": "#0b0c0c"
+      },
+      {
+        "name": "secondary-text",
+        "colour": "#484949"
+      },
+      {
+        "name": "inverse-text",
+        "colour": "#ffffff",
+        "notes": "Use this colour for text on dark backgrounds"
+      }
+    ],
+    "Focus state": [
+      {
+        "name": "focus",
+        "colour": "#ffdd00",
+        "notes": "Only use this colour to indicate which element is focused on. For example, when a user tabs to an element with their keyboard."
+      },
+      {
+        "name": "focus-text",
+        "colour": "#0b0c0c"
+      }
+    ]
+  }
+}

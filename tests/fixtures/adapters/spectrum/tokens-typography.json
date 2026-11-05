@@ -1,0 +1,29 @@
+{
+  "font-size-100": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/scale-set.json",
+    "uuid": "ee894aad-f166-42eb-b08b-859f73db742a",
+    "sets": {
+      "desktop": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/font-size.json",
+        "value": "14px",
+        "uuid": "938e2d24-1e90-48f0-a596-595a69103707"
+      },
+      "mobile": {
+        "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/font-size.json",
+        "value": "17px",
+        "uuid": "2f9ee3cf-ccb1-4f0b-aed6-96e472fb7411"
+      }
+    }
+  },
+  "component-l-bold": {
+    "$schema": "https://opensource.adobe.com/spectrum-design-data/schemas/token-types/typography.json",
+    "value": {
+      "fontFamily": "{sans-serif-font-family}",
+      "fontSize": "{font-size-200}",
+      "fontWeight": "{bold-font-weight}",
+      "letterSpacing": "{letter-spacing}",
+      "lineHeight": "{line-height-font-size-200}"
+    },
+    "uuid": "861ac736-b95b-4350-b40b-0dde0036c796"
+  }
+}

@@ -45,20 +45,30 @@ export function ScoreValue({ r, size = "md" }: { r: RubricResult; size?: "md" | 
   );
 }
 
+/** Score track. Nothing is drawn for unscored results: an empty track would read as zero. */
 export function ScoreBar({ score }: { score: number | null }) {
+  if (score === null) return null;
   return (
     <span className="block h-1 w-full overflow-hidden rounded-full bg-muted" aria-hidden>
-      {score !== null && <span className="block h-full rounded-full bg-primary/80 transition-[width] duration-500" style={{ width: `${score}%` }} />}
+      <span className="block h-full rounded-full bg-primary/80 transition-[width] duration-500" style={{ width: `${score}%` }} />
     </span>
   );
 }
 
 export function ConfidenceLine({ r }: { r: RubricResult }) {
+  if (r.status === "not-indexed") return <span className="block text-[11px] text-subtle-foreground">Registry metadata only</span>;
   return (
     <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
       <ConfidenceMeter confidence={r.confidence} />
       <span>
-        {r.score === null ? "" : `${CONF_LABEL[r.confidence]} confidence · `}
+        {r.score === null ? (
+          ""
+        ) : (
+          <>
+            {CONF_LABEL[r.confidence]}
+            <span className="max-sm:sr-only"> confidence</span> ·{" "}
+          </>
+        )}
         <span className="tabular">{Math.round(r.evidenceCoverage * 100)}%</span> evidence
       </span>
     </span>
@@ -109,11 +119,11 @@ export function IngestionTag({ status }: { status: string }) {
 export function Scorecard({ systems, criteria }: { systems: ScoredSystem[]; criteria: CriterionId[] }) {
   return (
     <div className="overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Scorecard" tabIndex={0}>
-      <table className="w-full min-w-[36rem] border-separate border-spacing-0 text-left">
+      <table className="w-full min-w-[34rem] border-separate border-spacing-0 text-left">
         <caption className="sr-only">Scores per criterion (rows) for each system (columns). Select a score for its evidence.</caption>
         <thead>
           <tr>
-            <th scope="col" className="sticky left-0 z-10 w-40 border-b bg-card px-3 py-3 align-bottom sm:w-56">
+            <th scope="col" className="sticky left-0 z-10 w-32 border-b bg-card px-3 py-3 align-bottom sm:w-56">
               <span className="type-eyebrow">Criterion</span>
             </th>
             {systems.map((s) => (
@@ -140,7 +150,7 @@ export function Scorecard({ systems, criteria }: { systems: ScoredSystem[]; crit
                   <Link href={`#${c}`} className="block text-sm leading-tight font-medium hover:underline">
                     {d.label}
                   </Link>
-                  <span className="mt-0.5 block text-[11px] leading-snug text-muted-foreground">{d.short}</span>
+                  <span className="mt-0.5 hidden text-[11px] leading-snug text-muted-foreground sm:block">{d.short}</span>
                 </th>
                 {systems.map((s) => {
                   const r = s.results.find((x) => x.criterion === c);

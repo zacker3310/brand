@@ -18,28 +18,36 @@ export interface NavPage {
 
 const str = (v: JsValue | null): string | null => (v && v.t === "string" ? v.v : null);
 
-/** Component pages ("/<product>/react-*") in nav order, with their section. */
+/**
+ * Component docs pages in nav order, with their section: every "/<product>/react-*" page plus the
+ * other product pages listed under the "Components" group (e.g. /material-ui/icons, /material-ui/transitions).
+ */
 export function parseNavPages(src: string, product: string): NavPage[] {
   const found = findValue(src, /const\s+pages\s*(?::[^=]+)?=\s*/);
   if (!found || found.value.t !== "array") return [];
   const out: NavPage[] = [];
   const seen = new Set<string>();
-  const walk = (items: JsValue[], section: string | null) => {
+  const groupPath = `/${product}/react-`;
+  const walk = (items: JsValue[], section: string | null, inComponents: boolean) => {
     for (const it of items) {
       if (it.t !== "object") continue;
       const pathname = str(objectGet(it, "pathname"));
       const subheader = str(objectGet(it, "subheader"));
       const children = objectGet(it, "children");
       const sec = subheader ?? section;
-      if (pathname && new RegExp(`^/${product}/react-[a-z0-9-]+$`).test(pathname) && !seen.has(pathname)) {
+      const isComponentPage =
+        !!pathname &&
+        (new RegExp(`^/${product}/react-[a-z0-9-]+$`).test(pathname) ||
+          (inComponents && new RegExp(`^/${product}/[a-z0-9-]+$`).test(pathname) && !/\/(all-components|about-the-lab)$/.test(pathname)));
+      if (pathname && isComponentPage && !seen.has(pathname)) {
         seen.add(pathname);
         const nf = objectGet(it, "newFeature");
         out.push({ pathname, title: str(objectGet(it, "title")), section: sec, newFeature: nf?.t === "bool" && nf.v, order: out.length });
       }
-      if (children && children.t === "array") walk(children.items, sec);
+      if (children && children.t === "array") walk(children.items, sec, inComponents || pathname === groupPath);
     }
   };
-  walk(found.value.items, null);
+  walk(found.value.items, null, false);
   return out;
 }
 

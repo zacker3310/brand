@@ -215,7 +215,7 @@ async function discoverAntd(ctx: AdapterContext): Promise<DiscoveredDocument[]> 
         source: repoSource,
         evidenceUrl: blobUrl(p, pkg.ref, file),
         title: `${s} demo ${base}`,
-        meta: { systemSlug: p.systemSlug, file, slug: s, demo: base, demoTitle: d.title, anchor: `${s}-demo-${base}`, pkg } satisfies AntdDocMeta,
+        meta: { systemSlug: p.systemSlug, file, slug: s, demo: base, demoTitle: d.title, anchor: `${s}-demo-${base}`, pkg, fallbackUrl: rawUrl(p, pkg.ref, file) } satisfies AntdDocMeta,
         priority: 30 + i,
       });
     }
@@ -334,7 +334,7 @@ async function discoverMobile(ctx: AdapterContext): Promise<DiscoveredDocument[]
         source: repoSource,
         evidenceUrl: blobUrl(p, pkg.ref, demo),
         title: `${r.name} demo1`,
-        meta: { systemSlug: p.systemSlug, file: demo, slug: r.name, demo: "demo1", pkg } satisfies AntdDocMeta,
+        meta: { systemSlug: p.systemSlug, file: demo, slug: r.name, demo: "demo1", pkg, fallbackUrl: rawUrl(p, pkg.ref, demo) } satisfies AntdDocMeta,
         priority: 30 + i,
       });
   }
@@ -373,10 +373,56 @@ async function fetchDoc(ctx: AdapterContext, doc: DiscoveredDocument, prev: { et
     return cached.result;
   }
   // dist/antd.css is ~1 MB; everything else is small.
-  return ctx.http.get(doc.url, { etag: prev.etag, lastModified: prev.lastModified, lastHash: prev.lastHash, signal: ctx.signal, maxBytes: 20 * 1024 * 1024 });
+  const res = await ctx.http.get(doc.url, { etag: prev.etag, lastModified: prev.lastModified, lastHash: prev.lastHash, signal: ctx.signal, maxBytes: 20 * 1024 * 1024 });
+  const fallback = (doc.meta as AntdDocMeta | undefined)?.fallbackUrl;
+  // jsDelivr's GitHub mirror occasionally answers 403 while it warms a ref; the same file at the same ref
+  // is then read from raw.githubusercontent.com.
+  if (!res.ok && typeof fallback === "string" && fallback !== doc.url) {
+    const alt = await ctx.http.get(fallback, { signal: ctx.signal });
+    if (alt.ok && alt.body !== null) return alt;
+  }
+  return res;
 }
 
 /* ----------------------------------- parse ----------------------------------- */
+
+/**
+ * Ant Design pages include shared API tables with <embed src="../tooltip/shared/sharedProps.en-US.md">.
+ * Embedded tables inside the page's API section are fetched (same ref) and merged under the embed's headings.
+ */
+async function resolveEmbeds(ctx: AdapterContext, doc: ReturnType<typeof parseDoc>, meta: AntdDocMeta): Promise<{ stamps: Stamp[]; warnings: string[] }> {
+  const p = PROFILES[meta.systemSlug] ?? PROFILES[SLUG_ANTD]!;
+  const ref = meta.pkg?.ref;
+  const stamps: Stamp[] = [];
+  const warnings: string[] = [];
+  if (!ref) return { stamps, warnings };
+  const dir = meta.file.replace(/\/[^/]+$/, "");
+  for (const e of doc.embeds) {
+    if (!e.headings.some((h) => h.depth === 2 && /^api$/i.test(h.text))) continue;
+    const parts = `${dir}/${e.src}`.split("/");
+    const out: string[] = [];
+    for (const x of parts) {
+      if (x === "." || x === "") continue;
+      if (x === "..") out.pop();
+      else out.push(x);
+    }
+    const file = out.join("/");
+    if (!/^components\/[a-z0-9-]+\/(shared\/)?[A-Za-z0-9_.-]+\.md$/.test(file)) {
+      warnings.push(`embed ${e.src} outside components/: skipped`);
+      continue;
+    }
+    const url = rawUrl(p, ref, file);
+    const res = await ctx.http.get(url, { signal: ctx.signal });
+    if (!res.ok || !res.body) {
+      warnings.push(`embed ${file}: HTTP ${res.status}`);
+      continue;
+    }
+    const sub = parseDoc(res.body);
+    for (const t of sub.tables) doc.tables.push({ ...t, headings: [...e.headings, ...t.headings], file });
+    stamps.push({ url, evidenceUrl: blobUrl(p, ref, file), retrievedAt: res.fetchedAt, hash: res.hash, file });
+  }
+  return { stamps, warnings };
+}
 
 function stampOf(ctx: AdapterContext, f: FetchedDocument): Stamp {
   const meta = (f.doc.meta ?? {}) as AntdDocMeta;
@@ -426,8 +472,11 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
       const spec = [...new Set(paths.map((x) => /^\/docs\/spec\/([a-z0-9-]+)$/.exec(x)?.[1]).filter((s): s is string => !!s && !s.endsWith("-cn")))].sort();
       return frag({ t: "sitemap", stamp, components, spec, trailingSlash: meta.trailingSlash ?? false });
     }
-    case DOC_KINDS.componentMd:
-      return frag({ t: "component-doc", stamp, slug: meta.slug!, dir: meta.dir!, docsUrl: meta.docsUrl ?? null, order: meta.order ?? 0, doc: parseDoc(body) });
+    case DOC_KINDS.componentMd: {
+      const parsed = parseDoc(body);
+      const embedded = await resolveEmbeds(ctx, parsed, meta);
+      return frag({ t: "component-doc", stamp, slug: meta.slug!, dir: meta.dir!, docsUrl: meta.docsUrl ?? null, order: meta.order ?? 0, doc: parsed, embedded: embedded.stamps }, embedded.warnings);
+    }
     case DOC_KINDS.specMd:
       return frag({ t: "spec-doc", stamp, slug: meta.slug!, docsUrl: meta.docsUrl ?? `${PROFILES[SLUG_ANTD]!.docsOrigin}/docs/spec/${meta.slug}`, doc: parseDoc(body) });
     case DOC_KINDS.demo:

@@ -78,6 +78,7 @@ export const METHOD = {
   tokensCss: "adapter:polaris:tokens-css",
   tokensMeta: "adapter:polaris:tokens-esm-meta",
   license: "adapter:polaris:license-file",
+  readme: "adapter:polaris:archive-readme",
   classify: "adapter:polaris:classify",
 } as const;
 
