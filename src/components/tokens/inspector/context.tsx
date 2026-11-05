@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { createContext, useCallback, useContext, useMemo, useRef } from "react";
+import { createContext, useCallback, useContext, useMemo, useRef, useState } from "react";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -27,11 +27,12 @@ export function useInspector() {
  * JavaScript (items are plain links). With JS, clicks on [data-inspect] links are intercepted and the URL is
  * updated in place; the inspector fetches the token's detail on its own.
  */
-export function InspectorProvider({ children, className }: { children: React.ReactNode; className?: string }) {
+export function InspectorProvider({ children, className, defaultId = null }: { children: React.ReactNode; className?: string; defaultId?: string | null }) {
   const sp = useSearchParams();
   const pathname = usePathname();
   const raw = sp.get("token");
-  const selectedId = raw && UUID.test(raw) ? raw.toLowerCase() : null;
+  const [dismissed, setDismissed] = useState(false);
+  const selectedId = raw && UUID.test(raw) ? raw.toLowerCase() : dismissed ? null : defaultId;
   const lastTrigger = useRef<HTMLElement | null>(null);
 
   const hrefWith = useCallback(
@@ -47,6 +48,7 @@ export function InspectorProvider({ children, className }: { children: React.Rea
 
   const select = useCallback((id: string) => window.history.pushState(null, "", hrefWith(id)), [hrefWith]);
   const clear = useCallback(() => {
+    setDismissed(true);
     window.history.pushState(null, "", hrefWith(null));
     const t = lastTrigger.current;
     if (t && document.contains(t)) requestAnimationFrame(() => t.focus());

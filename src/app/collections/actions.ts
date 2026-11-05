@@ -111,6 +111,29 @@ export async function addItemAction(input: { collectionId: string; entityType: s
   }
 }
 
+/** No-JS fallback for the Add to collection dialog (/collections/add). Redirects to the collection. */
+export async function addToCollectionFormAction(_prev: ActionResult | null, fd: FormData): Promise<ActionResult> {
+  let slug: string;
+  try {
+    const ref = EntityRef.parse({ entityType: str(fd, "entityType"), entityId: str(fd, "entityId") });
+    const target = str(fd, "collectionId");
+    const owner = await requireOwnerId();
+    if (!target) return { ok: false, message: "Choose a collection or name a new one." };
+    if (target === "new") {
+      const input = CollectionInput.parse({ name: str(fd, "newName") ?? "", description: undefined });
+      const created = await createCollection(owner, input);
+      await addItem(owner, created.id, ref, ItemInput.parse({ note: str(fd, "note") }));
+      slug = created.slug;
+    } else {
+      slug = (await addItem(owner, Id.parse(target), ref, ItemInput.parse({ note: str(fd, "note") }))).slug;
+    }
+  } catch (e) {
+    return fail(e);
+  }
+  revalidate(slug);
+  redirect(`/collections/${slug}?added=1`);
+}
+
 export async function removeEntityAction(input: { collectionId: string; entityType: string; entityId: string }): Promise<ActionResult> {
   try {
     const collectionId = Id.parse(input.collectionId);

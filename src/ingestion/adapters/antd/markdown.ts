@@ -180,6 +180,8 @@ export interface ParsedDoc {
   a11yNotes: string[];
   mentionsResponsive: boolean;
   mentionsDeprecated: boolean;
+  /** Packages named in install instructions ("npm install @ant-design/icons"). */
+  installs: string[];
 }
 
 const A11Y_RE = /\b(accessib\w*|screen[- ]readers?|aria-[a-z]+|a11y|wai-aria|assistive technolog\w+|keyboard (?:navigation|users?|focus|interaction|operation)s?|focus (?:trap|management|order|ring))\b/i;
@@ -292,6 +294,7 @@ export function parseDoc(text: string): ParsedDoc {
     a11yNotes: a11y,
     mentionsResponsive: /\bresponsive\b|\bbreakpoints?\b/i.test(plain),
     mentionsDeprecated: /\bdeprecated\b/i.test(plain),
+    installs: [...new Set([...body.matchAll(/\b(?:npm (?:install|i)|yarn add|pnpm (?:add|install)|bun add)\s+(?:--save\s+)?((?:@[a-z0-9-]+\/)?[a-z0-9][a-z0-9.-]*)/g)].map((m) => m[1]!))],
   };
 }
 

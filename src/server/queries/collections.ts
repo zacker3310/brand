@@ -231,7 +231,7 @@ async function summariesFor(ownerId: string, db?: DB): Promise<CollectionSummary
   const d = db ?? (await readDb());
   const res = await d.execute<SummaryRow>(sql`
     with items as (
-      select ci.collection_id, ci.entity_type, ci.entity_id, ci.position, ci.added_at
+      select ci.collection_id, ci.entity_type, ci.entity_id, ci.position, ci.created_at as added_at
       from collection_item ci join collection c on c.id = ci.collection_id
       where c.owner_id = ${ownerId}
     ),
@@ -286,10 +286,10 @@ export async function getCollection(viewerId: string | null, slug: string, db?: 
   const c = rows[0];
   if (!c) return null;
   const items = await d.execute<ResolvedRow & { item_id: string; note: string | null; tags: string[]; position: number; added_at: Date | string }>(sql`
-    select ci.id::text as item_id, ci.entity_type, ci.entity_id::text, ci.note, ci.tags, ci.position, ci.added_at, ${RESOLVE_COLUMNS}
+    select ci.id::text as item_id, ci.entity_type, ci.entity_id::text, ci.note, ci.tags, ci.position, ci.created_at as added_at, ${RESOLVE_COLUMNS}
     from collection_item ci ${resolveJoins("ci")}
     where ci.collection_id = ${c.id}
-    order by ci.position, ci.added_at, ci.id
+    order by ci.position, ci.created_at, ci.id
   `);
   const views: CollectionItemView[] = items.rows.map((r) => ({
     ...toResolved(r),
@@ -459,7 +459,7 @@ export async function deleteCollection(ownerId: string, collectionId: string, db
 const touch = (db: DB, collectionId: string) => db.update(collections).set({ updatedAt: new Date() }).where(eq(collections.id, collectionId));
 
 export async function addItem(ownerId: string, collectionId: string, ref: EntityRef, input: Partial<ItemInput> = {}, db: DB = getDb()) {
-  await ownedCollection(ownerId, collectionId, db);
+  const owned = await ownedCollection(ownerId, collectionId, db);
   const [resolved] = await resolveEntities([ref], db);
   if (!resolved?.exists) throw new CollectionError("invalid", "That record is not in the ATLAS index.");
   const [{ n, maxPos } = { n: 0, maxPos: -1 }] = await db
@@ -473,7 +473,7 @@ export async function addItem(ownerId: string, collectionId: string, ref: Entity
     .onConflictDoNothing()
     .returning({ id: collectionItems.id });
   await touch(db, collectionId);
-  return { itemId: row?.id ?? null, alreadyPresent: !row, title: resolved.title };
+  return { itemId: row?.id ?? null, alreadyPresent: !row, title: resolved.title, slug: owned.slug };
 }
 
 /** Item ids are only mutable through their owner's collection. */

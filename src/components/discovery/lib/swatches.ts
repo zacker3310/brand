@@ -27,13 +27,16 @@ export interface PickedSwatch {
 
 export function pickSwatches(cands: SwatchCandidate[], n = 16): PickedSwatch[] {
   const seen = new Set<string>();
+  const names = new Set<string>();
   const buckets = new Map<string, (PickedSwatch & { hue: number })[]>();
   for (const c of cands) {
     const hex = toHex(c.resolved) ?? (typeof c.valueText === "string" ? toHex(c.valueText) : null);
     if (!hex) continue;
     const key = hex.toLowerCase();
-    if (seen.has(key)) continue;
+    // one swatch per distinct value and per token name (the same role across themes is shown once)
+    if (seen.has(key) || names.has(c.name)) continue;
     seen.add(key);
+    names.add(c.name);
     const o = toOklch(hex);
     if (!o) continue;
     const bucket = o.c < 0.03 || o.h === null ? "neutral" : `h${Math.floor(o.h / 30)}`;

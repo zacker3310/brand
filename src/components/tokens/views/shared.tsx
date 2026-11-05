@@ -16,6 +16,8 @@ export interface ViewProps {
   setOrder: string[];
   /** Active theme filter (limits theme columns). */
   theme?: string;
+  /** The selected set when a single set is shown. */
+  singleSet?: TokenSetInfo;
 }
 
 /** Name relative to the group prefix ("md.sys.color.primary" in "md.sys.color" -> "primary"). */

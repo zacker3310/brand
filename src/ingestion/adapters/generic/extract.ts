@@ -155,7 +155,7 @@ export function normalizeUrl(href: string, base?: string): string | null {
 export function matchOne(value: string, c: CompiledTarget): string | null {
   if (c.exclude.some((re) => re.test(value))) return null;
   const m = c.include.exec(value);
-  const seg = m?.[1];
+  const seg = m ? m.slice(1).find((g) => !!g) : undefined; // first participating group (alternations)
   if (!seg) return null;
   const s = seg.replace(/^\/+|\/+$/g, "");
   return s || null;

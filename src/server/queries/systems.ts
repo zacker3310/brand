@@ -25,6 +25,15 @@ const iso = (v: unknown): string | null => (v ? new Date(v as string).toISOStrin
 /* Directory                                                                   */
 /* -------------------------------------------------------------------------- */
 
+function hostOf(u: string | null): string | null {
+  if (!u) return null;
+  try {
+    return new URL(u).hostname.replace(/^www\./, "");
+  } catch {
+    return null;
+  }
+}
+
 const escapeLike = (s: string) => s.replace(/[\\%_]/g, (c) => `\\${c}`);
 
 /**
@@ -370,13 +379,17 @@ export interface DetailSource {
 }
 
 export interface DetailChange {
+  /** Stable key for the batch. */
   id: string;
-  entityType: string;
-  entityLabel: string | null;
-  changeKind: string;
-  fieldChanges: { field: string; summary?: string }[] | null;
   runId: string | null;
+  entityType: string;
+  changeKind: string;
+  count: number;
   occurredAt: string;
+  /** Entity labels in the batch (alphabetical, capped). */
+  labels: string[];
+  /** Distinct field-change summaries with how many events carried each. */
+  summaries: { summary: string; count: number }[];
 }
 
 export interface RelatedSystem {
@@ -618,7 +631,9 @@ export async function getSystemDetail(slug: string): Promise<SystemDetail | null
       order by rel.slug, rel.relation`),
   ]);
 
-  const host = evHosts.rows;
+  // official documentation hosts first, then by evidence volume
+  const officialHosts = new Set([c.docs_url, c.homepage_url].map((u) => hostOf(u as string | null)).filter(Boolean));
+  const host = [...evHosts.rows].sort((a, b) => Number(officialHosts.has(b.host)) - Number(officialHosts.has(a.host)) || num(b.count) - num(a.count));
   const toNumMap = (m: Record<string, number> | null) => Object.fromEntries(Object.entries(m ?? {}).map(([k, v]) => [k, Number(v)])) as Partial<Record<CoverageState, number>>;
   const a = a11y.rows[0];
   const cnt = counts.rows[0]!;
@@ -759,40 +774,75 @@ export async function getSystemDetail(slug: string): Promise<SystemDetail | null
   };
 }
 
-export const CHANGES_PAGE_SIZE = 15;
+export const CHANGES_PAGE_SIZE = 12;
+const CHANGE_LABEL_CAP = 60;
 
-/** Paginated change_event timeline for one system (newest first). */
-export async function getSystemChanges(systemId: string, page: number): Promise<{ rows: DetailChange[]; total: number; page: number; pages: number }> {
+/**
+ * Change history as batches: events of one run (or registry update), entity type and change kind
+ * within the same minute are one timeline entry, newest first. Paginated by batch.
+ */
+export async function getSystemChanges(
+  systemId: string,
+  page: number,
+): Promise<{ rows: DetailChange[]; total: number; batches: number; page: number; pages: number }> {
   const db = await readDb();
-  const [total, rows] = await Promise.all([
-    db.execute<{ n: string }>(sql`select count(*) as n from change_event where design_system_id = ${systemId}`),
-    db.execute<{
-      id: string;
-      entity_type: string;
-      entity_label: string | null;
-      change_kind: string;
-      field_changes: DetailChange["fieldChanges"];
-      run_id: string | null;
-      occurred_at: string;
-    }>(sql`
-      select id, entity_type, entity_label, change_kind, field_changes, run_id, occurred_at::text
-      from change_event where design_system_id = ${systemId}
-      order by occurred_at desc, entity_type, entity_label nulls last, id
-      limit ${CHANGES_PAGE_SIZE} offset ${(Math.max(page, 1) - 1) * CHANGES_PAGE_SIZE}`),
-  ]);
-  const n = num(total.rows[0]?.n);
+  const p = Math.max(page, 1);
+  const r = await db.execute<{
+    run_id: string | null;
+    entity_type: string;
+    change_kind: string;
+    n: string;
+    last_at: string;
+    labels: string[] | null;
+    summaries: { summary: string; count: number }[] | null;
+    total_events: string;
+    total_batches: string;
+  }>(sql`
+    with ev as (
+      select ce.*, date_trunc('minute', ce.occurred_at) as bucket from change_event ce where ce.design_system_id = ${systemId}
+    ), b as (
+      select run_id, entity_type, change_kind, bucket, count(*) as n, max(occurred_at) as last_at,
+        (array_agg(entity_label order by entity_label) filter (where entity_label is not null))[1:${CHANGE_LABEL_CAP}] as labels
+      from ev group by 1, 2, 3, 4
+    ), s as (
+      select ev.run_id, ev.entity_type, ev.change_kind, ev.bucket, fc->>'summary' as summary, count(*) as c
+      from ev cross join lateral jsonb_array_elements(case when jsonb_typeof(ev.field_changes) = 'array' then ev.field_changes else '[]'::jsonb end) fc
+      where fc->>'summary' is not null
+      group by 1, 2, 3, 4, 5
+    )
+    select b.run_id, b.entity_type, b.change_kind, b.n, b.last_at::text, b.labels,
+      (select json_agg(json_build_object('summary', s.summary, 'count', s.c) order by s.c desc, s.summary) from s
+        where s.run_id is not distinct from b.run_id and s.entity_type = b.entity_type and s.change_kind = b.change_kind and s.bucket = b.bucket) as summaries,
+      (select count(*) from ev) as total_events,
+      (select count(*) from b) as total_batches
+    from b
+    order by b.last_at desc, b.entity_type, b.change_kind
+    limit ${CHANGES_PAGE_SIZE} offset ${(p - 1) * CHANGES_PAGE_SIZE}
+  `);
+  let total = num(r.rows[0]?.total_events);
+  let batches = num(r.rows[0]?.total_batches);
+  if (!r.rows.length && p > 1) {
+    // out-of-range page: still report totals
+    const t = await db.execute<{ e: string; b: string }>(sql`
+      select count(*) as e, count(distinct (run_id, entity_type, change_kind, date_trunc('minute', occurred_at))) as b
+      from change_event where design_system_id = ${systemId}`);
+    total = num(t.rows[0]?.e);
+    batches = num(t.rows[0]?.b);
+  }
   return {
-    total: n,
-    page,
-    pages: Math.max(1, Math.ceil(n / CHANGES_PAGE_SIZE)),
-    rows: rows.rows.map((x) => ({
-      id: x.id,
-      entityType: x.entity_type,
-      entityLabel: x.entity_label,
-      changeKind: x.change_kind,
-      fieldChanges: x.field_changes,
+    total,
+    batches,
+    page: p,
+    pages: Math.max(1, Math.ceil(batches / CHANGES_PAGE_SIZE)),
+    rows: r.rows.map((x) => ({
+      id: `${x.run_id ?? "registry"}:${x.entity_type}:${x.change_kind}:${x.last_at}`,
       runId: x.run_id,
-      occurredAt: iso(x.occurred_at)!,
+      entityType: x.entity_type,
+      changeKind: x.change_kind,
+      count: num(x.n),
+      occurredAt: iso(x.last_at)!,
+      labels: x.labels ?? [],
+      summaries: (x.summaries ?? []).map((y) => ({ summary: y.summary, count: num(y.count) })),
     })),
   };
 }

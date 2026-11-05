@@ -123,12 +123,16 @@ export interface StoriesMeta {
   descriptionLocals: string[];
   /** Named story exports (`export { Default } from './ButtonDefault.stories'`). */
   stories: string[];
+  /** Imported binding -> package specifier (`import { Calendar } from '@fluentui/react-calendar-compat'`). */
+  importedFrom: Record<string, string>;
 }
 
 export function parseStoriesFile(text: string): StoriesMeta {
   const mdImports: StoriesMeta["mdImports"] = [];
   for (const m of text.matchAll(/^import\s+([A-Za-z_$][\w$]*)\s+from\s+['"]\.\/([^'"]+\.mdx?)['"]/gm)) mdImports.push({ local: m[1]!, file: m[2]! });
-  const def = text.slice(Math.max(0, text.search(/export\s+default\s*\{/)));
+  // The meta object is either `export default { ... }` or `const metadata = { ... }; export default metadata`.
+  const metaStart = text.search(/(?:export\s+default|const\s+[A-Za-z_$][\w$]*\s*(?::[^=]+)?=)\s*\{\s*\n?\s*title\s*:/);
+  const def = text.slice(Math.max(0, metaStart));
   const title = /\btitle\s*:\s*['"]([^'"]+)['"]/.exec(def)?.[1] ?? null;
   const component = /\bcomponent\s*:\s*([A-Za-z_$][\w$]*)/.exec(def)?.[1] ?? null;
   const subcomponents: string[] = [];
@@ -146,5 +150,12 @@ export function parseStoriesFile(text: string): StoriesMeta {
   }
   const stories: string[] = [];
   for (const m of text.matchAll(/^export\s*\{\s*([A-Za-z_$][\w$]*)(?:\s+as\s+([A-Za-z_$][\w$]*))?\s*\}\s*from/gm)) stories.push(m[2] ?? m[1]!);
-  return { title, component, subcomponents: [...new Set(subcomponents)], mdImports, descriptionLocals, stories };
+  const importedFrom: Record<string, string> = {};
+  for (const m of text.matchAll(/^import\s+(?:type\s+)?\{([^}]*)\}\s+from\s+['"](@[^'"]+)['"]/gm)) {
+    for (const part of m[1]!.split(",")) {
+      const id = /^\s*([A-Za-z_$][\w$]*)(?:\s+as\s+([A-Za-z_$][\w$]*))?\s*$/.exec(part);
+      if (id) importedFrom[id[2] ?? id[1]!] = m[2]!;
+    }
+  }
+  return { title, component, subcomponents: [...new Set(subcomponents)], mdImports, descriptionLocals, stories, importedFrom };
 }

@@ -34,7 +34,10 @@ function Meta({ label, children }: { label: string; children: React.ReactNode })
 }
 
 export function SystemHeader({ detail }: { detail: SystemDetail }) {
-  const { core, evidenceHosts, lastRetrievedAt } = detail;
+  const { core, lastRetrievedAt } = detail;
+  // official documentation hosts first, then by evidence volume
+  const official = new Set([hostname(core.docsUrl), hostname(core.homepageUrl)].filter(Boolean));
+  const evidenceHosts = [...detail.evidenceHosts].sort((a, b) => Number(official.has(b.host)) - Number(official.has(a.host)) || b.count - a.count);
   const latestRelease = formatDate(core.latestReleaseAt);
   const lastVerified = formatDate(core.lastVerifiedAt);
   const lastIngested = formatDate(core.lastIngestedAt);

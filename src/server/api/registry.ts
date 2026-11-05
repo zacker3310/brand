@@ -540,17 +540,8 @@ const opsEnqueueRun = defineEndpoint({
   returns: "ItemEnvelope<{ runId: string; jobId: string; deduped: boolean }>",
   responseKind: "action",
   errors: [400, 401, 403, 404, 422],
-  resolve: async ({ body }) => {
-    if (!(await systemExists(body.system))) return { kind: "not-found", what: `Design system "${body.system}"` };
-    const { enqueueSystemRun } = await import("@/ingestion/engine");
-    try {
-      return { kind: "item", data: await enqueueSystemRun(body.system, { kind: body.kind, triggeredBy: "api:ops" }), status: 202 };
-    } catch (e) {
-      const message = e instanceof Error ? e.message : String(e);
-      if (/no adapter/i.test(message)) return { kind: "error", status: 422, code: "no_adapter", message };
-      throw e;
-    }
-  },
+  // Bound in src/app/api/ops/runs/route.ts (engine-bridge) so the registry never loads adapter code.
+  resolve: async () => ({ kind: "error", status: 501, code: "not_bound", message: "Enqueue is served by /api/ops/runs." }),
 });
 
 /* -------------------------------------------------------------------------- */

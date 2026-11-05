@@ -16,6 +16,8 @@ export interface JsDoc {
   summary: string;
   /** Block tags in order: "@default" -> ["'medium'"]. Values are trimmed, multi-line joined with "\n". */
   tags: Record<string, string[]>;
+  /** Comment body without comment markers (inline links intact, for URL extraction). */
+  raw: string;
 }
 
 const inlineLinks = (s: string) =>
@@ -50,7 +52,7 @@ export function parseJsDoc(raw: string): JsDoc {
     else summary.push(line);
   }
   flush();
-  return { summary: inlineLinks(summary.join("\n")).replace(/[ \t]+\n/g, "\n").trim(), tags };
+  return { summary: inlineLinks(summary.join("\n")).replace(/[ \t]+\n/g, "\n").trim(), tags, raw: body.join("\n") };
 }
 
 export const docTag = (doc: JsDoc | null | undefined, tag: string): string | null => doc?.tags[tag]?.[0] ?? null;
@@ -802,4 +804,109 @@ export function memberDescription(doc: JsDoc | null | undefined): string | null 
   if (!doc) return null;
   const s = doc.summary.replace(/\n+/g, " ").trim();
   return s || null;
+}
+
+/* ------------------------------ component extraction ------------------------------ */
+
+export interface DtsComponent {
+  name: string;
+  doc: JsDoc | null;
+  propsType: string;
+  members: PropMember[];
+  unresolved: string[];
+  primarySlots: string[];
+  line: number;
+}
+
+const COMPONENT_TYPE = /(?:^|[\s&|(<.])(?:ForwardRefComponent|FC|FunctionComponent|ForwardRefExoticComponent|ComponentType|NamedExoticComponent|MemoExoticComponent)\s*<\s*([A-Za-z_$][\w$]*)\s*>/;
+
+/** Exported React components of a Fluent package roll-up: `export declare const X: ForwardRefComponent<XProps>`. */
+export function reactComponentsOf(file: DtsFile): DtsComponent[] {
+  const out: DtsComponent[] = [];
+  for (const [name, decls] of file.decls) {
+    if (!/^[A-Z]/.test(name)) continue;
+    const d = decls.find((x) => x.kind === "const" && x.exported);
+    if (!d || hasTag(d.doc, "internal")) continue;
+    const m = COMPONENT_TYPE.exec(` ${d.text}`);
+    if (!m || !/Props$/.test(m[1]!)) continue;
+    if (/(Provider|Context)$/.test(name)) continue;
+    const r = resolveProps(m[1]!, file);
+    out.push({ name, doc: d.doc, propsType: m[1]!, members: r.members, unresolved: r.unresolved, primarySlots: r.primarySlots, line: d.line });
+  }
+  return out.sort((a, b) => (a.name < b.name ? -1 : 1));
+}
+
+export interface DtsElementMember {
+  name: string;
+  attribute: string | null;
+  type: string;
+  optional: boolean;
+  readonly: boolean;
+  doc: JsDoc | null;
+  declaredIn: string;
+  init: string | null;
+}
+
+export interface DtsElement {
+  className: string;
+  tagName: string;
+  doc: JsDoc | null;
+  /** Class chain, own class first ("Button", "BaseButton"). */
+  chain: string[];
+  members: DtsElementMember[];
+  /** Merged JSDoc tags across the chain (@slot, @csspart, @fires). */
+  slots: string[];
+  events: string[];
+  cssParts: string[];
+  line: number;
+}
+
+/**
+ * Custom elements of a web-components roll-up: `XDefinition` consts documented as
+ * "The definition for the `<fluent-x>` element." paired with `class X`.
+ */
+export function customElementsOf(file: DtsFile): DtsElement[] {
+  const out: DtsElement[] = [];
+  for (const [name, decls] of file.decls) {
+    const m = /^([A-Z][\w$]*)Definition$/.exec(name);
+    if (!m) continue;
+    const def = decls.find((d) => d.kind === "const");
+    const tag = /`<([a-z][a-z0-9-]*)>`/.exec(def?.doc?.summary ?? "")?.[1];
+    if (!def || !tag) continue;
+    const cls = firstDecl(file, m[1]!, ["class"]);
+    if (!cls) continue;
+    const chain: string[] = [];
+    const members = new Map<string, DtsElementMember>();
+    const slots = new Set<string>();
+    const events = new Set<string>();
+    const parts = new Set<string>();
+    let cur: Decl | undefined = cls;
+    const seen = new Set<string>();
+    const chainDecls: Decl[] = [];
+    while (cur && !seen.has(cur.name)) {
+      seen.add(cur.name);
+      chain.push(cur.name);
+      chainDecls.push(cur);
+      const parent = cur.extends[0] ? genericRef(cur.extends[0])?.name : undefined;
+      cur = parent ? firstDecl(file, parent, ["class"]) : undefined;
+    }
+    // Base classes first so subclasses override.
+    for (const d of [...chainDecls].reverse()) {
+      for (const t of d.doc?.tags.slot ?? []) slots.add(t.split(/\s+-\s+/)[0]!.trim() || "(default)");
+      for (const t of d.doc?.tags.fires ?? []) {
+        const ev = /^(?:\{[^}]*\}\s*)?([\w:-]+)/.exec(t.trim())?.[1];
+        if (ev) events.add(ev);
+      }
+      for (const t of d.doc?.tags.csspart ?? []) parts.add(t.split(/\s+-\s+/)[0]!.trim());
+      for (const mem of parseMembers(d.body ?? "")) {
+        if (mem.kind === "method" || mem.isStatic || mem.visibility !== "public") continue;
+        if (hasTag(mem.doc, "internal") || hasTag(mem.doc, "private") || mem.name.startsWith("_")) continue;
+        if (!hasTag(mem.doc, "public") && !mem.doc) continue;
+        const attr = /HTML Attribute:\s*`?([a-z][a-z0-9-]*)`?/.exec((mem.doc?.tags.remarks ?? []).join("\n"))?.[1] ?? null;
+        members.set(mem.name, { name: mem.name, attribute: attr, type: mem.type, optional: mem.optional, readonly: mem.readonly, doc: mem.doc, declaredIn: d.name, init: mem.init });
+      }
+    }
+    out.push({ className: cls.name, tagName: tag, doc: cls.doc, chain, members: [...members.values()], slots: [...slots], events: [...events], cssParts: [...parts], line: cls.line });
+  }
+  return out.sort((a, b) => (a.tagName < b.tagName ? -1 : 1));
 }

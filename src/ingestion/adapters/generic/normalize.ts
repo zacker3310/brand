@@ -5,7 +5,7 @@
 import { COMPONENT_FIELDS, type CoverageState, type EvidenceInput, type NormalizedBundle, type NormalizedComponent, type ValidationIssue } from "@/lib/contracts";
 import { classifyComponentName } from "@/lib/taxonomy";
 import { excerpt } from "../../http";
-import { chooseName, compileTarget, matchOne, relatesToSegment, segmentKey, shortDescription, type Candidate, type PageMeta } from "./extract";
+import { chooseName, compileTarget, humanizeSegment, matchOne, relatesToSegment, segmentKey, shortDescription, type Candidate, type PageMeta } from "./extract";
 import type { GenericTarget } from "./types";
 
 export const ADAPTER_ID = "generic";
@@ -153,14 +153,29 @@ const safePathTail = (u: string): string | null => {
   }
 };
 
-/** Descriptions repeated across pages are site-wide boilerplate, not component descriptions. */
+/**
+ * Descriptions that are site boilerplate rather than component descriptions: identical on more
+ * than one page, or identical once the page's own name is blanked out ("Calcite X is one of many
+ * reusable elements..." on every page).
+ */
 export function siteWideDescriptions(pages: PageFragment[]): Set<string> {
-  const counts = new Map<string, number>();
+  const exact = new Map<string, number>();
+  const templ = new Map<string, string[]>();
+  const esc = (x: string) => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   for (const p of pages) {
     const d = (p.meta.metaDescription ?? "").trim().toLowerCase();
-    if (d) counts.set(d, (counts.get(d) ?? 0) + 1);
+    if (!d) continue;
+    exact.set(d, (exact.get(d) ?? 0) + 1);
+    let t = d;
+    for (const n of [p.meta.h1, p.meta.h1Own, humanizeSegment(p.segment), p.segment.replace(/[-_]+/g, " ")]) {
+      const v = (n ?? "").trim().toLowerCase();
+      if (v.length >= 2) t = t.replace(new RegExp(esc(v), "g"), "{x}");
+    }
+    if (t !== d) templ.set(t, [...(templ.get(t) ?? []), d]);
   }
-  return new Set([...counts.entries()].filter(([, n]) => n > 1).map(([d]) => d));
+  const out = new Set([...exact.entries()].filter(([, n]) => n > 1).map(([d]) => d));
+  for (const ds of templ.values()) if (ds.length > 2) for (const d of ds) out.add(d);
+  return out;
 }
 
 export interface NormalizeOptions {

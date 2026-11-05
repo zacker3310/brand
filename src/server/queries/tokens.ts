@@ -786,3 +786,26 @@ export async function getExportTokens(setId: string): Promise<ExportPayload["tok
     location: x.location,
   }));
 }
+
+/* -------------------------------------------------------------------------- */
+/* Source files per set (token.location -> evidence source URL)                */
+/* -------------------------------------------------------------------------- */
+
+/** Evidence source URLs keyed by set id and file location, for linking a token's location to its file. */
+export async function getSetSourceFiles(setIds: readonly string[]): Promise<Map<string, Map<string, string>>> {
+  const out = new Map<string, Map<string, string>>();
+  if (!setIds.length) return out;
+  const db = await readDb();
+  const r = await db.execute<{ subject_id: string; location: string; source_url: string }>(sql`
+    select distinct on (e.subject_id, e.location) e.subject_id, e.location, e.source_url
+    from verification_evidence e
+    where e.subject_type = 'token_set' and e.subject_id = any(${uuidArray(setIds)}) and e.location is not null
+    order by e.subject_id, e.location, e.retrieved_at desc
+  `);
+  for (const x of r.rows) {
+    const m = out.get(x.subject_id) ?? new Map<string, string>();
+    m.set(x.location, x.source_url);
+    out.set(x.subject_id, m);
+  }
+  return out;
+}

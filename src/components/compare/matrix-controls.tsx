@@ -44,19 +44,16 @@ export function MatrixRoot({
   const [allProps, setAllProps] = useState(initialAllProps);
   const [announce, setAnnounce] = useState("");
   const toggleDiff = useCallback(() => {
-    setDiffOnly((v) => {
-      const next = !v;
-      setParam("diff", next ? "1" : null);
-      setAnnounce(next ? `Showing ${differingCount} of ${rowCount} rows that differ between systems.` : `Showing all ${rowCount} rows.`);
-      return next;
-    });
-  }, [differingCount, rowCount]);
+    const next = !diffOnly;
+    setDiffOnly(next);
+    setParam("diff", next ? "1" : null);
+    setAnnounce(next ? `Showing ${differingCount} of ${rowCount} rows that differ between systems.` : `Showing all ${rowCount} rows.`);
+  }, [diffOnly, differingCount, rowCount]);
   const toggleProps = useCallback(() => {
-    setAllProps((v) => {
-      setParam("props", v ? null : "all");
-      return !v;
-    });
-  }, []);
+    const next = !allProps;
+    setAllProps(next);
+    setParam("props", next ? "all" : null);
+  }, [allProps]);
   const value = useMemo(() => ({ diffOnly, allProps, toggleDiff, toggleProps }), [diffOnly, allProps, toggleDiff, toggleProps]);
   return (
     <MatrixContext.Provider value={value}>

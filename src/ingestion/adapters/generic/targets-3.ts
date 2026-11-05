@@ -21,9 +21,9 @@ export const TARGETS_3: GenericTarget[] = [
     exclude: ["/components/detail/example-"],
     docsUrlTemplate: "https://protocol.mozilla.org/components/detail/{segment}",
     frameworks: ["html-css"],
-    titleSuffix: "\\s*\\|\\s*Mozilla Protocol$",
+    titleSuffix: "\\s*\\|\\s*Mozilla Protocol$|\\s+full view$",
     notes:
-      "Static Fractal docs: every page carries the component tree (#tree-components) of the Protocol pattern library, one link per component (default variant). The component handle page (/components/detail/<handle>) exists for every component and is used as the docs URL. robots.txt returns 404 (unrestricted). Excluded: 'Example *' entries (example compositions, not components). Some entries are base-element styles (Headings, Paragraphs, Links) that Protocol documents as components.",
+      "Static Fractal docs: every page carries the component tree (#tree-components) of the Protocol pattern library, one link per component (default variant). The component handle page (/components/detail/<handle>) exists for every component and is used as the docs URL; its h1 ends with a 'full view' link, stripped via titleSuffix. robots.txt returns 404 (unrestricted). Excluded: 'Example *' entries (example compositions, not components). Some entries are base-element styles (Headings, Paragraphs, Links) that Protocol documents as components.",
   },
   {
     slug: "naive-ui",
@@ -31,14 +31,14 @@ export const TARGETS_3: GenericTarget[] = [
     repo: {
       kind: "gh",
       name: "tusen-ai/naive-ui",
-      ref: "v2.45.3",
+      ref: "v{npm:naive-ui}",
       docsUrlTemplate: "https://github.com/tusen-ai/naive-ui/blob/{ref}/{path}",
     },
     include: "^src/([a-z0-9-]+)/demos/enUS/index\\.demo-entry\\.md$",
     exclude: ["^src/(?:config-consumer|discrete)/"],
     frameworks: ["vue"],
     notes:
-      "www.naiveui.com is a client-rendered SPA whose deep links answer HTTP 404 to non-JS clients, so docs pages cannot be confirmed statically. Each documented component has an English docs source src/<name>/demos/enUS/index.demo-entry.md (the file the site renders); the jsDelivr listing of the release tag matching npm latest (v2.45.3) enumerates them, and the GitHub blob of that file is the docs URL (metadata read from the raw Markdown). The ref is pinned because jsDelivr's cached listing of 'main' lagged the branch (missing input-otp, heatmap). Excluded: config-consumer (deprecated, not in the docs menu) and discrete (createDiscreteApi, an API page). Re-pin the ref on new releases.",
+      "www.naiveui.com is a client-rendered SPA whose deep links answer HTTP 404 to non-JS clients, so docs pages cannot be confirmed statically. Each documented component has an English docs source src/<name>/demos/enUS/index.demo-entry.md (the file the site renders); the jsDelivr listing of the release tag of the latest npm version (ref v{npm:naive-ui}, v2.45.3 on 2026-11-05) enumerates them, and the GitHub blob of that file is the docs URL (metadata read from the raw Markdown). A release tag is used because jsDelivr's cached listing of 'main' lagged the branch (missing input-otp, heatmap). Excluded: config-consumer (deprecated, not in the docs menu) and discrete (createDiscreteApi, an API page). Names/descriptions come from the Markdown '# Heading' and first paragraph.",
   },
   {
     slug: "nl-design-system",
@@ -57,9 +57,9 @@ export const TARGETS_3: GenericTarget[] = [
     navUrl: "https://nordhealth.design/components/",
     include: "^https://nordhealth\\.design/components/([a-z0-9]+(?:-[a-z0-9]+)*)/?$",
     frameworks: ["web-components"],
-    titleSuffix: "\\s+Component\\s+-\\s+Nord Design System$",
+    titleSuffix: "\\s+Component\\s+-\\s+Nord Design System$|(?:\\s+(?:New|Beta|Deprecated|Light DOM|&|Tailwind))+$",
     notes:
-      "Static (Nuxt) components index lists one card per <nord-*> custom element, grouped by category; category anchors (#form...) are dropped by the include rule. sitemap.xml lists only /components, so the index page is the authoritative enumeration. robots.txt allows all. Licence restricts code use to work for Nordhealth: only names, URLs and short meta descriptions are kept. Deprecated components (e.g. Fieldset) are still listed by the docs.",
+      "Static (Nuxt) components index lists one card per <nord-*> custom element, grouped by category; category anchors (#form...) are dropped by the include rule. sitemap.xml lists only /components, so the index page is the authoritative enumeration. robots.txt allows all. Licence restricts code use to work for Nordhealth: only names, URLs and short meta descriptions are kept. h1 headings carry status badges ('New', 'Beta', 'Light DOM & Tailwind', 'Deprecated'), stripped via titleSuffix; deprecated components (e.g. Fieldset) are still listed by the docs.",
   },
   {
     slug: "onsen-ui",
@@ -210,10 +210,10 @@ export const TARGETS_3: GenericTarget[] = [
   {
     slug: "reactstrap",
     strategy: "repo-listing",
-    repo: { kind: "gh", name: "reactstrap/reactstrap", ref: "9.2.3" },
+    repo: { kind: "gh", name: "reactstrap/reactstrap", ref: "{npm:reactstrap}" },
     include: "^stories/([A-Z][A-Za-z]+)\\.stories\\.js$",
     frameworks: ["react"],
     notes:
-      "The official docs (reactstrap.github.io) are a Storybook 6 build without index.json/stories.json, so its pages are not statically enumerable. Each docs page is generated from one stories/<Name>.stories.js file (title 'Components/<Name>') in the repository; the jsDelivr listing of release tag 9.2.3 (npm latest) enumerates them. No docs URL is recorded: Storybook story ids are lowercase and cannot be derived from the PascalCase file names with the {segment} template, and the SPA shell cannot confirm them. Evidence links point to the stories file.",
+      "The official docs (reactstrap.github.io) are a Storybook 6 build without index.json/stories.json, so its pages are not statically enumerable. Each docs page is generated from one stories/<Name>.stories.js file (title 'Components/<Name>') in the repository; the jsDelivr listing of the release tag of the latest npm version ({npm:reactstrap}; tags have no 'v' prefix, 9.2.3 on 2026-11-05) enumerates them. No docs URL is recorded: Storybook story ids are lowercase and cannot be derived from the PascalCase file names with the {segment} template, and the SPA shell cannot confirm them. Evidence links point to the stories file.",
   },
 ];

@@ -98,7 +98,11 @@ export function OverviewSection({ detail }: { detail: SystemDetail }) {
       ) : (
         <MissingValue state="not-extracted" />
       ),
-      evidence: byField(ev, "latestVersion"),
+      // version facts come from adapter runs or from package-registry checks that state the version
+      evidence: [
+        ...byField(ev, "latestVersion"),
+        ...(core.latestVersion ? packageEvidence.filter((e) => e.excerpt?.includes(`latest ${core.latestVersion}`)) : []),
+      ],
     },
     {
       label: "Packages",

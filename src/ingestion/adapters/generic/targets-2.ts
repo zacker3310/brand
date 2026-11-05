@@ -21,8 +21,9 @@ export const TARGETS_2: GenericTarget[] = [
       "/Cupertino(?:Colors|DynamicColor|ThemeData|TextThemeData|Theme|Localizations|ScrollBehavior|TabController|TextSelectionControls|DesktopTextSelectionControls|ThumbPainter|PageRoute|DialogRoute|ModalPopupRoute|Page)-class\\.html$",
     ],
     frameworks: ["flutter"],
-    fetchPages: false,
-    titleSuffix: "\\s+class\\s+-\\s+cupertino_ui library\\s+-\\s+Dart API$",
+    maxPages: 60,
+    // Strips " class" from the dartdoc h1 ("CupertinoButton class") and the full title suffix.
+    titleSuffix: "\\s+class(?:\\s+-\\s+cupertino_ui library\\s+-\\s+Dart API)?$",
     notes:
       "Official Flutter 'Cupertino (iOS-style) widgets' catalog on docs.flutter.dev (static HTML; robots.txt 'Disallow:' empty = allow all). Its <main> links every catalog entry to the cupertino_ui API reference on pub.dev (robots allows /documentation). Non-widget catalog entries (CupertinoColors, *ThemeData, *Localizations, routes, controllers, painters, selection-control delegates) are excluded. fetchPages=false: pub.dev dartdoc pages only carry a boilerplate meta description ('API docs for the X class...'), so names come from the class-name segment.",
   },
@@ -74,7 +75,8 @@ export const TARGETS_2: GenericTarget[] = [
     // App/Core, Form Data/Storage, Icons and View/Router entries of the Components list are APIs, not UI components.
     exclude: ["/docs/(?:app|form|icons|view)\\.html$"],
     frameworks: ["html-css", "react", "vue", "svelte"],
-    titleSuffix: "\\s*\\|\\s*Framework7(?: Documentation)?$",
+    // Drops alias suffixes from h1/title ("Accordion / Collapsible", "List View (Table View)") and the site name.
+    titleSuffix: "\\s+/\\s+.*$|\\s+\\([^)]*\\)$|\\s*\\|\\s*Framework7(?: Documentation)?$",
     notes:
       "The 'Components' group of the static framework7.io docs sidebar (robots.txt allows /docs/; only /packages/, /kitchen-sink/, /docs-demos/ are disallowed). Core docs URLs (/docs/<name>.html) are used. Framework7 ships React, Vue and Svelte versions of every component (sitemap.xml lists 78 per-component pages under each of /react/, /vue/, /svelte/), hence all four frameworks; html-css stands for the framework-agnostic core (no vanilla-JS slug in the taxonomy).",
   },
@@ -95,9 +97,11 @@ export const TARGETS_2: GenericTarget[] = [
     strategy: "nav",
     navUrl: "https://gestalt.pinterest.systems/v1/web/overview",
     include: "^https://gestalt\\.pinterest\\.systems/web/([a-z]+)$",
+    exclude: ["/web/overview$"],
     docsUrlTemplate: "https://gestalt.pinterest.systems/v1/web/{segment}",
     frameworks: ["react"],
-    titleSuffix: "^,\\s*Opens a new tab$",
+    // The <title> is a broken ", Opens a new tab"; h1s carry status badges ("BannerOverlay Pilot").
+    titleSuffix: "^,\\s*Opens a new tab$|\\s+(?:Pilot|Experimental|Beta|Alpha|Deprecated|Legacy|New)$",
     notes:
       "Gestalt 'Web component overview' page: static HTML card grid linking every web component (/web/<name>, which redirects to the /v1/web/<name> docs). robots.txt redirects to an Okta sign-in HTML page (no rules = allowed); docs pages themselves are public. Utilities (/web/utilities/*) and zindex_classes are not matched. Page <title> is broken (', Opens a new tab', from an SVG title), so names come from the h1 ('ButtonGroup'). Link texts concatenate name and description and are not used for names.",
   },
@@ -108,7 +112,8 @@ export const TARGETS_2: GenericTarget[] = [
     include: "^https://design\\.gitlab\\.com/components/([a-z-]+)/?$",
     // dropdown-overview is a chooser page; utility-* are code utilities; 'socks' is a joke page.
     exclude: ["/components/(?:dropdown-overview|socks|utility-[a-z-]+)/?$"],
-    titleSuffix: "\\s*\\|\\s*Pajamas Design System$",
+    // Some titles/h1s are prefixed with a warning emoji ("⚠️ Banner").
+    titleSuffix: "^⚠️\\s*|\\s*\\|\\s*Pajamas Design System$",
     notes:
       "Static sidebar of design.gitlab.com/components (robots.txt redirects to a gitlab.com sign-in page answering 403 = unrestricted per RFC 9309; docs pages are public). Excluded: the Dropdown overview chooser, GitLab UI utility pages (utility-animated-number, utility-truncate...) and the 'Socks' joke page ('Socks represent a unique way to warm your feet'). Frameworks are not recorded: Pajamas documents some components that have no GitLab UI (Vue) implementation yet.",
   },

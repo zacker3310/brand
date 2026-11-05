@@ -51,7 +51,9 @@
     ".next-qa/types/**/*.ts",
     ".next-qa/dev/types/**/*.ts",
     ".next-e2e/types/**/*.ts",
-    ".next-e2e/dev/types/**/*.ts"
+    ".next-e2e/dev/types/**/*.ts",
+    ".next-ui-platform/types/**/*.ts",
+    ".next-ui-platform/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
