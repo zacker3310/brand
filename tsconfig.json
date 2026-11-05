@@ -53,7 +53,9 @@
     ".next-e2e/types/**/*.ts",
     ".next-e2e/dev/types/**/*.ts",
     ".next-ui-platform/types/**/*.ts",
-    ".next-ui-platform/dev/types/**/*.ts"
+    ".next-ui-platform/dev/types/**/*.ts",
+    ".next-routing/types/**/*.ts",
+    ".next-routing/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
