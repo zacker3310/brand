@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- Trimmed fixture from https://primer.style/product/components/action-menu/accessibility/ (retrieved 2026-11-05) for ATLAS parser tests; most content removed. -->
+<html><head><meta name="description" content="ActionMenu is composed of ActionList and Overlay patterns used for quick actions and selections."/></head><body><main id="skip-nav"><div><div><nav aria-label="Breadcrumbs"><ol><li><a href="/product/">Product UI</a></li><li><a href="/product/components/">Components</a></li><li><a href="/product/components/action-menu/">ActionMenu</a></li><li><a aria-current="page" href="/product/components/action-menu/accessibility/">Accessibility</a></li></ol></nav><h1>ActionMenu</h1><p>ActionMenu is composed of ActionList and Overlay patterns used for quick actions and selections.</p></div><h2>Page navigation navigation</h2><nav aria-label="Page navigation"><ul role="list"><li role="presentation" aria-hidden="true"></li><li><a href="/product/components/action-menu/"><span>Overview</span></a></li><li><a href="/product/components/action-menu/guidelines/"><span>Guidelines</span></a></li><li><a aria-current="page" href="/product/components/action-menu/accessibility/"><span>Accessibility</span></a></li></ul><div><div></div><button type="button" aria-haspopup="true" aria-expanded="false" id="_R_1aeav5ujb_"><span><span><span>More<span> items</span></span></span></span><span></span></button></div></nav><div class="RMjMGq_Markdown"><h2 id="built-in-accessibility-features"><a href="#built-in-accessibility-features">Built-in accessibility features<!-- --> </a></h2>
+<p>The component handles all aspects of focus management and keyboard interaction.</p>
+<p>The <code>role</code> (<code>&quot;menu&quot;</code>) and structure of the <code>ActionMenu</code> are correctly conveyed to screen readers – including the state of selectable menu items, and the correct association of grouped items with their group title/label.</p>
+<p>Menu items meet the minimum target size requirement, 24px × 24px.</p>
+<h2 id="keyboard-navigation"><a href="#keyboard-navigation">Keyboard navigation<!-- --> </a></h2>
+<h3 id="trigger-button"><a href="#trigger-button">Trigger button<!-- --> </a></h3>
+<div><div><table role="table"><thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Key</th><th role="columnheader" scope="col">Action</th></tr></thead><tbody role="rowgroup"><tr role="row"><td role="cell"><kbd>Enter</kbd></td><td role="cell">Opens the menu.</td></tr><tr role="row"><td role="cell"><kbd>Space</kbd></td><td role="cell">Opens the menu.</td></tr><tr role="row"><td role="cell"><kbd>ArrowDown</kbd></td><td role="cell">Opens the menu.</td></tr><tr role="row"><td role="cell"><kbd>ArrowUp</kbd></td><td role="cell">Opens the menu.</td></tr><tr role="row"><td role="cell"><kbd>ArrowLeft</kbd></td><td role="cell">Opens the menu.</td></tr><tr role="row"><td role="cell"><kbd>ArrowRight</kbd></td><td role="cell">Opens the menu.</td></tr></tbody></table></div></div>
+<h3 id="menu-items"><a href="#menu-items">Menu items<!-- --> </a></h3>
+<div><div><table role="table"><thead role="rowgroup"><tr role="row"><th role="columnheader" scope="col">Key</th><th role="columnheader" scope="col">Action</th></tr></thead><tbody role="rowgroup"><tr role="row"><td role="cell"><kbd>ArrowUp</kbd></td><td role="cell">Cycle through items starting with current item to previous item</td></tr><tr role="row"><td role="cell"><kbd>ArrowDown</kbd></td><td role="cell">Cycle through items starting with current item to next item</td></tr><tr role="row"><td role="cell"><kbd>ArrowLeft</kbd></td><td role="cell">Closes submenu and sets focus back to the parent item</td></tr><tr role="row"><td role="cell"><kbd>ArrowRight</kbd></td><td role="cell">Opens a submenu</td></tr><tr role="row"><td role="cell"><kbd>Enter</kbd></td><td role="cell">Triggers the focused item</td></tr><tr role="row"><td role="cell"><kbd>Space</kbd></td><td role="cell">Triggers the focused item</td></tr><tr role="row"><td role="cell"><kbd>Home</kbd></td><td role="cell">Move focus to first item</td></tr><tr role="row"><td role="cell"><kbd>PageUp</kbd></td><td role="cell">Move focus to first item</td></tr><tr role="row"><td role="cell"><kbd>End</kbd></td><td role="cell">Move focus to last item</td></tr><tr role="row"><td role="cell"><kbd>PageDown</kbd></td><td role="cell">Move focus to last item</td></tr><tr role="row"><td role="cell"><kbd>Esc</kbd></td><td role="cell">Close menu</td></tr></tbody></table></div></div>
+<h2 id="how-to-test-the-component"><a href="#how-to-test-the-component">How to test the component<!-- --> </a></h2>
+<h3 id="integration-tests"><a href="#integration-tests">Integration tests<!-- --> </a></h3>
+<ul>
+<li>The menu items have sufficiently descriptive labels</li>
+<li>If menu items include icons for their leading or trailing visuals, the purpose of the items is clear even without the icons (as these are only decorative and are not conveyed to screen reader users)</li>
+<li>When using an <code>inactive</code> menu item, provide a descriptive <code>inactiveText</code> that explains why the item is inactive</li>
+</ul>
+<h3 id="component-tests"><a href="#component-tests">Component tests<!-- --> </a></h3>
+<ul>
+<li>The component exposes an appropriate set of <code>role</code>, <code>aria-*</code> attributes, and overall structure in its rendered output:<!-- -->
+<ul>
+<li>the component itself has a <code>role=&quot;menu&quot;</code></li>
+<li>each item within the menu has a <code>role=&quot;menuitem&quot;</code>, <code>role=&quot;menuitemcheckbox</code>, or <code>role=&quot;menuitemradio</code></li>
+<li>when items are grouped into sections, each section is identified using a container with <code>role=&quot;group</code>, and the group has an accessible name (either using <code>aria-label</code> or referencing an existing element with <code>aria-labelledby</code>) that matches the visible section label</li>
+<li>selectable items have an <code>aria-checked</code> attribute, and correctly reflect their state (<code>aria-checked=&quot;true&quot;</code> when checked, <code>aria-checked=&quot;false&quot;</code> when not checked)</li>
+</ul>
+</li>
+<li>When a menu is opened, focus moves to the first menu item</li>
+<li>The correct keyboard interactions have been implemented</li>
+<li>The menu can be closed using <code>Esc</code></li>
+<li>When moving keyboard focus away from the menu (using <code>Tab</code> / <code>Shift+Tab</code>) the menu is closed</li>
+<li>When a menu item is selected, the menu is closed</li>
+<li>When the menu is closed, focus is programmatically moved back to the most appropriate element in the page – in general, the trigger element that opened the menu; this does not apply when the menu was closed as a result of a keyboard user explicitly navigating away from the menu (using <code>Tab</code> / <code>Shift+Tab</code>)</li>
+<li>When a menu item is <code>disabled</code>, the item has <code>aria-disabled=&quot;true&quot;</code>, but still receives focus</li>
+<li>When a menu item is <code>inactive</code>, the item still receives focus</li>
+</ul>
+<p>Refer to the <a href="https://www.w3.org/WAI/ARIA/apg/">W3C ARIA Authoring Practices Guide</a> for <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/">menu button</a> and <a href="https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-actions/">actions menu button</a>.</p></div></div></main></div></div></main></body></html>

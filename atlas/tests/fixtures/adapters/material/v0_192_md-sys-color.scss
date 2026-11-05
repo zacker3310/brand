@@ -1,0 +1,38 @@
+//
+// Copyright 2023 Google LLC
+// SPDX-License-Identifier: Apache-2.0
+//
+//
+// !!! THIS FILE WAS AUTOMATICALLY GENERATED !!!
+// !!! DO NOT MODIFY IT BY HAND !!!
+// Design system display name: Google Material 3
+// Design system version: v0.192
+// User-configured context group "Audience": "3P"
+// User-configured context group "Platform": "Web"
+// User-configured context group "Scheme": "Dynamic"
+//
+
+@use 'sass:map';
+
+@use './md-ref-palette';
+
+$_default-dark: (
+  'md-ref-palette': md-ref-palette.values(),
+);
+
+@function values-dark($deps: $_default-dark) {
+  @return (
+    'background': map.get($deps, 'md-ref-palette', 'neutral6'),
+    'error': map.get($deps, 'md-ref-palette', 'error80'),
+    'error-container': map.get($deps, 'md-ref-palette', 'error30'),
+    'inverse-on-surface': map.get($deps, 'md-ref-palette', 'neutral20'),
+    'inverse-primary': map.get($deps, 'md-ref-palette', 'primary40'),
+    'inverse-surface': map.get($deps, 'md-ref-palette', 'neutral90'),
+  );
+}
+
+@function values-light($deps: $_default-light) {
+  @return (
+    'primary': map.get($deps, 'md-ref-palette', 'primary40'),
+  );
+}

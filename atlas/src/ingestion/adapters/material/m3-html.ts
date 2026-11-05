@@ -22,14 +22,17 @@ export function parseM3Page(html: string): M3PageMeta {
   const title = $("title").first().text().replace(/\s+/g, " ").trim() || null;
   const description = ($('meta[name="description"]').attr("content") ?? "").replace(/\s+/g, " ").trim() || null;
   const ogUrl = $('meta[property="og:url"]').attr("content") ?? $('meta[name="twitter:url"]').attr("content") ?? null;
-  $("script, style, noscript").remove();
-  const bodyText = $("body").text().replace(/\s+/g, " ").trim();
+  $("script, style").remove();
+  const shellText = $("body").text().replace(/\s+/g, " ").trim();
+  $("noscript").remove();
+  const contentText = $("body").text().replace(/\s+/g, " ").trim();
   return {
     title,
     name: title ? title.replace(SUFFIX, "").trim() || null : null,
     description,
     ogUrl,
-    clientRendered: bodyText.length < 200 && /requires JavaScript/i.test(bodyText),
+    // The server body is only a "requires JavaScript" notice; all content is rendered client-side.
+    clientRendered: contentText.length < 200 && /requires JavaScript/i.test(shellText),
   };
 }
 

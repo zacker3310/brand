@@ -275,7 +275,8 @@ function buildComponent(
       slug: "web-components",
       packageName: PKG.webComponents,
       importName: tags.length === 1 ? tags[0]!.name : null,
-      sourceUrl: live?.wcSourceUrl ?? null,
+      // Live page folder link, else the source path recorded in the published manifest.
+      sourceUrl: live?.wcSourceUrl ?? (tags.length === 1 ? `${MONOREPO_URL}/blob/main/packages/web-components/${tags[0]!.path.replace(/^\.\//, "")}` : null),
     });
   }
   if (f.code && codeLabels.length) ev.push(evidence("frameworks", f.code.ev, "mdx-code", 0.9));

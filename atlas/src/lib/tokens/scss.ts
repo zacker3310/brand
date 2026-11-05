@@ -361,8 +361,6 @@ function makeVariable(
   };
 }
 
-const FLAG_RE = /\s*!(default|global)\b/gi;
-
 function splitFlags(valueText: string): { text: string; flags: { default: boolean; global: boolean } } {
   const flags = { default: false, global: false };
   // Only strip flags at top level at the end of the value.
@@ -374,7 +372,6 @@ function splitFlags(valueText: string): { text: string; flags: { default: boolea
     else flags.global = true;
     text = text.slice(0, m.index);
   }
-  void FLAG_RE;
   return { text, flags };
 }
 

@@ -244,7 +244,10 @@ function parseBlock(sc: Scanner, start: number, end: number, ctx: Ctx, out: CssC
       }
       const close = Math.min(sc.matchBrace(stop), end);
       const prelude = collapse(stripComments(s.slice(i + 1 + name.length, stop)));
-      if (CONDITIONAL_AT_RULES.has(name)) {
+      if (name === "theme") {
+        // Tailwind CSS v4 `@theme [default|inline|static|reference] { --color-*: ...; }` defines root-level tokens.
+        parseBlock(sc, stop + 1, close, { ...ctx, selector: `@theme${prelude ? ` ${prelude}` : ""}` }, out, opts, depth + 1);
+      } else if (CONDITIONAL_AT_RULES.has(name)) {
         const next: Ctx = { ...ctx, media: [...ctx.media], layer: [...ctx.layer], conditions: [...ctx.conditions] };
         if (name === "media") next.media.push(prelude);
         else if (name === "layer") next.layer.push(prelude || "(anonymous)");
@@ -387,9 +390,9 @@ export interface SelectorThemeInfo {
   kind: "root" | "theme" | "scoped";
 }
 
-const ROOT_SELECTOR = /^(?::root|html|:host|body|\*|:where\(:root\)|:is\(:root\)|:scope)$/i;
+const ROOT_SELECTOR = /^(?::root|html|:host|body|\*|:scope|@theme(?:\s.*)?)$/i;
 const THEME_ATTR_RE = /\[\s*((?:data-)?[\w-]*?(?:theme|mode|scheme|appearance))\s*([~|^$*]?=)\s*(?:"([^"]*)"|'([^']*)'|([^\]\s]+))\s*(?:[is]\s*)?\]/gi;
-const THEME_KEYWORDS = ["light", "dark", "dim", "dimmed", "high-contrast", "hc", "contrast", "night", "day", "colorblind", "tritanopia", "protanopia", "deuteranopia"];
+const THEME_KEYWORDS = ["light", "dark", "lightest", "darkest", "dim", "dimmed", "high-contrast", "hc", "contrast", "night", "day", "colorblind", "tritanopia", "protanopia", "deuteranopia"];
 const CLASS_RE = /\.(-?[_a-zA-Z][\w-]*)/g;
 
 function normalizeKeywordTheme(cls: string): string | null {
@@ -447,10 +450,23 @@ function stripNegations(sel: string): string {
   return out;
 }
 
+/** Unwrap zero-specificity / matches-any wrappers: ":where(html)" -> "html", ":is(:root)" -> ":root". */
+function unwrapIsWhere(sel: string): string {
+  let s = sel.trim();
+  for (let guard = 0; guard < 8; guard++) {
+    const m = /^:(?:where|is)\((.*)\)$/i.exec(s);
+    if (!m || splitTopLevel(m[1]!).length !== 1) break;
+    s = m[1]!.trim();
+  }
+  return s;
+}
+
 function themeOfCompound(sel: string): SelectorThemeInfo {
-  const s = stripNegations(sel).trim();
+  const s = unwrapIsWhere(stripNegations(sel));
   if (!s) return { theme: null, inferred: false, kind: "root" };
   if (ROOT_SELECTOR.test(s)) return { theme: null, inferred: false, kind: "root" };
+  // Relational selectors (":root:has(input[value=dark]:checked)") are conditional; never a default scope.
+  if (/:has\(/i.test(s)) return { theme: null, inferred: false, kind: "scoped" };
   // Attribute-based themes (literal values).
   const attrs: { name: string; value: string }[] = [];
   for (const m of s.matchAll(THEME_ATTR_RE)) {
@@ -466,7 +482,6 @@ function themeOfCompound(sel: string): SelectorThemeInfo {
   // Root-ish compound with a theme class: ":root.dark", "html.theme-dark", ".dark", "body.dark-mode".
   const head = s.replace(/^(?::root|html|body|:host)/i, "");
   const classes = [...head.matchAll(CLASS_RE)].map((m) => m[1]!);
-  const isSimple = /^(?::root|html|body|:host)?(?:\.[\w-]+)+(?:\s*,\s*)?$/i.test(s) || /^(?::root|html|body|:host)?(?:\.[\w-]+)+\s+(?::root|html|body)?$/i.test(s);
   for (const cls of classes) {
     const t = themeFromClassName(cls);
     if (t) return { theme: t, inferred: true, kind: "theme" };
@@ -477,7 +492,6 @@ function themeOfCompound(sel: string): SelectorThemeInfo {
     const t = themeFromClassName(host[1]!);
     if (t) return { theme: t, inferred: true, kind: "theme" };
   }
-  void isSimple;
   return { theme: null, inferred: false, kind: "scoped" };
 }
 

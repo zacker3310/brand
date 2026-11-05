@@ -153,6 +153,25 @@ describe("parseCssCustomProperties — robustness", () => {
   });
 });
 
+describe("real-world selector conventions", () => {
+  it("Tailwind v4 @theme blocks are root-level tokens", () => {
+    const out = parseCssCustomProperties("@theme { --color-red-500: oklch(63.7% 0.237 25.331); --spacing: 0.25rem; }\n@theme inline { --font-sans: var(--font-inter); }");
+    expect(out.map((d) => [d.selector, d.name, d.scope, d.theme])).toEqual([
+      ["@theme", "--color-red-500", "root", null],
+      ["@theme", "--spacing", "root", null],
+      ["@theme inline", "--font-sans", "root", null],
+    ]);
+  });
+
+  it("Open Props :where(html), Spectrum --darkest, Shoelace theme classes, daisyUI :has()", () => {
+    expect(inferThemeFromSelector(":where(html)")).toEqual({ theme: null, inferred: false, kind: "root" });
+    expect(inferThemeFromSelector(".spectrum--darkest").theme).toBe("darkest");
+    expect(inferThemeFromSelector(":root, :host, .sl-theme-light")).toEqual({ theme: "light", inferred: true, kind: "theme" });
+    expect(inferThemeFromSelector(":root:has(input.theme-controller[value=dark]:checked)")).toEqual({ theme: null, inferred: false, kind: "scoped" });
+    expect(inferThemeFromSelector('[data-bs-theme="dark"]')).toEqual({ theme: "dark", inferred: false, kind: "theme" });
+  });
+});
+
 describe("theme inference helpers", () => {
   it("inferThemeFromSelector", () => {
     expect(inferThemeFromSelector(":root")).toEqual({ theme: null, inferred: false, kind: "root" });

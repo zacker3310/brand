@@ -1,0 +1,241 @@
+{
+  "fgColor-default": {
+    "key": "{fgColor.default}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "mode",
+        "group": "semantic",
+        "scopes": [
+          "fgColor"
+        ],
+        "codeSyntax": {
+          "web": "var(--fgColor-default) /* utility class: .color-fg-default */"
+        }
+      },
+      "org.primer.overrides": {
+        "dark": "#f0f6fc",
+        "dark-high-contrast": "#ffffff",
+        "dark-tritanopia-high-contrast": "#ffffff",
+        "dark-protanopia-deuteranopia-high-contrast": "#ffffff",
+        "dark-dimmed": "#d1d7e0",
+        "dark-dimmed-high-contrast": "#f0f6fc"
+      }
+    },
+    "filePath": "src/tokens/functional/color/fgColor.json5",
+    "isSource": true,
+    "original": {
+      "$value": "{base.color.neutral.12}",
+      "$type": "color",
+      "$description": "Default text color for primary content and headings",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "mode",
+          "group": "semantic",
+          "scopes": [
+            "fgColor"
+          ],
+          "codeSyntax": {
+            "web": "var(--fgColor-default) /* utility class: .color-fg-default */"
+          }
+        },
+        "org.primer.overrides": {
+          "dark": "{base.color.neutral.12}",
+          "dark-high-contrast": "{base.color.neutral.13}",
+          "dark-tritanopia-high-contrast": "{base.color.neutral.13}",
+          "dark-protanopia-deuteranopia-high-contrast": "{base.color.neutral.13}",
+          "dark-dimmed": "{base.color.neutral.11}",
+          "dark-dimmed-high-contrast": "{base.color.neutral.12}"
+        }
+      },
+      "key": "{fgColor.default}"
+    },
+    "name": "fgColor-default",
+    "attributes": {},
+    "path": [
+      "fgColor",
+      "default"
+    ],
+    "value": "#f0f6fc",
+    "type": "color",
+    "description": "Default text color for primary content and headings"
+  },
+  "avatar-bgColor": {
+    "key": "{avatar.bgColor}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "mode",
+        "group": "component (internal)",
+        "scopes": [
+          "bgColor"
+        ]
+      },
+      "org.primer.overrides": {
+        "dark": {
+          "$value": "#ffffff",
+          "alpha": 0.1,
+          "filePath": "src/tokens/component/avatar.json5",
+          "isSource": true,
+          "$type": "color"
+        }
+      }
+    },
+    "filePath": "src/tokens/component/avatar.json5",
+    "isSource": true,
+    "alpha": 0.1,
+    "original": {
+      "$value": "{base.color.neutral.13}",
+      "$type": "color",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "mode",
+          "group": "component (internal)",
+          "scopes": [
+            "bgColor"
+          ]
+        },
+        "org.primer.overrides": {
+          "dark": {
+            "$value": "{base.color.neutral.13}",
+            "alpha": 0.1,
+            "filePath": "src/tokens/component/avatar.json5",
+            "isSource": true,
+            "$type": "color"
+          }
+        }
+      },
+      "alpha": 0.1,
+      "key": "{avatar.bgColor}"
+    },
+    "name": "avatar-bgColor",
+    "attributes": {},
+    "path": [
+      "avatar",
+      "bgColor"
+    ],
+    "value": "#ffffff1a",
+    "type": "color"
+  },
+  "color-ansi-black": {
+    "key": "{color.ansi.black}",
+    "$deprecated": "#2f3742",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "mode",
+        "group": "syntax"
+      }
+    },
+    "filePath": "src/tokens/functional/color/syntax.json5",
+    "isSource": true,
+    "original": {
+      "$value": "{ansi.black}",
+      "$type": "color",
+      "$deprecated": "{ansi.black}",
+      "$description": "Deprecated. Use ansi.black instead.",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "mode",
+          "group": "syntax"
+        }
+      },
+      "key": "{color.ansi.black}"
+    },
+    "name": "color-ansi-black",
+    "attributes": {},
+    "path": [
+      "color",
+      "ansi",
+      "black"
+    ],
+    "value": "#2f3742",
+    "type": "color",
+    "description": "Deprecated. Use ansi.black instead."
+  },
+  "border-default": {
+    "key": "{border.default}",
+    "filePath": "src/tokens/functional/border/border.json5",
+    "isSource": true,
+    "original": {
+      "$value": {
+        "color": "{borderColor.default}",
+        "style": "solid",
+        "width": "{borderWidth.default}"
+      },
+      "$type": "border",
+      "key": "{border.default}"
+    },
+    "name": "border-default",
+    "attributes": {},
+    "path": [
+      "border",
+      "default"
+    ],
+    "value": "0.0625rem solid #3d444d",
+    "type": "border"
+  },
+  "button-primary-bgColor-rest": {
+    "key": "{button.primary.bgColor.rest}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "mode",
+        "group": "component (internal)",
+        "scopes": [
+          "bgColor"
+        ]
+      },
+      "org.primer.overrides": {
+        "dark": {
+          "$value": "#238636",
+          "filePath": "src/tokens/component/button.json5",
+          "isSource": true,
+          "$type": "color"
+        },
+        "light-high-contrast": {
+          "$value": "#238636",
+          "filePath": "src/tokens/component/button.json5",
+          "isSource": true,
+          "$type": "color"
+        }
+      }
+    },
+    "filePath": "src/tokens/component/button.json5",
+    "isSource": true,
+    "original": {
+      "$value": "{bgColor.success.emphasis}",
+      "$type": "color",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "mode",
+          "group": "component (internal)",
+          "scopes": [
+            "bgColor"
+          ]
+        },
+        "org.primer.overrides": {
+          "dark": {
+            "$value": "{bgColor.success.emphasis}",
+            "filePath": "src/tokens/component/button.json5",
+            "isSource": true,
+            "$type": "color"
+          },
+          "light-high-contrast": {
+            "$value": "{base.color.green.5}",
+            "filePath": "src/tokens/component/button.json5",
+            "isSource": true,
+            "$type": "color"
+          }
+        }
+      },
+      "key": "{button.primary.bgColor.rest}"
+    },
+    "name": "button-primary-bgColor-rest",
+    "attributes": {},
+    "path": [
+      "button",
+      "primary",
+      "bgColor",
+      "rest"
+    ],
+    "value": "#238636",
+    "type": "color"
+  }
+}

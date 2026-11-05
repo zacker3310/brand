@@ -279,6 +279,16 @@ describe("categorizeToken", () => {
     expect(c("--border-default", null, "#d0d7de")).toEqual(["color", "color"]);
     expect(c("--container-max-width", null, "1280px")).toEqual(["layout", "container"]);
     expect(c("unknown-thing", null, "foo")).toEqual(["other", null]);
+    // utility-framework conventions (Tailwind v4 theme variables, Open Props)
+    expect(c("--container-3xl", null, "48rem")).toEqual(["layout", "container"]);
+    expect(c("--text-2xl", null, "1.5rem")).toEqual(["typography", "fontSize"]);
+    expect(c("--text-primary", null, "#161616")).toEqual(["color", "color"]);
+    expect(c("--animate-spin", null, "spin 1s linear infinite")).toEqual(["motion", "transition"]);
+    expect(c("--layer-1", null, "1")).toEqual(["elevation", "zIndex"]);
+    expect(c("layer-01", null, "#f4f4f4")).toEqual(["color", "color"]);
+    expect(c("md.comp.fab.container.height", null, "56px")).toEqual(["spacing", "sizing"]);
+    expect(c("md.comp.fab.container.elevation", null, "6px")).toEqual(["elevation", "shadow"]);
+    expect(c("md.comp.fab.container.shape", null, "16px")).toEqual(["shape", null]);
   });
 
   it("normalizeTokenName splits camelCase", () => {

@@ -305,7 +305,8 @@ describe("resolveTokenGraph — robustness", () => {
       { name: "ghost", rawValue: "#111", references: ["palette.nope"] },
     ]);
     expect(r.get("accent")).toMatchObject({ state: "resolved", resolvedValue: "#00f", targets: ["palette.blue"], depth: 1 });
-    expect(r.get("ghost")).toMatchObject({ state: "external", resolvedValue: null, missing: ["palette.nope"] });
+    // the raw value is concrete: it stays the resolved value; the state describes the declared edge
+    expect(r.get("ghost")).toMatchObject({ state: "external", resolvedValue: "#111", missing: ["palette.nope"] });
   });
 
   it("custom lookup and separator-normalised names", () => {

@@ -12,7 +12,7 @@ import { tokenAliases, tokenSets, tokens } from "@/db/schema";
 import { diffPayload } from "../diff";
 import { upsertEvidence } from "../evidence";
 import { contentHash } from "../hash";
-import { formatTokenValue, resolveTokenGraph, type GraphTokenInput, type TokenResolution } from "../tokens";
+import { formatTokenValue, resolutionColumns, resolveTokenGraph, tokenAliasRows, type GraphTokenInput, type TokenResolution } from "../tokens";
 import type { ValidatedEntity } from "../validate";
 import { bulkUpdate, ensureLicense, inSavepoint, newCounters, previousPayload, writeChange, type Counters, type PromoteContext } from "./promote-common";
 
@@ -244,32 +244,20 @@ export async function resolveSystemTokens(pc: PromoteContext, refsBySet: Map<str
       }
     }
     const byName = new Map(scope.map((t) => [t.name, t]));
-    const byVar = new Map(scope.filter((t) => t.cssVar).map((t) => [t.cssVar!, t]));
-    const lookup = (ref: string) => byName.get(ref) ?? byVar.get(ref) ?? byVar.get(ref.startsWith("--") ? ref : `--${ref}`) ?? (ref.startsWith("--") ? byName.get(ref.slice(2)) : undefined);
     const graph = resolveTokenGraph(scope.map((t): GraphTokenInput => ({ name: t.name, rawValue: t.rawValue, references: t.references, cssVar: t.cssVar })));
     for (const t of own) {
       const res: TokenResolution | undefined = graph.get(t.name);
-      const isAlias = t.references.length > 0;
-      const resolvedValue = res ? (res.resolvedValue ?? null) : isAlias ? null : t.rawValue;
-      const aliasState = isAlias ? (res?.state === "literal" ? "resolved" : (res?.state ?? "unresolved")) : null;
+      const cols = resolutionColumns(res);
+      const resolvedValue = res ? (cols.resolvedValue ?? null) : (t.rawValue ?? null);
+      const isAlias = res ? cols.isAlias : false;
+      const aliasState = res ? cols.aliasState : null;
       const valueText = formatTokenValue(resolvedValue, t.type);
       if (contentHash([t.resolvedValue ?? null, t.valueText ?? null, t.isAlias, t.aliasState ?? null]) !== contentHash([resolvedValue, valueText ?? null, isAlias, aliasState])) {
         updates.push({ id: t.id, resolved_value: resolvedValue, value_text: valueText, is_alias: isAlias, alias_state: aliasState });
       }
-      for (const ref of t.references) {
-        const target = lookup(ref);
-        const targetRes = target ? graph.get(target.name) : undefined;
-        const state =
-          res?.state === "cycle"
-            ? "cycle"
-            : !target
-              ? res?.state === "external"
-                ? "external"
-                : "unresolved"
-              : !targetRes || targetRes.state === "literal" || targetRes.state === "resolved"
-                ? "resolved"
-                : targetRes.state;
-        desiredAliases.set(`${t.id}|${ref}`, { tokenId: t.id, targetRef: ref, targetTokenId: target?.id ?? null, state, depth: res?.depth ?? null });
+      for (const row of tokenAliasRows(res)) {
+        const target = row.targetName ? byName.get(row.targetName) : undefined;
+        desiredAliases.set(`${t.id}|${row.targetRef}`, { tokenId: t.id, targetRef: row.targetRef, targetTokenId: target?.id ?? null, state: row.state, depth: row.depth });
       }
     }
   }

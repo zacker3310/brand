@@ -95,7 +95,10 @@ export const DTCG_DIMENSION_UNITS = new Set(["px", "rem"]);
 const CSS_MATH_FN = /^(calc|min|max|clamp|env|round|mod|rem|abs|sign|sin|cos|tan|sqrt|pow|hypot|log|exp|attr)\(/i;
 const CSS_WIDE = new Set(["inherit", "initial", "unset", "revert", "revert-layer"]);
 
-const isRef = (v: unknown) => (typeof v === "string" || isObj(v)) && hasReferences(v);
+/** SCSS variable / module references ("$x", "md-sys-color.$primary", "map.get($m, k)"): never literal values. */
+const SCSS_REF = /(^|[\s(,])(?:[a-zA-Z_][\w-]*\.)?\$[a-zA-Z_-][\w-]*/;
+const isScssRef = (v: unknown) => typeof v === "string" && SCSS_REF.test(v);
+const isRef = (v: unknown) => ((typeof v === "string" || isObj(v)) && hasReferences(v)) || isScssRef(v);
 
 function checkDimension(v: unknown, label = "dimension"): TokenValidationResult {
   if (typeof v === "number") return Number.isFinite(v) ? ok(v === 0 ? undefined : "UNITLESS", v === 0 ? undefined : `Unitless ${label}`) : bad("INVALID_DIMENSION", `Non-finite ${label}`);
@@ -447,6 +450,7 @@ export function validateTokenValue(typeOrCategory: string | null | undefined, va
     if (value === null || value === undefined) return bad("EMPTY_VALUE", "Token has no value");
     if (typeof value === "string" && value.trim() === "") return bad("EMPTY_VALUE", "Token value is empty");
     if (isWholeReference(value)) return ok("REFERENCE", "Alias reference (not validated until resolved)");
+    if (isScssRef(value)) return ok("REFERENCE", "SCSS variable reference (not evaluated)");
     const t = (typeOrCategory ?? "").trim();
     const key = t.toLowerCase().replace(/[\s_-]+/g, "");
     switch (key) {

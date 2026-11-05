@@ -205,6 +205,8 @@ function linearize($: CheerioAPI, content: Sel): Block[] {
 }
 
 const ROLE_PATTERNS = [
+  // "with the required group and treeitem roles" -> group, treeitem
+  /((?:\b[a-z]+\b(?:,\s*|\s+and\s+|\s+or\s+))*\b[a-z]+\b)\s+roles?\b/gi,
   /\brole\s*=\s*["“'`]?\s*([a-z]+)/gi,
   /\brole\s*\(\s*["“'`]?([a-z]+)["”'`]?\s*\)/gi,
   /\brole of\s+["“'`]?([a-z]+)/gi,
@@ -215,8 +217,7 @@ export function extractRoles(text: string): string[] {
   const out: string[] = [];
   for (const re of ROLE_PATTERNS) {
     for (const m of text.matchAll(re)) {
-      const r = m[1]!.toLowerCase();
-      if (ARIA_ROLES.has(r)) out.push(r);
+      for (const w of m[1]!.toLowerCase().split(/,\s*|\s+and\s+|\s+or\s+/)) if (ARIA_ROLES.has(w.trim())) out.push(w.trim());
     }
   }
   return uniq(out);

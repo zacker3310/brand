@@ -129,7 +129,7 @@ const NAME_RULES: [RegExp, Cat, string, number][] = [
   // motion
   [w("easing|ease|curve|bezier|cubic-bezier|timing-function"), ["motion", "easing"], "name:easing", 0.8],
   [w("duration|durations|delay|time|timing"), ["motion", "duration"], "name:duration", 0.75],
-  [w("transition|motion|animation|anim"), ["motion", "transition"], "name:motion", 0.6],
+  [w("transition|transitions|motion|animation|animations|animate|anim|keyframes"), ["motion", "transition"], "name:motion", 0.6],
   // elevation shadow (after "shadow-color" handled by color rule below)
   [w("shadow|shadows|elevation|drop-shadow|box-shadow|depth"), ["elevation", "shadow"], "name:shadow", 0.7],
   // bare border / outline / divider (shorthand values); color values were handled before this point
@@ -246,8 +246,26 @@ const COMPOUND_RULES: [(has: (...w: string[]) => boolean) => boolean, Cat, strin
   [(h) => h("font", "type", "typography", "typescale") && h("family", "families", "face", "stack"), ["typography", "fontFamily"], "name:font-family", 0.85],
 ];
 
+/** T-shirt / numeric scale step words: xs, sm, md, lg, xl, 2xl, 3xs, base, 100... */
+const STEP_WORD = /^(?:\d*x[sl]|xs|sm|md|lg|xl|base|\d+)$/;
+const isIntegerValue = (v: unknown) => (typeof v === "number" && Number.isInteger(v)) || (typeof v === "string" && /^-?\d+$/.test(v.trim()));
+
+/** Utility-framework scale conventions (Tailwind v4 theme variables, Open Props). Exact word shapes only. */
+function byScaleConvention(words: string[], value: unknown): TokenCategorization | null {
+  const [head, ...rest] = words;
+  if (!head || !rest.length || !rest.every((x) => STEP_WORD.test(x))) return null;
+  if (head === "container") return result(["layout", "container"], false, 0.6, "name:container-step");
+  if (head === "text" && !isColorish(value)) return result(["typography", "fontSize"], false, 0.6, "name:text-step");
+  if (head === "layer" && isIntegerValue(value)) return result(["elevation", "zIndex"], false, 0.6, "name:layer-step");
+  return null;
+}
+
+const isColorish = (v: unknown) => typeof v === "string" && isColorValue(v, { allowNonConcrete: false });
+
 function byName(n: string, value: unknown, nonColor = false): TokenCategorization | null {
   if (!n) return null;
+  const conv = byScaleConvention(n.split(/[.\-_/ ]+/).filter(Boolean), value);
+  if (conv) return conv;
   // Color words first (unless the type is a dimension/number, which can't be a color).
   if (!nonColor) {
     if (COLOR_STRICT.test(n)) return result(["color", "color"], false, 0.8, "name:color");

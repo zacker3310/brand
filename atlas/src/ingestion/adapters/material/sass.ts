@@ -86,7 +86,8 @@ export function parseLatestSass(text: string): LatestSassFile {
     }
     if (line.startsWith("///")) {
       const head = DOC_HEAD_RE.exec(line);
-      if (head && !pending) {
+      // A new "/// md.*" header always starts a new block (a dangling block without $var is dropped).
+      if (head) {
         pending = { tokenName: head[1]!, group: head[2]?.trim() || null, desc: [], deprecated: false };
       } else if (pending) {
         const body = line.replace(/^\/\/\/\s?/, "");

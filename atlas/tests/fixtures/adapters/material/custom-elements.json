@@ -1,0 +1,301 @@
+{
+ "schemaVersion": "1.0.0",
+ "modules": [
+  {
+   "kind": "javascript-module",
+   "path": "button/filled-button.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "name": "MdFilledButton",
+     "description": "__Emphasis:__ High emphasis \u2013 For the primary, most important, or most common\naction on a screen\n\n__Rationale:__ The filled button\u2019s contrasting surface color makes it the\nmost prominent button after the FAB. It\u2019s used for final or unblocking\nactions in a flow.\n\n__Example usages:__\n- Save\n- Confirm\n- Done",
+     "summary": "Buttons help people take action, such as sending an email, sharing a\ndocument, or liking a comment.",
+     "superclass": {
+      "name": "FilledButton",
+      "package": "@material/web",
+      "module": "button/internal/filled-button.js"
+     },
+     "members": [
+      {
+       "kind": "field",
+       "name": "styles",
+       "static": true,
+       "privacy": "public",
+       "type": {
+        "text": "CSSResultOrNative[]",
+        "references": [
+         {
+          "name": "CSSResultOrNative",
+          "package": "lit",
+          "start": 0,
+          "end": 17
+         }
+        ]
+       },
+       "default": "[\n    sharedStyles,\n    sharedElevationStyles,\n    filledStyles,\n  ]"
+      }
+     ],
+     "tagName": "md-filled-button",
+     "customElement": true
+    }
+   ],
+   "exports": [
+    {
+     "kind": "js",
+     "name": "MdFilledButton",
+     "declaration": {
+      "name": "MdFilledButton"
+     }
+    },
+    {
+     "kind": "custom-element-definition",
+     "name": "md-filled-button",
+     "declaration": {
+      "name": "MdFilledButton"
+     }
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "button/internal/button.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "name": "buttonBaseClass",
+     "superclass": {
+      "name": "LitElement",
+      "package": "lit"
+     },
+     "mixins": [
+      {
+       "name": "mixinDelegatesAria",
+       "package": "@material/web",
+       "module": "internal/aria/delegate.js"
+      },
+      {
+       "name": "mixinFormSubmitter",
+       "package": "@material/web",
+       "module": "labs/behaviors/form-submitter.js"
+      },
+      {
+       "name": "mixinFormAssociated",
+       "package": "@material/web",
+       "module": "labs/behaviors/form-associated.js"
+      },
+      {
+       "name": "mixinElementInternals",
+       "package": "@material/web",
+       "module": "labs/behaviors/element-internals.js"
+      }
+     ]
+    },
+    {
+     "kind": "class",
+     "name": "Button",
+     "description": "A button component.",
+     "superclass": {
+      "name": "buttonBaseClass",
+      "package": "@material/web",
+      "module": "button/internal/button.js"
+     },
+     "members": [
+      {
+       "kind": "field",
+       "name": "softDisabled",
+       "description": "Whether or not the button is \"soft-disabled\" (disabled but still\nfocusable).\n\nUse this when a button needs increased visibility when disabled. See\nhttps://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_disabled_controls\nfor more guidance on when this is needed.",
+       "privacy": "public",
+       "type": {
+        "text": "boolean"
+       },
+       "default": "false",
+       "attribute": "soft-disabled",
+       "reflects": true
+      },
+      {
+       "kind": "field",
+       "name": "href",
+       "description": "The URL that the link button points to.",
+       "privacy": "public",
+       "type": {
+        "text": "string"
+       },
+       "default": "''",
+       "attribute": "href"
+      },
+      {
+       "kind": "field",
+       "name": "target",
+       "description": "Where to display the linked `href` URL for a link button. Common options\ninclude `_blank` to open in a new tab.",
+       "privacy": "public",
+       "type": {
+        "text": "\"\" | \"_blank\" | \"_parent\" | \"_self\" | \"_top\""
+       },
+       "default": "''",
+       "attribute": "target"
+      }
+     ],
+     "customElement": true,
+     "attributes": [
+      {
+       "name": "soft-disabled",
+       "type": {
+        "text": "boolean"
+       },
+       "fieldName": "softDisabled"
+      },
+      {
+       "name": "href",
+       "type": {
+        "text": "string"
+       },
+       "fieldName": "href"
+      },
+      {
+       "name": "target",
+       "type": {
+        "text": "string"
+       },
+       "fieldName": "target"
+      }
+     ]
+    }
+   ],
+   "exports": [
+    {
+     "kind": "js",
+     "name": "Button",
+     "declaration": {
+      "name": "Button"
+     }
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "button/internal/filled-button.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "name": "FilledButton",
+     "description": "A filled button component.",
+     "superclass": {
+      "name": "Button",
+      "package": "@material/web",
+      "module": "button/internal/button.js"
+     },
+     "members": [],
+     "customElement": true
+    }
+   ],
+   "exports": [
+    {
+     "kind": "js",
+     "name": "FilledButton",
+     "declaration": {
+      "name": "FilledButton"
+     }
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "labs/badge/badge.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "name": "MdBadge",
+     "superclass": {
+      "name": "Badge",
+      "package": "@material/web",
+      "module": "labs/badge/internal/badge.js"
+     },
+     "members": [
+      {
+       "kind": "field",
+       "name": "styles",
+       "static": true,
+       "privacy": "public",
+       "type": {
+        "text": "CSSResultOrNative[]",
+        "references": [
+         {
+          "name": "CSSResultOrNative",
+          "package": "lit",
+          "start": 0,
+          "end": 17
+         }
+        ]
+       },
+       "default": "[styles]"
+      }
+     ],
+     "tagName": "md-badge",
+     "customElement": true
+    }
+   ],
+   "exports": [
+    {
+     "kind": "js",
+     "name": "MdBadge",
+     "declaration": {
+      "name": "MdBadge"
+     }
+    },
+    {
+     "kind": "custom-element-definition",
+     "name": "md-badge",
+     "declaration": {
+      "name": "MdBadge"
+     }
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "labs/badge/internal/badge.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "name": "Badge",
+     "description": "b/265340196 - add docs",
+     "superclass": {
+      "name": "LitElement",
+      "package": "lit"
+     },
+     "members": [
+      {
+       "kind": "field",
+       "name": "value",
+       "privacy": "public",
+       "type": {
+        "text": "string"
+       },
+       "default": "''",
+       "attribute": "value"
+      }
+     ],
+     "customElement": true,
+     "attributes": [
+      {
+       "name": "value",
+       "type": {
+        "text": "string"
+       },
+       "fieldName": "value"
+      }
+     ]
+    }
+   ],
+   "exports": [
+    {
+     "kind": "js",
+     "name": "Badge",
+     "declaration": {
+      "name": "Badge"
+     }
+    }
+   ]
+  }
+ ]
+}

@@ -265,10 +265,11 @@ describe("pipeline: changes and removals", () => {
     const toks = await db().select().from(s.tokens).where(eq(s.tokens.designSystemId, systemId));
     expect(toks.find((t) => t.name === "color.gray.900")).toBeUndefined();
     const text = toks.find((t) => t.name === "color.text.default")!;
-    expect(text.aliasState).toBe("unresolved");
+    expect(text.aliasState).toBe("external"); // target no longer exists anywhere in the system
     expect(text.resolvedValue).toBeNull();
     const [alias] = await db().select().from(s.tokenAliases).where(eq(s.tokenAliases.tokenId, text.id));
-    expect(alias!.state).toBe("unresolved");
+    expect(alias!.state).toBe("external");
+    expect(alias!.targetRef).toBe("{color.gray.900}");
     expect(alias!.targetTokenId).toBeNull();
     const setEvents = (await changeEventsFor("token_set")).filter((e) => e.runId === run.id);
     expect(setEvents.length).toBe(1);

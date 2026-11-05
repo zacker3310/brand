@@ -49,6 +49,8 @@ interface Manifest {
 }
 
 const PLACEHOLDER = /(^|\b)(todo\b|add docs|b\/\d+)/i;
+/** Lit/custom-element plumbing that manifests list as fields but are not component API. */
+const PLUMBING = new Set(["shadowRootOptions", "styles", "elementStyles", "formAssociated", "properties", "observedAttributes"]);
 
 export function cleanDoc(s: string | undefined | null): string | null {
   if (!s) return null;
@@ -84,7 +86,7 @@ export function parseCem(json: string): CemElement[] {
         for (const mem of cur.members ?? []) {
           if (mem.kind !== "field" || mem.static || !mem.name) continue;
           if (mem.privacy && mem.privacy !== "public") continue;
-          if (mem.name.startsWith("_") || mem.name.startsWith("#")) continue;
+          if (mem.name.startsWith("_") || mem.name.startsWith("#") || PLUMBING.has(mem.name)) continue;
           if (props.has(mem.name)) continue;
           props.set(mem.name, {
             name: mem.name,

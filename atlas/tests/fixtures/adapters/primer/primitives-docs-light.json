@@ -1,0 +1,116 @@
+{
+  "fgColor-default": {
+    "key": "{fgColor.default}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "mode",
+        "group": "semantic",
+        "scopes": [
+          "fgColor"
+        ],
+        "codeSyntax": {
+          "web": "var(--fgColor-default) /* utility class: .color-fg-default */"
+        }
+      },
+      "org.primer.overrides": {
+        "dark": "#25292e",
+        "dark-high-contrast": "#1f2328",
+        "dark-tritanopia-high-contrast": "#1f2328",
+        "dark-protanopia-deuteranopia-high-contrast": "#1f2328",
+        "dark-dimmed": "#393f46",
+        "dark-dimmed-high-contrast": "#25292e"
+      }
+    },
+    "filePath": "src/tokens/functional/color/fgColor.json5",
+    "isSource": true,
+    "original": {
+      "$value": "{base.color.neutral.13}",
+      "$type": "color",
+      "$description": "Default text color for primary content and headings",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "mode",
+          "group": "semantic",
+          "scopes": [
+            "fgColor"
+          ],
+          "codeSyntax": {
+            "web": "var(--fgColor-default) /* utility class: .color-fg-default */"
+          }
+        },
+        "org.primer.overrides": {
+          "dark": "{base.color.neutral.12}",
+          "dark-high-contrast": "{base.color.neutral.13}",
+          "dark-tritanopia-high-contrast": "{base.color.neutral.13}",
+          "dark-protanopia-deuteranopia-high-contrast": "{base.color.neutral.13}",
+          "dark-dimmed": "{base.color.neutral.11}",
+          "dark-dimmed-high-contrast": "{base.color.neutral.12}"
+        }
+      },
+      "key": "{fgColor.default}"
+    },
+    "name": "fgColor-default",
+    "attributes": {},
+    "path": [
+      "fgColor",
+      "default"
+    ],
+    "value": "#1f2328",
+    "type": "color",
+    "description": "Default text color for primary content and headings"
+  },
+  "avatar-bgColor": {
+    "key": "{avatar.bgColor}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "mode",
+        "group": "component (internal)",
+        "scopes": [
+          "bgColor"
+        ]
+      },
+      "org.primer.overrides": {
+        "dark": {
+          "$value": "#1f2328",
+          "alpha": 0.1,
+          "filePath": "src/tokens/component/avatar.json5",
+          "isSource": true,
+          "$type": "color"
+        }
+      }
+    },
+    "filePath": "src/tokens/component/avatar.json5",
+    "isSource": true,
+    "original": {
+      "$value": "{base.color.neutral.0}",
+      "$type": "color",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "mode",
+          "group": "component (internal)",
+          "scopes": [
+            "bgColor"
+          ]
+        },
+        "org.primer.overrides": {
+          "dark": {
+            "$value": "{base.color.neutral.13}",
+            "alpha": 0.1,
+            "filePath": "src/tokens/component/avatar.json5",
+            "isSource": true,
+            "$type": "color"
+          }
+        }
+      },
+      "key": "{avatar.bgColor}"
+    },
+    "name": "avatar-bgColor",
+    "attributes": {},
+    "path": [
+      "avatar",
+      "bgColor"
+    ],
+    "value": "#ffffff",
+    "type": "color"
+  }
+}

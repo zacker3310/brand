@@ -19,7 +19,9 @@
  *  - cycle:      the token is a member of a reference cycle (Tarjan SCC). resolvedValue null.
  *  - unresolved: anything else that prevents a full value: depends on an external/cycle/unresolved token,
  *                max depth exceeded, or a target value that cannot be embedded in a string.
- * Invariants: depth === chain.length; resolvedValue !== null implies state in {literal, resolved, external(usedFallback)}.
+ * Invariants: depth === chain.length; resolvedValue !== null implies state in {literal, resolved, external(usedFallback)},
+ * except for declared-only references (rawValue has no syntactic refs; edges come from `references`): there the
+ * concrete rawValue is always the resolvedValue and the state only describes the declared edges.
  *
  * Name lookup for a ref: opts.lookup -> exact name -> legacy ".value"/".$value" suffix stripped ->
  * separator-normalised name ("a/b/c" ~ "a.b.c", only when unambiguous). css-var refs: cssVar index -> name.
@@ -681,7 +683,7 @@ function resolveOne(
       merge(res, o);
       refs.push({ raw: r.raw, ref: r.ref, syntax: "declared", target: r.target, state: o.ok ? "resolved" : o.failKinds.includes("cycle-dependency") ? "cycle" : "unresolved", depth: o.ok ? o.depth : null, usedFallback: o.usedFallback });
     }
-    return finalize(t, res, refs, targets, issues, maxDepth, t.rawValue);
+    return finalize(t, res, refs, targets, issues, maxDepth, t.rawValue, true);
   }
 
   const top: SubResult["refOutcomes"] = [];
@@ -707,6 +709,8 @@ function finalize(
   issues: ResolutionIssue[],
   maxDepth: number,
   value: unknown,
+  /** Declared-only refs: the raw value is already concrete, so it is the resolved value whatever the edge states. */
+  valueIsConcrete = false,
 ): ResolvedTokenInfo {
   const kinds = new Set(sub.failKinds);
   if (sub.depth > maxDepth) kinds.add("max-depth");
@@ -722,7 +726,7 @@ function finalize(
   if (kinds.size === 0) state = directMissing && sub.usedFallback ? "external" : "resolved";
   else if (onlyMissing && directMissing) state = "external";
   else state = "unresolved";
-  const resolved = kinds.size === 0 && value !== undefined ? value : null;
+  const resolved = (kinds.size === 0 || valueIsConcrete) && value !== undefined ? value : null;
   return {
     resolvedValue: resolved,
     state,

@@ -1,0 +1,82 @@
+{
+  "base-size-4": {
+    "key": "{base.size.4}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "base/size",
+        "scopes": [
+          "size",
+          "gap"
+        ]
+      }
+    },
+    "filePath": "src/tokens/base/size/size.json5",
+    "isSource": true,
+    "original": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "base/size",
+          "scopes": [
+            "size",
+            "gap"
+          ]
+        }
+      },
+      "key": "{base.size.4}"
+    },
+    "name": "base-size-4",
+    "attributes": {},
+    "path": [
+      "base",
+      "size",
+      "4"
+    ],
+    "value": "0.25rem",
+    "type": "dimension"
+  },
+  "base-size-8": {
+    "key": "{base.size.8}",
+    "$extensions": {
+      "org.primer.figma": {
+        "collection": "base/size",
+        "scopes": [
+          "size",
+          "gap"
+        ]
+      }
+    },
+    "filePath": "src/tokens/base/size/size.json5",
+    "isSource": true,
+    "original": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$type": "dimension",
+      "$extensions": {
+        "org.primer.figma": {
+          "collection": "base/size",
+          "scopes": [
+            "size",
+            "gap"
+          ]
+        }
+      },
+      "key": "{base.size.8}"
+    },
+    "name": "base-size-8",
+    "attributes": {},
+    "path": [
+      "base",
+      "size",
+      "8"
+    ],
+    "value": "0.5rem",
+    "type": "dimension"
+  }
+}

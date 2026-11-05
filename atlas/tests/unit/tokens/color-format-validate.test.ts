@@ -187,6 +187,11 @@ describe("validateTokenValue", () => {
     expect(v("dimension", "{size.1} {size.2}")).toMatchObject({ ok: true, code: "REFERENCE" });
     expect(v("shadow", { offsetX: "{size.1}", offsetY: "1px", color: "{color.x}" })).toEqual({ ok: true });
     expect(v("color", { $ref: "#/color/blue" })).toMatchObject({ ok: true, code: "REFERENCE" });
+    expect(v("color", "md-ref-palette.$neutral98")).toMatchObject({ ok: true, code: "REFERENCE" });
+    expect(v("dimension", "$spacing-05")).toMatchObject({ ok: true, code: "REFERENCE" });
+    expect(v("color", "map.get($deps, 'md-ref-palette', 'neutral6')")).toMatchObject({ ok: true, code: "REFERENCE" });
+    expect(v("color", "rgba($black, 0.5)")).toMatchObject({ ok: true, code: "REFERENCE" });
+    expect(v("number", "$1")).toMatchObject({ ok: false });
   });
 
   it("dimensions", () => {

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+    xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url><loc>https://m3.material.io/</loc><lastmod>2026-07-08</lastmod></url>
+<url><loc>https://m3.material.io/components/all-buttons</loc><lastmod>2026-07-17</lastmod></url>
+<url><loc>https://m3.material.io/components/badges/accessibility</loc><lastmod>2026-07-17</lastmod></url>
+<url><loc>https://m3.material.io/components/badges/guidelines</loc><lastmod>2026-07-17</lastmod></url>
+<url><loc>https://m3.material.io/components/badges/overview</loc><lastmod>2026-07-17</lastmod></url>
+<url><loc>https://m3.material.io/components/badges/specs</loc><lastmod>2026-07-17</lastmod></url>
+<url><loc>https://m3.material.io/components/buttons/accessibility</loc><lastmod>2026-07-24</lastmod></url>
+<url><loc>https://m3.material.io/components/buttons/guidelines</loc><lastmod>2026-07-24</lastmod></url>
+<url><loc>https://m3.material.io/components/buttons/overview</loc><lastmod>2026-07-24</lastmod></url>
+<url><loc>https://m3.material.io/components/buttons/specs</loc><lastmod>2026-07-24</lastmod></url>
+<url><loc>https://m3.material.io/develop/web</loc><lastmod>2026-07-17</lastmod></url>
+<url><loc>https://m3.material.io/foundations/xr/components/nav-bar</loc><lastmod>2026-07-17</lastmod></url>
+</urlset>
