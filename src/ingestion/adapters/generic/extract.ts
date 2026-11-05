@@ -450,6 +450,8 @@ export function cleanTitle(title: string, segment: string, suffix: RegExp | null
   return { best: t, first: t };
 }
 
+const GENERIC_PART = /^(overview|basic|basics|default|usage|examples?|docs|documentation|introduction|components?)$/i;
+
 const stripComponentWord = (s: string) => clean(s.replace(/\s+(component|components|element|web component)$/i, ""));
 const strip = (s: string | null | undefined, suffix: RegExp | null): string | null => {
   if (!s) return null;
@@ -486,9 +488,17 @@ export function chooseName(
     if (rel(title)) return { name: title, from: "title" };
     if (rel(h1Own)) return { name: h1Own, from: "h1" };
   }
-  // Link texts may be breadcrumbs ("Components/DataTable/Basic"): use the deepest part naming the segment.
+  // Link texts may be breadcrumbs ("Components/DataTable/Basic"): use the deepest specific part that
+  // names the end of the segment, else the deepest part that names it at all.
   const linkParts = (linkText ?? "").split(/\s*[/›»>]\s*/).map((x) => strip(x, null)).filter((x): x is string => !!x).reverse();
-  for (const part of linkParts.length > 1 ? linkParts : []) if (rel(part)) return { name: part, from: "link" };
+  if (linkParts.length > 1) {
+    const segC = compact(humanizeSegment(segment));
+    const specific = linkParts.filter((x) => !GENERIC_PART.test(x));
+    const tail = specific.find((x) => ok(x) && compact(x).length >= 3 && segC.endsWith(compact(x)));
+    if (tail) return { name: tail, from: "link" };
+    const any = specific.find((x) => rel(x));
+    if (any) return { name: any, from: "link" };
+  }
   const link = strip(linkText, null);
   if (rel(link)) return { name: link, from: "link" };
   return { name: humanizeSegment(segment), from: "segment" };

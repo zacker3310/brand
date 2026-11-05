@@ -86,7 +86,7 @@ export async function updateCollectionAction(_prev: ActionResult | null, fd: For
 
 export async function deleteCollectionAction(fd: FormData): Promise<void> {
   const id = Id.safeParse(str(fd, "collectionId"));
-  if (!id.success) return;
+  if (!id.success || !str(fd, "confirm")) return; // explicit confirmation checkbox is required
   const owner = await requireOwnerId();
   try {
     await deleteCollection(owner, id.data);

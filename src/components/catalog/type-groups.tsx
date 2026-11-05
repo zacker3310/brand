@@ -74,9 +74,7 @@ export function TypeGroups({
                       {shown.map((i, idx) => (
                         <Fragment key={`${i.systemSlug}/${i.slug}`}>
                           {idx > 0 && (
-                            <span aria-hidden className="px-1.5 text-subtle-foreground">
-                              ·
-                            </span>
+                            <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
                           )}
                           <span className="whitespace-nowrap">
                             <Link
@@ -92,9 +90,7 @@ export function TypeGroups({
                       ))}
                       {more > 0 && (
                         <>
-                          <span aria-hidden className="px-1.5 text-subtle-foreground">
-                            ·
-                          </span>
+                          <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
                           <Link href={componentTypeHref(t.slug)} className="whitespace-nowrap text-muted-foreground hover:text-foreground">
                             +{more} more
                           </Link>
@@ -142,9 +138,7 @@ export function TypeGroups({
             {result.unclassified.map((u, i) => (
               <Fragment key={`${u.systemSlug}/${u.slug}`}>
                 {i > 0 && (
-                  <span aria-hidden className="px-1.5 text-subtle-foreground">
-                    ·
-                  </span>
+                  <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
                 )}
                 <span className="whitespace-nowrap">
                   <Link href={componentHref(u.systemSlug, u.slug)} className="hover:underline hover:underline-offset-4">

@@ -11,6 +11,8 @@ import { collapse } from "./text";
 
 export interface MdDoc {
   frontmatter: Record<string, unknown>;
+  /** Markdown body (frontmatter removed); node positions are offsets into it. */
+  body: string;
   tree: Root;
 }
 
@@ -25,7 +27,7 @@ export function parseMd(text: string): MdDoc {
   } catch {
     body = text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/, "");
   }
-  return { frontmatter, tree: fromMarkdown(body, { extensions: [gfm()], mdastExtensions: [gfmFromMarkdown()] }) };
+  return { frontmatter, body, tree: fromMarkdown(body, { extensions: [gfm()], mdastExtensions: [gfmFromMarkdown()] }) };
 }
 
 const PHRASING_PARENTS = new Set(["paragraph", "heading", "tableCell", "emphasis", "strong", "delete", "link", "linkReference"]);
@@ -95,7 +97,7 @@ export function sectionsAt(nodes: RootContent[], depth: number, isBoundary: (hea
   for (const n of nodes) {
     if (n.type === "heading" && n.depth <= depth) {
       const h = cleanText(n);
-      if (n.depth === depth && !isBoundary(h)) {
+      if (!isBoundary(h)) {
         out[out.length - 1]!.nodes.push(n);
         continue;
       }

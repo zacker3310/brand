@@ -336,6 +336,25 @@ export async function listBookmarks(ownerId: string | null, db?: DB): Promise<Bo
   return res.rows.map((r) => ({ ...toResolved(r), bookmarkId: r.bookmark_id, createdAt: iso(r.created_at) }));
 }
 
+/** Set of "<type>:<uuid>" keys the owner has bookmarked, among `refs`. One query. */
+export async function bookmarkStates(ownerId: string | null, refs: { entityType: string; entityId: string }[], db?: DB): Promise<Set<string>> {
+  if (!ownerId || !refs.length) return new Set();
+  const d = db ?? (await readDb());
+  const rows = await d.execute<{ k: string }>(sql`
+    select b.entity_type || ':' || b.entity_id::text as k
+    from bookmark b
+    join unnest(${pgArray(
+      refs.map((r) => r.entityType),
+      "text",
+    )}, ${pgArray(
+      refs.map((r) => r.entityId),
+      "uuid",
+    )}) as x(t, i) on b.entity_type = x.t and b.entity_id = x.i
+    where b.owner_id = ${ownerId}
+  `);
+  return new Set(rows.rows.map((r) => r.k));
+}
+
 export interface EntityMembership {
   bookmarked: boolean;
   collections: { id: string; slug: string; name: string; itemCount: number; contains: boolean; itemId: string | null }[];
@@ -379,9 +398,13 @@ export class CollectionError extends Error {
   }
 }
 
+/** Route segments under /collections and /api/collections that a collection slug must not shadow. */
+export const RESERVED_SLUGS = new Set(["add", "new", "membership", "bookmarks", "export", "curated"]);
+
 /** Unique slug for an owner, never colliding with a curated slug (curated wins /collections/[slug] for others). */
 export async function uniqueSlug(ownerId: string, name: string, db: DB = getDb()): Promise<string> {
-  const base = slugify(name).slice(0, 60) || "collection";
+  let base = slugify(name).slice(0, 60) || "collection";
+  if (RESERVED_SLUGS.has(base)) base = `${base}-collection`;
   const taken = await db.execute<{ slug: string }>(sql`
     select slug from collection where owner_id in (${ownerId}, ${CURATED_OWNER}) and (slug = ${base} or slug like ${base + "-%"})
   `);

@@ -60,11 +60,17 @@ export interface PlannedComponent extends Candidate {
   fetchPage: boolean;
 }
 
-/** Placeholders: {segment} (captured segment), {path} (matched file path, repo-listing), {ref} (resolved repo ref/version). */
+/**
+ * Placeholders: {segment} (captured segment), {path} (matched file path, repo-listing),
+ * {dir} (directory of the matched file), {ref} (resolved repo ref/version).
+ */
 export function applyTemplate(template: string, vars: { segment: string; path?: string; ref?: string }): string {
+  const path = vars.path ?? vars.segment;
+  const dir = path.includes("/") ? path.slice(0, path.lastIndexOf("/")) : path;
   return template
     .replace(/\{segment\}/g, vars.segment)
-    .replace(/\{path\}/g, vars.path ?? vars.segment)
+    .replace(/\{path\}/g, path)
+    .replace(/\{dir\}/g, dir)
     .replace(/\{ref\}/g, vars.ref ?? "");
 }
 
@@ -113,7 +119,7 @@ export function planComponents(
       /* invalid template output: treated as constructed and dropped unless confirmed */
     }
     // A URL to the listed file itself is proven by the listing; any other template output is constructed.
-    const listingProven = listing && !!template?.includes("{path}") && FILE_HOSTS.has(host);
+    const listingProven = listing && !!template && /\{(path|dir)\}/.test(template) && FILE_HOSTS.has(host);
     const constructed = !!fromTemplate && fromTemplate !== c.matched && !listingProven;
     const fetchUrl = docsUrl ? rawFileUrl(docsUrl) : null;
     return { ...c, docsUrl, fetchUrl, constructed, fetchPage: target.fetchPages !== false && !!fetchUrl && i < pageCap };

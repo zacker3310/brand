@@ -4,7 +4,7 @@
  */
 import { isThemeDependentValue } from "@/lib/contracts";
 import { formatCubicBezier, formatDimension, formatFontFamily, formatShadow, formatTokenValue, dimensionToPx, durationToMs, parseDimension } from "@/lib/tokens/format";
-import { parseColor, toCssColor, toHex, toOklch } from "@/lib/tokens/color";
+import { inSrgbGamut, parseColor, toCssColor, toHex, toOklch } from "@/lib/tokens/color";
 import { hasReferences } from "@/lib/tokens/refs";
 import { fontWeightToNumber } from "@/lib/tokens/validate";
 
@@ -32,8 +32,19 @@ export function isTranslucent(value: unknown): boolean {
   return !!o && o.alpha < 1;
 }
 
-/** Display string for a color (hex when sRGB-representable, otherwise CSS). */
+/**
+ * Display string for a color: hex (with alpha) when the color is inside sRGB, otherwise its CSS form, so
+ * wide-gamut values are never shown as a clamped hex.
+ */
 export function colorLabel(value: unknown, fallback?: string | null): string {
+  if (parseColor(value)) {
+    if (inSrgbGamut(value) !== false) {
+      const hex = toHex(value);
+      if (hex) return hex;
+    }
+    const css = toCssColor(value);
+    if (css) return css;
+  }
   return formatTokenValue(value, "color") ?? fallback ?? "";
 }
 

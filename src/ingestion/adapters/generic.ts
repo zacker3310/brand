@@ -68,17 +68,16 @@ export function targetOrigin(t: GenericTarget): string | null {
 
 const isExactVersion = (v: string) => /^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(v);
 
+async function resolveNpmVersion(ctx: AdapterContext, pkg: string, specifier: string): Promise<string> {
+  const { data, res } = await ctx.http.getJson<{ version?: string | null }>(`https://data.jsdelivr.com/v1/packages/npm/${pkg}/resolved?specifier=${encodeURIComponent(specifier)}`);
+  if (!data?.version) throw new Error(`generic: cannot resolve ${pkg}@${specifier} via jsDelivr (HTTP ${res.status} ${res.error ?? ""})`);
+  return data.version;
+}
+
 /** jsDelivr listing URL with the ref pinned (npm dist-tags/ranges resolved to an exact version). */
 async function resolveListing(ctx: AdapterContext, repo: NonNullable<GenericTarget["repo"]>): Promise<{ listingUrl: string; ref: string; evidenceUrl: string }> {
   if (repo.kind === "npm") {
-    let version = repo.ref;
-    if (!isExactVersion(version)) {
-      const { data, res } = await ctx.http.getJson<{ version?: string | null }>(
-        `https://data.jsdelivr.com/v1/packages/npm/${repo.name}/resolved?specifier=${encodeURIComponent(repo.ref || "latest")}`,
-      );
-      if (!data?.version) throw new Error(`generic: cannot resolve ${repo.name}@${repo.ref} via jsDelivr (HTTP ${res.status} ${res.error ?? ""})`);
-      version = data.version;
-    }
+    const version = isExactVersion(repo.ref) ? repo.ref : await resolveNpmVersion(ctx, repo.name, repo.ref || "latest");
     return {
       listingUrl: `https://data.jsdelivr.com/v1/packages/npm/${repo.name}@${version}?structure=flat`,
       ref: version,
@@ -87,10 +86,25 @@ async function resolveListing(ctx: AdapterContext, repo: NonNullable<GenericTarg
   }
   const [owner, name] = repo.name.split("/");
   if (!owner || !name) throw new Error(`generic: invalid GitHub repo "${repo.name}" (expected owner/repo)`);
+  // "{npm:<pkg>}" in a gh ref resolves to that package's latest npm version, so a release tag
+  // (immutable, unlike jsDelivr's cached branch listings) tracks new releases automatically.
+  // "{latest}" resolves to the newest stable release tag jsDelivr knows for the repo (write the
+  // repo's tag prefix around it, e.g. "v{latest}").
+  let ref = repo.ref;
+  for (const m of [...repo.ref.matchAll(/\{npm:([^}]+)\}/g)]) {
+    const v = await resolveNpmVersion(ctx, m[1]!, "latest");
+    ref = ref.replace(m[0], v);
+  }
+  if (ref.includes("{latest}")) {
+    const { data, res } = await ctx.http.getJson<{ versions?: { version?: string }[] }>(`https://data.jsdelivr.com/v1/packages/gh/${owner}/${name}`);
+    const latest = (data?.versions ?? []).map((v) => v.version ?? "").find((v) => isExactVersion(v) && !v.includes("-"));
+    if (!latest) throw new Error(`generic: no stable release tag for ${repo.name} on jsDelivr (HTTP ${res.status} ${res.error ?? ""})`);
+    ref = ref.replace(/\{latest\}/g, latest);
+  }
   return {
-    listingUrl: `https://data.jsdelivr.com/v1/packages/gh/${owner}/${name}@${repo.ref}?structure=flat`,
-    ref: repo.ref,
-    evidenceUrl: `https://github.com/${owner}/${name}/tree/${repo.ref}`,
+    listingUrl: `https://data.jsdelivr.com/v1/packages/gh/${owner}/${name}@${encodeURIComponent(ref)}?structure=flat`,
+    ref,
+    evidenceUrl: `https://github.com/${owner}/${name}/tree/${ref}`,
   };
 }
 

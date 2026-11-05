@@ -70,10 +70,16 @@ export function combine(criterion: CriterionId, rawInputs: RubricInput[], opts: 
     return { criterion, ...base, inputs, caps: [], explanation: opts.explain(base) };
   }
 
-  const onlyWeakNegatives = known.length > 0 && known.every((i) => i.value === 0 && i.coverage < 1);
+  const isWeakNegative = (i: RubricInput) => i.value === 0 && i.coverage < 1;
+  const onlyWeakNegatives = known.length > 0 && known.every(isWeakNegative);
+  const someWeakNegative = known.some(isWeakNegative);
   let confidence = confidenceFor(evidenceCoverage);
   const caps: string[] = [];
-  for (const cap of opts.caps ?? []) {
+  const allCaps: (ConfidenceCap | null | false | undefined)[] = [
+    someWeakNegative && !onlyWeakNegatives && { max: "medium", reason: "Part of this score rests on something not being found in partially extracted data." },
+    ...(opts.caps ?? []),
+  ];
+  for (const cap of allCaps) {
     if (!cap) continue;
     const next = minConfidence(confidence, cap.max);
     if (next !== confidence) caps.push(cap.reason);
@@ -82,9 +88,7 @@ export function combine(criterion: CriterionId, rawInputs: RubricInput[], opts: 
 
   if (knownWeight === 0 || confidence === "insufficient" || onlyWeakNegatives) {
     const base = { score: null, confidence: "insufficient" as const, evidenceCoverage: rounded, status: "insufficient" as const };
-    if (onlyWeakNegatives && knownWeight > 0 && confidenceFor(evidenceCoverage) !== "insufficient") {
-      caps.push("Only absences were observed in partially extracted data; ATLAS does not score on absence alone.");
-    }
+    if (onlyWeakNegatives) caps.push("Only absences were observed in partially extracted data; ATLAS does not score on absence alone.");
     return { criterion, ...base, inputs, caps, explanation: opts.explain(base) };
   }
 

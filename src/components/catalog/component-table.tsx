@@ -54,7 +54,7 @@ export function ComponentTable({ rows, systems }: { rows: CatalogComponentRow[];
                     <Link href={componentHref(r.systemSlug, r.slug)} className="font-medium hover:underline hover:underline-offset-4">
                       {r.name}
                     </Link>
-                    <LifecycleBadge lifecycle={r.lifecycle} hideStable />
+                    <LifecycleBadge lifecycle={r.lifecycle} dense />
                   </div>
                   {r.description ? (
                     <p className="mt-0.5 line-clamp-1 text-xs text-muted-foreground">{r.description}</p>
@@ -106,7 +106,7 @@ export function ComponentTable({ rows, systems }: { rows: CatalogComponentRow[];
                   <Link href={componentHref(r.systemSlug, r.slug)} className="font-medium hover:underline">
                     {r.name}
                   </Link>
-                  <LifecycleBadge lifecycle={r.lifecycle} hideStable />
+                  <LifecycleBadge lifecycle={r.lifecycle} dense />
                 </div>
                 <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                   <SystemMark name={r.systemName} slug={r.systemSlug} size="sm" className="size-4 rounded text-[7px]" />

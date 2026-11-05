@@ -59,10 +59,21 @@ const TONE: Record<string, string> = {
 };
 
 /** Lifecycle as documented by the source. "unknown" is shown as not extracted, never as stable. */
-export function LifecycleBadge({ lifecycle, hideStable = false, className }: { lifecycle: string; hideStable?: boolean; className?: string }) {
+export function LifecycleBadge({
+  lifecycle,
+  hideStable = false,
+  dense = false,
+  className,
+}: {
+  lifecycle: string;
+  hideStable?: boolean;
+  /** Dense lists only flag noteworthy states (beta, experimental, deprecated); detail pages show everything. */
+  dense?: boolean;
+  className?: string;
+}) {
   const meta = LIFECYCLE_META[lifecycle];
-  if (!meta) return <CoverageChip state="not-extracted" label="Lifecycle" className={className} />;
-  if (hideStable && lifecycle === "stable") return null;
+  if (!meta) return dense ? null : <CoverageChip state="not-extracted" label="Lifecycle" className={className} />;
+  if ((hideStable || dense) && lifecycle === "stable") return null;
   return (
     <span
       className={cn(
