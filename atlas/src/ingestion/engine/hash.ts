@@ -8,7 +8,9 @@ export const sha256 = (s: string | Buffer) => createHash("sha256").update(s).dig
  * stored payloads (evidence shows when a claim was retrieved) but excluded from change detection,
  * otherwise re-running an unchanged source would report every entity as updated.
  */
-const VOLATILE_KEYS = new Set(["retrievedAt"]);
+// contentHash: evidence carries the source page hash; live HTML pages often change bytes (build ids, nonces)
+// while the extracted facts are identical. Facts drive change detection; snapshots track page changes.
+const VOLATILE_KEYS = new Set(["retrievedAt", "contentHash"]);
 
 function stripVolatile(v: unknown): unknown {
   if (Array.isArray(v)) return v.map(stripVolatile);

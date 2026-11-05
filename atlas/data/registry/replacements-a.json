@@ -71,7 +71,7 @@
     "duplicateOf": null,
     "replacesSlug": "airbnb-dls",
     "replacedBy": null,
-    "notes": "Replacement for airbnb-dls (rejected: no public documentation). Distinct verified system: GitLab's own first-party design system; no existing registry entry matches its name, aliases, organization or URLs. Components ship as GitLab UI (@gitlab/ui, Vue); the former standalone gitlab-org/gitlab-ui project now states that development moved into the design.gitlab.com monorepo, which is recorded as repositoryUrl (hosted on gitlab.com, not GitHub). Vue support from the Develop page: 'yarn create @gitlab/ui' starter uses Vue 3 via @vue/compat by default and Vue 2 is also supported. figmaUrl comes from the homepage resource link 'Pajamas UI Kit (Figma)' (figma.com itself answered 403); the repo README links a separate Figma design file for the same UI kit. storybookUrl is the Storybook linked from the homepage. Maintenance 'active': @gitlab/ui 138.11.0 published 2026-11-04. latestVersion = @gitlab/ui.",
+    "notes": "Replacement for airbnb-dls (rejected: no public documentation). Distinct verified system: GitLab's own first-party design system; no existing registry entry matches its name, aliases, organization or URLs. Components ship as GitLab UI (@gitlab/ui, Vue); the former standalone gitlab-org/gitlab-ui project now states that development moved into the design.gitlab.com monorepo, which is recorded as repositoryUrl (hosted on gitlab.com, not GitHub). Vue support from the Develop page: 'yarn create @gitlab/ui' starter uses Vue 3 via @vue/compat by default and Vue 2 is also supported. figmaUrl comes from the homepage resource link 'Pajamas UI Kit (Figma)' (figma.com itself answered 403); the repo README links a separate Figma design file for the same UI kit. storybookUrl is the Storybook linked from the homepage. Maintenance 'active': @gitlab/ui 138.11.0 published 2026-11-04. latestVersion = @gitlab/ui. Audited 2026-11-05: all URLs, license files and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); Figma link re-confirmed on the homepage; no field changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -305,7 +305,7 @@
     "duplicateOf": null,
     "replacesSlug": "tailwind-plus",
     "replacedBy": null,
-    "notes": "Replacement for tailwind-plus (rejected: no public documentation). Distinct verified system: Skyscanner's first-party design system, not in the registry under any name, alias or URL. Mixed maintenance picture, recorded honestly: the web repo (Skyscanner/backpack) was archived on 2026-08-05 and its README says no further public releases (it names 43.16.0 as final, yet npm latest is 43.19.0 of 2026-08-04); backpack-ios and backpack-android are not archived and shipped releases 94.2.0 (2026-11-04) and 85.6.0 (2026-11-02), so status is 'active' for the system. Public package channels lag: CocoaPods shows 92.1.0 and Maven Central's latest is 71.0.0 (metadata last updated 2025-06-23), so Maven artifacts are named in frameworks but not listed in packages. latestVersion null: no single release stream. repositoryUrl is the canonical web repo (archived, still readable). Docs (Supernova-hosted) describe Figma libraries for internal use only; no public Figma link, figmaUrl null. backpack.github.io redirects to skyscanner.design.",
+    "notes": "Replacement for tailwind-plus (rejected: no public documentation). Distinct verified system: Skyscanner's first-party design system, not in the registry under any name, alias or URL. Mixed maintenance picture, recorded honestly: the web repo (Skyscanner/backpack) was archived on 2026-08-05 and its README says no further public releases (it names 43.16.0 as final, yet npm latest is 43.19.0 of 2026-08-04); backpack-ios and backpack-android are not archived and shipped releases 94.2.0 (2026-11-04) and 85.6.0 (2026-11-02), so status is 'active' for the system. Public package channels lag: CocoaPods shows 92.1.0 and Maven Central's latest is 71.0.0 (metadata last updated 2025-06-23), so Maven artifacts are named in frameworks but not listed in packages. latestVersion null: no single release stream. repositoryUrl is the canonical web repo (archived, still readable). Docs (Supernova-hosted) describe Figma libraries for internal use only; no public Figma link, figmaUrl null. Audited 2026-11-05: all URLs, license files and npm/CocoaPods/Maven records re-checked with check.ts (statuses, final URLs, versions and dates reproduced); Maven artifact names confirmed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -516,10 +516,30 @@
         "checkedAt": "2026-11-05T04:34:35.070Z",
         "method": "http-check",
         "note": "Skyscanner about page (title 'We're the travel company who puts you first')"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:54:43.421Z",
+        "method": "page-content",
+        "note": "Libraries page links the Android Maven artifacts https://search.maven.org/artifact/net.skyscanner.backpack/backpack-android and .../backpack-compose (packageNames in frameworks)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://repo1.maven.org/maven2/net/skyscanner/backpack/backpack-android/maven-metadata.xml",
+        "status": 200,
+        "finalUrl": "https://repo1.maven.org/maven2/net/skyscanner/backpack/backpack-android/maven-metadata.xml",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:54:42.999Z",
+        "method": "package-metadata",
+        "note": "Maven Central net.skyscanner.backpack:backpack-android latest/release 71.0.0 (stale vs GitHub 85.6.0); confirms the Android Views artifact name; not listed in packages"
       }
     ],
     "confidence": 0.84,
-    "verifiedAt": "2026-11-05T04:42:56.001Z"
+    "verifiedAt": "2026-11-05T04:54:43.421Z"
   },
   {
     "rank": null,
@@ -589,7 +609,7 @@
     "duplicateOf": null,
     "replacesSlug": "intuit-design-system",
     "replacedBy": null,
-    "notes": "Replacement for intuit-design-system (rejected: internal-only docs). Distinct verified system, not a duplicate of patternfly: both are Red Hat, but RHDS (ux.redhat.com, RedHat-UX/red-hat-design-system, @rhds/*) targets Red Hat web properties and describes PatternFly as its foundational design language, while its Figma-library page directs product UI work to PatternFly; separate repo, packages and catalog, hence relatedSlugs patternfly. Ships web components only (installation via Red Hat CDN import map, npm or jsDelivr; no framework wrappers documented). Figma library is internal (needs a Figma license and an @redhat.com email), so figmaUrl null. Maintenance 'active': @rhds/elements 5.0.0 published 2026-10-08; repo not archived. latestVersion = @rhds/elements.",
+    "notes": "Replacement for intuit-design-system (rejected: internal-only docs). Distinct verified system, not a duplicate of patternfly: both are Red Hat, but RHDS (ux.redhat.com, RedHat-UX/red-hat-design-system, @rhds/*) targets Red Hat web properties and describes PatternFly as its foundational design language, while its Figma-library page directs product UI work to PatternFly; separate repo, packages and catalog, hence relatedSlugs patternfly. Ships web components only (installation via Red Hat CDN import map, npm or jsDelivr; no framework wrappers documented). Figma library is internal (needs a Figma license and an @redhat.com email), so figmaUrl null. Maintenance 'active': @rhds/elements 5.0.0 published 2026-10-08; repo not archived. latestVersion = @rhds/elements. Audited 2026-11-05: all URLs, license files and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); Figma-library access note re-confirmed; no field changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -786,7 +806,7 @@
     "duplicateOf": null,
     "replacesSlug": "mailchimp-pattern-library",
     "replacedBy": null,
-    "notes": "Replacement for mailchimp-pattern-library (rejected: docs unreachable). Distinct verified system: HPE's first-party design system; no registry entry matches it. Grommet (React framework, same grommet GitHub org) has no entry; HPE Design System is the HPE-specific layer (guidance, hpe-design-tokens, grommet-theme-hpe). The docs site is a client-rendered Next.js export, so static HTML has no text; __NEXT_DATA__ page values (/components, /foundation, /design-tokens) show real routes, not the 404 page. Content source is apps/docs (MDX) in the repo, whose package.json depends on grommet, grommet-theme-hpe, hpe-design-tokens and react. latestVersion = hpe-design-tokens (published from this repo). Maintenance 'active': npm releases in Sep-Oct 2026, repo not archived. hpe.com returned 503 to automated checks, so organization.websiteUrl is HPE's developer portal. No Figma link verifiable in static HTML; figmaUrl null.",
+    "notes": "Replacement for mailchimp-pattern-library (rejected: docs unreachable). Distinct verified system: HPE's first-party design system; no registry entry matches it. Grommet (React framework, same grommet GitHub org) has no entry; HPE Design System is the HPE-specific layer (guidance, hpe-design-tokens, grommet-theme-hpe). The docs site is a client-rendered Next.js export, so static HTML has no text; __NEXT_DATA__ page values (/components, /foundation, /design-tokens) show real routes, not the 404 page. Content source is apps/docs (MDX) in the repo, whose package.json depends on grommet, grommet-theme-hpe, hpe-design-tokens and react. latestVersion = hpe-design-tokens (published from this repo). Maintenance 'active': npm releases in Sep-Oct 2026, repo not archived. hpe.com returned 503 to automated checks, so organization.websiteUrl is HPE's developer portal. No Figma link verifiable in static HTML; figmaUrl null. Audited 2026-11-05: all URLs, license files and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); 404 control route added; hpe.com still answers 503.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -947,10 +967,20 @@
         "checkedAt": "2026-11-05T04:37:41.073Z",
         "method": "http-check",
         "note": "title 'Home | HPE Developer Portal' (official HPE site)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design-system.hpe.design/this-page-does-not-exist-atlas",
+        "status": 404,
+        "finalUrl": "https://design-system.hpe.design/this-page-does-not-exist-atlas",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:54:44.374Z",
+        "method": "page-content",
+        "note": "control: an unknown route returns HTTP 404 with __NEXT_DATA__ page '/404', so the 200 responses reporting pages '/components', '/foundation' and '/design-tokens' are real routes"
       }
     ],
     "confidence": 0.86,
-    "verifiedAt": "2026-11-05T04:46:11.955Z"
+    "verifiedAt": "2026-11-05T04:54:44.374Z"
   },
   {
     "rank": null,
@@ -966,7 +996,7 @@
       "websiteUrl": "https://fontawesome.com/"
     },
     "category": "web-components",
-    "summary": "Font Awesome's library of framework-agnostic web components with built-in themes and CSS design tokens. The core is MIT-licensed; a paid Pro tier adds items such as patterns and a Figma design kit. It is the successor product to Shoelace.",
+    "summary": "Font Awesome's library of framework-agnostic web components with built-in themes and CSS design tokens, and the successor product to Shoelace. The core is MIT-licensed; a paid Pro tier adds items such as patterns and a Figma design kit.",
     "homepageUrl": "https://webawesome.com/",
     "docsUrl": "https://webawesome.com/docs/components/",
     "repositoryUrl": "https://github.com/shoelace-style/webawesome",
@@ -1036,7 +1066,7 @@
     "duplicateOf": null,
     "replacesSlug": "australian-government-design-system",
     "replacedBy": null,
-    "notes": "Replacement for australian-government-design-system (rejected: decommissioned, docs gone). Distinct verified system, not a duplicate of shoelace: Shoelace is sunset and archived, and Web Awesome is the successor product from Font Awesome with its own package (@awesome.me/webawesome vs @shoelace-style/shoelace), repo, docs site, component catalog and a paid Pro tier; the official 'Migrating from Shoelace' guide documents component-by-component changes. relatedSlugs shoelace; shoelace.replacedBy lives in another file and is not edited here. React 19+ uses the custom elements directly; wrappers for React 18 and below ship in the package (dist/react); Vue 3, Angular and Svelte have official usage guides. The Figma Design Kit is marked Pro in the docs nav, so no public figmaUrl. Maintenance 'active': 3.14.0 published 2026-09-24 and listed in the changelog; repo (default branch next) not archived.",
+    "notes": "Replacement for australian-government-design-system (rejected: decommissioned, docs gone). Distinct verified system, not a duplicate of shoelace: Shoelace is sunset and archived, and Web Awesome is the successor product from Font Awesome with its own package (@awesome.me/webawesome vs @shoelace-style/shoelace), repo, docs site, component catalog and a paid Pro tier; the official 'Migrating from Shoelace' guide documents component-by-component changes. relatedSlugs shoelace; shoelace.replacedBy lives in another file and is not edited here. React 19+ uses the custom elements directly; wrappers for React 18 and below ship in the package (dist/react); Vue 3, Angular and Svelte have official usage guides. The Figma Design Kit is marked Pro in the docs nav, so no public figmaUrl. Maintenance 'active': 3.14.0 published 2026-09-24 and listed in the changelog; repo (default branch next) not archived. Audited 2026-11-05: all URLs, license files and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); summary cut to two sentences.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1306,7 +1336,7 @@
     "duplicateOf": null,
     "replacesSlug": "audi-ui",
     "replacedBy": null,
-    "notes": "Replacement for audi-ui (rejected: no public documentation reachable). Distinct verified system: Esri's first-party design system; no registry entry matches its name, aliases, organization or URLs. Source is public on GitHub but not open source: LICENSE.md applies the Esri Master License Agreement (GitHub reports NOASSERTION), and the docs licensing page requires an ArcGIS account under the Esri Master Services Agreement, hence redistribution 'conditional' and tag source-available. Homepage shows 'Current version: @esri/calcite-components 5.2 (October 2026)'. React support via the @esri/calcite-components-react package and React 19 typings. figmaUrl comes from the UI Kit page link 'Web UI Kit' (figma.com answered 403); a separate UI Icons kit is also linked. Maintenance 'active': 5.2.1 published 2026-11-04; repo (default branch dev) not archived. latestVersion = @esri/calcite-components.",
+    "notes": "Replacement for audi-ui (rejected: no public documentation reachable). Distinct verified system: Esri's first-party design system; no registry entry matches its name, aliases, organization or URLs. Source is public on GitHub but not open source: LICENSE.md applies the Esri Master License Agreement (GitHub reports NOASSERTION), and the docs licensing page requires an ArcGIS account under the Esri Master Services Agreement, hence redistribution 'conditional' and tag source-available. Homepage shows 'Current version: @esri/calcite-components 5.2 (October 2026)'. React support via the @esri/calcite-components-react package and React 19 typings. figmaUrl comes from the UI Kit page link 'Web UI Kit' (figma.com answered 403); a separate UI Icons kit is also linked. Maintenance 'active': 5.2.1 published 2026-11-04; repo (default branch dev) not archived. latestVersion = @esri/calcite-components. Audited 2026-11-05: all URLs, license files and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); Figma link re-confirmed on the UI Kit page; no field changes.",
     "checks": [
       {
         "field": "homepageUrl",
