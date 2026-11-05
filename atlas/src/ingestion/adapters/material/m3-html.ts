@@ -73,5 +73,7 @@ export function titleMatchesSlug(name: string, slug: string): boolean {
       .join(" ");
   const a = norm(name);
   const b = norm(slug.replace(/-/g, " "));
-  return a === b || a.startsWith(b) || b.startsWith(a);
+  // word-sequence containment either way ("Top app bar" ~ "app-bars"; "FAB menu" ~ "fab-menu")
+  const contains = (x: string, y: string) => ` ${x} `.includes(` ${y} `);
+  return a === b || contains(a, b) || contains(b, a);
 }

@@ -396,7 +396,11 @@ export const adapter: SourceAdapter = {
       }
       const dev = byPath.get("/develop");
       if (dev?.page.description) ev.push(evidence(dev.prov, "frameworks", "m3-html-meta", { location: "/develop <meta name=description>", excerpt: dev.page.description }));
-      if (fw.length) parts.push(`Google documents implementations for ${fw.map((f) => ({ "jetpack-compose": "Jetpack Compose", "android-views": "Android Views (MDC-Android)", flutter: "Flutter", "web-components": "the web (Material Web)" })[f.slug]).join(", ")}.`);
+      if (fw.length) {
+        const labels = fw.map((f) => ({ "jetpack-compose": "Jetpack Compose", "android-views": "Android Views (MDC-Android)", flutter: "Flutter", "web-components": "the web (Material Web)" })[f.slug] ?? f.slug);
+        const list = labels.length > 1 ? `${labels.slice(0, -1).join(", ")} and ${labels[labels.length - 1]}` : labels[0];
+        parts.push(`Google documents implementations for ${list}.`);
+      }
       const tokenDbVersion = sass.find((s) => s.stem === "md-sys-color")?.file.version ?? null;
       const colorSass = sass.find((s) => s.stem === "md-sys-color");
       if (tokenDbVersion && colorSass) ev.push(evidence(colorSass.prov, "tokens", "m3-sass-vars", { location: `${colorSass.prov.file} header`, excerpt: `Design system: ${colorSass.file.designSystem}; Version: ${tokenDbVersion}` }));
