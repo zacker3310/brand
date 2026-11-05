@@ -112,7 +112,7 @@ export default async function ApiDocsPage() {
             <h2 id="conventions-title" className="text-xl font-semibold tracking-tight">
               Conventions
             </h2>
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
               <Convention title="List" code={`{ "data": [...], "page": 1,\n  "pageSize": 24, "total": 100 }`} />
               <Convention title="Single item" code={`{ "data": { ... } }`} />
               <Convention title="Error" code={`{ "error": { "code": "invalid_request",\n  "message": "...", "issues": [...] } }`} />
@@ -185,7 +185,7 @@ function Endpoint({ ep, example, capturedAt }: { ep: Ep; example?: { body: unkno
           </span>
         </p>
       </header>
-      <div className="grid gap-0 xl:grid-cols-2">
+      <div className="grid grid-cols-1 gap-0 xl:grid-cols-2">
         <div className="min-w-0 space-y-4 px-4 py-4 sm:px-5">
           {params.length > 0 ? <ParamTable title="Parameters" rows={params} /> : <p className="text-sm text-muted-foreground">No parameters.</p>}
           {body.length > 0 && <ParamTable title="JSON body" rows={body} />}

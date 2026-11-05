@@ -56,7 +56,7 @@ export default async function CollectionsPage({ searchParams }: { searchParams: 
           description="Private to this browser."
         >
           {mine.length ? (
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {mine.map((c) => (
                 <CollectionCard key={c.id} c={c} />
               ))}
@@ -141,7 +141,7 @@ export default async function CollectionsPage({ searchParams }: { searchParams: 
         description="Built only from rules over indexed data, never hand-picked. Each collection states its rule; membership is recomputed by scripts/seed-collections.ts."
       >
         {curated.length ? (
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {curated.map((c) => (
               <CollectionCard key={c.id} c={c} />
             ))}

@@ -39,7 +39,7 @@ export default async function OpsOverviewPage() {
         </div>
       </section>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <section aria-labelledby="ingestion-title">
           <SectionTitle id="ingestion-title" count={ingestionTotal} description="Verified systems by ingestion status.">
             Ingestion depth

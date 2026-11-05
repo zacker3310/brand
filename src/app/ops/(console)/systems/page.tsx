@@ -159,7 +159,6 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                             type="submit"
                             size="xs"
                             variant="outline"
-                            disabled={r.lastRun?.status === "running" || r.lastRun?.status === "pending"}
                           >
                             <PlayIcon aria-hidden /> Enqueue run<span className="sr-only">{` for ${r.name}`}</span>
                           </Button>

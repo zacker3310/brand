@@ -31,7 +31,7 @@ export default async function RegistryPage() {
         <Tile label="Ranked candidates audited" value={r.rankedCandidates} hint={r.counts.candidate ? `${r.counts.candidate} still in research` : "None left in research"} />
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <section aria-labelledby="conf-title">
           <SectionTitle id="conf-title" description="Registry confidence of verified systems (0–1), from the verification checks.">
             Confidence distribution
@@ -75,12 +75,12 @@ export default async function RegistryPage() {
         <SectionTitle id="rep-title" count={r.replacements.length} description="Verified systems added to replace a rejected or duplicate candidate.">
           Replacements
         </SectionTitle>
-        <ul className="grid gap-2 sm:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {r.replacements.map((e) => (
             <li key={e.slug} className="flex items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm">
-              <span className="truncate text-muted-foreground line-through decoration-subtle-foreground/60">{e.replaces?.name ?? e.replaces?.slug}</span>
+              <span className="min-w-0 truncate text-muted-foreground line-through decoration-subtle-foreground/60">{e.replaces?.name ?? e.replaces?.slug}</span>
               <ArrowRightIcon className="size-3.5 shrink-0 text-muted-foreground" aria-label="replaced by" />
-              <span className="truncate font-medium">{e.name}</span>
+              <span className="min-w-0 truncate font-medium">{e.name}</span>
               <Mono className="ml-auto shrink-0 text-xs text-muted-foreground">{e.confidence.toFixed(2)}</Mono>
             </li>
           ))}

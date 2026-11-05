@@ -20,7 +20,7 @@ export default async function SourcesPage() {
         </p>
       </header>
 
-      <section aria-labelledby="fresh-title" className="grid gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
+      <section aria-labelledby="fresh-title" className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)]">
         <div>
           <SectionTitle id="fresh-title" count={docs} description="Documents by time since last fetch.">
             Freshness

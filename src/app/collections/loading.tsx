@@ -12,7 +12,7 @@ export default function Loading() {
           <Skeleton className="h-4 w-full max-w-2xl" />
         </div>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {Array.from({ length: 4 }).map((_, i) => (
               <Skeleton key={i} className="h-44 rounded-xl" />
             ))}

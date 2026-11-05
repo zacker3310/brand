@@ -66,7 +66,7 @@ export default async function MethodologyPage() {
               ATLAS is a navigational and comparative index of real-world design systems: their components, tokens, patterns and accessibility guidance, each linked back to the
               official documentation it came from.
             </p>
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <List
                 title="It is"
                 items={[
@@ -216,7 +216,7 @@ export default async function MethodologyPage() {
           </Block>
 
           <Block id="registry" n={8} title="The 100-system registry">
-            <ol className="grid gap-3 sm:grid-cols-3">
+            <ol className="grid grid-cols-1 gap-3 sm:grid-cols-3">
               {[
                 ["Research", `${formatCount(s.rankedCandidates)} candidates were ranked and researched: URLs, license, maintenance, packages, frameworks.`],
                 ["Adversarial audit", "Every claim was re-checked over HTTP and against package metadata; entries without public documentation or duplicating another were rejected with the reason kept."],

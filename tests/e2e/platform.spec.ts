@@ -281,7 +281,7 @@ test.describe("Docs pages", () => {
 
 test.describe("Responsive", () => {
   test.use({ viewport: { width: 390, height: 844 } });
-  for (const path of ["/collections", "/about", "/api-docs", "/ops", "/ops/systems", "/ops/queue"]) {
+  for (const path of ["/collections", "/about", "/api-docs", "/ops", "/ops/systems", "/ops/queue", "/ops/registry", "/ops/sources", "/ops/runs", "/ops/errors"]) {
     test(`no horizontal page scroll at 390px: ${path}`, async ({ page }) => {
       await page.goto(path);
       await noHorizontalScroll(page);
