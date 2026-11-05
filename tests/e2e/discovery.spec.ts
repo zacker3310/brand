@@ -8,9 +8,8 @@ import { expect as baseExpect, test, type Page } from "@playwright/test";
  */
 
 async function expectNoSeriousA11yViolations(page: Page) {
-  // Scope: this area's content (<main>). The shared shell (src/components/shell, integrator-owned) has
-  // two known issues reported as requested changes: the header search trigger's aria-label differs
-  // from its visible text, and footer text uses --subtle-foreground (3.8:1 in light mode).
+  // Scope: this area's content (<main>). The shared shell (src/components/shell, integrator-owned) is
+  // covered by its own tests; its footer text uses --subtle-foreground (3.8:1 in light mode, reported).
   // SystemMark monograms are decorative (aria-hidden, the name is always adjacent; WCAG 1.4.3
   // exempts pure decoration); some hues fall below 4.5:1, also reported upstream.
   const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0])
@@ -62,8 +61,9 @@ test.describe("home", () => {
     await expect(page.getByRole("heading", { name: "Unknown is never shown as none" })).toBeVisible();
     await expect(page.getByRole("link", { name: /How ATLAS verifies data/ })).toHaveAttribute("href", "/about");
 
-    await page.getByLabel("Search systems, components, tokens and patterns").fill("button");
-    await page.getByLabel("Search systems, components, tokens and patterns").press("Enter");
+    const q = page.locator("#home-q");
+    await q.fill("button");
+    await q.press("Enter");
     await expect(page).toHaveURL(/\/search\?q=button/);
     await expect(page.getByRole("heading", { level: 1 })).toContainText("button");
   });
@@ -90,6 +90,8 @@ test.describe("directory (/systems)", () => {
 
   test("facets filter through the URL with consistent counts, and chips clear them", async ({ page }) => {
     await page.goto("/systems");
+    // auto-apply is a progressive enhancement: wait until the form is hydrated
+    await page.locator("form[data-enhanced]").waitFor();
     const option = page.locator("label[for='f-depth-indexed']");
     const facetCount = num(await option.locator("span.tabular").textContent());
     expect(facetCount).toBeGreaterThan(0);

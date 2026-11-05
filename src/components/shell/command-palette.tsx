@@ -87,7 +87,7 @@ export function CommandPaletteTrigger() {
       aria-keyshortcuts="Meta+K Control+K"
     >
       <SearchIcon className="size-3.5" aria-hidden />
-      <span className="hidden min-w-0 truncate text-[13px] font-normal sm:inline">Search systems, components…</span>
+      <span className="hidden min-w-0 truncate text-[13px] font-normal sm:inline">Search systems, components</span>
       <Kbd className="ml-auto hidden shrink-0 sm:inline-flex">⌘K</Kbd>
     </Button>
   );

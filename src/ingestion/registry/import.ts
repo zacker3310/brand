@@ -131,6 +131,21 @@ async function ensureOrganization(tx: Tx, org: RegistryEntry["organization"]): P
 }
 
 async function ensureLicense(tx: Tx, lic: NonNullable<RegistryEntry["license"]>): Promise<string> {
+  // SPDX license rows are shared across systems: use the canonical SPDX URL and no system-specific notes.
+  // (Each system's own LICENSE file URL and notes stay on its registry entry + verification evidence.)
+  if (lic.spdxId) {
+    const canonical = `https://spdx.org/licenses/${lic.spdxId}.html`;
+    await tx
+      .insert(licenses)
+      .values({ slug: lic.slug, spdxId: lic.spdxId, name: lic.name, url: canonical, isOpenSource: lic.isOpenSource, redistribution: lic.redistribution, notes: null })
+      .onConflictDoUpdate({
+        target: licenses.slug,
+        set: { url: canonical, notes: null, isOpenSource: sql`coalesce(${licenses.isOpenSource}, excluded.is_open_source)` },
+        setWhere: sql`${licenses.url} is distinct from ${canonical} or ${licenses.notes} is not null or ${licenses.isOpenSource} is null`,
+      });
+    const [row] = await tx.select({ id: licenses.id }).from(licenses).where(eq(licenses.slug, lic.slug));
+    return row!.id;
+  }
   await tx
     .insert(licenses)
     .values({ slug: lic.slug, spdxId: lic.spdxId, name: lic.name, url: lic.url, isOpenSource: lic.isOpenSource, redistribution: lic.redistribution, notes: lic.notes ?? null })
