@@ -6,3 +6,6 @@ export * from "./format";
 export * from "./validate";
 export * from "./css";
 export * from "./scss";
+export * from "./graph";
+export * from "./compare";
+export * from "./categorize";

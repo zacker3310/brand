@@ -156,10 +156,11 @@ export function compareScales(a: readonly ScaleStep[], b: readonly ScaleStep[], 
   const tolRel = Math.max(0, opts.relativeTolerance ?? 0);
   const group = (steps: readonly ScaleStep[]) => {
     const m = new Map<string, { value: number; unit: ScaleUnit; steps: ScaleStep[] }>();
-    for (const s of Array.isArray(steps) ? steps : []) {
+    const list: readonly ScaleStep[] = Array.isArray(steps) ? steps : [];
+    for (const s of list) {
       if (!s || typeof s.value !== "number" || !Number.isFinite(s.value)) continue;
       const k = `${s.unit}\u0000${s.value}`;
-      const g = m.get(k) ?? { value: s.value, unit: s.unit, steps: [] };
+      const g = m.get(k) ?? { value: s.value, unit: s.unit, steps: [] as ScaleStep[] };
       g.steps.push(s);
       m.set(k, g);
     }
