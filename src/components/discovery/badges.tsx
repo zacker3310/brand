@@ -8,7 +8,8 @@ import { DEPTH_DESCRIPTIONS, DEPTH_LABELS, MAINTENANCE_LABELS, depthOf, type Dep
  * Light-mode --inferred (oklch 0.58) on --inferred-soft measures 3.9:1, below WCAG AA for 11px text.
  * Until the token is darkened (requested), discovery surfaces use this AA-safe override (5.5:1).
  */
-export const INFERRED_TEXT = "text-[oklch(0.5_0.11_65)]! dark:text-inferred!";
+/** Former contrast override; tokens in globals.css now meet WCAG AA, so this is a no-op kept for call sites. */
+export const INFERRED_TEXT = "";
 
 /** Same for --conflicting on --conflicting-soft at 11px (axe measures it below 4.5:1 in light mode). */
 export const CONFLICTING_TEXT = "text-[oklch(0.48_0.17_25)]! dark:text-conflicting!";

@@ -30,6 +30,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 import { Button } from "@/components/ui/button";
 import { formatCount, hostname } from "@/lib/utils";
 import { getComponentDetail, getComponentMeta } from "@/server/queries/components";
+import { EntityActions } from "@/components/collections/entity-actions";
 
 type Props = {
   params: Promise<{ slug: string; component: string }>;
@@ -167,6 +168,7 @@ export default async function ComponentDetailPage({ params, searchParams }: Prop
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
+            <EntityActions entityType="component" entityId={c.id} label={`${c.name} (${c.system.name})`} />
             {c.docsUrl && (
               <Button asChild variant="outline" size="sm">
                 <a href={c.docsUrl} target="_blank" rel="noopener noreferrer">

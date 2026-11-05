@@ -9,6 +9,7 @@ import { ClassificationBadge } from "@/components/patterns/parts";
 import type { CoverageState } from "@/lib/contracts";
 import { formatCount, hostname } from "@/lib/utils";
 import { getSystemPattern } from "@/server/queries/patterns";
+import { EntityActions } from "@/components/collections/entity-actions";
 
 type Props = { params: Promise<{ slug: string; pattern: string }> };
 
@@ -53,6 +54,7 @@ export default async function SystemPatternPage({ params }: Props) {
         }
       >
         <div className="flex flex-wrap items-center gap-2">
+          <EntityActions entityType="pattern" entityId={p.id} label={`${p.name} (${p.system.name})`} />
           <SystemMark name={p.system.name} slug={p.system.slug} size="sm" />
           <ClassificationBadge p={p} />
           {p.type ? (

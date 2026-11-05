@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { normalizeName } from "@/lib/taxonomy";
 import { cn } from "@/lib/utils";
 import { bestCoveredSystems, getComponentType, getComponentTypeMeta } from "@/server/queries/components";
+import { EntityActions } from "@/components/collections/entity-actions";
 
 type Props = { params: Promise<{ type: string }> };
 
@@ -87,6 +88,7 @@ export default async function ComponentTypePage({ params }: Props) {
             </p>
           </div>
           <div className="flex flex-wrap gap-2 pt-1">
+            <EntityActions entityType="component-type" entityId={type.id} label={type.name} />
             {compareSystems.length >= 2 ? (
               <Button asChild>
                 <Link href={compareHref(type.slug, compareSystems)}>

@@ -7,6 +7,7 @@ import { hostname } from "@/lib/utils";
 import type { SystemDetail } from "@/server/queries/systems";
 import { DepthBadge, MaintenanceBadge, RedistributionNote } from "../badges";
 import { formatDate, percent } from "../lib/format";
+import { EntityActions } from "@/components/collections/entity-actions";
 
 function ExternalButton({ href, label, icon: Icon }: { href: string; label: string; icon: typeof HomeIcon }) {
   return (
@@ -68,6 +69,7 @@ export function SystemHeader({ detail }: { detail: SystemDetail }) {
               {core.organization && <> · {core.organization.name}</>}
             </p>
             <h1 className="type-display text-4xl break-words sm:text-5xl md:text-6xl">{core.name}</h1>
+            <EntityActions entityType="system" entityId={core.id} label={core.name} />
             {core.aliases.length > 0 && (
               <p className="text-sm text-muted-foreground">
                 Also known as <span className="text-foreground/85">{core.aliases.join(" · ")}</span>
