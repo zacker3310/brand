@@ -1,0 +1,858 @@
+[
+  {
+    "rank": 1,
+    "slug": "material-design",
+    "name": "Google Material Design",
+    "aliases": [
+      "Material Design",
+      "Material Design 3",
+      "M3",
+      "Material You"
+    ],
+    "organization": {
+      "slug": "google",
+      "name": "Google",
+      "websiteUrl": "https://m3.material.io/"
+    },
+    "category": "design-system",
+    "summary": "Google's design system (current version Material 3) covering foundations, styles and component guidance, with official implementations for Android Views, Jetpack Compose, Flutter and the web.",
+    "homepageUrl": "https://m3.material.io/",
+    "docsUrl": "https://m3.material.io/components",
+    "repositoryUrl": "https://github.com/material-components",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": null,
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "android-views",
+        "packageName": "com.google.android.material:material",
+        "support": "official"
+      },
+      {
+        "slug": "jetpack-compose",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "flutter",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@material/web",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "theming",
+      "design-tokens",
+      "mobile",
+      "accessibility"
+    ],
+    "relatedSlugs": [
+      "material-web",
+      "flutter-material",
+      "mui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Guidelines-plus-implementations system; classified design-system (not design-language) because Google ships official component libraries. repositoryUrl is the material-components GitHub org (no single repo). Supported stacks taken from m3.material.io/develop description; MDC-Android repo is labelled [MAINTENANCE MODE]; Material Web is a separate entry (material-web). License: guideline content license not stated in static HTML, so license=null; implementation repos (e.g. MDC-Android) are Apache-2.0. Figma: an M3 design kit is announced on the m3 blog but the page is JS-rendered, so no official link was extracted; figmaUrl=null. No version: the system has no single release stream.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://m3.material.io/",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:50.723Z",
+        "method": "http-check",
+        "note": "title 'Material Design'; meta describes Material Design 3 as Google's open-source design system"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://material.io/",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:50.911Z",
+        "method": "http-check",
+        "note": "material.io redirects to https://m3.material.io/ (canonical)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://m3.material.io/components",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:01.521Z",
+        "method": "http-check",
+        "note": "title 'Components – Material Design 3'; component guidance index"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://m3.material.io/develop",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/develop",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:44.436Z",
+        "method": "http-check",
+        "note": "Develop page: implementations for Android Views (MDC-Android), Flutter, Jetpack Compose and the Web"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/material-components",
+        "status": 200,
+        "finalUrl": "https://github.com/material-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:44.514Z",
+        "method": "http-check",
+        "note": "GitHub org 'Material Components' (Android, Flutter, iOS, web)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/material-components/material-components-android",
+        "status": 200,
+        "finalUrl": "https://github.com/material-components/material-components-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:31.538Z",
+        "method": "http-check",
+        "note": "MDC-Android repo title carries '[MAINTENANCE MODE]' marker"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/material-components/material-components-android/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/material-components/material-components-android/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:02.846Z",
+        "method": "repo-metadata",
+        "note": "MDC-Android LICENSE is Apache 2.0 (implementation, not the guidelines)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://m3.material.io/sitemap.xml",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/sitemap.xml",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:32.505Z",
+        "method": "repo-metadata",
+        "note": "sitemap lastmod for homepage 2026-07-08 (site updated within 12 months)"
+      },
+      {
+        "field": "package:@material/web",
+        "url": "https://www.npmjs.com/package/@material/web",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:48.330Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.5.0 published 2026-07-15; license Apache-2.0; deprecated: no; repo git+https://github.com/material-components/material-web.git; Material Web implementation (separate entry material-web)"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T03:55:44.514Z"
+  },
+  {
+    "rank": 2,
+    "slug": "apple-hig",
+    "name": "Apple Human Interface Guidelines",
+    "aliases": [
+      "HIG",
+      "Human Interface Guidelines"
+    ],
+    "organization": {
+      "slug": "apple",
+      "name": "Apple",
+      "websiteUrl": "https://developer.apple.com/"
+    },
+    "category": "design-language",
+    "summary": "Apple's design guidance for apps on iOS, iPadOS, macOS, watchOS, tvOS and visionOS, published on Apple Developer and paired with official design resources (UI kits and templates).",
+    "homepageUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+    "docsUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+    "repositoryUrl": null,
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": {
+      "slug": "proprietary-apple",
+      "spdxId": null,
+      "name": "Apple proprietary (website terms of use)",
+      "url": "https://www.apple.com/legal/internet-services/terms/site.html",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Guidelines are Apple copyrighted documentation; design resources ship under Apple's own terms. No open-source license."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "swiftui",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "uikit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "appkit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "ios",
+      "ipados",
+      "macos",
+      "watchos",
+      "tvos",
+      "visionos"
+    ],
+    "tags": [
+      "guidelines",
+      "mobile",
+      "accessibility",
+      "figma-kit",
+      "native"
+    ],
+    "relatedSlugs": [
+      "flutter-cupertino"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Guidelines-only design language: Apple ships no separate component package; the platform UI frameworks (SwiftUI/UIKit/AppKit) implement it. Apple Design Resources page links official Figma community files (e.g. 'iOS and iPadOS 27', 'macOS 27'), which is why figma is listed as a framework; figma.com answered 403 to the automated check, so figmaUrl is null. Maintenance 'active' based on 27-series OS kits on the resources page. No public repo.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/",
+        "status": 200,
+        "finalUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:50.843Z",
+        "method": "http-check",
+        "note": "title 'Human Interface Guidelines | Apple Developer Documentation'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://developer.apple.com/design/resources/",
+        "status": 200,
+        "finalUrl": "https://developer.apple.com/design/resources/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.144Z",
+        "method": "http-check",
+        "note": "Apple Design Resources page lists iOS/iPadOS 27, macOS 27, watchOS 26, visionOS 26 kits and links official Figma community files"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:55:44.673Z",
+        "method": "http-check",
+        "note": "linked from developer.apple.com/design/resources; figma.com returned 403 to automated check, so not recorded"
+      },
+      {
+        "field": "license",
+        "url": "https://www.apple.com/legal/internet-services/terms/site.html",
+        "status": 200,
+        "finalUrl": "https://www.apple.com/legal/internet-services/terms/site.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:44.533Z",
+        "method": "http-check",
+        "note": "Apple website terms of use (linked from the resources page footer)"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T03:55:44.673Z"
+  },
+  {
+    "rank": 3,
+    "slug": "fluent-2",
+    "name": "Microsoft Fluent 2",
+    "aliases": [
+      "Fluent 2 Design System",
+      "Fluent Design System",
+      "Fluent UI"
+    ],
+    "organization": {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "websiteUrl": "https://www.microsoft.com/design"
+    },
+    "category": "design-system",
+    "summary": "Microsoft's cross-platform design system, with guidance, Figma UI kits and code libraries for React, Web Components, iOS/macOS, Android and Windows (WinUI).",
+    "homepageUrl": "https://fluent2.microsoft.design/",
+    "docsUrl": "https://fluent2.microsoft.design/get-started/develop",
+    "repositoryUrl": "https://github.com/microsoft/fluentui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@fluentui/react-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/react-components"
+      },
+      {
+        "name": "@fluentui/web-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/web-components"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "License of the microsoft/fluentui web code (React + Web Components). Native libraries live in separate repos (fluentui-apple, fluentui-android)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.75.1",
+    "latestReleaseAt": "2026-11-02T13:26:55.110Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@fluentui/react-components",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@fluentui/web-components",
+        "support": "official"
+      },
+      {
+        "slug": "uikit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "appkit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "jetpack-compose",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "winui",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "ipados",
+      "macos",
+      "android",
+      "windows"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "design-tokens",
+      "theming",
+      "figma-kit",
+      "accessibility"
+    ],
+    "relatedSlugs": [
+      "fluent-ui-react",
+      "fluent-ui-web-components",
+      "microsoft-fast"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Umbrella design-system entry; React (fluent-ui-react) and Web Components (fluent-ui-web-components) implementations have their own entries. Platforms/frameworks taken from the Develop page: Fluent UI React v9, Fluent UI Web Components (built on FAST Element), Fluent UI Apple (UIKit/AppKit), Fluent UI Android (Kotlin/Jetpack Compose), WinUI for Windows. latestVersion = @fluentui/react-components. Figma: design page links aka.ms/Fluent2Toolkits/Web/Figma -> figma.com community file 'Microsoft-Fluent-2-Web', but figma.com returned 403 to the check; figmaUrl null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fluent2.microsoft.design/",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.027Z",
+        "method": "http-check",
+        "note": "title 'Home - Fluent 2 Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fluent2.microsoft.design/get-started/develop",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/get-started/develop",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:44.592Z",
+        "method": "http-check",
+        "note": "Develop page: React, Web Components, iOS, Android, Windows tabs with install instructions"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fluent2.microsoft.design/components/web/react/",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/components/web/react/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:01.545Z",
+        "method": "http-check",
+        "note": "React component overview page on Fluent 2 site"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fluentui",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:50.818Z",
+        "method": "http-check",
+        "note": "microsoft/fluentui: React components and web components"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/microsoft/fluentui-apple",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui-apple",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:30.939Z",
+        "method": "http-check",
+        "note": "Fluent UI Apple: UIKit and AppKit controls"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/microsoft/fluentui-android",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:31.240Z",
+        "method": "http-check",
+        "note": "Fluent UI Android repo (linked from Develop page)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:01.946Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Microsoft Corporation"
+      },
+      {
+        "field": "package:@fluentui/react-components",
+        "url": "https://www.npmjs.com/package/@fluentui/react-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:46.318Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.75.1 published 2026-11-02; license MIT; deprecated: no; repo git+https://github.com/microsoft/fluentui.git"
+      },
+      {
+        "field": "package:@fluentui/web-components",
+        "url": "https://www.npmjs.com/package/@fluentui/web-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:46.503Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.1.4 published 2026-11-04; license MIT; deprecated: no; repo git+https://github.com/microsoft/fluentui.git#master"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://aka.ms/Fluent2Toolkits/Web/Figma",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/836828295772957889/Microsoft-Fluent-2-Web",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:55:44.488Z",
+        "method": "http-check",
+        "note": "official design page link; redirects to figma.com/community/file/836828295772957889/Microsoft-Fluent-2-Web, which returned 403 to automated check"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T03:55:44.592Z"
+  },
+  {
+    "rank": 4,
+    "slug": "carbon",
+    "name": "IBM Carbon Design System",
+    "aliases": [
+      "Carbon",
+      "Carbon Design System"
+    ],
+    "organization": {
+      "slug": "ibm",
+      "name": "IBM",
+      "websiteUrl": "https://www.ibm.com/design/"
+    },
+    "category": "design-system",
+    "summary": "IBM's open-source design system for products and digital experiences, built on the IBM Design Language, with guidelines, design kits and core implementations in React and Web Components.",
+    "homepageUrl": "https://www.carbondesignsystem.com/",
+    "docsUrl": "https://www.carbondesignsystem.com/building-blocks/core/components/overview/components",
+    "repositoryUrl": "https://github.com/carbon-design-system/carbon",
+    "figmaUrl": null,
+    "storybookUrl": "https://react.carbondesignsystem.com/",
+    "packages": [
+      {
+        "name": "@carbon/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/react"
+      },
+      {
+        "name": "@carbon/styles",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/styles"
+      },
+      {
+        "name": "@carbon/web-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/web-components"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.120.0",
+    "latestReleaseAt": "2026-11-04T14:08:33.373Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@carbon/react",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@carbon/web-components",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "accessibility",
+      "design-tokens",
+      "theming",
+      "figma-kit",
+      "data-dense"
+    ],
+    "relatedSlugs": [
+      "carbon-web-components"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Carbon Core = React + Web Components (per the Developing > Carbon Core pages); Angular/Vue/Svelte are listed separately as community frameworks and are not claimed here. Web Components implementation also has its own entry (carbon-web-components). latestVersion = @carbon/react. Figma: the Figma kits page links community file 1157761560874207208 '(v11) Carbon Design System', but figma.com returned 403 to the automated check, so figmaUrl is null. storybookUrl is the official Carbon React storybook.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://carbondesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.370Z",
+        "method": "http-check",
+        "note": "redirects to www.carbondesignsystem.com; title 'Home | Carbon Design System'; IBM's open source design system"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://carbondesignsystem.com/components/overview/components/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/building-blocks/core/components/overview/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:01.732Z",
+        "method": "http-check",
+        "note": "redirects to building-blocks/core/components/overview/components; title 'Overview | Carbon Design System'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://carbondesignsystem.com/developing/frameworks/react/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/getting-started/developing/carbon-core/react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:44.642Z",
+        "method": "http-check",
+        "note": "Carbon Core page: React, Web Components, plus separate Community section"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/carbon-design-system/carbon",
+        "status": 200,
+        "finalUrl": "https://github.com/carbon-design-system/carbon",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.118Z",
+        "method": "http-check",
+        "note": "carbon-design-system/carbon: 'A design system built by IBM'"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://react.carbondesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://react.carbondesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.008Z",
+        "method": "http-check",
+        "note": "Storybook: 'React implementation of the Carbon Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:02.246Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@carbon/react",
+        "url": "https://www.npmjs.com/package/@carbon/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:46.797Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.120.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
+      },
+      {
+        "field": "package:@carbon/styles",
+        "url": "https://www.npmjs.com/package/@carbon/styles",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:47.439Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.119.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
+      },
+      {
+        "field": "package:@carbon/web-components",
+        "url": "https://www.npmjs.com/package/@carbon/web-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:47.270Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.67.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1157761560874207208",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1157761560874207208",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:55:44.974Z",
+        "method": "http-check",
+        "note": "linked from carbondesignsystem.com/designing/kits/figma as '(v11) Carbon Design System'; figma.com returned 403 to automated check"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T03:55:44.974Z"
+  },
+  {
+    "rank": 5,
+    "slug": "salesforce-lightning",
+    "name": "Salesforce Lightning Design System",
+    "aliases": [
+      "SLDS",
+      "Lightning Design System",
+      "SLDS 2",
+      "Lightning Design System 2"
+    ],
+    "organization": {
+      "slug": "salesforce",
+      "name": "Salesforce",
+      "websiteUrl": "https://www.salesforce.com/"
+    },
+    "category": "design-system",
+    "summary": "Salesforce's design system for building experiences on the Salesforce platform, providing guidelines, CSS component blueprints, design tokens and icons; SLDS 2 is the current generation.",
+    "homepageUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
+    "docsUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
+    "repositoryUrl": "https://github.com/salesforce-ux/design-system",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@salesforce-ux/design-system",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@salesforce-ux/design-system"
+      },
+      {
+        "name": "@salesforce/design-system-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@salesforce/design-system-react"
+      }
+    ],
+    "license": {
+      "slug": "bsd-3-clause",
+      "spdxId": "BSD-3-Clause",
+      "name": "BSD 3-Clause License",
+      "url": "https://raw.githubusercontent.com/salesforce-ux/design-system/master/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "Source code BSD-3-Clause; per the repo README, icons and images are licensed CC BY-ND 4.0 (no derivatives)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.264.3",
+    "latestReleaseAt": "2026-10-22T07:49:16.084Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "@salesforce-ux/design-system",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@salesforce/design-system-react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "open-source",
+      "design-tokens",
+      "accessibility"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "www.lightningdesignsystem.com redirects to a zeroheight-hosted 'Lightning Design System 2' site (recorded final URL); SLDS 1 docs remain at v1.lightningdesignsystem.com. Primary deliverable is a CSS framework (blueprints) plus tokens/icons; on-platform components are Lightning Web Components (not in the ATLAS framework list). React implementation @salesforce/design-system-react is from the salesforce GitHub org; its former docs domain react.lightningdesignsystem.com now redirects to the repo. Redistribution 'conditional' because icons/images are CC BY-ND 4.0. No Figma link extracted (zeroheight page is JS-rendered).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.lightningdesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.305Z",
+        "method": "http-check",
+        "note": "redirects to /2e1ef8501; title 'Lightning Design System 2' (zeroheight)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://v1.lightningdesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://v1.lightningdesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:01.789Z",
+        "method": "http-check",
+        "note": "SLDS 1 documentation site still online; title 'Lightning Design System'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/salesforce-ux/design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/salesforce-ux/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:51.418Z",
+        "method": "http-check",
+        "note": "salesforce-ux/design-system: 'Salesforce Lightning Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/salesforce-ux/design-system/master/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/salesforce-ux/design-system/master/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:02.546Z",
+        "method": "repo-metadata",
+        "note": "BSD-3-Clause text, Copyright (c) 2015-present Salesforce.com; README: icons/images CC BY-ND 4.0"
+      },
+      {
+        "field": "package:@salesforce-ux/design-system",
+        "url": "https://www.npmjs.com/package/@salesforce-ux/design-system",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:47.817Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.264.3 published 2026-10-22; license BSD-3-Clause; deprecated: no; repo n/a"
+      },
+      {
+        "field": "package:@salesforce/design-system-react",
+        "url": "https://www.npmjs.com/package/@salesforce/design-system-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:48.233Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.10.65 published 2026-01-09; license BSD-3-Clause; deprecated: no; repo git+ssh://git@github.com/salesforce/design-system-react.git; React implementation; latest release within 12 months"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/salesforce/design-system-react",
+        "status": 200,
+        "finalUrl": "https://github.com/salesforce/design-system-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:01.523Z",
+        "method": "http-check",
+        "note": "salesforce/design-system-react: 'Salesforce Lightning Design System for React'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://react.lightningdesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://github.com/salesforce/design-system-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:02.361Z",
+        "method": "http-check",
+        "note": "former React docs domain now redirects to the GitHub repo"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T03:53:02.361Z"
+  }
+]

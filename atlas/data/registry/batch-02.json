@@ -1,0 +1,1378 @@
+[
+  {
+    "rank": 21,
+    "slug": "chakra-ui",
+    "name": "Chakra UI",
+    "aliases": [],
+    "organization": {
+      "slug": "chakra-ui",
+      "name": "Chakra UI (Chakra Systems Inc.)",
+      "websiteUrl": "https://chakra-ui.com/"
+    },
+    "category": "component-library",
+    "summary": "Chakra UI is an open-source React component library with a theming and style-props system, maintained by the Chakra UI team (Chakra Systems Inc.). Version 3 builds its component logic on Ark UI / Zag.js state machines.",
+    "homepageUrl": "https://chakra-ui.com/",
+    "docsUrl": "https://chakra-ui.com/docs/get-started/installation",
+    "repositoryUrl": "https://github.com/chakra-ui/chakra-ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@chakra-ui/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@chakra-ui/react"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2019 Chakra Systems Inc.. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.38.0",
+    "latestReleaseAt": "2026-11-03T16:00:24.235Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@chakra-ui/react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "theming",
+      "accessibility-first",
+      "css-in-js",
+      "design-tokens"
+    ],
+    "relatedSlugs": [
+      "ark-ui",
+      "park-ui",
+      "panda-css"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library (styled React components with a theme system). Figma: the site links 'FigPilot' at figma.chakra-ui.com, a separate Chakra product, not a figma.com community file, so figmaUrl is null. Chakra UI Pro (pro.chakra-ui.com) is a separate paid block collection and is not part of this entry. Ark UI, Park UI and Panda CSS come from the same team and are separate entries. Only React is officially supported.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://chakra-ui.com",
+        "status": 200,
+        "finalUrl": "https://chakra-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.523Z",
+        "method": "http-check",
+        "note": "title: Chakra UI; first-party site of the chakra-ui project; footer links FigPilot (figma.chakra-ui.com), Chakra UI Pro, Zag.js, Ark UI"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://chakra-ui.com/docs/get-started/installation",
+        "status": 200,
+        "finalUrl": "https://chakra-ui.com/docs/get-started/installation",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.848Z",
+        "method": "http-check",
+        "note": "title: Installation | Chakra UI; public docs, no login"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/chakra-ui/chakra-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/chakra-ui/chakra-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.201Z",
+        "method": "http-check",
+        "note": "official GitHub repo chakra-ui/chakra-ui (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.015Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: MIT License, Copyright (c) 2019 Chakra Systems Inc."
+      },
+      {
+        "field": "package:@chakra-ui/react",
+        "url": "https://www.npmjs.com/package/@chakra-ui/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:37.804Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.38.0 published 2026-11-03; license MIT; not deprecated; repo https://github.com/chakra-ui/chakra-ui; maintenance: release within 2 days of research date => active"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T03:54:33.848Z"
+  },
+  {
+    "rank": 22,
+    "slug": "mantine",
+    "name": "Mantine",
+    "aliases": [],
+    "organization": {
+      "slug": "mantine",
+      "name": "Mantine (mantinedev)",
+      "websiteUrl": "https://mantine.dev/"
+    },
+    "category": "component-library",
+    "summary": "Mantine is an open-source React component and hooks library (core components, form, dates, charts, notifications and more) created by Vitaly Rtishchev and maintained in the mantinedev GitHub organization.",
+    "homepageUrl": "https://mantine.dev/",
+    "docsUrl": "https://mantine.dev/getting-started/",
+    "repositoryUrl": "https://github.com/mantinedev/mantine",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@mantine/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@mantine/core"
+      },
+      {
+        "name": "@mantine/hooks",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@mantine/hooks"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/mantinedev/mantine/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2021 Vitaly Rtishchev. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.7.5",
+    "latestReleaseAt": "2026-11-04T12:37:43.131Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@mantine/core",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "theming",
+      "accessibility-first",
+      "saas"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library. figmaUrl is null because the official getting-started page states 'there are no official Figma or Sketch design files' and links only community kits (Ravn, In The Zone, Devias, AlleyCorp Nord) that the Mantine team does not maintain. Only React is officially supported.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://mantine.dev",
+        "status": 200,
+        "finalUrl": "https://mantine.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.300Z",
+        "method": "http-check",
+        "note": "title: Mantine; first-party site (npm @mantine/core homepage field = https://mantine.dev/)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://mantine.dev/getting-started/",
+        "status": 200,
+        "finalUrl": "https://mantine.dev/getting-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.600Z",
+        "method": "http-check",
+        "note": "title: Getting started | Mantine; public docs. The page says there are no official Figma or Sketch design files and lists community-made ones only"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mantinedev/mantine",
+        "status": 200,
+        "finalUrl": "https://github.com/mantinedev/mantine",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.515Z",
+        "method": "http-check",
+        "note": "official GitHub repo mantinedev/mantine (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/mantinedev/mantine/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mantinedev/mantine/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.315Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master: MIT License, Copyright (c) 2021 Vitaly Rtishchev"
+      },
+      {
+        "field": "package:@mantine/core",
+        "url": "https://www.npmjs.com/package/@mantine/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:37.973Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.7.5 published 2026-11-04; license MIT; not deprecated; repo git+https://github.com/mantinedev/mantine.git; maintenance: published the day before the research date => active"
+      },
+      {
+        "field": "package:@mantine/hooks",
+        "url": "https://www.npmjs.com/package/@mantine/hooks",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:35.802Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.7.5 published 2026-11-04; license MIT; not deprecated; repo git+https://github.com/mantinedev/mantine.git"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T03:54:35.802Z"
+  },
+  {
+    "rank": 23,
+    "slug": "mui",
+    "name": "MUI (Material UI)",
+    "aliases": [
+      "Material UI",
+      "Material-UI",
+      "MUI Core"
+    ],
+    "organization": {
+      "slug": "mui",
+      "name": "MUI (Material-UI SAS)",
+      "websiteUrl": "https://mui.com/"
+    },
+    "category": "component-library",
+    "summary": "Material UI is MUI's open-source React component library implementing Google's Material Design. It is the core product of MUI (Material-UI SAS), which also publishes the commercial MUI X advanced components.",
+    "homepageUrl": "https://mui.com/material-ui/",
+    "docsUrl": "https://mui.com/material-ui/getting-started/",
+    "repositoryUrl": "https://github.com/mui/material-ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@mui/material",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@mui/material"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2014 Call-Em-All. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.5.0",
+    "latestReleaseAt": "2026-10-09T09:12:59.956Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@mui/material",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "material-design",
+      "enterprise",
+      "theming",
+      "css-in-js"
+    ],
+    "relatedSlugs": [
+      "material-design",
+      "joy-ui",
+      "base-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Entry covers Material UI (@mui/material), the MIT-licensed core. MUI X (data grid, date pickers, charts) is open-core, with Pro/Premium tiers under a commercial license, and is out of scope. Implements Google's Material Design (see material-design). figmaUrl is null: the official MUI page links an MUI-published Figma community file (id 912837788133317724), but figma.com returned 403 to the checker, so it is unverified. React only.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://mui.com/material-ui/",
+        "status": 200,
+        "finalUrl": "https://mui.com/material-ui/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.477Z",
+        "method": "http-check",
+        "note": "title: Material UI: React components that implement Material Design; first-party MUI site"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://mui.com/material-ui/getting-started/",
+        "status": 200,
+        "finalUrl": "https://mui.com/material-ui/getting-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.801Z",
+        "method": "http-check",
+        "note": "title: Overview - Material UI; public docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mui/material-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/mui/material-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.802Z",
+        "method": "http-check",
+        "note": "official GitHub repo mui/material-ui (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.615Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master: MIT License, Copyright (c) 2014 Call-Em-All"
+      },
+      {
+        "field": "package:@mui/material",
+        "url": "https://www.npmjs.com/package/@mui/material",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:38.304Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.5.0 published 2026-10-09; license MIT; not deprecated; repo git+https://github.com/mui/material-ui.git; maintenance: release about 4 weeks before the research date => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://mui.com/",
+        "status": 200,
+        "finalUrl": "https://mui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:23.226Z",
+        "method": "http-check",
+        "note": "title: MUI: The React component library you always wanted; MUI company site"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://mui.com/material-ui/design-resources/material-ui-for-figma/",
+        "status": 200,
+        "finalUrl": "https://mui.com/material-ui/design-resources/material-ui-for-figma/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:11.781Z",
+        "method": "http-check",
+        "note": "official 'Material UI for Figma' page links figma.com/community/file/912837788133317724 (official MUI kit)"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/912837788133317724/material-ui-for-figma-and-mui-x",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/912837788133317724/material-ui-for-figma-and-mui-x",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:50:11.895Z",
+        "method": "http-check",
+        "note": "figma.com returned 403 (CDN block) to the ATLAS checker, so the link could not be verified; figmaUrl left null"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T03:54:33.802Z"
+  },
+  {
+    "rank": 24,
+    "slug": "joy-ui",
+    "name": "Joy UI",
+    "aliases": [],
+    "organization": {
+      "slug": "mui",
+      "name": "MUI (Material-UI SAS)",
+      "websiteUrl": "https://mui.com/"
+    },
+    "category": "component-library",
+    "summary": "Joy UI is an open-source React component library from MUI that follows MUI's own design direction rather than Material Design. It never left beta, and MUI has put its development on hold.",
+    "homepageUrl": "https://v7.mui.com/joy-ui/getting-started/",
+    "docsUrl": "https://v7.mui.com/joy-ui/getting-started/installation/",
+    "repositoryUrl": "https://github.com/mui/material-ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@mui/joy",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@mui/joy"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2014 Call-Em-All. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "maintenance",
+    "latestVersion": "5.0.0-beta.52",
+    "latestReleaseAt": "2025-03-18T18:36:40.551Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@mui/joy",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "theming",
+      "css-in-js"
+    ],
+    "relatedSlugs": [
+      "mui",
+      "base-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct from Material UI: own component catalog and design language. maintenanceStatus 'maintenance' is the closest fit, not a formal deprecation: the official docs say it is in beta with development on hold and recommend Material UI for new projects. The last npm release is 5.0.0-beta.52 (2025-03-18), and the docs now live on the legacy v7.mui.com host. The package source was removed from master and remains on the v7.x branch. No official Figma link was recorded.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://mui.com/joy-ui/getting-started/",
+        "status": 200,
+        "finalUrl": "https://v7.mui.com/joy-ui/getting-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:34.078Z",
+        "method": "http-check",
+        "note": "mui.com/joy-ui/getting-started/ redirects to legacy docs host v7.mui.com (title: Overview - Joy UI). Page states Joy UI is in beta and development is currently on hold; recommends Material UI for new projects"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://v7.mui.com/joy-ui/getting-started/",
+        "status": 200,
+        "finalUrl": "https://v7.mui.com/joy-ui/getting-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:11.810Z",
+        "method": "http-check",
+        "note": "canonical final URL, 200, title: Overview - Joy UI"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://mui.com/joy-ui/getting-started/installation/",
+        "status": 200,
+        "finalUrl": "https://v7.mui.com/joy-ui/getting-started/installation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:12.082Z",
+        "method": "http-check",
+        "note": "redirects to https://v7.mui.com/joy-ui/getting-started/installation/ (title: Installation - Joy UI)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mui/material-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/mui/material-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.802Z",
+        "method": "http-check",
+        "note": "official monorepo mui/material-ui (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mui/material-ui/tree/master/packages/mui-joy",
+        "status": 404,
+        "finalUrl": "https://github.com/mui/material-ui/tree/master/packages/mui-joy",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:50:11.671Z",
+        "method": "http-check",
+        "note": "404: Joy UI package source is no longer on the master branch"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mui/material-ui/tree/v7.x/packages/mui-joy",
+        "status": 200,
+        "finalUrl": "https://github.com/mui/material-ui/tree/v7.x/packages/mui-joy",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:23.195Z",
+        "method": "http-check",
+        "note": "200: Joy UI source present on the v7.x branch"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.615Z",
+        "method": "repo-metadata",
+        "note": "repo LICENSE: MIT License, Copyright (c) 2014 Call-Em-All"
+      },
+      {
+        "field": "package:@mui/joy",
+        "url": "https://www.npmjs.com/package/@mui/joy",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:38.680Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.0.0-beta.52 published 2025-03-18; license MIT; not deprecated; repo git+https://github.com/mui/material-ui.git; maintenance: last release 2025-03-18 (more than 12 months before the research date), still a beta version; docs say development is on hold"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T03:54:34.078Z"
+  },
+  {
+    "rank": 25,
+    "slug": "base-ui",
+    "name": "Base UI",
+    "aliases": [],
+    "organization": {
+      "slug": "mui",
+      "name": "MUI (Material-UI SAS)",
+      "websiteUrl": "https://mui.com/"
+    },
+    "category": "headless-library",
+    "summary": "Base UI is an open-source library of unstyled, accessible React components for building design systems, developed in the mui/base-ui repository by maintainers from MUI, Radix and Floating UI. It replaces the earlier MUI Base (@mui/base).",
+    "homepageUrl": "https://base-ui.com/",
+    "docsUrl": "https://base-ui.com/react/overview/quick-start",
+    "repositoryUrl": "https://github.com/mui/base-ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@base-ui/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@base-ui/react"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/mui/base-ui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2019 Material-UI SAS. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.9.0",
+    "latestReleaseAt": "2026-10-09T08:52:43.788Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@base-ui/react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "headless",
+      "accessibility-first",
+      "unstyled"
+    ],
+    "relatedSlugs": [
+      "mui",
+      "radix-primitives"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified headless-library (unstyled behavior and accessibility primitives). The current package is @base-ui/react. The earlier @base-ui-components/react is deprecated as renamed, and the legacy @mui/base is deprecated as replaced by @base-ui/react, so legacy MUI Base is treated as this system's predecessor, not a separate entry. radix-primitives is related by maintainer lineage, per the repo description. React only.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://base-ui.com",
+        "status": 200,
+        "finalUrl": "https://base-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.475Z",
+        "method": "http-check",
+        "note": "title: Unstyled UI components for accessible design systems · Base UI; npm homepage field = https://base-ui.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://base-ui.com/react/overview/quick-start",
+        "status": 200,
+        "finalUrl": "https://base-ui.com/react/overview/quick-start",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.801Z",
+        "method": "http-check",
+        "note": "title: Quick start · Base UI; public docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mui/base-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/mui/base-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:34.101Z",
+        "method": "http-check",
+        "note": "official repo mui/base-ui; description: 'From the creators of Radix, Floating UI, and Material UI'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/mui/base-ui/releases",
+        "status": 200,
+        "finalUrl": "https://github.com/mui/base-ui/releases",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:23.795Z",
+        "method": "http-check",
+        "note": "releases page reachable (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/mui/base-ui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mui/base-ui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.916Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master: MIT License, Copyright (c) 2019 Material-UI SAS"
+      },
+      {
+        "field": "package:@base-ui/react",
+        "url": "https://www.npmjs.com/package/@base-ui/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:38.833Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.9.0 published 2026-10-09; license MIT; not deprecated; repo git+https://github.com/mui/base-ui.git; stable 1.x; release about 4 weeks before the research date => active"
+      },
+      {
+        "field": "package:@base-ui-components/react",
+        "url": "https://www.npmjs.com/package/@base-ui-components/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:39.130Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.0.0-rc.0 published 2025-12-04; license MIT; DEPRECATED: Package was renamed to @base-ui/react; repo git+https://github.com/mui/base-ui.git; former package name; deprecated in favor of @base-ui/react"
+      },
+      {
+        "field": "package:@mui/base",
+        "url": "https://www.npmjs.com/package/@mui/base",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:39.447Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.0.0-beta.70 published 2025-03-17; license MIT; DEPRECATED: This package has been replaced by @base-ui/react; repo git+https://github.com/mui/material-ui.git; legacy MUI Base package; deprecated as replaced by @base-ui/react"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T03:54:34.101Z"
+  },
+  {
+    "rank": 26,
+    "slug": "radix-themes",
+    "name": "Radix Themes",
+    "aliases": [],
+    "organization": {
+      "slug": "workos",
+      "name": "WorkOS (Radix)",
+      "websiteUrl": null
+    },
+    "category": "component-library",
+    "summary": "Radix Themes is an open-source, pre-styled React component library built on Radix Primitives, with a theme configured via a Theme component (accent/gray colors, radius, scaling). It is maintained by WorkOS.",
+    "homepageUrl": "https://www.radix-ui.com/",
+    "docsUrl": "https://www.radix-ui.com/themes/docs/overview/getting-started",
+    "repositoryUrl": "https://github.com/radix-ui/themes",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@radix-ui/themes",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@radix-ui/themes"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/radix-ui/themes/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2023 WorkOS. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.3.0",
+    "latestReleaseAt": "2026-01-31T01:08:09.331Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@radix-ui/themes",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "theming",
+      "accessibility-first",
+      "design-tokens"
+    ],
+    "relatedSlugs": [
+      "radix-primitives"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "A styled layer distinct from radix-primitives (unstyled), with its own catalog and docs, so it is a separate verified entry. homepageUrl is the radix-ui.com root because /themes redirects there. figmaUrl is null: the official Resources page says the Figma library is unofficial and community-made. organization.websiteUrl is null because the WorkOS site was not checked; maintainership comes from the repo description ('Maintained by @workos') and the LICENSE holder.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.radix-ui.com/themes",
+        "status": 200,
+        "finalUrl": "https://www.radix-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.407Z",
+        "method": "http-check",
+        "note": "radix-ui.com/themes redirects to the Radix site root https://www.radix-ui.com/ (title: Radix UI), which presents Themes"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.radix-ui.com/themes/docs/overview/getting-started",
+        "status": 200,
+        "finalUrl": "https://www.radix-ui.com/themes/docs/overview/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.707Z",
+        "method": "http-check",
+        "note": "title: Getting started – Radix Themes; public docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/radix-ui/themes",
+        "status": 200,
+        "finalUrl": "https://github.com/radix-ui/themes",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.324Z",
+        "method": "http-check",
+        "note": "official repo radix-ui/themes; description says 'Maintained by @workos'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/radix-ui/themes/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/radix-ui/themes/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:54.718Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: MIT License, Copyright (c) 2023 WorkOS"
+      },
+      {
+        "field": "package:@radix-ui/themes",
+        "url": "https://www.npmjs.com/package/@radix-ui/themes",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:36.162Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.3.0 published 2026-01-31; license MIT; not deprecated; repo git+https://github.com/radix-ui/themes.git; maintenance: last release 2026-01-31, within 12 months of the research date => active"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.radix-ui.com/themes/docs/overview/resources",
+        "status": 200,
+        "finalUrl": "https://www.radix-ui.com/themes/docs/overview/resources",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.516Z",
+        "method": "http-check",
+        "note": "Resources page lists the Figma library as 'Unofficial Radix Themes components for Figma, by Victor Allegret'. It is community-made, so figmaUrl is null"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T03:54:54.718Z"
+  },
+  {
+    "rank": 27,
+    "slug": "radix-primitives",
+    "name": "Radix Primitives",
+    "aliases": [
+      "Radix UI Primitives",
+      "Radix UI"
+    ],
+    "organization": {
+      "slug": "workos",
+      "name": "WorkOS (Radix)",
+      "websiteUrl": null
+    },
+    "category": "headless-library",
+    "summary": "Radix Primitives is an open-source library of unstyled, accessible React UI primitives (dialog, popover, menu, tabs and others) for building design systems. It is maintained by WorkOS and ships as per-component @radix-ui/react-* packages plus a unified radix-ui package.",
+    "homepageUrl": "https://www.radix-ui.com/primitives",
+    "docsUrl": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+    "repositoryUrl": "https://github.com/radix-ui/primitives",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "radix-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/radix-ui"
+      },
+      {
+        "name": "@radix-ui/react-dialog",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@radix-ui/react-dialog"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/radix-ui/primitives/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2022 WorkOS. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.8.1",
+    "latestReleaseAt": "2026-10-12T21:03:38.918Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "radix-ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "headless",
+      "accessibility-first",
+      "unstyled"
+    ],
+    "relatedSlugs": [
+      "radix-themes",
+      "shadcn-ui",
+      "base-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified headless-library (unstyled behavior primitives). shadcn/ui builds on these primitives (and on Base UI), and Radix Themes is the styled layer on top. Packages lists the unified 'radix-ui' package and one per-component example; there are many more @radix-ui/react-* packages. Ports to other frameworks (e.g. Radix Vue / Reka UI, Radix Svelte) are community projects outside this entry. No official Figma file was recorded.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.radix-ui.com/primitives",
+        "status": 200,
+        "finalUrl": "https://www.radix-ui.com/primitives",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:06.029Z",
+        "method": "http-check",
+        "note": "title: Radix Primitives; npm homepage field = https://radix-ui.com/primitives"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+        "status": 200,
+        "finalUrl": "https://www.radix-ui.com/primitives/docs/overview/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:06.307Z",
+        "method": "http-check",
+        "note": "title: Introduction – Radix Primitives; public docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/radix-ui/primitives",
+        "status": 200,
+        "finalUrl": "https://github.com/radix-ui/primitives",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.634Z",
+        "method": "http-check",
+        "note": "official repo radix-ui/primitives; description says 'Maintained by @workos'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/radix-ui/primitives/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/radix-ui/primitives/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:55.018Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: MIT License, Copyright (c) 2022 WorkOS"
+      },
+      {
+        "field": "package:radix-ui",
+        "url": "https://www.npmjs.com/package/radix-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:36.366Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.8.1 published 2026-10-12; license MIT; not deprecated; repo git+https://github.com/radix-ui/primitives.git; unified package re-exporting all primitives; release about 3 weeks before the research date => active"
+      },
+      {
+        "field": "package:@radix-ui/react-dialog",
+        "url": "https://www.npmjs.com/package/@radix-ui/react-dialog",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:36.698Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.3.1 published 2026-10-12; license MIT; not deprecated; repo git+https://github.com/radix-ui/primitives.git; example per-primitive package"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T03:54:55.018Z"
+  },
+  {
+    "rank": 28,
+    "slug": "shadcn-ui",
+    "name": "shadcn/ui",
+    "aliases": [
+      "shadcn"
+    ],
+    "organization": {
+      "slug": "shadcn",
+      "name": "shadcn (Vercel)",
+      "websiteUrl": null
+    },
+    "category": "component-library",
+    "summary": "shadcn/ui is an open-source collection of accessible React components styled with Tailwind CSS, distributed as source code copied into projects by the 'shadcn' CLI and registry rather than as a component package. It is built by shadcn at Vercel and uses Radix or Base UI primitives underneath.",
+    "homepageUrl": "https://ui.shadcn.com/",
+    "docsUrl": "https://ui.shadcn.com/docs",
+    "repositoryUrl": "https://github.com/shadcn-ui/ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "shadcn",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/shadcn"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/shadcn-ui/ui/main/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2023 shadcn. MIT: retain copyright and permission notice. Component source is copied into consumer projects by design, and MIT permits this."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "4.23.0",
+    "latestReleaseAt": "2026-10-27T12:33:51.724Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "shadcn",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "tailwind",
+      "headless",
+      "theming",
+      "copy-paste"
+    ],
+    "relatedSlugs": [
+      "radix-primitives",
+      "base-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library although it calls itself 'not a component library': it is a curated, documented catalog of styled components distributed as code. The 'shadcn' npm package is the CLI. Installation guides cover React frameworks only (Next.js, Vite, TanStack Start, React Router, Astro, Laravel with React), so only React is listed. Vue/Svelte ports (shadcn-vue, shadcn-svelte) are community projects. The docs changelog includes 'January 2026 - Base UI Documentation' alongside Radix. figmaUrl is null because the official Figma page says its kits are community-contributed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ui.shadcn.com",
+        "status": 200,
+        "finalUrl": "https://ui.shadcn.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.544Z",
+        "method": "http-check",
+        "note": "title: shadcn/ui - The Foundation for your Design System; npm 'shadcn' homepage field = https://ui.shadcn.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ui.shadcn.com/docs",
+        "status": 200,
+        "finalUrl": "https://ui.shadcn.com/docs",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.865Z",
+        "method": "http-check",
+        "note": "title: Introduction - shadcn/ui; docs say 'This is not a component library. It is how you build your component library.' Footer: 'Built by shadcn at Vercel'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/shadcn-ui/ui",
+        "status": 200,
+        "finalUrl": "https://github.com/shadcn-ui/ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.923Z",
+        "method": "http-check",
+        "note": "official repo shadcn-ui/ui (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/shadcn-ui/ui/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/shadcn-ui/ui/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:55.319Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md on main: MIT License, Copyright (c) 2023 shadcn"
+      },
+      {
+        "field": "package:shadcn",
+        "url": "https://www.npmjs.com/package/shadcn",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:36.961Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.23.0 published 2026-10-27; license MIT; not deprecated; repo git+https://github.com/shadcn-ui/ui.git; CLI that copies component source into projects; release about 9 days before the research date => active"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://ui.shadcn.com/docs/figma",
+        "status": 200,
+        "finalUrl": "https://ui.shadcn.com/docs/figma",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.380Z",
+        "method": "http-check",
+        "note": "Figma page states 'The Figma files are contributed by the community' (e.g. by Sitsiilia Bergmann, Pietro Schirano), so figmaUrl is null"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T03:54:55.319Z"
+  },
+  {
+    "rank": 29,
+    "slug": "tailwind-plus",
+    "name": "Tailwind Plus",
+    "aliases": [
+      "Tailwind UI"
+    ],
+    "organization": {
+      "slug": "tailwind-labs",
+      "name": "Tailwind Labs",
+      "websiteUrl": "https://tailwindcss.com/"
+    },
+    "category": "commercial-suite",
+    "summary": "Tailwind Plus, formerly Tailwind UI, is Tailwind Labs' paid collection of Tailwind CSS UI blocks, templates and the Catalyst UI kit. Since September 2026 it has been closed to new customers.",
+    "homepageUrl": "https://tailwindcss.com/plus",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": {
+      "slug": "commercial-tailwind-labs",
+      "spdxId": null,
+      "name": "Tailwind Plus commercial license",
+      "url": null,
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Paid, one-time-purchase commercial license per the 2025-03-04 blog post. The terms page (tailwindcss.com/plus/license) redirects to login, so ATLAS could not read the terms. Do not ingest or redistribute component code."
+    },
+    "docAccess": "private",
+    "maintenanceStatus": "unknown",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial",
+      "tailwind",
+      "templates"
+    ],
+    "relatedSlugs": [
+      "headless-ui"
+    ],
+    "registryStatus": "rejected",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Rebrand verified: tailwindui.com redirects to Tailwind Plus, and the official blog (2025-03-04) announced the rename. REJECTED because no public documentation remains: every tailwindcss.com/plus path checked (product page, UI-blocks docs, license) 302-redirects to /plus/login. The official 2026-09-09 post says sign-ups for new customers are closed. Not a duplicate or a replacement; replacedBy null. maintenanceStatus is 'unknown' because the announcement promises continued access but says nothing about updates. Frameworks are left empty because no public docs could be verified (the blog mentions React, Vue and HTML). Integrator: needs a replacement candidate.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://tailwindcss.com/plus",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/plus/login",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:06.122Z",
+        "method": "http-check",
+        "note": "302 to https://tailwindcss.com/plus/login (title: Login - Tailwind Plus). The product page is no longer public to unauthenticated visitors"
+      },
+      {
+        "field": "aliases",
+        "url": "https://tailwindui.com",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/plus/login",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.453Z",
+        "method": "http-check",
+        "note": "former Tailwind UI domain redirects to https://tailwindcss.com/plus/login: the Tailwind UI to Tailwind Plus rebrand is confirmed"
+      },
+      {
+        "field": "aliases",
+        "url": "https://tailwindcss.com/blog/tailwind-plus",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/blog/tailwind-plus",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:34.152Z",
+        "method": "http-check",
+        "note": "official blog 'Tailwind UI is now Tailwind Plus' (2025-03-04): Tailwind UI renamed Tailwind Plus; one-time purchase, lifetime access; includes components, templates and the Catalyst UI kit"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://tailwindcss.com/plus/ui-blocks/documentation",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/plus/login",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:34.451Z",
+        "method": "http-check",
+        "note": "UI-blocks documentation redirects to /plus/login: no public docs"
+      },
+      {
+        "field": "license",
+        "url": "https://tailwindcss.com/plus/license",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/plus/login",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:34.751Z",
+        "method": "http-check",
+        "note": "license terms page redirects to /plus/login: terms not publicly readable"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://tailwindcss.com/blog/tailwind-is-joining-shopify",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/blog/tailwind-is-joining-shopify",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.851Z",
+        "method": "http-check",
+        "note": "official blog 2026-09-09 'Tailwind Labs is joining Shopify': existing customers keep access to Tailwind Plus, but sign-ups for new customers are closed; the company will no longer grow the commercial business"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:35.051Z",
+        "method": "http-check",
+        "note": "official blog 2025-07-25: UI blocks offered for React, Vue and plain HTML; plain-HTML interactivity via the customer-only @tailwindplus/elements library"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T03:54:35.051Z"
+  },
+  {
+    "rank": 30,
+    "slug": "headless-ui",
+    "name": "Headless UI",
+    "aliases": [],
+    "organization": {
+      "slug": "tailwind-labs",
+      "name": "Tailwind Labs",
+      "websiteUrl": "https://tailwindcss.com/"
+    },
+    "category": "headless-library",
+    "summary": "Headless UI is Tailwind Labs' open-source set of unstyled, accessible UI components (menu, listbox, combobox, dialog, tabs and others) designed to be styled with Tailwind CSS, with official React and Vue packages.",
+    "homepageUrl": "https://headlessui.com/",
+    "docsUrl": "https://headlessui.com/react/menu",
+    "repositoryUrl": "https://github.com/tailwindlabs/headlessui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@headlessui/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@headlessui/react"
+      },
+      {
+        "name": "@headlessui/vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@headlessui/vue"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/headlessui/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2020 Tailwind Labs. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.2.10",
+    "latestReleaseAt": "2026-04-07T17:12:43.551Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@headlessui/react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@headlessui/vue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "headless",
+      "tailwind",
+      "accessibility-first",
+      "unstyled"
+    ],
+    "relatedSlugs": [
+      "tailwind-plus"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified headless-library. The React package is on v2 (latest 2026-04-07), while the Vue package remains on v1 (last release 2024-09-09) with docs under /v1/vue, so Vue support is official but lags. latestVersion/latestReleaseAt refer to @headlessui/react. Tailwind Labs joined Shopify in September 2026 and stated that its open-source projects continue unchanged.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://headlessui.com",
+        "status": 200,
+        "finalUrl": "https://headlessui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:05.593Z",
+        "method": "http-check",
+        "note": "title: Headless UI - Unstyled, fully accessible UI components; first-party Tailwind Labs site"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://headlessui.com/react/menu",
+        "status": 200,
+        "finalUrl": "https://headlessui.com/react/menu",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:54.938Z",
+        "method": "http-check",
+        "note": "title: Dropdown Menu - Headless UI; public React docs (v2)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://headlessui.com/v1/vue",
+        "status": 200,
+        "finalUrl": "https://headlessui.com/v1/vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:55.250Z",
+        "method": "http-check",
+        "note": "Vue docs are served under /v1/vue (Vue package remains on v1)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/tailwindlabs/headlessui",
+        "status": 200,
+        "finalUrl": "https://github.com/tailwindlabs/headlessui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:06.237Z",
+        "method": "http-check",
+        "note": "official repo tailwindlabs/headlessui (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/tailwindlabs/headlessui/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/tailwindlabs/headlessui/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:55.618Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: MIT License, Copyright (c) 2020 Tailwind Labs"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://tailwindcss.com/blog/tailwind-is-joining-shopify",
+        "status": 200,
+        "finalUrl": "https://tailwindcss.com/blog/tailwind-is-joining-shopify",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:33.851Z",
+        "method": "http-check",
+        "note": "2026-09-09: 'Nothing changes with Tailwind CSS or any of our other open-source projects... will always be MIT-licensed'; the team continues to maintain them with Shopify's support"
+      },
+      {
+        "field": "package:@headlessui/react",
+        "url": "https://www.npmjs.com/package/@headlessui/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:37.317Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.2.10 published 2026-04-07; license MIT; not deprecated; repo git+https://github.com/tailwindlabs/headlessui.git; last release 2026-04-07, within 12 months => active"
+      },
+      {
+        "field": "package:@headlessui/vue",
+        "url": "https://www.npmjs.com/package/@headlessui/vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:37.608Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.7.23 published 2024-09-09; license MIT; not deprecated; repo git+https://github.com/tailwindlabs/headlessui.git; last release 2024-09-09 (v1 line); older than 12 months"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T03:54:55.618Z"
+  }
+]
