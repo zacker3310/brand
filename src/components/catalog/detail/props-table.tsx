@@ -1,7 +1,8 @@
 "use client";
 
 import { SearchIcon } from "lucide-react";
-import { useDeferredValue, useMemo, useState } from "react";
+import { Fragment, useDeferredValue, useMemo, useState } from "react";
+import { isLiteralUnionOf } from "../lib/format";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
@@ -80,7 +81,7 @@ export function PropsTable({
         <caption className="sr-only">Props documented for the {active.label} implementation</caption>
         <thead>
           <tr className="text-left font-mono text-[11px] tracking-[0.1em] text-subtle-foreground uppercase">
-            <th scope="col" className="sticky left-0 z-10 w-48 border-r border-b bg-surface-1 px-3 py-2 font-medium">
+            <th scope="col" className="sticky left-0 z-10 w-52 border-r border-b bg-surface-1 px-3 py-2 font-medium">
               Name
             </th>
             <th scope="col" className="w-64 border-b bg-surface-1 px-3 py-2 font-medium">
@@ -108,7 +109,18 @@ export function PropsTable({
           {rows.map((p) => (
             <tr key={p.name} className="group/row align-top">
               <th scope="row" className="sticky left-0 z-10 border-r border-b border-border/60 bg-card px-3 py-2.5 text-left font-normal group-hover/row:bg-accent">
-                <code className={cn("font-mono text-[12.5px] font-medium break-all", p.deprecated && "text-muted-foreground line-through")}>{p.name}</code>
+                <code className={cn("font-mono text-[12.5px] font-medium [overflow-wrap:anywhere]", p.deprecated && "text-muted-foreground line-through")}>
+                  {p.name.split(".").map((part, i) => (
+                    <Fragment key={i}>
+                      {i > 0 && (
+                        <>
+                          .<wbr />
+                        </>
+                      )}
+                      {part}
+                    </Fragment>
+                  ))}
+                </code>
                 {p.deprecated && (
                   <span className="mt-1 block w-fit rounded border border-conflicting/30 bg-conflicting-soft px-1 py-px font-mono text-[10px] text-conflicting uppercase">
                     Deprecated
@@ -116,7 +128,15 @@ export function PropsTable({
                 )}
               </th>
               <td className="border-b border-border/60 px-3 py-2.5">
-                {p.type ? <code className="font-mono text-[12px] break-words text-foreground/85">{p.type}</code> : <Unstated what="a type" />}
+                {p.type && isLiteralUnionOf(p.type, p.allowedValues) ? (
+                  <span className="font-mono text-[11px] text-muted-foreground" title={p.type}>
+                    union of {p.allowedValues!.length} literals
+                  </span>
+                ) : p.type ? (
+                  <code className="font-mono text-[12px] [overflow-wrap:anywhere] text-foreground/85">{p.type}</code>
+                ) : (
+                  <Unstated what="a type" />
+                )}
                 {p.allowedValues && p.allowedValues.length > 0 && (
                   <ul className="mt-1.5 flex flex-wrap gap-1" aria-label="Allowed values">
                     {p.allowedValues.slice(0, MAX_ALLOWED).map((v) => (

@@ -12,6 +12,7 @@ import { bookmarks, collectionItems, collections } from "@/db/schema";
 import { componentTypeUrl, componentUrl, patternUrl, systemUrl, tokenUrl } from "@/server/search/documents";
 import { CURATED_OWNER } from "@/server/identity";
 import { slugify } from "@/lib/utils";
+import { SYSTEM_CATEGORY_LABELS, type SystemCategory } from "@/lib/contracts";
 import { ENTITY_TYPES, LIMITS, type CollectionInput, type EntityRef, type EntityType, type ItemInput, type MoveDirection } from "@/components/collections/schema";
 import { readDb } from "./db";
 
@@ -161,7 +162,7 @@ function toResolved(row: ResolvedRow): ResolvedEntity {
     exists: !!row.r_exists,
     state: row.r_state,
     title: row.r_title ?? "Record no longer in the index",
-    subtitle: row.r_subtitle,
+    subtitle: type === "system" && row.r_subtitle ? (SYSTEM_CATEGORY_LABELS[row.r_subtitle as SystemCategory] ?? row.r_subtitle) : row.r_subtitle,
     systemSlug: row.r_system_slug,
     systemName: row.r_system_name,
     url: urlFor(type, row),
@@ -236,7 +237,7 @@ async function summariesFor(ownerId: string, db?: DB): Promise<CollectionSummary
       where c.owner_id = ${ownerId}
     ),
     counts as (
-      select collection_id, count(*)::int as n, jsonb_object_agg(entity_type, tn) as type_counts
+      select collection_id, sum(tn)::int as n, jsonb_object_agg(entity_type, tn) as type_counts
       from (select collection_id, entity_type, count(*)::int as tn from items group by 1, 2) t
       group by collection_id
     ),

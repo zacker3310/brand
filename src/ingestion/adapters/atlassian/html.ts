@@ -222,7 +222,8 @@ function sectionItems($: CheerioAPI, els: El[]): SectionItem[] {
       .find("li")
       .addBack("li")
       .each((_, li) => {
-        const strong = $(li).children("strong,b").first();
+        let strong = $(li).children("strong,b").first();
+        if (!strong.length) strong = $(li).children("p").first().children("strong,b").first();
         if (!strong.length) return;
         const term = cleanText(strong.text()).replace(/:$/, "").trim();
         const full = text($, li);

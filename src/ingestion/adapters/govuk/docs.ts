@@ -3,7 +3,7 @@
  * data/colours.json, the homepage template, sitemap.xml) and the GOV.UK Content API page for the
  * Government Design Principles. Pure functions: text in, JSON-serializable data out.
  */
-import type { RootContent } from "mdast";
+import type { Nodes, RootContent } from "mdast";
 import {
   clip,
   collapse,
@@ -17,6 +17,7 @@ import {
   proseBlocks,
   sections,
   splitSentences,
+  textOf,
   type Section,
 } from "./markdown";
 
@@ -42,6 +43,8 @@ export interface DocSectionSummary {
 export interface DocLink {
   slug: string;
   section: string | null;
+  /** The link's paragraph suggests using the target instead ("use ... instead", "consider ..."). */
+  alternative?: boolean;
 }
 
 export interface DocKeyboard {
@@ -93,6 +96,7 @@ export interface PatternDoc {
 
 /* ---------------------------------- links ---------------------------------- */
 
+const ALTERNATIVE_RE = /\binstead\b|\bconsider (using )?(a|an|the)\b|\buse (a|an|the) \[?[a-z]/i;
 const DOCS_HOST_RE = /^https?:\/\/design-system\.service\.gov\.uk/;
 
 /** "/components/text-input/#hint" -> { section: "components", slug: "text-input" } */
@@ -106,12 +110,23 @@ function collectLinks(secs: Section[], intro: RootContent[]): { components: DocL
   const components: DocLink[] = [];
   const patterns: DocLink[] = [];
   const add = (nodes: RootContent[], section: string | null) => {
-    for (const l of linksIn(nodes)) {
-      const t = docsLinkTarget(l.url);
-      if (!t) continue;
-      const list = t.section === "components" ? components : t.section === "patterns" ? patterns : null;
-      if (list && !list.some((x) => x.slug === t.slug && x.section === section)) list.push({ slug: t.slug, section });
-    }
+    const notToUse = !!section && /^when not to use\b/i.test(section);
+    const visit = (block: Nodes) => {
+      if (block.type === "paragraph" || block.type === "listItem") {
+        const text = collapse(textOf(block));
+        for (const l of linksIn([block])) {
+          const t = docsLinkTarget(l.url);
+          if (!t) continue;
+          const list = t.section === "components" ? components : t.section === "patterns" ? patterns : null;
+          if (!list || list.some((x) => x.slug === t.slug && x.section === section)) continue;
+          const alternative = notToUse && ALTERNATIVE_RE.test(text);
+          list.push(alternative ? { slug: t.slug, section, alternative } : { slug: t.slug, section });
+        }
+        return;
+      }
+      if ("children" in block && Array.isArray(block.children)) (block.children as Nodes[]).forEach(visit);
+    };
+    (nodes as Nodes[]).forEach(visit);
   };
   add(intro, null);
   for (const s of secs) add(ownNodes(s), s.title);
@@ -126,11 +141,14 @@ const FOCUS_RE = /\b(focus|focused)\b.*\b(move|moves|moved|receive|receives|set|
 const RESPONSIVE_RE = /\b(small(er)? screens?|screen sizes?|narrow screens?|mobile devices?|on mobile|breakpoints?|desktop|tablet|zoom(ed)? in|responsive)\b/i;
 const WCAG_RE = /\b(?:success criteri(?:on|a)|\bSC)\s+(\d\.\d{1,2}\.\d{1,2})/gi;
 
+const CALL_FOR_RESEARCH_RE = /\b(share (your|the|any) (findings|research|insight)|we need (to find out|more)|tell us|help improve|if your service has tested|let us know)\b/i;
+const NON_GUIDANCE_SECTION_RE = /^(research\b|next steps|services using|help improve)/i;
+
 function sentencesMatching(blocks: string[], re: RegExp, max: number): string[] {
   const out: string[] = [];
   for (const b of blocks) {
     for (const s of splitSentences(b)) {
-      if (!re.test(s)) continue;
+      if (!re.test(s) || CALL_FOR_RESEARCH_RE.test(s)) continue;
       const c = clip(s, 400)!;
       if (!out.some((x) => x.toLowerCase() === c.toLowerCase())) out.push(c);
       if (out.length >= max) return out;
@@ -203,7 +221,9 @@ export function parseComponentDoc(text: string): ComponentDoc {
     ...secs.map((s) => ({ section: s.title, blocks: proseBlocks(ownNodes(s)) })),
   ];
   const flat = allBlocks.flatMap((x) => x.blocks);
-  const a11ySections = allBlocks.filter((x) => x.blocks.some((b) => A11Y_RE.test(b))).map((x) => x.section ?? "(intro)");
+  const guidanceBlocks = allBlocks.filter((x) => !x.section || !NON_GUIDANCE_SECTION_RE.test(x.section) && !secs.find((sec) => sec.title === x.section)?.parents.some((p) => NON_GUIDANCE_SECTION_RE.test(p)));
+  const gflat = guidanceBlocks.flatMap((x) => x.blocks);
+  const a11ySections = guidanceBlocks.filter((x) => x.blocks.some((b) => A11Y_RE.test(b))).map((x) => x.section ?? "(intro)");
   const wcag = new Set<string>();
   for (const b of flat) for (const m of b.matchAll(WCAG_RE)) wcag.add(m[1]!);
   const errorSec = sectionText(secs, /^error messages?$/i, 280);
@@ -232,14 +252,14 @@ export function parseComponentDoc(text: string): ComponentDoc {
     componentLinks: links.components,
     patternLinks: links.patterns,
     a11y: {
-      guidance: sentencesMatching(flat, A11Y_RE, 6),
-      screenReader: sentencesMatching(flat, SR_RE, 3),
-      focus: sentencesMatching(flat, FOCUS_RE, 3),
+      guidance: sentencesMatching(gflat, A11Y_RE, 6),
+      screenReader: sentencesMatching(gflat, SR_RE, 3),
+      focus: sentencesMatching(gflat, FOCUS_RE, 3),
       wcag: [...wcag].sort(),
       sections: a11ySections,
     },
     keyboard: keyboardSentences(allBlocks),
-    responsive: sentencesMatching(flat, RESPONSIVE_RE, 3),
+    responsive: sentencesMatching(gflat, RESPONSIVE_RE, 3),
   };
 }
 
@@ -385,7 +405,8 @@ export interface HomeData {
   principleLinks: { text: string; url: string }[];
 }
 
-const stripTags = (html: string) => collapse(html.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#39;|&rsquo;/g, "’"));
+const stripTags = (html: string) =>
+  collapse(html.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&#39;|&rsquo;/g, "’")).replace(/\s+([.,;:!?])/g, "$1");
 
 /** src/index.njk: the "Principles we follow" block (static HTML inside the Nunjucks template). */
 export function parseHome(text: string): HomeData {

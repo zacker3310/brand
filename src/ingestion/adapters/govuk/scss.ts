@@ -198,7 +198,7 @@ function commentAbove(lines: string[], line: number): string | null {
   return out.length ? collapse(out.join(" ")) : null;
 }
 
-const isColourRefMap = (v: ScssValue): v is Extract<ScssValue, { kind: "map" }> =>
+const isColourRefMap = (v: ScssValue): boolean =>
   v.kind === "map" && v.entries.length > 0 && v.entries.every((e) => (e.key === "name" || e.key === "variant") && e.value.kind === "scalar") && v.entries.some((e) => e.key === "name");
 
 const unquote = (s: string) => s.trim().replace(/^["']|["']$/g, "");
@@ -251,7 +251,7 @@ export function parseSettingsFile(text: string, opts: { entryComments?: boolean 
     };
     const walk = (val: ScssValue, path: string[], line: number, depth: number) => {
       if (depth > 8) return;
-      if (isColourRefMap(val)) {
+      if (val.kind === "map" && isColourRefMap(val)) {
         const n = unquote((val.entries.find((e) => e.key === "name")!.value as { raw: string }).raw);
         const variantEntry = val.entries.find((e) => e.key === "variant");
         const variant = variantEntry ? unquote((variantEntry.value as { raw: string }).raw) : null;

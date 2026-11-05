@@ -93,3 +93,48 @@ export function shortSystemName(name: string, orgName: string | null | undefined
   if (!rest || GENERIC_REMAINDERS.has(rest.toLowerCase())) return name;
   return rest;
 }
+
+/**
+ * True when a prop's type string is just a union of string/number literals equal to its allowed
+ * values ("'sm' | 'md' | 'lg'"), so the UI can show the values once as chips instead of twice.
+ */
+export function isLiteralUnionOf(type: string | null | undefined, values: string[] | null | undefined): boolean {
+  if (!type || !values || values.length < 2) return false;
+  const parts = type
+    .split("|")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  if (parts.length !== values.length) return false;
+  const literals = parts.map((p) => p.replace(/^(['"`])(.*)\1$/, "$2"));
+  if (parts.some((p, i) => p === literals[i] && !/^-?\d+(\.\d+)?$/.test(p) && !["true", "false", "null"].includes(p))) return false;
+  const set = new Set(values);
+  return literals.every((l) => set.has(l));
+}
+
+export interface KeyboardGroup {
+  context: string | null;
+  rows: { keys: string[]; action: string }[];
+}
+
+/**
+ * Display grouping for documented keyboard interactions: actions phrased "Context: action" are
+ * grouped under their context, and consecutive keys with the identical action are merged into one
+ * row. Purely presentational; no text is rewritten.
+ */
+export function groupKeyboard(rows: { keys: string; action: string }[]): KeyboardGroup[] {
+  const groups: KeyboardGroup[] = [];
+  for (const r of rows) {
+    const m = r.action.match(/^([^:]{2,40}):\s+(.+)$/);
+    const context = m ? m[1]!.trim() : null;
+    const action = m ? m[2]!.trim() : r.action;
+    let g = groups[groups.length - 1];
+    if (!g || g.context !== context) {
+      g = { context, rows: [] };
+      groups.push(g);
+    }
+    const last = g.rows[g.rows.length - 1];
+    if (last && last.action === action) last.keys.push(r.keys);
+    else g.rows.push({ keys: [r.keys], action });
+  }
+  return groups;
+}

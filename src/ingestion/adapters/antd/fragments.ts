@@ -24,7 +24,7 @@ export interface PkgInfo {
 }
 
 export type AntdFragment =
-  | { t: "pkg"; stamp: Stamp; pkg: PkgInfo }
+  | { t: "pkg"; stamp: Stamp; pkg: PkgInfo; /** peerDependencies names from the version manifest. */ peers: string[] }
   | { t: "license"; stamp: Stamp; copyright: string | null; spdx: string | null }
   | { t: "sitemap"; stamp: Stamp; components: string[]; spec: string[]; trailingSlash: boolean }
   | { t: "component-doc"; stamp: Stamp; slug: string; dir: string; docsUrl: string | null; order: number; doc: ParsedDoc }

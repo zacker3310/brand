@@ -37,7 +37,7 @@ export type PolarisFragmentData =
   | { type: "redirects"; stamp: Stamp; redirects: Redirect[] }
   | { type: "react-mdx"; stamp: Stamp; file: string; doc: ReactMdxDoc }
   | { type: "react-index"; stamp: Stamp; npm: NpmInfo; file: string; exports: string[] }
-  | { type: "react-dts"; stamp: Stamp; npm: NpmInfo; dir: string; file: string; propsName: string; found: boolean; props: ReactProp[]; unresolved: string[]; files: string[] }
+  | { type: "react-dts"; stamp: Stamp; npm: NpmInfo; docPath: string | null; dir: string; file: string; propsName: string; found: boolean; props: ReactProp[]; unresolved: string[]; files: string[] }
   | { type: "storybook"; stamp: Stamp; stories: StoryRef[] }
   | { type: "tokens-css"; stamp: Stamp; npm: NpmInfo; file: string; blocks: ThemeBlock[] }
   | { type: "tokens-meta"; stamp: Stamp; npm: NpmInfo; file: string; descriptions: Record<string, string> }

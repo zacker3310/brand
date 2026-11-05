@@ -426,7 +426,7 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
   if (composed.length) ev.push(evidence("relationships", f.params!.ev, f.params!.fromTag ? "params-yaml" : "macro-options-json", 0.9, { location: `${f.params!.ev.location}#params (isComponent: ${composed.map((p) => p.name).join(", ")})` }));
   if (f.template?.data.imports.length) ev.push(evidence("relationships", f.template.ev, "template-njk", 0.9, { location: `${f.template.ev.location} (imports ${f.template.data.imports.join(", ")})` }));
   const docRels = (doc?.componentLinks ?? []).filter((l) => cx.slugByDoc.has(l.slug));
-  for (const l of docRels) addRel(l.section && /^when not to use\b/i.test(l.section) ? "alternative" : "related", cx.slugByDoc.get(l.slug));
+  for (const l of docRels) addRel(l.alternative ? "alternative" : "related", cx.slugByDoc.get(l.slug));
   if (docRels.length) ev.push(evidence("relationships", f.docs!.ev, "docs-markdown", 0.85, { location: `${f.docs!.ev.location} (links to component pages)` }));
   coverage.relationships = relationships.length ? "documented" : f.docs ? "not-documented" : "not-extracted";
 
@@ -525,7 +525,7 @@ function buildTokenSets(
       const extra: string[] = [];
       const fn = /^govuk-functional-colours\.([\w-]+)$/.exec(t.name);
       const dc = fn ? docColours.get(fn[1]!) : undefined;
-      if (dc) extra.push(`${dc.group} colour.`, ...(dc.notes ? [dc.notes] : []));
+      if (dc) extra.push(`Docs colour group: ${dc.group}.`, ...(dc.notes ? [/[.!?]$/.test(dc.notes) ? dc.notes : `${dc.notes}.`] : []));
       g.tokens.push({
         name: t.name,
         path: t.path,

@@ -121,13 +121,8 @@ export default async function CollectionPage({ params, searchParams }: Props) {
             </>
           )}
         </p>
+        {editable && <CollectionSettings id={c.id} name={c.name} description={c.description} itemCount={c.itemCount} />}
       </PageHeader>
-
-      {editable && (
-        <div className="mt-4">
-          <CollectionSettings id={c.id} name={c.name} description={c.description} itemCount={c.itemCount} />
-        </div>
-      )}
       {one(sp.added) === "1" && (
         <p role="status" className="mt-4 rounded-lg border bg-surface-1 px-4 py-2.5 text-sm text-muted-foreground">
           Added to this collection.

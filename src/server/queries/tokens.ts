@@ -47,6 +47,8 @@ export interface TokenSetInfo {
   license: LicenseInfo | null;
   tokenCount: number;
   retrievedAt: string | null;
+  /** Most common tier among the set's tokens (null when tiers are not recorded). Display ordering only. */
+  mainTier: string | null;
 }
 
 export type AliasStateKey = "literal" | "resolved" | "theme-dependent" | "external" | "unresolved" | "cycle";
@@ -124,19 +126,25 @@ function licenseOf(r: { lic_slug: string | null; lic_name: string | null; lic_sp
   return { slug: r.lic_slug, name: r.lic_name, spdxId: r.lic_spdx, url: r.lic_url, redistribution: (r.lic_redist ?? "unknown") as Redistribution };
 }
 
-/** Theme-agnostic sets first (by name), then themed sets: light-ish, dark-ish, others; then slug. */
-export function setSortKey(s: { theme: string | null; name: string; slug: string }): [number, number, string] {
-  if (!s.theme) return [0, 0, s.name.toLowerCase()];
+const TIER_RANK: Record<string, number> = { primitive: 0, semantic: 1, component: 3 };
+
+/**
+ * Display order for sets: by dominant tier (primitive, semantic, unrecorded, component), then
+ * theme-agnostic before themed (light-ish, dark-ish, others), then name/slug.
+ */
+export function setSortKey(s: { theme: string | null; name: string; slug: string; mainTier?: string | null }): [number, number, number, string] {
+  const tier = s.mainTier ? (TIER_RANK[s.mainTier] ?? 2) : 2;
+  if (!s.theme) return [tier, 0, 0, s.name.toLowerCase()];
   const t = s.theme.toLowerCase();
   const rank = t.startsWith("light") || t === "white" ? 0 : t.startsWith("dark") ? 1 : 2;
-  return [1, rank, `${t}\u0000${s.slug}`];
+  return [tier, 1, rank, `${t}\u0000${s.slug}`];
 }
 
-export function sortSets<T extends { theme: string | null; name: string; slug: string }>(sets: T[]): T[] {
+export function sortSets<T extends { theme: string | null; name: string; slug: string; mainTier?: string | null }>(sets: T[]): T[] {
   return [...sets].sort((a, b) => {
     const ka = setSortKey(a);
     const kb = setSortKey(b);
-    return ka[0] - kb[0] || ka[1] - kb[1] || (ka[2] < kb[2] ? -1 : ka[2] > kb[2] ? 1 : 0);
+    return ka[0] - kb[0] || ka[1] - kb[1] || ka[2] - kb[2] || (ka[3] < kb[3] ? -1 : ka[3] > kb[3] ? 1 : 0);
   });
 }
 
@@ -216,6 +224,7 @@ export async function listTokenSets(systemId: string): Promise<TokenSetInfo[]> {
     redistribution: string;
     tokens: string;
     retrieved_at: string | null;
+    main_tier: string | null;
     lic_slug: string | null;
     lic_name: string | null;
     lic_spdx: string | null;
@@ -225,6 +234,7 @@ export async function listTokenSets(systemId: string): Promise<TokenSetInfo[]> {
     select ts.id, ts.slug, ts.name, ts.theme, ts.format, ts.source_url, ts.package_name, ts.package_version, ts.redistribution::text as redistribution,
       (select count(*) from token t where t.token_set_id = ts.id) as tokens,
       (select max(e.retrieved_at)::text from verification_evidence e where e.subject_type = 'token_set' and e.subject_id = ts.id) as retrieved_at,
+      (select mode() within group (order by t.tier) from token t where t.token_set_id = ts.id and t.tier is not null)::text as main_tier,
       l.slug as lic_slug, l.name as lic_name, l.spdx_id as lic_spdx, l.url as lic_url, l.redistribution::text as lic_redist
     from token_set ts left join license l on l.id = ts.license_id
     where ts.design_system_id = ${systemId} and ts.publish_state = 'published'
@@ -243,6 +253,7 @@ export async function listTokenSets(systemId: string): Promise<TokenSetInfo[]> {
       license: licenseOf(x),
       tokenCount: num(x.tokens),
       retrievedAt: x.retrieved_at,
+      mainTier: x.main_tier,
     })),
   );
 }

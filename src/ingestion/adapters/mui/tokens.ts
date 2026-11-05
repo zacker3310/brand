@@ -205,11 +205,11 @@ function makeToken(name: string[], raw: unknown, refs: string[], location: strin
 
 const byName = (a: NormalizedToken, b: NormalizedToken) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0);
 
-function setEvidence(files: TokenBuildInput["files"], extra: string): NormalizedTokenSet["evidence"] {
+function setEvidence(files: TokenBuildInput["files"], extra: string, count?: number): NormalizedTokenSet["evidence"] {
   return files.map((f) =>
     evidence(f.prov, "tokens", PARSER_TOKENS, {
       location: f.data.file,
-      excerpt: `${f.data.entries.length} statically declared values read from ${f.data.file}${f.data.skipped.length ? `; ${f.data.skipped.length} computed values not extracted (${f.data.skipped.slice(0, 4).join(", ")}${f.data.skipped.length > 4 ? ", …" : ""})` : ""}${extra}`,
+      excerpt: `${count ?? f.data.entries.length} statically declared values read from ${f.data.file}${f.data.skipped.length ? `; ${f.data.skipped.length} computed values not extracted (${f.data.skipped.slice(0, 4).join(", ")}${f.data.skipped.length > 4 ? ", …" : ""})` : ""}${extra}`,
     }),
   );
 }
@@ -265,7 +265,7 @@ export function buildMuiTokenSets(inp: TokenBuildInput): { sets: NormalizedToken
         theme: mode,
         sourceUrl: pal.npmUrl,
         tokens: tokens.sort(byName),
-        evidence: setEvidence([pal], `; ${mode}-mode defaults (getLight/getDark and getDefault<Intent>(mode)); contrastText and other derived values are computed and not extracted`),
+        evidence: setEvidence([pal], ` for ${mode} mode (getLight/getDark and getDefault<Intent>(mode)); contrastText and other derived values are computed and not extracted`, tokens.length),
       });
     }
   }

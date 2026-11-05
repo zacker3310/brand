@@ -70,7 +70,7 @@ export function InspectorProvider({ children, className, defaultId = null }: { c
   const value = useMemo(() => ({ selectedId, select, clear, lastTrigger }), [selectedId, select, clear]);
   return (
     <Ctx.Provider value={value}>
-      <div onClickCapture={onClickCapture} className={className}>
+      <div onClickCapture={onClickCapture} className={className} data-inspecting={selectedId ? "true" : "false"}>
         {children}
       </div>
       {selectedId && (

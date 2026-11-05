@@ -158,3 +158,51 @@ export function depthLabel(indexed: number, partial: number, metadata: number): 
   parts.push(`${metadata} metadata-level`);
   return parts.join(" · ");
 }
+
+/* -------------------------------------------------------------------------- */
+/* Recently updated: balance ingestion runs and registry re-verifications       */
+/* -------------------------------------------------------------------------- */
+
+export interface RecentLike {
+  kind: "ingest" | "registry";
+  lastActivityAt: string;
+  registrySummaries: string[];
+}
+
+/**
+ * Up to `maxIngest` latest ingestion-driven updates plus up to `maxRegistry` registry-only
+ * re-verifications, merged newest first. Without the split a batch registry re-check (which
+ * touches dozens of systems in the same minute) would crowd out actual ingestion runs.
+ */
+export function pickRecent<T extends RecentLike>(rows: T[], maxIngest = 4, maxRegistry = 2, limit = 6): T[] {
+  const byTime = (a: T, b: T) => b.lastActivityAt.localeCompare(a.lastActivityAt);
+  const ingest = rows.filter((r) => r.kind === "ingest").sort(byTime);
+  const registry = rows.filter((r) => r.kind === "registry").sort(byTime);
+  const picked = [...ingest.slice(0, maxIngest), ...registry.slice(0, maxRegistry)];
+  // backfill from whichever side has more when the other is short
+  for (const r of [...ingest.slice(maxIngest), ...registry.slice(maxRegistry)].sort(byTime)) {
+    if (picked.length >= limit) break;
+    picked.push(r);
+  }
+  return picked.sort(byTime).slice(0, limit);
+}
+
+/** Human phrasing for registry change summaries; drops redundant raw field markers. */
+export function humanizeRegistrySummaries(summaries: string[]): string[] {
+  const out: string[] = [];
+  for (const s of summaries) {
+    const m = /^registry evidence: (\d+) check\(s\) added or changed$/.exec(s);
+    if (m) {
+      const n = Number(m[1]);
+      out.push(`${n} registry ${n === 1 ? "check" : "checks"} re-run`);
+      continue;
+    }
+    if (/^registryEvidence changed$/.test(s)) continue;
+    if (/^imported from registry/.test(s)) {
+      out.push("Added to the registry");
+      continue;
+    }
+    out.push(s);
+  }
+  return [...new Set(out)];
+}

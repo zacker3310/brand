@@ -7,6 +7,10 @@ import type { GenericTarget } from "./types";
  *  - microsoft-fast: current docs (3.x, 2.x) have no component catalog (FAST Element is an authoring library).
  *  - ignite-ui: docs nav/sitemap mix ~420 feature pages; anchors are empty and h1/titles carry framework
  *    prefixes ("Angular Data Grid Component Overview"), so clean metadata-level names are not derivable.
+ *  - hpe-design-system: client-rendered docs (no sitemap, no static nav/title/h1); the repo listing only yields
+ *    lowercase route slugs ("dateinput") and constructed docs URLs cannot be confirmed from the SPA shell.
+ *  - helsinki-design-system: client-rendered Gatsby docs (empty static HTML, no sitemap); the React Storybook
+ *    index.json is enumerable but its titles are "Components/DateInput" (group prefix kept as the name).
  */
 export const TARGETS_2: GenericTarget[] = [
   {
@@ -25,7 +29,7 @@ export const TARGETS_2: GenericTarget[] = [
     // Strips " class" from the dartdoc h1 ("CupertinoButton class") and the full title suffix.
     titleSuffix: "\\s+class(?:\\s+-\\s+cupertino_ui library\\s+-\\s+Dart API)?$",
     notes:
-      "Official Flutter 'Cupertino (iOS-style) widgets' catalog on docs.flutter.dev (static HTML; robots.txt 'Disallow:' empty = allow all). Its <main> links every catalog entry to the cupertino_ui API reference on pub.dev (robots allows /documentation). Non-widget catalog entries (CupertinoColors, *ThemeData, *Localizations, routes, controllers, painters, selection-control delegates) are excluded. fetchPages=false: pub.dev dartdoc pages only carry a boilerplate meta description ('API docs for the X class...'), so names come from the class-name segment.",
+      "Official Flutter 'Cupertino (iOS-style) widgets' catalog on docs.flutter.dev (static HTML; robots.txt 'Disallow:' empty = allow all). Its <main> links every catalog entry to the cupertino_ui API reference on pub.dev (robots allows /documentation). Non-widget catalog entries (CupertinoColors, *ThemeData, *Localizations, routes, controllers, painters, selection-control delegates) are excluded. Pages are fetched for the name (dartdoc h1 'CupertinoButton class', ' class' stripped) because catalog link texts concatenate the class name and its one-line summary. Caveat: dartdoc meta descriptions are templated ('API docs for the X class from the cupertino_ui library, for the Dart programming language.') and currently pass the site-wide boilerplate filter.",
   },
   {
     slug: "flutter-material",
@@ -148,18 +152,6 @@ export const TARGETS_2: GenericTarget[] = [
     titleSuffix: "\\s*\\|\\s*HeroUI$",
     notes:
       "heroui.com/sitemap.xml (declared in robots.txt; User-agent * Allow: /). Only English React component pages are taken (HeroUI v3, /en/docs/react/components/<name>); Chinese (/cn/) duplicates and HeroUI Native (/docs/native/components/*, a separate React Native package) are not matched. Titles are 'DateRangePicker | HeroUI' with component-specific meta descriptions.",
-  },
-  {
-    slug: "hpe-design-system",
-    strategy: "repo-listing",
-    repo: { kind: "gh", name: "grommet/hpe-design-system", ref: "main", docsUrlTemplate: "https://design-system.hpe.design/components/{segment}" },
-    include: "^apps/docs/src/pages/components/([a-z-]+)(?:/index)?\\.mdx$",
-    exclude: ["/all-components\\.mdx$"],
-    frameworks: ["react"],
-    fetchPages: true,
-    maxPages: 60,
-    notes:
-      "The docs site is a client-rendered Next.js export (no sitemap, empty static HTML), so components are enumerated from the docs source in the official repo (jsDelivr listing of grommet/hpe-design-system@main: apps/docs/src/pages/components/<name>.mdx, which become /components/<name> routes). Card sub-pages (card/call-to-action-card...) are variants and not matched; all-components is the index. Each constructed docs URL is confirmed by a page fetch (HTTP 200 vs 404 for unknown routes). Caveat: routes are lowercase concatenations (dateinput, namevaluelist), and pages expose no static title, so names are humanized from the route ('Dateinput' for DateInput).",
   },
   {
     slug: "ionic",

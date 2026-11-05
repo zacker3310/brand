@@ -78,8 +78,24 @@ export function ThemeChip({ theme, className }: { theme: string | null; classNam
 /* Scope rail (system, sets, theme)                                            */
 /* -------------------------------------------------------------------------- */
 
+/** Suffix shared by every set name (", M3 token DB 34.0.21"), shown once instead of on every row. */
+export function sharedNameSuffix(names: readonly string[]): string | null {
+  if (names.length < 2) return null;
+  const tails = names.map((n) => {
+    const i = n.lastIndexOf(", ");
+    return i > 0 ? n.slice(i + 2) : null;
+  });
+  const first = tails[0];
+  return first && tails.every((t) => t === first) ? first : null;
+}
+
+export function shortSetName(name: string, suffix: string | null): string {
+  return suffix && name.endsWith(`, ${suffix}`) ? name.slice(0, -(suffix.length + 2)) : name;
+}
+
 export function ScopeRail({ m }: { m: ExplorerModel }) {
   const allCount = m.sets.reduce((a, s) => a + s.tokenCount, 0);
+  const suffix = sharedNameSuffix(m.sets.map((s) => s.name));
   return (
     <div className="space-y-6">
       <Form action="/tokens" className="flex items-end gap-2">
@@ -113,13 +129,14 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
 
       <nav aria-label="Token sets" className="hidden space-y-1 lg:block">
         <p className="type-eyebrow mb-2">Token sets</p>
+        {suffix && <p className="mb-2 text-[11px] text-subtle-foreground">All from {suffix}</p>}
         <ul className="space-y-0.5">
           <li>
             <SetLink href={nav(m, { set: undefined })} active={!m.selectedSet} title="All sets" count={allCount} />
           </li>
           {m.sets.map((s) => (
             <li key={s.id}>
-              <SetLink href={nav(m, { set: s.slug, theme: undefined })} active={m.selectedSet?.id === s.id} title={s.name} count={s.tokenCount} theme={s.theme} />
+              <SetLink href={nav(m, { set: s.slug, theme: undefined })} active={m.selectedSet?.id === s.id} title={shortSetName(s.name, suffix)} count={s.tokenCount} theme={s.theme} />
             </li>
           ))}
         </ul>
@@ -484,12 +501,21 @@ export function Pagination({ m, page, pages, label }: { m: ExplorerModel; page: 
 }
 
 /** Inferred-tier marker used in lists and tables. */
-export function TierMark({ tier, tierState }: { tier: string | null; tierState: string }) {
-  if (!tier) return <span className="text-subtle-foreground">—</span>;
+const TIER_INFERRED = "Tier inferred by ATLAS from naming and alias structure; the source does not declare it.";
+
+export function TierMark({ tier, tierState, plain = false }: { tier: string | null; tierState: string; plain?: boolean }) {
+  if (!tier) return <span className="text-subtle-foreground" title="Tier not recorded">—</span>;
   return (
     <span className="inline-flex items-center gap-1">
       <span>{tier}</span>
-      {tierState === "inferred" && <VerificationBadge state="inferred" compact detail="Tier inferred by ATLAS from naming and alias structure; the source does not declare it." />}
+      {tierState === "inferred" &&
+        (plain ? (
+          <span title={TIER_INFERRED} className="rounded-full border border-inferred/25 bg-inferred-soft px-1.5 py-px text-[10px] leading-none font-medium text-inferred">
+            Inferred
+          </span>
+        ) : (
+          <VerificationBadge state="inferred" compact detail={TIER_INFERRED} />
+        ))}
     </span>
   );
 }

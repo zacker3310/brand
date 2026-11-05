@@ -22,20 +22,20 @@ export const SYSTEM_PKG: Record<ReactSystem, string> = { "react-spectrum": PKG.s
 export const SYSTEM_ORIGIN: Record<ReactSystem, string> = { "react-spectrum": RSP_ORIGIN, "react-aria": RAC_ORIGIN };
 
 /** Boolean props whose presence documents a component state (prop-derived => coverage "inferred"). */
-const STATE_PROPS: Record<string, string> = {
-  isDisabled: "disabled",
-  isPending: "loading",
-  isInvalid: "error",
-  isReadOnly: "readonly",
-  isSelected: "selected",
-  isIndeterminate: "indeterminate",
-  isExpanded: "expanded",
+const STATE_PROPS: Record<string, [string, string]> = {
+  isDisabled: ["Disabled", "disabled"],
+  isPending: ["Pending", "loading"],
+  isInvalid: ["Invalid", "error"],
+  isReadOnly: ["Read-only", "readonly"],
+  isSelected: ["Selected", "selected"],
+  isIndeterminate: ["Indeterminate", "indeterminate"],
+  isExpanded: ["Expanded", "expanded"],
 };
+/** React DOM pass-through event handlers documented without a description (omitted as noise). */
+export const isBareDomEvent = (name: string, description: string | null) => !description && /^on[A-Z][A-Za-z]*$/.test(name) && /(Capture|Pointer|Mouse|Touch|Transition|Animation|Scroll|Wheel|Drag|Copy|Cut|Paste|Composition|Context|Gotpointer|Lostpointer)/.test(name);
 /** Enum props that document a visual variant axis. */
 const VARIANT_PROPS: Record<string, string> = { variant: "variant", fillStyle: "appearance", density: "density" };
 const SKIP_EXAMPLE_SECTION = /^(vanilla css example|tailwind example|api|related types|examples|properties|methods)$/i;
-
-const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /** Remove docs-site highlight markers from example code. */
 export function cleanExampleCode(code: string): string {
@@ -106,7 +106,7 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
   const addProps = (impl: string, sec: MdApiSection, url: string) => {
     const seen = new Set<string>();
     for (const pr of sec.props) {
-      if (seen.has(pr.name) || seen.size >= MAX_PROPS_PER_IMPL) continue;
+      if (seen.has(pr.name) || seen.size >= MAX_PROPS_PER_IMPL || isBareDomEvent(pr.name, pr.description)) continue;
       seen.add(pr.name);
       properties.push({
         implementation: impl,
@@ -126,7 +126,8 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
     const impl = sec === primary ? "react" : `react:${sec.name}`;
     if (properties.some((x) => x.implementation === impl)) continue;
     addProps(impl, sec, md.docsUrl);
-    ev.push(evidence("properties", md.ev, "docs-md-api", 0.95, { location: `${loc(`API/${sec.name}`)} (line ${sec.line}; ${sec.props.length} rows${sec.props.length > MAX_PROPS_PER_IMPL ? `, first ${MAX_PROPS_PER_IMPL} stored` : ""})` }));
+    const bare = sec.props.filter((x) => isBareDomEvent(x.name, x.description)).length;
+    ev.push(evidence("properties", md.ev, "docs-md-api", 0.95, { location: `${loc(`API/${sec.name}`)} (line ${sec.line}; ${sec.props.length} rows${bare ? `; ${bare} undescribed DOM event pass-through props omitted` : ""}${sec.props.length - bare > MAX_PROPS_PER_IMPL ? `; first ${MAX_PROPS_PER_IMPL} stored` : ""})` }));
     if (sec !== primary && sec.name !== name && /^[A-Z][A-Za-z0-9_]*$/.test(sec.name)) aliases.push(sec.name);
   }
   for (const h of hooks) {
@@ -166,7 +167,7 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
   } else {
     for (const pr of primary?.props ?? []) {
       const canon = STATE_PROPS[pr.name];
-      if (canon) states.push({ name: cap(canon), canonical: canon, description: `Exposed through the \`${pr.name}\` prop`, sourceUrl: md.docsUrl });
+      if (canon) states.push({ name: canon[0], canonical: canon[1], description: `Exposed through the \`${pr.name}\` prop`, sourceUrl: md.docsUrl });
     }
     states = uniqBy(states, (s) => s.name);
     if (states.length) ev.push(evidence("states", md.ev, "docs-md-api", 0.6, { location: loc(`API/${primary!.name} (state props)`) }));

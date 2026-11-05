@@ -6,7 +6,7 @@ import type { GroupSlice } from "../lib/grouping";
 import { authoredLabel, dimensionOf, motionOf, opacityOf, previewValue, safeCss, shadowCss } from "../lib/values";
 import { AliasStateBadge } from "../alias-state";
 import { EasingCurve, MotionAllToggle, MotionPreview } from "../motion-preview";
-import { chainLabel, GroupHeader, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
+import { chainLabel, GroupHeader, GroupList, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
 
 const BAR_MAX = 480;
 const REFERENCE_MS = 1000;
@@ -51,15 +51,16 @@ function StateBadge({ t }: { t: ExplorerToken }) {
 
 function Groups({ p, render, header }: { p: ViewProps; render: (g: GroupSlice<TokenIndexRow>) => React.ReactNode; header?: React.ReactNode }) {
   return (
-    <div className="space-y-10">
-      {header}
-      {p.groups.map((g) => (
-        <GroupSection key={`${g.key}-${g.part?.index ?? 0}`} g={g}>
-          <GroupHeader g={g} set={g.setId ? p.setById.get(g.setId) : undefined} multiSet={p.multiSet} />
+    <GroupList
+      p={p}
+      header={header}
+      render={(g) => (
+        <GroupSection g={g}>
+          <GroupHeader g={g} multiSet={p.multiSet} />
           {render(g)}
         </GroupSection>
-      ))}
-    </div>
+      )}
+    />
   );
 }
 

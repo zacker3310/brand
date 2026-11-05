@@ -112,6 +112,8 @@ async function resolvePackage(ctx: AdapterContext, p: ProfileDef): Promise<{ pkg
   return { pkg: { name: p.pkg, version, publishedAt: latest.publishedAt, license, gitHead, ref }, manifestUrl, peerDependencies };
 }
 
+const uniqStrings = (xs: string[]) => [...new Set(xs)];
+
 function byPriority<T>(items: T[], key: (t: T) => string, priority: string[]): T[] {
   const rank = (t: T) => {
     const i = priority.indexOf(key(t));
@@ -220,7 +222,7 @@ async function discoverAntd(ctx: AdapterContext): Promise<DiscoveredDocument[]> 
   });
 
   // Spec (design) pages.
-  const specWanted = ctx.limit && ctx.limit > 0 ? specSlugs.slice(0, Math.max(ctx.limit, 4)).concat(specSlugs.filter((s) => s === "values" && !specSlugs.slice(0, Math.max(ctx.limit!, 4)).includes(s))) : specSlugs;
+  const specWanted = ctx.limit && ctx.limit > 0 ? uniqStrings(["values", "introduce", ...specSlugs]).filter((s) => specSlugs.includes(s)).slice(0, ctx.limit + 2) : specSlugs;
   const specFile = (s: string) => `docs/spec/${s}.en-US.md`;
   const specResults = await Promise.all(specWanted.map(async (s) => ({ s, res: await prefetch(ctx, rawUrl(p, pkg.ref, specFile(s))) })));
   specResults
@@ -397,13 +399,15 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
   switch (doc.docKind) {
     case DOC_KINDS.npmVersion: {
       const pkg = { ...meta.pkg! };
+      let peers: string[] = [];
       try {
-        const j = JSON.parse(body) as { license?: string; version?: string; gitHead?: string };
+        const j = JSON.parse(body) as { license?: string; peerDependencies?: Record<string, string> };
         if (typeof j.license === "string") pkg.license = j.license;
+        peers = Object.keys(j.peerDependencies ?? {}).sort();
       } catch {
         /* keep discover-time data */
       }
-      return frag({ t: "pkg", stamp: { ...stamp, file: `${pkg.name}@${pkg.version}` }, pkg }, undefined);
+      return frag({ t: "pkg", stamp: { ...stamp, file: `${pkg.name}@${pkg.version}` }, pkg, peers });
     }
     case DOC_KINDS.license: {
       const m = /^\s*(Copyright \(c\)[^\n]+?)\s*$/im.exec(body);

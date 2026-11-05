@@ -61,16 +61,24 @@ const tagText = (src: string, tag: string) => {
   return m ? clip(decodeEntities(m[1]!.replace(/<[^>]+>/g, "")), 600) : null;
 };
 
+/** Drop MDX module syntax and self-closing demo/component JSX lines (never prose). */
+export function stripMdx(mdx: string): string {
+  return mdx
+    .replace(/^export const metadata = \{[\s\S]*$/m, "")
+    .replace(/^import [^\n]*from '[^']+';?\s*$/gm, "")
+    .replace(/^\s*<[A-Z][A-Za-z.]*(?:\s[^>]*)?\/>\s*$/gm, "");
+}
+
 export function parseBasePage(mdx: string): BasePage {
-  const body = mdx.replace(/^export const metadata = \{[\s\S]*$/m, "");
+  const imp = /import \{ ([A-Za-z]+) \} from '(@base-ui\/react\/[a-z0-9-]+)'/.exec(mdx);
+  const body = stripMdx(mdx);
   const { headings, sections: secs } = sections(body, "github");
-  const meta = /<Meta\s+name="description"\s+content="([^"]*)"/.exec(body);
-  const imp = /import \{ ([A-Za-z]+) \} from '(@base-ui\/react\/[a-z0-9-]+)'/.exec(body);
+  const meta = /<Meta\s+name="description"\s+content="([^"]*)"/.exec(mdx);
   const importName = imp ? imp[1]! : null;
   const anatomyParts: string[] = [];
   if (importName) {
     const re = new RegExp(`<(${importName}\\.[A-Za-z]+)`, "g");
-    for (let m = re.exec(body); m; m = re.exec(body)) if (!anatomyParts.includes(m[1]!)) anatomyParts.push(m[1]!);
+    for (let m = re.exec(mdx); m; m = re.exec(mdx)) if (!anatomyParts.includes(m[1]!)) anatomyParts.push(m[1]!);
   }
   const usage = secs.find((s) => s.heading.depth === 2 && /^usage guidelines$/i.test(s.heading.text));
   const examplesSec = secs.find((s) => s.heading.depth === 2 && /^examples$/i.test(s.heading.text));
@@ -188,7 +196,7 @@ export interface BaseTextPage {
 }
 
 export function parseBaseTextPage(mdx: string): BaseTextPage {
-  const body = mdx.replace(/^export const metadata = \{[\s\S]*$/m, "");
+  const body = stripMdx(mdx);
   const { headings } = sections(body, "github");
   const links: string[] = [];
   const lre = /\]\(\/react\/components\/([a-z0-9-]+)(?:#[^)]*)?\)/g;

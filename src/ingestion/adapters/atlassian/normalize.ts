@@ -25,7 +25,6 @@ import {
   RELEASE_PHASE_LIFECYCLE,
   REPRESENTATIVE_PKG,
   STATE_BOOLEAN_PROPS,
-  TOKEN_NAMES_FILE,
   TOKEN_SETS,
   TOKENS_PKG,
   VARIANT_AXIS_PROPS,
@@ -699,8 +698,8 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   // Token usage is not extracted (components' compiled styles are not parsed).
   coverage.tokens = "not-extracted";
 
-  // Aliases: export names that differ from the docs name (from llms index / props group labels)
-  const aliases = uniq([llmsEntry?.exportName ?? "", ...(groupsCount > 1 ? [] : [])].filter((x) => x && normKey(x) !== normKey(name) && x !== name));
+  // Aliases: the export name from the generated llms index when it differs from the docs name
+  const aliases = llmsEntry && llmsEntry.exportName !== name && normKey(llmsEntry.exportName) === normKey(name) ? [llmsEntry.exportName] : [];
 
   if (code?.page.code?.sourceUrl) evidence.push(ev(code.stamp, "sourceCodeUrl", METHOD.docsHtml, { location: "#installation table (Source)", excerpt: code.page.code.sourceUrl, confidence: 0.95 }));
 
@@ -803,5 +802,3 @@ function buildFacts(sys: Frag<"system-page">[], rep: Frag<"npm"> | null): Normal
     evidence,
   };
 }
-
-export const TOKEN_NAMES_PATH = TOKEN_NAMES_FILE;

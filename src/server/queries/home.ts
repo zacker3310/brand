@@ -30,6 +30,7 @@ export interface HomeStats {
   documents: number;
   /** Component fields (from coverage maps) ATLAS has not extracted yet, across published components. */
   fieldsNotExtracted: number;
+  fieldsNotDocumented: number;
   fieldsTotal: number;
   registryRejected: number;
   registryDuplicate: number;
@@ -63,6 +64,7 @@ export async function getHomeStats(): Promise<HomeStats> {
       (select count(*) from source s join sys on sys.id = s.design_system_id) as sources,
       (select count(*) from source_document d join sys on sys.id = d.design_system_id) as documents,
       (select count(*) from comp, jsonb_each_text(comp.coverage) kv where kv.value = 'not-extracted') as fields_not_extracted,
+      (select count(*) from comp, jsonb_each_text(comp.coverage) kv where kv.value = 'not-documented') as fields_not_documented,
       (select count(*) from comp, jsonb_each_text(comp.coverage) kv) as fields_total,
       (select count(*) from design_system where registry_status = 'rejected') as registry_rejected,
       (select count(*) from design_system where registry_status = 'duplicate') as registry_duplicate,
@@ -90,6 +92,7 @@ export async function getHomeStats(): Promise<HomeStats> {
     sources: num(x.sources),
     documents: num(x.documents),
     fieldsNotExtracted: num(x.fields_not_extracted),
+    fieldsNotDocumented: num(x.fields_not_documented),
     fieldsTotal: num(x.fields_total),
     registryRejected: num(x.registry_rejected),
     registryDuplicate: num(x.registry_duplicate),

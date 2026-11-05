@@ -4,7 +4,7 @@ import { naturalCompare } from "../lib/natural";
 import { authoredLabel, previewValue, primaryFamily, typographyFieldOf, typographyScalar, typographySpec, type TypographySpec } from "../lib/values";
 import { AliasStateBadge } from "../alias-state";
 import { FontStatus } from "../font-status";
-import { GroupHeader, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
+import { GroupHeader, GroupList, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
 
 const SAMPLE = "The quick brown fox jumps over the lazy dog";
 const MAX_PX = 96;
@@ -97,8 +97,9 @@ function compose(tokens: ExplorerToken[]): { compositions: Composition[]; rest: 
 
 export function TypographyView(p: ViewProps) {
   return (
-    <div className="space-y-10">
-      {p.groups.map((g) => {
+    <GroupList
+      p={p}
+      render={(g) => {
         const tokens = g.list.map((r) => p.tokens.get(r.id)).filter((t): t is ExplorerToken => !!t);
         const composites: { t: ExplorerToken; spec: TypographySpec }[] = [];
         const scalars: ExplorerToken[] = [];
@@ -109,7 +110,7 @@ export function TypographyView(p: ViewProps) {
         }
         const { compositions, rest } = compose(scalars);
         return (
-          <GroupSection key={`${g.key}-${g.part?.index ?? 0}`} g={g}>
+          <GroupSection g={g}>
             <GroupHeader g={g} set={g.setId ? p.setById.get(g.setId) : undefined} multiSet={p.multiSet} />
             {(composites.length > 0 || compositions.length > 0) && (
               <div className="grid gap-3 lg:grid-cols-2">
@@ -156,8 +157,8 @@ export function TypographyView(p: ViewProps) {
             )}
           </GroupSection>
         );
-      })}
-    </div>
+      }}
+    />
   );
 }
 

@@ -4,13 +4,14 @@ import type { GroupSlice, Ramp } from "../lib/grouping";
 import { colorLabel, previewValue, swatchColor, themeShortLabel, themeValues } from "../lib/values";
 import { AliasStateBadge } from "../alias-state";
 import { Swatch } from "../swatch";
-import { chainLabel, GroupHeader, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
+import { chainLabel, GroupHeader, GroupList, GroupSection, relName, TokenAnchor, type ViewProps } from "./shared";
 
 export function ColorView(p: ViewProps) {
   return (
-    <div className="space-y-10">
-      {p.groups.map((g) => (
-        <GroupSection key={`${g.key}-${g.part?.index ?? 0}`} g={g}>
+    <GroupList
+      p={p}
+      render={(g) => (
+        <GroupSection g={g}>
           <GroupHeader g={g} set={g.setId ? p.setById.get(g.setId) : undefined} multiSet={p.multiSet} />
           {g.ramps.length > 0 && (
             <div className="space-y-3">
@@ -29,8 +30,8 @@ export function ColorView(p: ViewProps) {
             </ul>
           )}
         </GroupSection>
-      ))}
-    </div>
+      )}
+    />
   );
 }
 

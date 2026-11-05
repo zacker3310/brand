@@ -91,9 +91,8 @@ export const TARGETS_3: GenericTarget[] = [
     include: "^https://www\\.oracle\\.com/webfolder/technetwork/jet/jsdocs/oj-c\\.([A-Za-z]+)\\.html$",
     exclude: ["/oj-c\\.(?:AreaChart|LineChart)(?:Group|Item|Series)\\.html$", "/oj-c\\.Legend(?:Item|Section)\\.html$", "/oj-c\\.TagCloudItem\\.html$"],
     frameworks: ["web-components"],
-    fetchPages: false,
     notes:
-      "redwood.oracle.com renders only with JavaScript. Oracle's public implementation of Redwood is the Oracle JET Core Pack: its overview (jsdocs/CorePackOverview.html) states the components are written to the Redwood Design System specification and support only the Redwood theme. The JET API reference index (static HTML; www.oracle.com robots.txt allows /webfolder/ for '*') links one page per Core Pack element (<oj-c-*>, oj-c.<Name>.html). Legacy oj-* elements are not Redwood-specific and are not included. Excluded: chart/legend/tag-cloud child elements (-group/-item/-series/-section). Pages are not fetched (no meta descriptions; names come from the element class segment, e.g. 'ButtonsetMultiple').",
+      "redwood.oracle.com renders only with JavaScript. Oracle's public implementation of Redwood is the Oracle JET Core Pack: its overview (jsdocs/CorePackOverview.html) states the components are written to the Redwood Design System specification and support only the Redwood theme. The JET API reference index (static HTML; www.oracle.com robots.txt allows /webfolder/ for '*') links one page per Core Pack element (<oj-c-*>, oj-c.<Name>.html). Legacy oj-* elements are not Redwood-specific and are not included. Excluded: chart/legend/tag-cloud child elements (-group/-item/-series/-section). Pages are fetched only to confirm the docs URL: they have no meta description and their <title>/<h1> is the tag ('Element: <oj-c-button>'), so names come from the element class segment (e.g. 'ButtonsetMultiple').",
   },
   {
     slug: "park-ui",
@@ -101,9 +100,9 @@ export const TARGETS_3: GenericTarget[] = [
     sitemapUrl: "https://park-ui.com/sitemap.xml",
     include: "^https://park-ui\\.com/docs/components/([a-z0-9]+(?:-[a-z0-9]+)*)/?$",
     frameworks: ["react", "solid"],
-    titleSuffix: "\\s*\\|\\s*Park UI$",
+    titleSuffix: "\\s*\\|\\s*Park UI$|\\s*\\(WIP\\)",
     notes:
-      "robots.txt (Allow: /) declares https://park-ui.com/sitemap.xml, which lists every /docs/components/<name> page (plus docs/blog pages that the include rule drops). Each component page documents React and Solid implementations (the two official install paths).",
+      "robots.txt (Allow: /) declares https://park-ui.com/sitemap.xml, which lists every /docs/components/<name> page (plus docs/blog pages that the include rule drops). Each component page documents React and Solid implementations (the two official install paths). Work-in-progress markers ('(WIP)') are stripped from names.",
   },
   {
     slug: "patternfly",

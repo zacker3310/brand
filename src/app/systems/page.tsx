@@ -225,7 +225,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
               ) : params.view === "list" ? (
                 <SystemsTable rows={result.rows} />
               ) : (
-                <ul className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
+                <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
                   {result.rows.map((r) => (
                     <li key={r.id}>
                       <SystemCard row={r} max={max} />

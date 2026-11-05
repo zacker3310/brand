@@ -49,7 +49,7 @@ import { normalizeDesign } from "./spectrum/normalize-design";
 import { SYSTEM_ORIGIN, SYSTEM_PKG, compactPage, normalizeReact } from "./spectrum/normalize-react";
 import { parseComponentSchema } from "./spectrum/schema";
 import type { Ev } from "./spectrum/shared";
-import { componentLinks, parseA11yFragment, parsePrinciples, parseSiteData, parseSiteIndex, parseSitePage, parseStatesFragment, siteComponents } from "./spectrum/site";
+import { componentLinks, parseA11yFragment, parsePrinciples, parseSiteData, parseSiteIndex, parseSitePage, parseStatesFragment, siteComponents, type SiteProp } from "./spectrum/site";
 import { declaredCustomProperties, parseTokenFile } from "./spectrum/tokens";
 import { validateSpectrumBundle } from "./spectrum/validate";
 
@@ -335,7 +335,7 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
     }
     case DOC.sitePage: {
       const page = parseSitePage(body);
-      let data: { props: import("./spectrum/site").SiteProp[]; status: string | null } | null = null;
+      let data: { props: SiteProp[]; status: string | null } | null = null;
       let dataEv: Ev | null = null;
       const warnings: string[] = [];
       if (page.dataPath) {

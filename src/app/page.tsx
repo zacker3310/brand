@@ -1,19 +1,37 @@
-import { PageContainer, Stat } from "@/components/atlas";
-import { getCatalogStats } from "@/server/queries/stats";
+import { PageContainer } from "@/components/atlas";
+import {
+  ComponentGroups,
+  CuratedCollections,
+  FeaturedSystems,
+  Hero,
+  HonestyStrip,
+  RecentlyUpdated,
+  SuggestedComparisons,
+} from "@/components/discovery/home/home-sections";
+import { pickFeatured, pickRecent, suggestComparisons } from "@/components/discovery/lib/home";
+import { getComponentGroupStats, getCuratedCollections, getFeaturedCandidates, getHomeStats, getRecentlyUpdated, getTypeImplementations } from "@/server/queries/home";
 
-/** Placeholder home: replaced by the product-interface workstream. Stats are live. */
+/** Editorial discovery home. Every number and list is derived from records at request time. */
 export default async function HomePage() {
-  const stats = await getCatalogStats();
+  const [stats, featured, groups, types, recent, collections] = await Promise.all([
+    getHomeStats(),
+    getFeaturedCandidates(),
+    getComponentGroupStats(),
+    getTypeImplementations(),
+    getRecentlyUpdated(200),
+    getCuratedCollections(6),
+  ]);
   return (
-    <PageContainer className="py-16">
-      <p className="type-eyebrow">Design system intelligence</p>
-      <h1 className="type-display mt-4 max-w-4xl text-5xl sm:text-7xl">The world&apos;s design systems, indexed and compared.</h1>
-      <div className="mt-12 grid grid-cols-2 gap-8 sm:grid-cols-4">
-        <Stat value={stats.systemsVerified} label="Verified systems" />
-        <Stat value={stats.components} label="Indexed components" />
-        <Stat value={stats.tokens} label="Design tokens" />
-        <Stat value={stats.evidence} label="Evidence records" />
+    <PageContainer className="space-y-16 sm:space-y-20">
+      <Hero stats={stats} />
+      <FeaturedSystems rows={pickFeatured(featured, 8)} />
+      <ComponentGroups groups={groups} indexedSystems={stats.systemsIndexed + stats.systemsPartial} />
+      <div className="grid gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
+        <SuggestedComparisons items={suggestComparisons(types, 6)} />
+        <RecentlyUpdated rows={pickRecent(recent)} />
       </div>
+      <CuratedCollections items={collections} />
+      <HonestyStrip stats={stats} />
     </PageContainer>
   );
 }

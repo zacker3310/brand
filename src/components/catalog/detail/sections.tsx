@@ -1,3 +1,4 @@
+import { ChevronRightIcon } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
 import { CoverageChip, MissingValue, SourceLink, SystemMark, VerificationBadge } from "@/components/atlas";
@@ -17,7 +18,7 @@ import type {
 import { ClassificationBadge, LifecycleBadge } from "../badges";
 import { ariaReference } from "../lib/apg";
 import { FIELD_LABELS, fieldState } from "../lib/coverage";
-import { formatDate } from "../lib/format";
+import { formatDate, groupKeyboard } from "../lib/format";
 import { componentHref, componentTypeHref } from "../lib/urls";
 
 /* -------------------------------------------------------------------------- */
@@ -37,6 +38,8 @@ export const FIELD_SECTION: Record<string, string> = {
   examples: "examples",
 };
 
+const PANEL_LABELS: Partial<Record<string, string>> = { accessibility: "A11y", relationships: "Relations", properties: "Props" };
+
 export function CoveragePanel({ coverage }: { coverage: CoverageMap }) {
   return (
     <section aria-labelledby="coverage-title" className="rounded-xl border bg-card p-4">
@@ -49,8 +52,8 @@ export function CoveragePanel({ coverage }: { coverage: CoverageMap }) {
       <ul className="mt-3 grid grid-cols-1 gap-x-4 gap-y-1.5 min-[420px]:grid-cols-2">
         {COMPONENT_FIELDS.map((f) => (
           <li key={f} className="flex min-w-0 items-center justify-between gap-2 text-[12.5px]">
-            <a href={`#${FIELD_SECTION[f] ?? "overview"}`} className="truncate text-muted-foreground hover:text-foreground">
-              {FIELD_LABELS[f]}
+            <a href={`#${FIELD_SECTION[f] ?? "overview"}`} className="truncate text-muted-foreground hover:text-foreground" title={FIELD_LABELS[f]}>
+              {PANEL_LABELS[f] ?? FIELD_LABELS[f]}
             </a>
             <CoverageChip state={fieldState(coverage, f)} />
           </li>
@@ -61,6 +64,7 @@ export function CoveragePanel({ coverage }: { coverage: CoverageMap }) {
 }
 
 export function SectionNav({ items }: { items: { id: string; label: string; count?: number | null; muted?: boolean }[] }) {
+  // A zero count is not shown as "0": empty sections explain why on the page (not documented vs not extracted).
   return (
     <nav aria-label="On this page" className="text-[13px]">
       <p className="type-eyebrow mb-2 hidden lg:block">On this page</p>
@@ -71,11 +75,11 @@ export function SectionNav({ items }: { items: { id: string; label: string; coun
               href={`#${it.id}`}
               className={cn(
                 "flex items-center justify-between gap-3 rounded-md border px-2.5 py-1 whitespace-nowrap text-muted-foreground transition-colors hover:text-foreground lg:border-transparent lg:px-2 lg:py-1.5 lg:hover:bg-accent/60",
-                it.muted && "text-subtle-foreground",
+                (it.muted || it.count === 0) && "text-subtle-foreground",
               )}
             >
               {it.label}
-              {it.count !== undefined && it.count !== null && (
+              {it.count !== undefined && it.count !== null && it.count > 0 && (
                 <span className="tabular font-mono text-[10.5px] text-subtle-foreground">{formatCount(it.count)}</span>
               )}
             </a>
@@ -120,7 +124,7 @@ export function DetailSection({
 }
 
 /** Empty-field explanation: why there is nothing to show. */
-export function Missing({ state, what }: { state: CoverageState; what: string }) {
+export function Missing({ state, what, compact = false }: { state: CoverageState; what: string; compact?: boolean }) {
   const text: Record<CoverageState, string> = {
     documented: `ATLAS recorded ${what} as documented, but no values were stored.`,
     "documented-none": `The source explicitly documents no ${what}.`,
@@ -128,6 +132,14 @@ export function Missing({ state, what }: { state: CoverageState; what: string })
     "not-extracted": `ATLAS has not extracted ${what} for this component yet. Unknown, not empty.`,
     inferred: `ATLAS inferred ${what} heuristically; no source values are stored.`,
   };
+  if (compact) {
+    return (
+      <span className="inline-flex flex-wrap items-center gap-2 text-[12.5px] text-muted-foreground">
+        <MissingValue state={state} />
+        <span>{text[state]}</span>
+      </span>
+    );
+  }
   return (
     <div className="flex flex-wrap items-center gap-2.5 rounded-lg border border-dashed px-3 py-3 text-[13px] text-muted-foreground">
       <MissingValue state={state} />
@@ -377,16 +389,29 @@ export function AccessibilityBlock({
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-border/60">
-                {a11y.keyboard.map((k, i) => (
-                  <tr key={`${k.keys}-${i}`} className="align-top">
-                    <th scope="row" className="px-3 py-2 text-left font-normal">
-                      <KeyCombo keys={k.keys} />
-                    </th>
-                    <td className="px-3 py-2 text-foreground/90">{k.action}</td>
-                  </tr>
-                ))}
-              </tbody>
+              {groupKeyboard(a11y.keyboard).map((g, gi) => (
+                <tbody key={`${g.context ?? "all"}-${gi}`} className="divide-y divide-border/60 border-b border-border/60 last:border-0">
+                  {g.context && (
+                    <tr>
+                      <th scope="colgroup" colSpan={2} className="bg-surface-1/60 px-3 pt-2.5 pb-1.5 text-left text-xs font-medium text-muted-foreground">
+                        {g.context}
+                      </th>
+                    </tr>
+                  )}
+                  {g.rows.map((k, i) => (
+                    <tr key={`${k.keys.join("|")}-${i}`} className="align-top">
+                      <th scope="row" className="px-3 py-2 text-left font-normal">
+                        <span className="flex flex-wrap gap-x-1.5 gap-y-1">
+                          {k.keys.map((key, ki) => (
+                            <KeyCombo key={`${key}-${ki}`} keys={key} />
+                          ))}
+                        </span>
+                      </th>
+                      <td className="px-3 py-2 text-foreground/90">{k.action}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              ))}
             </table>
           </div>
         ) : (
@@ -475,35 +500,41 @@ export function RelationshipsBlock({ rels, systemSlug }: { rels: ComponentRelati
 
 /* -------------------------------------------------------------------------- */
 
-const VISIBLE_CODE = 3;
+const VISIBLE_CODE = 4;
 const VISIBLE_LINKS = 8;
 
-function CodeExample({ ex }: { ex: ComponentExampleRow }) {
+function CodeExample({ ex, open = false }: { ex: ComponentExampleRow; open?: boolean }) {
   return (
-    <figure className="overflow-hidden rounded-xl border bg-card">
-      <figcaption className="flex flex-wrap items-center justify-between gap-2 border-b bg-surface-1 px-3 py-2">
-        <span className="text-[13px] font-medium">{ex.title}</span>
+    <details open={open} className="group/code overflow-hidden rounded-xl border bg-card">
+      <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-2 bg-surface-1 px-3 py-2 group-open/code:border-b [&::-webkit-details-marker]:hidden">
+        <span className="flex items-center gap-2 text-[13px] font-medium">
+          <ChevronRightIcon className="size-3.5 text-muted-foreground transition-transform group-open/code:rotate-90" aria-hidden />
+          {ex.title}
+        </span>
         <span className="flex items-center gap-2 font-mono text-[10.5px] text-muted-foreground uppercase">
           {ex.language && <span>{ex.language}</span>}
-          {ex.license && (
-            <a href={ex.license.url ?? undefined} target="_blank" rel="noopener noreferrer" className="rounded border px-1 py-px normal-case hover:text-foreground">
-              {ex.license.name}
-            </a>
-          )}
+          {ex.license && <span className="rounded border px-1 py-px normal-case">{ex.license.name}</span>}
         </span>
-      </figcaption>
-      <pre tabIndex={0} aria-label={`${ex.title} code`} className="max-h-80 overflow-auto p-3 font-mono text-[12px] leading-relaxed text-foreground/90">
+      </summary>
+      <pre tabIndex={0} aria-label={`${ex.title} code`} className="max-h-72 overflow-auto p-3 font-mono text-[12px] leading-relaxed text-foreground/90">
         <code>{ex.code}</code>
       </pre>
       <div className="flex flex-wrap items-center justify-between gap-2 border-t px-3 py-2 text-[11px] text-muted-foreground">
         <span className="min-w-0">{ex.attribution ?? "Attribution not recorded"}</span>
-        {ex.url && (
-          <SourceLink href={ex.url} className="text-[11px]">
-            View source
-          </SourceLink>
-        )}
+        <span className="flex shrink-0 items-center gap-3">
+          {ex.license?.url && (
+            <SourceLink href={ex.license.url} className="text-[11px]">
+              License
+            </SourceLink>
+          )}
+          {ex.url && (
+            <SourceLink href={ex.url} className="text-[11px]">
+              View source
+            </SourceLink>
+          )}
+        </span>
       </div>
-    </figure>
+    </details>
   );
 }
 
@@ -540,9 +571,9 @@ export function ExamplesBlock({ examples }: { examples: ComponentExampleRow[] })
           <p className="text-xs text-muted-foreground">
             Stored because the source license permits redistribution; shown as text with attribution and never executed.
           </p>
-          <div className="space-y-3">
-            {code.slice(0, VISIBLE_CODE).map((e) => (
-              <CodeExample key={e.slug} ex={e} />
+          <div className="space-y-2">
+            {code.slice(0, VISIBLE_CODE).map((e, i) => (
+              <CodeExample key={e.slug} ex={e} open={i === 0} />
             ))}
           </div>
           {code.length > VISIBLE_CODE && (
@@ -551,7 +582,7 @@ export function ExamplesBlock({ examples }: { examples: ComponentExampleRow[] })
                 <span className="group-open/more:hidden">Show {code.length - VISIBLE_CODE} more code examples</span>
                 <span className="hidden group-open/more:inline">Show fewer</span>
               </summary>
-              <div className="mt-3 space-y-3">
+              <div className="mt-2 space-y-2">
                 {code.slice(VISIBLE_CODE).map((e) => (
                   <CodeExample key={e.slug} ex={e} />
                 ))}
@@ -625,7 +656,7 @@ export function ChangeHistory({ changes, firstSeenAt }: { changes: ChangeEventRo
     <ol className="relative space-y-0 border-l border-border pl-5">
       {changes.map((c) => (
         <li key={c.id} className="relative pb-4 last:pb-0">
-          <span aria-hidden className="absolute top-1.5 -left-[24.5px] size-2 rounded-full border-2 border-background bg-muted-foreground/60" />
+          <span aria-hidden className="absolute top-[6px] -left-[25px] size-[9px] rounded-full bg-muted-foreground ring-4 ring-background" />
           <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5 text-[13px]">
             <span className="font-medium capitalize">{c.changeKind.replace(/-/g, " ")}</span>
             <time dateTime={c.occurredAt.toISOString()} className="text-xs text-muted-foreground">
@@ -645,7 +676,7 @@ export function ChangeHistory({ changes, firstSeenAt }: { changes: ChangeEventRo
         </li>
       ))}
       <li className="relative pt-1 text-xs text-muted-foreground">
-        <span aria-hidden className="absolute top-2 -left-[24.5px] size-2 rounded-full border-2 border-background bg-border" />
+        <span aria-hidden className="absolute top-[9px] -left-[25px] size-[9px] rounded-full border border-muted-foreground/60 bg-background ring-4 ring-background" />
         First seen by ATLAS {formatDate(firstSeenAt)}
       </li>
     </ol>

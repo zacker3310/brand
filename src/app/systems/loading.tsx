@@ -29,7 +29,7 @@ export default function SystemsLoading() {
           </div>
           <div className="space-y-4">
             <Skeleton className="h-4 w-48" />
-            <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="space-y-3 rounded-xl border p-4">
                   <div className="flex gap-3">

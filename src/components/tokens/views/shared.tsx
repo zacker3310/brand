@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import type { GroupSlice } from "@/components/tokens/lib/grouping";
 import { cn, formatCount } from "@/lib/utils";
 import { linearChain, type EdgeMap, type ExplorerToken, type TokenIndexRow, type TokenSetInfo } from "@/server/queries/tokens";
@@ -28,24 +29,52 @@ export function relName(name: string, label: string): string {
   return name;
 }
 
-export function GroupHeader({ g, set, multiSet, note }: { g: GroupSlice<TokenIndexRow>; set?: TokenSetInfo; multiSet: boolean; note?: React.ReactNode }) {
+export function GroupHeader({ g, multiSet, note }: { g: GroupSlice<TokenIndexRow>; set?: TokenSetInfo; multiSet: boolean; note?: React.ReactNode }) {
   const id = groupId(g);
+  const H = multiSet ? "h4" : "h3";
   return (
     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <h3 id={id} className="min-w-0 font-mono text-[13px] font-medium break-all">
+      <H id={id} className="min-w-0 font-mono text-[13px] font-medium break-all">
         {g.label === "Other" ? <span className="font-sans">Other tokens</span> : g.label}
-      </h3>
+      </H>
       <span className="tabular text-xs text-muted-foreground">
         {formatCount(g.count)} token{g.count === 1 ? "" : "s"}
         {g.part ? ` · part ${g.part.index} of ${g.part.total}` : ""}
       </span>
-      {multiSet && set && (
-        <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
-          <span className="truncate">{set.name}</span>
-          <ThemeChip theme={set.theme} />
-        </span>
-      )}
       {note}
+    </div>
+  );
+}
+
+/** Band introducing a token set when several sets are listed together. */
+export function SetBand({ set }: { set: TokenSetInfo | undefined }) {
+  if (!set) return null;
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-lg bg-surface-2 px-3 py-2">
+      <h3 className="text-[13px] font-medium">{set.name}</h3>
+      <ThemeChip theme={set.theme} />
+      <span className="tabular ml-auto font-mono text-[11px] text-muted-foreground">
+        {set.slug} · {formatCount(set.tokenCount)} tokens
+      </span>
+    </div>
+  );
+}
+
+/** Renders groups in order, inserting a set band whenever the set changes (multi-set scope). */
+export function GroupList({ p, render, header }: { p: ViewProps; render: (g: GroupSlice<TokenIndexRow>) => React.ReactNode; header?: React.ReactNode }) {
+  const out: React.ReactNode[] = [];
+  let last: string | null | undefined;
+  for (const g of p.groups) {
+    if (p.multiSet && g.setId !== last) {
+      out.push(<SetBand key={`set-${g.setId}`} set={g.setId ? p.setById.get(g.setId) : undefined} />);
+      last = g.setId;
+    }
+    out.push(<Fragment key={`${g.key}-${g.part?.index ?? 0}`}>{render(g)}</Fragment>);
+  }
+  return (
+    <div className="space-y-10">
+      {header}
+      {out}
     </div>
   );
 }

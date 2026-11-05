@@ -45,7 +45,7 @@ export default async function CollectionsPage({ searchParams }: { searchParams: 
         </p>
       )}
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
+      <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]">
         <Section
           id="yours"
           title={

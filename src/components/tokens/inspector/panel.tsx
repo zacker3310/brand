@@ -88,7 +88,7 @@ export function TokenInspector({ initial, contrastHref }: { initial: InspectorDa
     );
   }
   return (
-    <aside aria-label="Token inspector" className={cn("min-w-0", hydrated ? "hidden xl:block" : open ? "block" : "hidden xl:block")}>
+    <aside aria-label="Token inspector" className={cn("min-w-0", open ? (hydrated ? "hidden xl:block" : "block") : "hidden")}>
       <div className="xl:sticky xl:top-20 xl:max-h-[calc(100dvh-6rem)] xl:overflow-y-auto rounded-xl border bg-card">{body}</div>
     </aside>
   );

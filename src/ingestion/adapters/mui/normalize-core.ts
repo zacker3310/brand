@@ -474,7 +474,8 @@ export function normalizeCore(system: "mui" | "joy-ui", frags: MuiFragment[], op
   let components = chosen.map((s) => buildComponent(ctx, s)).filter((x): x is NormalizedComponent => !!x);
   const inBundle = new Set(components.map((x) => x.slug));
   components = components.map((x) => ({ ...x, relationships: x.relationships.filter((r) => !r.targetSlug || inBundle.has(r.targetSlug)) }));
-  for (const x of components) if (!x.relationships.length) x.coverage.relationships = x.coverage.relationships === "documented" ? "not-extracted" : x.coverage.relationships;
+  // Targets outside a --limit run were dropped: documented links exist but are not in this bundle.
+  for (const x of components) if (!x.relationships.length && x.coverage.relationships === "documented") x.coverage.relationships = "not-extracted";
 
   // Tokens
   const licenseFrag = byKind(frags, "license")[0] ?? null;
@@ -501,8 +502,10 @@ export function normalizeCore(system: "mui" | "joy-ui", frags: MuiFragment[], op
 
 /** Statements read from overview / lab / css-variables pages (exact sentences, bounded). */
 export function coreStatements(role: string, md: string): Record<string, string | null> {
+  const desc = /<p class="description">([\s\S]*?)<\/p>/.exec(md)?.[1]?.replace(/<[^>]+>/g, "") ?? null;
+  const blocks = [...(desc ? [desc] : []), ...plainBlocks(md)];
   const find = (re: RegExp) => {
-    for (const b of plainBlocks(md)) for (const s of b.split(/(?<=[.!?])\s+(?=[A-Z])/)) if (re.test(s)) return clip(s, 280);
+    for (const b of blocks) for (const s of b.split(/(?<=[.!?])\s+(?=[A-Z])/)) if (re.test(s)) return clip(s, 280);
     return null;
   };
   switch (role) {

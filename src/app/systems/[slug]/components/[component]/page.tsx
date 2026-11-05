@@ -134,7 +134,7 @@ export default async function ComponentDetailPage({ params, searchParams }: Prop
         </div>
       )}
 
-      <header className="grid gap-8 border-b border-border/70 pb-8 lg:grid-cols-[minmax(0,1fr)_23rem] lg:gap-12">
+      <header className="grid gap-8 border-b border-border/70 pb-8 lg:grid-cols-[minmax(0,1fr)_25rem] lg:gap-12">
         <div className="min-w-0 space-y-5">
           <Link href={systemHref(c.system.slug)} className="group inline-flex items-center gap-2.5">
             <SystemMark name={c.system.name} slug={c.system.slug} size="sm" />
@@ -202,8 +202,8 @@ export default async function ComponentDetailPage({ params, searchParams }: Prop
         <CoveragePanel coverage={cov} />
       </header>
 
-      <div className="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-12">
-        <div className="lg:sticky lg:top-20 lg:self-start">
+      <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-8 lg:mt-10 lg:grid-cols-[11rem_minmax(0,1fr)] lg:gap-12">
+        <div className="min-w-0 lg:sticky lg:top-20 lg:self-start">
           <SectionNav items={nav} />
         </div>
 
@@ -231,7 +231,7 @@ export default async function ComponentDetailPage({ params, searchParams }: Prop
                 {c.responsiveGuidance ? (
                   <p className="text-foreground/90">{c.responsiveGuidance}</p>
                 ) : (
-                  <Missing state={fieldState(cov, "responsive")} what="responsive behavior" />
+                  <Missing state={fieldState(cov, "responsive")} what="responsive behavior" compact />
                 )}
               </dd>
               {c.type && (
