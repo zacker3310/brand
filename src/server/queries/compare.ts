@@ -19,6 +19,7 @@ import type {
   SystemMetrics,
 } from "@/lib/scoring/types";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 const p = <T>(v: T) => sql.param(v);
 const iso = (v: unknown): string | null => (v === null || v === undefined ? null : v instanceof Date ? v.toISOString() : new Date(String(v)).toISOString());
@@ -61,7 +62,7 @@ export async function getCompareOptions(): Promise<{ types: TypeOption[]; system
       where c.publish_state = 'published' and ds.publish_state = 'published' and ds.registry_status = 'verified'
       group by 1, 2`),
     db.execute<{ slug: string; name: string; category: string; ingestion_status: string; components: number }>(sql`
-      select ds.slug, ds.name, ds.category::text as category, ds.ingestion_status::text as ingestion_status,
+      select ds.slug, ds.name, ds.category::text as category, ${publishedIngestionStatus("ds")} as ingestion_status,
         (select count(*)::int from component c where c.design_system_id = ds.id and c.publish_state = 'published') as components
       from design_system ds
       where ds.publish_state = 'published' and ds.registry_status = 'verified'
@@ -236,7 +237,7 @@ type SystemRow = {
 async function loadSystems(slugs: string[]): Promise<(CompareSystemInfo & { id: string })[]> {
   const db = await readDb();
   const r = await db.execute<SystemRow>(sql`
-    select ds.id, ds.slug, ds.name, o.name as org, ds.category::text as category, ds.ingestion_status::text as ingestion_status,
+    select ds.id, ds.slug, ds.name, o.name as org, ds.category::text as category, ${publishedIngestionStatus("ds")} as ingestion_status,
       ds.docs_url, ds.homepage_url, ds.last_ingested_at
     from design_system ds left join organization o on o.id = ds.organization_id
     where ds.slug = any(${p(slugs)}::text[]) and ds.publish_state = 'published' and ds.registry_status = 'verified'`);
@@ -498,7 +499,7 @@ export async function getSystemComparison(slugs: string[]): Promise<{ entries: S
     is_open_source: boolean | null;
     frameworks: { slug: string; name: string; kind: string; state: VerificationState }[];
   }>(sql`
-    select d.id, d.slug, d.name, o.name as org, d.summary, d.category::text as category, d.ingestion_status::text as ingestion_status,
+    select d.id, d.slug, d.name, o.name as org, d.summary, d.category::text as category, ${publishedIngestionStatus("d")} as ingestion_status,
       d.docs_url, d.homepage_url, d.repository_url,
       coalesce(jsonb_array_length(d.packages), 0)::int as package_count,
       d.maintenance_status::text as maintenance_status, d.latest_version, d.latest_release_at, d.last_ingested_at,

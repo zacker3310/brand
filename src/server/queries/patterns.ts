@@ -5,6 +5,7 @@ import { sql } from "drizzle-orm";
 import type { CoverageMap, VerificationState } from "@/lib/contracts";
 import type { EvidenceRow } from "@/components/atlas";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 export interface PatternTypeSummary {
   slug: string;
@@ -153,7 +154,7 @@ export async function getPatternType(slug: string): Promise<(Omit<PatternTypeSum
 export async function listSystemPatterns(systemSlug: string): Promise<{ system: { slug: string; name: string; docsUrl: string | null; ingestionStatus: string }; patterns: PatternRecord[] } | null> {
   const db = await readDb();
   const s = await db.execute<{ slug: string; name: string; docs_url: string | null; ingestion_status: string }>(sql`
-    select slug, name, docs_url, ingestion_status::text as ingestion_status from design_system where slug = ${systemSlug} and publish_state = 'published' limit 1
+    select ds.slug, ds.name, ds.docs_url, ${publishedIngestionStatus("ds")} as ingestion_status from design_system ds where ds.slug = ${systemSlug} and ds.publish_state = 'published' limit 1
   `);
   const sys = s.rows[0];
   if (!sys) return null;

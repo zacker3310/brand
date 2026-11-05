@@ -16,6 +16,7 @@ import type {
 } from "@/lib/contracts";
 import type { DirectoryRow } from "@/components/discovery/lib/directory";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 type Json = unknown;
 const num = (v: unknown) => (v === null || v === undefined ? 0 : Number(v));
@@ -103,7 +104,7 @@ export async function listDirectoryRows(q = ""): Promise<DirectoryRow[]> {
       case when l.id is null then null else json_build_object(
         'slug', l.slug, 'name', l.name, 'spdxId', l.spdx_id, 'isOpenSource', l.is_open_source, 'redistribution', l.redistribution) end as license,
       fw.items as frameworks, pl.items as platforms, tg.items as tags,
-      ds.ingestion_status, ds.confidence, ds.last_verified_at::text, ds.last_ingested_at::text, ds.registry_rank, ds.latest_version,
+      ${publishedIngestionStatus("ds")} as ingestion_status, ds.confidence, ds.last_verified_at::text, ds.last_ingested_at::text, ds.registry_rank, ds.latest_version,
       ds.homepage_url, ds.docs_url, ds.repository_url,
       coalesce(comp.n, 0) as components, coalesce(tok.n, 0) as tokens, coalesce(pat.n, 0) as patterns,
       case when ${query} = '' then null else greatest(
@@ -434,7 +435,7 @@ export async function getSystemDetail(slug: string): Promise<SystemDetail | null
   if (!/^[a-z0-9][a-z0-9-]{0,79}$/.test(slug)) return null;
   const db = await readDb();
   const core = await db.execute<Record<string, Json>>(sql`
-    select ds.*, o.slug as org_slug, o.name as org_name, o.website_url as org_url,
+    select ds.*, ${publishedIngestionStatus("ds")} as published_status, o.slug as org_slug, o.name as org_name, o.website_url as org_url,
       case when l.id is null then null else json_build_object(
         'slug', l.slug, 'name', l.name, 'spdxId', l.spdx_id, 'isOpenSource', l.is_open_source,
         'redistribution', l.redistribution, 'url', l.url, 'notes', l.notes) end as license_json
@@ -669,7 +670,7 @@ export async function getSystemDetail(slug: string): Promise<SystemDetail | null
       replacedBySlug: (c.replaced_by_slug as string | null) ?? null,
       relatedSlugs: (c.related_slugs as string[]) ?? [],
       registryChecks: regChecks,
-      ingestionStatus: c.ingestion_status as IngestionStatus,
+      ingestionStatus: c.published_status as IngestionStatus,
       adapterId: (c.adapter_id as string | null) ?? null,
       confidence: Number(c.confidence),
       lastVerifiedAt: iso(c.last_verified_at),

@@ -56,7 +56,7 @@ import {
   type Prov,
 } from "./fluent/shared";
 
-const VERSION = "1.0.1";
+const VERSION = "1.0.2"; // deep-1 audit: d.ts unions merge as unions (required only in every branch)
 
 /* ------------------------------ run-scoped cache ------------------------------ */
 // Documents fetched during discover() (story index, nav page, probe files) are reused by fetch().

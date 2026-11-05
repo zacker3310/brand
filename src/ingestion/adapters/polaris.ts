@@ -118,7 +118,7 @@ async function crawlReactDocs(ctx: AdapterContext, redirectsBody: string): Promi
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1", // deep-1 audit: parse fixes (MDX ARIA role prose, single-literal type aliases)
   systems: [SYSTEM_SLUG],
   description:
     "Shopify Polaris: web components from @shopify/polaris-types custom-elements.json + shopify.dev App Home reference Markdown (components, patterns, versioning); deprecated Polaris React from the archived polaris.shopify.com MDX, @shopify/polaris type declarations, compiled CSS (token usage) and Storybook index; @shopify/polaris-tokens CSS themes (license-restricted, no code stored).",

@@ -241,6 +241,8 @@ export function phraseKeys(text: string): string | null {
 }
 
 const ROLE_RE = /\brole(?:="|=\{?['"]|\s+of\s+[`"']?|\s+[`"'])([a-z]+)/gi;
+/** "the `switch` ARIA role" / "switch WAI-ARIA role" (inline code and link markup already stripped). */
+const NAMED_ROLE_RE = /\b([a-z]+)\s+(?:WAI-)?ARIA\s+role\b/gi;
 
 function parseAccessibility(nodes: RootContent[], body: string): NonNullable<ReactMdxDoc["accessibility"]> {
   const subs = sectionsAt(nodes, 4);
@@ -276,7 +278,7 @@ function parseAccessibility(nodes: RootContent[], body: string): NonNullable<Rea
     }
   }
   const roles = new Set<string>();
-  for (const t of allText) for (const m of t.matchAll(ROLE_RE)) if (ARIA_ROLES.has(m[1]!.toLowerCase())) roles.add(m[1]!.toLowerCase());
+  for (const t of allText) for (const re of [ROLE_RE, NAMED_ROLE_RE]) for (const m of t.matchAll(re)) if (ARIA_ROLES.has(m[1]!.toLowerCase())) roles.add(m[1]!.toLowerCase());
   let guidanceParts = [...lead, ...leadItems].filter(Boolean);
   if (!guidanceParts.length) guidanceParts = nonKeyboardText.filter(Boolean).slice(0, 4);
   let ariaPattern: string | null = null;

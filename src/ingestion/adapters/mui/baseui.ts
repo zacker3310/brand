@@ -115,6 +115,8 @@ export interface BaseProp {
   type: string | null;
   defaultValue: string | null;
   description: string | null;
+  /** The generated table marks required props with a trailing "*" ("value\*"); null when not marked. */
+  required: boolean | null;
 }
 
 export interface BaseAttr {
@@ -178,7 +180,12 @@ export function parseBaseTypes(md: string): BasePart[] {
     parts.push({
       name,
       description,
-      props: (props?.rows ?? []).filter((r) => r[0]).map((r) => ({ name: r[0]!, type: dash(r[1]), defaultValue: dash(r[2]), description: clip(dash(r[3]), 600) })),
+      props: (props?.rows ?? [])
+        .filter((r) => r[0])
+        .map((r) => {
+          const required = /\*$/.test(r[0]!);
+          return { name: r[0]!.replace(/\s*\*$/, ""), type: dash(r[1]), defaultValue: dash(r[2]), description: clip(dash(r[3]), 600), required: required ? true : null };
+        }),
       dataAttributes: (attrs?.rows ?? []).filter((r) => r[0]).map((r) => ({ name: r[0]!, type: dash(r[1]), description: clip(dash(r[2]), 300) })),
       cssVariables: (vars?.rows ?? []).filter((r) => r[0]).map((r) => ({ name: r[0]!.replace(/`/g, ""), type: dash(r[1]), description: clip(dash(r[2]), 300) })),
     });

@@ -135,7 +135,7 @@ function statementsFor(role: string, md: string): Record<string, string | null> 
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1", // deep-1 audit: CEM records the declaration a description comes from
   systems: [...SYSTEMS],
   description:
     "Material Design 3 + Material Web: material-components/material-web docs/components MD, API tables, custom-elements.json, M3 token SCSS (latest token DB export and v0.192) at the npm-latest git tag; m3.material.io sitemap + page meta (client-rendered site).",

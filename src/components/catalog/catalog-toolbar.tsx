@@ -31,7 +31,7 @@ export function Segmented({
         >
           {it.icon && <it.icon className="size-3.5" aria-hidden />}
           {it.label}
-          {it.count !== undefined && <span className="tabular font-mono text-[11px] text-muted-foreground">{it.count}</span>}
+          {it.count !== undefined && <span className="tabular font-mono text-[11px] text-muted-foreground">{it.count.toLocaleString("en-US")}</span>}
         </Link>
       ))}
     </nav>

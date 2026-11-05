@@ -5,6 +5,7 @@
 import { sql } from "drizzle-orm";
 import type { ActivityCounts, FeaturedCandidate, TypeImplementation } from "@/components/discovery/lib/home";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 const num = (v: unknown) => (v === null || v === undefined ? 0 : Number(v));
 const iso = (v: unknown): string | null => (v ? new Date(v as string).toISOString() : null);
@@ -43,7 +44,7 @@ export interface HomeStats {
 export async function getHomeStats(): Promise<HomeStats> {
   const db = await readDb();
   const r = await db.execute<Record<string, string | null>>(sql`
-    with sys as (select id, ingestion_status from design_system where registry_status = 'verified' and publish_state = 'published'),
+    with sys as (select ds.id, ${publishedIngestionStatus("ds")} as ingestion_status from design_system ds where ds.registry_status = 'verified' and ds.publish_state = 'published'),
     comp as (select c.* from component c join sys on sys.id = c.design_system_id where c.publish_state = 'published')
     select
       (select count(*) from sys) as systems_verified,
@@ -292,11 +293,14 @@ export async function getRecentlyUpdated(limit = 6): Promise<RecentSystem[]> {
     registry_summaries: string[] | null;
     last_run_at: string | null;
   }>(sql`
-    with ev as (
+    -- not materialized: ev is referenced by four correlated subqueries; inlined, each one uses
+    -- change_event_system_idx (design_system_id, occurred_at) instead of rescanning a materialized CTE
+    -- per system (measured ~500 ms -> ~15 ms with 7.9k events).
+    with ev as not materialized (
       select ce.* from change_event ce
       where not (ce.entity_type = 'design_system' and ce.change_kind = 'created' and ce.run_id is null)
     ), latest as (
-      select ds.id, ds.slug, ds.name, ds.organization_id, ds.ingestion_status, ds.last_ingested_at,
+      select ds.id, ds.slug, ds.name, ds.organization_id, ${publishedIngestionStatus("ds")} as ingestion_status, ds.last_ingested_at,
         greatest(ds.last_ingested_at, (select max(ev.occurred_at) from ev where ev.design_system_id = ds.id)) as last_activity,
         (select max(ev.occurred_at) from ev where ev.design_system_id = ds.id and ev.run_id is not null) as last_run_at
       from design_system ds

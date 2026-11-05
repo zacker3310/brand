@@ -174,6 +174,8 @@ export interface MdPage {
   title: string | null;
   description: string | null;
   sections: MdSection[];
+  /** <InlineAlert><Heading>…</Heading><Content>…</Content></InlineAlert> callouts outside code (only when present). */
+  callouts?: { title: string; text: string }[];
   api: MdApiSection[];
   /** Component pages linked from prose (outside code). */
   links: string[];
@@ -260,7 +262,36 @@ export function parseDocsMd(md: string): MdPage {
       if (name && props.length) api.push({ name, props, line: b.line });
     }
   }
-  return { title, description, sections, api, links: [...links].sort(), imports: [...imports].sort() };
+  const callouts = inlineAlerts(md);
+  return { title, description, sections, api, links: [...links].sort(), imports: [...imports].sort(), ...(callouts.length ? { callouts } : {}) };
+}
+
+/**
+ * InlineAlert callouts (e.g. FileTrigger's "Accessibility" notice). The line scanner drops JSX blocks as
+ * prose, so these are read separately; fenced code is skipped first.
+ */
+export function inlineAlerts(md: string): { title: string; text: string }[] {
+  const prose = md.replace(/^([ \t]*)(```|~~~)[^\n]*\n[\s\S]*?\n\1\2[^\n]*$/gm, "");
+  const out: { title: string; text: string }[] = [];
+  for (const m of prose.matchAll(/<InlineAlert\b[^>]*>\s*<Heading>([\s\S]*?)<\/Heading>\s*<Content>([\s\S]*?)<\/Content>\s*<\/InlineAlert>/g)) {
+    const title = cleanInline(m[1]!).trim();
+    // Code spans are kept verbatim ("Any `<Pressable>` child" must not lose "<Pressable>").
+    const text = collapse(
+      m[2]!
+        .split(/(`[^`]*`)/)
+        .map((part) =>
+          part.startsWith("`") && part.endsWith("`") && part.length > 1
+            ? part.slice(1, -1)
+            : part
+                .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+                .replace(/\*\*([^*]+)\*\*/g, "$1")
+                .replace(/<\/?[A-Za-z][^>]*>/g, ""),
+        )
+        .join(""),
+    ).trim();
+    if (title && text) out.push({ title, text });
+  }
+  return out;
 }
 
 /* ------------------------------ MDX metadata ------------------------------ */

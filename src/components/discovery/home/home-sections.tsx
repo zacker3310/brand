@@ -151,7 +151,7 @@ function LibraryLedger({ stats }: { stats: HomeStats }) {
               ) : (
                 <span className="text-[13px]">{r.label}</span>
               )}
-              {r.hint && <span className="block truncate text-[11px] text-muted-foreground">{r.hint}</span>}
+              {r.hint && <span className="mt-0.5 block text-[11px] leading-snug text-pretty text-muted-foreground">{r.hint}</span>}
             </dt>
             <dd className="tabular shrink-0 text-xl font-semibold tracking-tight">{formatCount(r.value)}</dd>
           </div>
@@ -231,7 +231,7 @@ export function ComponentGroups({ groups, indexedSystems }: { groups: GroupStat[
       id="categories"
       eyebrow="Universal catalog"
       title="Component categories"
-      rule={`ATLAS taxonomy groups with their canonical component types and the implementations indexed across ${plural(indexedSystems, "deeply indexed system")}.`}
+      rule={`ATLAS taxonomy groups with their canonical component types and the implementations indexed across ${plural(indexedSystems, "system")} with component records.`}
       action={<SectionLink href="/components">Browse the catalog</SectionLink>}
     >
       <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-5">

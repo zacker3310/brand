@@ -15,10 +15,6 @@ async function expectNoSeriousA11yViolations(page: Page) {
   // @axe-core/playwright types its Page against a different playwright-core version than @playwright/test.
   const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0])
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-    // Shell search trigger (integrator-owned): aria-label "Search ATLAS" vs visible placeholder text.
-    .exclude("button[aria-keyshortcuts]")
-    // Site footer (integrator-owned) uses --subtle-foreground, below 4.5:1; reported separately.
-    .exclude("body > footer, footer.mt-24")
     .analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length})`)).toEqual([]);
@@ -58,7 +54,13 @@ test.describe("component catalog (/components)", () => {
     expect(total).toBeGreaterThan(0);
 
     const filters = page.getByRole("complementary", { name: "Catalog filters" });
-    const carbon = filters.getByRole("checkbox", { name: /Carbon/ });
+    // Below lg the facet panel is a collapsed disclosure.
+    const panel = filters.locator("details > summary").first();
+    if (await panel.isVisible()) await panel.click();
+    const systemFacet = filters.getByRole("group", { name: "System" });
+    const carbon = systemFacet.getByRole("checkbox", { name: "IBM Carbon Design System" });
+    // Only the systems with the most components are listed up front; the rest fold into a disclosure.
+    if (!(await carbon.isVisible())) await systemFacet.getByText(/^Show \d+ more$/).click();
     await carbon.check();
     await expect(page).toHaveURL(/system=carbon/);
     await expect(page).toHaveURL(/view=components/);
@@ -77,7 +79,7 @@ test.describe("component catalog (/components)", () => {
     await expect(chip).toHaveAttribute("href", "/components?view=components");
     await chip.click();
     await expect(page).not.toHaveURL(/system=carbon/);
-    await expect(filters.getByRole("checkbox", { name: /Carbon/ })).not.toBeChecked();
+    await expect(filters.getByRole("checkbox", { name: "IBM Carbon Design System" })).not.toBeChecked();
   });
 
   test("search is keyboard-operable, debounced, and expands synonyms honestly", async ({ page }) => {

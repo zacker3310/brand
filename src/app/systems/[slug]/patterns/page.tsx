@@ -63,7 +63,7 @@ export default async function SystemPatternsPage({ params }: Props) {
         <div className="mt-10 space-y-14">
           {classified.length > 0 && (
             <Section id="classified" title="Mapped to ATLAS pattern types" description="Grouped under the ATLAS type each maps to; the mapping is labelled inferred where ATLAS made it.">
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
                 {classified.map((p) => (
                   <PatternCard key={p.id} p={p} showType />
                 ))}
@@ -72,7 +72,7 @@ export default async function SystemPatternsPage({ params }: Props) {
           )}
           {unclassified.length > 0 && (
             <Section id="unclassified" title="Unclassified" description="Documented patterns whose names match no ATLAS pattern type. Shown as the system names them.">
-              <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
                 {unclassified.map((p) => (
                   <PatternCard key={p.id} p={p} />
                 ))}

@@ -29,6 +29,8 @@ export interface CemElement {
   events: CemEvent[];
   /** JSON pointer of the declaration inside custom-elements.json. */
   pointer: string;
+  /** Pointer of the declaration the summary/description text came from (a superclass when the element's own doc is empty or a placeholder). */
+  docPointer: string;
 }
 
 interface Decl {
@@ -64,6 +66,8 @@ export function parseCem(json: string): CemElement[] {
   const modules = m.modules ?? [];
   const byModule = new Map<string, Decl[]>();
   for (const mod of modules) if (mod.path) byModule.set(mod.path, mod.declarations ?? []);
+  const pointerOf = new Map<Decl, string>();
+  modules.forEach((mod, mi) => (mod.declarations ?? []).forEach((d, di) => pointerOf.set(d, `/modules/${mi}/declarations/${di}`)));
   const find = (module: string | undefined, name: string | undefined): Decl | undefined =>
     module && name ? byModule.get(module)?.find((d) => d.name === name && d.kind === "class") : undefined;
 
@@ -75,12 +79,15 @@ export function parseCem(json: string): CemElement[] {
       const events = new Map<string, CemEvent>();
       let summary = cleanDoc(d.summary);
       let description = cleanDoc(d.description);
+      let docPointer = `/modules/${mi}/declarations/${di}`;
       const seen = new Set<Decl>();
       let cur: Decl | undefined = d;
       while (cur && !seen.has(cur)) {
         seen.add(cur);
+        const hadDoc = !!(summary ?? description);
         if (!summary) summary = cleanDoc(cur.summary);
         if (!description) description = cleanDoc(cur.description);
+        if (!hadDoc && (summary ?? description)) docPointer = pointerOf.get(cur) ?? docPointer;
         const attrByField = new Map<string, string>();
         for (const a of cur.attributes ?? []) if (a.fieldName && a.name) attrByField.set(a.fieldName, a.name);
         for (const mem of cur.members ?? []) {
@@ -112,6 +119,7 @@ export function parseCem(json: string): CemElement[] {
         properties: [...props.values()],
         events: [...events.values()],
         pointer: `/modules/${mi}/declarations/${di}`,
+        docPointer,
       });
     });
   });

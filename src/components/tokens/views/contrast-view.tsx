@@ -80,7 +80,7 @@ export function ContrastView({
           </h2>
           <p className="text-xs text-muted-foreground">Enter a token name from the current scope or any CSS color. Token pairs are measured within each theme they share.</p>
         </div>
-        <Form action="/tokens" className="grid gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
+        <Form action="/tokens" className="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] sm:items-end">
           <input type="hidden" name="system" value={m.system.slug} />
           {m.selectedSet && <input type="hidden" name="set" value={m.selectedSet.slug} />}
           {m.params.theme && !m.selectedSet && <input type="hidden" name="theme" value={m.params.theme} />}
@@ -123,7 +123,7 @@ export function ContrastView({
             <p className="text-xs text-muted-foreground">These two tokens have no theme in common, so they are never shown together.</p>
           )}
           {manual && manual.length > 0 && (
-            <ul className="grid gap-3 sm:grid-cols-2">
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               {manual.map((r) => (
                 <li key={r.theme ?? "any"} className="flex items-center gap-4 rounded-lg border p-3">
                   <Sample fg={r.fg} bg={r.bg} className="h-14 w-20 text-xl" />

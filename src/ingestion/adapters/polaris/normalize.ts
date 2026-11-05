@@ -129,6 +129,8 @@ function sizesFromProps(props: NormalizedProperty[]): string[] {
 const A11Y_RE =
   /\b(accessibility\w*|accessible (?:name|label)s?|screen readers?|assistive technolog\w*|keyboard|focusable|(?:receive|move|moves|keep|trap|return)s? focus|focus (?:state|ring|order|indicator|management)|aria-[a-z]+|tab order|alt text|alternative text)\b/i;
 
+const RESPONSIVE_PROSE = /\b(responsive|smaller screens?|small screens?|mobile|breakpoints?|narrow (?:screens?|viewports?))\b/i;
+
 function dedupeExamples(ex: NormalizedComponent["examples"]): NormalizedComponent["examples"] {
   const seen = new Set<string>();
   const out: NormalizedComponent["examples"] = [];
@@ -378,7 +380,8 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
       frameworks: [{ slug: "web-components", packageName: null, importName: el.tagName, sourceUrl: docsUrl ?? cemUrl }],
       variants,
       states,
-      sizes,
+      // [] would read as "documented-none" (source states there are no sizes); null = none extracted.
+      sizes: sizes.length ? sizes : null,
       properties: props,
       accessibility: a11y,
       examples,
@@ -574,7 +577,9 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       properties: props.length ? "documented" : dts?.found ? "documented-none" : "not-extracted",
       accessibility: accessibility ? "documented" : "not-documented",
       keyboard: a?.keyboard.length ? "documented" : a?.keyboardText ? "not-extracted" : "not-documented",
-      responsive: responsiveGuidance ? "documented" : dts?.found ? "not-documented" : "not-extracted",
+      // Responsive behaviour stated in prose (Form layout: "Field groups will wrap automatically on smaller
+      // screens") is not parsed into guidance: unknown, not "not documented".
+      responsive: responsiveGuidance ? "documented" : RESPONSIVE_PROSE.test([doc.lede, ...doc.examples.map((e) => e.description), ...doc.bestPractices, ...doc.keywords].filter(Boolean).join(" ")) ? "not-extracted" : dts?.found ? "not-documented" : "not-extracted",
       tokens: usages.length ? "inferred" : r.css && dir ? "not-documented" : "not-extracted",
       examples: examples.length ? "documented" : "not-documented",
       frameworks: frameworks.length ? "documented" : "not-extracted",
@@ -593,7 +598,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       frameworks,
       variants,
       states,
-      sizes,
+      // [] would read as "documented-none" (source states there are no sizes); null = none extracted.
+      sizes: sizes.length ? sizes : null,
       properties: props,
       accessibility,
       examples: dedupeExamples(examples),

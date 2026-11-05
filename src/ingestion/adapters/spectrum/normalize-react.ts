@@ -14,6 +14,7 @@ import { CODE_ATTRIBUTION, PKG, RAC_ORIGIN, RSP_ORIGIN } from "./constants";
 import type { MdApiSection, MdPage } from "./docs-md";
 import { fragsOf, pick, type Frag, type ReactSystem } from "./fragments";
 import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy, type Ev, cmp } from "./shared";
+import { templatedA11yFragments } from "./site";
 
 export const MAX_PROPS_PER_IMPL = 150;
 const MAX_EXAMPLES = 6;
@@ -69,7 +70,7 @@ interface PageBits {
   mdx?: Frag<"mdx">;
   src?: Frag<"src">;
   hooks: Frag<"hook">[];
-  site?: { page: Frag<"site-page">; states?: Frag<"site-fragment">; a11y?: Frag<"site-fragment"> };
+  site?: { page: Frag<"site-page">; states?: Frag<"site-fragment">; a11y?: Frag<"site-fragment">; a11yTemplated?: boolean };
 }
 
 function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { slugByPage: Map<string, string>; llms?: Frag<"llms">; listing?: Frag<"listing">; pkgVersion: string | null }): NormalizedComponent {
@@ -177,7 +178,10 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
   // Accessibility: keyboard tables (spectrum.adobe.com rsp page) + keyboard/accessibility prose sections.
   const kbRows = site?.a11y?.a11y?.keyboard ?? [];
   const keyboard: KeyboardInteraction[] = uniqBy(kbRows, (k) => `${k.keys}|${k.action}`).slice(0, 20).map((k) => ({ keys: clip(k.keys, 80), action: clip(k.action, 300) }));
-  const proseSecs = p.sections.filter((s) => /keyboard|accessib|screen reader|focus management/i.test(s.title) && s.firstParagraph);
+  // Prose sections plus "Accessibility" InlineAlert callouts (FileTrigger documents its a11y requirement only there).
+  const proseSecs: { title: string; firstParagraph: string | null; callout?: boolean }[] = [...p.sections, ...(p.callouts ?? []).map((c) => ({ title: c.title, firstParagraph: c.text, callout: true }))].filter(
+    (s) => /keyboard|accessib|screen reader|focus management/i.test(s.title) && s.firstParagraph,
+  );
   const guidance = proseSecs.length ? clip(proseSecs.map((s) => `${s.title}: ${s.firstParagraph}`).join(" "), 1200) : null;
   const wcag = [...new Set((site?.a11y?.a11y?.wcag ?? []).flatMap((w) => w.criteria))].sort();
   let accessibility: NormalizedComponent["accessibility"] = null;
@@ -192,7 +196,7 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
       wcagCriteria: wcag.length ? wcag : null,
       docsUrl: keyboard.length || wcag.length ? site!.page.ev.sourceUrl : md.docsUrl,
       coverage: {
-        keyboard: keyboard.length ? "documented" : proseSecs.some((s) => /keyboard/i.test(s.title)) ? "not-extracted" : site?.a11y ? "not-documented" : "not-extracted",
+        keyboard: keyboard.length ? "documented" : proseSecs.some((s) => /keyboard/i.test(s.title)) || site?.a11yTemplated ? "not-extracted" : site?.a11y ? "not-documented" : "not-extracted",
         guidance: guidance ? "documented" : "not-extracted",
         wcagCriteria: wcag.length ? "documented" : site?.a11y ? "not-documented" : "not-extracted",
         roles: "not-extracted",
@@ -203,10 +207,14 @@ function buildComponent(system: ReactSystem, page: string, b: PageBits, ctx: { s
     };
     if (site?.a11y && (keyboard.length || wcag.length)) ev.push(evidence("accessibility", site.a11y.ev, "site-a11y", 0.9, { location: `${site.a11y.ev.location} (Keyboard interactions / WCAG 2.2 compliance tables)` }));
     if (keyboard.length && site?.a11y) ev.push(evidence("keyboard", site.a11y.ev, "site-a11y", 0.9, { location: `${site.a11y.ev.location}#keyboard-interactions`, excerpt: `${keyboard[0]!.keys}: ${keyboard[0]!.action}` }));
-    if (guidance) ev.push(evidence("accessibility", md.ev, "docs-md", 0.85, { location: loc(proseSecs[0]!.title), excerpt: proseSecs[0]!.firstParagraph }));
+    if (guidance) {
+      const first = proseSecs[0]!;
+      ev.push(evidence("accessibility", md.ev, "docs-md", 0.85, { location: first.callout ? `${page}.md <InlineAlert> "${first.title}"` : loc(first.title), excerpt: first.firstParagraph }));
+    }
   }
-  coverage.accessibility = accessibility ? "documented" : "not-documented";
-  coverage.keyboard = keyboard.length ? "documented" : proseSecs.some((s) => /keyboard/i.test(s.title)) ? "not-extracted" : "not-documented";
+  coverage.accessibility = accessibility ? "documented" : site?.a11yTemplated ? "not-extracted" : "not-documented";
+  // A templated site fragment (another component's tables) leaves this component's keyboard support unknown.
+  coverage.keyboard = keyboard.length ? "documented" : proseSecs.some((s) => /keyboard/i.test(s.title)) || site?.a11yTemplated ? "not-extracted" : "not-documented";
   coverage.responsive = "not-extracted";
   coverage.tokens = "not-extracted";
 
@@ -364,14 +372,17 @@ export function normalizeReact(system: ReactSystem, fragments: { data: unknown }
     hooksBy.set(h.component, l);
   }
   // spectrum.adobe.com rsp pages, keyed by the React Spectrum export their options data documents.
-  const siteByExport = new Map<string, { page: Frag<"site-page">; states?: Frag<"site-fragment">; a11y?: Frag<"site-fragment"> }>();
+  const siteByExport = new Map<string, NonNullable<PageBits["site"]>>();
   if (system === "react-spectrum") {
     const fragsBySlug = new Map<string, Frag<"site-fragment">[]>();
     for (const f of pick(frs, "site-fragment")) fragsBySlug.set(f.slug, [...(fragsBySlug.get(f.slug) ?? []), f]);
+    // Accessibility fragments copied verbatim from another component's page are not this component's tables.
+    const templated = templatedA11yFragments(pick(frs, "site-fragment").filter((f) => f.section === "accessibility"));
     for (const sp of pick(frs, "site-page").sort((a, b) => cmp(a.slug, b.slug))) {
       if (sp.impl !== "rsp" || !sp.page.dataName || siteByExport.has(sp.page.dataName)) continue;
       const fr = fragsBySlug.get(sp.slug) ?? [];
-      siteByExport.set(sp.page.dataName, { page: sp, states: fr.find((f) => f.section === "states"), a11y: fr.find((f) => f.section === "accessibility") });
+      const a11y = templated.has(sp.slug) ? undefined : fr.find((f) => f.section === "accessibility");
+      siteByExport.set(sp.page.dataName, { page: sp, states: fr.find((f) => f.section === "states"), a11y, ...(templated.has(sp.slug) ? { a11yTemplated: true } : {}) });
     }
   }
   const slugByPage = new Map<string, string>();

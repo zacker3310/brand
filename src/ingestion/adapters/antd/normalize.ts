@@ -21,7 +21,7 @@ import { slugify } from "@/lib/utils";
 import { METHOD, PROFILES, SLUG_ANTD, SLUG_MOBILE, SPEC_PATTERN_TYPES, SPEC_PRINCIPLE_TYPE, blobUrl, npmPageUrl, treeUrl } from "./constants";
 import type { AntdFragment, PkgInfo, Stamp } from "./fragments";
 import { componentSlugFromLink, firstSentences, fmString, specSlugFromLink, type MdTable, type ParsedDoc } from "./markdown";
-import { deriveFromProps, extractProps, type DocProp } from "./props";
+import { deriveFromProps, extractProps, unextractedStateProps, type DocProp } from "./props";
 import { antdKebab, cssVarRefs, type Literal } from "./tokens";
 
 type Ev = EvidenceInput;
@@ -609,7 +609,7 @@ function buildAntdComponent(f: F<"component-doc">, a: AntdBuildCtx): NormalizedC
   const { variants, states, sizes } = variantsStatesSizes(props, sourceUrl, file);
   coverage.variants = variants.length ? "documented" : properties.length ? "not-documented" : "not-extracted";
   coverage.sizes = sizes?.length ? "documented" : properties.length ? "not-documented" : "not-extracted";
-  coverage.states = states.length ? "inferred" : properties.length ? "not-documented" : "not-extracted";
+  coverage.states = states.length ? "inferred" : properties.length && !unextractedStateProps(props).length ? "not-documented" : "not-extracted";
   if (variants.length) evidence.push(ev(f.stamp, "variants", METHOD.apiTable, { location: `${file} API table`, excerpt: `Variant props: ${uniq(variants.map((v) => v.axis)).join(", ")}`, confidence: 0.85 }));
   if (sizes?.length) evidence.push(ev(f.stamp, "sizes", METHOD.apiTable, { location: `${file} API table (size)`, excerpt: `size: ${sizes.join(" | ")}`, confidence: 0.9 }));
   if (states.length) evidence.push(ev(f.stamp, "states", METHOD.apiTable, { location: `${file} API table`, excerpt: `States implied by props: ${states.map((s) => s.name).join(", ")}`, state: "inferred", confidence: 0.7 }));
@@ -792,6 +792,21 @@ interface MobileVarRow {
   file: string;
 }
 
+/** antd-mobile API-section headings that are not sub-components. */
+const MOBILE_API_HEADINGS = /^(?:Refs?|Props|Events|Methods|API|Types?|Interfaces?|Hooks?)$/;
+
+/**
+ * Owner of a "### CSS Variables" table: the enclosing sub-component heading ("## SpinLoading"), else the
+ * page component. API-section headings are not owners: SwipeAction's CSS Variables table sits after
+ * "## Ref" (the ref methods table), yet the variables are SwipeAction's.
+ */
+export function mobileCssVarOwner(headings: { depth: number; text: string }[], title: string): string {
+  const nearest = headings[headings.length - 1];
+  if (!nearest) return title;
+  const parent = [...headings].reverse().find((h) => h.depth < nearest.depth);
+  return parent && parent.depth >= 2 && /^[A-Z][A-Za-z0-9.]*$/.test(parent.text) && !MOBILE_API_HEADINGS.test(parent.text) ? parent.text : title;
+}
+
 function mobileCssVarRows(f: F<"m-component-doc">, title: string): { rows: MobileVarRow[]; skipped: string[] } {
   const rows: MobileVarRow[] = [];
   const skipped: string[] = [];
@@ -803,8 +818,7 @@ function mobileCssVarRows(f: F<"m-component-doc">, title: string): { rows: Mobil
     const descIdx = t.headers.findIndex((h) => /^description$/i.test(h));
     const globIdx = t.headers.findIndex((h) => /^global$/i.test(h));
     if (nameIdx < 0 || defIdx < 0) continue;
-    const parent = [...t.headings].reverse().find((h) => h.depth < nearest.depth);
-    const owner = parent && parent.depth >= 2 && /^[A-Z][A-Za-z0-9.]*$/.test(parent.text) ? parent.text : title;
+    const owner = mobileCssVarOwner(t.headings, title);
     for (const r of t.rows) {
       const local = (r[nameIdx]?.text ?? "").trim();
       if (!/^--[a-z][a-z0-9-]*$/.test(local)) continue;
@@ -990,7 +1004,7 @@ export function normalizeMobile(systemSlug: string, frags: AntdFragment[], opts:
     const { variants, states, sizes } = variantsStatesSizes(props, f.docsUrl, file);
     coverage.variants = variants.length ? "documented" : properties.length ? "not-documented" : "not-extracted";
     coverage.sizes = sizes?.length ? "documented" : properties.length ? "not-documented" : "not-extracted";
-    coverage.states = states.length ? "inferred" : properties.length ? "not-documented" : "not-extracted";
+    coverage.states = states.length ? "inferred" : properties.length && !unextractedStateProps(props).length ? "not-documented" : "not-extracted";
     if (variants.length) evidence.push(ev(f.stamp, "variants", METHOD.apiTable, { location: `${file} Props table`, excerpt: `Variant props: ${uniq(variants.map((v) => v.axis)).join(", ")}`, confidence: 0.85 }));
     if (sizes?.length) evidence.push(ev(f.stamp, "sizes", METHOD.apiTable, { location: `${file} Props table (size)`, excerpt: `size: ${sizes.join(" | ")}` }));
     if (states.length) evidence.push(ev(f.stamp, "states", METHOD.apiTable, { location: `${file} Props table`, excerpt: `States implied by props: ${states.map((s) => s.name).join(", ")}`, state: "inferred", confidence: 0.7 }));

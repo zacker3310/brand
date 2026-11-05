@@ -189,7 +189,9 @@ function buildComponent(
   // Variants
   const variants = (usage?.variants ?? []).map((v) => ({ axis: v.axis, name: v.name, description: v.description, sourceUrl: item.docsUrl, location: v.location }));
   if (variants.length) ev.push(evidence("variants", f.usage!.ev, "mdx-usage", 0.95, { location: variants[0]!.location }));
-  coverage.variants = variants.length ? "documented" : f.usage ? (usage?.variantsSectionFound ? "not-extracted" : "not-documented") : "not-extracted";
+  // "AI presence" sections document an AI-label variant in prose ("The AI variant functions the same..."),
+  // which is not parsed into variant records: unknown, not "not documented".
+  coverage.variants = variants.length ? "documented" : f.usage ? (usage?.variantsSectionFound || usage?.aiPresenceSectionFound ? "not-extracted" : "not-documented") : "not-extracted";
 
   // States (usage tables/bold terms + style interactive-state tables)
   const stateList = [
@@ -294,10 +296,12 @@ function buildComponent(
     const acov: Record<string, CoverageState> = {
       keyboard: keyboard.length ? "documented" : a11y?.keyboardSectionFound || usage?.keyboardSectionFound ? "not-extracted" : "not-documented",
       guidance: a11y?.guidance ? "documented" : "not-documented",
-      focusManagement: a11y?.focusManagement ? "documented" : a11y?.focusSectionFound ? "not-extracted" : "not-documented",
-      screenReader: a11y?.screenReader ? "documented" : a11y?.screenReaderSectionFound ? "not-extracted" : "not-documented",
+      // Only a missing topic is "not-documented"; prose outside a dedicated section (e.g. "Labeling and
+      // states" describing JAWS output) or an APG link in an unmapped URL form is unknown, not absent.
+      focusManagement: a11y?.focusManagement ? "documented" : a11y?.focusSectionFound || a11y?.focusMentioned ? "not-extracted" : "not-documented",
+      screenReader: a11y?.screenReader ? "documented" : a11y?.screenReaderSectionFound || a11y?.screenReaderMentioned ? "not-extracted" : "not-documented",
       roles: a11y?.roles.length ? "documented" : "not-extracted",
-      ariaPattern: a11y?.ariaPattern ? "documented" : "not-documented",
+      ariaPattern: a11y?.ariaPattern ? "documented" : a11y?.apgLinkFound ? "not-extracted" : "not-documented",
       wcagCriteria: "not-extracted",
     };
     // Without a parsed accessibility tab (child components, or the tab failed to fetch) nothing

@@ -76,7 +76,7 @@ export function TypeGroups({
                           {idx > 0 && (
                             <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
                           )}
-                          <span className="whitespace-nowrap">
+                          <span className="inline-block max-w-full break-words">
                             <Link
                               href={componentHref(i.systemSlug, i.slug)}
                               className={cn("text-foreground/90 hover:text-foreground underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground", i.lifecycle === "deprecated" && "text-muted-foreground line-through")}
@@ -140,7 +140,7 @@ export function TypeGroups({
                 {i > 0 && (
                   <span aria-hidden className="text-subtle-foreground">{"  ·  "}</span>
                 )}
-                <span className="whitespace-nowrap">
+                <span className="inline-block max-w-full break-words">
                   <Link href={componentHref(u.systemSlug, u.slug)} className="underline decoration-foreground/25 underline-offset-4 hover:decoration-foreground">
                     {u.name}
                   </Link>{" "}

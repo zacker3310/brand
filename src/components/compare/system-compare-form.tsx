@@ -47,7 +47,7 @@ export function SystemCompareForm({
   };
 
   return (
-    <form action="/compare/systems" method="get" onSubmit={onSubmit} noValidate className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
+    <form action="/compare/systems" method="get" onSubmit={onSubmit} noValidate className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-8">
       <SystemPicker legend={`Systems (${MIN_SYSTEMS}–${MAX_SYSTEMS})`} systems={systems} selected={selected} onChange={setSelected} />
       <div className="flex min-w-0 flex-col gap-6">
         <fieldset>

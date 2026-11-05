@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 export interface CatalogStats {
   systemsVerified: number;
@@ -31,7 +32,7 @@ export async function getCatalogStats(): Promise<CatalogStats> {
   }>(sql`
     select
       (select count(*) from design_system where registry_status = 'verified' and publish_state = 'published') as systems_verified,
-      (select count(*) from design_system where ingestion_status in ('indexed','partial','inventory')) as systems_indexed,
+      (select count(*) from design_system ds where ${publishedIngestionStatus("ds")} in ('indexed','partial','inventory')) as systems_indexed,
       (select count(*) from design_system where registry_rank is not null) as registry_candidates,
       (select count(*) from component where publish_state = 'published') as components,
       (select count(distinct component_type_id) from component where publish_state = 'published' and component_type_id is not null) as component_types_covered,

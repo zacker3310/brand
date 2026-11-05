@@ -300,6 +300,8 @@ export interface UsageData {
   descriptionLocation: string | null;
   variants: DocVariant[];
   variantsSectionFound: boolean;
+  /** An "AI presence" section describes the component's AI-label variant (no Variants table). */
+  aiPresenceSectionFound: boolean;
   states: DocState[];
   statesSectionFound: boolean;
   sizes: string[];
@@ -368,6 +370,7 @@ export function parseUsage(text: string, file: string): UsageData {
     descriptionLocation,
     variants,
     variantsSectionFound: variantSecs.length > 0,
+    aiPresenceSectionFound: secs.some((x) => x.depth <= 3 && /^ai presence$/i.test(x.title)),
     states,
     statesSectionFound: stateSecs.length > 0,
     sizes,
@@ -462,6 +465,12 @@ export interface A11yData {
   roles: string[];
   ariaPattern: string | null;
   apgUrl: string | null;
+  /** The tab mentions screen readers outside a dedicated "Screen reader" section. */
+  screenReaderMentioned: boolean;
+  /** The tab discusses focus outside a dedicated "Focus ..." section. */
+  focusMentioned: boolean;
+  /** The tab links WAI-ARIA authoring practices in a form not mapped to a pattern slug. */
+  apgLinkFound: boolean;
 }
 
 export function parseA11y(text: string): A11yData {
@@ -479,7 +488,9 @@ export function parseA11y(text: string): A11yData {
   }
   let ariaPattern: string | null = null;
   let apgUrl: string | null = null;
+  let apgLinkFound = false;
   for (const l of linksIn(doc.tree.children)) {
+    if (/w3\.org\/WAI\/ARIA\/apg\/|aria-practices|wai-aria-practices/i.test(l.url)) apgLinkFound = true;
     const m = l.url.match(/wai-aria-practices(?:-1\.\d)?\/#([a-z-]+)/) ?? l.url.match(/w3\.org\/WAI\/ARIA\/apg\/patterns\/([a-z-]+)\//);
     if (m) {
       ariaPattern = m[1]!;
@@ -498,6 +509,9 @@ export function parseA11y(text: string): A11yData {
     roles: [...roles].sort(),
     ariaPattern,
     apgUrl,
+    screenReaderMentioned: /screen ?readers?|JAWS|VoiceOver|NVDA/i.test(doc.body),
+    focusMentioned: /\bfocus/i.test(doc.body),
+    apgLinkFound,
   };
 }
 

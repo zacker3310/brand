@@ -13,7 +13,7 @@ import { INFERRED_TEXT } from "./tone";
 const DIFF_HIDE = "group-data-[diff=on]/matrix:hidden";
 const OVERFLOW_HIDE = "group-data-[props=collapsed]/matrix:hidden";
 
-const MISSING_TEXT = {
+export const MISSING_TEXT = {
   "not-indexed": "Registry metadata only: components not indexed yet.",
   "no-component": "No indexed component classified as this type.",
 } as const;

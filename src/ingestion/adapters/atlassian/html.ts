@@ -113,6 +113,8 @@ export interface ParsedDocsPage {
   navChildren: NavEntry[];
   /** Bounded main-content text (only when requested; used for system pages such as the license). */
   mainText: string | null;
+  /** Rendered example code blocks (`<code class="language-…">`) in the page content. */
+  exampleBlocks: number;
   /** True when the page is the site's 404 template. */
   notFound: boolean;
 }
@@ -463,6 +465,8 @@ export function parseDocsPage(html: string, url: string, opts: { code?: boolean;
     code: opts.code ? parseCodeTab($, content) : null,
     navChildren: opts.navUnder ? parseNav($).filter((e) => e.path.startsWith(`${opts.navUnder}/`)) : [],
     mainText: opts.mainText ? text($, content).slice(0, 6000) || null : null,
+    // Counted on the raw HTML: loadPage() drops <pre> (code is never stored), so the DOM no longer has it.
+    exampleBlocks: (html.match(/<code\b[^>]*\bclass="[^"]*\blanguage-[a-z]+/g) ?? []).length,
     notFound,
   };
 }

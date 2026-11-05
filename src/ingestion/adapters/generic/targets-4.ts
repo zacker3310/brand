@@ -208,12 +208,17 @@ export const TARGETS_4: GenericTarget[] = [
       ref: "v{npm:vuetify}",
       docsUrlTemplate: "https://github.com/vuetifyjs/vuetify/blob/{ref}/{path}",
     },
-    include: "^packages/docs/src/pages/en/components/([a-z0-9-]+)\\.md$",
-    exclude: ["/components/all\\.md$"],
+    // <page>.md, plus the introduction page of the multi-page Data tables section (data-tables/introduction.md).
+    include: "^packages/docs/src/pages/en/components/([a-z0-9-]+)(?:/introduction)?\\.md$",
+    // all.md: the 'All components' index. date-pickers-month.md: frontmatter 'disabled: true' (not served,
+    // not in nav.json), a month-mode variant of the Date pickers page.
+    exclude: ["/components/all\\.md$", "/components/date-pickers-month\\.md$"],
     frameworks: ["vue"],
     maxPages: 110,
+    // "# Data table - Introduction" -> "Data table".
+    titleSuffix: "\\s+-\\s+Introduction$",
     notes:
-      "vuetifyjs.com is a client-rendered SPA (robots.txt allows all, but /sitemap.xml returns the SPA shell), so components are enumerated from the docs sources in the official repo: packages/docs/src/pages/en/components/<page>.md, which the docs router serves at /en/components/<page>/. Listed via jsDelivr at the release tag of the latest npm version (v{npm:vuetify}, v4.3.2 on 2026-11-05): jsDelivr's cached 'master' listing was stale (88 vs 106 pages, missing e.g. avatar-groups, hotkeys, split-buttons). Docs URL = GitHub blob of the page source (proven by the listing; the vuetifyjs.com route cannot be confirmed statically because the SPA answers 200 for any path); name = its '# Heading' (page titles are plural, e.g. 'Buttons'), description = first paragraph. Excluded: all.md (the 'All components' index). Not covered: the multi-page Data tables section (data-tables/*.md) and the component explorer.",
+      "vuetifyjs.com is a client-rendered SPA (robots.txt allows all, but /sitemap.xml returns the SPA shell), so components are enumerated from the docs sources in the official repo: packages/docs/src/pages/en/components/<page>.md, which the docs router serves at /en/components/<page>/. Listed via jsDelivr at the release tag of the latest npm version (v{npm:vuetify}, v4.3.2 on 2026-11-05): jsDelivr's cached 'master' listing was stale (88 vs 106 pages, missing e.g. avatar-groups, hotkeys, split-buttons). Docs URL = GitHub blob of the page source (proven by the listing; the vuetifyjs.com route cannot be confirmed statically because the SPA answers 200 for any path); name = its '# Heading' (page titles are plural, e.g. 'Buttons'), description = first paragraph. Excluded: all.md (the 'All components' index) and date-pickers-month.md (disabled page). The multi-page Data tables section is represented by its introduction page (data-tables/introduction.md; the basics/server-side/virtual sub-pages are guides of the same component). Pages listed under 'Labs' in the docs nav (data/nav.json: audio-players, command-palettes, mask-inputs, pie-charts, videos...) live in the same folder and are included; they are experimental components. Not covered: the component explorer.",
   },
   {
     slug: "web-awesome",

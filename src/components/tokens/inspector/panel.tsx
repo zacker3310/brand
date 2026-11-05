@@ -39,7 +39,7 @@ type State = { status: "idle" } | { status: "loading"; id: string } | { status: 
  * (downstream) and component usages. Sticky side panel at >= 1280px, a sheet below that.
  */
 export function TokenInspector({ initial, contrastHref }: { initial: InspectorData | null; contrastHref: string }) {
-  const { selectedId, clear } = useInspector();
+  const { selectedId, clear, lastTrigger } = useInspector();
   const isXl = useIsXl();
   const hydrated = useHydrated();
   const [loaded, setLoaded] = useState<Record<string, InspectorData>>(() => (initial ? { [initial.token.id]: initial } : {}));
@@ -75,7 +75,19 @@ export function TokenInspector({ initial, contrastHref }: { initial: InspectorDa
   if (hydrated && !isXl) {
     return (
       <Sheet open={open} onOpenChange={(o) => !o && clear()}>
-        <SheetContent side="right" showCloseButton={false} className="w-full gap-0 overflow-y-auto p-0 sm:max-w-md">
+        <SheetContent
+          side="right"
+          showCloseButton={false}
+          className="w-full gap-0 overflow-y-auto p-0 sm:max-w-md"
+          // The sheet has no Radix trigger: return focus to the token that opened it (else it drops to <body>).
+          onCloseAutoFocus={(e) => {
+            const t = lastTrigger.current;
+            if (t && t.isConnected) {
+              e.preventDefault();
+              t.focus();
+            }
+          }}
+        >
           <SheetTitle className="sr-only">Token inspector</SheetTitle>
           <SheetDescription className="sr-only">Value, alias chain, dependents and usages of the selected token.</SheetDescription>
           {body}

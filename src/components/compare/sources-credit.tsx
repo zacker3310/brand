@@ -20,7 +20,7 @@ export function SourcesCredit({ items }: { items: CreditItem[] }) {
       <h2 id="sources-title" className="type-eyebrow text-muted-foreground">
         Sources
       </h2>
-      <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3">
         {items.map((i) => (
           <li key={i.slug} className="flex min-w-0 items-start gap-2 text-xs text-muted-foreground">
             <SystemMark name={i.name} slug={i.slug} size="sm" className="size-5 text-[8px]" />

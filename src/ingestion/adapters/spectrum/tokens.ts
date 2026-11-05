@@ -182,6 +182,8 @@ export interface BuildResult {
   sets: NormalizedTokenSet[];
   /** Spectrum `component` field -> token names (documented component ownership). */
   componentTokens: Map<string, string[]>;
+  /** Spectrum `component` field -> evidence of the token files that hold that component's tokens. */
+  componentTokenFiles: Map<string, Ev[]>;
   /** Tokens whose set keys are neither themes nor scales (skipped, reported). */
   skipped: string[];
   /** Theme-set tokens that reference scale-dependent tokens (resolution ambiguity, reported). */
@@ -238,6 +240,7 @@ export function buildTokenSets(files: TokenFileInput[], opts: BuildOptions): Bui
   const skipped: string[] = [];
   const themedToScale: string[] = [];
   const componentTokens = new Map<string, string[]>();
+  const componentFiles = new Map<string, Set<string>>();
   const themed = new Map<string, NormalizedToken[]>(); // theme key -> tokens
   const scaled = new Map<string, NormalizedToken[]>(); // scale key -> tokens
   const base = new Map<string, { group: BaseGroup; tokens: NormalizedToken[]; files: Set<string> }>();
@@ -281,6 +284,7 @@ export function buildTokenSets(files: TokenFileInput[], opts: BuildOptions): Bui
       const l = componentTokens.get(t.component) ?? [];
       l.push(name);
       componentTokens.set(t.component, l);
+      addFile(componentFiles, t.component, t.file);
     }
     const fileBase = t.file.replace(/^src\//, "");
     const group = BASE_GROUPS[fileBase] ?? COMPONENT_GROUP;
@@ -359,7 +363,10 @@ export function buildTokenSets(files: TokenFileInput[], opts: BuildOptions): Bui
     if (b) finish(g.slug, g.name, null, b.tokens, b.files, "tokens without theme or scale sets");
   }
   for (const l of componentTokens.values()) l.sort();
-  return { sets, componentTokens, skipped: skipped.sort(), themedToScale: [...new Set(themedToScale)].sort() };
+  // Evidence per component: the file(s) that actually declare its tokens (not the first file of the package).
+  const componentTokenFiles = new Map<string, Ev[]>();
+  for (const [c, fs] of componentFiles) componentTokenFiles.set(c, [...fs].sort().map((f) => evByFile.get(f)).filter((e): e is Ev => !!e));
+  return { sets, componentTokens, componentTokenFiles, skipped: skipped.sort(), themedToScale: [...new Set(themedToScale)].sort() };
 }
 
 /** Custom property names declared in a CSS file (`--name:`), used to verify cssVar mappings. */

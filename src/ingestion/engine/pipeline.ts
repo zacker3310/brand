@@ -27,9 +27,10 @@ export function nextStage(stage: StageName | "run-system"): StageName | null {
   return i >= 0 && i < STAGES.length - 1 ? STAGES[i + 1]! : null;
 }
 
-export async function enqueueStage(runId: string, designSystemId: string | null, stage: StageName, priority = 100, db: DB = getDb()) {
+export async function enqueueStage(runId: string, designSystemId: string | null, stage: StageName, priority = 100, db: DB = getDb(), queue?: string) {
   return enqueue(
     {
+      queue,
       kind: stage,
       runId,
       designSystemId,
@@ -61,7 +62,7 @@ export async function dispatch(job: Job, opts: DispatchOptions = {}): Promise<Re
     if (run.status === "cancelled") return { skipped: "run cancelled" };
     await setStage(run.id, "discover", db);
     if (run.designSystemId) await db.update(designSystems).set({ ingestionStatus: "running" }).where(eq(designSystems.id, run.designSystemId));
-    const next = await enqueueStage(run.id, run.designSystemId, "discover", job.priority, db);
+    const next = await enqueueStage(run.id, run.designSystemId, "discover", job.priority, db, job.queue);
     await engineConfig().hooks.afterStage?.({ stage: "run-system", runId: run.id });
     return { next: next.id };
   }
@@ -92,7 +93,7 @@ export async function dispatch(job: Job, opts: DispatchOptions = {}): Promise<Re
   const next = nextStage(kind);
   if (next) {
     await setStage(sc.run.id, next, db);
-    const j = await enqueueStage(sc.run.id, sc.run.designSystemId, next, job.priority, db);
+    const j = await enqueueStage(sc.run.id, sc.run.designSystemId, next, job.priority, db, job.queue);
     result.next = j.id;
   }
   await engineConfig().hooks.afterStage?.({ stage: kind, runId: sc.run.id });

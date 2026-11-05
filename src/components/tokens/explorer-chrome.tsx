@@ -111,7 +111,7 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
       </Form>
 
       {/* Mobile / tablet: compact set + theme pickers */}
-      <Form action="/tokens" className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-2 lg:hidden">
+      <Form action="/tokens" className="flex items-end gap-2 lg:hidden">
         <input type="hidden" name="system" value={m.system.slug} />
         <input type="hidden" name="category" value={m.category} />
         {m.params.view !== "visual" && <input type="hidden" name="view" value={m.params.view} />}
@@ -120,6 +120,7 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
           name="set"
           label="Token set"
           defaultValue={m.selectedSet?.slug ?? ""}
+          className="min-w-0 flex-1"
           options={[
             { value: "", label: `All sets · ${formatCount(allCount)}` },
             ...m.sets.map((s) => ({ value: s.slug, label: `${s.name}${s.theme ? ` (${s.theme})` : ""} · ${formatCount(s.tokenCount)}` })),

@@ -55,6 +55,23 @@ describe("validateBundle", () => {
     expect(entity(r, "component", "ftp-variant").issues.some((i) => i.code === "INVALID_URL" && i.path === "variants.0.sourceUrl")).toBe(true);
   });
 
+  it("warns when 3+ components publish an identical keyboard table (copied fragment)", () => {
+    const kb = [
+      { keys: "Tab", action: "Moves focus to the button" },
+      { keys: "Space", action: "Activates the button" },
+    ];
+    const a11y = { accessibility: { keyboard: kb } };
+    const r = run({ components: [comp("button", a11y), comp("meter", a11y), comp("help-text", a11y), comp("menu", { accessibility: { keyboard: [kb[0]!, { keys: "Enter", action: "Opens" }] } })] });
+    for (const k of ["button", "meter", "help-text"]) {
+      const e = entity(r, "component", k);
+      expect(e.validation).toBe("warning");
+      expect(e.issues.some((i) => i.code === "DUPLICATE_KEYBOARD")).toBe(true);
+    }
+    expect(entity(r, "component", "menu").issues.some((i) => i.code === "DUPLICATE_KEYBOARD")).toBe(false);
+    const two = run({ components: [comp("button", a11y), comp("meter", a11y)] });
+    expect(entity(two, "component", "meter").issues.some((i) => i.code === "DUPLICATE_KEYBOARD")).toBe(false);
+  });
+
   it("flags unknown taxonomy types and frameworks as warnings", () => {
     const r = run({ components: [comp("thing", { canonicalType: "not-a-type", frameworks: [{ slug: "react" }, { slug: "cobol-ui" }] })] });
     const e = entity(r, "component", "thing");

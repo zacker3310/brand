@@ -152,7 +152,7 @@ export function Missing({ state, what, compact = false }: { state: CoverageState
 
 export function FrameworksList({ frameworks }: { frameworks: ComponentFramework[] }) {
   return (
-    <ul className="grid gap-2 sm:grid-cols-2">
+    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
       {frameworks.map((f) => (
         <li key={f.slug} className="rounded-lg border bg-card px-3 py-2.5">
           <div className="flex items-center justify-between gap-2">
@@ -623,7 +623,7 @@ export function ExamplesBlock({ examples }: { examples: ComponentExampleRow[] })
 
 export function ComparableGrid({ items, typeName }: { items: ComparableComponent[]; typeName: string }) {
   return (
-    <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3" aria-label={`Other ${typeName} implementations`}>
+    <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-3" aria-label={`Other ${typeName} implementations`}>
       {items.map((c) => (
         <li key={`${c.systemSlug}/${c.slug}`}>
           <Link

@@ -9,6 +9,8 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
 const SYSTEMS = ["github-primer", "carbon", "material-web"];
+/** Saving a comparison inserts a row: only against a disposable database (E2E_ALLOW_WRITES=1). */
+const writesOnly = () => test.skip(process.env.E2E_ALLOW_WRITES !== "1", "writes to the database: set E2E_ALLOW_WRITES=1 against a disposable copy");
 
 /** Enhanced controls replace their no-JS fallbacks after hydration; wait for that before interacting. */
 async function hydrated(page: Page, what: "picker" | "matrix" | "share") {
@@ -17,11 +19,13 @@ async function hydrated(page: Page, what: "picker" | "matrix" | "share") {
   if (what === "share") await expect(page.getByRole("button", { name: "Save & share" })).toHaveAttribute("aria-haspopup", "dialog", { timeout: 30_000 });
 }
 const CMP = `/compare?type=button&systems=${SYSTEMS.join(",")}`;
+/** Below lg (1024px) the matrix renders as per-system cards and a "Compared components" list instead of a table. */
+const isDesktop = (page: Page) => (page.viewportSize()?.width ?? 1440) >= 1024;
 
-/** axe on this area's content (<main>); the shared shell is covered by its own owner's specs. */
+/** axe on the full page (shell included, no exclusions). */
 async function expectNoSeriousA11yViolations(page: Page) {
   // @axe-core/playwright types against its own playwright-core copy; the runtime object is the same Page.
-  const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0]).include("main").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0]).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
 }
@@ -73,9 +77,12 @@ test.describe("component comparison", () => {
   test("renders real data per system with coverage chips and a legend", async ({ page }) => {
     await page.goto(CMP);
     await expect(page).toHaveTitle(/Button: GitHub Primer vs IBM Carbon Design System vs Material Web/);
-    const table = page.getByRole("table").first();
+    const desktop = isDesktop(page);
+    const table = desktop ? page.getByRole("table").first() : page.getByRole("region", { name: "Comparison" });
+    const compared = page.getByRole("region", { name: "Compared components" });
     for (const name of ["GitHub Primer", "IBM Carbon Design System", "Material Web"]) {
-      await expect(table.getByRole("columnheader").filter({ hasText: name })).toBeVisible();
+      if (desktop) await expect(table.getByRole("columnheader").filter({ hasText: name })).toBeVisible();
+      else await expect(compared.getByRole("listitem").filter({ hasText: name })).toBeVisible();
     }
     for (const group of ["Naming", "Variants", "States", "API", "Accessibility", "Design tokens", "Interaction conventions", "Documentation links", "Evidence"]) {
       await expect(table.getByRole("heading", { level: 3, name: group, exact: true })).toBeVisible();
@@ -83,7 +90,8 @@ test.describe("component comparison", () => {
     // Every empty cell explains itself; the legend defines each state.
     await expect(table.getByText("Not documented").first()).toBeVisible();
     await expect(page.getByRole("region", { name: "Legend" })).toContainText("absent capability");
-    await expect(table.getByText("aligned by name (inferred)").first()).toBeVisible();
+    if (desktop) await expect(table.getByText("aligned by name (inferred)").first()).toBeVisible();
+    else await expect(page.getByRole("region", { name: "Legend" })).toContainText(/aligned by name.*\(inferred\)/);
     // Provenance credits.
     await expect(page.getByRole("heading", { name: "Sources" })).toBeVisible();
     await expect(page.getByText(/belong to their respective owners/)).toBeVisible();
@@ -93,21 +101,27 @@ test.describe("component comparison", () => {
   test("show differences only hides identical rows and updates the URL", async ({ page }) => {
     await page.goto(CMP);
     await hydrated(page, "matrix");
+    const desktop = isDesktop(page);
     const table = page.getByRole("table").first();
-    const sameRow = table.getByRole("row").filter({ hasText: "Same in all columns" }).first();
+    // Desktop marks identical rows "Same in all columns"; the mobile cards hide the same rows' <dl> entries.
+    const sameRows = desktop ? table.getByRole("row").filter({ hasText: "Same in all columns" }) : page.getByRole("region", { name: "Comparison" }).locator("article dl > div");
+    const sameRow = sameRows.first();
+    const visibleBefore = desktop ? 0 : await sameRows.filter({ visible: true }).count();
     await expect(sameRow).toBeVisible();
     const toggle = page.getByRole("switch", { name: /Show differences only/ });
     await expect(toggle).toHaveAttribute("aria-checked", "false");
     await toggle.focus();
     await page.keyboard.press("Space");
     await expect(toggle).toHaveAttribute("aria-checked", "true");
-    await expect(sameRow).toBeHidden();
+    if (desktop) await expect(sameRow).toBeHidden();
+    else await expect.poll(() => sameRows.filter({ visible: true }).count()).toBeLessThan(visibleBefore);
     await expect(page).toHaveURL(/diff=1/);
     await expect(page.getByRole("status").filter({ hasText: /rows that differ/ })).toHaveText(/Showing \d+ of \d+ rows/);
     // Server-rendered state matches (shareable URL).
     await page.reload();
     await expect(page.getByRole("switch", { name: /Show differences only/ })).toHaveAttribute("aria-checked", "true");
-    await expect(table.getByRole("row").filter({ hasText: "Same in all columns" }).first()).toBeHidden();
+    if (desktop) await expect(table.getByRole("row").filter({ hasText: "Same in all columns" }).first()).toBeHidden();
+    else expect(await sameRows.filter({ visible: true }).count()).toBeLessThan(visibleBefore);
   });
 
   test("expands the long tail of aligned props", async ({ page }) => {
@@ -123,18 +137,23 @@ test.describe("component comparison", () => {
   test("lets the user pick which component fills a column", async ({ page }) => {
     await page.goto(CMP);
     await hydrated(page, "matrix");
-    const select = page.locator("#pick-carbon"); // desktop column header (the mobile list has its own select)
+    const desktop = isDesktop(page);
+    // Desktop: select in the column header; mobile: select in the "Compared components" list.
+    const select = page.locator(desktop ? "#pick-carbon" : "#mpick-carbon");
     await expect(select).toHaveAccessibleName("IBM Carbon Design System component to compare");
     await expect(select).toBeVisible();
     await select.selectOption({ label: "Copy button" });
     await page.waitForURL(/pick=carbon:copy-button/);
-    await expect(page.getByRole("columnheader").filter({ hasText: "Copy button" })).toBeVisible();
+    if (desktop) await expect(page.getByRole("columnheader").filter({ hasText: "Copy button" })).toBeVisible();
+    else await expect(page.locator("#mpick-carbon")).toHaveValue("carbon:copy-button");
   });
 
   test("marks systems ATLAS has not indexed instead of showing empty values", async ({ page }) => {
-    await page.goto(`/compare?type=button&systems=carbon,shadcn-ui`);
-    await expect(page.getByRole("columnheader").filter({ hasText: "Not in ATLAS index" })).toBeVisible();
-    await expect(page.getByRole("columnheader").filter({ hasText: "Registry metadata only" })).toBeVisible();
+    // Radix Primitives' inventory has no Button primitive; Apple HIG is a metadata-only registry entry.
+    await page.goto(`/compare?type=button&systems=carbon,radix-primitives,apple-hig`);
+    const scope = isDesktop(page) ? page.getByRole("columnheader") : page.getByRole("region", { name: "Compared components" }).getByRole("listitem");
+    await expect(scope.filter({ hasText: "Radix Primitives" }).filter({ hasText: "No indexed component classified as this type" })).toBeVisible();
+    await expect(scope.filter({ hasText: "Apple Human Interface Guidelines" }).filter({ hasText: "Registry metadata only" })).toBeVisible();
   });
 
   test("unknown component types render the not-found state", async ({ page }) => {
@@ -162,6 +181,7 @@ test.describe("save, share and export", () => {
   });
 
   test("saves a comparison and the short link opens it", async ({ page, request }) => {
+    writesOnly();
     test.slow(); // first hit compiles the redirect route in dev
     const res = await request.post("/api/comparisons", { data: { type: "button", systems: SYSTEMS, title: "E2E button comparison", picks: { carbon: "button" } } });
     expect(res.status()).toBe(201);
@@ -176,6 +196,7 @@ test.describe("save, share and export", () => {
   });
 
   test("Save & share from the UI creates a copyable link", async ({ page }) => {
+    writesOnly();
     test.slow();
     await page.goto(CMP);
     await hydrated(page, "share");

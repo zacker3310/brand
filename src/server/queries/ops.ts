@@ -9,6 +9,7 @@ import type { RunStats } from "@/lib/contracts";
 import type { EvidenceRow } from "@/components/atlas";
 import { containsPattern, iso, num, whereAll } from "@/server/api/sql";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 type Row = Record<string, unknown>;
 const d_ = async (db?: DB) => db ?? (await readDb());
@@ -976,7 +977,7 @@ export async function methodologyStats(db?: DB): Promise<MethodologyStats> {
       (select count(*)::int from token t join token_set s on s.id = t.token_set_id where s.publish_state = 'published') as tokens,
       (select count(*)::int from source_document) as documents,
       (select count(*)::int from source_document where status = 'blocked') as blocked,
-      (select count(*)::int from design_system where registry_status = 'verified' and ingestion_status in ('indexed', 'partial')) as indexed,
+      (select count(*)::int from design_system ds where ds.registry_status = 'verified' and ${publishedIngestionStatus("ds")} in ('indexed', 'partial')) as indexed,
       (select max(last_ingested_at) from design_system) as last_ingested
   `);
   const x = r.rows[0]!;

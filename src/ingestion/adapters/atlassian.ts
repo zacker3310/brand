@@ -122,7 +122,7 @@ async function planComponent(ctx: AdapterContext, entry: NavEntry): Promise<Comp
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1", // deep-1 audit: parse counts example code blocks
   systems: [SYSTEM_SLUG],
   description:
     "Atlassian Design System: @atlaskit/tokens codegen artifacts (tokens-raw/palettes-raw JSON literals, token-names CSS vars; light/dark/increased-contrast themes + base palettes); @atlaskit/* npm manifests; atlassian.design static HTML (navigation, code-tab props tables, examples, usage/accessibility, content guidance, principles); llms-components.txt release status.",

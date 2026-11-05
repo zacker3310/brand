@@ -1,31 +1,23 @@
 /**
  * Platform area: Collections & bookmarks, Ops console, REST API + exports, API docs, Methodology.
- * Run against a dev server whose DATABASE_URL is a disposable copy (these tests create
- * collections, bookmarks, an ingestion run and resolve errors):
- *   E2E_NO_SERVER=1 E2E_PORT=3105 npx playwright test tests/e2e/platform.spec.ts --project=desktop
+ * Tests that write (collections, bookmarks, enqueueing/cancelling an ingestion job) run only with
+ * E2E_ALLOW_WRITES=1, against a server whose DATABASE_URL is a disposable copy: never against a
+ * shared database a worker is ingesting into (cancelling "the first job" would cancel real work).
+ *   E2E_NO_SERVER=1 E2E_PORT=3105 E2E_ALLOW_WRITES=1 npx playwright test tests/e2e/platform.spec.ts
  */
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-/**
- * axe scan of the platform pages. The site header/footer (src/components/shell) are owned and tested
- * elsewhere and excluded here. The shared VerificationBadge "Inferred" colour (src/components/atlas,
- * --inferred in globals.css) is below 4.5:1 in light mode; that kit issue is reported to the
- * integrator and logged, not counted against this area. Everything else serious/critical fails.
- */
+/** Full-page axe scan (shell and kit included, no exclusions). Every serious/critical violation fails. */
 async function axe(page: Page) {
   // @axe-core/playwright is typed against its own playwright-core copy.
-  const r = await new AxeBuilder({ page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"] }).exclude("nextjs-portal").exclude("body > header").exclude("body > footer").analyze();
-  // VerificationBadge / CoverageChip from the shared kit render <span tabindex="0" ...>.
-  const isKitBadge = (html: string) => html.startsWith('<span tabindex="0"');
-  const bad = r.violations
-    .filter((v) => v.impact === "serious" || v.impact === "critical")
-    .map((v) => ({ ...v, nodes: v.id === "color-contrast" ? v.nodes.filter((n) => !isKitBadge(n.html)) : v.nodes }))
-    .filter((v) => v.nodes.length);
-  const kit = r.violations.find((v) => v.id === "color-contrast")?.nodes.filter((n) => isKitBadge(n.html)).length ?? 0;
-  if (kit) console.warn(`[axe] ${kit} kit badge/chip contrast node(s) on ${page.url()} (reported to integrator)`);
+  const r = await new AxeBuilder({ page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"] }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  const bad = r.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(bad.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(" | ")}`)).toEqual([]);
 }
+
+const WRITES = process.env.E2E_ALLOW_WRITES === "1";
+const writesOnly = () => test.skip(!WRITES, "writes to the database: set E2E_ALLOW_WRITES=1 against a disposable copy");
 
 async function noHorizontalScroll(page: Page) {
   await page.waitForLoadState("networkidle");
@@ -105,6 +97,7 @@ test.describe("Collections", () => {
   });
 
   test("create, collect, annotate, reorder, export and delete", async ({ page, request }) => {
+    writesOnly();
     const comps = await (await request.get("/api/components?pageSize=2")).json();
     const [c1, c2] = comps.data;
     await page.goto("/collections");
@@ -167,6 +160,7 @@ test.describe("Collections", () => {
   });
 
   test("bookmark button toggles and announces state", async ({ page }) => {
+    writesOnly();
     await page.goto("/collections");
     const comps = await (await page.request.get("/api/components?pageSize=1")).json();
     const c = comps.data[0];
@@ -184,6 +178,7 @@ test.describe("Collections", () => {
   });
 
   test("add-to-collection dialog creates a collection in place", async ({ page }) => {
+    writesOnly();
     const comps = await (await page.request.get("/api/components?pageSize=1")).json();
     const c = comps.data[0];
     await page.goto("/collections");
@@ -228,6 +223,7 @@ test.describe("Operations (localhost mode)", () => {
   });
 
   test("enqueue a run, then cancel its job (never ingests in the request)", async ({ page }) => {
+    writesOnly();
     await page.goto("/ops/systems?q=material");
     const enqueue = page.locator("button:enabled", { hasText: "Enqueue run" }).first();
     await expect(enqueue).toBeVisible();

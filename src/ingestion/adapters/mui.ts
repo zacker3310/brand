@@ -217,7 +217,7 @@ async function discoverBase(ctx: AdapterContext): Promise<DiscoveredDocument[]> 
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1",
   systems: [...SYSTEMS],
   description:
     "MUI: Material UI and Joy UI generated API JSON + translations, usage markdown and nav index from mui/material-ui at the release tag of the npm latest version; static token reads from @mui/material and @mui/joy package files; Base UI generated components index, page.mdx and types.md from mui/base-ui at v<@base-ui/react latest>.",

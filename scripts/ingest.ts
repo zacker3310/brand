@@ -13,7 +13,7 @@ import { inArray } from "drizzle-orm";
 import { closeDb, getDb } from "../src/db/client";
 import { designSystems } from "../src/db/schema";
 import { ADAPTERS } from "../src/ingestion/adapters";
-import { cancelRun, enqueueSystemRun, processRunInline, queueStatus, recentRuns, resumeRun, type Run } from "../src/ingestion/engine";
+import { cancelRun, enqueueSystemRun, INLINE_QUEUE, processRunInline, queueStatus, recentRuns, resumeRun, type Run } from "../src/ingestion/engine";
 import { errorCounts } from "../src/ingestion/engine/runs";
 
 const argv = process.argv.slice(2);
@@ -40,7 +40,9 @@ function options() {
   if (limit !== undefined && (!Number.isInteger(limit) || limit < 1)) throw new Error("--limit must be a positive integer");
   const kind = (val("--kind") ?? "incremental") as "full" | "incremental";
   if (kind !== "full" && kind !== "incremental") throw new Error("--kind must be full or incremental");
-  return { limit, kind, triggeredBy: "cli" };
+  // --inline runs use a private queue so a background worker (possibly running older adapter code)
+  // cannot take their stages; `--resume <runId>` without --inline hands an interrupted run back.
+  return { limit, kind, triggeredBy: "cli", queue: has("--inline") ? INLINE_QUEUE : undefined };
 }
 
 const fmtDur = (ms: number | undefined) => (ms === undefined ? "-" : ms < 1000 ? `${ms}ms` : `${(ms / 1000).toFixed(1)}s`);
@@ -95,7 +97,7 @@ async function main() {
     return;
   }
   if (val("--resume")) {
-    const r = await resumeRun(val("--resume")!);
+    const r = await resumeRun(val("--resume")!, undefined, { queue: has("--inline") ? INLINE_QUEUE : undefined });
     if (!r.jobId) {
       console.log(`run ${r.runId} already ${r.status}; nothing to resume`);
       return;

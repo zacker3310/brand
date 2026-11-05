@@ -42,24 +42,48 @@ const QUICK_LINKS = [
 
 export function CommandPaletteProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
+  // The palette has no Radix DialogTrigger (it opens from a shortcut or the header button), so Radix has
+  // nothing to return focus to on close. Remember what had focus when it opened and restore that.
+  const openerRef = useRef<HTMLElement | null>(null);
+  const rememberOpener = useCallback(() => {
+    const el = document.activeElement;
+    if (el instanceof HTMLElement && el !== document.body && !el.closest("[role='dialog']")) openerRef.current = el;
+  }, []);
+  const changeOpen = useCallback(
+    (v: boolean) => {
+      if (v) rememberOpener();
+      setOpen(v);
+    },
+    [rememberOpener],
+  );
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.key === "k" || e.key === "K") && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
+        rememberOpener();
         setOpen((o) => !o);
       } else if (e.key === "/" && !isEditable(e.target)) {
         e.preventDefault();
+        rememberOpener();
         setOpen(true);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
+  }, [rememberOpener]);
+  const restoreFocus = useCallback((e: Event) => {
+    const el = openerRef.current;
+    openerRef.current = null;
+    if (el && el.isConnected) {
+      e.preventDefault();
+      el.focus();
+    }
   }, []);
-  const value = useMemo(() => ({ open, setOpen }), [open]);
+  const value = useMemo(() => ({ open, setOpen: changeOpen }), [open, changeOpen]);
   return (
     <PaletteContext.Provider value={value}>
       {children}
-      <CommandPalette open={open} onOpenChange={setOpen} />
+      <CommandPalette open={open} onOpenChange={changeOpen} onCloseAutoFocus={restoreFocus} />
     </PaletteContext.Provider>
   );
 }
@@ -77,23 +101,29 @@ export function useCommandPalette() {
 
 export function CommandPaletteTrigger() {
   const { setOpen } = useCommandPalette();
+  // The shortcut hint sits outside the button: its visible text must stay a prefix of the accessible
+  // name (WCAG 2.5.3); the shortcut itself is exposed through aria-keyshortcuts.
   return (
-    <Button
-      variant="outline"
-      size="sm"
-      onClick={() => setOpen(true)}
-      className="h-8 gap-2 border-border/80 bg-surface-1 px-2.5 text-muted-foreground hover:text-foreground sm:w-64 sm:justify-start lg:w-72"
-      aria-label="Search systems, components, tokens and patterns"
-      aria-keyshortcuts="Meta+K Control+K"
-    >
-      <SearchIcon className="size-3.5" aria-hidden />
-      <span className="hidden min-w-0 truncate text-[13px] font-normal sm:inline">Search systems, components</span>
-      <Kbd className="ml-auto hidden shrink-0 sm:inline-flex">⌘K</Kbd>
-    </Button>
+    <div className="relative">
+      <Button
+        variant="outline"
+        size="sm"
+        onClick={() => setOpen(true)}
+        className="h-8 gap-2 border-border/80 bg-surface-1 px-2.5 text-muted-foreground hover:text-foreground sm:w-64 sm:justify-start sm:pr-11 lg:w-72"
+        aria-label="Search systems, components, tokens and patterns"
+        aria-keyshortcuts="Meta+K Control+K"
+      >
+        <SearchIcon className="size-3.5" aria-hidden />
+        <span className="hidden min-w-0 truncate text-[13px] font-normal sm:inline">Search systems, components</span>
+      </Button>
+      <Kbd aria-hidden className="absolute top-1/2 right-1.5 hidden -translate-y-1/2 sm:inline-flex">
+        ⌘K
+      </Kbd>
+    </div>
   );
 }
 
-function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenChange: (v: boolean) => void }) {
+function CommandPalette({ open, onOpenChange, onCloseAutoFocus }: { open: boolean; onOpenChange: (v: boolean) => void; onCloseAutoFocus: (e: Event) => void }) {
   const router = useRouter();
   const [q, setQ] = useState("");
   const [result, setResult] = useState<SearchResult | null>(null);
@@ -101,14 +131,21 @@ function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenChange: (
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
 
+  // Clearing the query resets results in the event handler (not in the effect, to avoid a cascading render).
+  const changeQuery = useCallback((v: string) => {
+    setQ(v);
+    if (!v.trim()) {
+      abortRef.current?.abort();
+      setResult(null);
+      setError(null);
+      setLoading(false);
+    }
+  }, []);
+
   useEffect(() => {
     const term = q.trim();
     abortRef.current?.abort();
-    if (!term) {
-      setResult(null);
-      setError(null);
-      return;
-    }
+    if (!term) return;
     const ac = new AbortController();
     abortRef.current = ac;
     const t = setTimeout(async () => {
@@ -133,10 +170,10 @@ function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenChange: (
   const go = useCallback(
     (href: string) => {
       onOpenChange(false);
-      setQ("");
+      changeQuery("");
       router.push(href);
     },
-    [onOpenChange, router],
+    [onOpenChange, router, changeQuery],
   );
 
   const groups = useMemo(() => {
@@ -150,8 +187,8 @@ function CommandPalette({ open, onOpenChange }: { open: boolean; onOpenChange: (
   }, [result]);
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange} title="Search ATLAS" description="Search design systems, components, tokens and patterns" className="sm:max-w-2xl" shouldFilter={false}>
-      <CommandInput placeholder="Try “React combobox”, “dark mode tokens”, “government”…" value={q} onValueChange={setQ} />
+    <CommandDialog open={open} onOpenChange={onOpenChange} onCloseAutoFocus={onCloseAutoFocus} title="Search ATLAS" description="Search design systems, components, tokens and patterns" className="sm:max-w-2xl" shouldFilter={false}>
+      <CommandInput placeholder="Try “React combobox”, “dark mode tokens”, “government”…" value={q} onValueChange={changeQuery} />
       <CommandList className="max-h-[min(60vh,520px)]">
         {!q.trim() && (
           <CommandGroup heading="Go to">

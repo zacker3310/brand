@@ -11,15 +11,9 @@ const expect = baseExpect.configure({ timeout: 20_000 });
 const num = (s: string | null | undefined) => Number((s ?? "").replace(/[^\d]/g, ""));
 
 async function expectNoSeriousA11yViolations(page: Page) {
-  // Known issues in integrator-owned shared UI, reported as requested changes:
-  //  - the header search trigger's aria-label differs from its visible text (label-content-name-mismatch);
-  //  - the kit's VerificationBadge "inferred" colors (--inferred on --inferred-soft) are below 4.5:1 in light mode;
-  //  - the site footer's fine print uses --subtle-foreground, below 4.5:1 on the page background.
+  // Full page, shell and kit included: no exclusions.
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-    .exclude("header button[aria-keyshortcuts]")
-    .exclude("span.text-inferred.bg-inferred-soft")
-    .exclude("footer .text-subtle-foreground")
     .analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length}) ${v.nodes[0]?.target.join(" ")}`)).toEqual([]);

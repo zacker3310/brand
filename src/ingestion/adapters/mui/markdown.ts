@@ -269,8 +269,14 @@ export function parseA11y(secs: MdSection[]): MuiA11y | null {
   const aria = sub(/^aria\b/i);
   const sr = sub(/screen reader/i);
   const kbBlocks = kb ? plainBlocks(kb.full) : [];
-  const keyboard = keyboardFromBlocks(kbBlocks);
-  const kbText = clip(kbBlocks.join(" "), 800);
+  // Without a "Keyboard" subsection, key interactions documented in the accessibility prose itself
+  // ("dismiss Snackbars by pressing Escape") are keyboard documentation too; only sentences that are
+  // explicitly about pressing keys count (a capitalized "Enter" or "End" alone is not a key).
+  const proseKb = kb ? [] : keyboardFromBlocks(plainBlocks(a.own)).filter((k) => /\b(?:press(?:es|ed|ing)?|keys?|keyboard|shortcuts?)\b/i.test(k.action));
+  const keyboard = kb ? keyboardFromBlocks(kbBlocks) : proseKb;
+  // Prose that mentions keyboard use without naming keys: documented but not extracted (not "absent").
+  const kbMention = kb || proseKb.length ? [] : plainBlocks(a.own).filter((b) => /\bkeyboard\b|\bkeys\b/i.test(b));
+  const kbText = clip((kb ? kbBlocks : kbMention).join(" "), 800);
   const raw = a.full;
   return {
     heading: a.heading.text,
@@ -280,7 +286,7 @@ export function parseA11y(secs: MdSection[]): MuiA11y | null {
     screenReader: sr ? sectionText(sr.full, 800) : null,
     keyboard,
     keyboardText: kbText,
-    keyboardAnchor: kb?.heading.anchor ?? null,
+    keyboardAnchor: kb?.heading.anchor ?? (proseKb.length ? a.heading.anchor : null),
     keyboardNone: !!kb && !keyboard.length && /\b(?:is|are) not focusable\b/i.test(kbText ?? ""),
     roles: rolesIn(raw),
     apgPatterns: apgSlugs(raw),

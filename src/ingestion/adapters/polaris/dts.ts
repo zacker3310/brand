@@ -518,6 +518,7 @@ export class DtsResolver {
     if (direct) return direct;
     const parts = splitUnion(type);
     const vals: string[] = [];
+    let viaAlias = false;
     for (const p of parts) {
       const lit = /^(["'`])(.*)\1$/.exec(p);
       if (lit) {
@@ -530,8 +531,11 @@ export class DtsResolver {
       if (!hit || hit.decl.kind !== "type") return null;
       const sub = await this.allowedValues(hit.file, hit.decl.body, depth + 1);
       if (!sub) return null;
+      viaAlias = true;
       vals.push(...sub);
     }
-    return vals.length >= 2 ? [...new Set(vals)] : null;
+    // A named alias with a single literal is still an enumeration (ButtonGroup: `type Variant = 'segmented'`).
+    // Inside alias resolution (depth > 0) a lone literal is returned so the caller can collect it.
+    return vals.length >= 2 || (vals.length === 1 && (viaAlias || depth > 0)) ? [...new Set(vals)] : null;
   }
 }

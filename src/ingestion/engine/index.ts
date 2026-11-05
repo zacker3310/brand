@@ -7,7 +7,7 @@ import { getDb, type DB } from "@/db/client";
 import { designSystems, ingestionJobs, ingestionRuns } from "@/db/schema";
 import { engineConfig } from "./config";
 import { enqueueStage, STAGES } from "./pipeline";
-import { cancel, enqueue, expedite, type Job } from "./queue";
+import { cancel, DEFAULT_QUEUE, enqueue, expedite, moveRunJobs, type Job } from "./queue";
 import { getRun, liveJobs, recordError, restoreSystemStatus, type RunCheckpoint } from "./runs";
 
 export interface RunOptions {
@@ -16,6 +16,8 @@ export interface RunOptions {
   limit?: number;
   dryRun?: boolean;
   priority?: number;
+  /** Job queue for the run's stages (INLINE_QUEUE for in-process runs). Default: DEFAULT_QUEUE. */
+  queue?: string;
 }
 
 export interface EnqueuedRun {
@@ -45,7 +47,10 @@ export async function enqueueSystemRun(systemSlug: string, opts: RunOptions = {}
       .orderBy(desc(ingestionRuns.createdAt));
     for (const r of active) {
       const live = await tx.select().from(ingestionJobs).where(and(eq(ingestionJobs.runId, r.id), inArray(ingestionJobs.status, ["queued", "running"]))).limit(1);
-      if (live[0]) return { runId: r.id, jobId: live[0].id, deduped: true };
+      if (live[0]) {
+        await moveRunJobs(r.id, opts.queue ?? DEFAULT_QUEUE, tx as unknown as DB);
+        return { runId: r.id, jobId: live[0].id, deduped: true };
+      }
     }
     const checkpoint: RunCheckpoint = { systemSlug, kind, limit: opts.limit ?? null };
     const [run] = await tx
@@ -68,7 +73,7 @@ export async function enqueueSystemRun(systemSlug: string, opts: RunOptions = {}
       await recordError({ runId: r.id, designSystemId: system.id, stage: r.stage ?? "run", code: "SUPERSEDED", severity: "warning", message: `interrupted run superseded by ${run!.id}` }, tx as unknown as DB);
     }
     const job = await enqueue(
-      { kind: "run-system", runId: run!.id, designSystemId: system.id, payload: { runId: run!.id, systemSlug }, dedupeKey: `${run!.id}:run-system`, priority: opts.priority ?? 100, maxAttempts: engineConfig().stageMaxAttempts },
+      { queue: opts.queue, kind: "run-system", runId: run!.id, designSystemId: system.id, payload: { runId: run!.id, systemSlug }, dedupeKey: `${run!.id}:run-system`, priority: opts.priority ?? 100, maxAttempts: engineConfig().stageMaxAttempts },
       tx as unknown as DB,
     );
     await tx.update(designSystems).set({ ingestionStatus: "queued" }).where(eq(designSystems.id, system.id));
@@ -80,12 +85,18 @@ export async function enqueueSystemRun(systemSlug: string, opts: RunOptions = {}
  * Resume an interrupted or failed run from its current stage. Completed stage work is not
  * repeated: fetch/parse skip checkpointed documents, publish is idempotent.
  */
-export async function resumeRun(runId: string, db: DB = getDb()): Promise<{ runId: string; jobId: string | null; status: string; resumedStage: string | null }> {
+export async function resumeRun(
+  runId: string,
+  db: DB = getDb(),
+  opts: { queue?: string } = {},
+): Promise<{ runId: string; jobId: string | null; status: string; resumedStage: string | null }> {
+  const queue = opts.queue ?? DEFAULT_QUEUE;
   const run = await getRun(runId, db);
   if (!run) throw new Error(`run ${runId} not found`);
   if (run.status === "succeeded" || run.status === "partial") return { runId, jobId: null, status: run.status, resumedStage: null };
   const live = await liveJobs(runId, db);
   if (live.length) {
+    await moveRunJobs(runId, queue, db);
     for (const j of live) if (j.status === "queued") await expedite(j.id, db);
     if (run.status !== "running" && run.status !== "pending") await db.update(ingestionRuns).set({ status: "running", finishedAt: null }).where(eq(ingestionRuns.id, runId));
     return { runId, jobId: live[0]!.id, status: "running", resumedStage: live[0]!.kind };
@@ -94,8 +105,8 @@ export async function resumeRun(runId: string, db: DB = getDb()): Promise<{ runI
   await db.update(ingestionRuns).set({ status: "running", finishedAt: null }).where(eq(ingestionRuns.id, runId));
   if (run.designSystemId) await db.update(designSystems).set({ ingestionStatus: "queued" }).where(eq(designSystems.id, run.designSystemId));
   const job: Job = stage
-    ? await enqueueStage(runId, run.designSystemId, stage, 50, db)
-    : await enqueue({ kind: "run-system", runId, designSystemId: run.designSystemId, payload: { runId }, dedupeKey: `${runId}:run-system`, priority: 50, maxAttempts: engineConfig().stageMaxAttempts }, db);
+    ? await enqueueStage(runId, run.designSystemId, stage, 50, db, queue)
+    : await enqueue({ queue, kind: "run-system", runId, designSystemId: run.designSystemId, payload: { runId }, dedupeKey: `${runId}:run-system`, priority: 50, maxAttempts: engineConfig().stageMaxAttempts }, db);
   return { runId, jobId: job.id, status: "running", resumedStage: job.kind };
 }
 
@@ -150,7 +161,7 @@ export async function recentRuns(limit = 20, db: DB = getDb()) {
 }
 
 export { configureEngine, engineConfig, resetEngineConfig, getFetcher, type EngineConfig, type EngineHooks } from "./config";
-export { claim, complete, fail, cancel, retry, heartbeat, reapStale, release, enqueue, expedite, getJob, backoffMs, type Job, type EnqueueInput } from "./queue";
+export { claim, complete, fail, cancel, retry, heartbeat, reapStale, release, enqueue, expedite, getJob, backoffMs, moveRunJobs, DEFAULT_QUEUE, INLINE_QUEUE, type Job, type EnqueueInput } from "./queue";
 export { dispatch, JOB_KINDS, STAGES, nextStage } from "./pipeline";
 export { Worker, executeJob, processRunInline, defaultWorkerId, DEFAULT_LOCK_TIMEOUT_MS, type WorkerOptions, type InlineOptions } from "./worker";
 export { getRun, type Run, type RunCheckpoint } from "./runs";

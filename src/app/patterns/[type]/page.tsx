@@ -77,7 +77,7 @@ export default async function PatternTypePage({ params }: Props) {
             title={`Documented by ${formatCount(systems.length)} system${systems.length === 1 ? "" : "s"}`}
             description={`${formatCount(t.patterns.length)} pattern page${t.patterns.length === 1 ? "" : "s"} map to this type. Names, summaries and related components are each system's own.`}
           >
-            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
               {t.patterns.map((p) => (
                 <PatternCard key={p.id} p={p} />
               ))}

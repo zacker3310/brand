@@ -228,6 +228,40 @@ function componentChecks(e: ValidatedEntity): void {
   }
 }
 
+/** Components sharing a keyboard table with at least this many others are flagged (audit deep-2 R3). */
+const DUPLICATE_KEYBOARD_MIN = 3;
+
+/**
+ * Docs sites sometimes serve one component's accessibility fragment for others (spectrum.adobe.com
+ * served Button's for 12 components). Byte-identical multi-row keyboard tables across
+ * DUPLICATE_KEYBOARD_MIN+ components are flagged so the copy is reviewed instead of published silently.
+ */
+function duplicateKeyboardChecks(components: ValidatedEntity[]): void {
+  const groups = new Map<string, ValidatedEntity[]>();
+  for (const e of components) {
+    if (!e.parsed || e.validation === "conflict") continue;
+    const kb = (e.payload as unknown as NormalizedComponent).accessibility?.keyboard;
+    if (!kb || kb.length < 2) continue;
+    const sig = JSON.stringify(kb.map((k) => [k.keys.trim().toLowerCase(), k.action.trim().toLowerCase()]));
+    const g = groups.get(sig);
+    if (g) g.push(e);
+    else groups.set(sig, [e]);
+  }
+  for (const g of groups.values()) {
+    if (g.length < DUPLICATE_KEYBOARD_MIN) continue;
+    const names = g.map((e) => e.key);
+    for (const e of g)
+      e.issues.push({
+        entityKind: "component",
+        entityKey: e.key,
+        code: "DUPLICATE_KEYBOARD",
+        message: `keyboard table is identical across ${g.length} components (${names.slice(0, 5).join(", ")}${g.length > 5 ? ", …" : ""}); check it is not a copied fragment`,
+        severity: "warning",
+        path: "accessibility.keyboard",
+      });
+  }
+}
+
 function tokenSetChecks(e: ValidatedEntity): void {
   if (!e.parsed || e.validation === "conflict") return;
   const s = e.payload as unknown as NormalizedTokenSet;
@@ -343,6 +377,7 @@ export function validateBundle(raw: unknown, opts: ValidateOptions): BundleValid
     else if (e.kind === "pattern") patternChecks(e, componentSlugs);
     else factsChecks(e);
   }
+  duplicateKeyboardChecks(components);
   attachAdapterIssues(entities, bundleIssues, opts.adapterIssues ?? []);
 
   const tokenCount = tokenSets.reduce((n, s) => n + (s.parsed && Array.isArray(s.payload.tokens) ? (s.payload.tokens as unknown[]).length : 0), 0);

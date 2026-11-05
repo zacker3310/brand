@@ -115,7 +115,8 @@ export function IngestionTag({ status }: { status: string }) {
 /** Criteria x systems matrix. Scrolls inside its own container on small screens (sticky first column). */
 export function Scorecard({ systems, criteria }: { systems: ScoredSystem[]; criteria: CriterionId[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Scorecard" tabIndex={0}>
+    // relative: contains the cells' absolutely positioned sr-only text, which otherwise widens the page at phone width.
+    <div className="relative overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Scorecard" tabIndex={0}>
       <table className="w-full min-w-[34rem] border-separate border-spacing-0 text-left">
         <caption className="sr-only">Scores per criterion (rows) for each system (columns). Select a score for its evidence.</caption>
         <thead>

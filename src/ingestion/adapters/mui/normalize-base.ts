@@ -44,7 +44,26 @@ const STATE_ATTRS: Record<string, string | null> = {
   complete: null,
 };
 
-const A11Y_TEXT = /screen reader|assistive|accessib|aria-|\brole\b|keyboard|focus/i;
+const A11Y_TEXT = /screen reader|assistive|accessib|aria-|\brole\b|keyboard|focus|\b(?:arrow|cursor) keys?\b/i;
+
+/**
+ * Usage-guideline blocks about accessibility. A matching lead-in that introduces a list ("To ensure that
+ * toolbars are accessible and helpful, follow these guidelines:") carries the blocks that follow it in
+ * the section: without them the published guidance would be the lead-in sentence only.
+ */
+export function a11yUsageBlocks(blocks: string[]): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < blocks.length; i++) {
+    const b = blocks[i]!;
+    if (!A11Y_TEXT.test(b)) continue;
+    out.push(b);
+    if (/:\s*$/.test(b)) {
+      out.push(...blocks.slice(i + 1));
+      break;
+    }
+  }
+  return uniq(out);
+}
 
 export const baseDocsUrl = (slug: string) => `${BASE_DOCS_ORIGIN}/react/components/${slug}`;
 
@@ -111,7 +130,7 @@ function buildComponent(b: BuildCtx, entry: FragOf<"base-index">["entries"][numb
         name: single ? pr.name : `${part.name}.${pr.name}`,
         type: pr.type,
         defaultValue: pr.defaultValue,
-        required: null,
+        required: pr.required,
         deprecated: /\bdeprecated\b/i.test(pr.description ?? ""),
         description: pr.description,
         allowedValues: literalUnion(pr.type),
@@ -146,8 +165,9 @@ function buildComponent(b: BuildCtx, entry: FragOf<"base-index">["entries"][numb
   coverage.sizes = "not-documented";
 
   // Accessibility: a11y/keyboard/focus sections + usage-guideline items about assistive technology.
-  const a11yTexts = [...(p?.a11y.map((s) => s.text).filter((t): t is string => !!t) ?? []), ...(p?.usageGuidelines.filter((g) => A11Y_TEXT.test(g)) ?? [])];
-  const keyboard = uniq([...(p?.keyboard ?? []), ...keyboardFromBlocks(p?.usageGuidelines.filter((g) => A11Y_TEXT.test(g)) ?? [])].map((k) => JSON.stringify(k))).map((k) => JSON.parse(k) as { keys: string; action: string });
+  const usageA11y = a11yUsageBlocks(p?.usageGuidelines ?? []);
+  const a11yTexts = [...(p?.a11y.map((s) => s.text).filter((t): t is string => !!t) ?? []), ...usageA11y];
+  const keyboard = uniq([...(p?.keyboard ?? []), ...keyboardFromBlocks(usageA11y)].map((k) => JSON.stringify(k))).map((k) => JSON.parse(k) as { keys: string; action: string });
   let accessibility: NormalizedComponent["accessibility"] = null;
   if (a11yTexts.length && page) {
     const guidance = clip(uniq(a11yTexts).join(" "), 1200);

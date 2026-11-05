@@ -60,7 +60,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
         description={
           <>
             <span className="tabular">{registry.summary.verified}</span> verified systems ·{" "}
-            {depthLabel(depthCounts.indexed, depthCounts.partial, depthCounts.metadata)}. Every fact is checked against the official source it links to
+            {depthLabel(depthCounts.indexed, depthCounts.partial, depthCounts.metadata, depthCounts.inventory)}. Every fact is checked against the official source it links to
             {lastVerified ? (
               <>
                 {" "}

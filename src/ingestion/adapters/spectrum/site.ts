@@ -263,6 +263,39 @@ export function parseA11yFragment(html: string): A11yFragment {
   };
 }
 
+/**
+ * Accessibility fragments that spectrum.adobe.com publishes verbatim for several components: one
+ * component's tables copied as a template (e.g. Meter, Help text and Search field serve Button's
+ * "Moves focus onto or off of the button" table byte for byte). Fragments are grouped by their parsed
+ * keyboard + WCAG content; in a group of 2+ components, the owner is the single member whose name the
+ * copied text mentions ("button", "tooltip"). Returns non-owner slug -> owner slug. Groups whose owner
+ * cannot be identified unambiguously are left alone (they may legitimately share guidance).
+ */
+export function templatedA11yFragments(frags: { slug: string; a11y: A11yFragment | null }[]): Map<string, string> {
+  const groups = new Map<string, { slugs: Set<string>; text: string }>();
+  for (const f of frags) {
+    const a = f.a11y;
+    if (!a || (!a.keyboard.length && !a.wcag.length)) continue;
+    const sig = JSON.stringify([a.keyboard, a.wcag]);
+    const g = groups.get(sig) ?? { slugs: new Set<string>(), text: [...a.keyboard.map((k) => `${k.keys} ${k.action}`), ...a.wcag.map((w) => `${w.requirement} ${w.compliance ?? ""}`)].join(" ").toLowerCase() };
+    g.slugs.add(f.slug);
+    groups.set(sig, g);
+  }
+  const out = new Map<string, string>();
+  for (const g of groups.values()) {
+    if (g.slugs.size < 2) continue;
+    const mentions = (slug: string) => {
+      const words = slug.toLowerCase().split("-").filter(Boolean);
+      const re = new RegExp(`\\b${words.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("[\\s-]+")}(?:e?s)?\\b`);
+      return re.test(g.text);
+    };
+    const owners = [...g.slugs].filter(mentions);
+    if (owners.length !== 1) continue;
+    for (const s of g.slugs) if (s !== owners[0]) out.set(s, owners[0]!);
+  }
+  return out;
+}
+
 /* --------------------------- component options JSON ---------------------------- */
 
 export interface SiteProp {

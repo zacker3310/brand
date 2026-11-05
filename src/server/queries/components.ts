@@ -12,6 +12,7 @@ import { shortSystemName } from "@/components/catalog/lib/format";
 import { escapeLike, PAGE_SIZE, type CatalogParams } from "@/components/catalog/lib/params";
 import { expandCatalogQuery } from "@/components/catalog/lib/search";
 import { readDb } from "./db";
+import { publishedIngestionStatus } from "./status";
 
 /* -------------------------------------------------------------------------- */
 /* Catalog base relation                                                       */
@@ -217,7 +218,7 @@ export interface SystemLabel {
 export async function getSystemLabels(): Promise<Map<string, SystemLabel>> {
   const db = await readDb();
   const r = await db.execute<{ slug: string; name: string; org_name: string | null; n: number; ingestion_status: string }>(sql`
-    select ds.slug, ds.name, o.name as org_name, count(c.id)::int as n, ds.ingestion_status::text as ingestion_status
+    select ds.slug, ds.name, o.name as org_name, count(c.id)::int as n, ${publishedIngestionStatus("ds")} as ingestion_status
     from design_system ds
     join component c on c.design_system_id = ds.id and c.publish_state = 'published'
     left join organization o on o.id = ds.organization_id

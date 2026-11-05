@@ -280,6 +280,10 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
     if (variants.length) {
       coverage.variants = "documented";
       ev.push(evidence(prov, "variants", "mwc-docs-md", { location: `${prov.file}#${doc.types.length ? "types" : "api"}`, excerpt: variants.map((v) => v.name).join(", ") }));
+    } else if (!doc.types.length) {
+      // Only a "## Types" section is parsed; pages without one may still describe variants in Usage
+      // (slider: "Continuous / Discrete / Range"), so the absence is unknown, not "not documented".
+      coverage.variants = "not-extracted";
     }
 
     // properties (merged across family elements)
@@ -300,6 +304,9 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
     const sizeProp = properties.find((p) => p.name === "size" && p.allowedValues?.length);
     const sizes = sizeProp?.allowedValues ?? null;
     if (sizes) coverage.sizes = "documented";
+    // A `size` property typed by an alias (FabSize) or a "Sizes" section means sizes are documented
+    // but not enumerated here: unknown, not "not documented".
+    else if (properties.some((p) => p.name === "size") || doc.sections.some((x) => /^sizes?$/i.test(x.title))) coverage.sizes = "not-extracted";
 
     // states (derived from documented boolean properties)
     const states = statesFromProps(properties, blob(prov.file, "api"));
@@ -422,7 +429,9 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
       if (desc && s.cem) {
         scov.description = "documented";
         const e = cemEvidence(s.cem, "description");
-        if (e) sev.push({ ...e, excerpt: desc });
+        // Point at the declaration that holds the text (e.g. the internal ChipSet superclass), not the
+        // element whose own description is a placeholder.
+        if (e) sev.push({ ...e, excerpt: desc, location: `custom-elements.json#${s.cem.docPointer}` });
       }
       const props = sortBy(s.api ? propsFromRows(s.api.properties, blob(prov.file, anchor)) : [], (p) => p.name);
       if (props.length) {

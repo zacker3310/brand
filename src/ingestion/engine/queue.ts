@@ -14,6 +14,12 @@ export type Job = typeof ingestionJobs.$inferSelect;
 export type JobStatus = Job["status"];
 
 export const DEFAULT_QUEUE = "ingest";
+/**
+ * Private queue for runs processed in-process (`--inline`). Background workers claim only
+ * DEFAULT_QUEUE, so they can never take (and run stale adapter code for) an inline run's stages.
+ * Inline claimers filter by run id instead of queue.
+ */
+export const INLINE_QUEUE = "inline";
 export const BACKOFF_BASE_MS = 15_000;
 export const BACKOFF_MAX_MS = 30 * 60_000;
 
@@ -71,18 +77,26 @@ export interface ClaimOptions {
   kinds?: string[];
   limit?: number;
   queue?: string;
-  /** Only claim jobs belonging to this run (inline processing). */
+  /** Only claim jobs belonging to this run (inline processing). With a run id and no explicit
+   *  queue, jobs are claimed from any queue. */
   runId?: string;
+}
+
+/** Move a run's queued jobs to another queue (e.g. hand an interrupted inline run back to workers). */
+export async function moveRunJobs(runId: string, queue: string, db: DB = getDb()): Promise<number> {
+  const rows = await db
+    .update(ingestionJobs)
+    .set({ queue, updatedAt: sql`now()` })
+    .where(and(eq(ingestionJobs.runId, runId), eq(ingestionJobs.status, "queued"), sql`${ingestionJobs.queue} <> ${queue}`))
+    .returning({ id: ingestionJobs.id });
+  return rows.length;
 }
 
 /** Atomically claim up to `limit` due jobs. Concurrent claimers never receive the same job. */
 export async function claim(workerId: string, opts: ClaimOptions = {}, db: DB = getDb()): Promise<Job[]> {
   const limit = Math.max(1, opts.limit ?? 1);
-  const conds = [
-    eq(ingestionJobs.queue, opts.queue ?? DEFAULT_QUEUE),
-    eq(ingestionJobs.status, "queued"),
-    lte(ingestionJobs.runAt, sql`now()`),
-  ];
+  const conds = [eq(ingestionJobs.status, "queued"), lte(ingestionJobs.runAt, sql`now()`)];
+  if (opts.queue || !opts.runId) conds.push(eq(ingestionJobs.queue, opts.queue ?? DEFAULT_QUEUE));
   if (opts.kinds?.length) conds.push(inArray(ingestionJobs.kind, opts.kinds));
   if (opts.runId) conds.push(eq(ingestionJobs.runId, opts.runId));
   const due = db

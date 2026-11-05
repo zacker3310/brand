@@ -8,13 +8,8 @@ import { expect as baseExpect, test, type Page } from "@playwright/test";
  */
 
 async function expectNoSeriousA11yViolations(page: Page) {
-  // Scope: this area's content (<main>). The shared shell (src/components/shell, integrator-owned) is
-  // covered by its own tests; its footer text uses --subtle-foreground (3.8:1 in light mode, reported).
-  // SystemMark monograms are decorative (aria-hidden, the name is always adjacent; WCAG 1.4.3
-  // exempts pure decoration); some hues fall below 4.5:1, also reported upstream.
+  // Full page, shell included: no exclusions.
   const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0])
-    .include("#main")
-    .exclude("span[aria-hidden='true'].font-mono")
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     .analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
@@ -40,7 +35,11 @@ test.describe("home", () => {
     const ledger = page.getByRole("complementary", { name: "The library" });
     const verified = num(await ledger.locator("div", { hasText: "Verified systems" }).locator("dd").first().textContent());
     expect(verified).toBeGreaterThan(0);
-    await expect(ledger).toContainText(/\d+ systems? deeply indexed · \d+ metadata-level/);
+    // The depth breakdown partitions the verified systems.
+    const depth = /(\d+) systems? deeply indexed · (?:(\d+) component inventor(?:y|ies) · )?(\d+) metadata-level/;
+    await expect(ledger).toContainText(depth);
+    const [, deep, inventory, meta] = depth.exec((await ledger.textContent()) ?? "")!;
+    expect(num(deep) + num(inventory) + num(meta)).toBe(verified);
 
     // featured systems are derived (rule label present) and link to detail pages
     const featured = page.locator("section#featured");
@@ -83,7 +82,7 @@ test.describe("directory (/systems)", () => {
     expect(count).toBeGreaterThanOrEqual(100);
     expect(await page.locator("main article").count()).toBe(count);
     // metadata-only systems say so instead of showing zero counts
-    await expect(page.getByText("Metadata only").first()).toBeVisible();
+    await expect(page.locator("main article").getByText("Metadata only").first()).toBeVisible();
     await expectNoHorizontalScroll(page);
     await expectNoSeriousA11yViolations(page);
   });
@@ -93,6 +92,8 @@ test.describe("directory (/systems)", () => {
     // auto-apply is a progressive enhancement: wait until the form is hydrated
     await page.locator("form[data-enhanced]").waitFor();
     const option = page.locator("label[for='f-depth-indexed']");
+    // Below lg the filters sit behind a "Filters" disclosure.
+    if (!(await option.isVisible())) await page.locator("label[for='filters-toggle']").click();
     const facetCount = num(await option.locator("span.tabular").textContent());
     expect(facetCount).toBeGreaterThan(0);
     await option.click();
@@ -171,8 +172,8 @@ test.describe("system detail (/systems/[slug])", () => {
   });
 
   test("metadata-only system explains what is and is not verified", async ({ page }) => {
-    await page.goto("/systems/ant-design");
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Ant Design");
+    await page.goto("/systems/apple-hig");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Apple Human Interface Guidelines");
     const deep = page.locator("section#deep-index");
     await expect(deep).toContainText("Deep ingestion has not been performed");
     await expect(deep).toContainText(/\d+ of \d+ registry checks passed/);
@@ -212,7 +213,11 @@ test.describe("search (/search)", () => {
 
   test("type facet narrows results and is reflected in the URL", async ({ page }) => {
     await page.goto("/search?q=button");
-    const facet = page.getByRole("complementary", { name: "Refine results" }).locator("a[href*='types=component']").filter({ hasText: /^Components/ }).last();
+    const refine = page.getByRole("complementary", { name: "Refine results" });
+    // Below lg the facets sit in a "Refine results" disclosure (a second copy of the desktop list).
+    const disclosure = refine.locator("details > summary").filter({ hasText: /^Refine results/ });
+    if (await disclosure.isVisible()) await disclosure.click();
+    const facet = refine.locator("a[href*='types=component']").filter({ hasText: /^Components/ }).filter({ visible: true }).first();
     const facetCount = num(await facet.locator("span.tabular").textContent());
     await facet.click();
     await expect(page).toHaveURL(/types=component(&|$)/);
@@ -241,7 +246,7 @@ test.describe("search (/search)", () => {
 test.describe("responsive", () => {
   test("no horizontal page scroll at 390px on any discovery route", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    for (const path of ["/", "/systems", "/systems?view=list", "/systems?registry=all", "/systems/carbon", "/systems/ant-design", "/search?q=button", "/search?q=color&view=grouped"]) {
+    for (const path of ["/", "/systems", "/systems?view=list", "/systems?registry=all", "/systems/carbon", "/systems/apple-hig", "/systems/bootstrap", "/search?q=button", "/search?q=color&view=grouped"]) {
       await page.goto(path);
       await page.locator("#main h1").first().waitFor();
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

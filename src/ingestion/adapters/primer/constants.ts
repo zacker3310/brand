@@ -93,6 +93,9 @@ export const VARIANT_AXIS_PROPS: Record<string, string> = {
   appearance: "appearance",
   emphasis: "emphasis",
   tone: "tone",
+  // Density axes: DataTable documents `cellPadding: 'condensed' | 'normal' | 'spacious'` as "Table cell density".
+  density: "density",
+  cellPadding: "density",
 };
 
 /** Boolean props that correspond directly to a component state. */

@@ -276,11 +276,19 @@ test.describe("without JavaScript the primary content is in the initial HTML", (
 
   test("component comparison", async ({ page }) => {
     const main = await open(page, COMPARE, "Button");
-    const matrix = main.getByRole("table", { name: /^Button compared across GitHub Primer, IBM Carbon Design System\./ });
-    await expect(matrix).toBeVisible();
-    await expect(matrix.getByRole("columnheader", { name: /^GitHub Primer/ })).toBeVisible();
-    await expect(matrix.getByRole("columnheader", { name: /^IBM Carbon Design System/ })).toBeVisible();
-    expect(await matrix.getByRole("row").count()).toBeGreaterThan(3);
+    if ((page.viewportSize()?.width ?? 1440) >= 1024) {
+      const matrix = main.getByRole("table", { name: /^Button compared across GitHub Primer, IBM Carbon Design System\./ });
+      await expect(matrix).toBeVisible();
+      await expect(matrix.getByRole("columnheader", { name: /^GitHub Primer/ })).toBeVisible();
+      await expect(matrix.getByRole("columnheader", { name: /^IBM Carbon Design System/ })).toBeVisible();
+      expect(await matrix.getByRole("row").count()).toBeGreaterThan(3);
+    } else {
+      // Below lg the matrix renders as one card per system and row group.
+      const matrix = main.getByRole("region", { name: "Comparison" });
+      await expect(matrix.getByRole("heading", { level: 3, name: "Naming", exact: true })).toBeVisible();
+      for (const name of ["GitHub Primer", "IBM Carbon Design System"]) await expect(matrix.locator("article").filter({ hasText: name }).first()).toBeVisible();
+      expect(await matrix.locator("article").count()).toBeGreaterThan(3);
+    }
   });
 
   test("/tokens", async ({ page }) => {

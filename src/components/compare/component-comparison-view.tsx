@@ -9,7 +9,7 @@ import { buildComponentMatrix, componentHref } from "@/lib/scoring/matrix";
 import { componentCompareHref, defaultComparisonTitle, type ComponentCompareParams } from "@/lib/scoring/params";
 import { getCompareOptions, getComparisonBySlug, getComponentComparison } from "@/server/queries/compare";
 import { CompareIndexView } from "./compare-index-view";
-import { ComparisonMatrix } from "./comparison-matrix";
+import { ComparisonMatrix, MISSING_TEXT } from "./comparison-matrix";
 import { ComponentCompareForm } from "./component-compare-form";
 import { ComponentPickSelect } from "./component-pick-select";
 import { CoverageLegend } from "./legend";
@@ -170,7 +170,10 @@ export async function ComponentComparisonView({ params: p }: { params: Component
                       {c.component.name}
                     </Link>
                   ) : (
-                    <p className="text-sm font-medium text-muted-foreground">Not in ATLAS index</p>
+                    <>
+                      <p className="text-sm font-medium text-muted-foreground">Not in ATLAS index</p>
+                      {c.missing && <p className="text-[11px] leading-snug text-muted-foreground">{MISSING_TEXT[c.missing]}</p>}
+                    </>
                   )}
                 </div>
               </li>

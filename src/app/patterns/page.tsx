@@ -49,7 +49,7 @@ export default async function PatternsPage() {
             title="Pattern types documented by indexed systems"
             description={`${formatCount(documented.length)} of ${formatCount(types.length)} ATLAS pattern types have at least one system's documentation mapped to them.`}
           >
-            <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {documented.map((t) => (
                 <li key={t.slug}>
                   <Link

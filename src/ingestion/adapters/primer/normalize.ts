@@ -504,7 +504,10 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   const { sizes } = sizesFrom(c);
   coverage.sizes = sizes.length ? "documented" : "not-documented";
   const states = statesFrom(c, a.componentsJsonUrl);
-  coverage.states = states.length ? "inferred" : "not-documented";
+  // State props documented only on subcomponents (ActionBar.IconButton.disabled) are published as
+  // properties but not modelled as states of the parent: unknown, not "not documented".
+  const subStateProps = c.subcomponents.some((sub) => sub.props.some((p) => STATE_BOOLEAN_PROPS[p.name.toLowerCase()] && /\bboolean\b/.test(p.type ?? "")));
+  coverage.states = states.length ? "inferred" : subStateProps ? "not-extracted" : "not-documented";
   const properties = propertiesFrom(c, a.componentsJsonUrl);
   coverage.properties = properties.length ? "documented" : "not-documented";
 

@@ -401,7 +401,7 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1",
   systems: [...SYSTEMS],
   description:
     "Adobe Spectrum: @adobe/spectrum-tokens (themes + platform scales), @adobe/spectrum-design-data component schemas and spectrum.adobe.com guideline pages (query-index + .plain.html); React Spectrum S2 and React Aria: llms.txt + per-page docs markdown, page MDX at the release tag, npm listings (jsDelivr, pinned to npm latest).",
@@ -412,7 +412,8 @@ export const adapter: SourceAdapter = {
     const system = ctx.systemSlug as SpectrumSystem;
     let bundle: NormalizedBundle;
     if (system === "adobe-spectrum") {
-      const { tokenReport, ...b } = normalizeDesign(fragments, { limit: ctx.limit });
+      const { tokenReport, templatedA11y, ...b } = normalizeDesign(fragments, { limit: ctx.limit });
+      if (templatedA11y.size) ctx.log.warn(`${templatedA11y.size} accessibility fragments are verbatim copies of another component's (not published as their keyboard/WCAG data)`, { sample: [...templatedA11y].slice(0, 8).map(([s, o]) => `${s}<-${o}`) });
       if (tokenReport.skipped.length) ctx.log.warn(`${tokenReport.skipped.length} tokens with unsupported set keys skipped`, { sample: tokenReport.skipped.slice(0, 5) });
       if (tokenReport.themedToScale.length) ctx.log.warn(`${tokenReport.themedToScale.length} themed tokens reference scale-dependent tokens`, { sample: tokenReport.themedToScale.slice(0, 5) });
       bundle = b;

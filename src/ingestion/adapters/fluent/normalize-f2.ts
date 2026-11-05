@@ -25,6 +25,10 @@ const LIB_ORDER: Record<string, number> = { "web/react": 0, "web/web-components"
 const LIB_LABEL: Record<string, string> = { "web/react": "Web", "web/web-components": "Web Components", ios: "iOS", android: "Android", windows: "Windows" };
 
 const KEY_WORDS = /\b(Tab|Enter|Space(bar)?|Escape|Esc|Arrow|Home|End|Page ?(Up|Down)|Shift)\b/;
+/** Page prose that mentions keyboard use at all ("using the keyboard arrows", "Page Up"). */
+const KEYBOARD_MENTION = /\bkeyboard\b|\barrow keys?\b|\b(Tab|Enter|Space(bar)?|Escape|Esc|Arrow|Home|End|Page ?(Up|Down)|Shift)\b/;
+/** Accessibility-relevant prose outside an "Accessibility" section. */
+const A11Y_MENTION = /\b(screen readers?|assistive technolog\w*|aria-[a-z]+|keyboard|focus)\b/i;
 
 export interface F2Result {
   components: NormalizedComponent[];
@@ -109,8 +113,11 @@ export function normalizeF2(frags: FluentFragment[], opts: { limit?: number } = 
     const apg = apgPattern(page);
     let accessibility: NormalizedComponent["accessibility"] = null;
     const keyboard = (a11ySec?.keyboard ?? []).map((k) => ({ keys: k.keys, action: clip(k.action, 240)! }));
+    const pageProse = page.sections.flatMap((s) => [...s.prose, ...s.cards.map((c) => `${c.name} ${c.description ?? ""}`)]).join(" ");
     if (guidance || apg) {
-      const mentionsKeys = !!a11ySec && KEY_WORDS.test(a11ySec.prose.join(" "));
+      // Keys mentioned anywhere on the page (Behavior sections included) but not parsed into a keyboard
+      // table are unknown, not undocumented.
+      const mentionsKeys = (!!a11ySec && KEY_WORDS.test(a11ySec.prose.join(" "))) || KEYBOARD_MENTION.test(pageProse);
       accessibility = {
         ariaPattern: apg?.slug ?? null,
         roles: null,
@@ -121,7 +128,7 @@ export function normalizeF2(frags: FluentFragment[], opts: { limit?: number } = 
         wcagCriteria: null,
         docsUrl: a11ySec ? `${docsUrl}#${a11ySec.id ?? "accessibility"}` : (apg?.url ?? null),
         coverage: {
-          guidance: guidance ? "documented" : "not-documented",
+          guidance: guidance ? "documented" : A11Y_MENTION.test(pageProse) ? "not-extracted" : "not-documented",
           keyboard: keyboard.length ? "documented" : mentionsKeys ? "not-extracted" : "not-documented",
           ariaPattern: apg ? "documented" : "not-documented",
           roles: "not-documented",
@@ -134,8 +141,9 @@ export function normalizeF2(frags: FluentFragment[], opts: { limit?: number } = 
       if (guidance) ev.push(evidence(primary.prov, "accessibility", "f2-html", { location: `${new URL(docsUrl).pathname}#accessibility`, excerpt: guidance }));
       if (apg) ev.push(evidence(primary.prov, "accessibility", "f2-html", { location: `${new URL(docsUrl).pathname}#resources`, excerpt: `WAI guidance link: ${apg.url}` }));
     } else {
-      coverage.accessibility = "not-documented";
-      coverage.keyboard = "not-documented";
+      // No Accessibility section and no WAI link; accessibility prose elsewhere on the page was not parsed.
+      coverage.accessibility = A11Y_MENTION.test(pageProse) ? "not-extracted" : "not-documented";
+      coverage.keyboard = KEYBOARD_MENTION.test(pageProse) ? "not-extracted" : "not-documented";
     }
 
     // responsive guidance (only when a section is explicitly about it)
@@ -165,9 +173,11 @@ export function normalizeF2(frags: FluentFragment[], opts: { limit?: number } = 
     // sourceCodeUrl: only explicit "code" resources (e.g. fluentui-apple / fluentui-android folders)
     const code = page.resources.find((r) => /^https:\/\/github\.com\//.test(r.href) && /code/i.test(r.title));
     coverage.properties = "not-documented";
-    coverage.states = "not-documented";
-    coverage.sizes = "not-documented";
-    coverage.tokens = "not-documented";
+    // States, sizes and tokens are not parsed from Fluent 2 guidance pages (pages do describe e.g.
+    // validation or disabled states in prose), so they are unknown here rather than "not documented".
+    coverage.states = "not-extracted";
+    coverage.sizes = "not-extracted";
+    coverage.tokens = "not-extracted";
 
     const cls = strongest(nameCandidates(name).map((x) => classifyComponentName(x)));
     let classification: NormalizedComponent["classification"] = cls ? { state: "inferred", method: cls.method, confidence: cls.confidence } : null;

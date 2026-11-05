@@ -113,7 +113,7 @@ export function TypographyView(p: ViewProps) {
           <GroupSection g={g}>
             <GroupHeader g={g} set={g.setId ? p.setById.get(g.setId) : undefined} multiSet={p.multiSet} />
             {(composites.length > 0 || compositions.length > 0) && (
-              <div className="grid gap-3 lg:grid-cols-2">
+              <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
                 {composites.map(({ t, spec }) => (
                   <Specimen key={t.id} spec={spec}>
                     <TokenAnchor id={t.id} href={p.hrefFor(t.id)} className="block truncate rounded font-mono text-[12.5px] font-medium hover:underline" title={t.name}>

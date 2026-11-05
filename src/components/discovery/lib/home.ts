@@ -155,7 +155,7 @@ export function summarizeActivity(counts: ActivityCounts[], max = 3): string[] {
 export function depthLabel(indexed: number, partial: number, metadata: number, inventory = 0): string {
   const parts = [`${indexed} ${indexed === 1 ? "system" : "systems"} deeply indexed`];
   if (partial > 0) parts.push(`${partial} partial`);
-  if (inventory > 0) parts.push(`${inventory} component inventories`);
+  if (inventory > 0) parts.push(`${inventory} component ${inventory === 1 ? "inventory" : "inventories"}`);
   parts.push(`${metadata} metadata-level`);
   return parts.join(" · ");
 }

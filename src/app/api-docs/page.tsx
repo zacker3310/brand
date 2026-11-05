@@ -95,9 +95,9 @@ export default async function ApiDocsPage() {
                 <ul className="space-y-1">
                   {eps.map((ep) => (
                     <li key={ep.id}>
-                      <a href={`#${anchor(ep)}`} className="flex items-center gap-2 text-[13px] text-muted-foreground hover:text-foreground">
+                      <a href={`#${anchor(ep)}`} className="flex items-start gap-2 text-[13px] leading-snug text-muted-foreground hover:text-foreground">
                         <MethodTag method={ep.method} small />
-                        <span className="truncate">{ep.summary}</span>
+                        <span className="min-w-0">{ep.summary}</span>
                       </a>
                     </li>
                   ))}

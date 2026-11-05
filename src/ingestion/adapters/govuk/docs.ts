@@ -307,12 +307,22 @@ const WCAG_RE = /\b(?:success criteri(?:on|a)|\bSC)\s+(\d\.\d{1,2}\.\d{1,2})/gi;
 const CALL_FOR_RESEARCH_RE = /\b(share (your|the|any) (findings|research|insight)|we need (to find out|more)|tell us|help improve|if your service has tested|let us know)\b/i;
 const NON_GUIDANCE_SECTION_RE = /^(research\b|next steps|services using|help improve)/i;
 
-function sentencesMatching(blocks: string[], re: RegExp, max: number): string[] {
+/**
+ * Sentences that lean on the previous one ("This causes problems for keyboard users.", "While screen
+ * readers will read out the link text, ...") are kept together with it, so the excerpt keeps its
+ * subject (infinite scroll, links in hint text) instead of reading as a claim about the component.
+ */
+const DEPENDENT_START_RE = /^(this|these|that|those|it|its|they|their|such|doing so|while|however|but|instead|otherwise|because|so|also)\b/i;
+
+export function sentencesMatching(blocks: string[], re: RegExp, max: number): string[] {
   const out: string[] = [];
   for (const b of blocks) {
-    for (const s of splitSentences(b)) {
+    const sentences = splitSentences(b);
+    for (const [i, s] of sentences.entries()) {
       if (!re.test(s) || CALL_FOR_RESEARCH_RE.test(s)) continue;
-      const c = clip(s, 400)!;
+      const prev = i > 0 ? sentences[i - 1]! : null;
+      const withContext = prev && DEPENDENT_START_RE.test(s) && !out.some((x) => x.endsWith(prev)) ? `${prev} ${s}` : s;
+      const c = clip(withContext, 400)!;
       if (!out.some((x) => x.toLowerCase() === c.toLowerCase())) out.push(c);
       if (out.length >= max) return out;
     }

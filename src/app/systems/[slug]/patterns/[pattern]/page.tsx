@@ -97,7 +97,7 @@ export default async function SystemPatternPage({ params }: Props) {
                     : "Related components have not been extracted for this pattern."}
               </p>
             ) : (
-              <ul className="grid gap-2 sm:grid-cols-2">
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {p.components.map((c) => (
                   <li key={c.slug}>
                     <Link href={componentHref(p.system.slug, c.slug)} className="flex items-center justify-between gap-3 rounded-lg border px-3 py-2.5 transition-colors hover:border-primary/30 hover:bg-accent/40">

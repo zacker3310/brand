@@ -720,7 +720,11 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
       exampleList.push({ slug: s, title: h.text, kind: "docs-link", url: `${examples.page.url}#${h.id}`, attribution: "Atlassian Design System documentation (atlassian.design)" });
       if (exampleList.length >= 25) break;
     }
-    if (exampleList.length) evidence.push(ev(examples.stamp, "examples", METHOD.examples, { location: "examples tab headings", excerpt: exampleList.map((e) => e.title).join(", "), confidence: 0.9 }));
+    // A single un-headed live example (e.g. Country select) still documents an example.
+    if (!exampleList.length && examples.page.exampleBlocks > 0) {
+      exampleList.push({ slug: "docs-examples", title: "Examples tab", kind: "docs-link", url: examples.page.url, attribution: "Atlassian Design System documentation (atlassian.design)" });
+      evidence.push(ev(examples.stamp, "examples", METHOD.examples, { location: `examples tab (${examples.page.exampleBlocks} code example${examples.page.exampleBlocks > 1 ? "s" : ""}, no section headings)`, excerpt: "Examples tab", confidence: 0.85 }));
+    } else if (exampleList.length) evidence.push(ev(examples.stamp, "examples", METHOD.examples, { location: "examples tab headings", excerpt: exampleList.map((e) => e.title).join(", "), confidence: 0.9 }));
   }
   coverage.examples = exampleList.length ? "documented" : examples || !hasTab(pages, "examples") ? "not-documented" : "not-extracted";
 

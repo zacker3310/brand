@@ -631,6 +631,31 @@ function mergeInto(target: Map<string, PropMember>, members: Iterable<PropMember
   }
 }
 
+/**
+ * Union of prop shapes (`{ text?: string; children: string } | { text: string; children?: ReactNode }`):
+ * a prop is required only when every branch declares it as required, and its type is the union of
+ * the distinct branch types. (Intersection merging would claim "required" from any one branch.)
+ */
+export function mergeUnion(branches: Map<string, PropMember>[]): Map<string, PropMember> {
+  const out = new Map<string, PropMember>();
+  if (branches.length === 1) return branches[0]!;
+  const names: string[] = [];
+  for (const b of branches) for (const k of b.keys()) if (!names.includes(k)) names.push(k);
+  for (const name of names) {
+    const present = branches.map((b) => b.get(name)).filter((m): m is PropMember => !!m);
+    const types: string[] = [];
+    for (const m of present) if (m.type && !types.includes(m.type)) types.push(m.type);
+    const withDoc = present.find((m) => m.doc && (m.doc.summary || Object.keys(m.doc.tags).length)) ?? present[0]!;
+    out.set(name, {
+      ...present[present.length - 1]!,
+      doc: withDoc.doc,
+      type: types.length > 1 ? types.join(" | ") : (types[0] ?? present[0]!.type),
+      optional: present.length < branches.length || present.some((m) => m.optional),
+    });
+  }
+  return out;
+}
+
 function resolveInner(text: string, ctx: ResolveCtx, origin: string): Map<string, PropMember> {
   const out = new Map<string, PropMember>();
   if (ctx.depth > 24) return out;
@@ -643,11 +668,10 @@ function resolveInner(text: string, ctx: ResolveCtx, origin: string): Map<string
   }
   const uni = splitTop(t, "|");
   if (uni.length > 1) {
-    for (const part of uni) {
-      if (/^(undefined|null|never)$/.test(part)) continue;
-      mergeInto(out, resolveInner(part, { ...ctx, depth: ctx.depth + 1 }, origin).values());
-    }
-    return out;
+    const branches = uni
+      .filter((part) => !/^(undefined|null|never)$/.test(part))
+      .map((part) => resolveInner(part, { ...ctx, depth: ctx.depth + 1 }, origin));
+    return mergeUnion(branches);
   }
   if (t.startsWith("{")) {
     const close = matchClose(t, 0);

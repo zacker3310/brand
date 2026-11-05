@@ -489,6 +489,35 @@ describe("worker", () => {
     expect(w.processed).toBe(5); // run-system, discover, fetch, parse, publish
   });
 
+  it("never claims the stages of an inline run (private queue); a non-inline resume hands them back", async () => {
+    const e = await engine.enqueueSystemRun(SLUG, { queue: engine.INLINE_QUEUE });
+    const w = new engine.Worker({ concurrency: 2, pollMs: 20, heartbeatMs: 60_000, shutdownTimeoutMs: 2_000 });
+    const started = w.start();
+    await new Promise((res) => setTimeout(res, 300));
+    expect(w.processed).toBe(0);
+    // inline processing claims by run id and keeps every follow-up stage on the private queue
+    const done = await engine.processRunInline(e.runId, { heartbeatMs: 60_000 });
+    expect(done.status).toBe("succeeded");
+    expect(w.processed).toBe(0);
+    const queues = await db().selectDistinct({ q: s.ingestionJobs.queue }).from(s.ingestionJobs).where(eq(s.ingestionJobs.runId, e.runId));
+    expect(queues.map((r) => r.q)).toEqual([engine.INLINE_QUEUE]);
+
+    // an inline run whose process died: resuming without --inline moves its jobs to the shared queue
+    const orphan = await engine.enqueueSystemRun(SLUG, { queue: engine.INLINE_QUEUE });
+    await new Promise((res) => setTimeout(res, 150));
+    expect(w.processed).toBe(0);
+    await engine.resumeRun(orphan.runId);
+    for (let i = 0; i < 200; i++) {
+      const r = await engine.getRun(orphan.runId);
+      if (r && ["succeeded", "partial", "failed"].includes(r.status)) break;
+      await new Promise((res) => setTimeout(res, 50));
+    }
+    await w.stop();
+    await started;
+    expect((await engine.getRun(orphan.runId))!.status).toBe("succeeded");
+    expect(w.processed).toBe(5);
+  });
+
   it("releases a job that does not finish within the shutdown timeout", async () => {
     let unblock!: () => void;
     const gate = new Promise<void>((r) => (unblock = r));

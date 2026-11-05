@@ -17,8 +17,8 @@ import { slugify } from "@/lib/utils";
 import { PKG, siteUrl } from "./constants";
 import { fragsOf, pick, type Frag } from "./fragments";
 import type { ComponentSchema } from "./schema";
-import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy, cmp } from "./shared";
-import { siteComponents, sitePatternRows, type SiteComponent, type SiteProp } from "./site";
+import { clip, evidence, firstSentence, lifecycleFromStatus, uniqBy, cmp, type Ev } from "./shared";
+import { siteComponents, sitePatternRows, templatedA11yFragments, type SiteComponent, type SiteProp } from "./site";
 import { buildTokenSets } from "./tokens";
 
 const MAX_PROPS = 150;
@@ -80,7 +80,11 @@ function propRows(props: SiteProp[], impl: string, url: string, attrName: boolea
   return out;
 }
 
-function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; index?: Frag<"site-index">; componentTokens: Map<string, string[]>; tokenNames: Set<string>; tokensEv: EvidenceInput | null }): NormalizedComponent {
+function buildComponent(
+  slug: string,
+  parts: Parts,
+  ctx: { slugs: Set<string>; index?: Frag<"site-index">; componentTokens: Map<string, string[]>; componentTokenFiles: Map<string, Ev[]>; tokenNames: Set<string>; templatedA11y: Map<string, string> },
+): NormalizedComponent {
   const { site, schema: sf } = parts;
   const schema: ComponentSchema | undefined = sf?.schema;
   const ev: EvidenceInput[] = [];
@@ -211,7 +215,10 @@ function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; i
   frameworks.sort((a, b) => cmp(a.slug, b.slug));
 
   // Accessibility: keyboard + WCAG tables (guidelines), ARIA role + WCAG (schema).
-  const a11yFrag = frag("accessibility");
+  // A fragment that is a verbatim copy of another component's accessibility tables (site template) says
+  // nothing about this component: its keyboard/WCAG rows are not published as this component's.
+  const templatedFrom = ctx.templatedA11y.get(slug) ?? null;
+  const a11yFrag = templatedFrom ? undefined : frag("accessibility");
   const kb: KeyboardInteraction[] = uniqBy(a11yFrag?.a11y?.keyboard ?? [], (k) => `${k.keys}|${k.action}`)
     .slice(0, 20)
     .map((k) => ({ keys: clip(k.keys, 80), action: clip(k.action, 300) }));
@@ -229,7 +236,7 @@ function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; i
       wcagCriteria: wcag.length ? wcag : null,
       docsUrl,
       coverage: {
-        keyboard: kb.length ? "documented" : a11yFrag?.a11y?.keyboardSection ? "not-extracted" : a11yFrag ? "not-documented" : "not-extracted",
+        keyboard: kb.length ? "documented" : templatedFrom || a11yFrag?.a11y?.keyboardSection ? "not-extracted" : a11yFrag ? "not-documented" : "not-extracted",
         wcagCriteria: wcag.length ? "documented" : "not-extracted",
         roles: roles.length ? "documented" : "not-extracted",
         ariaPattern: "not-extracted",
@@ -242,8 +249,8 @@ function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; i
     if (kb.length) ev.push(evidence("keyboard", a11yFrag!.ev, "site-a11y", 0.95, { location: `${a11yFrag!.ev.location}#keyboard-interactions`, excerpt: `${kb[0]!.keys}: ${kb[0]!.action}` }));
     if (sf && (roles.length || schema?.wcag.length)) ev.push(evidence("accessibility", sf.ev, "component-schema", 0.9, { location: `${sf.ev.location}#/accessibility`, excerpt: roles.length ? `role: ${roles[0]}` : null }));
   }
-  coverage.accessibility = accessibility ? "documented" : a11yFrag || schema ? "not-documented" : "not-extracted";
-  coverage.keyboard = kb.length ? "documented" : a11yFrag?.a11y?.keyboardSection ? "not-extracted" : a11yFrag ? "not-documented" : "not-extracted";
+  coverage.accessibility = accessibility ? "documented" : templatedFrom ? "not-extracted" : a11yFrag || schema ? "not-documented" : "not-extracted";
+  coverage.keyboard = kb.length ? "documented" : templatedFrom || a11yFrag?.a11y?.keyboardSection ? "not-extracted" : a11yFrag ? "not-documented" : "not-extracted";
   coverage.responsive = "not-extracted";
 
   // Token usages: tokens owned by this component (`component` field) + schema token bindings.
@@ -252,7 +259,11 @@ function buildComponent(slug: string, parts: Parts, ctx: { slugs: Set<string>; i
   const tokenUsages = uniqBy([...bound, ...owned], (t) => t)
     .slice(0, MAX_TOKEN_USAGES)
     .map((t) => ({ tokenName: t, property: null }));
-  if (owned.length && ctx.tokensEv) ev.push({ ...ctx.tokensEv, field: "tokens", location: `${ctx.tokensEv.location} (tokens with "component": "${slug}")` });
+  if (owned.length) {
+    const owners = [slug, ...(schema && schema.name !== slug ? [schema.name] : [])];
+    const files = uniqBy(owners.flatMap((o) => ctx.componentTokenFiles.get(o) ?? []), (e) => e.sourceUrl);
+    for (const f of files) ev.push(evidence("tokens", f, "tokens-json", 0.9, { location: `${f.location} (tokens with "component": "${slug}")` }));
+  }
   if (bound.length && sf) ev.push(evidence("tokens", sf.ev, "component-schema", 0.9, { location: `${sf.ev.location}#/tokenBindings` }));
   coverage.tokens = tokenUsages.length ? "documented" : "not-documented";
 
@@ -409,7 +420,7 @@ function buildFacts(pkg: Frag<"pkg"> | undefined, principles: Frag<"principles">
   };
 }
 
-export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: number } = {}): NormalizedBundle & { tokenReport: { skipped: string[]; themedToScale: string[] } } {
+export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: number } = {}): NormalizedBundle & { tokenReport: { skipped: string[]; themedToScale: string[] }; templatedA11y: Map<string, string> } {
   const frs = fragsOf(fragments);
   const index = pick(frs, "site-index")[0];
   const schemas = pick(frs, "schema").sort((a, b) => cmp(a.name, b.name));
@@ -425,8 +436,6 @@ export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: 
     { pkg: PKG.tokens, version: tokPkg?.version ?? tokFiles[0]?.ev.sourceUrl.match(/@(\d+\.\d+\.\d+[^/]*)\//)?.[1] ?? "unknown", cssVars: css ? new Set(css.names) : null, cssEv: css?.ev ?? null },
   );
   const tokenNames = new Set(built.sets.flatMap((s) => s.tokens.map((t) => t.name)));
-  const firstTokFile = [...tokFiles].sort((a, b) => cmp(a.file, b.file))[0];
-  const tokensEv = firstTokFile ? evidence("tokens", { ...firstTokFile.ev, location: `${PKG.tokens} src/*.json` }, "tokens-json", 0.9) : null;
 
   // Component identity: guideline pages (by slug) + design-data schemas (by name).
   const site = index ? siteComponents(index.rows) : [];
@@ -441,13 +450,14 @@ export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: 
   for (const p of pages) bySlug.get(p.slug)?.pages.push(p);
   for (const f of sfrags) bySlug.get(f.slug)?.frags.push(f);
   const slugs = new Set(bySlug.keys());
+  const templatedA11y = templatedA11yFragments(sfrags.filter((f) => f.section === "accessibility"));
   const components = [...bySlug.entries()]
     .sort((a, b) => cmp(a[0], b[0]))
     .filter(([, p]) => p.site || p.schema)
     .map(([slug, p]) => {
       p.pages.sort((a, b) => cmp(a.impl, b.impl));
       p.frags.sort((a, b) => cmp(a.section, b.section));
-      return buildComponent(slug, p, { slugs, index, componentTokens: built.componentTokens, tokenNames, tokensEv });
+      return buildComponent(slug, p, { slugs, index, componentTokens: built.componentTokens, componentTokenFiles: built.componentTokenFiles, tokenNames, templatedA11y });
     });
 
   return {
@@ -457,5 +467,6 @@ export function normalizeDesign(fragments: { data: unknown }[], opts: { limit?: 
     patterns: buildPatterns(index),
     facts: buildFacts(tokPkg, pick(frs, "principles")[0], schemas),
     tokenReport: { skipped: built.skipped, themedToScale: built.themedToScale },
+    templatedA11y,
   };
 }

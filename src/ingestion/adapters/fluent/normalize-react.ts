@@ -162,9 +162,12 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     const sizes = comp ? sizesFromProps(comp.props) : null;
     const states = comp ? statesFromProps(comp.props, dtsUrl) : [];
     if (comp) {
-      coverage.variants = variants.length ? "documented" : "not-documented";
-      coverage.sizes = sizes ? "documented" : "not-documented";
-      coverage.states = states.length ? "inferred" : "not-documented";
+      // With unresolved heritage (e.g. `Pick<ButtonProps, 'disabled'>` from another package) the
+      // absence of variant/size/state props was not checked, so it is unknown, not "not documented".
+      const absent = comp.unresolved.some((u) => !NO_VARIANT_HERITAGE.test(u)) ? "not-extracted" : "not-documented";
+      coverage.variants = variants.length ? "documented" : absent;
+      coverage.sizes = sizes ? "documented" : absent;
+      coverage.states = states.length ? "inferred" : absent;
       if (variants.length && dts) ev.push(evidence(dts.prov, "variants", "dts-props", { location: `dist/index.d.ts#${comp.propsType}`, excerpt: uniq(variants.map((v) => `${v.axis}: ${v.name}`)).slice(0, 12).join(", ") }));
       if (sizes && dts) ev.push(evidence(dts.prov, "sizes", "dts-props", { location: `dist/index.d.ts#${comp.propsType}.size`, excerpt: `size: ${sizes.join(" | ")}` }));
     }
@@ -285,9 +288,10 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     const variants = variantsFromProps(s.comp.props, url, "dist/index.d.ts");
     const sizes = sizesFromProps(s.comp.props);
     const states = statesFromProps(s.comp.props, url);
-    coverage.variants = variants.length ? "documented" : "not-documented";
-    coverage.sizes = sizes ? "documented" : "not-documented";
-    coverage.states = states.length ? "inferred" : "not-documented";
+    const absent = s.comp.unresolved.some((u) => !NO_VARIANT_HERITAGE.test(u)) ? "not-extracted" : "not-documented";
+    coverage.variants = variants.length ? "documented" : absent;
+    coverage.sizes = sizes ? "documented" : absent;
+    coverage.states = states.length ? "inferred" : absent;
     if (variants.length) ev.push(evidence(dts.prov, "variants", "dts-props", { location: `dist/index.d.ts#${s.comp.propsType}`, excerpt: uniq(variants.map((v) => `${v.axis}: ${v.name}`)).slice(0, 12).join(", ") }));
     if (sizes) ev.push(evidence(dts.prov, "sizes", "dts-props", { location: `dist/index.d.ts#${s.comp.propsType}.size`, excerpt: `size: ${sizes.join(" | ")}` }));
     coverage.frameworks = "documented";
@@ -341,6 +345,9 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
  * First sentence that describes the component: skips pointer sentences ("For detailed guidance …
  * go to Fluent 2 …") and leading callout emoji.
  */
+/** Unresolved heritage that cannot carry variant / size / state props (refs, DOM attribute bags). */
+const NO_VARIANT_HERITAGE = /^(React(_\d+)?\.)?(RefAttributes|HTMLAttributes|AriaAttributes|DOMAttributes|ClassAttributes)\b/;
+
 export function describingSentence(text: string | null | undefined): string | null {
   if (!text) return null;
   const sentences = text

@@ -132,7 +132,9 @@ export const TARGETS_3: GenericTarget[] = [
   {
     slug: "primeng",
     strategy: "nav",
-    navUrl: "https://primeng.dev/autocomplete",
+    // A single-word component page: the nav page itself is not fetched as a component page, so its own
+    // entry is named from the humanized URL segment ("autocomplete" -> "Autocomplete", not "AutoComplete").
+    navUrl: "https://primeng.dev/accordion",
     navSelector: "aside",
     include: "^https://primeng\\.dev/([a-z]+)$",
     exclude: ["^https://primeng\\.dev/(?:installation|configuration|components|filterservice|animateonscroll|autofocus|bind|classnames|focustrap|keyfilter|ripple|styleclass)$"],
@@ -144,7 +146,8 @@ export const TARGETS_3: GenericTarget[] = [
   {
     slug: "primereact",
     strategy: "nav",
-    navUrl: "https://primereact.dev/docs/styled/components/autocomplete",
+    // Single-word component page as nav page (see primeng).
+    navUrl: "https://primereact.dev/docs/styled/components/accordion",
     navSelector: "aside",
     include: "^https://primereact\\.dev/docs/styled/components/([a-z]+)$",
     exclude: ["/components/(?:animateonscroll|focustrap|keyfilter)$"],
@@ -156,7 +159,8 @@ export const TARGETS_3: GenericTarget[] = [
   {
     slug: "primevue",
     strategy: "nav",
-    navUrl: "https://primevue.dev/autocomplete/",
+    // Single-word component page as nav page (see primeng).
+    navUrl: "https://primevue.dev/accordion/",
     navSelector: "aside",
     include: "^https://primevue\\.dev/([a-z]+)/?$",
     exclude: ["^https://primevue\\.dev/(?:installation|configuration|animateonscroll|focustrap|keyfilter|mask|ripple|styleclass)/?$"],
@@ -202,7 +206,9 @@ export const TARGETS_3: GenericTarget[] = [
     include: "^https://react-bootstrap\\.netlify\\.app/docs/(?:components|forms|layout|utilities)/([a-z0-9]+(?:-[a-z0-9]+)*)/?$",
     exclude: ["/docs/forms/(?:overview|layout|validation)/?$", "/docs/layout/breakpoints/?$", "/docs/utilities/(?:restart-ui|transitions)/?$"],
     frameworks: ["react"],
-    titleSuffix: "\\s*\\|\\s*React Bootstrap$",
+    // The Tabs page is titled "Tabbed components", which the trailing kind-word rule would cut to "Tabbed":
+    // blank it so the name falls back to the URL segment ("Tabs", also the sidebar label and the <Tabs> component).
+    titleSuffix: ["\\s*\\|\\s*React Bootstrap$", "^Tabbed components$"],
     notes:
       "The Docusaurus sitemap served at react-bootstrap.github.io lists URLs on react-bootstrap.netlify.app, which is also the rel=canonical of every docs page (same content as the github.io mirror). The static sidebar only expands the current section, so the sitemap is the complete source. robots.txt is 404 (unrestricted). Components = Components section + form controls + Grid/Stack layout + Ratio; excluded guides: forms overview/layout/validation, breakpoints, transitions, restart-ui.",
   },

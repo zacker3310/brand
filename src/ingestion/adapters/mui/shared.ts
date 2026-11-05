@@ -114,10 +114,41 @@ export function typeDescriptionToText(desc: string | null | undefined): string |
   return t ? t.replace(/\s*\|\s*/g, " | ").trim() : null;
 }
 
-/** String literal members of a TypeScript-ish union: "'a' | 'b' | string" -> ["a", "b"]. Null when none. */
+/** Split a type expression at top-level "|" only (not inside {}, [], (), <> or quotes). */
+export function topLevelUnion(type: string): string[] {
+  const parts: string[] = [];
+  let depth = 0;
+  let quote: string | null = null;
+  let cur = "";
+  let prev = "";
+  for (const ch of type) {
+    if (quote) {
+      if (ch === quote) quote = null;
+    } else if (ch === "'" || ch === '"') quote = ch;
+    else if ("{[(<".includes(ch)) depth++;
+    else if ("}])>".includes(ch) && !(ch === ">" && prev === "=")) depth = Math.max(0, depth - 1);
+    else if (ch === "|" && depth === 0) {
+      parts.push(cur.trim());
+      cur = "";
+      prev = ch;
+      continue;
+    }
+    cur += ch;
+    prev = ch;
+  }
+  parts.push(cur.trim());
+  return parts;
+}
+
+/**
+ * String literal members of a TypeScript-ish union: "'a' | 'b' | string" -> ["a", "b"]; null when none.
+ * Only literals that are alternatives of the type itself count ("'a' | 'b' | Array<...>" -> [a, b]).
+ * Literals nested in object shapes, arrays or function signatures are not allowed values of the prop
+ * ("{ horizontal: 'left' | 'right', ... }" has none).
+ */
 export function literalUnion(type: string | null | undefined): string[] | null {
   if (!type) return null;
-  const parts = type.split("|").map((p) => p.trim());
+  const parts = topLevelUnion(type);
   const values: string[] = [];
   for (const p of parts) {
     const m = /^'([^']*)'$/.exec(p) ?? /^"([^"]*)"$/.exec(p);

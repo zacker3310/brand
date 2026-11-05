@@ -168,6 +168,15 @@ export interface Derived {
   states: { name: string; canonical: string | null; prop: DocProp; how: string }[];
 }
 
+/**
+ * Props that document state but are not turned into states (a `status` typed as plain `string` whose
+ * values are listed in the description, or state props of sub-parts such as `items[].disabled`). When
+ * nothing is derived, such props mean "documented but not extracted", not "not documented".
+ */
+export function unextractedStateProps(props: DocProp[]): DocProp[] {
+  return props.filter((p) => !p.deprecated && (p.name === "status" || !!STATE_PROPS[p.name.toLowerCase()]));
+}
+
 /** Derive variants, sizes and states from the component's own (owner = null), non-deprecated props. */
 export function deriveFromProps(props: DocProp[]): Derived {
   const own = props.filter((p) => p.owner === null && !p.deprecated);

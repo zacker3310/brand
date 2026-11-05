@@ -528,7 +528,7 @@ function validate(ctx: AdapterContext, bundle: NormalizedBundle): ValidationIssu
 
 export const adapter: SourceAdapter = {
   id: ADAPTER_ID,
-  version: "1.0.0",
+  version: "1.0.1", // deep-1 audit: accessibility/usage parse records mentions (screen reader, focus, APG link, AI presence)
   systems: SYSTEMS,
   description:
     "IBM Carbon: carbon-website MDX docs + nav/component index (raw GitHub), live docs page metadata and sitemap, @carbon/react propTypes, @carbon/web-components manifest, DTCG tokens from @carbon/colors/themes/layout/motion, @carbon/type SCSS (npm via jsDelivr, pinned to latest).",

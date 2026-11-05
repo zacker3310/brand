@@ -11,15 +11,9 @@ const expect = baseExpect.configure({ timeout: 20_000 });
 const num = (s: string | null | undefined) => Number((s ?? "").replace(/[^\d]/g, ""));
 
 async function expectNoSeriousA11yViolations(page: Page) {
-  // Known issues in integrator-owned shared UI, reported as requested changes:
-  //  - the header search trigger's aria-label differs from its visible text (label-content-name-mismatch);
-  //  - the kit's VerificationBadge "inferred" colors (--inferred on --inferred-soft) are below 4.5:1 in light mode;
-  //  - the site footer's fine print uses --subtle-foreground, below 4.5:1 on the page background.
+  // Full page, shell and kit included: no exclusions.
   const results = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-    .exclude("header button[aria-keyshortcuts]")
-    .exclude("span.text-inferred.bg-inferred-soft")
-    .exclude("footer .text-subtle-foreground")
     .analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length}) ${v.nodes[0]?.target.join(" ")}`)).toEqual([]);
@@ -29,6 +23,11 @@ async function expectNoHorizontalScroll(page: Page) {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(1);
 }
+
+/** Below xl (1280px) the inspector opens as a modal sheet (role dialog) instead of the side panel. */
+const inspectorOf = (page: Page) => page.getByRole("complementary", { name: "Token inspector" }).or(page.getByRole("dialog", { name: "Token inspector" }));
+/** The token-name heading (the sheet also has a visually hidden "Token inspector" title before it). */
+const inspectedHeading = (page: Page) => inspectorOf(page).getByRole("heading", { level: 2 }).last();
 
 /** Category tab counts ("Color 2,410") keyed by label. */
 async function tabCounts(page: Page) {
@@ -52,9 +51,18 @@ test.describe("token explorer", () => {
     const counts = options.map((o) => num(o.split("·").pop()));
     expect(counts[0]).toBe(Math.max(...counts));
 
-    const allSets = page.getByRole("navigation", { name: "Token sets" }).getByRole("link").first();
-    await expect(allSets).toHaveAttribute("aria-current", "page");
-    const total = num(await allSets.locator("span").last().textContent());
+    // Desktop lists sets in a nav; below lg a "Token set" select carries the same choices.
+    const desktop = (page.viewportSize()?.width ?? 1440) >= 1024;
+    let total: number;
+    if (desktop) {
+      const allSets = page.getByRole("navigation", { name: "Token sets" }).getByRole("link").first();
+      await expect(allSets).toHaveAttribute("aria-current", "page");
+      total = num(await allSets.locator("span").last().textContent());
+    } else {
+      const setSelect = page.getByLabel("Token set", { exact: true });
+      await expect(setSelect).toHaveValue("");
+      total = num((await setSelect.locator("option").first().textContent())?.split("·").pop());
+    }
     const tabs = await tabCounts(page);
     expect(Object.keys(tabs)).toHaveLength(9);
     expect(Object.values(tabs).reduce((a, b) => a + b, 0)).toBe(total);
@@ -70,8 +78,8 @@ test.describe("token explorer", () => {
     const id = await item.getAttribute("data-inspect");
     await item.click();
     await expect(page).toHaveURL(new RegExp(`token=${id}`));
-    const inspector = page.getByRole("complementary", { name: "Token inspector" });
-    await expect(inspector.getByRole("heading", { level: 2 })).toBeVisible();
+    const inspector = inspectorOf(page);
+    await expect(inspectedHeading(page)).toBeVisible();
     await expect(inspector.getByRole("heading", { name: /References \(upstream\)/ })).toBeVisible();
     await expect(inspector.getByRole("heading", { name: /Referenced by \(downstream\)/ })).toBeVisible();
     await inspector.getByRole("button", { name: "Close inspector" }).click();
@@ -86,7 +94,7 @@ test.describe("token explorer", () => {
     await expect(first).toBeFocused();
     await page.keyboard.press("Enter");
     await expect(page).toHaveURL(/token=/);
-    await expect(page.getByRole("complementary", { name: "Token inspector" }).getByRole("heading", { level: 2 })).toBeFocused();
+    await expect(inspectedHeading(page)).toBeFocused();
   });
 
   test("searching an exact token name filters the results and inspects it", async ({ page }) => {
@@ -96,7 +104,7 @@ test.describe("token explorer", () => {
     await search.press("Enter");
     await expect(page).toHaveURL(/q=fgColor\.default/);
     await expect(page.locator("#token-results a[data-inspect]").first()).toBeVisible();
-    await expect(page.getByRole("complementary", { name: "Token inspector" }).getByRole("heading", { level: 2 })).toHaveText("fgColor.default");
+    await expect(inspectedHeading(page)).toHaveText("fgColor.default");
   });
 
   test("table view lists tokens with alias state, tier and a source link", async ({ page }) => {
@@ -133,9 +141,10 @@ test.describe("token explorer", () => {
     const toggle = page.getByRole("button", { name: /^(Pause|Play) all/ });
     await expect(toggle).toBeVisible();
     const first = page.getByRole("button", { name: /^(Pause|Play) base\./ }).first();
-    const before = await first.getAttribute("aria-pressed");
+    // Previews loop once hydrated (no reduced-motion preference here); each one can be paused (WCAG 2.2.2).
+    await expect(first).toHaveAttribute("aria-pressed", "true");
     await first.click();
-    await expect(first).toHaveAttribute("aria-pressed", before === "true" ? "false" : "true");
+    await expect(first).toHaveAttribute("aria-pressed", "false");
   });
 
   test("mobile width has no horizontal page scroll", async ({ page }) => {
