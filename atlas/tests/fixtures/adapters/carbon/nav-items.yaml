@@ -1,0 +1,34 @@
+- title: All about Carbon
+  pages:
+    - title: What is Carbon?
+      path: /all-about-carbon/what-is-carbon/
+    - title: Who uses Carbon?
+      path: /all-about-carbon/who-uses-carbon/
+    - title: The Carbon ecosystem
+      path: /all-about-carbon/the-carbon-ecosystem/
+    - title: Releases
+      path: /all-about-carbon/releases/
+- title: Components
+  pages:
+    - title: Overview
+      path: /components/overview/components
+    - title: Accordion
+      path: /components/accordion/usage/
+    - title: Button
+      path: /components/button/usage/
+    - title: Dropdown
+      path: /components/dropdown/usage/
+    - title: Menu buttons
+      path: /components/menu-buttons/usage/
+    - title: UI shell header
+      path: /components/UI-shell-header/usage/
+- title: Patterns
+  pages:
+    - title: Overview
+      path: /patterns/overview/
+    - title: Dialogs
+      path: /patterns/dialog-pattern/
+    - title: Empty states
+      path: /patterns/empty-states-pattern/
+    - title: Forms
+      path: /patterns/forms-pattern/

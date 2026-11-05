@@ -39,12 +39,12 @@ export type CarbonFragment =
   | { t: "code"; slug: string; data: CodeData; ev: Ev }
   | { t: "a11y"; slug: string; data: A11yData; ev: Ev }
   | { t: "live"; slug: string; meta: LiveMeta; ev: Ev }
-  | { t: "react"; slug: string; exportName: string; implementation: string; found: boolean; props: ExtractedProp[]; sourcePath: string | null; version: string; ev: Ev }
+  | { t: "react"; slug: string; exportName: string; implementation: string; found: boolean; props: ExtractedProp[]; spreads: string[]; sourcePath: string | null; version: string; ev: Ev }
   | { t: "wca"; tags: WcTag[]; version: string; ev: Ev }
   | { t: "pattern"; slug: string; plan: PatternPlan; data: PatternData; ev: Ev }
   | { t: "about"; docsUrl: string; data: AboutData; ev: Ev }
-  | { t: "tokens"; setKey: string; part: string; order: number; tokens: NormalizedToken[]; fileDescription: string | null; colorScheme: string | null; pkg: string; version: string; ev: Ev }
-  | { t: "cssvars"; names: string[]; pkg: string; version: string; ev: Ev }
+  | { t: "tokens"; setKey: string; part: string; order: number; tokens: NormalizedToken[]; fileDescription: string | null; colorScheme: string | null; contextual?: string[]; pkg: string; version: string; ev: Ev }
+  | { t: "cssvars"; names: string[]; rootValues: Record<string, string>; pkg: string; version: string; ev: Ev }
   | { t: "pkg"; name: string; version: string; license: string | null; publishedAt: string | null; ev: Ev };
 
 /* -------------------------------- helpers --------------------------------- */
@@ -144,7 +144,8 @@ function childDescription(item: PlanItem, parentUsage: UsageData | null): { text
   const key = normKey(item.name);
   const v = parentUsage.variants.find((x) => normKey(x.name) === key || normKey(x.name) === `${key}s`);
   if (v?.description) return { text: v.description, location: v.location };
-  const s = parentUsage.sectionSummaries.find((x) => normKey(x.title) === key && x.firstParagraph);
+  // Only real H2/H3 sections named after the child (not "Copy button:" lead-ins under Keyboard).
+  const s = parentUsage.sectionSummaries.find((x) => x.depth <= 3 && !/:$/.test(x.title) && normKey(x.title) === key && x.firstParagraph);
   if (s?.firstParagraph) return { text: s.firstParagraph, location: `#${s.title}` };
   return null;
 }
@@ -235,7 +236,8 @@ function buildComponent(
         sourceUrl: r.ev.sourceUrl,
       });
     }
-    ev.push(evidence("properties", r.ev, "react-proptypes", 0.9, { location: `${r.ev.location}#${r.exportName}.propTypes` }));
+    const spreadNote = r.spreads.length ? ` (+${r.spreads.length} spread propTypes not resolved: ${r.spreads.join(", ").slice(0, 120)})` : "";
+    ev.push(evidence("properties", r.ev, "react-proptypes", r.spreads.length ? 0.75 : 0.9, { location: `${r.ev.location}#${r.exportName}.propTypes${spreadNote}` }));
     if (normKey(r.exportName) !== normKey(item.name)) aliases.push(r.exportName);
   }
   const tags = wca ? wcTagsFor(item, live, wca.tags) : [];
@@ -449,7 +451,64 @@ function buildTokenSets(frags: Extract<CarbonFragment, { t: "tokens" }>[], cssVa
       evidence: ev,
     });
   }
+  const contextual = buildContextualSet(frags, cssVars, out);
+  if (contextual) out.push(contextual);
   return out;
+}
+
+/**
+ * Carbon "contextual" tokens (layer, field, border-subtle ...): named in each theme file's
+ * $extensions["com.ibm.carbon"].contextual and declared in @carbon/styles' compiled `:root` as
+ * var() aliases of the layer-specific tokens (e.g. --cds-layer: var(--cds-layer-01, #f4f4f4)).
+ */
+function buildContextualSet(
+  frags: Extract<CarbonFragment, { t: "tokens" }>[],
+  cssVars: Extract<CarbonFragment, { t: "cssvars" }> | undefined,
+  sets: NormalizedTokenSet[],
+): NormalizedTokenSet | null {
+  if (!cssVars) return null;
+  const themeFrag = frags.find((f) => f.setKey.startsWith("theme-") && f.contextual?.length);
+  if (!themeFrag?.contextual) return null;
+  const white = sets.find((s) => s.slug === "theme-white");
+  const catOf = new Map((white?.tokens ?? []).map((t) => [t.name, t.category]));
+  const tokens: NormalizedToken[] = [];
+  for (const name of [...themeFrag.contextual].sort()) {
+    const cssVar = `--cds-${name}`;
+    const raw = cssVars.rootValues[cssVar];
+    if (!raw) continue;
+    const refs = [...raw.matchAll(/var\(--cds-([a-z0-9-]+)/g)].map((m) => m[1]!);
+    tokens.push({
+      name,
+      path: [name],
+      cssVar,
+      type: null,
+      category: (refs[0] && catOf.get(refs[0])) || "color",
+      tier: "semantic",
+      tierState: "inferred",
+      rawValue: raw,
+      references: refs,
+      description: null,
+      deprecated: false,
+      location: `${cssVars.ev.location}#:root ${cssVar}`,
+    });
+  }
+  if (!tokens.length) return null;
+  return {
+    slug: "contextual",
+    name: "Contextual layer tokens",
+    theme: null,
+    format: "css-vars",
+    sourceUrl: cssVars.ev.sourceUrl,
+    packageName: cssVars.pkg,
+    packageVersion: cssVars.version,
+    license: LICENSE_APACHE,
+    redistribution: "permitted",
+    tokens,
+    evidence: [
+      evidence("*", cssVars.ev, "compiled-css", 0.9, { location: `${cssVars.ev.location}#:root (contextual custom properties)` }),
+      evidence("names", themeFrag.ev, "dtcg-json", 0.95, { location: `${themeFrag.ev.location}#/$extensions/com.ibm.carbon/contextual` }),
+    ],
+  };
 }
 
 /* -------------------------------- patterns -------------------------------- */
@@ -458,7 +517,9 @@ function buildPatterns(frags: Extract<CarbonFragment, { t: "pattern" }>[], slugB
   return [...frags]
     .sort((a, b) => a.plan.order - b.plan.order)
     .map((p) => {
-      const cls = classifyPatternName(p.plan.name.replace(/\bpattern\b/i, "").trim());
+      // Exact taxonomy matches only: contained matches on generic words ("content") are unreliable for patterns.
+      const raw = classifyPatternName(p.plan.name.replace(/\bpattern\b/i, "").trim());
+      const cls = raw && raw.confidence >= 0.8 ? raw : null;
       const componentSlugs = uniqBy(
         p.data.componentDocSlugs.map((d) => slugByDoc.get(d.toLowerCase())).filter((s): s is string => !!s),
         (s) => s,

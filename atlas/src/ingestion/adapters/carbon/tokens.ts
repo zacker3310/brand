@@ -19,6 +19,8 @@ export interface TokenFileResult {
   description: string | null;
   /** $extensions["com.ibm.carbon"]["color-scheme"] for theme files. */
   colorScheme: string | null;
+  /** $extensions["com.ibm.carbon"].contextual: token names that resolve per layer context. */
+  contextual: string[];
 }
 
 /** "#/gray/50/$value/components" -> "gray.50" */
@@ -81,6 +83,7 @@ export function parseDtcgFile(jsonText: string, opts: DtcgOptions): TokenFileRes
     tokens,
     description: typeof tree.$description === "string" ? tree.$description : null,
     colorScheme: typeof ext?.["color-scheme"] === "string" ? (ext["color-scheme"] as string) : null,
+    contextual: Array.isArray(ext?.contextual) ? (ext.contextual as unknown[]).filter((x): x is string => typeof x === "string") : [],
   };
 }
 
@@ -249,6 +252,17 @@ export function declaredCssVars(css: string): string[] {
   const out = new Set<string>();
   for (const m of css.matchAll(/(--cds-[a-z0-9-]+)\s*:/g)) out.add(m[1]!);
   return [...out].sort();
+}
+
+/** `--cds-*` declarations inside top-level `:root { ... }` rules of compiled CSS (first wins). */
+export function rootCustomProperties(css: string): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const m of css.matchAll(/(?:^|\n):root\s*\{([^{}]*)\}/g)) {
+    for (const d of m[1]!.matchAll(/(--cds-[a-z0-9-]+)\s*:\s*([^;]+);/g)) {
+      if (!(d[1]! in out)) out[d[1]!] = d[2]!.trim();
+    }
+  }
+  return out;
 }
 
 /** Layout token categories by DTCG group in @carbon/layout (ATLAS mapping). */

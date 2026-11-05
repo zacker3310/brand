@@ -1,0 +1,89 @@
+{
+  "components": [
+    {
+      "component": "Accordion",
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Aspect ratio",
+      "overview": false,
+      "testing": {
+        "screenreader": "notavailable"
+      }
+    },
+    {
+      "component": "Button",
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Combo box",
+      "overview": false,
+      "parentComponent": "Dropdown",
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Combo button",
+      "parentComponent": "Menu buttons",
+      "overview": false,
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Dropdown",
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Icon button",
+      "parentComponent": "Button",
+      "overview": false,
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Menu buttons",
+      "featureFlag": true,
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Multiselect",
+      "parentComponent": "Dropdown",
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Overflow menu",
+      "parentComponent": "Menu buttons",
+      "overview": false,
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "UI shell",
+      "testing": {
+        "screenreader": "manual"
+      }
+    },
+    {
+      "component": "Menu button",
+      "parentComponent": "Menu buttons",
+      "overview": false,
+      "testing": {
+        "screenreader": "manual"
+      }
+    }
+  ]
+}

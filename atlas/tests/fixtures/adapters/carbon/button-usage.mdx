@@ -1,0 +1,121 @@
+---
+title: Button
+description:
+  Buttons are used to initialize an action. Button labels express what action
+  will occur when the user interacts with it.
+tabs: ['Usage', 'Style', 'Code', 'Accessibility']
+---
+
+
+
+
+<PageDescription>
+
+Buttons are used to initialize an action. Button labels express what action will
+occur when the user interacts with it.
+
+</PageDescription>
+
+## Live demo
+
+<StorybookDemo
+  themeSelector
+  url="https://react.carbondesignsystem.com"
+  variants={[
+    {
+      label: 'Default',
+      variant: 'components-button--default',
+    },
+    {
+      label: 'Danger',
+      variant: 'components-button--danger',
+    },
+    {
+      label: 'Ghost',
+      variant: 'components-button--ghost',
+    },
+    {
+      label: 'Icon button',
+      variant: 'components-button--icon-button',
+    },
+    {
+      label: 'Secondary',
+      variant: 'components-button--secondary',
+    },
+    {
+      label: 'Set of buttons',
+      variant: 'components-button--set-of-buttons',
+    },
+    {
+      label: 'Tertiary',
+      variant: 'components-button--tertiary',
+    },
+  ]}
+/>
+
+## Overview
+
+### Variants
+
+Each button variant has a particular function and its design signals that
+function to the user. It is, therefore, very important that the different
+variants are implemented consistently across products to convey the correct
+actions.
+
+| Variant                        | Purpose                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Primary](#primary-button)     | For the principal call to action on the page. Primary buttons should only appear once per screen (not including the application header, modal dialog, or side panel).                                                                                                                                                                         |
+| [Secondary](#secondary-button) | For secondary actions on each page. Secondary buttons can only be used in conjunction with a primary button. As part of a pair, the secondary button's function is to perform the negative action of the set, such as "Cancel" or "Back". Do not use a secondary button in isolation and do not use a secondary button for a positive action. |
+| [Tertiary](#tertiary-button)   | For less prominent, and sometimes independent, actions. Tertiary buttons can be used in isolation or paired with a primary button when there are multiple calls to action. Tertiary buttons can also be used for sub-tasks on a page where a primary button for the main and final action is present.                                         |
+| [Ghost](#ghost-button)         | For the least pronounced actions; often used in conjunction with a primary button. In a situation such as a progress flow, a ghost button may be paired with a primary and secondary button set, where the primary button is for forward action, the secondary button is for "Back", and the ghost button is for "Cancel".                    |
+| [Danger](#danger-button)       | For actions that could have destructive effects on the user’s data (for example, delete or remove). Danger button has three styles: primary, tertiary, and ghost.                                                                                                                                                                             |
+
+## Formatting
+
+### Button sizes
+
+The button is available in seven different sizes: **extra small**, **small**,
+**medium**, **large (productive)**, **large (expressive)**, **extra large**, and
+**2XL**. The table below adds more context around the use case for each size.
+For guidance on button heights, see [Size](/components/button/style/#size) on
+the Style tab.
+
+We do not recommend mixing different button sizes in #button-groups.
+
+| Button size        | Use case                                                                                                                                          |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Extra small        | Use when vertical space is limited or in areas with a confined layout.                                                                            |
+| Small              | Use when buttons are paired with 32px small sized input fields.                                                                                   |
+| Medium             | Use when buttons are paired with 40px medium sized input fields.                                                                                  |
+| Large (productive) | This is the most common button size in software products. Pairs with 14px body copy.                                                              |
+| Large (expressive) | The larger expressive type size within this button provides balance when paired with 16px body copy. Used by the IBM.com team in website banners. |
+| Extra large        | Use when buttons bleed to the edge of a larger component, like in the context of modals, side panel and narrow tearsheets.                        |
+| 2XL                | Use when buttons bleed to the edge of a full-screen component, like in the context of large tearsheets.                                           |
+
+## Universal behaviors
+
+### States
+
+The default and interactive states of buttons should follow the
+button [Style](/components/button/style#color) tab guidelines.
+
+### Interactions
+
+### Interactions
+
+#### Keyboard
+
+Users can trigger a button by pressing `Enter` or `Space` while the button has
+focus. For additional keyboard interactions, see the
+[Accessibility](/components/button/accessibility) tab.
+
+## Related
+
+- [Button labels](https://pages.github.ibm.com/carbon/ibm-products/guidelines/content/button-labels/)
+- [Fixed button bars](https://pages.github.ibm.com/carbon/ibm-products/patterns/fixed-button-bars/usage/)
+- [Form pattern](/patterns/forms-pattern)
+- [Icons](https://carbondesignsystem.com/elements/icons/library/)
+- [Link component](/components/link/usage)
+- [Menu buttons](https://carbondesignsystem.com/components/menu-buttons/usage/)
+- [Modal component](/components/modal/usage)
+

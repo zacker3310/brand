@@ -5,7 +5,7 @@
 import * as cheerio from "cheerio";
 import type { Cheerio, CheerioAPI } from "cheerio";
 import { ARIA_ROLES, DOCS_ORIGIN } from "./constants";
-import { shortText, uniq } from "./text";
+import { shortText, splitSentences, uniq } from "./text";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Sel = Cheerio<any>;
@@ -211,16 +211,22 @@ const ROLE_PATTERNS = [
   /\brole\s*\(\s*["“'`]?([a-z]+)["”'`]?\s*\)/gi,
   /\brole of\s+["“'`]?([a-z]+)/gi,
   /\brole\s+["“'`]([a-z]+)["”'`]/gi,
+  // "This component is rendered as a tree" (only counts when the word is an ARIA role)
+  /\brendered as an?\s+`?([a-z]+)`?(?=[\s,.;]|$)/gi,
 ];
 
+/** ARIA roles named in a sentence, in order of appearance. */
 export function extractRoles(text: string): string[] {
-  const out: string[] = [];
+  const found: { at: number; role: string }[] = [];
   for (const re of ROLE_PATTERNS) {
     for (const m of text.matchAll(re)) {
-      for (const w of m[1]!.toLowerCase().split(/,\s*|\s+and\s+|\s+or\s+/)) if (ARIA_ROLES.has(w.trim())) out.push(w.trim());
+      const words = m[1]!.toLowerCase().split(/,\s*|\s+and\s+|\s+or\s+/);
+      words.forEach((w, k) => {
+        if (ARIA_ROLES.has(w.trim())) found.push({ at: (m.index ?? 0) + k, role: w.trim() });
+      });
     }
   }
-  return uniq(out);
+  return uniq(found.sort((a, b) => a.at - b.at).map((f) => f.role));
 }
 
 const KEY_WORDS = /\b(Enter|Space|Spacebar|Tab|Esc|Escape|Arrow ?(?:Up|Down|Left|Right)|Home|End|Page ?(?:Up|Down))\b/;
@@ -233,7 +239,7 @@ const CONDITIONAL_RE = /\b(if|should|intended|in the case|for (?:a|the) split)\b
 
 /** Keep only the sentences that mention one of the keys (falls back to the whole text). */
 function sentencesMentioning(text: string, keys: string[]): string {
-  const sentences = text.split(/(?<=[.!?])\s+(?=[A-Z0-9"'“(`<])/);
+  const sentences = splitSentences(text);
   const lower = keys.map((k) => k.toLowerCase().replace(/^arrow keys$/, "arrow"));
   const keep = new Set<number>();
   sentences.forEach((s, i) => {
@@ -282,7 +288,8 @@ function parseA11y($: CheerioAPI, content: Sel, blocks: Block[]): ParsedA11y {
   };
   const inSection = (re: RegExp) => stack.some((s) => re.test(s.text));
 
-  for (const b of blocks) {
+  for (let bi = 0; bi < blocks.length; bi++) {
+    const b = blocks[bi]!;
     if (b.kind === "h") {
       while (stack.length && stack[stack.length - 1]!.level >= b.level) stack.pop();
       stack.push({ level: b.level, text: b.text, id: b.id, el: b.el });
@@ -317,7 +324,10 @@ function parseA11y($: CheerioAPI, content: Sel, blocks: Block[]): ParsedA11y {
     }
     // paragraph / list item
     if (pendingKeyHeading) {
-      const action = shortText(b.text, 240);
+      let text = b.text;
+      // "When entering the control:" -> append the list items that follow.
+      if (text.endsWith(":")) for (let k = bi + 1; k < blocks.length && blocks[k]!.kind === "li"; k++) text += ` ${blocks[k]!.text}`;
+      const action = shortText(text, 240);
       if (action) keyboard.push({ keys: pendingKeyHeading.keys.slice(0, 120), action, context: pendingKeyHeading.context, anchor: pendingKeyHeading.anchor });
       pendingKeyHeading = null;
     }

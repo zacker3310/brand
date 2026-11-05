@@ -36,7 +36,7 @@ import { parseLiveMeta } from "./carbon/live";
 import { normalizeCarbon, type CarbonFragment, type Ev } from "./carbon/normalize";
 import { planComponents, planPatterns, type PatternPlan, type PlanItem } from "./carbon/plan";
 import { extractPropTypes, localRequires } from "./carbon/proptypes";
-import { declaredCssVars, layoutCategory, parseDtcgFile, parseFontFamilies, parseTypeScale, parseTypeStyles } from "./carbon/tokens";
+import { declaredCssVars, layoutCategory, rootCustomProperties, parseDtcgFile, parseFontFamilies, parseTypeScale, parseTypeStyles } from "./carbon/tokens";
 import { parseWcaManifest } from "./carbon/wca";
 
 const SYSTEMS = ["carbon"];
@@ -342,6 +342,7 @@ async function parseReact(ctx: AdapterContext, fetched: FetchedDocument): Promis
         implementation: meta.multi ? `react:${exportName}` : "react",
         found: !!found,
         props: found?.props ?? [],
+        spreads: found?.spreads ?? [],
         sourcePath: found?.sourcePath ?? null,
         version: meta.version,
         ev: ev(foundIn, file),
@@ -405,6 +406,7 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
         tokens: r.tokens,
         fileDescription: r.description,
         colorScheme: r.colorScheme,
+        contextual: r.contextual,
         pkg: meta.pkg as string,
         version: meta.version as string,
         ev: ev(fetched),
@@ -429,7 +431,7 @@ async function parse(ctx: AdapterContext, fetched: FetchedDocument): Promise<Par
       });
     }
     case "carbon-css-vars":
-      return frag(fetched, { t: "cssvars", names: declaredCssVars(body), pkg: meta.pkg as string, version: meta.version as string, ev: ev(fetched) });
+      return frag(fetched, { t: "cssvars", names: declaredCssVars(body), rootValues: rootCustomProperties(body), pkg: meta.pkg as string, version: meta.version as string, ev: ev(fetched) });
     case "carbon-npm-version": {
       let license: string | null = (meta.license as string | null) ?? null;
       try {

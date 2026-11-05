@@ -1,0 +1,32 @@
+/* Excerpt of @carbon/styles css/styles.css (Apache-2.0, Copyright IBM Corp.) */
+:root {
+  --cds-layer: var(--cds-layer-01, #f4f4f4);
+  --cds-layer-active: var(--cds-layer-active-01, #c6c6c6);
+  --cds-layer-background: var(--cds-layer-background-01, #ffffff);
+  --cds-layer-hover: var(--cds-layer-hover-01, #e8e8e8);
+  --cds-layer-selected: var(--cds-layer-selected-01, #e0e0e0);
+  --cds-layer-selected-hover: var(--cds-layer-selected-hover-01, #d1d1d1);
+  --cds-layer-accent: var(--cds-layer-accent-01, #e0e0e0);
+  --cds-layer-accent-hover: var(--cds-layer-accent-hover-01, #d1d1d1);
+  --cds-layer-accent-active: var(--cds-layer-accent-active-01, #a8a8a8);
+  --cds-field: var(--cds-field-01, #f4f4f4);
+  --cds-field-hover: var(--cds-field-hover-01, #e8e8e8);
+  --cds-border-subtle: var(--cds-border-subtle-00, #e0e0e0);
+  --cds-border-subtle-selected: var(--cds-border-subtle-selected-01, #c6c6c6);
+  --cds-border-strong: var(--cds-border-strong-01, #8d8d8d);
+  --cds-border-tile: var(--cds-border-tile-01, #c6c6c6);
+}
+
+.cds--white {
+  background-color: var(--cds-background);
+  color: var(--cds-text-primary);
+  --cds-ai-aura-end: rgba(255, 255, 255, 0);
+  --cds-ai-aura-hover-background: #edf5ff;
+  --cds-ai-aura-hover-end: rgba(255, 255, 255, 0);
+  --cds-background: #ffffff;
+  --cds-text-primary: #161616;
+}
+
+.cds--btn {
+  background-color: var(--cds-button-primary, #0f62fe);
+}

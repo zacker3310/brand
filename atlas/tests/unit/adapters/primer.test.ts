@@ -8,7 +8,7 @@ import { parseCssVarUsages } from "@/ingestion/adapters/primer/css-usage";
 import { canonicalDocsUrl, extractRoles, parseComponentPage, parseSimplePage, parseSitemap } from "@/ingestion/adapters/primer/docs-pages";
 import type { NpmInfo, PrimerFragmentData, SourceStamp } from "@/ingestion/adapters/primer/fragments";
 import { Json5SyntaxError, parseJson5 } from "@/ingestion/adapters/primer/json5";
-import { parseStringLiteralUnion, shortText } from "@/ingestion/adapters/primer/text";
+import { parseStringLiteralUnion, shortText, splitSentences } from "@/ingestion/adapters/primer/text";
 import { parsePrimitivesDocsJson, parsePrimitivesJson5 } from "@/ingestion/adapters/primer/tokens";
 import { validatePrimerBundle } from "@/ingestion/adapters/primer/validate";
 import { adapter } from "@/ingestion/adapters/primer";
@@ -57,6 +57,10 @@ describe("primer text helpers", () => {
     const s = "Performs the default action (e.g. onclick event) for the focused node. Second sentence here. Third one.";
     expect(shortText(s, 80)).toBe("Performs the default action (e.g. onclick event) for the focused node.");
     expect(shortText("x".repeat(300), 50)!.length).toBe(50);
+    expect(splitSentences("A removable Token must be dismissible via keyboard (e.g. Backspace or Delete). Next.")).toEqual([
+      "A removable Token must be dismissible via keyboard (e.g. Backspace or Delete).",
+      "Next.",
+    ]);
   });
   it("parses string literal unions only", () => {
     expect(parseStringLiteralUnion("'small'\n| 'medium'\n| 'large'")).toEqual(["small", "medium", "large"]);
@@ -188,7 +192,7 @@ describe("primer docs pages", () => {
     expect(a.keyboard.map((k) => k.keys)).toEqual(["Enter", "Tab", "ArrowDown", "ArrowUp", "ArrowRight", "ArrowLeft", "Home", "End", "a-z, A-Z, all printable characters"]);
     expect(a.keyboard[2]!.action).toMatch(/^Moves focus to the next node/);
     expect(a.keyboard[0]!.anchor).toBe("keyboard-navigation");
-    expect(a.roles).toEqual(expect.arrayContaining(["tree", "group", "treeitem"]));
+    expect(a.roles).toEqual(["tree", "group", "treeitem"]);
     expect(a.focusManagement!.text).toMatch(/first time, focus on the first node/);
     expect(a.screenReader!.text).toMatch(/logical reading order/);
     expect(a.guidance).toMatch(/^The TreeView replicates the experience/);
@@ -206,6 +210,8 @@ describe("primer docs pages", () => {
     const a = parseComponentPage(fx("segmented-control-accessibility.html"), `${DOCS}/segmented-control/accessibility/`, "accessibility").a11y!;
     expect(a.keyboard.map((k) => k.keys)).toEqual(["Tab", "Enter or Space", "Arrow Left or Arrow Right"]);
     expect(a.keyboard[1]!.action).toBe("Selects a focused, unselected button. Pressing again on a selected button does nothing.");
+    // "When entering the control:" is followed by its list items
+    expect(a.keyboard[0]!.action).toMatch(/When entering the control: Focus goes to the first button/);
   });
 
   it("extracts prose keyboard requirements and skips conditional role statements (ButtonGroup)", () => {
@@ -213,7 +219,7 @@ describe("primer docs pages", () => {
     expect(a.keyboard.map((k) => k.keys)).toEqual(["Tab", "Enter / Space", "Arrow keys"]);
     expect(a.keyboard[2]!.action).toMatch(/^When role="toolbar" is used/);
     expect(a.roles).toEqual([]);
-    expect(extractRoles('The component itself has a role="menu" and each item a role of menuitem')).toEqual(["menuitem", "menu"]);
+    expect(extractRoles('The component itself has a role="menu" and each item a role of menuitem')).toEqual(["menu", "menuitem"]);
   });
 
   it("parses simple pages (patterns, getting started)", () => {
@@ -283,10 +289,11 @@ describe("primer normalize + validate (fixtures, no network)", () => {
     expect(b.lifecycle).toBe("stable"); // React card "ready"; docs.json says "alpha"
     expect(b.variants.map((v) => v.name)).toEqual(["default", "primary", "danger", "invisible", "link"]);
     expect(b.sizes).toEqual(["small", "medium", "large"]);
+    // Source prop order; Primer's "inactive" is distinct from "disabled".
     expect(b.states.map((s) => [s.name, s.canonical])).toEqual([
-      ["disabled", "disabled"],
       ["inactive", "inactive"],
       ["loading", "loading"],
+      ["disabled", "disabled"],
     ]);
     expect(b.frameworks.map((f) => f.slug)).toEqual(["react", "figma"]);
     expect(b.classification).toMatchObject({ state: "inferred" });
@@ -309,7 +316,10 @@ describe("primer normalize + validate (fixtures, no network)", () => {
     expect(dt.properties.map((p) => p.name)).toEqual(["aria-describedby", "aria-labelledby"]);
     expect(dt.frameworks[0]!.packageName).toBe("@primer/react/experimental");
     const ti = bundle.components.find((c) => c.slug === "text-input")!;
-    expect(ti.states.map((s) => s.name)).toEqual(expect.arrayContaining(["disabled", "error", "success"]));
+    expect(ti.states.map((s) => [s.name, s.canonical])).toEqual([
+      ["error", "error"],
+      ["success", "success"],
+    ]);
     const dep = bundle.components.find((c) => c.slug === "tooltip-deprecated")!;
     expect(dep.docsUrl).toBeNull();
     expect(dep.lifecycle).toBe("deprecated");

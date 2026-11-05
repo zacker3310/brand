@@ -22,8 +22,7 @@ export function shortText(input: string | null | undefined, max = 280): string |
   const s = input.replace(/\s+/g, " ").trim();
   if (!s) return null;
   if (s.length <= max) return s;
-  // Split only at "<.!?> <Capital|digit|quote>" so no text is ever dropped (pieces re-join to the input).
-  const sentences = s.split(/(?<=[.!?])\s+(?=[A-Z0-9"'“(`])/);
+  const sentences = splitSentences(s);
   let out = "";
   for (const sentence of sentences) {
     const next = out ? `${out} ${sentence}` : sentence;
@@ -32,6 +31,14 @@ export function shortText(input: string | null | undefined, max = 280): string |
   }
   if (out) return out;
   return `${s.slice(0, max - 1).trimEnd()}…`;
+}
+
+/**
+ * Split prose into sentences at "<.!?> <Capital|digit|quote|tag>", never after common abbreviations
+ * ("e.g.", "i.e.", "etc.", "vs."). Pieces re-join to the input (no text is ever dropped).
+ */
+export function splitSentences(text: string): string[] {
+  return text.split(/(?<!\b(?:e\.g|i\.e|etc|vs|cf|approx|incl|[A-Z])\.)(?<=[.!?])\s+(?=[A-Z0-9"'“(`<])/);
 }
 
 /** `'a' | 'b'` (possibly multi-line) -> ["a","b"]; null if the type is not a pure string-literal union. */

@@ -23,6 +23,8 @@ export interface PropTypesResult {
   sourcePath: string | null;
   /** Local files the module requires (for following re-exports). */
   localRequires: string[];
+  /** `...spread` entries in the propTypes object (inherited props not resolved statically). */
+  spreads: string[];
 }
 
 /* ------------------------------- scanner ---------------------------------- */
@@ -396,8 +398,12 @@ export function extractPropTypes(src: string, exportName: string): PropTypesResu
       }
   }
   const props: ExtractedProp[] = [];
+  const spreads: string[] = [];
   for (const entry of splitTopLevel(src.slice(open + 1, close))) {
-    if (entry.text.startsWith("...")) continue;
+    if (entry.text.startsWith("...")) {
+      spreads.push(entry.text.slice(3).trim());
+      continue;
+    }
     const colon = topLevelIndex(entry.text, (s, i) => s[i] === ":");
     if (colon < 0) continue;
     const rawKey = entry.text.slice(0, colon).trim();
@@ -416,7 +422,7 @@ export function extractPropTypes(src: string, exportName: string): PropTypesResu
       allowedValues: mapped.allowed,
     });
   }
-  return { exportName, props, sourcePath: findRegionFor(src, open) ?? region?.[1] ?? null, localRequires };
+  return { exportName, props, sourcePath: findRegionFor(src, open) ?? region?.[1] ?? null, localRequires, spreads };
 }
 
 /** The `//#region src/...` marker that precedes a position (compiled builds concatenate modules). */

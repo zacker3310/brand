@@ -54,6 +54,7 @@ const REACT_OVERRIDES: Record<string, { folder: string; exports: string[] } | "f
   "ui-shell-header": { folder: "UIShell", exports: ["Header"] },
   "ui-shell-left-panel": { folder: "UIShell", exports: ["SideNav"] },
   "ui-shell-right-panel": { folder: "UIShell", exports: ["HeaderPanel"] },
+  "structured-list": { folder: "StructuredList", exports: ["StructuredListWrapper"] },
   "menu-buttons": "family",
   list: "family",
 };
