@@ -111,7 +111,7 @@ export function Tile({
 /** Horizontal scroll container for wide tables; first column can be made sticky with `stickyFirst`. */
 export function TableFrame({ children, className, label }: { children: React.ReactNode; className?: string; label: string }) {
   return (
-    <div role="region" aria-label={label} tabIndex={0} className={cn("overflow-x-auto rounded-xl border bg-card focus-visible:outline-2", className)}>
+    <div role="region" aria-label={label} tabIndex={0} className={cn("relative overflow-x-auto rounded-xl border bg-card focus-visible:outline-2", className)}>
       {children}
     </div>
   );

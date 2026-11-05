@@ -170,6 +170,12 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
                   {params.q && <> matching “{params.q}”</>}
                   <span className="text-muted-foreground"> · sorted by {SORT_LABELS[result.sort].toLowerCase()}</span>
                 </h2>
+                {result.rows.some((r) => depthOf(r.ingestionStatus) === "metadata") && (
+                  <p className="flex items-center gap-2 text-[11px] text-muted-foreground">
+                    <span className="hatch inline-block h-3 w-5 rounded-sm border border-dashed border-border" aria-hidden />
+                    Metadata only: registry facts verified; components, tokens and patterns not extracted yet (unknown, not zero).
+                  </p>
+                )}
               </div>
 
               {chips.length > 0 && (

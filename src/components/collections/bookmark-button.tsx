@@ -15,6 +15,7 @@
  */
 import { BookmarkCheckIcon, BookmarkIcon } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -38,6 +39,7 @@ export function BookmarkButton({ entityType, entityId, label, initialBookmarked,
   const key = refKey(entityType, entityId);
   const [bookmarked, setState] = useState<boolean | null>(initialBookmarked ?? null);
   const [pending, startTransition] = useTransition();
+  const router = useRouter();
 
   useEffect(() => {
     let alive = true;
@@ -70,7 +72,7 @@ export function BookmarkButton({ entityType, entityId, label, initialBookmarked,
       }
       setBookmarked(key, r.data?.bookmarked ?? want);
       toast.success(want ? `Bookmarked ${label}` : `Removed bookmark for ${label}`, {
-        action: want ? { label: "View", onClick: () => window.location.assign("/collections#bookmarks") } : undefined,
+        action: want ? { label: "View", onClick: () => router.push("/collections#bookmarks") } : undefined,
       });
     });
   }

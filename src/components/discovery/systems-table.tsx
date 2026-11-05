@@ -76,7 +76,7 @@ export function SystemsTable({ rows }: { rows: DirectoryRow[] }) {
                   )}
                 </td>
                 <td className="border-b border-border/60 px-3 py-2.5">
-                  <MaintenanceBadge status={r.maintenance} />
+                  <MaintenanceBadge status={r.maintenance} interactive={false} />
                 </td>
                 {indexed ? (
                   <>

@@ -23,14 +23,6 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
   const rows = await opsSystems({ q, status, sort, registry });
   const returnTo = `/ops/systems${qs({ q, status, sort: sort === "name" ? undefined : sort, registry: registry === "all" ? "all" : undefined })}`;
   const sortHref = (s: SystemSort) => `/ops/systems${qs({ q, status, sort: s === "name" ? undefined : s, registry: registry === "all" ? "all" : undefined })}`;
-  const SortHead = ({ s, children, right }: { s: SystemSort; children: React.ReactNode; right?: boolean }) => (
-    <th scope="col" className={cn(th, right && "text-right")} aria-sort={sort === s ? (s === "name" || s === "status" ? "ascending" : "descending") : undefined}>
-      <Link href={sortHref(s)} className={cn("hover:text-foreground", sort === s && "text-foreground")}>
-        {children}
-        {sort === s && <span aria-hidden> {s === "name" || s === "status" ? "↑" : "↓"}</span>}
-      </Link>
-    </th>
-  );
 
   return (
     <div className="space-y-5">
@@ -60,26 +52,26 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                   System{sort === "name" && <span aria-hidden> ↑</span>}
                 </Link>
               </th>
-              <SortHead s="status">Ingestion</SortHead>
-              <SortHead s="components" right>
+              <SortHead sort={sort} href={sortHref} s="status">Ingestion</SortHead>
+              <SortHead sort={sort} href={sortHref} s="components" right>
                 Components
               </SortHead>
               <th scope="col" className={`${th} text-right`}>
                 Coverage
               </th>
-              <SortHead s="tokens" right>
+              <SortHead sort={sort} href={sortHref} s="tokens" right>
                 Tokens
               </SortHead>
-              <SortHead s="patterns" right>
+              <SortHead sort={sort} href={sortHref} s="patterns" right>
                 Patterns
               </SortHead>
-              <SortHead s="evidence" right>
+              <SortHead sort={sort} href={sortHref} s="evidence" right>
                 Evidence
               </SortHead>
               <th scope="col" className={`${th} text-right`}>
                 Errors
               </th>
-              <SortHead s="last-ingested">Last ingested</SortHead>
+              <SortHead sort={sort} href={sortHref} s="last-ingested">Last ingested</SortHead>
               <th scope="col" className={th}>
                 Last run
               </th>
@@ -184,6 +176,18 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
         </table>
       </TableFrame>
     </div>
+  );
+}
+
+function SortHead({ s, sort, href, children, right }: { s: SystemSort; sort: SystemSort; href: (s: SystemSort) => string; children: React.ReactNode; right?: boolean }) {
+  const asc = s === "name" || s === "status";
+  return (
+    <th scope="col" className={cn(th, right && "text-right")} aria-sort={sort === s ? (asc ? "ascending" : "descending") : undefined}>
+      <Link href={href(s)} className={cn("hover:text-foreground", sort === s && "text-foreground")}>
+        {children}
+        {sort === s && <span aria-hidden> {asc ? "↑" : "↓"}</span>}
+      </Link>
+    </th>
   );
 }
 

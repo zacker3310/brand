@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { BookOpenIcon, GitBranchIcon } from "lucide-react";
-import { SystemMark, VerificationBadge } from "@/components/atlas";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { SystemMark } from "@/components/atlas";
 import { SYSTEM_CATEGORY_LABELS } from "@/lib/contracts";
 import { cn, hostname } from "@/lib/utils";
 import { Chip, DepthBadge, MaintenanceBadge } from "./badges";
 import { CoverageMeter, type CoverageCounts } from "./coverage-meter";
+import { StaticVerificationBadge } from "./coverage-static";
 import type { DirectoryRow } from "./lib/directory";
 import { formatDate, percent } from "./lib/format";
 
@@ -37,39 +37,38 @@ export function FrameworkChips({ frameworks, max = 4, className }: { frameworks:
   );
 }
 
+/** Static (dense lists): the full explanation is a native title; details live on the system page. */
 export function ConfidenceBadge({ confidence, verifiedAt, className }: { confidence: number; verifiedAt: string | null; className?: string }) {
   const date = formatDate(verifiedAt);
   return (
     <span className={cn("inline-flex items-center gap-1.5", className)}>
-      <VerificationBadge
+      <StaticVerificationBadge
         state="verified"
-        detail={`Registry facts checked against official sources${date ? ` on ${date}` : ""}. Confidence ${percent(confidence)} reflects how many checks passed and how authoritative the sources were.`}
+        title={`Registry facts checked against official sources${date ? ` on ${date}` : ""}. Confidence ${percent(confidence)} reflects how many checks passed and how authoritative the sources were.`}
       />
-      <span className="tabular font-mono text-[11px] text-muted-foreground">{percent(confidence)}</span>
+      <span className="tabular font-mono text-[11px] text-muted-foreground">
+        {percent(confidence)}
+        <span className="sr-only"> confidence</span>
+      </span>
     </span>
   );
 }
 
 function IconSourceLink({ href, label, icon: Icon }: { href: string; label: string; icon: typeof BookOpenIcon }) {
+  const host = hostname(href);
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <a
-          href={href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative z-10 grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
-        >
-          <Icon className="size-3.5" aria-hidden />
-          <span className="sr-only">
-            {label} ({hostname(href)}, opens in a new tab)
-          </span>
-        </a>
-      </TooltipTrigger>
-      <TooltipContent className="text-xs">
-        {label} · {hostname(href)}
-      </TooltipContent>
-    </Tooltip>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      title={`${label} · ${host}`}
+      className="relative z-10 grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-accent hover:text-foreground"
+    >
+      <Icon className="size-3.5" aria-hidden />
+      <span className="sr-only">
+        {label} ({host}, opens in a new tab)
+      </span>
+    </a>
   );
 }
 
@@ -89,7 +88,7 @@ export function SystemCard({ row, max, headingLevel = 3 }: { row: DirectoryRow; 
             {row.organization?.name ?? "Organization not recorded"} · {SYSTEM_CATEGORY_LABELS[row.category]}
           </p>
         </div>
-        <MaintenanceBadge status={row.maintenance} hideActive className="relative z-10" />
+        <MaintenanceBadge status={row.maintenance} hideActive interactive={false} className="relative z-10" />
       </div>
       {row.summary && <p className="mt-3 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">{row.summary}</p>}
       <FrameworkChips frameworks={row.frameworks} className="relative z-10 mt-3" />
@@ -100,7 +99,7 @@ export function SystemCard({ row, max, headingLevel = 3 }: { row: DirectoryRow; 
         <div className="mt-3 flex items-center justify-between gap-2">
           <div className="relative z-10 flex min-w-0 flex-wrap items-center gap-1.5">
             <ConfidenceBadge confidence={row.confidence} verifiedAt={row.lastVerifiedAt} />
-            {row.ingestionStatus === "indexed" || row.ingestionStatus === "partial" ? <DepthBadge status={row.ingestionStatus} /> : null}
+            {row.ingestionStatus === "indexed" || row.ingestionStatus === "partial" ? <DepthBadge status={row.ingestionStatus} interactive={false} /> : null}
           </div>
           <div className="flex shrink-0 items-center">
             {row.docsUrl && <IconSourceLink href={row.docsUrl} label="Official documentation" icon={BookOpenIcon} />}

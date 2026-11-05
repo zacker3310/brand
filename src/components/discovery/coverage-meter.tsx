@@ -1,4 +1,3 @@
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { IngestionStatus } from "@/lib/contracts";
 import { cn, formatCount } from "@/lib/utils";
 import { depthOf } from "./lib/directory";
@@ -69,38 +68,27 @@ export function CoverageMeter({
 
 function NoneIndexed() {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span tabIndex={0} className="relative z-10 cursor-help text-muted-foreground">
-          —<span className="sr-only">none indexed</span>
-        </span>
-      </TooltipTrigger>
-      <TooltipContent className="max-w-xs text-xs">None indexed. The adapter has not extracted this record kind; this does not mean the system has none.</TooltipContent>
-    </Tooltip>
+    <span className="text-muted-foreground" title="None indexed: the adapter has not extracted this record kind; this does not mean the system has none.">
+      —<span className="sr-only">none indexed</span>
+    </span>
   );
 }
 
+export const METADATA_ONLY_EXPLANATION =
+  "Registry facts (links, license, frameworks, maintenance) are verified. Components, tokens and patterns have not been extracted, so their counts are unknown, not zero.";
+
+/** Static label (explained once per list by a visible legend, plus a native title). */
 export function MetadataOnly({ className, compact = false }: { className?: string; compact?: boolean }) {
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span
-          tabIndex={0}
-          className={cn(
-            "hatch relative z-10 flex cursor-help items-center justify-center rounded-md border border-dashed border-border text-[11px] font-medium text-muted-foreground",
-            compact ? "px-2 py-1" : "h-[3.25rem] px-3",
-            className,
-          )}
-        >
-          Metadata only
-        </span>
-      </TooltipTrigger>
-      <TooltipContent className="max-w-xs text-xs">
-        <p className="font-medium">Not deeply indexed yet</p>
-        <p className="opacity-80">
-          Registry facts (links, license, frameworks, maintenance) are verified. Components, tokens and patterns have not been extracted, so their counts are unknown, not zero.
-        </p>
-      </TooltipContent>
-    </Tooltip>
+    <span
+      title={METADATA_ONLY_EXPLANATION}
+      className={cn(
+        "hatch flex items-center justify-center rounded-md border border-dashed border-border text-[11px] font-medium text-muted-foreground",
+        compact ? "px-2 py-1" : "h-[3.25rem] px-3",
+        className,
+      )}
+    >
+      Metadata only
+    </span>
   );
 }

@@ -51,10 +51,30 @@ const MAINTENANCE_META: Record<MaintenanceStatus, { icon: LucideIcon; className:
 };
 
 /** Maintenance status. Archived/deprecated are visually distinct (the only red in a card). */
-export function MaintenanceBadge({ status, hideActive = false, className }: { status: MaintenanceStatus; hideActive?: boolean; className?: string }) {
+export function MaintenanceBadge({
+  status,
+  hideActive = false,
+  interactive = true,
+  className,
+}: {
+  status: MaintenanceStatus;
+  hideActive?: boolean;
+  /** false: static label with a native title (dense lists); true: focusable tooltip. */
+  interactive?: boolean;
+  className?: string;
+}) {
   if (hideActive && status === "active") return null;
   const meta = MAINTENANCE_META[status];
   const Icon = meta.icon;
+  const cls = cn("inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap", meta.className, className);
+  if (!interactive) {
+    return (
+      <span className={cls} title={`Maintenance: ${MAINTENANCE_LABELS[status]}. ${meta.description}`}>
+        <Icon className="size-3" aria-hidden />
+        {MAINTENANCE_LABELS[status]}
+      </span>
+    );
+  }
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -80,9 +100,24 @@ export function MaintenanceBadge({ status, hideActive = false, className }: { st
 
 const DEPTH_ICON: Record<Depth, LucideIcon> = { indexed: LayersIcon, partial: LayersIcon, metadata: DatabaseIcon };
 
-export function DepthBadge({ status, className }: { status: IngestionStatus; className?: string }) {
+export function DepthBadge({ status, className, interactive = true }: { status: IngestionStatus; className?: string; interactive?: boolean }) {
   const depth = depthOf(status);
   const Icon = DEPTH_ICON[depth];
+  const cls = cn(
+    "inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap",
+    depth === "indexed" && "border-info/30 bg-info-soft text-info",
+    depth === "partial" && "border-info/30 border-dashed text-info",
+    depth === "metadata" && "border-dashed border-border text-muted-foreground",
+    className,
+  );
+  if (!interactive) {
+    return (
+      <span className={cls} title={`${DEPTH_LABELS[depth]}: ${DEPTH_DESCRIPTIONS[depth]}`}>
+        <Icon className="size-3" aria-hidden />
+        {DEPTH_LABELS[depth]}
+      </span>
+    );
+  }
   return (
     <Tooltip>
       <TooltipTrigger asChild>

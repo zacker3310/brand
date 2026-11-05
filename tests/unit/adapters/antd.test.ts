@@ -455,3 +455,11 @@ describe("antd normalize (ant-design-mobile)", () => {
     expect(PROFILES[SLUG_MOBILE]!.refCandidates("5.43.0")[0]).toBe("v5.43.0");
   });
 });
+
+describe("antd links", () => {
+  it("ignores links in table header cells", () => {
+    const d = parseDoc(fx("button.en-US.md"));
+    expect(d.links.some((l) => l.includes("#component-config"))).toBe(false);
+    expect(d.links).toContain("https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#type");
+  });
+});

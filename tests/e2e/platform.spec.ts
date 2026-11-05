@@ -14,7 +14,8 @@ import { expect, test, type Page } from "@playwright/test";
  * integrator and logged, not counted against this area. Everything else serious/critical fails.
  */
 async function axe(page: Page) {
-  const r = await new AxeBuilder({ page }).exclude("nextjs-portal").exclude("body > header").exclude("body > footer").analyze();
+  // @axe-core/playwright is typed against its own playwright-core copy.
+  const r = await new AxeBuilder({ page: page as unknown as ConstructorParameters<typeof AxeBuilder>[0]["page"] }).exclude("nextjs-portal").exclude("body > header").exclude("body > footer").analyze();
   // VerificationBadge / CoverageChip from the shared kit render <span tabindex="0" ...>.
   const isKitBadge = (html: string) => html.startsWith('<span tabindex="0"');
   const bad = r.violations
@@ -96,6 +97,8 @@ test.describe("Collections", () => {
     for (const c of curated.data.slice(0, 3)) await expect(page.getByRole("link", { name: c.name })).toBeVisible();
     await axe(page);
     await page.getByRole("link", { name: curated.data[0].name }).click();
+    await expect(page).toHaveURL(new RegExp(`/collections/${curated.data[0].slug}$`));
+    await expect(page.getByRole("heading", { level: 1, name: curated.data[0].name })).toBeVisible();
     await expect(page.getByText(/^Rule:/)).toBeVisible();
     await expect(page.getByText(/Curated by ATLAS/)).toBeVisible();
     await axe(page);

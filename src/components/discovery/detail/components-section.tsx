@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { CoverageChip, VerificationBadge } from "@/components/atlas";
+import { VerificationBadge } from "@/components/atlas";
 import type { CoverageState } from "@/lib/contracts";
 import { COMPONENT_GROUPS } from "@/lib/taxonomy";
 import { cn } from "@/lib/utils";
 import type { DetailComponent } from "@/server/queries/systems";
 import { INFERRED_TEXT } from "../badges";
+import { CoverageLegend, StaticCoverageChip } from "../coverage-static";
 import { percent, plural } from "../lib/format";
 
 function CountOrCoverage({ n, state, noun }: { n: number; state: CoverageState | undefined; noun: string }) {
@@ -16,7 +17,7 @@ function CountOrCoverage({ n, state, noun }: { n: number; state: CoverageState |
     );
   }
   // never render unknown as 0: no records + documented coverage is still shown as the coverage state
-  return <CoverageChip state={state ?? "not-extracted"} />;
+  return <StaticCoverageChip state={state ?? "not-extracted"} />;
 }
 
 export function ClassificationBadge({ c }: { c: Pick<DetailComponent, "classificationState" | "classificationMethod" | "confidence"> }) {
@@ -59,6 +60,7 @@ export function ComponentsSection({ systemSlug, components }: { systemSlug: stri
         ))}
       </dl>
 
+      <CoverageLegend />
       <div className="space-y-3">
         {groups.map((g) => (
           <details key={g.slug ?? "none"} open className="group/grp overflow-hidden rounded-xl border bg-card">
@@ -117,7 +119,7 @@ export function ComponentsSection({ systemSlug, components }: { systemSlug: stri
                     </div>
                     <div>
                       <span className="mr-1.5 text-[11px] text-muted-foreground md:hidden">A11y</span>
-                      <CoverageChip state={c.coverage.accessibility ?? "not-extracted"} />
+                      <StaticCoverageChip state={c.coverage.accessibility ?? "not-extracted"} />
                     </div>
                   </div>
                 </li>

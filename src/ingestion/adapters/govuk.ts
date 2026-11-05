@@ -196,7 +196,8 @@ async function discover(ctx: AdapterContext): Promise<DiscoveredDocument[]> {
         }
         add("macro.njk", "govuk-macro");
       }
-      add(has("_mixin.scss") ? "_mixin.scss" : has(`_${name}.scss`) ? `_${name}.scss` : "_index.scss", "govuk-styles");
+      // GOV.UK: styles in _mixin.scss; NHS: styles in _index.scss (_<name>.scss only forwards it).
+      add(has("_mixin.scss") ? "_mixin.scss" : has("_index.scss") ? "_index.scss" : `_${name}.scss`, "govuk-styles");
       add(`${name}.mjs`, "govuk-js");
       add(P.htmlExample === "template-default" ? "template-default.html" : "fixtures.json", "govuk-html-example");
       add("_settings.scss", "govuk-settings", { set: "component-settings", order: 0, settingsFile: `components/${name}/_settings.scss` });

@@ -14,7 +14,8 @@
  */
 import { CheckIcon, FolderPlusIcon, Loader2Icon, PlusIcon, RotateCcwIcon } from "lucide-react";
 import Link from "next/link";
-import { cloneElement, isValidElement, useCallback, useEffect, useId, useState, useTransition, type ReactElement } from "react";
+import { useRouter } from "next/navigation";
+import { cloneElement, isValidElement, useCallback, useId, useState, useTransition, type ReactElement } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -68,12 +69,15 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
     }
   }, [entityType, entityId]);
 
-  useEffect(() => {
-    if (open) {
+  const router = useRouter();
+  const onOpenChange = (next: boolean) => {
+    setOpen(next);
+    if (next) {
       setData(null);
-      load();
+      setStatus("");
+      void load();
     }
-  }, [open, load]);
+  };
 
   function toggle(c: Membership["collections"][number]) {
     const want = !c.contains;
@@ -110,7 +114,7 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
         collections: [{ id: created.id, slug: created.slug, name: created.name, itemCount: 1, contains: true, itemId: null }, ...(d?.collections ?? [])],
       }));
       setStatus(`Created ${created.name} and added ${label}`);
-      toast.success(`Added to “${created.name}”`, { action: { label: "Open", onClick: () => window.location.assign(`/collections/${created.slug}`) } });
+      toast.success(`Added to “${created.name}”`, { action: { label: "Open", onClick: () => router.push(`/collections/${created.slug}`) } });
     });
   }
 
@@ -118,7 +122,7 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
   const onTriggerClick = (e: React.MouseEvent) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
-    setOpen(true);
+    onOpenChange(true);
   };
 
   const triggerEl =
@@ -137,7 +141,7 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
   return (
     <>
       {triggerEl}
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={onOpenChange}>
         <DialogContent className="gap-0 p-0 sm:max-w-md">
           <DialogHeader className="border-b px-5 pt-5 pb-4">
             <DialogTitle className="text-base">Add to collection</DialogTitle>

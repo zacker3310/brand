@@ -20,7 +20,7 @@ export const OPS_SECTIONS = [
 export function OpsNav({ counts }: { counts?: Partial<Record<string, number>> }) {
   const pathname = usePathname();
   return (
-    <nav aria-label="Operations" className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0 [scrollbar-width:none]">
+    <nav aria-label="Operations" className="relative -mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0 [scrollbar-width:none]">
       <ul className="flex min-w-max gap-0.5 border-b">
         {OPS_SECTIONS.map((s) => {
           const active = s.href === "/ops" ? pathname === "/ops" : pathname === s.href || pathname.startsWith(`${s.href}/`);

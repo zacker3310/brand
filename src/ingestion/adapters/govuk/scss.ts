@@ -246,8 +246,12 @@ export function parseSettingsFile(text: string, opts: { entryComments?: boolean;
       skipped.push({ name: v.name, reason: "private variable", line: v.line });
       continue;
     }
-    if (doc.type && /^bool/i.test(doc.type)) {
+    if ((doc.type && /^bool/i.test(doc.type)) || /^(true|false)$/.test(v.rawValue.trim())) {
       skipped.push({ name: v.name, reason: "boolean setting", line: v.line });
+      continue;
+    }
+    if (/-(path|url)$/.test(v.name) || v.rawValue.includes("#{")) {
+      skipped.push({ name: v.name, reason: "configuration path or interpolated string", line: v.line });
       continue;
     }
     if ([...renamed.values()].includes(v.name) && /^\$[\w-]+$/.test(v.rawValue.trim())) continue; // alias line itself

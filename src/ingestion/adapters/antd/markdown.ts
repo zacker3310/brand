@@ -276,7 +276,9 @@ export function parseDoc(text: string): ParsedDoc {
   const visit = (n: Nodes) => {
     if (n.type === "link") links.push(n.url);
     if (n.type === "definition") links.push(n.url);
-    if ("children" in n && Array.isArray(n.children)) (n.children as Nodes[]).forEach(visit);
+    // Table header cells hold column links (e.g. Ant Design's "[Global Config](/components/config-provider#component-config)"), not content links.
+    const kids = n.type === "table" ? n.children.slice(1) : "children" in n && Array.isArray(n.children) ? (n.children as Nodes[]) : [];
+    kids.forEach((k) => visit(k as Nodes));
   };
   visit(tree as unknown as Nodes);
 

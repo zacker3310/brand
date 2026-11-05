@@ -218,11 +218,11 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
         >
           Errors & warnings
         </SectionTitle>
-        {run.errors.length === 0 ? (
+        {run.errorList.length === 0 ? (
           <p className="rounded-xl border border-dashed p-4 text-sm text-muted-foreground">This run recorded no errors or warnings.</p>
         ) : (
           <ul className="divide-y rounded-xl border bg-card">
-            {run.errors.map((e) => (
+            {run.errorList.map((e) => (
               <li key={e.id} className="grid gap-1 px-4 py-3 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:gap-4">
                 <div className="flex items-center gap-2">
                   <StatusPill status={e.severity} />

@@ -263,7 +263,7 @@ export interface RunDetail extends RunRow {
     limit: number | null;
   };
   jobs: { id: string; kind: string; status: string; attempts: number; maxAttempts: number; lastError: string | null; createdAt: string | null; finishedAt: string | null; runAt: string | null; lockedBy: string | null }[];
-  errors: { id: string; stage: string; severity: string; code: string; message: string; url: string | null; resolvedAt: string | null; createdAt: string | null }[];
+  errorList: { id: string; stage: string; severity: string; code: string; message: string; url: string | null; resolvedAt: string | null; createdAt: string | null }[];
   errorTotal: number;
   extractionSummary: { entityKind: string; validation: string; n: number; published: number }[];
   extractions: { id: string; entityKind: string; entityKey: string; validation: string; published: boolean; issues: { code: string; message: string; path?: string; severity: string }[] }[];
@@ -321,7 +321,7 @@ export async function getRunDetail(id: string, opts: { validation?: string } = {
       runAt: iso(j.run_at as Date | null),
       lockedBy: str(j.locked_by),
     })),
-    errors: errors.rows.map((e) => ({
+    errorList: errors.rows.map((e) => ({
       id: String(e.id),
       stage: String(e.stage),
       severity: String(e.severity),
