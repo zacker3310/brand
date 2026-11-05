@@ -40,3 +40,11 @@ for (const q of ["React combobox", "comobox", "color"]) {
   console.log(`\n--- EXPLAIN ${q}\n` + plan.rows.map((r: any) => r["QUERY PLAN"]).filter((l: string) => /Scan|Bitmap|Index|Execution|Planning/.test(l)).join("\n"));
 }
 await closeDb();
+{
+  const { buildSuggestSql } = await import("../src/server/search/providers/postgres");
+  const { getPool: gp, closeDb: cd } = await import("../src/db/client");
+  const s = buildSuggestSql("pagin", 8)!;
+  const plan = await gp().query(`explain (analyze, costs off, timing off) ${s.text}`, s.values);
+  console.log("\n--- EXPLAIN suggest(pagin)\n" + plan.rows.map((r: any) => r["QUERY PLAN"]).filter((l: string) => /Scan|Execution/.test(l)).join("\n"));
+  await cd();
+}

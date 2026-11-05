@@ -425,14 +425,20 @@ export function buildSuggestSql(prefix: string, limit: number): { text: string; 
   const wordStart = p.add(`% ${escapeLike(raw)}%`);
   const trg = p.add(norm);
   const lim = p.add(Math.min(Math.max(limit, 1), 20));
-  const fuzzy = norm.length >= 3 ? `or d.title % ${trg}` : "";
+  // Each predicate is its own index-backed branch (see buildSearchSql for why not one OR).
+  const branches = [
+    `select id from search_document where title ilike ${starts}`,
+    `select id from search_document where title ilike ${wordStart}`,
+    ...(norm.length >= 3 ? [`select id from search_document where title % ${trg}`] : []),
+    `select id from search_document where tsv @@ ${tsq}`,
+  ];
   const text = `
 select title, subtitle, url, entity_type from (
   select distinct on (lower(d.title)) d.title, d.subtitle, d.url, d.entity_type,
     ((case when lower(d.title) like ${starts} then 3.0 when lower(d.title) like ${wordStart} then 1.5 else 0 end)
       + similarity(d.title, ${trg}) + 0.5 * ts_rank_cd(d.tsv, ${tsq}, 32)) * ${entityWeightSql()} * d.boost as score
   from search_document d
-  where d.title ilike ${starts} or d.title ilike ${wordStart} ${fuzzy} or d.tsv @@ ${tsq}
+  where d.id = any(array(${branches.join("\n    union ")}))
   order by lower(d.title), score desc, d.entity_type
 ) x
 order by score desc, title asc

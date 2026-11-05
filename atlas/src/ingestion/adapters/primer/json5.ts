@@ -64,7 +64,7 @@ export function parseJson5(text: string): unknown {
     let out = "";
     for (;;) {
       const c = src[i];
-      if (c === undefined) fail("Unterminated string");
+      if (c === undefined) return fail("Unterminated string");
       if (c === quote) {
         i++;
         return out;
@@ -167,7 +167,7 @@ export function parseJson5(text: string): unknown {
     if (depth > 200) fail("Nesting too deep");
     skip();
     const c = src[i];
-    if (c === undefined) fail("Unexpected end of input");
+    if (c === undefined) return fail("Unexpected end of input");
     if (c === "{") {
       i++;
       const obj: Record<string, unknown> = {};
