@@ -354,6 +354,214 @@ describe("generic adapter end-to-end (mocked network)", () => {
   });
 });
 
+describe("generic versioning: parse output is target-independent", () => {
+  const http = new PoliteFetcher({ fetchImpl: (async () => new Response("")) as typeof fetch, cacheDir: null, hostDelayMs: 0 });
+  const ctxFor = (slug: string): AdapterContext => ({ systemSlug: slug, http, log: { info: () => {}, warn: () => {}, error: () => {} }, runStartedAt: T0 });
+  const result = (url: string, body: string, contentType = "text/html") => ({
+    url, finalUrl: url, status: 200, ok: true, notModified: false, fromCache: false, contentType, etag: null, lastModified: null, body, hash: "h", byteSize: body.length, fetchedAt: T0, attempts: 1, blockedByRobots: false, error: null,
+  });
+  const navTarget: GenericTarget = { slug: "tree-ds", strategy: "nav", navUrl: "https://tree.example.com/docs/", navSelector: "li:has(> .title:contains('Components')) > ul", include: "^https://tree\\.example\\.com/docs/([a-z]+)\\.html$", notes: "test" };
+
+  it("keeps one adapter version whatever the targets are; fingerprints are per target", () => {
+    const a = createGenericAdapter([sitemapTarget, navTarget]);
+    const b = createGenericAdapter([{ ...sitemapTarget, exclude: ["/button/$"] }, navTarget, { ...navTarget, slug: "other" }]);
+    expect(a.version).toBe(b.version);
+    expect(targetFingerprint(sitemapTarget)).not.toBe(targetFingerprint({ ...sitemapTarget, exclude: ["/button/$"] }));
+    expect(targetFingerprint(navTarget)).toBe(targetFingerprint({ ...navTarget }));
+  });
+
+  it("parses every document kind identically under different targets", async () => {
+    const t2: GenericTarget = { ...navTarget, navSelector: "#nope", include: "^x$", titleSuffix: ["a", "b"], exclude: ["y"], preferDoc: "z" };
+    const s2: GenericTarget = { ...sitemapTarget, include: "^x$", exclude: [] };
+    const docs = [
+      { doc: { url: "https://tree.example.com/docs/", docKind: "generic-nav", source: { kind: "docs", url: "https://tree.example.com/" } }, body: fx("nav-tree.html"), slug: "tree-ds", targets: [navTarget, t2] },
+      { doc: { url: "https://ds.example.com/sitemap-0.xml", docKind: "generic-sitemap", source: { kind: "sitemap", url: "https://ds.example.com/sitemap-0.xml" } }, body: fx("sitemap-0.xml"), slug: "example-ds", targets: [sitemapTarget, s2] },
+      { doc: { url: "https://ds.example.com/components/button/", docKind: "generic-page", source: { kind: "docs", url: "https://ds.example.com/" }, meta: { key: "button", segment: "button" } }, body: fx("page-button.html"), slug: "example-ds", targets: [sitemapTarget, s2] },
+    ];
+    for (const d of docs) {
+      const outs = await Promise.all(d.targets.map((t) => createGenericAdapter([t]).parse(ctxFor(d.slug), { doc: d.doc, result: result(d.doc.url, d.body) })));
+      expect(JSON.stringify(outs[0])).toBe(JSON.stringify(outs[1]));
+    }
+    // A different discover-time key/segment (doc meta) does not change a page fragment either.
+    const page = docs[2]!;
+    const other = await createGenericAdapter([sitemapTarget]).parse(ctxFor("example-ds"), { doc: { ...page.doc, meta: { key: "x", segment: "y" } }, result: result(page.doc.url, page.body) });
+    const first = await createGenericAdapter([sitemapTarget]).parse(ctxFor("example-ds"), { doc: page.doc, result: result(page.doc.url, page.body) });
+    expect(JSON.stringify(other)).toBe(JSON.stringify(first));
+  });
+
+  it("re-derives a system's components from cached fragments when only its target changes", () => {
+    const frags: GenericFragment[] = [sitemapIndex("sitemap-0.xml", "https://ds.example.com/sitemap-0.xml")];
+    const before = normalizeGeneric(frags, { systemSlug: "example-ds", target: sitemapTarget });
+    const edited = normalizeGeneric(frags, { systemSlug: "example-ds", target: { ...sitemapTarget, exclude: [...sitemapTarget.exclude!, "/date-picker/$"] } });
+    expect(before.components.map((c) => c.slug)).toContain("date-picker");
+    expect(edited.components.map((c) => c.slug)).not.toContain("date-picker");
+    expect(edited.components.length).toBe(before.components.length - 1);
+  });
+});
+
+describe("generic nav outline", () => {
+  const base = "https://tree.example.com/docs/";
+  it("keeps links, their ancestors and short labels; drops prose, scripts, media, comments and handlers", () => {
+    const html = fx("nav-tree.html");
+    const o = navOutline(html);
+    expect(o).not.toMatch(/<script|<style|<img|<svg|onclick|style=|a comment|however long it gets/);
+    expect(o).toMatch(/<main>Getting started Long introduction prose[^<]{0,81}<\/main>/); // link-less child: a short label only
+    expect(o).toContain('<div class="title">Components</div>');
+    expect(o.length).toBeLessThan(html.length);
+  });
+
+  it("returns the same links as the full page for ancestry, attribute and :has()/:contains() selectors", () => {
+    const html = fx("nav-tree.html");
+    const o = navOutline(html);
+    for (const sel of [undefined, "aside", "li:has(> .title:contains('Components')) > ul", 'tree-item[data-depth="1"], tree-item[data-label="Overview"]', 'tree-item[data-path^="Grids & Lists>"]', "header"]) {
+      expect(extractNavLinks(o, base, sel)).toEqual(extractNavLinks(html, base, sel));
+    }
+    expect(extractNavLinks(o, base, "li:has(> .title:contains('Components')) > ul").map((l) => [l.value, l.text])).toEqual([
+      ["https://tree.example.com/docs/accordion.html", "Accordion"],
+      ["https://tree.example.com/docs/button.html", "Button"],
+    ]);
+    expect(extractNavLinks(o, base, 'tree-item[data-depth="1"], tree-item[data-label="Overview"]').map((l) => l.value)).toEqual([
+      "https://tree.example.com/docs/inputs/checkbox",
+      "https://tree.example.com/docs/grid/grid",
+    ]);
+  });
+
+  it("derives nav candidates in normalize with the target's selector", () => {
+    const t: GenericTarget = { slug: "tree-ds", strategy: "nav", navUrl: base, navSelector: "li:has(> .title:contains('Components')) > ul", include: "^https://tree\\.example\\.com/docs/([a-z]+)\\.html$", notes: "t" };
+    const frag: IndexFragment = { type: "index", source: "nav", stamp: stamp(base), outline: navOutline(fx("nav-tree.html")), base };
+    expect(indexCandidates(frag, t).map((c) => c.key)).toEqual(["accordion", "button"]);
+    expect(indexCandidates(frag, { ...t, navSelector: "aside" }).map((c) => c.key)).toEqual(["accordion", "button", "install", "theming"]);
+  });
+});
+
+describe("generic quality fixes", () => {
+  it("parses MDX 'export const meta' title/description (no '# ' heading) and confirms the docs URL", () => {
+    const m = parseMarkdownMeta(fx("paste-alert-dialog.mdx"));
+    expect(m.title).toBe("Alert Dialog - Components");
+    expect(m.h1).toBeNull();
+    expect(m.metaDescription).toBe("An alert dialog displays content over the main page and blocks any interaction with the page.");
+    expect(parseMdxExportMeta("export const meta = { title: \"It\\'s \\\"X\\\"\", description: `Plain template` };")).toEqual({ title: "It's \"X\"", description: "Plain template" });
+    expect(parseMdxExportMeta("export const meta = {\n  title: `A ${b}`,\n  seo: {\n    title: 'Nested',\n  },\n};\n")).toBeNull(); // interpolation and nested keys are not read
+    expect(parseMdxExportMeta("# Title\n")).toBeNull();
+    expect(chooseName("alert-dialog", m, null, null)).toEqual({ name: "Alert Dialog", from: "title" });
+
+    const t: GenericTarget = {
+      slug: "paste",
+      strategy: "repo-listing",
+      include: "^([a-z0-9-]+)/package\\.json$",
+      repo: { kind: "npm", name: "@twilio-paste/core", ref: "21.5.0", docsUrlTemplate: "https://github.com/twilio-labs/paste/blob/main/packages/paste-website/src/pages/components/{segment}/index.mdx" },
+      notes: "t",
+    };
+    const raw = "https://raw.githubusercontent.com/twilio-labs/paste/main/packages/paste-website/src/pages/components/alert-dialog/index.mdx";
+    const bundle = normalizeGeneric(
+      [
+        { type: "index", source: "repo-listing", stamp: stamp("https://data.jsdelivr.com/v1/packages/npm/@twilio-paste/core@21.5.0?structure=flat"), values: ["alert-dialog/package.json"], repo: { kind: "npm", name: "@twilio-paste/core", ref: "21.5.0" } },
+        { type: "page", stamp: stamp(raw), finalUrl: raw, status: 200, meta: m },
+      ],
+      { systemSlug: "paste", target: t },
+    );
+    const c = bundle.components[0]!;
+    expect([c.name, c.docsUrl, c.description]).toEqual(["Alert Dialog", "https://github.com/twilio-labs/paste/blob/main/packages/paste-website/src/pages/components/alert-dialog/index.mdx", m.metaDescription]);
+    expect(c.evidence.map((e) => [e.field, e.location])).toEqual([
+      ["name", "alert-dialog/package.json"],
+      ["docsUrl", "title"],
+      ["description", 'meta[name="description"]'],
+    ]);
+  });
+
+  it("keeps tab/sub-pages of one component under its plain key, preferring the overview page", () => {
+    const t: GenericTarget = {
+      slug: "tabs-ds",
+      strategy: "sitemap",
+      include: "^https://ds\\.example\\.com/latest/components/(?:[a-z0-9-]+/){0,2}([a-z0-9-]+)/[a-z0-9-]+-[A-Za-z0-9]{8}$",
+      preferDoc: "/overview-[A-Za-z0-9]{8}$",
+      notes: "t",
+    };
+    const url = "https://ds.example.com/sitemap.xml";
+    const cands = sitemapCandidates(fx("sitemap-tabs.xml"), url, compileTarget(t), t);
+    expect(cands.map((c) => [c.key, c.matched.replace("https://ds.example.com/latest/components/", "")])).toEqual([
+      ["button", "button/overview-Ab12Cd34"],
+      ["cell-items", "cells/cell-items/web-Q1w2E3r4"], // no overview tab: shortest URL
+      ["display-text", "display/text/web-BBBBbbbb"], // different parents stay distinct components
+      ["forms-text", "forms/text/web-AAAAaaaa"],
+    ]);
+    const noPrefer = sitemapCandidates(fx("sitemap-tabs.xml"), url, compileTarget({ ...t, preferDoc: undefined }));
+    expect(noPrefer.find((c) => c.key === "button")!.matched).toBe("https://ds.example.com/latest/components/button/web-eI5EFTLO");
+  });
+
+  it("keeps a trailing 'Component' when the segment itself ends in -component", () => {
+    expect(stripComponentWord("Details Component", "details-component")).toBe("Details Component");
+    expect(stripComponentWord("Details Component", "details")).toBe("Details");
+    expect(stripComponentWord("Button Component", "button")).toBe("Button");
+    expect(stripComponentWord("Rating Web Component", "rating-web-component")).toBe("Rating Web Component");
+    const suffix = compileTarget({ ...sitemapTarget, titleSuffix: "\\s*\\|\\s*Mozilla Protocol$|\\s+full view$" }).titleSuffix;
+    expect(chooseName("details-component", { title: "Details Component | Mozilla Protocol", h1: "Details Component full view", h1Own: null }, null, suffix).name).toBe("Details Component");
+    expect(chooseName("details", { title: "Details | Mozilla Protocol", h1: "Details full view", h1Own: null }, null, suffix).name).toBe("Details");
+  });
+
+  it("takes the title's casing when the h1 equals the title case-insensitively", () => {
+    expect(chooseName("form-group", { title: "Form Group | Cedar Design System | REI Co-op", h1: "form group", h1Own: null }, null, null)).toEqual({ name: "Form Group", from: "h1" });
+    expect(chooseName("button", { title: "button", h1: "Button", h1Own: null }, null, null).name).toBe("button");
+    expect(chooseName("button", { title: "BUTTON | Docs", h1: "Button", h1Own: null }, null, null).name).toBe("Button"); // all-caps titles never win
+  });
+
+  it("masks each page's own name so templated boilerplate counts as site-wide (dartdoc)", () => {
+    const dart = (cls: string, h1: string) => ({ segment: cls, meta: meta({ h1, metaDescription: `API docs for the ${cls} class from the cupertino_ui library, for the Dart programming language.` }) });
+    const pages = [dart("CupertinoButton", "CupertinoButton class"), dart("CupertinoSwitch", "CupertinoSwitch class"), dart("CupertinoRadio", "CupertinoRadio<T> class"), dart("CupertinoSlidingSegmentedControl", "CupertinoSlidingSegmentedControl<T extends Object> class")];
+    const set = siteWideDescriptions(pages);
+    expect(set.size).toBe(4);
+    expect(maskName(pages[2]!.meta.metaDescription!, "CupertinoRadio", pages[2]!.meta)).toBe(maskName(pages[0]!.meta.metaDescription!, "CupertinoButton", pages[0]!.meta));
+    // Two pages sharing a template are not enough; distinct descriptions are kept.
+    expect(siteWideDescriptions(pages.slice(0, 2)).size).toBe(0);
+    expect(siteWideDescriptions([{ segment: "date-picker", meta: meta({ metaDescription: "Date pickers let users select a date." }) }, { segment: "tabs", meta: meta({ metaDescription: "Tabs organize content across views." }) }, { segment: "chip", meta: meta({ metaDescription: "Chips represent small entities." }) }]).size).toBe(0);
+  });
+
+  it("strips several title decorations in order (Ignite UI titles and headings)", () => {
+    const t: GenericTarget = { ...sitemapTarget, titleSuffix: ["\\s*\\|.*$", "^Angular\\s+", "\\s+Overview$", "\\s+(?:Component|Directive)$"] };
+    const sfx = compileTarget(t).titleSuffix;
+    expect(sfx).toHaveLength(4);
+    expect(stripDecoration("Angular Data Grid Component Overview", sfx)).toBe("Data Grid");
+    expect(stripDecoration("Angular Area Chart | Data Visualization | Infragistics | Ignite UI for Angular", sfx)).toBe("Area Chart");
+    expect(chooseName("grid", { title: "Angular Data Grid | Build Fast Angular Tables | Infragistics | Ignite UI for Angular", h1: "Angular Data Grid Component Overview", h1Own: null }, null, sfx).name).toBe("Data Grid");
+    expect(chooseName("area-chart", { title: "Angular Area Chart | Data Visualization | Infragistics | Ignite UI for Angular", h1: "Angular Area Chart", h1Own: null }, null, sfx).name).toBe("Area Chart");
+    expect(chooseName("autocomplete", { title: "Angular Autocomplete Component – Ignite UI for Angular - MIT license | Ignite UI for Angular", h1: "Angular Autocomplete Directive Overview", h1Own: null }, null, sfx).name).toBe("Autocomplete");
+    // A single string keeps working (one global pattern).
+    expect(compileTarget(sitemapTarget).titleSuffix).toHaveLength(1);
+  });
+
+  it("supports {segmentLower} and records verified-pattern shell docs URLs as unconfirmed", () => {
+    expect(applyTemplate("https://sb.example.com/?path=/docs/components-{segmentLower}--docs", { segment: "ButtonGroup" })).toBe("https://sb.example.com/?path=/docs/components-buttongroup--docs");
+    const t: GenericTarget = {
+      slug: "sb",
+      strategy: "repo-listing",
+      include: "^stories/([A-Z][A-Za-z]+)\\.stories\\.js$",
+      repo: { kind: "gh", name: "o/r", ref: "1.0.0" },
+      docsUrlTemplate: "https://sb.example.com/?path=/docs/components-{segmentLower}--docs",
+      acceptShellDocs: true,
+      fetchPages: false,
+      notes: "t",
+    };
+    const index: IndexFragment = { type: "index", source: "repo-listing", stamp: stamp("https://data.jsdelivr.com/x"), values: ["stories/ButtonGroup.stories.js"], repo: { kind: "gh", name: "o/r", ref: "1.0.0" } };
+    const bundle = normalizeGeneric([index], { systemSlug: "sb", target: t });
+    expect(NormalizedBundle.safeParse(bundle).success).toBe(true);
+    const c = bundle.components[0]!;
+    expect(c.docsUrl).toBe("https://sb.example.com/?path=/docs/components-buttongroup--docs");
+    expect(c.coverage.docsUrl).toBe("inferred");
+    expect(c.classification!.confidence).toBeLessThanOrEqual(0.6);
+    const ev = c.evidence.find((e) => e.field === "docsUrl")!;
+    expect([ev.state, ev.confidence, ev.excerpt?.startsWith("docs URL not confirmed by static fetch")]).toEqual(["unverified", 0.35, true]);
+    expect(validateGeneric(bundle, t).map((i) => i.code)).toContain("UNCONFIRMED_DOCS_URL");
+    // Without the flag the constructed URL is dropped, as before.
+    expect(normalizeGeneric([index], { systemSlug: "sb", target: { ...t, acceptShellDocs: false } }).components[0]!.docsUrl).toBeNull();
+    // A planned page fetch that produced no page (HTTP error) is never accepted.
+    expect(normalizeGeneric([index], { systemSlug: "sb", target: { ...t, fetchPages: true } }).components[0]!.docsUrl).toBeNull();
+    // A fetched shell page (200, no h1, generic title) is accepted as unconfirmed.
+    const shell: PageFragment = { type: "page", stamp: stamp(c.docsUrl!), finalUrl: c.docsUrl!, status: 200, meta: meta({ title: "Storybook" }) };
+    const withShell = normalizeGeneric([index, shell], { systemSlug: "sb", target: { ...t, fetchPages: true } }).components[0]!;
+    expect([withShell.docsUrl, withShell.coverage.docsUrl]).toEqual([c.docsUrl, "inferred"]);
+  });
+});
+
 describe("generic targets (workstream configs)", () => {
   it("every target is well-formed: unique slug, compilable regexes with a capture group, strategy inputs present", () => {
     const slugs = new Set<string>();
