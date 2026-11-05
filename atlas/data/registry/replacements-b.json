@@ -1,0 +1,1097 @@
+[
+  {
+    "rank": null,
+    "slug": "gc-design-system",
+    "name": "GC Design System",
+    "aliases": [
+      "Système de design GC"
+    ],
+    "organization": {
+      "slug": "canadian-digital-service",
+      "name": "Canadian Digital Service (Government of Canada)",
+      "websiteUrl": "https://digital.canada.ca/"
+    },
+    "category": "design-system",
+    "summary": "The Government of Canada's bilingual (English/French) design system, built and maintained by the Canadian Digital Service; it provides framework-agnostic web components with React, Angular and Vue packages, design tokens, CSS shortcuts and Figma libraries for GC digital services.",
+    "homepageUrl": "https://design-system.canada.ca/",
+    "docsUrl": "https://design-system.canada.ca/en/components/",
+    "repositoryUrl": "https://github.com/cds-snc/gcds-components",
+    "figmaUrl": "https://www.figma.com/community/file/1128687821123298228",
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@gcds-core/components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gcds-core/components"
+      },
+      {
+        "name": "@gcds-core/components-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gcds-core/components-react"
+      },
+      {
+        "name": "@gcds-core/components-angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gcds-core/components-angular"
+      },
+      {
+        "name": "@gcds-core/components-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gcds-core/components-vue"
+      },
+      {
+        "name": "@gcds-core/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gcds-core/tokens"
+      },
+      {
+        "name": "@gcds-core/css-shortcuts",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gcds-core/css-shortcuts"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/cds-snc/gcds-components/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "License of the cds-snc/gcds-components code. @gcds-core/components, -react, -vue, tokens and css-shortcuts declare MIT on npm; @gcds-core/components-angular declares no license. Licensing of the documentation site content was not separately verified."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.7.0",
+    "latestReleaseAt": "2026-10-21T19:08:25.004Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@gcds-core/components",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@gcds-core/components-react",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "@gcds-core/components-angular",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@gcds-core/components-vue",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@gcds-core/css-shortcuts",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "web-components",
+      "design-tokens",
+      "open-source",
+      "figma-kit",
+      "i18n"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "bmw-group-design-system",
+    "replacedBy": null,
+    "notes": "Replacement for bmw-group-design-system (rejected: no public BMW Group design system found). Distinct verified system: the federal Government of Canada design system, not the provincial ontario-design-system already in the registry; the About page says a dedicated team at the Canadian Digital Service builds and maintains it with the Canada.ca Experience Office, and the site states it is independent of the Web Experience Toolkit (WET) and GCWeb. npm packages moved from the @cdssnc scope (deprecated, last 0.47.0 in Jan 2026) to @gcds-core; component packages release in lockstep (1.7.0, 2026-10-21) and latestVersion is @gcds-core/components. The Develop page offers React, Angular, Vue and 'Other' (static sites, CMS, etc.) install paths; the README names Stencil.js as the build tool. figmaUrl is the 'GC Design System library' community file linked from the official design setup page (a French library and a token library are also linked); figma.com itself was not fetched. Docs are bilingual (EN/FR).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://design-system.canada.ca/",
+        "status": 200,
+        "finalUrl": "https://design-system.canada.ca/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:26.367Z",
+        "method": "http-check",
+        "note": "200; title 'Welcome | GC Design System'; bilingual EN/FR entry page (Système de design GC)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design-system.canada.ca/en/components/",
+        "status": 200,
+        "finalUrl": "https://design-system.canada.ca/en/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:26.667Z",
+        "method": "http-check",
+        "note": "200; title 'Components | GC Design System'; component index (Alert, Breadcrumbs, Button, ... Top navigation) with GitHub and Figma links"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://design-system.canada.ca/en/start-to-use/develop",
+        "status": 200,
+        "finalUrl": "https://design-system.canada.ca/en/start-to-use/develop/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:19.280Z",
+        "method": "page-content",
+        "note": "Install page: CLI to create a new project, plus install instructions for React (incl. Next.js, Gatsby, Remix), Angular, Vue (incl. Nuxt, VuePress, Quasar) and 'Other' (static sites, CMS, Node.js, Java, Svelte, .NET); page dated 2026-10-28"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://design-system.canada.ca/en/start-to-use/design",
+        "status": 200,
+        "finalUrl": "https://design-system.canada.ca/en/start-to-use/design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:19.581Z",
+        "method": "page-content",
+        "note": "Official 'Set up GC Design System library' page links the 'GC Design System library' and 'Go to the library' button to https://www.figma.com/community/file/1128687821123298228; also links a token library and a French component library"
+      },
+      {
+        "field": "organization",
+        "url": "https://design-system.canada.ca/en/about-us/",
+        "status": 200,
+        "finalUrl": "https://design-system.canada.ca/en/about-us/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:48.475Z",
+        "method": "page-content",
+        "note": "About page: 'A dedicated team at the Canadian Digital Service builds and maintains it, in consultation with the Canada.ca Experience Office'"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://digital.canada.ca/",
+        "status": 200,
+        "finalUrl": "https://digital.canada.ca/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:25.470Z",
+        "method": "http-check",
+        "note": "200; title 'Canadian Digital Service'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/cds-snc/gcds-components",
+        "status": 200,
+        "finalUrl": "https://github.com/cds-snc/gcds-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:25.058Z",
+        "method": "http-check",
+        "note": "200; 'GC Design System Components is a monorepo managing the web components of the GC Design System'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/cds-snc/gcds-tokens",
+        "status": 200,
+        "finalUrl": "https://github.com/cds-snc/gcds-tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:46.695Z",
+        "method": "http-check",
+        "note": "200; GC Design System Tokens repo (colour, typography, spacing tokens)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://raw.githubusercontent.com/cds-snc/gcds-components/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/cds-snc/gcds-components/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:46.593Z",
+        "method": "repo-metadata",
+        "note": "README: web components built with Stencil.js; additional packages for React and Angular to ease framework integration"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/cds-snc/gcds-components/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/cds-snc/gcds-components/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:36.771Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is MIT License"
+      },
+      {
+        "field": "package:@gcds-core/components",
+        "url": "https://www.npmjs.com/package/@gcds-core/components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:35.444Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.7.0 published 2026-10-21; license MIT; deprecated: no; repo git+https://github.com/cds-snc/gcds-components.git; release within 12 months => active"
+      },
+      {
+        "field": "package:@gcds-core/components-react",
+        "url": "https://www.npmjs.com/package/@gcds-core/components-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:44.616Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.7.0 published 2026-10-21; license MIT; deprecated: no; repo git+https://github.com/cds-snc/gcds-components.git"
+      },
+      {
+        "field": "package:@gcds-core/components-angular",
+        "url": "https://www.npmjs.com/package/@gcds-core/components-angular",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:45.309Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.7.0 published 2026-10-21; license none declared; deprecated: no; repo git+https://github.com/cds-snc/gcds-components.git"
+      },
+      {
+        "field": "package:@gcds-core/components-vue",
+        "url": "https://www.npmjs.com/package/@gcds-core/components-vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:44.929Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.7.0 published 2026-10-21; license MIT; deprecated: no; repo git+https://github.com/cds-snc/gcds-components.git"
+      },
+      {
+        "field": "package:@gcds-core/tokens",
+        "url": "https://www.npmjs.com/package/@gcds-core/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:45.640Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.6.0 published 2026-08-10; license MIT; deprecated: no; repo git+https://github.com/cds-snc/gcds-tokens.git"
+      },
+      {
+        "field": "package:@gcds-core/css-shortcuts",
+        "url": "https://www.npmjs.com/package/@gcds-core/css-shortcuts",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:46.037Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.2.0 published 2026-06-08; license MIT; deprecated: no; repo git+https://github.com/cds-snc/gcds-css-shortcuts.git"
+      },
+      {
+        "field": "package:@cdssnc/gcds-components",
+        "url": "https://www.npmjs.com/package/@cdssnc/gcds-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:34.105Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.47.0 published 2026-01-20; license MIT; deprecated: \"⚠️ This package has moved to @gcds-core/components and will no longer receive updates. Update your dependency to continue receiving improvements.\"; repo git+https://github.com/cds-snc/gcds-components.git; previous scope, not listed in packages"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T04:33:48.475Z"
+  },
+  {
+    "rank": null,
+    "slug": "dsfr",
+    "name": "Système de Design de l'État",
+    "aliases": [
+      "DSFR"
+    ],
+    "organization": {
+      "slug": "sig-france",
+      "name": "Service d'Information du Gouvernement (SIG), French Government",
+      "websiteUrl": null
+    },
+    "category": "design-system",
+    "summary": "The French State's design system (DSFR), developed and maintained by the Service d'Information du Gouvernement; it provides HTML, CSS and JavaScript components for public websites, distributed as the @gouvfr/dsfr npm package, and its use is restricted to French government sites.",
+    "homepageUrl": "https://github.com/GouvernementFR/dsfr",
+    "docsUrl": "https://github.com/GouvernementFR/dsfr/blob/main/README.md",
+    "repositoryUrl": "https://github.com/GouvernementFR/dsfr",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@gouvfr/dsfr",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gouvfr/dsfr"
+      }
+    ],
+    "license": {
+      "slug": "etalab-2.0",
+      "spdxId": "etalab-2.0",
+      "name": "Licence Ouverte / Open Licence 2.0 (Etalab), with DSFR terms of use",
+      "url": "https://raw.githubusercontent.com/GouvernementFR/dsfr/main/LICENSE.md",
+      "isOpenSource": null,
+      "redistribution": "conditional",
+      "notes": "LICENSE.md: code under Etalab 2.0, but use is governed by the DSFR terms of use (doc/legal/cgu.md): it must not be used by entities outside the French public administration and its replication outside .gouv.fr domains is limited; Marianne fonts and some assets have specific conditions. npm license field: etalab-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.15.4",
+    "latestReleaseAt": "2026-10-12T18:20:55.970Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "@gouvfr/dsfr",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "source-available"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "palantir-blueprint",
+    "replacedBy": null,
+    "notes": "Replacement for palantir-blueprint (duplicate of blueprint). Distinct verified system: the French State's design system; no existing entry covers it (other government entries are UK, US, NHS, Ontario, Helsinki). The official docs site www.systeme-de-design.gouv.fr (linked from the README as 'Voir la documentation officielle') answers automated requests with a Cloudflare challenge (403 'Just a moment...'), so it is NOT recorded; homepageUrl uses the official GouvernementFR/dsfr repo and docsUrl its README (installation via npm create @gouvfr/dsfr, structure, usage). Integrator: re-check https://www.systeme-de-design.gouv.fr/ from an unrestricted network and, if it loads, set homepageUrl/docsUrl to it. The README says the tool is developed, maintained and managed by the SIG; the SIG page on info.gouv.fr is also Cloudflare-blocked, so organization.websiteUrl is null. Installing requires accepting the terms of use. isOpenSource is null because the open licence is paired with use restrictions. figmaUrl null (no Figma link verified).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://github.com/GouvernementFR/dsfr",
+        "status": 200,
+        "finalUrl": "https://github.com/GouvernementFR/dsfr",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:25.357Z",
+        "method": "http-check",
+        "note": "200; 'Official french government's design system (Système de Design de l'État)'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://www.systeme-de-design.gouv.fr/",
+        "status": 403,
+        "finalUrl": "https://www.systeme-de-design.gouv.fr/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:32:25.446Z",
+        "method": "http-check",
+        "note": "403 Cloudflare challenge ('Just a moment...') to the automated check; official docs site linked from README, not recorded"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://systeme-de-design.gouv.fr/",
+        "status": 403,
+        "finalUrl": "https://www.systeme-de-design.gouv.fr/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:38:31.181Z",
+        "method": "http-check",
+        "note": "redirects to www host, same 403 Cloudflare challenge"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.systeme-de-design.gouv.fr/version-courante/fr/premiers-pas/vous-etes-developpeur",
+        "status": 403,
+        "finalUrl": "https://www.systeme-de-design.gouv.fr/version-courante/fr/premiers-pas/vous-etes-developpeur",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:38:31.396Z",
+        "method": "http-check",
+        "note": "developer getting-started page linked from README; 403 Cloudflare challenge; not recorded"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://github.com/GouvernementFR/dsfr/blob/main/README.md",
+        "status": 200,
+        "finalUrl": "https://github.com/GouvernementFR/dsfr/blob/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:43.330Z",
+        "method": "page-content",
+        "note": "README: DSFR is a set of HTML, CSS and JavaScript web components for public websites; developed, maintained and managed by the SIG; install via npm/yarn create @gouvfr/dsfr; use outside State websites prohibited"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/GouvernementFR/dsfr/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/GouvernementFR/dsfr/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:34:07.700Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md: Licence Ouverte 2.0 (Etalab); use framed by terms of use, not for entities outside the administration, replication limited outside .gouv.fr"
+      },
+      {
+        "field": "license",
+        "url": "https://github.com/GouvernementFR/dsfr/blob/main/doc/legal/cgu.md",
+        "status": 200,
+        "finalUrl": "https://github.com/GouvernementFR/dsfr/blob/main/doc/legal/cgu.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:34:21.000Z",
+        "method": "http-check",
+        "note": "200; DSFR terms of use (Modalités d'utilisation) referenced by README and LICENSE.md"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/GouvernementFR/dsfr/releases",
+        "status": 200,
+        "finalUrl": "https://github.com/GouvernementFR/dsfr/releases",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:48.265Z",
+        "method": "page-content",
+        "note": "Releases v1.15.4 (2026-10-12), v1.15.3 (2026-09-09), v1.15.2 (2026-08-12), v1.15.1 (2026-07-20), v1.15.0 (2026-07-17)"
+      },
+      {
+        "field": "package:@gouvfr/dsfr",
+        "url": "https://www.npmjs.com/package/@gouvfr/dsfr",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:34:08.640Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.15.4 published 2026-10-12; license etalab-2.0; deprecated: no; repo git+ssh://git@github.com/GouvernementFR/dsfr.git; release within 12 months => active"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.info.gouv.fr/organisation/service-d-information-du-gouvernement-sig",
+        "status": 403,
+        "finalUrl": "https://www.info.gouv.fr/organisation/service-d-information-du-gouvernement-sig",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:34:21.265Z",
+        "method": "http-check",
+        "note": "SIG page linked from README; 403 Cloudflare challenge; websiteUrl left null"
+      },
+      {
+        "field": "organization",
+        "url": "https://github.com/GouvernementFR",
+        "status": 200,
+        "finalUrl": "https://github.com/GouvernementFR",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:34:21.901Z",
+        "method": "http-check",
+        "note": "200; GitHub org 'Gouvernement' (18 repositories) that owns the dsfr repo"
+      }
+    ],
+    "confidence": 0.82,
+    "verifiedAt": "2026-11-05T04:39:43.330Z"
+  },
+  {
+    "rank": null,
+    "slug": "nl-design-system",
+    "name": "NL Design System",
+    "aliases": [],
+    "organization": {
+      "slug": "ictu",
+      "name": "ICTU (for the Dutch Ministry of the Interior and Kingdom Relations)",
+      "websiteUrl": "https://www.ictu.nl/"
+    },
+    "category": "design-system",
+    "summary": "A shared design system for Dutch government organisations, run by a core team at ICTU for the Ministry of the Interior (BZK); components mature through Help Wanted, Community, Candidate and Hall of Fame stages, and core Candidate components ship as themeable CSS, React and token packages.",
+    "homepageUrl": "https://nldesignsystem.nl/",
+    "docsUrl": "https://nldesignsystem.nl/componenten/",
+    "repositoryUrl": "https://github.com/nl-design-system/candidate",
+    "figmaUrl": "https://www.figma.com/design/FqAr99wvrlHxTJYAHkFRQN/NL-Design-System---Bibliotheek?node-id=197-664&t=t25LHoMjEkUZyEi1-1",
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@nl-design-system-candidate/button-css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/button-css"
+      },
+      {
+        "name": "@nl-design-system-candidate/button-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/button-react"
+      },
+      {
+        "name": "@nl-design-system-candidate/button-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/button-tokens"
+      },
+      {
+        "name": "@nl-design-system-candidate/heading-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/heading-react"
+      }
+    ],
+    "license": {
+      "slug": "eupl-1.2",
+      "spdxId": "EUPL-1.2",
+      "name": "European Union Public Licence v1.2",
+      "url": "https://raw.githubusercontent.com/nl-design-system/candidate/main/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "Copyleft licence of the nl-design-system/candidate repo; checked candidate packages declare EUPL-1.2 on npm. The site colofon states the project uses EUPL 1.2 and CC0 1.0 (the candidate README carries a CC0-1.0 header)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": null,
+        "support": "community"
+      },
+      {
+        "slug": "angular",
+        "packageName": null,
+        "support": "community"
+      },
+      {
+        "slug": "vue",
+        "packageName": null,
+        "support": "community"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "design-tokens",
+      "theming",
+      "multi-framework",
+      "open-source",
+      "figma-kit"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "elastic-ui-framework",
+    "replacedBy": null,
+    "notes": "Replacement for elastic-ui-framework (duplicate of elastic-ui). Distinct verified system: the Dutch government's shared system; the site calls it 'not an ordinary design system' but a collection of design systems (Utrecht, Den Haag, Amsterdam, Rotterdam, RVO, Rijkshuisstijl Community, etc.) working toward a Hall of Fame via the 'estafettemodel'. About page: carried out by ICTU on behalf of the Ministry of BZK. repositoryUrl is nl-design-system/candidate, which carries the core-team Candidate packages (components-css, components-react, tokens); packages are per component and versioned independently, so latestVersion and packageName are null (button/heading packages listed as examples). The developer handbook lists CSS, React, Web Component, Angular, Vue.js, HTML and Twig implementations; only CSS and React are in the Candidate repo, so web-components/angular/vue are recorded as community (Twig has no taxonomy slug). Brand themes use Design Tokens JSON. figmaUrl is the core-team 'NL Design System - Bibliotheek - Start' library linked from the official /figma/ page.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://nldesignsystem.nl/",
+        "status": 200,
+        "finalUrl": "https://nldesignsystem.nl/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:05.539Z",
+        "method": "page-content",
+        "note": "200; title 'NL Design System'; describes itself as a collection of design systems; homepage lists 'Heartbeat van 27 oktober 2026'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://nldesignsystem.nl/componenten/",
+        "status": 200,
+        "finalUrl": "https://nldesignsystem.nl/componenten/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:43.400Z",
+        "method": "page-content",
+        "note": "200; title 'Componenten · NL Design System'; component overview filterable by status (Help Wanted, Community, Candidate, Hall of fame) with per-component implementations (CSS, Web Component, React, Vue, Angular, Twig)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://nldesignsystem.nl/handboek/developer/introductie/",
+        "status": 200,
+        "finalUrl": "https://nldesignsystem.nl/handboek/developer/introductie/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:41:09.961Z",
+        "method": "page-content",
+        "note": "Developer intro: themes via Design Tokens JSON; component overview lists CSS, React, Web, Angular, Vue.js, HTML and Twig components contributed by the community"
+      },
+      {
+        "field": "organization",
+        "url": "https://nldesignsystem.nl/project/over-nl-design-system/",
+        "status": 200,
+        "finalUrl": "https://nldesignsystem.nl/project/over-nl-design-system/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:11.001Z",
+        "method": "page-content",
+        "note": "About page: 'Het project wordt uitgevoerd door ICTU, in opdracht van het ministerie van Binnenlandse Zaken en Koninkrijksrelaties (BZK)'; describes the estafettemodel stages"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://ictu.nl/",
+        "status": 200,
+        "finalUrl": "https://www.ictu.nl/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:32.302Z",
+        "method": "http-check",
+        "note": "redirects to www.ictu.nl; title 'ICTU - Samen werken aan een betere digitale overheid'"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://nldesignsystem.nl/figma/",
+        "status": 200,
+        "finalUrl": "https://nldesignsystem.nl/figma/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:27.677Z",
+        "method": "page-content",
+        "note": "Official Figma overview: core-team library 'NL Design System - Bibliotheek - Start' links https://www.figma.com/design/FqAr99wvrlHxTJYAHkFRQN/NL-Design-System---Bibliotheek?node-id=197-664&t=t25LHoMjEkUZyEi1-1"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/nl-design-system/candidate",
+        "status": 200,
+        "finalUrl": "https://github.com/nl-design-system/candidate",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:27.421Z",
+        "method": "http-check",
+        "note": "200; 'NL Design System Candidate components'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/nl-design-system/candidate/tree/main/packages",
+        "status": 200,
+        "finalUrl": "https://github.com/nl-design-system/candidate/tree/main/packages",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:43.030Z",
+        "method": "page-content",
+        "note": "packages/: components-css, components-react, tokens, docs, storybook (and test configs)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/nl-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/nl-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:04.870Z",
+        "method": "http-check",
+        "note": "200; GitHub org 'NL Design System' with 50 repositories (per-organisation systems, themes, backlog)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/nl-design-system/candidate/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/nl-design-system/candidate/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:30.920Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md is European Union Public Licence v1.2"
+      },
+      {
+        "field": "license",
+        "url": "https://nldesignsystem.nl/colofon/",
+        "status": 200,
+        "finalUrl": "https://nldesignsystem.nl/colofon/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:41:09.660Z",
+        "method": "page-content",
+        "note": "Colofon: main parts are open source under two licences, EUPL 1.2 and CC0 1.0 Universal"
+      },
+      {
+        "field": "package:@nl-design-system-candidate/button-css",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/button-css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:29.955Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.0.0 published 2026-10-05; license EUPL-1.2; deprecated: no; repo git@github.com:nl-design-system/candidate.git; release within 12 months => active"
+      },
+      {
+        "field": "package:@nl-design-system-candidate/button-react",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/button-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:29.746Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.1.0 published 2026-01-15; license EUPL-1.2; deprecated: no; repo git+ssh://git@github.com/nl-design-system/candidate.git"
+      },
+      {
+        "field": "package:@nl-design-system-candidate/button-tokens",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/button-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:40:49.443Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.0.0 published 2025-12-23; license EUPL-1.2; deprecated: no; repo git+ssh://git@github.com/nl-design-system/candidate.git"
+      },
+      {
+        "field": "package:@nl-design-system-candidate/heading-react",
+        "url": "https://www.npmjs.com/package/@nl-design-system-candidate/heading-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:30.389Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.1.8 published 2026-10-05; license EUPL-1.2; deprecated: no; repo git@github.com:nl-design-system/candidate.git"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:41:09.961Z"
+  },
+  {
+    "rank": null,
+    "slug": "vercel-geist",
+    "name": "Vercel Geist",
+    "aliases": [
+      "Geist",
+      "Geist Design System"
+    ],
+    "organization": {
+      "slug": "vercel",
+      "name": "Vercel",
+      "websiteUrl": "https://vercel.com/"
+    },
+    "category": "design-system",
+    "summary": "Vercel's design system, documented publicly at vercel.com/geist with foundations (colours, typography, grid, materials), brand assets, icons and more than 70 React component pages; the component code is not published, while the Geist typeface family ships as the geist npm package.",
+    "homepageUrl": "https://vercel.com/geist/introduction",
+    "docsUrl": "https://vercel.com/geist/introduction",
+    "repositoryUrl": null,
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "geist",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/geist"
+      }
+    ],
+    "license": null,
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "developer-tools",
+      "saas"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "adobe-react-aria",
+    "replacedBy": null,
+    "notes": "Replacement for adobe-react-aria (duplicate of react-aria). Distinct verified system: Vercel's own product design system; not shadcn/ui (separate entry, a copy-paste component collection) and not Geist UI (geist-org/geist-ui, an unofficial community React library whose site now reads 'Archived - Geist UI'), which is not recorded. Documentation-only: the intro page describes Components as 'Building blocks for React applications', but ATLAS found no public package or repository for them, so frameworks is empty, repositoryUrl null and license null (no terms stated for the docs or components). The only distributed artifact is the Geist typeface (npm geist, SIL OFL 1.1 per vercel/geist-font OFL.txt), listed under packages; latestVersion is null because the font is versioned separately. Maintenance 'active' from sitemap lastmod for /geist/* pages (2026-10-31 to 2026-11-04, likely deploy timestamps), the 'Introducing Geist Serif' post (30 Oct 2026) and the font release. No Figma link found on the docs pages.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://vercel.com/geist/introduction",
+        "status": 200,
+        "finalUrl": "https://vercel.com/geist/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:04.901Z",
+        "method": "page-content",
+        "note": "200; title 'Geist'; meta 'Vercel's design system called Geist'; intro lists Brand Assets, Icons, Components ('Building blocks for React applications'), Colors, Grid, Typeface"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://vercel.com/geist",
+        "status": 200,
+        "finalUrl": "https://vercel.com/geist/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:05.201Z",
+        "method": "http-check",
+        "note": "redirects to /geist/introduction"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://vercel.com/geist/introduction",
+        "status": 200,
+        "finalUrl": "https://vercel.com/geist/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:04.901Z",
+        "method": "page-content",
+        "note": "docs navigation: Foundations (Introduction, Colors, Typography, Font, Materials, Terminal), Brands, and component pages from Address Input to Video"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://vercel.com/sitemap.xml",
+        "status": 200,
+        "finalUrl": "https://vercel.com/crawled-sitemap.xml",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:43.036Z",
+        "method": "page-content",
+        "note": "redirects to crawled-sitemap.xml; 84 URLs containing 'geist'; /geist/* lastmod 2026-10-31 to 2026-11-04"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://vercel.com/blog/introducing-geist-serif",
+        "status": 200,
+        "finalUrl": "https://vercel.com/blog/introducing-geist-serif",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:40:09.331Z",
+        "method": "page-content",
+        "note": "Vercel blog 'Introducing Geist Serif', dated 30 Oct 2026, extends the Geist type family (Sans, Mono, Pixel)"
+      },
+      {
+        "field": "packages",
+        "url": "https://vercel.com/font",
+        "status": 200,
+        "finalUrl": "https://vercel.com/font",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:29.545Z",
+        "method": "http-check",
+        "note": "200; title 'Geist Font'; official typeface page"
+      },
+      {
+        "field": "packages",
+        "url": "https://github.com/vercel/geist-font",
+        "status": 200,
+        "finalUrl": "https://github.com/vercel/geist-font",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:29.548Z",
+        "method": "http-check",
+        "note": "200; vercel/geist-font repo (typeface only, not the component system)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/vercel/geist-font/main/OFL.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/vercel/geist-font/main/OFL.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:43.285Z",
+        "method": "repo-metadata",
+        "note": "Geist font licensed under the SIL Open Font License 1.1 (typeface only; no license found for the design system docs or components)"
+      },
+      {
+        "field": "package:geist",
+        "url": "https://www.npmjs.com/package/geist",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:33.079Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.9.1 published 2026-11-04; license SIL OPEN FONT LICENSE; deprecated: no; repo git+https://github.com/vercel/geist-font.git; Geist typeface package; release within 12 months"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://vercel.com/",
+        "status": 200,
+        "finalUrl": "https://vercel.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:05.528Z",
+        "method": "http-check",
+        "note": "200; Vercel corporate site"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://geist-ui.dev/",
+        "status": 200,
+        "finalUrl": "https://geist-ui.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:43.373Z",
+        "method": "http-check",
+        "note": "200; title 'Archived - Geist UI'; unofficial community project, not Vercel's Geist; not recorded"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:40:09.331Z"
+  },
+  {
+    "rank": null,
+    "slug": "equinor-eds",
+    "name": "Equinor Design System",
+    "aliases": [
+      "EDS"
+    ],
+    "organization": {
+      "slug": "equinor",
+      "name": "Equinor",
+      "websiteUrl": "https://www.equinor.com/"
+    },
+    "category": "design-system",
+    "summary": "Equinor's design system for its digital products, providing guidelines, design tokens, icons and a TypeScript React component library (@equinor/eds-core-react), documented at eds.equinor.com with a public Storybook.",
+    "homepageUrl": "https://eds.equinor.com/",
+    "docsUrl": "https://eds.equinor.com/docs/components/",
+    "repositoryUrl": "https://github.com/equinor/design-system",
+    "figmaUrl": null,
+    "storybookUrl": "https://storybook.eds.equinor.com/",
+    "packages": [
+      {
+        "name": "@equinor/eds-core-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@equinor/eds-core-react"
+      },
+      {
+        "name": "@equinor/eds-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@equinor/eds-tokens"
+      },
+      {
+        "name": "@equinor/eds-icons",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@equinor/eds-icons"
+      },
+      {
+        "name": "@equinor/eds-lab-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@equinor/eds-lab-react"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/equinor/design-system/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "MIT, Copyright (c) 2020 Equinor ASA (repo LICENSE). @equinor/eds-core-react, eds-tokens and eds-lab-react declare MIT on npm; @equinor/eds-icons declares Apache-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.6.4",
+    "latestReleaseAt": "2026-10-19T12:18:12.217Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@equinor/eds-core-react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "energy",
+      "react",
+      "design-tokens",
+      "typescript",
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "material-ui-for-flutter",
+    "replacedBy": null,
+    "notes": "Replacement for material-ui-for-flutter (duplicate of flutter-material). Distinct verified system owned by Equinor ASA (Norwegian energy company); no other Equinor entry exists. Docs site has 'Latest' (eds-core-react and eds-tokens 2.x) and 'Beta' (3.0.0 beta) versions; the Develop page installs @equinor/eds-core-react plus @equinor/eds-tokens and lists React 18+ and TypeScript 5.9+. @equinor/eds-data-grid-react is deprecated on npm ('No longer maintained'), so it is not listed in packages. Figma: the design guide says access is via internal Equinor resources inside Equinor's Figma organisation; it links only an 'EDS designer sandbox' file and the figma.com/@equinorasa profile, so figmaUrl is null and figma is not listed as a framework. storybookUrl is the public Storybook linked from the homepage. latestVersion = @equinor/eds-core-react.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://eds.equinor.com/",
+        "status": 200,
+        "finalUrl": "https://eds.equinor.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:05.264Z",
+        "method": "page-content",
+        "note": "200; title 'Equinor Design System'; 'Guidelines, tokens, and components for Equinor digital products'; links Storybook and github.com/equinor/design-system"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://eds.equinor.com/docs/components/",
+        "status": 200,
+        "finalUrl": "https://eds.equinor.com/docs/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:53.071Z",
+        "method": "http-check",
+        "note": "200; title 'Components | Equinor Design System'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://eds.equinor.com/docs/about/getting-started/develop/getting_started_development",
+        "status": 200,
+        "finalUrl": "https://eds.equinor.com/docs/about/getting-started/develop/getting_started_development/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:53.372Z",
+        "method": "page-content",
+        "note": "Develop page: npm install @equinor/eds-core-react and @equinor/eds-tokens; React 18+, TypeScript 5.9+; banner: Latest is 2.x, Beta is 3.0.0 beta"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://eds.equinor.com/docs/about/getting-started/design/figma",
+        "status": 200,
+        "finalUrl": "https://eds.equinor.com/docs/about/getting-started/design/figma/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:53.671Z",
+        "method": "page-content",
+        "note": "Figma guide: apply for access through internal Equinor resources; links an 'EDS designer sandbox' file only; no public library URL recorded"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://storybook.eds.equinor.com/",
+        "status": 200,
+        "finalUrl": "https://storybook.eds.equinor.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:42.520Z",
+        "method": "http-check",
+        "note": "200; title 'storybook - Storybook'; linked from homepage as the interactive component playground"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/equinor/design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/equinor/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:05.487Z",
+        "method": "http-check",
+        "note": "200; 'The Equinor design system'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/equinor/design-system/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/equinor/design-system/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:42.259Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is MIT License, Copyright (c) 2020 Equinor ASA"
+      },
+      {
+        "field": "package:@equinor/eds-core-react",
+        "url": "https://www.npmjs.com/package/@equinor/eds-core-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:40.072Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.6.4 published 2026-10-19; license MIT; deprecated: no; repo https://github.com/equinor/design-system; release within 12 months => active"
+      },
+      {
+        "field": "package:@equinor/eds-tokens",
+        "url": "https://www.npmjs.com/package/@equinor/eds-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:40.365Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.3.2 published 2026-07-20; license MIT; deprecated: no; repo git+https://github.com/equinor/design-system.git"
+      },
+      {
+        "field": "package:@equinor/eds-icons",
+        "url": "https://www.npmjs.com/package/@equinor/eds-icons",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:40.681Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.6.0 published 2026-09-08; license Apache-2.0; deprecated: no; repo git+https://github.com/equinor/design-system.git"
+      },
+      {
+        "field": "package:@equinor/eds-lab-react",
+        "url": "https://www.npmjs.com/package/@equinor/eds-lab-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.425Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.11.0 published 2026-03-20; license MIT; deprecated: no; repo git+https://github.com/equinor/design-system.git"
+      },
+      {
+        "field": "package:@equinor/eds-data-grid-react",
+        "url": "https://www.npmjs.com/package/@equinor/eds-data-grid-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.075Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.3.0 published 2026-03-20; license MIT; deprecated: \"No longer maintained: no bug fixes, features or security updates. It keeps working as-is. Replacement recommendation: https://github.com/equinor/design-system/issues/5649\"; repo git+https://github.com/equinor/design-system.git; not listed in packages"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.equinor.com/",
+        "status": 200,
+        "finalUrl": "https://www.equinor.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:05.450Z",
+        "method": "http-check",
+        "note": "200; Equinor corporate site ('international energy company headquartered in Norway')"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T04:37:53.671Z"
+  }
+]
