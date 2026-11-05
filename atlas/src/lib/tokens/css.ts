@@ -207,6 +207,7 @@ function parseBlock(sc: Scanner, start: number, end: number, ctx: Ctx, out: CssC
   const s = sc.src;
   let i = start;
   let pendingComment: { text: string; end: number } | null = null;
+  let lastDeclLine = -1;
   while (i < end && out.length < opts.maxDeclarations) {
     const c = s[i]!;
     if (c === " " || c === "\n" || c === "\t" || c === "\r" || c === "\f" || c === ";") {
@@ -215,7 +216,8 @@ function parseBlock(sc: Scanner, start: number, end: number, ctx: Ctx, out: CssC
     }
     if (c === "/" && s[i + 1] === "*") {
       const ce = sc.skipComment(i);
-      pendingComment = { text: s.slice(i, ce), end: ce };
+      // A comment on the same line as the previous declaration is that declaration's trailing comment.
+      pendingComment = sc.line(i) === lastDeclLine ? null : { text: s.slice(i, ce), end: ce };
       i = ce;
       continue;
     }
@@ -265,6 +267,7 @@ function parseBlock(sc: Scanner, start: number, end: number, ctx: Ctx, out: CssC
           const vEnd = sc.readUntil(colon + 1, ";}", end, true);
           emit(sc, out, ctx, name, s.slice(colon + 1, vEnd), i, vEnd, pendingComment, opts);
           pendingComment = null;
+          lastDeclLine = sc.line(Math.min(vEnd, s.length - 1));
           i = vEnd < end && s[vEnd] === ";" ? vEnd + 1 : vEnd;
           continue;
         }
@@ -421,8 +424,31 @@ export function themeFromClassName(cls: string): string | null {
   return null;
 }
 
+/** Remove negations (":not(...)") so their contents do not count as theme signals. */
+function stripNegations(sel: string): string {
+  let out = sel;
+  for (let guard = 0; guard < 32; guard++) {
+    const at = out.toLowerCase().indexOf(":not(");
+    if (at < 0) break;
+    let depth = 0;
+    let close = -1;
+    for (let j = at + 4; j < out.length; j++) {
+      if (out[j] === "(") depth++;
+      else if (out[j] === ")") {
+        depth--;
+        if (depth === 0) {
+          close = j;
+          break;
+        }
+      }
+    }
+    out = close < 0 ? out.slice(0, at) : out.slice(0, at) + out.slice(close + 1);
+  }
+  return out;
+}
+
 function themeOfCompound(sel: string): SelectorThemeInfo {
-  const s = sel.trim();
+  const s = stripNegations(sel).trim();
   if (!s) return { theme: null, inferred: false, kind: "root" };
   if (ROOT_SELECTOR.test(s)) return { theme: null, inferred: false, kind: "root" };
   // Attribute-based themes (literal values).
