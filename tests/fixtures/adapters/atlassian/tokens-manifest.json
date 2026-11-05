@@ -1,0 +1,31 @@
+{
+ "name": "@atlaskit/tokens",
+ "version": "20.9.0",
+ "description": "Design tokens are the single source of truth to name and store design decisions.",
+ "license": "Apache-2.0",
+ "homepage": "https://atlassian.design/components/tokens",
+ "repository": {
+  "url": "git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git",
+  "type": "git"
+ },
+ "atlassian": {
+  "team": "Design System Team",
+  "website": {
+   "name": "Design tokens",
+   "tags": [
+    "platform-labs"
+   ],
+   "category": "Libraries"
+  },
+  "react-compiler": {
+   "gating": {
+    "source": "@atlaskit/react-compiler-gating",
+    "importSpecifierName": "isReactCompilerActivePlatform"
+   },
+   "enabled": true
+  }
+ },
+ "peerDependencies": {
+  "react": "^18.2.0 || ^19.0.0"
+ }
+}

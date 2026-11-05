@@ -1,0 +1,30 @@
+////
+/// @group settings/colours
+////
+@use "../helpers/colour" as *;
+// =============================================================================
+// Legacy variables
+//
+// To help migrate to `govuk-functional-colour`, we're keeping the variables
+// which were previously storing the functional colours. This should reduce
+// breakage as teams upgrade
+// =============================================================================
+
+/// Brand colour
+///
+/// @type Colour
+/// @access public
+/// @deprecated
+///   Variables for applied colours are deprecated. Please use the `govuk-functional-colour`
+///   function instead: `govuk-functional-colour(brand)`.
+$govuk-brand-colour: govuk-functional-colour(brand);
+
+/// Text colour
+///
+/// @type Colour
+/// @access public
+/// @deprecated
+///   Variables for applied colours are deprecated. Please use the `govuk-functional-colour`
+///   function instead: `govuk-functional-colour(text)`.
+$govuk-text-colour: govuk-functional-colour(text);
+

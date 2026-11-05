@@ -1,0 +1,59 @@
+[
+  {
+    "name": "id",
+    "type": "string",
+    "required": false,
+    "description": "The ID of the button.",
+    "released": "10.0.0"
+  },
+  {
+    "name": "element",
+    "type": "string",
+    "required": false,
+    "description": "HTML element for the button \u2013 `\"input\"`, `\"button\"` or `\"a\"`. In most cases you will not need to set this as it will be configured automatically if `href` is provided.",
+    "released": "1.0.0",
+    "deprecated": "10.6.0"
+  },
+  {
+    "name": "text",
+    "type": "string",
+    "required": true,
+    "description": "If `html` or `ariaLabel` is set, this is not required. Text for the button. If `html` is provided, the `text` option will be ignored.",
+    "released": "1.0.0"
+  },
+  {
+    "name": "html",
+    "type": "string",
+    "required": true,
+    "description": "If `text` or `ariaLabel` is set, this is not required. HTML for the button. If `html` is provided, the `text` option will be ignored.",
+    "released": "1.0.0"
+  },
+  {
+    "name": "caller",
+    "type": "nunjucks-block",
+    "required": false,
+    "description": "Not strictly an option but supports the [`call` block](https://mozilla.github.io/nunjucks/templating.html#call) as an alternative to the `html` option. To use it, you will need to wrap the entire button component in a `call` block.",
+    "released": "10.4.0"
+  },
+  {
+    "name": "visuallyHiddenText",
+    "type": "string",
+    "required": false,
+    "description": "A visually hidden prefix used before the button text. Defaults to `\"Warning\"` for warning buttons. If `ariaLabel` is provided, this has no effect.",
+    "released": "10.7.0"
+  },
+  {
+    "name": "name",
+    "type": "string",
+    "required": false,
+    "description": "Name for the button. If `href` is provided, this has no effect.",
+    "released": "1.0.0"
+  },
+  {
+    "name": "type",
+    "type": "string",
+    "required": false,
+    "description": "Type of button \u2013 `\"button\"`, `\"submit\"` or `\"reset\"`. Defaults to `\"submit\"` unless `href` is provided.",
+    "released": "1.0.0"
+  }
+]

@@ -1,0 +1,306 @@
+{
+ "schemaVersion": "2.1.0",
+ "readme": "Polaris Web Components - Custom Elements Manifest",
+ "modules": [
+  {
+   "kind": "javascript-module",
+   "path": "dist/components/Button/index.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "description": "Configure the following properties on the button component.",
+     "name": "Button",
+     "slots": [
+      {
+       "name": "",
+       "description": "The label text or elements displayed inside the button component, describing the action that will be performed when clicked."
+      }
+     ],
+     "members": [
+      {
+       "kind": "field",
+       "name": "tone",
+       "type": {
+        "text": "\"auto\" | \"neutral\" | \"critical\""
+       },
+       "default": "'auto'",
+       "description": "The semantic meaning and color treatment of the component. - `critical`: Urgent problems or destructive actions. - `auto`: Automatically determined based on context. - `neutral`: General information without specific intent."
+      },
+      {
+       "kind": "field",
+       "name": "icon",
+       "type": {
+        "text": "\"color\" | \"info\" | \"adjust\" | \"affiliate\" | \"airplane\" | \"alert-bubble\" | \"alert-circle\" | \"alert-diamond\" | \"alert-location\" | \"alert-octagon\" | \"alert-octagon-filled\" | \"alert-triangle\" | \"align-horizontal-centers\" | \"app-extension\" | \"apps\" | \"archive\" | \"arrow-down\" | \"arrow-down-circle\" | \"arrow-left\" | \"arrow-left-circle\" | \"arrow-right\" | \"arrow-right-circle\" | \"arrow-up\" | \"arrow-up-circle\" | \"arrow-up-right\" | \"arrows-in-horizontal\" | \"empty\""
+       },
+       "default": "''",
+       "description": "An icon displayed inside the button, typically positioned before the button text. Use icons to help users quickly identify the button's action or to improve scannability. Accepts any icon name from the icon library or a custom string identifier."
+      },
+      {
+       "kind": "field",
+       "name": "accessibilityLabel",
+       "type": {
+        "text": "string"
+       },
+       "description": "A label that describes the purpose or content of the component for assistive technologies like screen readers. Use this to provide additional context when the visible content alone doesn't clearly convey the component's purpose."
+      },
+      {
+       "kind": "field",
+       "name": "variant",
+       "type": {
+        "text": "\"auto\" | \"primary\" | \"secondary\" | \"tertiary\""
+       },
+       "default": "'auto'",
+       "description": "The visual appearance of the button component. - `auto`: The variant is automatically determined by the button component's context. - `primary`: High emphasis button for the primary action on the page. Should be used sparingly. - `secondary`: Medium emphasis button for secondary actions. - `tertiary`: Low emphasis button for less important actions."
+      },
+      {
+       "kind": "field",
+       "name": "type",
+       "type": {
+        "text": "\"button\" | \"reset\" | \"submit\""
+       },
+       "default": "'button'",
+       "description": "The behavior of the Button. - `submit`: Used to indicate the component acts as a submit button, meaning it submits the closest form. - `button`: Used to indicate the component acts as a button, meaning it has no default action. - `reset`: Used to indicate the component acts as a reset button, meaning it resets the closest form (returning fields to their default values). This property is ignored if the component supports `href` or `commandFor`/`command` and one of them is set."
+      },
+      {
+       "kind": "field",
+       "name": "disabled",
+       "type": {
+        "text": "boolean"
+       },
+       "default": "false",
+       "description": "Disables the Button meaning it cannot be clicked or receive focus."
+      },
+      {
+       "kind": "field",
+       "name": "loading",
+       "type": {
+        "text": "boolean"
+       },
+       "default": "false",
+       "description": "Replaces content with a loading indicator while a background action is being performed. This also disables the Button."
+      },
+      {
+       "kind": "field",
+       "name": "_internal",
+       "type": {
+        "text": "string"
+       }
+      },
+      {
+       "kind": "field",
+       "name": "styles",
+       "static": true,
+       "type": {
+        "text": "CSSResult"
+       }
+      },
+      {
+       "kind": "method",
+       "name": "focus"
+      }
+     ],
+     "events": [
+      {
+       "name": "click",
+       "type": {
+        "text": "CustomEvent"
+       },
+       "description": "A callback fired when the button is clicked."
+      }
+     ],
+     "attributes": [
+      {
+       "name": "tone",
+       "fieldName": "tone"
+      },
+      {
+       "name": "icon",
+       "fieldName": "icon"
+      },
+      {
+       "name": "accessibilitylabel",
+       "fieldName": "accessibilityLabel"
+      },
+      {
+       "name": "variant",
+       "fieldName": "variant"
+      },
+      {
+       "name": "type",
+       "fieldName": "type"
+      },
+      {
+       "name": "disabled",
+       "fieldName": "disabled"
+      },
+      {
+       "name": "loading",
+       "fieldName": "loading"
+      }
+     ],
+     "superclass": {
+      "name": "ButtonBase",
+      "module": "//app/libraries/javascript/polaris/admin-ui-components/src/components/Button/ButtonBase"
+     },
+     "customElement": true,
+     "tagName": "s-button"
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "dist/components/Table/index.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "description": "Configure the following properties on the table component.",
+     "name": "Table",
+     "slots": [
+      {
+       "name": "",
+       "description": "The table structure displayed within the table component, including table headers, rows, and cells that organize data in a grid format."
+      }
+     ],
+     "members": [
+      {
+       "kind": "field",
+       "name": "variant",
+       "type": {
+        "text": "\"auto\" | \"list\""
+       },
+       "default": "'auto'",
+       "description": "The layout variant of the table component. - `list`: Always displays as a list layout. - `auto`: Automatically displays as a table on wide screens and as a list on narrow screens."
+      },
+      {
+       "kind": "field",
+       "name": "loading",
+       "type": {
+        "text": "boolean"
+       },
+       "default": "false",
+       "description": "Whether the table is in a loading state, such as initial page load or loading the next page in a paginated table. When true, the table could be in an inert state, which prevents user interaction."
+      }
+     ],
+     "events": [
+      {
+       "name": "nextpage",
+       "type": {
+        "text": "Event"
+       },
+       "description": "Called when the next page button is clicked."
+      }
+     ],
+     "attributes": [
+      {
+       "name": "variant",
+       "fieldName": "variant"
+      },
+      {
+       "name": "loading",
+       "fieldName": "loading"
+      }
+     ],
+     "superclass": {
+      "name": "PolarisCustomElement",
+      "module": "//app/libraries/javascript/polaris/admin-ui-components/src/foundational/classes/PolarisCustomElement"
+     },
+     "customElement": true,
+     "tagName": "s-table"
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "dist/components/TableRow/index.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "description": "The table row component represents a single row of data within a table body. Use table row as a child of table body to structure individual records or entries in the table. Table row must contain table cell components, with each cell representing a data value for the corresponding column. The number of cells should match the number of headers in the table.",
+     "name": "TableRow",
+     "slots": [
+      {
+       "name": "",
+       "description": "The data cells displayed within this table row, with each cell containing content for its corresponding column. Only accepts table cell components as children."
+      }
+     ],
+     "members": [
+      {
+       "kind": "field",
+       "name": "clickDelegate",
+       "type": {
+        "text": "string | undefined"
+       },
+       "description": "The ID of an interactive element, such as `s-link`, in the row that will be the target of the click when the row is clicked. This is the primary action for the row; it should not be used for secondary actions. This is a click-only affordance, and does not introduce any keyboard or screen reader affordances. Which is why the target element must be in the table; so that keyboard and screen reader users can interact with it normally."
+      }
+     ],
+     "attributes": [
+      {
+       "name": "clickdelegate",
+       "fieldName": "clickDelegate"
+      }
+     ],
+     "superclass": {
+      "name": "PolarisCustomElement",
+      "module": "//app/libraries/javascript/polaris/admin-ui-components/src/foundational/classes/PolarisCustomElement"
+     },
+     "customElement": true,
+     "tagName": "s-table-row",
+     "events": []
+    }
+   ]
+  },
+  {
+   "kind": "javascript-module",
+   "path": "dist/components/Text/index.js",
+   "declarations": [
+    {
+     "kind": "class",
+     "description": "Configure the following properties on the text component.",
+     "name": "Text",
+     "slots": [
+      {
+       "name": "",
+       "description": "The text content displayed within the text component, which applies semantic meaning and styling appropriate to the specified text type."
+      }
+     ],
+     "members": [
+      {
+       "kind": "field",
+       "name": "tone",
+       "type": {
+        "text": "\"auto\" | \"neutral\" | \"info\" | \"success\" | \"caution\" | \"warning\" | \"critical\""
+       },
+       "default": "'auto'",
+       "description": "The semantic tone that's applied to the text, which changes its color to convey meaning. - `info`: Informational content or helpful tips (blue). - `success`: Positive outcomes or successful states (green). - `warning`: Important warnings about potential issues (orange). - `critical`: Urgent problems or destructive actions (red). - `auto`: Automatically determined based on context. - `neutral`: General information without specific intent (gray). - `caution`: Advisory notices that need attention (yellow)."
+      },
+      {
+       "kind": "field",
+       "name": "fontVariantNumeric",
+       "type": {
+        "text": "\"auto\" | \"normal\" | \"tabular-nums\""
+       },
+       "description": "Set the numeric properties of the font."
+      }
+     ],
+     "attributes": [
+      {
+       "name": "tone",
+       "fieldName": "tone"
+      },
+      {
+       "name": "fontvariantnumeric",
+       "fieldName": "fontVariantNumeric"
+      }
+     ],
+     "superclass": {
+      "name": "TextBase",
+      "module": "//app/libraries/javascript/polaris/admin-ui-components/src/components/Text/TextBase"
+     },
+     "customElement": true,
+     "tagName": "s-text",
+     "events": []
+    }
+   ]
+  }
+ ]
+}

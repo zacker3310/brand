@@ -1,74 +1,89 @@
-# brand
+# ATLAS
 
-Central brand asset repository for two personal/professional websites, both powered by **Notion + Super.so**.
+Design system intelligence: a source-attributed catalog of real-world design systems, their components,
+tokens, patterns and accessibility guidance, with cross-system comparison.
 
-| Site | Purpose |
-|---|---|
-| [acker.cloud](https://acker.cloud) | Personal site & resume (Zac Acker) |
-| [thrivecmd.com](https://thrivecmd.com) | Content, culture, and side projects (Thrive Culture Media) |
+ATLAS is a navigational index, not a mirror. It stores concise facts, short excerpts and hashes, and links
+to official documentation. Verified, inferred and missing data are always labelled separately.
 
----
+- Architecture: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- Decisions: [`docs/adr/`](docs/adr)
+- Data quality report: [`docs/DATA_QUALITY.md`](docs/DATA_QUALITY.md)
+- Backlog: [`docs/BACKLOG.md`](docs/BACKLOG.md)
 
-## What's in this repo
+## Requirements
 
-```
-brand/
-├── acker_cloud/        # acker.cloud assets
-│   ├── img/            # Profile photo, logos
-│   ├── home/           # Hero section (head/css/body snippets)
-│   ├── contact/        # Contact page snippets
-│   ├── portfolio/      # Portfolio page CSS
-│   └── wiki/           # Wiki page CSS
-└── thrivecmd/          # thrivecmd.com assets
-    ├── home/           # Hero section snippets
-    ├── numinous/       # Numinous page snippets
-    └── ignition_protocol/  # Starfield/space page CSS
-```
+- Node.js 22.12+ (npm 10)
+- PostgreSQL 16 with the `pg_trgm` and `unaccent` extensions (bundled with standard Postgres packages)
 
-Each page has up to three injectable snippet files following the `{page}_{type}.html` convention:
+## Setup
 
-| Suffix | Injected into | Contains |
-|---|---|---|
-| `_head.html` | Super.so "Head" slot | Font imports, root-level styles |
-| `_css.html` | Super.so "CSS" slot | Page-scoped `<style>` block |
-| `_body.html` | Super.so "Body" slot | HTML markup |
+```bash
+npm ci
+cp .env.example .env            # adjust DATABASE_URL if needed
 
----
+# Database: either Docker...
+docker compose up -d db
+# ...or any local Postgres 16:  createdb atlas
 
-## How assets are served
-
-Static files are delivered via **jsDelivr CDN** directly from this repo:
-
-```
-https://cdn.jsdelivr.net/gh/zacker3310/brand@main/{path/to/file}
+npm run db:migrate              # creates extensions + schema
+npm run db:seed                 # taxonomy, frameworks, platforms + data/registry/*.json (100 verified systems)
 ```
 
-To purge the CDN cache after a push:
+## Ingest real data
 
+```bash
+npm run ingest -- --system github-primer --inline   # one system, processed in-process
+npm run ingest -- --all --inline                     # every system with an adapter
+npm run ingest -- --status                           # queue + recent runs
+
+# or run the durable worker and enqueue from the CLI / Ops UI
+npm run worker
+npm run ingest -- --system carbon
 ```
-https://purge.jsdelivr.net/gh/zacker3310/brand@main/{path/to/file}
+
+Runs are resumable (`npm run ingest -- --resume <runId>`) and idempotent: unchanged sources produce no new
+canonical rows, evidence or change events.
+
+Adapter development without a database:
+
+```bash
+npx tsx scripts/adapter-dry-run.ts primer github-primer --limit 10   # writes .cache/bundles/github-primer.json
 ```
 
----
+## Run the app
 
-## Design systems at a glance
+```bash
+npm run dev                      # http://localhost:3000
+npm run build && npm run start   # production
+```
 
-### acker.cloud
-- **Font:** Inter (Google Fonts)
-- **Background:** `#0a0a0a` near-black
-- **Accent:** `#EB5757` (Notion Red)
-- **Theme:** Dark, minimal, professional
+## Quality gates
 
-### thrivecmd.com
-- **Font:** Orbitron (Google Fonts)
-- **Background:** Pillars of Creation cosmic image
-- **Accents:** `#E94560` (hot pink) / `#12c2e9` (cyan)
-- **Theme:** Dark, sci-fi, cinematic
+```bash
+npm run typecheck
+npm run lint
+npm test                         # unit + integration (needs DATABASE_URL; tests create their own databases)
+npm run test:e2e                 # Playwright + axe (builds must exist: npm run build)
+npm run quality                  # writes docs/DATA_QUALITY.md from the live database
+npm run links                    # checks published source URLs
+```
 
----
+## Adding a design system
 
-## No build system
+1. Add a verified `RegistryEntry` to `data/registry/*.json` (validate: `npx tsx scripts/registry/validate.ts`).
+2. If it needs deep ingestion, add `src/ingestion/adapters/<id>.ts` implementing `SourceAdapter`, list it in
+   `src/ingestion/adapters/index.ts`, and dry-run it. The engine needs no changes.
+3. `npm run db:seed && npm run ingest -- --system <slug> --inline`.
 
-There is no bundler, package manager, or JavaScript framework. Everything is plain HTML and CSS. Changes go live after pushing to `main` (CDN propagation delay applies).
+## Repository history
 
-For a full reference on conventions, animations, breakpoints, and how to add new pages, see [CLAUDE.md](./CLAUDE.md).
+This repository previously held brand assets for acker.cloud and thrivecmd.com, served via jsDelivr from
+`@main`. Those files remain available at the immutable commit pin `fdace58`:
+`https://cdn.jsdelivr.net/gh/zacker3310/brand@fdace58/<path>`.
+
+## Source policy
+
+All ingestion HTTP goes through `PoliteFetcher` (identified User-Agent, robots.txt, per-host rate limits,
+conditional requests). ATLAS never bypasses authentication, paywalls or CAPTCHAs, never executes fetched
+scripts, and stores code examples only when the source license permits redistribution.

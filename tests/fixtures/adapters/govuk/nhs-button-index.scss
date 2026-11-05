@@ -1,0 +1,105 @@
+@use "sass:math";
+@use "../../core/settings" as *;
+@use "../../core/tools" as *;
+@use "../input" as *;
+@use "settings" as *;
+@forward "settings";
+
+////
+/// Button component
+///
+/// 1. Ensure that any global link styles are overridden.
+/// 2. Fix unwanted button padding in Firefox.
+/// 3. Use a pseudo element to expand the click target area to include the
+///    button's shadow as well, in case users try to click it.
+/// 4. Use a pseudo element to expand and cover the button's bounds, used to
+///    add a button shadow or border without affecting the total height
+/// 5. Adjust margin and padding to accommodate button shadow
+///
+/// @group components/button
+////
+
+@include nhsuk-exports("nhsuk/components/button") {
+  .nhsuk-button {
+    box-sizing: border-box;
+
+    display: inline-block;
+
+    position: relative;
+
+    width: 100%;
+    min-height: calc($nhsuk-button-height - $nhsuk-button-shadow-size);
+    margin-top: 0;
+    padding: $nhsuk-button-padding-top-bottom $nhsuk-button-padding-left-right;
+
+    overflow: visible;
+
+    border: $nhsuk-border-width-form-element solid transparent;
+    border-radius: nhsuk-px-to-rem($nhsuk-button-border-radius);
+
+    text-align: center;
+    vertical-align: top;
+
+    cursor: pointer;
+
+    -webkit-appearance: none;
+
+            appearance: none;
+
+    @include nhsuk-button-style(
+      $button-colour: $nhsuk-button-colour,
+      $button-hover-colour: $nhsuk-button-hover-colour,
+      $button-active-colour: $nhsuk-button-active-colour,
+      $button-text-colour: $nhsuk-button-text-colour,
+      $button-shadow-colour: $nhsuk-button-shadow-colour
+    );
+
+    @include nhsuk-font(19, $line-height: 19px, $weight: bold);
+    @include nhsuk-responsive-margin(5, "bottom", $adjustment: $nhsuk-button-shadow-size); // [5]
+
+    @media #{nhsuk-from-breakpoint(tablet)} {
+    }
+  }
+
+  // Button variations
+
+  .nhsuk-button--secondary,
+  .nhsuk-button--secondary-solid {
+    @include nhsuk-button-style(
+      $button-colour: $nhsuk-secondary-button-colour,
+      $button-border-colour: $nhsuk-secondary-button-border-colour,
+      $button-hover-colour: $nhsuk-secondary-button-hover-colour,
+      $button-active-colour: $nhsuk-secondary-button-active-colour,
+      $button-text-colour: $nhsuk-secondary-button-text-colour,
+      $button-shadow-colour: $nhsuk-secondary-button-shadow-colour
+    );
+  }
+
+  .nhsuk-button--secondary-solid {
+    background-color: $nhsuk-secondary-button-solid-background-colour;
+  }
+
+  .nhsuk-button--reverse {
+    @include nhsuk-button-style(
+      $button-colour: $nhsuk-reverse-button-colour,
+      $button-hover-colour: $nhsuk-reverse-button-hover-colour,
+      $button-active-colour: $nhsuk-reverse-button-active-colour,
+      $button-text-colour: $nhsuk-reverse-button-text-colour,
+      $button-shadow-colour: $nhsuk-reverse-button-shadow-colour
+    );
+  }
+
+  .nhsuk-button--warning {
+    @include nhsuk-button-style(
+      $button-colour: $nhsuk-warning-button-colour,
+      $button-hover-colour: $nhsuk-warning-button-hover-colour,
+      $button-active-colour: $nhsuk-warning-button-active-colour,
+      $button-text-colour: $nhsuk-button-text-colour,
+      $button-shadow-colour: $nhsuk-warning-button-shadow-colour
+    );
+  }
+
+  .nhsuk-button--brand,
+  .nhsuk-button--login {
+    @include nhsuk-button-style(
+      $button-colour: $nhsuk-login-button-colour,

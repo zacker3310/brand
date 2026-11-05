@@ -1,0 +1,163 @@
+{
+ "type": "npm",
+ "name": "nhsuk-frontend",
+ "version": "10.7.1",
+ "files": [
+  {
+   "name": "/dist/nhsuk/components/button/_button.scss",
+   "size": 14
+  },
+  {
+   "name": "/dist/nhsuk/components/button/_index.scss",
+   "size": 13333
+  },
+  {
+   "name": "/dist/nhsuk/components/button/_settings.scss",
+   "size": 1551
+  },
+  {
+   "name": "/dist/nhsuk/components/button/button.js",
+   "size": 4064
+  },
+  {
+   "name": "/dist/nhsuk/components/button/button.mjs",
+   "size": 3986
+  },
+  {
+   "name": "/dist/nhsuk/components/button/fixtures.js",
+   "size": 17105
+  },
+  {
+   "name": "/dist/nhsuk/components/button/fixtures.json",
+   "size": 53812
+  },
+  {
+   "name": "/dist/nhsuk/components/button/fixtures.mjs",
+   "size": 17066
+  },
+  {
+   "name": "/dist/nhsuk/components/button/macro.njk",
+   "size": 105
+  },
+  {
+   "name": "/dist/nhsuk/components/button/macro-options.js",
+   "size": 5099
+  },
+  {
+   "name": "/dist/nhsuk/components/button/macro-options.json",
+   "size": 5239
+  },
+  {
+   "name": "/dist/nhsuk/components/button/macro-options.mjs",
+   "size": 5064
+  },
+  {
+   "name": "/dist/nhsuk/components/button/README.md",
+   "size": 403
+  },
+  {
+   "name": "/dist/nhsuk/components/button/template.njk",
+   "size": 5227
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/_hint.scss",
+   "size": 14
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/_index.scss",
+   "size": 1847
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/fixtures.js",
+   "size": 995
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/fixtures.json",
+   "size": 1448
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/fixtures.mjs",
+   "size": 973
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/macro.njk",
+   "size": 101
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/macro-options.js",
+   "size": 1651
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/macro-options.json",
+   "size": 1356
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/macro-options.mjs",
+   "size": 1616
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/README.md",
+   "size": 411
+  },
+  {
+   "name": "/dist/nhsuk/components/hint/template.njk",
+   "size": 573
+  },
+  {
+   "name": "/dist/nhsuk/components/input/_index.scss",
+   "size": 9081
+  },
+  {
+   "name": "/dist/nhsuk/components/input/_input.scss",
+   "size": 14
+  },
+  {
+   "name": "/dist/nhsuk/components/input/_settings.scss",
+   "size": 339
+  },
+  {
+   "name": "/dist/nhsuk/components/input/fixtures.js",
+   "size": 13242
+  },
+  {
+   "name": "/dist/nhsuk/components/input/fixtures.json",
+   "size": 38159
+  },
+  {
+   "name": "/dist/nhsuk/components/input/fixtures.mjs",
+   "size": 13213
+  },
+  {
+   "name": "/dist/nhsuk/components/input/macro.njk",
+   "size": 103
+  },
+  {
+   "name": "/dist/nhsuk/components/input/macro-options.js",
+   "size": 9402
+  },
+  {
+   "name": "/dist/nhsuk/components/input/macro-options.json",
+   "size": 10013
+  },
+  {
+   "name": "/dist/nhsuk/components/input/macro-options.mjs",
+   "size": 9367
+  },
+  {
+   "name": "/dist/nhsuk/components/input/README.md",
+   "size": 414
+  },
+  {
+   "name": "/dist/nhsuk/components/input/template.njk",
+   "size": 8457
+  },
+  {
+   "name": "/dist/nhsuk/core/settings/_colours-palette.scss",
+   "size": 1234
+  },
+  {
+   "name": "/dist/nhsuk/core/settings/_spacing.scss",
+   "size": 1391
+  }
+ ]
+}

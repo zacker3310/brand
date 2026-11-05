@@ -1,0 +1,12 @@
+{
+  "v": 5,
+  "entries": {
+    "introduction-welcome--overview": { "id": "introduction-welcome--overview", "title": "Introduction/Welcome", "name": "Overview", "type": "docs" },
+    "components-button--overview": { "id": "components-button--overview", "title": "Components/Button", "name": "Overview", "type": "docs" },
+    "components-button--default": { "id": "components-button--default", "title": "Components/Button", "name": "Default", "type": "story" },
+    "components-datatable-basic--overview": { "id": "components-datatable-basic--overview", "title": "Components/DataTable/Basic", "name": "Overview", "type": "docs" },
+    "components-notifications-inline--overview": { "id": "components-notifications-inline--overview", "title": "Components/Notifications/Inline", "name": "Overview", "type": "docs" },
+    "components-skeleton-skeleton-icon--overview": { "id": "components-skeleton-skeleton-icon--overview", "title": "Components/Skeleton/Skeleton Icon", "name": "Overview", "type": "docs" },
+    "components-modal-feature-flag--flag-details": { "id": "components-modal-feature-flag--flag-details", "title": "Components/Modal/Feature Flag", "name": "Flag details", "type": "docs" }
+  }
+}

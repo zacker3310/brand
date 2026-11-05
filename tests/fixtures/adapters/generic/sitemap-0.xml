@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://ds.example.com/</loc></url>
+  <url><loc>https://ds.example.com/components/</loc></url>
+  <url><loc>https://ds.example.com/components/overview/</loc></url>
+  <url><loc>https://ds.example.com/components/button/</loc></url>
+  <url><loc>https://ds.example.com/components/button</loc></url>
+  <url><loc>https://ds.example.com/components/date-picker/</loc></url>
+  <url><loc><![CDATA[https://ds.example.com/components/text-field/]]></loc></url>
+  <url><loc>https://ds.example.com/components/changelog/</loc></url>
+  <url><loc>https://ds.example.com/components/button/usage/</loc></url>
+  <url><loc>https://ds.example.com/foundations/colors/</loc></url>
+  <url><loc>https://ds.example.com/components/forms/text/</loc></url>
+  <url><loc>https://ds.example.com/components/display/text/</loc></url>
+  <url><loc>https://ds.example.com/components/tabs/?ref=nav&amp;x=1</loc></url>
+</urlset>

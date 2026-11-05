@@ -1,0 +1,3780 @@
+[
+  {
+    "rank": 41,
+    "slug": "bootstrap",
+    "name": "Bootstrap",
+    "aliases": [],
+    "organization": {
+      "slug": "twbs",
+      "name": "The Bootstrap Authors (twbs)",
+      "websiteUrl": "https://getbootstrap.com/"
+    },
+    "category": "css-framework",
+    "summary": "Open-source front-end toolkit of Sass/CSS components, a responsive grid system and JavaScript plugins, maintained by the Bootstrap team in the twbs GitHub organization. v5.3 is the current stable line; v6 is in alpha.",
+    "homepageUrl": "https://getbootstrap.com/",
+    "docsUrl": "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+    "repositoryUrl": "https://github.com/twbs/bootstrap",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "bootstrap",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/bootstrap"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/twbs/bootstrap/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2011-2026 The Bootstrap Authors."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.3.8",
+    "latestReleaseAt": "2025-08-26T14:39:00.539Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "bootstrap",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "sass",
+      "responsive",
+      "theming"
+    ],
+    "relatedSlugs": [
+      "react-bootstrap",
+      "reactstrap"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "css-framework: CSS/Sass toolkit with optional JS plugins; no framework bindings are published by twbs. React ports are separate projects in other GitHub organizations (react-bootstrap, reactstrap) and have their own entries. docsUrl is pinned to the v5.3 docs (latest stable); npm 'next' dist-tag is 6.0.0-alpha.1 (2026-10-08). No official Figma kit or Storybook link was found on getbootstrap.com, so figmaUrl/storybookUrl are null. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://getbootstrap.com/",
+        "status": 200,
+        "finalUrl": "https://getbootstrap.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.015Z",
+        "method": "http-check",
+        "note": "title: Bootstrap · The most popular HTML, CSS, and JS library in the world."
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+        "status": 200,
+        "finalUrl": "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.316Z",
+        "method": "http-check",
+        "note": "title: Get started with Bootstrap · Bootstrap v5.3"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/twbs/bootstrap",
+        "status": 200,
+        "finalUrl": "https://github.com/twbs/bootstrap",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:42.989Z",
+        "method": "http-check",
+        "note": "title: GitHub - twbs/bootstrap: The most popular HTML, CSS, and JavaScript framework for developing responsive, mobile first projects on the web. · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/twbs/bootstrap/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/twbs/bootstrap/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:54.415Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main is MIT (Copyright 2011-2026 The Bootstrap Authors)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/twbs/bootstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:23.142Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:bootstrap",
+        "url": "https://www.npmjs.com/package/bootstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:55.813Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.3.8 published 2025-08-26; license \"MIT\"; deprecated: no; repository git+https://github.com/twbs/bootstrap.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/bootstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:56.709Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 5.3.8 (2025-08-26), next 6.0.0-alpha.1 (2026-10-08), latest-4 4.6.2, latest-3 3.4.1 => release within 12 months: active"
+      },
+      {
+        "field": "audit",
+        "url": "https://getbootstrap.com/",
+        "status": 200,
+        "finalUrl": "https://getbootstrap.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:07.809Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T04:09:07.809Z"
+  },
+  {
+    "rank": 42,
+    "slug": "react-bootstrap",
+    "name": "React Bootstrap",
+    "aliases": [
+      "react-bootstrap"
+    ],
+    "organization": {
+      "slug": "react-bootstrap",
+      "name": "React Bootstrap",
+      "websiteUrl": "https://react-bootstrap.github.io/"
+    },
+    "category": "component-library",
+    "summary": "React implementation of Bootstrap's components, maintained in the react-bootstrap GitHub organization, which is separate from the twbs organization that publishes Bootstrap. The 2.x line is current stable and 3.0 is in beta.",
+    "homepageUrl": "https://react-bootstrap.github.io/",
+    "docsUrl": "https://react-bootstrap.github.io/docs/getting-started/introduction/",
+    "repositoryUrl": "https://github.com/react-bootstrap/react-bootstrap",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "react-bootstrap",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/react-bootstrap"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/react-bootstrap/react-bootstrap/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2014-present Stephen J. Collings, Matthew Honnibal, Pieter Vanderwerff."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.10.10",
+    "latestReleaseAt": "2025-05-11T18:26:50.335Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "react-bootstrap",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "bootstrap"
+    ],
+    "relatedSlugs": [
+      "bootstrap",
+      "reactstrap"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct implementation with its own component catalog and docs, so verified rather than a duplicate of bootstrap. npm dist-tags map Bootstrap 3 to 0.33.x ('bs3') and Bootstrap 4 to 1.6.x ('bs4'); latest stable 2.10.10 (2025-05-11); 'next' 3.0.0-beta.6 published 2026-10-22 (basis for 'active'). No official Figma or Storybook link found. audited 2026-11-05: summary reworded: 'independently of the Bootstrap core team' replaced by the verifiable org separation (react-bootstrap vs twbs).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://react-bootstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://react-bootstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:42.974Z",
+        "method": "http-check",
+        "note": "title: React Bootstrap | React Bootstrap"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://react-bootstrap.github.io/docs/getting-started/introduction",
+        "status": 200,
+        "finalUrl": "https://react-bootstrap.github.io/docs/getting-started/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.274Z",
+        "method": "http-check",
+        "note": "title: Introduction | React Bootstrap"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/react-bootstrap/react-bootstrap",
+        "status": 200,
+        "finalUrl": "https://github.com/react-bootstrap/react-bootstrap",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.288Z",
+        "method": "http-check",
+        "note": "title: GitHub - react-bootstrap/react-bootstrap: Bootstrap components built with React · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/react-bootstrap/react-bootstrap/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/react-bootstrap/react-bootstrap/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:54.715Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master is MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/react-bootstrap/react-bootstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:23.677Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:react-bootstrap",
+        "url": "https://www.npmjs.com/package/react-bootstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:56.124Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.10.10 published 2025-05-11; license \"MIT\"; deprecated: no; repository git+https://github.com/react-bootstrap/react-bootstrap.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/react-bootstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:57.009Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 2.10.10 (2025-05-11), next 3.0.0-beta.6 (2026-10-22), bs4 1.6.7, bs3 0.33.1 => prerelease within 12 months: active"
+      },
+      {
+        "field": "audit",
+        "url": "https://react-bootstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://react-bootstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:08.658Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:09:08.658Z"
+  },
+  {
+    "rank": 43,
+    "slug": "reactstrap",
+    "name": "Reactstrap",
+    "aliases": [
+      "reactstrap"
+    ],
+    "organization": {
+      "slug": "reactstrap",
+      "name": "reactstrap",
+      "websiteUrl": "https://reactstrap.github.io/"
+    },
+    "category": "component-library",
+    "summary": "React component library for Bootstrap 5 styles (per its repository description), maintained by the reactstrap GitHub organization; its documentation site is a Storybook. No release since September 2024.",
+    "homepageUrl": "https://reactstrap.github.io/",
+    "docsUrl": "https://reactstrap.github.io/",
+    "repositoryUrl": "https://github.com/reactstrap/reactstrap",
+    "figmaUrl": null,
+    "storybookUrl": "https://reactstrap.github.io/",
+    "packages": [
+      {
+        "name": "reactstrap",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/reactstrap"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2016-Present Eddy Hernandez, Chris Burrell, Evan Sharp."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "unknown",
+    "latestVersion": "9.2.3",
+    "latestReleaseAt": "2024-09-26T09:40:17.844Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "reactstrap",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "bootstrap"
+    ],
+    "relatedSlugs": [
+      "bootstrap",
+      "react-bootstrap"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct React implementation of Bootstrap with its own docs, separate from react-bootstrap. The official docs at reactstrap.github.io are a Storybook (page title 'Storybook'), and the repo README links to them as Documentation, so the same URL is homepage, docs and storybookUrl. maintenanceStatus 'unknown': last npm release 9.2.3 on 2024-09-26 (>12 months), repo not archived, and no deprecation or maintenance-mode notice found. It is not marked deprecated without an official statement. audited 2026-11-05: releases check note corrected (2024-11-07 was a commit-signature timestamp, newest release is 2024-09-26); explicit storybookUrl check added.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://reactstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://reactstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:42.972Z",
+        "method": "http-check",
+        "note": "title 'Storybook': official docs are a Storybook build"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/reactstrap/reactstrap",
+        "status": 200,
+        "finalUrl": "https://github.com/reactstrap/reactstrap",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.590Z",
+        "method": "http-check",
+        "note": "title: GitHub - reactstrap/reactstrap: Simple React Bootstrap 5 components · GitHub"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/reactstrap/reactstrap/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:49.781Z",
+        "method": "repo-metadata",
+        "note": "README links '## Documentation' to https://reactstrap.github.io, which confirms it is the official docs/Storybook"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/reactstrap/reactstrap/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/reactstrap/reactstrap/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:55.016Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master is MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/reactstrap/reactstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:52.274Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/reactstrap/reactstrap/releases",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:38.271Z",
+        "method": "repo-metadata",
+        "note": "releases page: newest release is 'released this' 2024-09-26 (9.2.3, matches npm); no 2025/2026 releases. Earlier note cited 2024-11-07, which is a commit-signature 'Verified' timestamp on the page, not a release date"
+      },
+      {
+        "field": "package:reactstrap",
+        "url": "https://www.npmjs.com/package/reactstrap",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:56.528Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.2.3 published 2024-09-26; license \"MIT\"; deprecated: no; repository git+ssh://git@github.com/reactstrap/reactstrap.git. No npm release in the 12 months before 2026-11-05"
+      },
+      {
+        "field": "audit",
+        "url": "https://reactstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://reactstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:09.489Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://reactstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://reactstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:07.212Z",
+        "method": "http-check",
+        "note": "official docs site is a Storybook build (page title 'Storybook'); linked as Documentation from the repo README"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:09:38.271Z"
+  },
+  {
+    "rank": 44,
+    "slug": "semantic-ui",
+    "name": "Semantic UI",
+    "aliases": [
+      "Semantic-UI"
+    ],
+    "organization": {
+      "slug": "semantic-org",
+      "name": "Semantic Org",
+      "websiteUrl": "https://semantic-ui.com/"
+    },
+    "category": "css-framework",
+    "summary": "Theme-able UI component framework that uses natural-language-style class names and jQuery-based behaviors, published by Semantic Org. An official React integration (Semantic UI React) is published from the same GitHub organization.",
+    "homepageUrl": "https://semantic-ui.com/",
+    "docsUrl": "https://semantic-ui.com/introduction/getting-started.html",
+    "repositoryUrl": "https://github.com/Semantic-Org/Semantic-UI",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "semantic-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/semantic-ui"
+      },
+      {
+        "name": "semantic-ui-css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/semantic-ui-css"
+      },
+      {
+        "name": "semantic-ui-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/semantic-ui-react"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/Semantic-Org/Semantic-UI/master/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Semantic UI React (separate repo) is also MIT (Copyright 2016 TechnologyAdvice)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "unknown",
+    "latestVersion": "2.5.0",
+    "latestReleaseAt": "2022-10-06T19:26:35.395Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "semantic-ui-css",
+        "support": "official"
+      },
+      {
+        "slug": "jquery",
+        "packageName": "semantic-ui",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "semantic-ui-react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "theming"
+    ],
+    "relatedSlugs": [
+      "fomantic-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "The getting-started docs tell users to load jQuery alongside semantic.min.js, hence the jquery framework entry. The React integration lives at react.semantic-ui.com / Semantic-Org/Semantic-UI-React (repo titled 'The official Semantic-UI-React integration'; npm latest 2.1.5 2023-12-10, 3.0.0-beta.2 2023-12-30). maintenanceStatus 'unknown': last release 2.5.0 on 2022-10-06 (npm and GitHub releases), repo not archived, no deprecation notice found. Fomantic-UI calls itself the official community fork; separate entry, not a duplicate. audited 2026-11-05: summary: 'is maintained' -> 'is published' (Semantic UI React's last stable release is 2.1.5, 2023-12-10).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://semantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://semantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.013Z",
+        "method": "http-check",
+        "note": "title: Semantic UI"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://semantic-ui.com/introduction/getting-started.html",
+        "status": 200,
+        "finalUrl": "https://semantic-ui.com/introduction/getting-started.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.313Z",
+        "method": "http-check",
+        "note": "title 'Getting Started | Semantic UI'; page instructs linking the latest jQuery with semantic.min.js"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/Semantic-Org/Semantic-UI",
+        "status": 200,
+        "finalUrl": "https://github.com/Semantic-Org/Semantic-UI",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.889Z",
+        "method": "http-check",
+        "note": "title: GitHub - Semantic-Org/Semantic-UI: Semantic is a UI component framework based around useful principles from natural language. · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Semantic-Org/Semantic-UI/master/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Semantic-Org/Semantic-UI/master/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:55.315Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md on master is MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Semantic-Org/Semantic-UI",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:52.775Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Semantic-Org/Semantic-UI/releases",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:33.287Z",
+        "method": "repo-metadata",
+        "note": "release list newest entry 'Version 2.5.0 - Oct 6, 2022'; previous 2.4.1 (2018)"
+      },
+      {
+        "field": "package:semantic-ui",
+        "url": "https://www.npmjs.com/package/semantic-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:56.761Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.5.0 published 2022-10-06; license \"MIT\"; deprecated: no; repository git://github.com/Semantic-Org/Semantic-UI.git"
+      },
+      {
+        "field": "package:semantic-ui-css",
+        "url": "https://www.npmjs.com/package/semantic-ui-css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:57.049Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.5.0 published 2022-10-06; license \"MIT\"; deprecated: no; repository git://github.com/Semantic-Org/Semantic-UI-CSS.git"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://react.semantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://react.semantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.009Z",
+        "method": "http-check",
+        "note": "title 'Introduction - Semantic UI React': official React integration docs"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/Semantic-Org/Semantic-UI-React",
+        "status": 200,
+        "finalUrl": "https://github.com/Semantic-Org/Semantic-UI-React",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:01.859Z",
+        "method": "http-check",
+        "note": "repo title: 'The official Semantic-UI-React integration'"
+      },
+      {
+        "field": "package:semantic-ui-react",
+        "url": "https://www.npmjs.com/package/semantic-ui-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:05.004Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.1.5 published 2023-12-10; license \"MIT\"; deprecated: no; repository git+ssh://git@github.com/Semantic-Org/Semantic-UI-React.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://semantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://semantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:10.410Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 6 page URLs, 1 raw file(s), 3 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:09:10.410Z"
+  },
+  {
+    "rank": 45,
+    "slug": "fomantic-ui",
+    "name": "Fomantic-UI",
+    "aliases": [
+      "Fomantic UI"
+    ],
+    "organization": {
+      "slug": "fomantic",
+      "name": "Fomantic",
+      "websiteUrl": "https://fomantic-ui.com/"
+    },
+    "category": "css-framework",
+    "summary": "Community fork of Semantic UI, described by its maintainers as the official community fork, that continues development of the theme-able jQuery/CSS component framework; maintained by the Fomantic GitHub organization.",
+    "homepageUrl": "https://fomantic-ui.com/",
+    "docsUrl": "https://fomantic-ui.com/introduction/getting-started.html",
+    "repositoryUrl": "https://github.com/fomantic/Fomantic-UI",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "fomantic-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/fomantic-ui"
+      },
+      {
+        "name": "fomantic-ui-css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/fomantic-ui-css"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/fomantic/Fomantic-UI/develop/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.9.4",
+    "latestReleaseAt": "2025-02-23T21:14:52.798Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "fomantic-ui-css",
+        "support": "official"
+      },
+      {
+        "slug": "jquery",
+        "packageName": "fomantic-ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "theming"
+    ],
+    "relatedSlugs": [
+      "semantic-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "A fork with its own releases and docs site, so verified, not a duplicate of semantic-ui. jquery framework entry is based on fomantic-ui@2.9.4 package.json, which lists jquery ^3.4.0. Latest stable 2.9.4 (2025-02-23); the npm 'nightly' tag published 2.10.0-beta.129 on 2026-11-04 (basis for 'active'). No official React integration and no Figma/Storybook link found. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fomantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://fomantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:42.981Z",
+        "method": "http-check",
+        "note": "title: Fomantic-UI"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fomantic-ui.com/introduction/getting-started.html",
+        "status": 200,
+        "finalUrl": "https://fomantic-ui.com/introduction/getting-started.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:43.281Z",
+        "method": "http-check",
+        "note": "title: Getting Started | Fomantic-UI Docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/fomantic/Fomantic-UI",
+        "status": 200,
+        "finalUrl": "https://github.com/fomantic/Fomantic-UI",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:44.189Z",
+        "method": "http-check",
+        "note": "repo title: 'Fomantic-UI is the official community fork of Semantic-UI'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/fomantic/Fomantic-UI/develop/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/fomantic/Fomantic-UI/develop/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:55.615Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md on develop is MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/fomantic/Fomantic-UI",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:24.178Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:fomantic-ui",
+        "url": "https://www.npmjs.com/package/fomantic-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:57.451Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.9.4 published 2025-02-23; license \"MIT\"; deprecated: no; repository https://github.com/fomantic/Fomantic-UI.git"
+      },
+      {
+        "field": "package:fomantic-ui-css",
+        "url": "https://www.npmjs.com/package/fomantic-ui-css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:57.667Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.9.4 published 2025-02-23; license \"MIT\"; deprecated: no; repository git://github.com/fomantic/Fomantic-UI-CSS.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/fomantic-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:58.210Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 2.9.4 (2025-02-23), nightly 2.10.0-beta.129 (2026-11-04) => active"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/package.json",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.4/package.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:52.644Z",
+        "method": "repo-metadata",
+        "note": "package.json lists jquery ^3.4.0"
+      },
+      {
+        "field": "audit",
+        "url": "https://fomantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://fomantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:11.211Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 2 raw file(s), 2 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:09:11.211Z"
+  },
+  {
+    "rank": 46,
+    "slug": "foundation",
+    "name": "Foundation",
+    "aliases": [
+      "Foundation for Sites",
+      "ZURB Foundation"
+    ],
+    "organization": {
+      "slug": "foundation",
+      "name": "Foundation (originally ZURB)",
+      "websiteUrl": "https://www.foundationcss.com/"
+    },
+    "category": "css-framework",
+    "summary": "Responsive front-end framework for websites (Foundation for Sites), originally created by ZURB and now maintained by the Foundation organization. Version 6 receives bug fixes only; its announced successor, Yeti (7.x), is in alpha.",
+    "homepageUrl": "https://get.foundation/",
+    "docsUrl": "https://get.foundation/sites/docs/",
+    "repositoryUrl": "https://github.com/foundation/yeti",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "foundation-sites",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/foundation-sites"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/foundation/yeti/v6/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "v6 branch LICENSE: MIT, Copyright 2011-2020 ZURB, Inc. The 2026-09-12 announcement says Foundation for Sites 6 stays MIT. Yeti's license was not assessed."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "maintenance",
+    "latestVersion": "6.9.0",
+    "latestReleaseAt": "2024-09-27T20:02:35.745Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "foundation-sites",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "sass",
+      "responsive"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "github.com/foundation/foundation-sites redirects to foundation/yeti, so the canonical URL is recorded. Announcement issue #15554 'Foundation for Sites is becoming Yeti' (opened 2026-09-12): v6 lives on the v6 branch with bug fixes, foundation-sites on npm keeps publishing 6.x, v6.9.0 is the final planned feature release, and develop is Yeti 7 (alpha, will publish as 7.0.0 at beta). Hence 'maintenance', not deprecated. Foundation for Emails is out of scope. A separate Yeti entry may be warranted once it reaches beta. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://get.foundation/",
+        "status": 200,
+        "finalUrl": "https://get.foundation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.638Z",
+        "method": "http-check",
+        "note": "title: The most advanced responsive front-end framework in the world. | Foundation"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://get.foundation/sites/docs/",
+        "status": 200,
+        "finalUrl": "https://get.foundation/sites/docs/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.939Z",
+        "method": "http-check",
+        "note": "title: Foundation for Sites 6 Docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/foundation/foundation-sites",
+        "status": 200,
+        "finalUrl": "https://github.com/foundation/yeti",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.482Z",
+        "method": "http-check",
+        "note": "old repo URL redirects to https://github.com/foundation/yeti (repo renamed)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/foundation/yeti",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:53.884Z",
+        "method": "repo-metadata",
+        "note": "canonical repo page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/foundation/yeti/develop/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/foundation/yeti/develop/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:01.846Z",
+        "method": "repo-metadata",
+        "note": "README: repository is now Yeti, the successor to Foundation for Sites; v6 continues on the v6 branch with bug fixes; foundation-sites keeps publishing 6.x; Yeti is in alpha"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/foundation/yeti/issues/15554",
+        "status": 200,
+        "finalUrl": "https://github.com/foundation/yeti/issues/15554",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:49.250Z",
+        "method": "http-check",
+        "note": "announcement 'Foundation for Sites is becoming Yeti' (opened 2026-09-12): v6.9.0 final planned feature release; v6 keeps getting bug fixes"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/foundation/yeti/releases",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:55.637Z",
+        "method": "repo-metadata",
+        "note": "releases page shows Yeti releases dated 2026-11-04"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/foundation/yeti/v6/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/foundation/yeti/v6/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.709Z",
+        "method": "repo-metadata",
+        "note": "v6 branch LICENSE: MIT, Copyright 2011-2020 ZURB, Inc."
+      },
+      {
+        "field": "package:foundation-sites",
+        "url": "https://www.npmjs.com/package/foundation-sites",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:05.905Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.9.0 published 2024-09-27; license \"MIT\"; deprecated: no; repository git+https://github.com/foundation/foundation-sites.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://foundationcss.com/",
+        "status": 200,
+        "finalUrl": "https://www.foundationcss.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:49.261Z",
+        "method": "http-check",
+        "note": "redirects to www.foundationcss.com; title 'Foundation', described as home of Inky, Proton and Yeti"
+      },
+      {
+        "field": "audit",
+        "url": "https://get.foundation/",
+        "status": 200,
+        "finalUrl": "https://get.foundation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:12.079Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 8 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:09:12.079Z"
+  },
+  {
+    "rank": 47,
+    "slug": "bulma",
+    "name": "Bulma",
+    "aliases": [],
+    "organization": {
+      "slug": "bulma",
+      "name": "Bulma (Jeremy Thomas)",
+      "websiteUrl": "https://bulma.io/"
+    },
+    "category": "css-framework",
+    "summary": "Open-source CSS framework based on Flexbox and written in Sass, created and maintained by Jeremy Thomas (GitHub: jgthms).",
+    "homepageUrl": "https://bulma.io/",
+    "docsUrl": "https://bulma.io/documentation/",
+    "repositoryUrl": "https://github.com/jgthms/bulma",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "bulma",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/bulma"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/jgthms/bulma/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2023 Jeremy Thomas."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.0.4",
+    "latestReleaseAt": "2025-04-19T14:01:05.512Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "bulma",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "sass",
+      "flexbox",
+      "responsive"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Latest release 1.0.4 (2025-04-19, >12 months ago). 'active' rests on commit evidence: CHANGELOG.md on main has an unreleased 1.1.0 section fixing #4044, an issue opened 2026-05-12, so main received commits after that date. No official framework bindings, Figma kit or Storybook found. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://bulma.io/",
+        "status": 200,
+        "finalUrl": "https://bulma.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.018Z",
+        "method": "http-check",
+        "note": "title: Bulma: Free, open source, and modern CSS framework based on Flexbox"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://bulma.io/documentation/",
+        "status": 200,
+        "finalUrl": "https://bulma.io/documentation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.318Z",
+        "method": "http-check",
+        "note": "title: Official Bulma Documentation | Bulma: Free, open source, and modern CSS framework based on Flexbox"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/jgthms/bulma",
+        "status": 200,
+        "finalUrl": "https://github.com/jgthms/bulma",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.783Z",
+        "method": "http-check",
+        "note": "title: GitHub - jgthms/bulma: Modern CSS framework based on Flexbox · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/jgthms/bulma/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/jgthms/bulma/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.109Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main is MIT (Copyright 2023 Jeremy Thomas)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/jgthms/bulma",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:54.384Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/jgthms/bulma/releases",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:54.884Z",
+        "method": "repo-metadata",
+        "note": "latest GitHub release timestamp 2025-04-19 (1.0.4)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/jgthms/bulma/main/CHANGELOG.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/jgthms/bulma/main/CHANGELOG.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:03.346Z",
+        "method": "repo-metadata",
+        "note": "CHANGELOG on main: unreleased '## 1.1.0' bug fix referencing #4044"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/jgthms/bulma/issues/4044",
+        "status": 200,
+        "finalUrl": "https://github.com/jgthms/bulma/issues/4044",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.459Z",
+        "method": "http-check",
+        "note": "issue #4044 'Wrong value in release 1.0.4 for is-offset-one-third-desktop' opened 2026-05-12, fixed in the unreleased 1.1.0 changelog, so main has commits within 12 months"
+      },
+      {
+        "field": "package:bulma",
+        "url": "https://www.npmjs.com/package/bulma",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:06.191Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.0.4 published 2025-04-19; license \"MIT\"; deprecated: no; repository git+https://github.com/jgthms/bulma.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://bulma.io/",
+        "status": 200,
+        "finalUrl": "https://bulma.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:12.882Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 5 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T04:09:12.882Z"
+  },
+  {
+    "rank": 48,
+    "slug": "uikit",
+    "name": "UIkit",
+    "aliases": [],
+    "organization": {
+      "slug": "yootheme",
+      "name": "YOOtheme GmbH",
+      "websiteUrl": "https://yootheme.com/"
+    },
+    "category": "css-framework",
+    "summary": "Modular front-end framework of CSS and JavaScript components for building web interfaces, developed by YOOtheme GmbH and published under the MIT license.",
+    "homepageUrl": "https://getuikit.com/",
+    "docsUrl": "https://getuikit.com/docs/introduction",
+    "repositoryUrl": "https://github.com/uikit/uikit",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "uikit",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/uikit"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/uikit/uikit/develop/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE.md: Copyright (c) 2013-2020 YOOtheme GmbH, getuikit.com; MIT permission text."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.25.29",
+    "latestReleaseAt": "2026-11-02T12:28:05.078Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "uikit",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "modular",
+      "responsive"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Not to be confused with Apple's UIKit (framework slug 'uikit' in the taxonomy refers to Apple UIKit, not this project). Organization attributed to YOOtheme GmbH per the LICENSE copyright line. npm latest 3.25.29 (2026-11-02), with 'dev' builds on 2026-11-03. No official Figma or Storybook link found. audited 2026-11-05: summary rewritten to drop the near-verbatim repo tagline wording ('lightweight').",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://getuikit.com/",
+        "status": 200,
+        "finalUrl": "https://getuikit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.945Z",
+        "method": "http-check",
+        "note": "title: UIkit"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://getuikit.com/docs/introduction",
+        "status": 200,
+        "finalUrl": "https://getuikit.com/docs/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.260Z",
+        "method": "http-check",
+        "note": "title: Introduction - UIkit"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/uikit/uikit",
+        "status": 200,
+        "finalUrl": "https://github.com/uikit/uikit",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.259Z",
+        "method": "http-check",
+        "note": "title: GitHub - uikit/uikit: A lightweight and modular front-end framework for developing fast and powerful web interfaces · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/uikit/uikit/develop/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/uikit/uikit/develop/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.410Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md on develop: MIT text, Copyright 2013-2020 YOOtheme GmbH"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/uikit/uikit",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:24.678Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:uikit",
+        "url": "https://www.npmjs.com/package/uikit",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:06.604Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.25.29 published 2026-11-02; license \"MIT\"; deprecated: no; repository git+https://github.com/uikit/uikit.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://yootheme.com/",
+        "status": 200,
+        "finalUrl": "https://yootheme.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:01.966Z",
+        "method": "http-check",
+        "note": "title: YOOtheme Pro: The website builder for WordPress and Joomla"
+      },
+      {
+        "field": "audit",
+        "url": "https://getuikit.com/",
+        "status": 200,
+        "finalUrl": "https://getuikit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:13.807Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:09:13.807Z"
+  },
+  {
+    "rank": 49,
+    "slug": "patternfly",
+    "name": "PatternFly",
+    "aliases": [],
+    "organization": {
+      "slug": "red-hat",
+      "name": "Red Hat",
+      "websiteUrl": "https://www.redhat.com/en"
+    },
+    "category": "design-system",
+    "summary": "Red Hat's open-source design system for enterprise applications: design guidelines, an HTML/CSS core library (@patternfly/patternfly) and React components (@patternfly/react-core).",
+    "homepageUrl": "https://www.patternfly.org/",
+    "docsUrl": "https://www.patternfly.org/get-started/develop/",
+    "repositoryUrl": "https://github.com/patternfly/patternfly-react",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@patternfly/react-core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@patternfly/react-core"
+      },
+      {
+        "name": "@patternfly/patternfly",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@patternfly/patternfly"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/patternfly/patternfly-react/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "patternfly-react LICENSE and patternfly (core) LICENSE.txt are both MIT, Copyright 2019 Red Hat, Inc."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "6.7.0",
+    "latestReleaseAt": "2026-10-15T19:11:40.205Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@patternfly/react-core",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@patternfly/patternfly",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "figma-kit"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "repositoryUrl is the React implementation; the HTML/CSS core is github.com/patternfly/patternfly (also verified). latestVersion is @patternfly/react-core; @patternfly/patternfly is also 6.7.0 (2026-10-15). figmaUrl is null: patternfly.org/get-started/design links its 'PatternFly 6 design kit' to https://www.figma.com/@patternfly, but figma.com returned HTTP 403 to the automated check, so the Figma URL is not recorded as verified. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.patternfly.org/",
+        "status": 200,
+        "finalUrl": "https://www.patternfly.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.769Z",
+        "method": "http-check",
+        "note": "title: PatternFly"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.patternfly.org/get-started/develop",
+        "status": 200,
+        "finalUrl": "https://www.patternfly.org/get-started/develop/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.069Z",
+        "method": "http-check",
+        "note": "title: PatternFly • Develop with PatternFly"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/patternfly/patternfly-react",
+        "status": 200,
+        "finalUrl": "https://github.com/patternfly/patternfly-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.524Z",
+        "method": "http-check",
+        "note": "title: GitHub - patternfly/patternfly-react: A set of React components for the PatternFly project. · GitHub"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/patternfly/patternfly",
+        "status": 200,
+        "finalUrl": "https://github.com/patternfly/patternfly",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.823Z",
+        "method": "http-check",
+        "note": "core HTML/CSS repository (secondary)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/patternfly/patternfly-react/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/patternfly/patternfly-react/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.309Z",
+        "method": "repo-metadata",
+        "note": "patternfly-react LICENSE: MIT, Copyright 2019 Red Hat, Inc."
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/patternfly/patternfly/main/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/patternfly/patternfly/main/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:51.819Z",
+        "method": "repo-metadata",
+        "note": "patternfly core LICENSE.txt: MIT, Copyright 2019 Red Hat, Inc."
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/patternfly/patternfly-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:25.177Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:@patternfly/react-core",
+        "url": "https://www.npmjs.com/package/@patternfly/react-core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:07.346Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.7.0 published 2026-10-15; license \"MIT\"; deprecated: no; repository https://github.com/patternfly/patternfly-react.git"
+      },
+      {
+        "field": "package:@patternfly/patternfly",
+        "url": "https://www.npmjs.com/package/@patternfly/patternfly",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:07.036Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.7.0 published 2026-10-15; license \"MIT\"; deprecated: no; repository git+https://github.com/patternfly/patternfly.git"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.patternfly.org/get-started/design",
+        "status": 200,
+        "finalUrl": "https://www.patternfly.org/get-started/design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.379Z",
+        "method": "http-check",
+        "note": "official design page links 'Install the PatternFly 6 design kit' to https://www.figma.com/@patternfly"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/@patternfly",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/@patternfly",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:49.102Z",
+        "method": "http-check",
+        "note": "figma.com returned 403 (CloudFront) to automated check: Figma link not verifiable, figmaUrl left null"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.redhat.com/",
+        "status": 200,
+        "finalUrl": "https://www.redhat.com/en",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:01.929Z",
+        "method": "http-check",
+        "note": "title: Red Hat - We make open source technologies for the enterprise"
+      },
+      {
+        "field": "audit",
+        "url": "https://www.patternfly.org/",
+        "status": 200,
+        "finalUrl": "https://www.patternfly.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:14.719Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 2 raw file(s), 2 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:09:14.719Z"
+  },
+  {
+    "rank": 50,
+    "slug": "shoelace",
+    "name": "Shoelace",
+    "aliases": [],
+    "organization": {
+      "slug": "shoelace-style",
+      "name": "Shoelace (shoelace-style)",
+      "websiteUrl": "https://shoelace.style/"
+    },
+    "category": "web-components",
+    "summary": "Framework-agnostic library of web components (custom elements) with bundled React wrappers. The project is sunset and its GitHub repository archived; development continues as Web Awesome.",
+    "homepageUrl": "https://shoelace.style/",
+    "docsUrl": "https://shoelace.style/getting-started/installation",
+    "repositoryUrl": "https://github.com/shoelace-style/shoelace",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@shoelace-style/shoelace",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@shoelace-style/shoelace"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/shoelace-style/shoelace/next/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE.md: Copyright (c) 2020 A Beautiful Site, LLC; MIT permission text. README: package remains available under MIT for existing use."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "archived",
+    "latestVersion": "2.20.1",
+    "latestReleaseAt": "2025-03-11T18:38:36.759Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@shoelace-style/shoelace",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@shoelace-style/shoelace",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "svelte",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Relationship to Web Awesome: shoelace.style shows a banner 'Shoelace is now Web Awesome' and 'Shoelace Is Sunset with no active development'. The README says Shoelace is sunset, issues/PRs belong to Web Awesome (github.com/shoelace-style/webawesome, described as the web components library from Font Awesome), and it links a migration guide. Repo isArchived:true, so 'archived'. Still 'verified' because the docs remain online. React wrappers ship inside the package (dist/react); Vue/Angular/Svelte have official usage guides only. replacedBy is null because no web-awesome entry exists yet. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://shoelace.style/",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:13.135Z",
+        "method": "http-check",
+        "note": "title 'Shoelace: A forward-thinking library of web components.'; banner 'Shoelace is now Web Awesome!' and 'Shoelace Is Sunset with no active development'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://shoelace.style/getting-started/installation",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/getting-started/installation",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:50.376Z",
+        "method": "http-check",
+        "note": "title: Installation"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/shoelace-style/shoelace",
+        "status": 200,
+        "finalUrl": "https://github.com/shoelace-style/shoelace",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:14.123Z",
+        "method": "http-check",
+        "note": "repo title: 'Shoelace is now Web Awesome. Come see what's new!'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/shoelace-style/shoelace",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:53.383Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":true"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/shoelace-style/shoelace/next/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/shoelace-style/shoelace/next/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.183Z",
+        "method": "repo-metadata",
+        "note": "README: 'Shoelace is sunset. There is no active development'; successor Web Awesome at webawesome.com / github.com/shoelace-style/webawesome; links migration guide"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/shoelace-style/shoelace/next/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/shoelace-style/shoelace/next/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.009Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md: MIT text, Copyright 2020 A Beautiful Site, LLC"
+      },
+      {
+        "field": "package:@shoelace-style/shoelace",
+        "url": "https://www.npmjs.com/package/@shoelace-style/shoelace",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:07.524Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.20.1 published 2025-03-11; license \"MIT\"; deprecated: no; repository git+https://github.com/shoelace-style/shoelace.git. Last release >12 months ago; package not npm-deprecated"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://webawesome.com/",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:12.998Z",
+        "method": "http-check",
+        "note": "successor project site: title 'Web Awesome'"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://github.com/shoelace-style/webawesome",
+        "status": 200,
+        "finalUrl": "https://github.com/shoelace-style/webawesome",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:48.949Z",
+        "method": "http-check",
+        "note": "successor repo: 'the open source library of web components from Font Awesome'"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://webawesome.com/docs/resources/migrating-from-shoelace",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/resources/migrating-from-shoelace",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.190Z",
+        "method": "http-check",
+        "note": "official migration guide 'Migrating from Shoelace'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://shoelace.style/frameworks/react",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/frameworks/react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:49.150Z",
+        "method": "http-check",
+        "note": "React guide imports wrappers from @shoelace-style/shoelace/dist/react"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://shoelace.style/frameworks/vue",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/frameworks/vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:49.450Z",
+        "method": "http-check",
+        "note": "title: Vue"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://shoelace.style/frameworks/angular",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/frameworks/angular",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:49.758Z",
+        "method": "http-check",
+        "note": "title: Angular"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://shoelace.style/frameworks/svelte",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/frameworks/svelte",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:50.051Z",
+        "method": "http-check",
+        "note": "title: Svelte"
+      },
+      {
+        "field": "audit",
+        "url": "https://shoelace.style/",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:15.705Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 10 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":true"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:09:15.705Z"
+  },
+  {
+    "rank": 51,
+    "slug": "ionic",
+    "name": "Ionic Framework",
+    "aliases": [
+      "Ionic"
+    ],
+    "organization": {
+      "slug": "ionic",
+      "name": "Ionic",
+      "websiteUrl": "https://ionic.io/"
+    },
+    "category": "ui-framework",
+    "summary": "Open-source UI toolkit maintained by the Ionic team (ionic-team GitHub organization): web components (@ionic/core) plus official Angular, React and Vue packages, used to build iOS, Android and progressive web apps from one web codebase.",
+    "homepageUrl": "https://ionicframework.com/",
+    "docsUrl": "https://ionicframework.com/docs",
+    "repositoryUrl": "https://github.com/ionic-team/ionic-framework",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@ionic/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ionic/core"
+      },
+      {
+        "name": "@ionic/angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ionic/angular"
+      },
+      {
+        "name": "@ionic/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ionic/react"
+      },
+      {
+        "name": "@ionic/vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ionic/vue"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/ionic-team/ionic-framework/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2015-present Drifty Co."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.0.10",
+    "latestReleaseAt": "2026-10-28T17:24:46.388Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@ionic/core",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "@ionic/angular",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@ionic/react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@ionic/vue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "mobile-web",
+      "ios",
+      "android"
+    ],
+    "tags": [
+      "open-source",
+      "mobile",
+      "web-components",
+      "pwa"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "ui-framework: an app UI toolkit spanning mobile and web targets, not only a component library. Native runtime/tooling (e.g. Capacitor) is a separate product and out of scope. npm latest 9.0.10 (2026-10-28) for core and all three bindings; the v8-lts tag is 8.8.19 (2026-08-19); nightly builds daily. No official Figma or Storybook link verified. audited 2026-11-05: summary rewritten; it closely paraphrased the repo tagline ('A powerful cross-platform UI toolkit...').",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ionicframework.com/",
+        "status": 200,
+        "finalUrl": "https://ionicframework.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:07.731Z",
+        "method": "http-check",
+        "note": "title: Ionic Framework - The Cross-Platform App Development Leader"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ionicframework.com/docs",
+        "status": 200,
+        "finalUrl": "https://ionicframework.com/docs",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.031Z",
+        "method": "http-check",
+        "note": "title: Open-Source UI Toolkit to Create Your Own Mobile Apps"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/ionic-team/ionic-framework",
+        "status": 200,
+        "finalUrl": "https://github.com/ionic-team/ionic-framework",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:07.579Z",
+        "method": "http-check",
+        "note": "title: GitHub - ionic-team/ionic-framework: A powerful cross-platform UI toolkit for building native-quality iOS, Android, and Progressive Web Apps with HTML, CSS, and JavaScript. · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/ionic-team/ionic-framework/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/ionic-team/ionic-framework/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.909Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main is MIT (Copyright 2015-present Drifty Co.)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/ionic-team/ionic-framework",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:26.181Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:@ionic/core",
+        "url": "https://www.npmjs.com/package/@ionic/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:08.286Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.0.10 published 2026-10-28; license \"MIT\"; deprecated: no; repository git+https://github.com/ionic-team/ionic-framework.git"
+      },
+      {
+        "field": "package:@ionic/angular",
+        "url": "https://www.npmjs.com/package/@ionic/angular",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:08.681Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.0.10 published 2026-10-28; license \"MIT\"; deprecated: no; repository git+https://github.com/ionic-team/ionic-framework.git"
+      },
+      {
+        "field": "package:@ionic/react",
+        "url": "https://www.npmjs.com/package/@ionic/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:09.179Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.0.10 published 2026-10-28; license \"MIT\"; deprecated: no; repository git+https://github.com/ionic-team/ionic-framework.git"
+      },
+      {
+        "field": "package:@ionic/vue",
+        "url": "https://www.npmjs.com/package/@ionic/vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:09.524Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.0.10 published 2026-10-28; license \"MIT\"; deprecated: no; repository git+https://github.com/ionic-team/ionic-framework.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/@ionic/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:23.310Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 9.0.10 (2026-10-28), v8-lts 8.8.19 (2026-08-19), nightly 9.0.11-nightly.20261104 => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://ionic.io/",
+        "status": 200,
+        "finalUrl": "https://ionic.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.060Z",
+        "method": "http-check",
+        "note": "title: Ionic: Enterprise App Platform"
+      },
+      {
+        "field": "audit",
+        "url": "https://ionicframework.com/",
+        "status": 200,
+        "finalUrl": "https://ionicframework.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:16.588Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 4 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T04:09:16.588Z"
+  },
+  {
+    "rank": 52,
+    "slug": "framework7",
+    "name": "Framework7",
+    "aliases": [],
+    "organization": {
+      "slug": "framework7io",
+      "name": "Framework7 (Vladimir Kharlampidi)",
+      "websiteUrl": "https://framework7.io/"
+    },
+    "category": "ui-framework",
+    "summary": "Open-source HTML framework for building iOS, Android and desktop-style apps and web apps. It has a framework-agnostic core plus official React, Vue and Svelte packages; the MIT copyright holder is Vladimir Kharlampidi.",
+    "homepageUrl": "https://framework7.io/",
+    "docsUrl": "https://framework7.io/docs/",
+    "repositoryUrl": "https://github.com/framework7io/framework7",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "framework7",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/framework7"
+      },
+      {
+        "name": "framework7-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/framework7-react"
+      },
+      {
+        "name": "framework7-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/framework7-vue"
+      },
+      {
+        "name": "framework7-svelte",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/framework7-svelte"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/framework7io/framework7/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2014 Vladimir Kharlampidi."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.3.0",
+    "latestReleaseAt": "2026-10-30T22:27:01.748Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "framework7",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "framework7-react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "framework7-vue",
+        "support": "official"
+      },
+      {
+        "slug": "svelte",
+        "packageName": "framework7-svelte",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "mobile-web",
+      "ios",
+      "android",
+      "desktop"
+    ],
+    "tags": [
+      "open-source",
+      "mobile"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "The core package is a framework-agnostic JavaScript/HTML library. The taxonomy has no 'vanilla JS' slug, so it is mapped to html-css (approximate). Platforms follow the homepage title (iOS, Android & Desktop apps). All four packages published 9.3.0 on 2026-10-30. No official Figma or Storybook link found. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://framework7.io/",
+        "status": 200,
+        "finalUrl": "https://framework7.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:07.990Z",
+        "method": "http-check",
+        "note": "title: Framework7 - Full Featured Framework For Building iOS, Android & Desktop Apps"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://framework7.io/docs/",
+        "status": 200,
+        "finalUrl": "https://framework7.io/docs/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.291Z",
+        "method": "http-check",
+        "note": "title: Framework7 Documentation"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/framework7io/framework7",
+        "status": 200,
+        "finalUrl": "https://github.com/framework7io/framework7",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:07.909Z",
+        "method": "http-check",
+        "note": "title: GitHub - framework7io/framework7: Full featured HTML framework for building iOS & Android apps · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/framework7io/framework7/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/framework7io/framework7/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.210Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master is MIT (Copyright 2014 Vladimir Kharlampidi)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/framework7io/framework7",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:26.719Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:framework7",
+        "url": "https://www.npmjs.com/package/framework7",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:09.642Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.3.0 published 2026-10-30; license \"MIT\"; deprecated: no; repository git+https://github.com/framework7io/framework7.git"
+      },
+      {
+        "field": "package:framework7-react",
+        "url": "https://www.npmjs.com/package/framework7-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.305Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.3.0 published 2026-10-30; license \"MIT\"; deprecated: no; repository git+https://github.com/framework7io/framework7.git"
+      },
+      {
+        "field": "package:framework7-vue",
+        "url": "https://www.npmjs.com/package/framework7-vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.366Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.3.0 published 2026-10-30; license \"MIT\"; deprecated: no; repository git+https://github.com/framework7io/framework7.git"
+      },
+      {
+        "field": "package:framework7-svelte",
+        "url": "https://www.npmjs.com/package/framework7-svelte",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.648Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.3.0 published 2026-10-30; license \"MIT\"; deprecated: no; repository git+https://github.com/framework7io/framework7.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://framework7.io/",
+        "status": 200,
+        "finalUrl": "https://framework7.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:17.551Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 1 raw file(s), 4 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:09:17.551Z"
+  },
+  {
+    "rank": 53,
+    "slug": "onsen-ui",
+    "name": "Onsen UI",
+    "aliases": [
+      "OnsenUI"
+    ],
+    "organization": {
+      "slug": "onsenui",
+      "name": "Onsen UI team (OnsenUI)",
+      "websiteUrl": "https://onsen.io/"
+    },
+    "category": "ui-framework",
+    "summary": "Open-source HTML5 mobile UI framework built on Web Components for hybrid and progressive web apps. Components switch automatically between iOS styling and Android Material Design styling, with bindings for React, Vue and Angular.",
+    "homepageUrl": "https://onsen.io/",
+    "docsUrl": "https://onsen.io/v2/guide/",
+    "repositoryUrl": "https://github.com/OnsenUI/OnsenUI",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "onsenui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/onsenui"
+      },
+      {
+        "name": "react-onsenui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/react-onsenui"
+      },
+      {
+        "name": "vue-onsenui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/vue-onsenui"
+      },
+      {
+        "name": "ngx-onsenui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/ngx-onsenui"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://cdn.jsdelivr.net/npm/onsenui@2.12.9/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "npm license field Apache-2.0 for onsenui and react-onsenui; LICENSE shipped in onsenui@2.12.9 is Apache 2.0. vue-onsenui and ngx-onsenui declare no license field on npm. LICENSE not found at the repo root on master."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.12.9",
+    "latestReleaseAt": "2026-06-16T20:08:04.198Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "onsenui",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "react-onsenui",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "vue-onsenui",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "ngx-onsenui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "mobile-web",
+      "web",
+      "ios",
+      "android"
+    ],
+    "tags": [
+      "open-source",
+      "mobile",
+      "web-components",
+      "hybrid"
+    ],
+    "relatedSlugs": [
+      "material-design"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Core onsenui 2.12.9 was published 2026-06-16 (basis for 'active'). Binding packages' latest stable releases are old (react-onsenui 1.13.3 2023-06-20, vue-onsenui 3.0.0 2022-07-25, ngx-onsenui 7.1.0 2022-02-28); each got a beta on 2026-06-02. The GitHub releases page has no entries after 2022-12, so npm is the release record. material-design is related because the homepage says components support iOS and Android Material styling automatically. audited 2026-11-05: summary clarified: styling switches per platform (iOS vs Android Material Design), not 'iOS Material Design'.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://onsen.io/",
+        "status": 200,
+        "finalUrl": "https://onsen.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.089Z",
+        "method": "http-check",
+        "note": "homepage states components have iOS and Android Material design support with automatic platform styling"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://onsen.io/v2/guide/",
+        "status": 200,
+        "finalUrl": "https://onsen.io/v2/guide/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.395Z",
+        "method": "http-check",
+        "note": "title 'Getting Started - Onsen UI'; Web Components based HTML5 mobile UI framework for hybrid and PWA"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/OnsenUI/OnsenUI",
+        "status": 200,
+        "finalUrl": "https://github.com/OnsenUI/OnsenUI",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.188Z",
+        "method": "http-check",
+        "note": "title: GitHub - OnsenUI/OnsenUI: Mobile app development framework and SDK using HTML5 and JavaScript. Create beautiful and performant cross-platform mobile apps. Based on Web Components, and provides bindin…"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/OnsenUI/OnsenUI",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:27.220Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/OnsenUI/OnsenUI/releases",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:31.720Z",
+        "method": "repo-metadata",
+        "note": "GitHub releases page newest timestamp 2022-12-27; npm is the release record"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/onsenui@2.12.9/LICENSE",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/onsenui@2.12.9/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:14.880Z",
+        "method": "repo-metadata",
+        "note": "LICENSE in onsenui@2.12.9 is Apache License 2.0"
+      },
+      {
+        "field": "package:onsenui",
+        "url": "https://www.npmjs.com/package/onsenui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.949Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.12.9 published 2026-06-16; license \"Apache-2.0\"; deprecated: no; repository git+https://github.com/OnsenUI/OnsenUI.git"
+      },
+      {
+        "field": "package:react-onsenui",
+        "url": "https://www.npmjs.com/package/react-onsenui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:11.244Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.13.3 published 2023-06-20; license \"Apache-2.0\"; deprecated: no; repository git+https://github.com/OnsenUI/OnsenUI.git"
+      },
+      {
+        "field": "package:vue-onsenui",
+        "url": "https://www.npmjs.com/package/vue-onsenui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:11.671Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.0.0 published 2022-07-25; license null; deprecated: no; repository git+https://github.com/OnsenUI/OnsenUI.git"
+      },
+      {
+        "field": "package:ngx-onsenui",
+        "url": "https://www.npmjs.com/package/ngx-onsenui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:11.865Z",
+        "method": "package-metadata",
+        "note": "npm latest 7.1.0 published 2022-02-28; license null; deprecated: no; repository git+https://github.com/OnsenUI/OnsenUI.git#master"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/onsenui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:26.787Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 2.12.9 (2026-06-16) => release within 12 months: active"
+      },
+      {
+        "field": "audit",
+        "url": "https://onsen.io/",
+        "status": 200,
+        "finalUrl": "https://onsen.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:18.429Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 4 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:09:18.429Z"
+  },
+  {
+    "rank": 54,
+    "slug": "quasar",
+    "name": "Quasar Framework",
+    "aliases": [
+      "Quasar"
+    ],
+    "organization": {
+      "slug": "quasarframework",
+      "name": "Quasar Framework (Razvan Stoenescu)",
+      "websiteUrl": "https://quasar.dev/"
+    },
+    "category": "ui-framework",
+    "summary": "Open-source Vue.js framework that pairs a UI component library with build tooling (Quasar CLI, a Vite plugin, or UMD) to produce SPAs, PWAs, SSR sites, browser extensions, and mobile and desktop apps from one codebase. The MIT copyright holder is Razvan Stoenescu.",
+    "homepageUrl": "https://quasar.dev/",
+    "docsUrl": "https://quasar.dev/docs/",
+    "repositoryUrl": "https://github.com/quasarframework/quasar",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "quasar",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/quasar"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/quasarframework/quasar/dev/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2015-present Razvan Stoenescu."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.35.2",
+    "latestReleaseAt": "2026-10-19T09:34:37.009Z",
+    "frameworks": [
+      {
+        "slug": "vue",
+        "packageName": "quasar",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "mobile-web",
+      "ios",
+      "android",
+      "desktop"
+    ],
+    "tags": [
+      "open-source",
+      "mobile",
+      "pwa"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "ui-framework because it bundles app build modes and tooling (CLI with Vite or Webpack, Vite plugin, UMD), not just components. Platforms follow the homepage description (websites, PWA, SSR, SSG, browser extension, mobile and desktop apps). npm latest 2.35.2 (2026-10-19); legacy v1 tag 1.22.10. No official Figma or Storybook link verified. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://quasar.dev/",
+        "status": 200,
+        "finalUrl": "https://quasar.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:07.837Z",
+        "method": "http-check",
+        "note": "title: Quasar Framework"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://quasar.dev/docs",
+        "status": 200,
+        "finalUrl": "https://quasar.dev/docs/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.136Z",
+        "method": "http-check",
+        "note": "title: Documentation | Quasar Framework"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://quasar.dev/start/pick-quasar-flavour",
+        "status": 200,
+        "finalUrl": "https://quasar.dev/start/pick-quasar-flavour/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.190Z",
+        "method": "http-check",
+        "note": "docs: three ways to use Quasar: Quasar CLI (Vite/Webpack), UMD/Standalone, Vite plugin"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/quasarframework/quasar",
+        "status": 200,
+        "finalUrl": "https://github.com/quasarframework/quasar",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.480Z",
+        "method": "http-check",
+        "note": "title: GitHub - quasarframework/quasar: Quasar Framework - Build high-performance VueJS user interfaces in record time · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/quasarframework/quasar/dev/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/quasarframework/quasar/dev/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.810Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on dev is MIT (Copyright 2015-present Razvan Stoenescu)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/quasarframework/quasar",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:27.720Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:quasar",
+        "url": "https://www.npmjs.com/package/quasar",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:12.192Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.35.2 published 2026-10-19; license \"MIT\"; deprecated: no; repository git+https://github.com/quasarframework/quasar.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://quasar.dev/",
+        "status": 200,
+        "finalUrl": "https://quasar.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:19.297Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 5 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:09:19.297Z"
+  },
+  {
+    "rank": 55,
+    "slug": "vuetify",
+    "name": "Vuetify",
+    "aliases": [],
+    "organization": {
+      "slug": "vuetifyjs",
+      "name": "Vuetify, LLC",
+      "websiteUrl": "https://vuetifyjs.com/"
+    },
+    "category": "component-library",
+    "summary": "Open-source Vue UI component framework maintained by Vuetify, LLC and the vuetifyjs GitHub organization. Vuetify 4 is the current major; v3 still receives stable releases.",
+    "homepageUrl": "https://vuetifyjs.com/",
+    "docsUrl": "https://vuetifyjs.com/en/getting-started/installation/",
+    "repositoryUrl": "https://github.com/vuetifyjs/vuetify",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "vuetify",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/vuetify"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/vuetifyjs/vuetify/master/packages/vuetify/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE.md at repo root points to packages/vuetify/LICENSE.md: MIT, Copyright (c) 2016-now Vuetify, LLC."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "4.3.2",
+    "latestReleaseAt": "2026-11-03T23:20:50.361Z",
+    "frameworks": [
+      {
+        "slug": "vue",
+        "packageName": "vuetify",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source"
+    ],
+    "relatedSlugs": [
+      "material-design"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "relatedSlugs material-design: the homepage meta keywords describe it as 'material design components' and the package ships an md3 blueprint (README itself does not mention Material). figmaUrl null: the UI-kits resources page is client-rendered and no Figma link could be extracted or verified. npm latest 4.3.2 (2026-11-03); v3-stable tag 3.13.7 (2026-10-14). audited 2026-11-05: note was wrong: the homepage meta keywords say 'material design components' and vuetify@4.3.2 ships lib/blueprints/md3.js; relatedSlugs now material-design, with 2 evidence checks.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://vuetifyjs.com/",
+        "status": 200,
+        "finalUrl": "https://vuetifyjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:07.858Z",
+        "method": "http-check",
+        "note": "title: Vuetify — A Vue Component Framework"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://vuetifyjs.com/en/getting-started/installation/",
+        "status": 200,
+        "finalUrl": "https://vuetifyjs.com/en/getting-started/installation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.158Z",
+        "method": "http-check",
+        "note": "title 'Get started with Vuetify 4'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/vuetifyjs/vuetify",
+        "status": 200,
+        "finalUrl": "https://github.com/vuetifyjs/vuetify",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.779Z",
+        "method": "http-check",
+        "note": "title: GitHub - vuetifyjs/vuetify: 🐉 Vue Component Framework · GitHub"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/vuetifyjs/vuetify/master/packages/vuetify/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/vuetifyjs/vuetify/master/packages/vuetify/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:51.518Z",
+        "method": "repo-metadata",
+        "note": "packages/vuetify/LICENSE.md: MIT, Copyright 2016-now Vuetify, LLC"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/vuetifyjs/vuetify",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:28.218Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:vuetify",
+        "url": "https://www.npmjs.com/package/vuetify",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:12.513Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.3.2 published 2026-11-03; license \"MIT\"; deprecated: no; repository git+https://github.com/vuetifyjs/vuetify.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/vuetify",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:28.288Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 4.3.2 (2026-11-03), v3-stable 3.13.7 (2026-10-14) => active"
+      },
+      {
+        "field": "audit",
+        "url": "https://vuetifyjs.com/",
+        "status": 200,
+        "finalUrl": "https://vuetifyjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:20.172Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://vuetifyjs.com/",
+        "status": 200,
+        "finalUrl": "https://vuetifyjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:05.971Z",
+        "method": "page-content",
+        "note": "homepage <meta name=keywords> includes 'material design components' (first-party self-description)"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://cdn.jsdelivr.net/npm/vuetify@4.3.2/lib/blueprints/md3.js",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/vuetify@4.3.2/lib/blueprints/md3.js",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:24.004Z",
+        "method": "repo-metadata",
+        "note": "vuetify@4.3.2 ships lib/blueprints/md3.js, an 'md3' (Material Design 3) defaults blueprint"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:12:24.004Z"
+  },
+  {
+    "rank": 56,
+    "slug": "primevue",
+    "name": "PrimeVue",
+    "aliases": [],
+    "organization": {
+      "slug": "primetek",
+      "name": "PrimeTek Informatics",
+      "websiteUrl": "https://primeui.dev/"
+    },
+    "category": "commercial-suite",
+    "summary": "Vue UI component library from PrimeTek Informatics. Since v5 it is part of the commercially licensed PrimeUI family, with a free Community License for eligible small organizations; v4 and earlier remain MIT-licensed.",
+    "homepageUrl": "https://primevue.dev/",
+    "docsUrl": "https://primevue.dev/installation/",
+    "repositoryUrl": "https://github.com/primefaces/primevue",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "primevue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/primevue"
+      }
+    ],
+    "license": {
+      "slug": "commercial-primetek",
+      "spdxId": null,
+      "name": "PrimeUI License (Community / Commercial)",
+      "url": "https://primeui.dev/licenses/commercial",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Applies to PrimeVue 5+ (npm license field 'SEE LICENSE IN LICENSE.md'). Free Community License for individuals, students, non-profits, non-commercial OSS and orgs meeting all of: <$1M revenue, <5 developers, <10 employees, <$3M outside funding; otherwise paid per-developer Commercial License. License key required. Community terms: https://primeui.dev/licenses/community. Releases before 5 remain MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.0.4",
+    "latestReleaseAt": "2026-10-22T15:36:19.213Z",
+    "frameworks": [
+      {
+        "slug": "vue",
+        "packageName": "primevue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial"
+    ],
+    "relatedSlugs": [
+      "primereact",
+      "primeng"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "License change: PrimeVue 5 ships under the PrimeUI License (see license.notes). primevue.org redirects to primevue.dev. The public repo primefaces/primevue (MIT) says it is no longer actively developed and gets security fixes only; development moved to PrimeUI. The repo named in v5 npm metadata (primevue-nextchapter) returns 404, so repositoryUrl is the public MIT-era repo. Categorized commercial-suite for current licensing; earlier releases were an MIT component library. npm v4-stable 4.5.5 (2026-04-08). Figma UI kit not verified; figmaUrl null. audited 2026-11-05: added page-content checks for both PrimeUI license pages and a per-version npm license check (4.5.5 MIT vs 5.0.4 PrimeUI); no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://primevue.org/",
+        "status": 200,
+        "finalUrl": "https://primevue.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.448Z",
+        "method": "http-check",
+        "note": "old .org domain redirects to https://primevue.dev/"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primevue.dev/installation/",
+        "status": 200,
+        "finalUrl": "https://primevue.dev/installation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.027Z",
+        "method": "http-check",
+        "note": "title: Installation - PrimeVue"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primefaces/primevue",
+        "status": 200,
+        "finalUrl": "https://github.com/primefaces/primevue",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:09.078Z",
+        "method": "http-check",
+        "note": "title: GitHub - primefaces/primevue: Next Generation Vue UI Component Library · GitHub"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/primefaces/primevue/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primefaces/primevue/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.445Z",
+        "method": "repo-metadata",
+        "note": "README: repository no longer under active development, security fixes only; PrimeVue continues as part of PrimeUI; existing MIT versions remain MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/primefaces/primevue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:28.720Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/primefaces/primevue/master/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primefaces/primevue/master/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.409Z",
+        "method": "repo-metadata",
+        "note": "public repo license file is MIT (covers the MIT-era releases)"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primevue@5.0.4/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primevue@5.0.4/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:01.861Z",
+        "method": "repo-metadata",
+        "note": "license shipped in the latest npm package: PrimeUI License, Community (free, eligibility-based) or Commercial (paid, per developer), license key required"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:03.096Z",
+        "method": "http-check",
+        "note": "title: PrimeUI"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.795Z",
+        "method": "http-check",
+        "note": "title: PrimeUI"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/nextchapter",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/nextchapter",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.496Z",
+        "method": "http-check",
+        "note": "announcement: new license applies only to PrimeNG 22, PrimeReact 11 and PrimeVue 5; existing MIT versions remain MIT"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primefaces/primevue-nextchapter",
+        "status": 404,
+        "finalUrl": "https://github.com/primefaces/primevue-nextchapter",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:49.549Z",
+        "method": "http-check",
+        "note": "repository named in latest npm metadata returns 404 (not public)"
+      },
+      {
+        "field": "package:primevue",
+        "url": "https://www.npmjs.com/package/primevue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:12.754Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.0.4 published 2026-10-22; license \"SEE LICENSE IN LICENSE.md\"; deprecated: no; repository git+https://github.com/primefaces/primevue-nextchapter.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://primeui.dev/",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.196Z",
+        "method": "http-check",
+        "note": "title PrimeUI: PrimeTek product family site"
+      },
+      {
+        "field": "audit",
+        "url": "https://primevue.dev/",
+        "status": 200,
+        "finalUrl": "https://primevue.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:21.139Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 3 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:09.736Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Commercial License': per-developer perpetual license, 'Last updated July 22, 2026'"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:10.625Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Community License': free license for eligible orgs (fewer than 10 employees, < $1M USD revenue, never > $3M USD capital raised)"
+      },
+      {
+        "field": "license",
+        "url": "https://registry.npmjs.org/primevue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:32.748Z",
+        "method": "package-metadata",
+        "note": "per-version license field: 4.5.5 (v4-stable, 2026-04-08) 'MIT'; 5.0.4 'SEE LICENSE IN LICENSE.md' => pre-5 line is still MIT"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:14:32.748Z"
+  },
+  {
+    "rank": 57,
+    "slug": "primereact",
+    "name": "PrimeReact",
+    "aliases": [],
+    "organization": {
+      "slug": "primetek",
+      "name": "PrimeTek Informatics",
+      "websiteUrl": "https://primeui.dev/"
+    },
+    "category": "commercial-suite",
+    "summary": "React UI component library from PrimeTek Informatics with styled, Tailwind, primitive and headless documentation tracks. Since v11 it is part of the commercially licensed PrimeUI family, with a free Community License for eligible small organizations; earlier versions remain MIT.",
+    "homepageUrl": "https://primereact.dev/",
+    "docsUrl": "https://primereact.dev/docs/styled/guides/introduction",
+    "repositoryUrl": "https://github.com/primefaces/primereact",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "primereact",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/primereact"
+      }
+    ],
+    "license": {
+      "slug": "commercial-primetek",
+      "spdxId": null,
+      "name": "PrimeUI License (Community / Commercial)",
+      "url": "https://primeui.dev/licenses/commercial",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Applies to PrimeReact 11+ (npm license field 'SEE LICENSE IN LICENSE.md'). Free Community License for individuals, students, non-profits, non-commercial OSS and orgs meeting all of: <$1M revenue, <5 developers, <10 employees, <$3M outside funding; otherwise paid per-developer Commercial License. License key required. Community terms: https://primeui.dev/licenses/community. Releases before 11 remain MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "11.2.2",
+    "latestReleaseAt": "2026-10-22T15:42:08.690Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "primereact",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial",
+      "tailwind",
+      "headless"
+    ],
+    "relatedSlugs": [
+      "primevue",
+      "primeng"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "License change: PrimeReact 11 ships under the PrimeUI License (see license.notes). primereact.org redirects to primereact.dev. The homepage links four doc tracks: Styled, Tailwind, Primitive, Headless. The public repo primefaces/primereact (MIT) says it gets security fixes only; development moved to PrimeUI, and the repo in v11 npm metadata (primereact-nextchapter) returns 404. Categorized commercial-suite for current licensing. npm v10-stable 10.9.9 (2026-08-27). Figma UI kit not verified; figmaUrl null. audited 2026-11-05: added page-content checks for both PrimeUI license pages and a per-version npm license check (10.9.9 MIT vs 11.2.2 PrimeUI); no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://primereact.org/",
+        "status": 200,
+        "finalUrl": "https://primereact.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.192Z",
+        "method": "http-check",
+        "note": "old .org domain redirects to https://primereact.dev/"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primereact.dev/docs/styled/guides/introduction",
+        "status": 200,
+        "finalUrl": "https://primereact.dev/docs/styled/guides/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.199Z",
+        "method": "http-check",
+        "note": "title: Styled - PrimeReact"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primefaces/primereact",
+        "status": 200,
+        "finalUrl": "https://github.com/primefaces/primereact",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:09.379Z",
+        "method": "http-check",
+        "note": "title: GitHub - primefaces/primereact: The Most Complete React UI Component Library · GitHub"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/primefaces/primereact/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primefaces/primereact/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.776Z",
+        "method": "repo-metadata",
+        "note": "README: repository no longer under active development, security fixes only; PrimeReact continues as part of PrimeUI; existing MIT versions remain MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/primefaces/primereact",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:29.219Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/primefaces/primereact/master/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primefaces/primereact/master/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.709Z",
+        "method": "repo-metadata",
+        "note": "public repo license file is MIT (covers the MIT-era releases)"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primereact@11.2.2/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primereact@11.2.2/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.184Z",
+        "method": "repo-metadata",
+        "note": "license shipped in the latest npm package: PrimeUI License, Community (free, eligibility-based) or Commercial (paid, per developer), license key required"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:03.096Z",
+        "method": "http-check",
+        "note": "title: PrimeUI"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.795Z",
+        "method": "http-check",
+        "note": "title: PrimeUI"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/nextchapter",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/nextchapter",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.496Z",
+        "method": "http-check",
+        "note": "announcement: new license applies only to PrimeNG 22, PrimeReact 11 and PrimeVue 5; existing MIT versions remain MIT"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primefaces/primereact-nextchapter",
+        "status": 404,
+        "finalUrl": "https://github.com/primefaces/primereact-nextchapter",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:49.850Z",
+        "method": "http-check",
+        "note": "repository named in latest npm metadata returns 404 (not public)"
+      },
+      {
+        "field": "package:primereact",
+        "url": "https://www.npmjs.com/package/primereact",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:13.052Z",
+        "method": "package-metadata",
+        "note": "npm latest 11.2.2 published 2026-10-22; license \"SEE LICENSE IN LICENSE.md\"; deprecated: no; repository git+https://github.com/primefaces/primereact-nextchapter.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://primeui.dev/",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.196Z",
+        "method": "http-check",
+        "note": "title PrimeUI: PrimeTek product family site"
+      },
+      {
+        "field": "audit",
+        "url": "https://primereact.dev/",
+        "status": 200,
+        "finalUrl": "https://primereact.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:22.065Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 3 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:09.736Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Commercial License': per-developer perpetual license, 'Last updated July 22, 2026'"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:10.625Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Community License': free license for eligible orgs (fewer than 10 employees, < $1M USD revenue, never > $3M USD capital raised)"
+      },
+      {
+        "field": "license",
+        "url": "https://registry.npmjs.org/primereact",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:33.256Z",
+        "method": "package-metadata",
+        "note": "per-version license field: 10.9.9 (v10-stable, 2026-08-27) 'MIT'; 11.2.2 'SEE LICENSE IN LICENSE.md' => pre-11 line is still MIT"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:14:33.256Z"
+  },
+  {
+    "rank": 58,
+    "slug": "primeng",
+    "name": "PrimeNG",
+    "aliases": [],
+    "organization": {
+      "slug": "primetek",
+      "name": "PrimeTek Informatics",
+      "websiteUrl": "https://primeui.dev/"
+    },
+    "category": "commercial-suite",
+    "summary": "Angular UI component library from PrimeTek Informatics. Since v22 it is part of the commercially licensed PrimeUI family, with a free Community License for eligible small organizations; earlier community versions remain MIT.",
+    "homepageUrl": "https://primeng.dev/",
+    "docsUrl": "https://primeng.dev/installation",
+    "repositoryUrl": "https://github.com/primefaces/primeng",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "primeng",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/primeng"
+      }
+    ],
+    "license": {
+      "slug": "commercial-primetek",
+      "spdxId": null,
+      "name": "PrimeUI License (Community / Commercial)",
+      "url": "https://primeui.dev/licenses/commercial",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Applies to PrimeNG 22+ (npm license field 'SEE LICENSE IN LICENSE.md'). Free Community License for individuals, students, non-profits, non-commercial OSS and orgs meeting all of: <$1M revenue, <5 developers, <10 employees, <$3M outside funding; otherwise paid per-developer Commercial License. License key required. Community terms: https://primeui.dev/licenses/community. Before 22, npm license is 'SEE LICENSE IN LICENSE.md' and the shipped LICENSE.md is dual: MIT for community versions, and a separate PrimeTek commercial agreement for '-lts' builds (e.g. 20.5.1-lts). So pre-22 non-LTS releases are MIT; -lts releases are not."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "22.1.4",
+    "latestReleaseAt": "2026-10-22T15:37:44.970Z",
+    "frameworks": [
+      {
+        "slug": "angular",
+        "packageName": "primeng",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "commercial"
+    ],
+    "relatedSlugs": [
+      "primevue",
+      "primereact"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "License change: PrimeNG 22 ships under the PrimeUI License (see license.notes). The public repo's LICENSE.md also has a separate commercial agreement for '-lts' builds (e.g. npm v20-lts 20.5.1-lts), alongside MIT for community versions. primeng.org redirects to primeng.dev. Public repo primefaces/primeng gets security fixes only; development moved to PrimeUI, and the repo in v22 npm metadata (primeng-nextchapter) returns 404. Categorized commercial-suite. Figma UI kit not verified; figmaUrl null. audited 2026-11-05: license.notes corrected: pre-22 '-lts' builds are under a commercial LTS agreement, so not all pre-22 releases are MIT (verified in primeng@21.1.10 and @20.5.1-lts LICENSE.md); unsupported 'enterprise' tag removed; PrimeUI license page content and per-version npm license checks added.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://primeng.org/",
+        "status": 200,
+        "finalUrl": "https://primeng.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.557Z",
+        "method": "http-check",
+        "note": "old .org domain redirects to https://primeng.dev/"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primeng.dev/installation",
+        "status": 200,
+        "finalUrl": "https://primeng.dev/installation",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.312Z",
+        "method": "http-check",
+        "note": "title: Getting Started - PrimeNG"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primefaces/primeng",
+        "status": 200,
+        "finalUrl": "https://github.com/primefaces/primeng",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:09.679Z",
+        "method": "http-check",
+        "note": "title: GitHub - primefaces/primeng: The Most Complete Angular UI Component Library · GitHub"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/primefaces/primeng/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primefaces/primeng/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:03.046Z",
+        "method": "repo-metadata",
+        "note": "README: repository no longer under active development, security fixes only; PrimeNG continues as part of PrimeUI; existing MIT versions remain MIT"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/primefaces/primeng",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:29.718Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/primefaces/primeng/master/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primefaces/primeng/master/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:26.010Z",
+        "method": "repo-metadata",
+        "note": "public repo LICENSE.md: MIT for PrimeNG community versions plus a separate commercial license agreement for '-lts' (Long Term Support) versions"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primeng@22.1.4/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primeng@22.1.4/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.460Z",
+        "method": "repo-metadata",
+        "note": "license shipped in the latest npm package: PrimeUI License, Community (free, eligibility-based) or Commercial (paid, per developer), license key required"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:03.096Z",
+        "method": "http-check",
+        "note": "title: PrimeUI"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.795Z",
+        "method": "http-check",
+        "note": "title: PrimeUI"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/nextchapter",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/nextchapter",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.496Z",
+        "method": "http-check",
+        "note": "announcement: new license applies only to PrimeNG 22, PrimeReact 11 and PrimeVue 5; existing MIT versions remain MIT"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primefaces/primeng-nextchapter",
+        "status": 404,
+        "finalUrl": "https://github.com/primefaces/primeng-nextchapter",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:50.148Z",
+        "method": "http-check",
+        "note": "repository named in latest npm metadata returns 404 (not public)"
+      },
+      {
+        "field": "package:primeng",
+        "url": "https://www.npmjs.com/package/primeng",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:13.842Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.1.4 published 2026-10-22; license \"SEE LICENSE IN LICENSE.md\"; deprecated: no; repository git+https://github.com/primefaces/primeng-nextchapter.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://primeui.dev/",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:02.196Z",
+        "method": "http-check",
+        "note": "title PrimeUI: PrimeTek product family site"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/primeng",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:29.187Z",
+        "method": "package-metadata",
+        "note": "dist-tags: latest 22.1.4 (2026-10-22), v21-stable 21.1.10 (2026-09-09), v20-lts 20.5.1-lts (2026-06-04)"
+      },
+      {
+        "field": "audit",
+        "url": "https://primeng.dev/",
+        "status": 200,
+        "finalUrl": "https://primeng.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:22.950Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 3 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:09.736Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Commercial License': per-developer perpetual license, 'Last updated July 22, 2026'"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:10.625Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Community License': free license for eligible orgs (fewer than 10 employees, < $1M USD revenue, never > $3M USD capital raised)"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primeng@21.1.10/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primeng@21.1.10/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:41.898Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md shipped in primeng@21.1.10: '## PRIMENG COMMUNITY VERSIONS LICENSE' (MIT) plus '## PRIMENG LTS VERSIONS LICENSE (Versions with -lts suffix)' (commercial agreement)"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primeng@20.5.1-lts/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primeng@20.5.1-lts/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:42.198Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md shipped in primeng@20.5.1-lts: '## PRIMENG COMMUNITY VERSIONS LICENSE' (MIT) plus '## PRIMENG LTS VERSIONS LICENSE (Versions with -lts suffix)' (commercial agreement)"
+      },
+      {
+        "field": "license",
+        "url": "https://registry.npmjs.org/primeng",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:31.780Z",
+        "method": "package-metadata",
+        "note": "per-version license field is 'SEE LICENSE IN LICENSE.md' for 20.4.0, 21.1.10, 20.5.1-lts and 22.1.4 alike; the file it points to differs (dual MIT/LTS before 22, PrimeUI License from 22)"
+      },
+      {
+        "field": "tags",
+        "url": "https://primeng.dev/",
+        "status": 200,
+        "finalUrl": "https://primeng.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:07.034Z",
+        "method": "page-content",
+        "note": "homepage HTML contains no 'enterprise' wording; the 'enterprise' tag had no recorded basis and was removed"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:14:42.198Z"
+  },
+  {
+    "rank": 59,
+    "slug": "element-plus",
+    "name": "Element Plus",
+    "aliases": [],
+    "organization": {
+      "slug": "element-plus",
+      "name": "Element Plus team",
+      "websiteUrl": "https://element-plus.org/en-US/"
+    },
+    "category": "component-library",
+    "summary": "Open-source Vue 3 UI component library made by the Element team and maintained in the element-plus GitHub organization.",
+    "homepageUrl": "https://element-plus.org/en-US/",
+    "docsUrl": "https://element-plus.org/en-US/guide/installation.html",
+    "repositoryUrl": "https://github.com/element-plus/element-plus",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "element-plus",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/element-plus"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/element-plus/element-plus/dev/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2020-PRESENT Element Plus."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.14.7",
+    "latestReleaseAt": "2026-09-30T11:27:31.308Z",
+    "frameworks": [
+      {
+        "slug": "vue",
+        "packageName": "element-plus",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "During checks, the bare domain https://element-plus.org/ and its robots.txt returned HTTP 526 (Cloudflare origin certificate error) while /en-US/ pages returned 200, so homepageUrl is the /en-US/ page. Robots allowance could not be determined (check.ts reported robotsAllowed false because robots.txt failed); ingestion should re-check robots before crawling. The resources page (possible design-kit links) failed to load, so figmaUrl is null. npm latest 2.14.7 (2026-09-30). audited 2026-11-05: robots.txt re-checked (still 526) and recorded.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://element-plus.org/",
+        "status": 526,
+        "finalUrl": "https://element-plus.org/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:53:08.666Z",
+        "method": "http-check",
+        "note": "bare domain returned HTTP 526 (Cloudflare origin SSL error) at check time"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://element-plus.org/en-US/",
+        "status": 200,
+        "finalUrl": "https://element-plus.org/en-US/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:49.964Z",
+        "method": "http-check",
+        "note": "title 'A Vue 3 UI Framework | Element Plus'; robotsAllowed reported false because robots.txt returned 526"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://element-plus.org/en-US/guide/installation.html",
+        "status": 200,
+        "finalUrl": "https://element-plus.org/en-US/guide/installation.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:50.264Z",
+        "method": "http-check",
+        "note": "title: Installation | Element Plus"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://element-plus.org/en-US/guide/design.html",
+        "status": 200,
+        "finalUrl": "https://element-plus.org/en-US/guide/design.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.966Z",
+        "method": "http-check",
+        "note": "title: Design | Element Plus"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/element-plus/element-plus",
+        "status": 200,
+        "finalUrl": "https://github.com/element-plus/element-plus",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:09.979Z",
+        "method": "http-check",
+        "note": "repo title: 'A Vue.js 3 UI Library made by Element team'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/element-plus/element-plus/dev/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/element-plus/element-plus/dev/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:26.309Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on dev is MIT (Copyright 2020-PRESENT Element Plus)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/element-plus/element-plus",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:30.218Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:element-plus",
+        "url": "https://www.npmjs.com/package/element-plus",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:13.902Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.14.7 published 2026-09-30; license \"MIT\"; deprecated: no; repository git+https://github.com/element-plus/element-plus.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://element-plus.org/en-US/",
+        "status": 200,
+        "finalUrl": "https://element-plus.org/en-US/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:23.831Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 5 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "robots",
+        "url": "https://element-plus.org/robots.txt",
+        "status": 526,
+        "finalUrl": "https://element-plus.org/robots.txt",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:11:06.662Z",
+        "method": "http-check",
+        "note": "robots.txt still HTTP 526 at audit time; robots allowance remains undetermined (fetcher treats it as disallowed)"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:11:06.662Z"
+  },
+  {
+    "rank": 60,
+    "slug": "naive-ui",
+    "name": "Naive UI",
+    "aliases": [],
+    "organization": {
+      "slug": "tusen-ai",
+      "name": "TuSimple (tusen-ai)",
+      "websiteUrl": null
+    },
+    "category": "component-library",
+    "summary": "Open-source Vue 3 component library written in TypeScript with a customizable theme system, published by the tusen-ai GitHub organization (the LICENSE copyright holder is TuSimple).",
+    "homepageUrl": "https://www.naiveui.com/",
+    "docsUrl": "https://www.naiveui.com/",
+    "repositoryUrl": "https://github.com/tusen-ai/naive-ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "naive-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/naive-ui"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/tusen-ai/naive-ui/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE: Copyright (c) 2021 TuSimple."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.45.3",
+    "latestReleaseAt": "2026-08-27T20:02:50.366Z",
+    "frameworks": [
+      {
+        "slug": "vue",
+        "packageName": "naive-ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "theming",
+      "typescript"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "The docs site is a client-rendered SPA at naiveui.com. Deep links such as /en-US/os-theme/docs/introduction return HTTP 404 with the same app shell to non-JS clients, so the root URL (200) is recorded as both homepage and docs, and the repo README links only to www.naiveui.com. Ingestion should prefer the repo's docs sources over crawling the SPA. organization.websiteUrl is null (no verified TuSimple URL). npm latest 2.45.3 (2026-08-27). audited 2026-11-05: explicit docsUrl check for the root added; two more locale routes confirmed 404.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.naiveui.com/",
+        "status": 200,
+        "finalUrl": "https://www.naiveui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:08.034Z",
+        "method": "http-check",
+        "note": "title 'Naive UI'; client-rendered docs SPA"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/en-US/os-theme/docs/introduction",
+        "status": 404,
+        "finalUrl": "https://www.naiveui.com/en-US/os-theme/docs/introduction",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:53:08.334Z",
+        "method": "http-check",
+        "note": "deep docs link returns HTTP 404 with the SPA shell (client-side routing), so the root is recorded as docsUrl"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://raw.githubusercontent.com/tusen-ai/naive-ui/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/tusen-ai/naive-ui/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:50.080Z",
+        "method": "repo-metadata",
+        "note": "README links documentation to www.naiveui.com"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/tusen-ai/naive-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/tusen-ai/naive-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:10.280Z",
+        "method": "http-check",
+        "note": "repo title: 'A Vue 3 Component Library. Fairly Complete. Theme Customizable. Uses TypeScript. Fast.'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/tusen-ai/naive-ui/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/tusen-ai/naive-ui/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:26.610Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main is MIT (Copyright 2021 TuSimple)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/tusen-ai/naive-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:30.719Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "package:naive-ui",
+        "url": "https://www.npmjs.com/package/naive-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:14.250Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.45.3 published 2026-08-27; license \"MIT\"; deprecated: no; repository https://github.com/tusen-ai/naive-ui"
+      },
+      {
+        "field": "audit",
+        "url": "https://www.naiveui.com/",
+        "status": 200,
+        "finalUrl": "https://www.naiveui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:24.676Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/",
+        "status": 200,
+        "finalUrl": "https://www.naiveui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:07.431Z",
+        "method": "http-check",
+        "note": "root URL 200 (title 'Naive UI') is the only reachable docs entry point; recorded as docsUrl"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/en-US/os-theme",
+        "status": 404,
+        "finalUrl": "https://www.naiveui.com/en-US/os-theme",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:14:21.826Z",
+        "method": "http-check",
+        "note": "locale/theme route also returns HTTP 404 with the SPA shell (client-side routing)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/zh-CN/os-theme",
+        "status": 404,
+        "finalUrl": "https://www.naiveui.com/zh-CN/os-theme",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:14:22.127Z",
+        "method": "http-check",
+        "note": "locale/theme route also returns HTTP 404 with the SPA shell (client-side routing)"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:14:22.127Z"
+  }
+]

@@ -1,0 +1,3697 @@
+[
+  {
+    "rank": 1,
+    "slug": "material-design",
+    "name": "Google Material Design",
+    "aliases": [
+      "Material Design",
+      "Material Design 3",
+      "M3",
+      "Material You"
+    ],
+    "organization": {
+      "slug": "google",
+      "name": "Google",
+      "websiteUrl": "https://about.google/"
+    },
+    "category": "design-system",
+    "summary": "Google's design system (current version Material 3) covering foundations, styles and component guidance, with official implementations for Android Views, Jetpack Compose, Flutter and the web.",
+    "homepageUrl": "https://m3.material.io/",
+    "docsUrl": "https://m3.material.io/components",
+    "repositoryUrl": "https://github.com/material-components",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": null,
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "android-views",
+        "packageName": "com.google.android.material:material",
+        "support": "official"
+      },
+      {
+        "slug": "jetpack-compose",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "flutter",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@material/web",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "android",
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "theming",
+      "design-tokens",
+      "mobile"
+    ],
+    "relatedSlugs": [
+      "material-web",
+      "flutter-material",
+      "mui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Guidelines-plus-implementations system; classified design-system (not design-language) because Google ships official component libraries. repositoryUrl is the material-components GitHub org (no single repo). Supported stacks taken from m3.material.io/develop description; MDC-Android repo is labelled [MAINTENANCE MODE]; Material Web is a separate entry (material-web). License: guideline content license not stated in static HTML, so license=null; implementation repos (e.g. MDC-Android) are Apache-2.0. Figma: an M3 design kit is announced on the m3 blog but the page is JS-rendered, so no official link was extracted; figmaUrl=null. No version: the system has no single release stream. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: organization.websiteUrl https://m3.material.io/ -> https://about.google/; sitemap check method repo-metadata -> page-content, note adds newest lastmod 2026-10-22; added Material Web maintenance-mode evidence.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://m3.material.io/",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.554Z",
+        "method": "http-check",
+        "note": "title 'Material Design'; meta describes Material Design 3 as Google's open-source design system"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://material.io/",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.317Z",
+        "method": "http-check",
+        "note": "material.io redirects to https://m3.material.io/ (canonical)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://m3.material.io/components",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.514Z",
+        "method": "http-check",
+        "note": "title 'Components – Material Design 3'; component guidance index"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://m3.material.io/develop",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/develop",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.833Z",
+        "method": "http-check",
+        "note": "Develop page: implementations for Android Views (MDC-Android), Flutter, Jetpack Compose and the Web"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/material-components",
+        "status": 200,
+        "finalUrl": "https://github.com/material-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.306Z",
+        "method": "http-check",
+        "note": "GitHub org 'Material Components' (Android, Flutter, iOS, web)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/material-components/material-components-android",
+        "status": 200,
+        "finalUrl": "https://github.com/material-components/material-components-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.613Z",
+        "method": "http-check",
+        "note": "MDC-Android repo title carries '[MAINTENANCE MODE]' marker"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/material-components/material-components-android/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/material-components/material-components-android/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.080Z",
+        "method": "repo-metadata",
+        "note": "MDC-Android LICENSE is Apache 2.0 (implementation, not the guidelines)"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://m3.material.io/sitemap.xml",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/sitemap.xml",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.123Z",
+        "method": "page-content",
+        "note": "sitemap.xml: homepage lastmod 2026-07-08; newest lastmod 2026-10-22 across 375 URLs (site updated within 12 months)"
+      },
+      {
+        "field": "package:@material/web",
+        "url": "https://www.npmjs.com/package/@material/web",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.190Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.5.0 published 2026-07-15; license Apache-2.0; deprecated: no; repo git+https://github.com/material-components/material-web.git; Material Web implementation (separate entry material-web)"
+      },
+      {
+        "field": "tags",
+        "url": "https://m3.material.io/foundations/design-tokens/overview",
+        "status": 200,
+        "finalUrl": "https://m3.material.io/foundations/design-tokens/overview",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.422Z",
+        "method": "http-check",
+        "note": "title 'Design tokens – Material Design 3'"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://about.google/",
+        "status": 200,
+        "finalUrl": "https://about.google/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.071Z",
+        "method": "http-check",
+        "note": "title 'About Google'; replaces m3.material.io, which is the system site, not the org site"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/material-components/material-web/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/material-components/material-web/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:06.858Z",
+        "method": "repo-metadata",
+        "note": "Material Web README: 'MWC is in maintenance mode pending new maintainers'"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:21:06.858Z"
+  },
+  {
+    "rank": 2,
+    "slug": "apple-hig",
+    "name": "Apple Human Interface Guidelines",
+    "aliases": [
+      "HIG",
+      "Human Interface Guidelines"
+    ],
+    "organization": {
+      "slug": "apple",
+      "name": "Apple",
+      "websiteUrl": "https://developer.apple.com/"
+    },
+    "category": "design-language",
+    "summary": "Apple's design guidance for apps on iOS, iPadOS, macOS, watchOS, tvOS and visionOS, published on Apple Developer and paired with official design resources (UI kits and templates).",
+    "homepageUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+    "docsUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+    "repositoryUrl": null,
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": {
+      "slug": "proprietary-apple",
+      "spdxId": null,
+      "name": "Apple proprietary (website terms of use)",
+      "url": "https://www.apple.com/legal/internet-services/terms/site.html",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Guidelines are Apple copyrighted documentation; design resources ship under Apple's own terms. No open-source license."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "swiftui",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "uikit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "appkit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "ios",
+      "ipados",
+      "macos",
+      "watchos",
+      "tvos",
+      "visionos"
+    ],
+    "tags": [
+      "guidelines",
+      "mobile",
+      "figma-kit",
+      "native"
+    ],
+    "relatedSlugs": [
+      "flutter-cupertino"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Guidelines-only design language: Apple ships no separate component package; the platform UI frameworks (SwiftUI/UIKit/AppKit) implement it. Apple Design Resources page links official Figma community files (e.g. 'iOS and iPadOS 27', 'macOS 27'), which is why figma is listed as a framework; figma.com answered 403 to the automated check, so figmaUrl is null. Maintenance 'active' based on 27-series OS kits on the resources page. No public repo. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://developer.apple.com/design/human-interface-guidelines/",
+        "status": 200,
+        "finalUrl": "https://developer.apple.com/design/human-interface-guidelines/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.423Z",
+        "method": "http-check",
+        "note": "title 'Human Interface Guidelines | Apple Developer Documentation'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://developer.apple.com/design/resources/",
+        "status": 200,
+        "finalUrl": "https://developer.apple.com/design/resources/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.756Z",
+        "method": "http-check",
+        "note": "Apple Design Resources page lists iOS/iPadOS 27, macOS 27, watchOS 26, visionOS 26 kits and links official Figma community files"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1651309003795292092/ios-and-ipados-27",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:12.411Z",
+        "method": "http-check",
+        "note": "linked from developer.apple.com/design/resources; figma.com returned 403 to automated check, so not recorded"
+      },
+      {
+        "field": "license",
+        "url": "https://www.apple.com/legal/internet-services/terms/site.html",
+        "status": 200,
+        "finalUrl": "https://www.apple.com/legal/internet-services/terms/site.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.432Z",
+        "method": "http-check",
+        "note": "Apple website terms of use (linked from the resources page footer)"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://developer.apple.com/",
+        "status": 200,
+        "finalUrl": "https://developer.apple.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.760Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Apple Developer'"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:19:23.760Z"
+  },
+  {
+    "rank": 3,
+    "slug": "fluent-2",
+    "name": "Microsoft Fluent 2",
+    "aliases": [
+      "Fluent 2 Design System",
+      "Fluent Design System",
+      "Fluent UI"
+    ],
+    "organization": {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "websiteUrl": "https://microsoft.design/"
+    },
+    "category": "design-system",
+    "summary": "Microsoft's cross-platform design system, with guidance, Figma UI kits and code libraries for React, Web Components, iOS/macOS, Android and Windows (WinUI).",
+    "homepageUrl": "https://fluent2.microsoft.design/",
+    "docsUrl": "https://fluent2.microsoft.design/get-started/develop",
+    "repositoryUrl": "https://github.com/microsoft/fluentui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@fluentui/react-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/react-components"
+      },
+      {
+        "name": "@fluentui/web-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/web-components"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "License of the microsoft/fluentui web code (React + Web Components). Native libraries live in separate repos (fluentui-apple, fluentui-android)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.75.1",
+    "latestReleaseAt": "2026-11-02T13:26:55.110Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@fluentui/react-components",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@fluentui/web-components",
+        "support": "official"
+      },
+      {
+        "slug": "uikit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "appkit",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "jetpack-compose",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "winui",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "ipados",
+      "macos",
+      "android",
+      "windows"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "design-tokens",
+      "theming",
+      "figma-kit"
+    ],
+    "relatedSlugs": [
+      "fluent-ui-react",
+      "fluent-ui-web-components",
+      "microsoft-fast"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Umbrella design-system entry; React (fluent-ui-react) and Web Components (fluent-ui-web-components) implementations have their own entries. Platforms/frameworks taken from the Develop page: Fluent UI React v9, Fluent UI Web Components (built on FAST Element), Fluent UI Apple (UIKit/AppKit), Fluent UI Android (Kotlin/Jetpack Compose), WinUI for Windows. latestVersion = @fluentui/react-components. Figma: design page links aka.ms/Fluent2Toolkits/Web/Figma -> figma.com community file 'Microsoft-Fluent-2-Web', but figma.com returned 403 to the check; figmaUrl null. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: organization.websiteUrl https://www.microsoft.com/design -> https://microsoft.design/ (redirect target).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fluent2.microsoft.design/",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.417Z",
+        "method": "http-check",
+        "note": "title 'Home - Fluent 2 Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fluent2.microsoft.design/get-started/develop",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/get-started/develop",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.756Z",
+        "method": "http-check",
+        "note": "Develop page: React, Web Components, iOS, Android, Windows tabs with install instructions"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fluent2.microsoft.design/components/web/react/",
+        "status": 200,
+        "finalUrl": "https://fluent2.microsoft.design/components/web/react/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.055Z",
+        "method": "http-check",
+        "note": "React component overview page on Fluent 2 site"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fluentui",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.908Z",
+        "method": "http-check",
+        "note": "microsoft/fluentui: React components and web components"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/microsoft/fluentui-apple",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui-apple",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.601Z",
+        "method": "http-check",
+        "note": "Fluent UI Apple: UIKit and AppKit controls"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/microsoft/fluentui-android",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.878Z",
+        "method": "http-check",
+        "note": "Fluent UI Android repo (linked from Develop page)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.383Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Microsoft Corporation"
+      },
+      {
+        "field": "package:@fluentui/react-components",
+        "url": "https://www.npmjs.com/package/@fluentui/react-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.686Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.75.1 published 2026-11-02; license MIT; deprecated: no; repo git+https://github.com/microsoft/fluentui.git"
+      },
+      {
+        "field": "package:@fluentui/web-components",
+        "url": "https://www.npmjs.com/package/@fluentui/web-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.897Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.1.4 published 2026-11-04; license MIT; deprecated: no; repo git+https://github.com/microsoft/fluentui.git#master"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://aka.ms/Fluent2Toolkits/Web/Figma",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/836828295772957889/Microsoft-Fluent-2-Web",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:12.640Z",
+        "method": "http-check",
+        "note": "official design page link; redirects to figma.com/community/file/836828295772957889/Microsoft-Fluent-2-Web, which returned 403 to automated check"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.microsoft.com/design",
+        "status": 200,
+        "finalUrl": "https://microsoft.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.308Z",
+        "method": "http-check",
+        "note": "redirects to https://microsoft.design/ (title 'Microsoft Design'); recorded final URL"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:21:02.308Z"
+  },
+  {
+    "rank": 4,
+    "slug": "carbon",
+    "name": "IBM Carbon Design System",
+    "aliases": [
+      "Carbon",
+      "Carbon Design System"
+    ],
+    "organization": {
+      "slug": "ibm",
+      "name": "IBM",
+      "websiteUrl": "https://www.ibm.com/design/"
+    },
+    "category": "design-system",
+    "summary": "IBM's open-source design system, based on the IBM Design Language, providing usage guidelines, Figma design kits and core component implementations in React and Web Components.",
+    "homepageUrl": "https://www.carbondesignsystem.com/",
+    "docsUrl": "https://www.carbondesignsystem.com/building-blocks/core/components/overview/components",
+    "repositoryUrl": "https://github.com/carbon-design-system/carbon",
+    "figmaUrl": null,
+    "storybookUrl": "https://react.carbondesignsystem.com/",
+    "packages": [
+      {
+        "name": "@carbon/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/react"
+      },
+      {
+        "name": "@carbon/styles",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/styles"
+      },
+      {
+        "name": "@carbon/web-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@carbon/web-components"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.120.0",
+    "latestReleaseAt": "2026-11-04T14:08:33.373Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@carbon/react",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@carbon/web-components",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "design-tokens",
+      "theming",
+      "figma-kit"
+    ],
+    "relatedSlugs": [
+      "carbon-web-components"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Carbon Core = React + Web Components (per the Developing > Carbon Core pages); Angular/Vue/Svelte are listed separately as community frameworks and are not claimed here. Web Components implementation also has its own entry (carbon-web-components). latestVersion = @carbon/react. Figma: the Figma kits page links community file 1157761560874207208 '(v11) Carbon Design System', but figma.com returned 403 to the automated check, so figmaUrl is null. storybookUrl is the official Carbon React storybook. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: removed unsupported tag data-dense; summary reworded (was near-verbatim copy of the site meta description); homepage check note now cites the enterprise-ready statement (evidence for enterprise tag).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://carbondesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.069Z",
+        "method": "page-content",
+        "note": "redirects to www.carbondesignsystem.com; title 'Home | Carbon Design System'; page text: IBM's enterprise-ready, open-source design system (supports enterprise tag)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://carbondesignsystem.com/components/overview/components/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/building-blocks/core/components/overview/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.372Z",
+        "method": "http-check",
+        "note": "redirects to building-blocks/core/components/overview/components; title 'Overview | Carbon Design System'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://carbondesignsystem.com/developing/frameworks/react/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/getting-started/developing/carbon-core/react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.669Z",
+        "method": "http-check",
+        "note": "Carbon Core page: React, Web Components, plus separate Community section"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/carbon-design-system/carbon",
+        "status": 200,
+        "finalUrl": "https://github.com/carbon-design-system/carbon",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.193Z",
+        "method": "http-check",
+        "note": "carbon-design-system/carbon: 'A design system built by IBM'"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://react.carbondesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://react.carbondesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.432Z",
+        "method": "http-check",
+        "note": "Storybook: 'React implementation of the Carbon Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/carbon-design-system/carbon/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.683Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@carbon/react",
+        "url": "https://www.npmjs.com/package/@carbon/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.121Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.120.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
+      },
+      {
+        "field": "package:@carbon/styles",
+        "url": "https://www.npmjs.com/package/@carbon/styles",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.431Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.119.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
+      },
+      {
+        "field": "package:@carbon/web-components",
+        "url": "https://www.npmjs.com/package/@carbon/web-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.982Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.67.0 published 2026-11-04; license Apache-2.0; deprecated: no; repo git+https://github.com/carbon-design-system/carbon.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://carbondesignsystem.com/elements/color/tokens/",
+        "status": 200,
+        "finalUrl": "https://www.carbondesignsystem.com/building-blocks/foundations/color/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.380Z",
+        "method": "http-check",
+        "note": "redirects to building-blocks/foundations/color/tokens; color tokens docs"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1157761560874207208",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1157761560874207208",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:12.756Z",
+        "method": "http-check",
+        "note": "linked from carbondesignsystem.com/designing/kits/figma as '(v11) Carbon Design System'; figma.com returned 403 to automated check"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.ibm.com/design/",
+        "status": 200,
+        "finalUrl": "https://www.ibm.com/design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.882Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'IBM Design'"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T04:19:23.882Z"
+  },
+  {
+    "rank": 5,
+    "slug": "salesforce-lightning",
+    "name": "Salesforce Lightning Design System",
+    "aliases": [
+      "SLDS",
+      "Lightning Design System",
+      "SLDS 2",
+      "Lightning Design System 2"
+    ],
+    "organization": {
+      "slug": "salesforce",
+      "name": "Salesforce",
+      "websiteUrl": "https://www.salesforce.com/"
+    },
+    "category": "design-system",
+    "summary": "Salesforce's design system for building experiences on the Salesforce platform, providing guidelines, CSS component blueprints, design tokens and icons; SLDS 2 is the current generation.",
+    "homepageUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
+    "docsUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
+    "repositoryUrl": "https://github.com/salesforce-ux/design-system",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@salesforce-ux/design-system",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@salesforce-ux/design-system"
+      },
+      {
+        "name": "@salesforce/design-system-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@salesforce/design-system-react"
+      }
+    ],
+    "license": {
+      "slug": "bsd-3-clause",
+      "spdxId": "BSD-3-Clause",
+      "name": "BSD 3-Clause License",
+      "url": "https://raw.githubusercontent.com/salesforce-ux/design-system/master/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "Source code BSD-3-Clause; per the repo README, icons and images are licensed CC BY-ND 4.0 (no derivatives)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.264.3",
+    "latestReleaseAt": "2026-10-22T07:49:16.084Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "@salesforce-ux/design-system",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@salesforce/design-system-react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "open-source",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "www.lightningdesignsystem.com redirects to a zeroheight-hosted 'Lightning Design System 2' site (recorded final URL); SLDS 1 docs remain at v1.lightningdesignsystem.com. Primary deliverable is a CSS framework (blueprints) plus tokens/icons; on-platform components are Lightning Web Components (not in the ATLAS framework list). React implementation @salesforce/design-system-react is from the salesforce GitHub org; its former docs domain react.lightningdesignsystem.com now redirects to the repo. Redistribution 'conditional' because icons/images are CC BY-ND 4.0. No Figma link extracted (zeroheight page is JS-rendered). audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: v1 docs check re-recorded as page-content with enterprise evidence (tag previously had no supporting check).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.lightningdesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://www.lightningdesignsystem.com/2e1ef8501",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.143Z",
+        "method": "http-check",
+        "note": "redirects to /2e1ef8501; title 'Lightning Design System 2' (zeroheight)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://v1.lightningdesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://v1.lightningdesignsystem.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.668Z",
+        "method": "page-content",
+        "note": "SLDS 1 documentation site still online; title 'Lightning Design System'; page heading about enterprise app experiences (supports enterprise tag); current release Winter '27 (SLDS 2.264.2)"
+      },
+      {
+        "field": "tags",
+        "url": "https://v1.lightningdesignsystem.com/design-tokens/",
+        "status": 200,
+        "finalUrl": "https://v1.lightningdesignsystem.com/design-tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.981Z",
+        "method": "http-check",
+        "note": "title 'Design Tokens - Lightning Design System' (SLDS 1)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/salesforce-ux/design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/salesforce-ux/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.699Z",
+        "method": "http-check",
+        "note": "salesforce-ux/design-system: 'Salesforce Lightning Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/salesforce-ux/design-system/master/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/salesforce-ux/design-system/master/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.981Z",
+        "method": "repo-metadata",
+        "note": "BSD-3-Clause text, Copyright (c) 2015-present Salesforce.com; README: icons/images CC BY-ND 4.0"
+      },
+      {
+        "field": "package:@salesforce-ux/design-system",
+        "url": "https://www.npmjs.com/package/@salesforce-ux/design-system",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.247Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.264.3 published 2026-10-22; license BSD-3-Clause; deprecated: no; repo n/a"
+      },
+      {
+        "field": "package:@salesforce/design-system-react",
+        "url": "https://www.npmjs.com/package/@salesforce/design-system-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.826Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.10.65 published 2026-01-09; license BSD-3-Clause; deprecated: no; repo git+ssh://git@github.com/salesforce/design-system-react.git; React implementation; latest release within 12 months"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/salesforce/design-system-react",
+        "status": 200,
+        "finalUrl": "https://github.com/salesforce/design-system-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.982Z",
+        "method": "http-check",
+        "note": "salesforce/design-system-react: 'Salesforce Lightning Design System for React'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://react.lightningdesignsystem.com/",
+        "status": 200,
+        "finalUrl": "https://github.com/salesforce/design-system-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.566Z",
+        "method": "http-check",
+        "note": "former React docs domain now redirects to the GitHub repo"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.salesforce.com/",
+        "status": 200,
+        "finalUrl": "https://www.salesforce.com/?bc=HL",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.765Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Salesforce: The #1 AI CRM'"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:19:23.765Z"
+  },
+  {
+    "rank": 6,
+    "slug": "adobe-spectrum",
+    "name": "Adobe Spectrum",
+    "aliases": [
+      "Spectrum",
+      "Spectrum 2",
+      "S2",
+      "Spectrum Design System"
+    ],
+    "organization": {
+      "slug": "adobe",
+      "name": "Adobe",
+      "websiteUrl": "https://www.adobe.com/"
+    },
+    "category": "design-system",
+    "summary": "Adobe's design system for its products, documenting foundations, content guidelines and components, with design data (tokens, component schemas) and implementations in React Spectrum, Spectrum Web Components and Spectrum CSS.",
+    "homepageUrl": "https://spectrum.adobe.com/",
+    "docsUrl": "https://spectrum.adobe.com/getting-started/introduction",
+    "repositoryUrl": "https://github.com/adobe/spectrum-design-data",
+    "figmaUrl": null,
+    "storybookUrl": "https://opensource.adobe.com/spectrum-css/",
+    "packages": [
+      {
+        "name": "@adobe/spectrum-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-tokens"
+      },
+      {
+        "name": "@adobe/spectrum-design-data",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-design-data"
+      },
+      {
+        "name": "@spectrum-web-components/bundle",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@spectrum-web-components/bundle"
+      },
+      {
+        "name": "@spectrum-css/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@spectrum-css/tokens"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/adobe/spectrum-design-data/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Applies to the design-data repo and the npm implementation packages (all Apache-2.0 on npm). The guideline site content itself states no license in static HTML."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "15.6.0",
+    "latestReleaseAt": "2026-10-16T20:45:24.948Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@react-spectrum/s2",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@spectrum-web-components/bundle",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@spectrum-css/tokens",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "design-tokens",
+      "theming",
+      "web-components"
+    ],
+    "relatedSlugs": [
+      "react-spectrum",
+      "react-aria"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Design-system umbrella; React Spectrum is a distinct implementation with its own entry (react-spectrum), React Aria likewise (react-aria). s2.spectrum.adobe.com now redirects to spectrum.adobe.com, which hosts Spectrum 2 docs incl. /web/rsp/ (React Spectrum) and /web/swc/ (Spectrum Web Components) component pages. repositoryUrl = adobe/spectrum-design-data (tokens + component schemas; adobe/spectrum-tokens redirects there). latestVersion = @adobe/spectrum-tokens. storybookUrl = official Spectrum CSS storybook. @spectrum-css/tokens last published 2025-06-11 (Spectrum CSS release cadence slower than other packages). Site is JS-rendered; no Figma link extracted, figmaUrl null. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: removed unsupported tag enterprise (no first-party page positions Spectrum as enterprise-focused).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://spectrum.adobe.com/",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.552Z",
+        "method": "http-check",
+        "note": "title 'Start with Spectrum'; meta: the system behind Adobe's experiences"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://s2.spectrum.adobe.com/",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.057Z",
+        "method": "http-check",
+        "note": "s2 subdomain redirects to spectrum.adobe.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://spectrum.adobe.com/getting-started/introduction",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/getting-started/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.856Z",
+        "method": "http-check",
+        "note": "title 'Spectrum is Adobe's design system'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://spectrum.adobe.com/foundations/design-data/design-tokens",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/foundations/design-data/design-tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.169Z",
+        "method": "http-check",
+        "note": "Design tokens page; links github.com/adobe/spectrum-design-data"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://spectrum.adobe.com/web/rsp/components/accordion",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/web/rsp/components/accordion",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.472Z",
+        "method": "http-check",
+        "note": "React Spectrum component docs hosted on spectrum.adobe.com (/web/rsp/)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://spectrum.adobe.com/web/swc/components/button",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/web/swc/components/button",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.776Z",
+        "method": "http-check",
+        "note": "Spectrum Web Components docs hosted on spectrum.adobe.com (/web/swc/)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/adobe/spectrum-design-data",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/spectrum-design-data",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.290Z",
+        "method": "http-check",
+        "note": "adobe/spectrum-design-data: design tokens, component schemas and tooling for Spectrum"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/adobe/spectrum-tokens",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/spectrum-tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.579Z",
+        "method": "http-check",
+        "note": "old repo name; page says it redirects to adobe/spectrum-design-data"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/adobe/spectrum-web-components",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/spectrum-web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.866Z",
+        "method": "http-check",
+        "note": "adobe/spectrum-web-components repo"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://opensource.adobe.com/spectrum-web-components/",
+        "status": 200,
+        "finalUrl": "https://opensource.adobe.com/spectrum-web-components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.920Z",
+        "method": "http-check",
+        "note": "title 'Spectrum Web Components'"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://opensource.adobe.com/spectrum-css/",
+        "status": 200,
+        "finalUrl": "https://opensource.adobe.com/spectrum-css/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.612Z",
+        "method": "http-check",
+        "note": "Spectrum CSS storybook (Storybook title); npm homepage of @spectrum-css/tokens"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/adobe/spectrum-design-data/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/adobe/spectrum-design-data/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.284Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@adobe/spectrum-tokens",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.192Z",
+        "method": "package-metadata",
+        "note": "npm latest 15.6.0 published 2026-10-16; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-design-data.git"
+      },
+      {
+        "field": "package:@adobe/spectrum-design-data",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-design-data",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.375Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.8.2 published 2026-11-05; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-design-data.git"
+      },
+      {
+        "field": "package:@spectrum-web-components/bundle",
+        "url": "https://www.npmjs.com/package/@spectrum-web-components/bundle",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.952Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.12.5 published 2026-10-14; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-web-components.git"
+      },
+      {
+        "field": "package:@spectrum-css/tokens",
+        "url": "https://www.npmjs.com/package/@spectrum-css/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.155Z",
+        "method": "package-metadata",
+        "note": "npm latest 16.0.2 published 2025-06-11; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-css.git"
+      },
+      {
+        "field": "package:@react-spectrum/s2",
+        "url": "https://www.npmjs.com/package/@react-spectrum/s2",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.407Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.8.2 published 2026-10-15; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/react-spectrum.git; React Spectrum (S2) implementation; separate entry react-spectrum"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.adobe.com/",
+        "status": 200,
+        "finalUrl": "https://www.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.766Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Adobe: Creative, marketing and document management solutions'"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:19:23.766Z"
+  },
+  {
+    "rank": 7,
+    "slug": "atlassian",
+    "name": "Atlassian Design System",
+    "aliases": [
+      "ADS",
+      "Atlaskit",
+      "Atlassian Design"
+    ],
+    "organization": {
+      "slug": "atlassian",
+      "name": "Atlassian",
+      "websiteUrl": "https://www.atlassian.com/"
+    },
+    "category": "design-system",
+    "summary": "Atlassian's design system used across Jira, Confluence and other Atlassian products, providing foundations, design tokens and React components published as @atlaskit packages.",
+    "homepageUrl": "https://atlassian.design/",
+    "docsUrl": "https://atlassian.design/components",
+    "repositoryUrl": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@atlaskit/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@atlaskit/tokens"
+      },
+      {
+        "name": "@atlaskit/primitives",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@atlaskit/primitives"
+      },
+      {
+        "name": "@atlaskit/button",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@atlaskit/button"
+      }
+    ],
+    "license": {
+      "slug": "atlassian-design-system-license",
+      "spdxId": null,
+      "name": "Atlassian Design System License Agreement",
+      "url": "https://atlassian.design/license",
+      "isOpenSource": null,
+      "redistribution": "restricted",
+      "notes": "Conflicting signals: npm metadata of @atlaskit packages says Apache-2.0, but the ADS License Agreement grants a limited license to use ADS (incl. code packages) only to build add-ons that interoperate with Atlassian products, and restricts modification; it defers to OSS terms for OSS-licensed components. Treat reuse outside Atlassian add-ons as restricted."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "25.7.0",
+    "latestReleaseAt": "2026-11-02T01:55:12.806Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@atlaskit/button",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "design-tokens",
+      "developer-tools"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Components are distributed as many per-component @atlaskit/* npm packages; latestVersion tracks @atlaskit/button as a representative package (no single system version). Source is published as a read-only Bitbucket mirror (repository field of the npm packages). License: see license.notes — custom agreement with field-of-use restriction vs Apache-2.0 on npm; isOpenSource left null as conflicting. atlassian.design pages are server-rendered (props tables and lozenges are in the static HTML, confirmed by the ATLAS atlassian adapter on 2026-11-05); no figma.com link was extracted, so figmaUrl is null. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://atlassian.design/",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.146Z",
+        "method": "http-check",
+        "note": "title 'Atlassian Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://atlassian.design/components",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.472Z",
+        "method": "http-check",
+        "note": "title 'Overview - Components - Atlassian Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://atlassian.design/get-started/develop",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/get-started/develop",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.776Z",
+        "method": "http-check",
+        "note": "Get started > Develop page (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+        "status": 200,
+        "finalUrl": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.459Z",
+        "method": "http-check",
+        "note": "Bitbucket mirror; matches repository field of @atlaskit npm packages"
+      },
+      {
+        "field": "license",
+        "url": "https://atlassian.design/license",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/license",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.113Z",
+        "method": "page-content",
+        "note": "ADS License Agreement: limited licence for building Atlassian add-ons; restrictions on modification"
+      },
+      {
+        "field": "package:@atlaskit/tokens",
+        "url": "https://www.npmjs.com/package/@atlaskit/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.653Z",
+        "method": "package-metadata",
+        "note": "npm latest 20.9.0 published 2026-11-02; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git; npm homepage atlassian.design/components/tokens"
+      },
+      {
+        "field": "tags",
+        "url": "https://atlassian.design/components/tokens",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/components/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.392Z",
+        "method": "http-check",
+        "note": "tokens docs page (200; client-rendered)"
+      },
+      {
+        "field": "package:@atlaskit/primitives",
+        "url": "https://www.npmjs.com/package/@atlaskit/primitives",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.929Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.6.0 published 2026-10-15; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+      },
+      {
+        "field": "package:@atlaskit/button",
+        "url": "https://www.npmjs.com/package/@atlaskit/button",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:17.474Z",
+        "method": "package-metadata",
+        "note": "npm latest 25.7.0 published 2026-11-02; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.atlassian.com/",
+        "status": 200,
+        "finalUrl": "https://www.atlassian.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.803Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Collaboration software for software, IT and business teams | Atlassian'"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:19:23.803Z"
+  },
+  {
+    "rank": 8,
+    "slug": "shopify-polaris",
+    "name": "Shopify Polaris",
+    "aliases": [
+      "Polaris",
+      "Polaris web components",
+      "Polaris React"
+    ],
+    "organization": {
+      "slug": "shopify",
+      "name": "Shopify",
+      "websiteUrl": "https://www.shopify.com/"
+    },
+    "category": "design-system",
+    "summary": "Shopify's design system for building apps and extensions across Shopify surfaces (admin, checkout, customer accounts, POS), now delivered as web components documented on shopify.dev; the earlier React implementation is deprecated.",
+    "homepageUrl": "https://shopify.dev/docs/api/polaris",
+    "docsUrl": "https://shopify.dev/docs/api/polaris",
+    "repositoryUrl": "https://github.com/Shopify/polaris-react-archive",
+    "figmaUrl": null,
+    "storybookUrl": "https://storybook.polaris.shopify.dev/",
+    "packages": [
+      {
+        "name": "@shopify/polaris",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@shopify/polaris"
+      },
+      {
+        "name": "@shopify/polaris-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@shopify/polaris-tokens"
+      },
+      {
+        "name": "@shopify/polaris-types",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@shopify/polaris-types"
+      }
+    ],
+    "license": {
+      "slug": "polaris-license",
+      "spdxId": null,
+      "name": "Polaris License (MIT-style with Shopify field-of-use restriction)",
+      "url": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/LICENSE.md",
+      "isOpenSource": false,
+      "redistribution": "conditional",
+      "notes": "MIT-style grant limited to software that integrates or interoperates with Shopify; stand-alone apps must be visually distinct from Shopify products. Applies to the archived React repo/packages; license terms for the current CDN-delivered Polaris web components were not verified."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "ecommerce",
+      "saas",
+      "web-components",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "polaris.shopify.com and polaris-react.shopify.com both redirect to shopify.dev/docs/api/polaris, which describes Polaris as Shopify's unified UI framework built on web components; system is active. The React implementation is deprecated: npm @shopify/polaris carries a deprecation message (last 13.9.5, 2025-03-26) and github.com/Shopify/polaris redirects to Shopify/polaris-react-archive ('archived and unmaintained'). repositoryUrl/storybookUrl point to that archived React implementation (no public repo found for the web components). latestVersion null: web components are not versioned via npm here. No Figma link verified. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: added official package @shopify/polaris-types (2.0.0, 2026-10-21) as current web-components evidence.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://polaris.shopify.com/",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/polaris",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.084Z",
+        "method": "http-check",
+        "note": "redirects to https://shopify.dev/docs/api/polaris"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://polaris-react.shopify.com/",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/polaris",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.928Z",
+        "method": "http-check",
+        "note": "former React docs domain also redirects to shopify.dev/docs/api/polaris"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://shopify.dev/docs/api/polaris",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/polaris",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.522Z",
+        "method": "page-content",
+        "note": "title 'Polaris references'; page states all app surfaces use Polaris, Shopify's unified UI framework built on web components"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://shopify.dev/docs/api/app-home/polaris-web-components",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/app-home/latest/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.833Z",
+        "method": "http-check",
+        "note": "redirects to shopify.dev/docs/api/app-home/latest/web-components (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/Shopify/polaris",
+        "status": 200,
+        "finalUrl": "https://github.com/Shopify/polaris-react-archive",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.466Z",
+        "method": "http-check",
+        "note": "redirects to Shopify/polaris-react-archive: 'React implementation (Deprecated)'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.580Z",
+        "method": "repo-metadata",
+        "note": "README: 'Polaris React (Archived) - This repository is archived and unmaintained'; points to shopify.dev Polaris"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.880Z",
+        "method": "repo-metadata",
+        "note": "MIT-style text with Shopify field-of-use restriction"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://storybook.polaris.shopify.dev/",
+        "status": 200,
+        "finalUrl": "https://storybook.polaris.shopify.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.641Z",
+        "method": "http-check",
+        "note": "Storybook for Polaris React (archive docs URL shopify.github.io/polaris-react-archive redirects here)"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://shopify.github.io/polaris-react-archive/",
+        "status": 200,
+        "finalUrl": "https://storybook.polaris.shopify.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.624Z",
+        "method": "http-check",
+        "note": "archived documentation link from README; redirects to storybook.polaris.shopify.dev"
+      },
+      {
+        "field": "package:@shopify/polaris",
+        "url": "https://www.npmjs.com/package/@shopify/polaris",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:18.048Z",
+        "method": "package-metadata",
+        "note": "npm latest 13.9.5 published 2025-03-26; license SEE LICENSE IN LICENSE.md; deprecated: YES; repo git+https://github.com/Shopify/polaris.git; deprecation message: Polaris React is deprecated; use Polaris web components"
+      },
+      {
+        "field": "package:@shopify/polaris-tokens",
+        "url": "https://www.npmjs.com/package/@shopify/polaris-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:18.327Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.4.2 published 2025-03-17; license SEE LICENSE IN LICENSE.md; deprecated: no; repo git+https://github.com/Shopify/polaris.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.shopify.com/",
+        "status": 200,
+        "finalUrl": "https://www.shopify.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:24.039Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Shopify: The All-in-One Commerce Platform for Businesses - Shopify'"
+      },
+      {
+        "field": "package:@shopify/polaris-types",
+        "url": "https://www.npmjs.com/package/@shopify/polaris-types",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:05.420Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.0.0 published 2026-10-21; license null; deprecated: no; repo n/a; official @shopify scope; description: type definitions for Polaris web components (includes a Custom Elements Manifest); evidence of active development"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:21:05.420Z"
+  },
+  {
+    "rank": 9,
+    "slug": "github-primer",
+    "name": "GitHub Primer",
+    "aliases": [
+      "Primer",
+      "Primer Design System"
+    ],
+    "organization": {
+      "slug": "github",
+      "name": "GitHub",
+      "websiteUrl": "https://github.com/"
+    },
+    "category": "design-system",
+    "summary": "GitHub's design system for its product UI, with guidelines, Figma libraries, design tokens (Primer Primitives) and implementations in React, Rails ViewComponents and CSS.",
+    "homepageUrl": "https://primer.style/",
+    "docsUrl": "https://primer.style/product/getting-started/",
+    "repositoryUrl": "https://github.com/primer/react",
+    "figmaUrl": null,
+    "storybookUrl": "https://primer.style/react/storybook/",
+    "packages": [
+      {
+        "name": "@primer/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/react"
+      },
+      {
+        "name": "@primer/primitives",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/primitives"
+      },
+      {
+        "name": "@primer/css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/css"
+      },
+      {
+        "name": "@primer/view-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/view-components"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/primer/react/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "All four npm packages report MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "38.44.0",
+    "latestReleaseAt": "2026-11-03T16:40:52.057Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@primer/react",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@primer/css",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "developer-tools",
+      "design-tokens",
+      "accessibility",
+      "figma-kit",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Product UI system (Primer Brand for marketing pages is a separate GitHub project, not covered here). repositoryUrl = primer/react (primary implementation); tokens in primer/primitives. Rails implementation (primer/view_components, npm @primer/view-components) exists but Rails is not in the ATLAS framework list. Figma libraries page states public libraries are available via the Primer Figma Community page (hence figma framework); no figma.com URL verified, so figmaUrl null. latestVersion = @primer/react. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://primer.style/",
+        "status": 200,
+        "finalUrl": "https://primer.style/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.767Z",
+        "method": "http-check",
+        "note": "title 'Primer'; description 'The Design System for GitHub'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primer.style/product/getting-started/",
+        "status": 200,
+        "finalUrl": "https://primer.style/product/getting-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.067Z",
+        "method": "http-check",
+        "note": "title 'Getting started | Primer'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primer.style/product/components/",
+        "status": 200,
+        "finalUrl": "https://primer.style/product/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.669Z",
+        "method": "http-check",
+        "note": "title 'Components | Primer'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://primer.style/product/getting-started/figma/",
+        "status": 200,
+        "finalUrl": "https://primer.style/product/getting-started/figma/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.045Z",
+        "method": "page-content",
+        "note": "title 'Figma libraries | Primer'; public libraries via Primer Figma Community page"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primer/react",
+        "status": 200,
+        "finalUrl": "https://github.com/primer/react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.767Z",
+        "method": "http-check",
+        "note": "primer/react: implementation of GitHub's Primer Design System using React"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primer/primitives",
+        "status": 200,
+        "finalUrl": "https://github.com/primer/primitives",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:17.066Z",
+        "method": "http-check",
+        "note": "primer/primitives: color, typography and spacing primitives"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://primer.style/react/storybook",
+        "status": 200,
+        "finalUrl": "https://primer.style/react/storybook/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.551Z",
+        "method": "http-check",
+        "note": "official Primer React Storybook (final URL with trailing slash)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/primer/react/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primer/react/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.183Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2018 GitHub, Inc."
+      },
+      {
+        "field": "package:@primer/react",
+        "url": "https://www.npmjs.com/package/@primer/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:18.847Z",
+        "method": "package-metadata",
+        "note": "npm latest 38.44.0 published 2026-11-03; license MIT; deprecated: no; repo git+https://github.com/primer/react.git"
+      },
+      {
+        "field": "package:@primer/primitives",
+        "url": "https://www.npmjs.com/package/@primer/primitives",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:19.599Z",
+        "method": "package-metadata",
+        "note": "npm latest 11.10.0 published 2026-07-30; license MIT; deprecated: no; repo git+https://github.com/primer/primitives.git"
+      },
+      {
+        "field": "package:@primer/css",
+        "url": "https://www.npmjs.com/package/@primer/css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:20.160Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.3.3 published 2026-10-29; license MIT; deprecated: no; repo git+https://github.com/primer/css.git"
+      },
+      {
+        "field": "package:@primer/view-components",
+        "url": "https://www.npmjs.com/package/@primer/view-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:21.003Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.53.5 published 2026-09-11; license MIT; deprecated: no; repo git+https://github.com/primer/view_components.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://primer.style/accessibility",
+        "status": 200,
+        "finalUrl": "https://primer.style/accessibility/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.818Z",
+        "method": "http-check",
+        "note": "title 'Accessibility'; how to create accessible interfaces for GitHub"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://github.com/",
+        "status": 200,
+        "finalUrl": "https://github.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.615Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'GitHub · Change is constant. GitHub keeps you ahead. · GitHub · GitHub'"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:19:23.615Z"
+  },
+  {
+    "rank": 10,
+    "slug": "microsoft-fast",
+    "name": "Microsoft FAST",
+    "aliases": [
+      "FAST",
+      "FAST Element",
+      "fast.design"
+    ],
+    "organization": {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "websiteUrl": "https://microsoft.design/"
+    },
+    "category": "web-components",
+    "summary": "Microsoft's open-source web components technology centred on FAST Element (@microsoft/fast-element), a lightweight library for building standards-based custom elements; Fluent UI Web Components are built on it.",
+    "homepageUrl": "https://fast.design/",
+    "docsUrl": "https://fast.design/docs/3.x/introduction/",
+    "repositoryUrl": "https://github.com/microsoft/fast",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@microsoft/fast-element",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-element"
+      },
+      {
+        "name": "@microsoft/fast-foundation",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-foundation"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/microsoft/fast/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.1.2",
+    "latestReleaseAt": "2026-10-15T04:07:46.661Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@microsoft/fast-element",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components"
+    ],
+    "relatedSlugs": [
+      "fluent-ui-web-components",
+      "fluent-2"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Infrastructure-level library rather than a visual design system; classified web-components. Fluent UI Web Components are built on FAST Element (per Fluent 2 Develop page). Docs are versioned (1.x/2.x/3.x); recorded the 3.x introduction. @microsoft/fast-element 3.1.2 published 2026-10-15 (active); @microsoft/fast-foundation last published 2024-10-23 (2.x line). audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: organization.websiteUrl https://www.microsoft.com/design -> https://microsoft.design/ (redirect target); summary corrected: Fluent UI Web Components build on FAST Element, not on 'foundation packages' (per the FAST README and the Fluent 2 Develop page); removed unsupported tags developer-tools and theming (3.x docs cover element authoring only); documented that @microsoft/fast-foundation is absent from main (legacy 2.x).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fast.design/",
+        "status": 200,
+        "finalUrl": "https://fast.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.766Z",
+        "method": "http-check",
+        "note": "title 'FAST'; description 'FAST web components'; links github.com/microsoft/fast and its LICENSE"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fast.design/docs/3.x/introduction",
+        "status": 200,
+        "finalUrl": "https://fast.design/docs/3.x/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.366Z",
+        "method": "http-check",
+        "note": "redirects to /docs/3.x/introduction/; title 'Introduction'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fast.design/docs/getting-started/quick-start",
+        "status": 404,
+        "finalUrl": "https://fast.design/docs/getting-started/quick-start",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:13.667Z",
+        "method": "http-check",
+        "note": "nav link returned 404 (not used)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fast",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fast",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:17.366Z",
+        "method": "http-check",
+        "note": "microsoft/fast repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/microsoft/fast/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fast/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.480Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Microsoft Corporation"
+      },
+      {
+        "field": "package:@microsoft/fast-element",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-element",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:21.170Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.1.2 published 2026-10-15; license MIT; deprecated: no; repo git+https://github.com/Microsoft/fast.git"
+      },
+      {
+        "field": "package:@microsoft/fast-foundation",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-foundation",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:21.475Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.50.0 published 2024-10-23; license MIT; deprecated: no; repo git+https://github.com/Microsoft/fast.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.microsoft.com/design",
+        "status": 200,
+        "finalUrl": "https://microsoft.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.308Z",
+        "method": "http-check",
+        "note": "redirects to https://microsoft.design/ (title 'Microsoft Design'); recorded final URL"
+      },
+      {
+        "field": "packages",
+        "url": "https://raw.githubusercontent.com/microsoft/fast/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fast/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:06.557Z",
+        "method": "repo-metadata",
+        "note": "README Packages section lists @microsoft/fast-element; Fluent UI Web Components described as built with @microsoft/fast-element"
+      },
+      {
+        "field": "packages",
+        "url": "https://data.jsdelivr.com/v1/packages/gh/microsoft/fast@main?structure=flat",
+        "status": 200,
+        "finalUrl": "https://data.jsdelivr.com/v1/packages/gh/microsoft/fast@main?structure=flat",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:06.524Z",
+        "method": "repo-metadata",
+        "note": "main branch packages: fast-element, fast-html, fast-router, fast-ssr; no fast-foundation (legacy 2.x line)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fast.design/docs/3.x/getting-started/quick-start/",
+        "status": 200,
+        "finalUrl": "https://fast.design/docs/3.x/getting-started/quick-start/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.428Z",
+        "method": "http-check",
+        "note": "versioned 3.x Quick Start (200); the unversioned nav link /docs/getting-started/quick-start is the one that 404s"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:21:06.557Z"
+  },
+  {
+    "rank": 11,
+    "slug": "sap-fiori",
+    "name": "SAP Fiori",
+    "aliases": [
+      "SAP Fiori Design Guidelines",
+      "SAP Design System",
+      "Fiori"
+    ],
+    "organization": {
+      "slug": "sap",
+      "name": "SAP",
+      "websiteUrl": "https://www.sap.com/"
+    },
+    "category": "design-system",
+    "summary": "SAP's design system for business applications, with SAP Fiori guidelines for web, iOS and Android; web implementations include UI5 Web Components (with a React wrapper), SAPUI5/OpenUI5 and Fundamental Library Styles.",
+    "homepageUrl": "https://www.sap.com/design-system",
+    "docsUrl": "https://www.sap.com/design-system/fiori-design-web",
+    "repositoryUrl": "https://github.com/UI5/webcomponents",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@ui5/webcomponents",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents"
+      },
+      {
+        "name": "@ui5/webcomponents-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents-react"
+      },
+      {
+        "name": "fundamental-styles",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/fundamental-styles"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/UI5/webcomponents/main/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Applies to the open-source implementations (UI5 Web Components, UI5 Web Components for React, fundamental-styles: all Apache-2.0 on npm). The Fiori guideline content on sap.com is SAP copyrighted; its terms were not verified."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.28.1",
+    "latestReleaseAt": "2026-10-21T08:29:23.695Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@ui5/webcomponents",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@ui5/webcomponents-react",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "fundamental-styles",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "tags": [
+      "enterprise",
+      "data-dense",
+      "web-components",
+      "open-source",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "experience.sap.com/fiori-design* now redirects to www.sap.com/design-system (recorded final URLs). IMPORTANT for ingestion: www.sap.com/robots.txt disallows all user agents except a whitelist of search bots (robotsAllowed=false in checks), so guideline pages must not be crawled; use UI5 Web Components repo/npm instead. repositoryUrl = UI5/webcomponents (github.com/SAP/ui5-webcomponents redirects there). iOS/Android platforms evidenced by the 'SAP Fiori for iOS/Android' pages; native SDKs not catalogued here. latestVersion = @ui5/webcomponents. SAPUI5/OpenUI5 (UI5/openui5) is another implementation (UI5 framework not in ATLAS framework list). No Figma link verified. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: added content-density check backing the data-dense tag.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://experience.sap.com/fiori-design/",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.360Z",
+        "method": "http-check",
+        "note": "redirects to https://www.sap.com/design-system; title 'SAP Design System'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://www.sap.com/design-system",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.989Z",
+        "method": "http-check",
+        "note": "title 'SAP Design System'; robots.txt disallows non-whitelisted crawlers"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://experience.sap.com/fiori-design-web/",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-web",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.667Z",
+        "method": "http-check",
+        "note": "redirects to sap.com/design-system/fiori-design-web; title 'SAP Fiori for Web'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.sap.com/design-system/fiori-design-web",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-web",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.308Z",
+        "method": "http-check",
+        "note": "title 'SAP Fiori for Web'"
+      },
+      {
+        "field": "platforms",
+        "url": "https://www.sap.com/design-system/fiori-design-ios",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-ios",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.617Z",
+        "method": "http-check",
+        "note": "title 'SAP Fiori for iOS'"
+      },
+      {
+        "field": "platforms",
+        "url": "https://www.sap.com/design-system/fiori-design-android",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.929Z",
+        "method": "http-check",
+        "note": "title 'SAP Fiori for Android'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/SAP/ui5-webcomponents",
+        "status": 200,
+        "finalUrl": "https://github.com/UI5/webcomponents",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:17.967Z",
+        "method": "http-check",
+        "note": "redirects to UI5/webcomponents: 'Build SAP Fiori user interfaces...'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://ui5.github.io/webcomponents/",
+        "status": 200,
+        "finalUrl": "https://ui5.github.io/webcomponents/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.616Z",
+        "method": "http-check",
+        "note": "title 'Enterprise-Grade Web Components | UI5 Web Components'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/UI5/webcomponents-react",
+        "status": 200,
+        "finalUrl": "https://github.com/UI5/webcomponents-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:18.265Z",
+        "method": "http-check",
+        "note": "React wrapper of UI5 Web Components compliant with SAP Fiori guidelines"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://sap.github.io/fundamental-styles/",
+        "status": 200,
+        "finalUrl": "https://sap.github.io/fundamental-styles/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.641Z",
+        "method": "http-check",
+        "note": "Fundamental Library Styles storybook (npm homepage of fundamental-styles)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://openui5.org/",
+        "status": 200,
+        "finalUrl": "https://openui5.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.056Z",
+        "method": "http-check",
+        "note": "title 'OpenUI5': open-source JS framework from SAP"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/UI5/webcomponents/main/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/UI5/webcomponents/main/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.780Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@ui5/webcomponents",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:21.810Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.28.1 published 2026-10-21; license Apache-2.0; deprecated: no; repo git+https://github.com/UI5/webcomponents.git"
+      },
+      {
+        "field": "package:@ui5/webcomponents-react",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:22.154Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.28.2 published 2026-10-27; license Apache-2.0; deprecated: no; repo git+https://github.com/UI5/webcomponents-react.git"
+      },
+      {
+        "field": "package:fundamental-styles",
+        "url": "https://www.npmjs.com/package/fundamental-styles",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:22.519Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.42.0 published 2026-10-19; license Apache-2.0; deprecated: no; repo git+https://github.com/SAP/fundamental-styles.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.sap.com/",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/index.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:24.200Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'SAP Software Solutions | Business Applications and Technology'"
+      },
+      {
+        "field": "tags",
+        "url": "https://www.sap.com/design-system/fiori-design-web/v1-139/foundations/visual/cozy-compact",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-web/v1-139/foundations/visual/cozy-compact",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.452Z",
+        "method": "http-check",
+        "note": "title 'Content Density (Cozy and Compact)' (supports data-dense tag; versioned v1-139 page; robots disallow)"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:21:02.452Z"
+  },
+  {
+    "rank": 12,
+    "slug": "oracle-redwood",
+    "name": "Oracle Redwood",
+    "aliases": [
+      "Redwood Design System",
+      "Oracle Redwood Design System",
+      "Redwood theme"
+    ],
+    "organization": {
+      "slug": "oracle",
+      "name": "Oracle",
+      "websiteUrl": null
+    },
+    "category": "design-system",
+    "summary": "Oracle's design system; its documented web implementation is the Redwood theme and components of Oracle JET (JavaScript Extension Toolkit), described in the JET developer guide on docs.oracle.com.",
+    "homepageUrl": "https://redwood.oracle.com/",
+    "docsUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
+    "repositoryUrl": "https://github.com/oracle/oraclejet",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@oracle/oraclejet",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@oracle/oraclejet"
+      }
+    ],
+    "license": {
+      "slug": "upl-1.0",
+      "spdxId": "UPL-1.0",
+      "name": "Universal Permissive License 1.0",
+      "url": "https://raw.githubusercontent.com/oracle/oraclejet/master/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "UPL-1.0 per npm metadata of @oracle/oraclejet and the LICENSE.txt at the oracle/oraclejet repo root (the JET implementation). Redwood guideline content terms unknown."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "21.0.3",
+    "latestReleaseAt": "2026-11-04T03:29:18.810Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@oracle/oraclejet",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "redwood.oracle.com answers 200 but is an Oracle Visual Builder app that renders only with JavaScript (empty <title>, loads JET Redwood CSS); its guideline content could not be inspected, so docsUrl points to the public JET theming chapter instead. Both the JET 19 and JET 21 versions of that chapter state the Redwood theme implements Oracle Redwood Design System. An Oracle Visual Builder blog post (blogs.oracle.com/vbcs/post/redwood-intro, 403 to check.ts, seen via web search) points to redwood.oracle.com as the Redwood site. Redwood-specific pattern components for Fusion/Visual Builder apps may require Oracle cloud access (not verified). Framework recorded as web-components because JET components are custom elements. Lower confidence because the design-system site itself is opaque to static checks. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: organization.websiteUrl www.oracle.com -> null (403 to check.ts); license.url null -> oracle/oraclejet LICENSE.txt; removed false claim that the repo root has no LICENSE file.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://redwood.oracle.com/",
+        "status": 200,
+        "finalUrl": "https://redwood.oracle.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.775Z",
+        "method": "page-content",
+        "note": "200; Oracle Visual Builder app (HTML comment 'Copyright (c) 2024, Oracle', loads JET Redwood CSS); content requires JavaScript"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://www.oracle.com/redwood/",
+        "status": 404,
+        "finalUrl": "https://www.oracle.com/redwood/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:12.766Z",
+        "method": "http-check",
+        "note": "404 on oracle.com (not used)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://docs.oracle.com/en/middleware/developer-tools/jet/19/develop/use-css-themes-oracle-jet-apps.html",
+        "status": 200,
+        "finalUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/19/develop/use-css-themes-oracle-jet-apps.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.217Z",
+        "method": "http-check",
+        "note": "description: Oracle JET includes the Redwood theme that ... implements Oracle Redwood Design System"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
+        "status": 200,
+        "finalUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.905Z",
+        "method": "page-content",
+        "note": "JET 21 'Use CSS and Themes in Oracle JET Apps': page text says the Redwood theme implements Oracle Redwood Design System, the Oracle standard for app look and feel"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.oracle.com/webfolder/technetwork/jet/index.html",
+        "status": 200,
+        "finalUrl": "https://www.oracle.com/webfolder/technetwork/jet/index.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.068Z",
+        "method": "http-check",
+        "note": "title 'Oracle JavaScript Extension Toolkit (JET)'; site styled with oj-redwood CSS"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/oracle/oraclejet",
+        "status": 200,
+        "finalUrl": "https://github.com/oracle/oraclejet",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:18.565Z",
+        "method": "http-check",
+        "note": "oracle/oraclejet: modular JavaScript Extension Toolkit"
+      },
+      {
+        "field": "blog",
+        "url": "https://blogs.oracle.com/vbcs/post/redwood-intro",
+        "status": 403,
+        "finalUrl": "https://blogs.oracle.com/vbcs/redwood-intro",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:12.835Z",
+        "method": "http-check",
+        "note": "Oracle VB blog post on Redwood returned 403 to automated check"
+      },
+      {
+        "field": "package:@oracle/oraclejet",
+        "url": "https://www.npmjs.com/package/@oracle/oraclejet",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:22.745Z",
+        "method": "package-metadata",
+        "note": "npm latest 21.0.3 published 2026-11-04; license UPL-1.0; deprecated: no; repo n/a"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.oracle.com/",
+        "status": 403,
+        "finalUrl": "https://www.oracle.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:21:02.307Z",
+        "method": "http-check",
+        "note": "403 'Technical Difficulties' to automated check (bot block); org websiteUrl set to null"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/oracle/oraclejet/master/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/oracle/oraclejet/master/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:05.957Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.txt at repo root: 'Oracle JET ... The Universal Permissive License (UPL), Version 1.0'"
+      }
+    ],
+    "confidence": 0.75,
+    "verifiedAt": "2026-11-05T04:21:05.957Z"
+  },
+  {
+    "rank": 13,
+    "slug": "cloudscape",
+    "name": "Amazon Cloudscape",
+    "aliases": [
+      "Cloudscape Design System",
+      "Cloudscape"
+    ],
+    "organization": {
+      "slug": "amazon-web-services",
+      "name": "Amazon Web Services",
+      "websiteUrl": "https://aws.amazon.com/"
+    },
+    "category": "design-system",
+    "summary": "Open-source design system from AWS for building web applications, with interface guidelines, design resources and a React component library; it originated as the system behind AWS service consoles.",
+    "homepageUrl": "https://cloudscape.design/",
+    "docsUrl": "https://cloudscape.design/components/",
+    "repositoryUrl": "https://github.com/cloudscape-design/components",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@cloudscape-design/components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/components"
+      },
+      {
+        "name": "@cloudscape-design/design-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/design-tokens"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/cloudscape-design/components/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.0.1409",
+    "latestReleaseAt": "2026-11-03T15:56:55.861Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@cloudscape-design/components",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "data-dense",
+      "developer-tools",
+      "saas",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Components page states components are built with React. latestVersion = @cloudscape-design/components (continuous patch releases). About page: created for and used by Amazon Web Services (AWS) since 2016 to improve UX across AWS service web applications. No Figma link verified. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: added content-density check backing the data-dense tag.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://cloudscape.design/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.761Z",
+        "method": "http-check",
+        "note": "title 'Cloudscape Design System'; guidelines, front-end components, design resources, dev tools"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://cloudscape.design/components/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.067Z",
+        "method": "http-check",
+        "note": "title 'Components - Cloudscape Design System'; 'Components are built with React'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://cloudscape.design/get-started/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/get-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.363Z",
+        "method": "http-check",
+        "note": "title 'Get started - Cloudscape Design System'"
+      },
+      {
+        "field": "summary",
+        "url": "https://cloudscape.design/about/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/about/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.667Z",
+        "method": "page-content",
+        "note": "About page: 'Created for and used by Amazon Web Services (AWS) since 2016'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/cloudscape-design/components",
+        "status": 200,
+        "finalUrl": "https://github.com/cloudscape-design/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:18.867Z",
+        "method": "http-check",
+        "note": "cloudscape-design/components: React components for Cloudscape Design System"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/cloudscape-design/components/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/cloudscape-design/components/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.080Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@cloudscape-design/components",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:23.037Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.0.1409 published 2026-11-03; license Apache-2.0; deprecated: no; repo git+https://github.com/cloudscape-design/components.git"
+      },
+      {
+        "field": "package:@cloudscape-design/design-tokens",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:23.312Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.0.117 published 2026-10-28; license Apache-2.0; deprecated: no; repo git+https://github.com/cloudscape-design/components.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://aws.amazon.com/",
+        "status": 200,
+        "finalUrl": "https://aws.amazon.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.796Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Cloud Computing Services - Amazon Web Services (AWS)'"
+      },
+      {
+        "field": "tags",
+        "url": "https://cloudscape.design/foundation/visual-foundation/content-density/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/foundation/visual-foundation/content-density/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:01.828Z",
+        "method": "http-check",
+        "note": "title 'Content density - Cloudscape Design System'; compact density mode (supports data-dense tag)"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:21:01.828Z"
+  },
+  {
+    "rank": 14,
+    "slug": "base-web",
+    "name": "Uber Base Web",
+    "aliases": [
+      "Base Web",
+      "baseui",
+      "Base design system"
+    ],
+    "organization": {
+      "slug": "uber",
+      "name": "Uber",
+      "websiteUrl": "https://www.uber.com/"
+    },
+    "category": "component-library",
+    "summary": "Uber's React component library (npm package baseui) implementing the Base design system, styled with Styletron; Uber now limits external engagement while mirroring internal development.",
+    "homepageUrl": "https://baseweb.design/",
+    "docsUrl": "https://baseweb.design/components/",
+    "repositoryUrl": "https://github.com/uber/baseweb",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "baseui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/baseui"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/uber/baseweb/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "maintenance",
+    "latestVersion": "18.2.0",
+    "latestReleaseAt": "2026-07-02T19:52:13.968Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "baseui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "css-in-js",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library: Base Web is the React implementation of Uber's (internal) Base design system. maintenanceStatus 'maintenance' because the README carries an explicit 'Maintenance status' notice (limited engagement, mirroring internal development) even though npm releases continue (18.2.0 on 2026-07-02). Docs site is client-rendered (no <title> in static HTML); identity confirmed via the repo README linking baseweb.design as Documentation. Component catalog is Ladle (baseweb.design/ladle), not Storybook, so storybookUrl null. Styletron as styling engine per page markup (styletron hydrate class). audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://baseweb.design/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.845Z",
+        "method": "page-content",
+        "note": "200; client-rendered docs site (no static title); linked as Documentation from uber/baseweb README"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://baseweb.design/components/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.147Z",
+        "method": "http-check",
+        "note": "components index (200)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://baseweb.design/getting-started/setup/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/getting-started/setup/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.472Z",
+        "method": "http-check",
+        "note": "setup guide (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/uber/baseweb",
+        "status": 200,
+        "finalUrl": "https://github.com/uber/baseweb",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:19.167Z",
+        "method": "http-check",
+        "note": "uber/baseweb: React Component library implementing the Base design language"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/uber/baseweb/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/uber/baseweb/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.382Z",
+        "method": "repo-metadata",
+        "note": "README: 'Maintenance status. We are limiting our engagement with this repository while still mirroring our internal development.'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://baseweb.design/blog/open-source-engagement/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/blog/open-source-engagement/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.776Z",
+        "method": "http-check",
+        "note": "'Open Source Engagement and Future' post linked from README (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/uber/baseweb/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/uber/baseweb/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.681Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Uber Technologies, Inc."
+      },
+      {
+        "field": "package:baseui",
+        "url": "https://www.npmjs.com/package/baseui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:24.065Z",
+        "method": "package-metadata",
+        "note": "npm latest 18.2.0 published 2026-07-02; license MIT; deprecated: no; repo git+https://github.com/uber/baseweb.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.uber.com/",
+        "status": 200,
+        "finalUrl": "https://www.uber.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.765Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Explore the Uber Platform | Uber United States'"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:19:23.765Z"
+  },
+  {
+    "rank": 15,
+    "slug": "airbnb-dls",
+    "name": "Airbnb DLS",
+    "aliases": [
+      "Airbnb Design Language System",
+      "DLS"
+    ],
+    "organization": {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "websiteUrl": "https://www.airbnb.com/"
+    },
+    "category": "design-system",
+    "summary": "Airbnb's internal Design Language System, described publicly only in design blog articles; Airbnb has not published component documentation, packages or a public repository for it.",
+    "homepageUrl": "https://airbnb.design/",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": null,
+    "docAccess": "private",
+    "maintenanceStatus": "unknown",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [],
+    "platforms": [],
+    "tags": [
+      "internal"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "rejected",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Rejected: no public documentation. airbnb.design (former Airbnb Design site that hosted DLS articles) now redirects to the airbnb.com booking homepage, and the 'building-a-visual-language' article URL redirects to airbnb.com/404. The Medium copy of the article returned 403 (bot challenge). Neither the Airbnb GitHub org nor the tech blog exposes a DLS component catalog, package or token set, so there is nothing for ATLAS to index. license null: none published. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://airbnb.design/",
+        "status": 200,
+        "finalUrl": "https://www.airbnb.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.377Z",
+        "method": "http-check",
+        "note": "redirects to https://www.airbnb.com/ (booking homepage, not design docs)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://airbnb.design/building-a-visual-language/",
+        "status": 404,
+        "finalUrl": "https://www.airbnb.com/404",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:13.693Z",
+        "method": "http-check",
+        "note": "former DLS article URL now redirects to airbnb.com/404 (404)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://medium.com/airbnb-design/building-a-visual-language-behind-the-scenes-of-our-airbnb-design-system-224748775e4e",
+        "status": 403,
+        "finalUrl": "https://medium.com/airbnb-design/building-a-visual-language-behind-the-scenes-of-our-airbnb-design-system-224748775e4e",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:10:12.645Z",
+        "method": "http-check",
+        "note": "Medium article copy: 403 bot challenge; an article, not documentation"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/airbnb",
+        "status": 200,
+        "finalUrl": "https://github.com/airbnb",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:19.472Z",
+        "method": "http-check",
+        "note": "Airbnb GitHub org exists; no DLS repository identified"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://airbnb.tech/",
+        "status": 200,
+        "finalUrl": "https://airbnb.tech/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.225Z",
+        "method": "http-check",
+        "note": "Airbnb tech blog (airbnb.io redirects here); not DLS documentation"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.airbnb.com/",
+        "status": 200,
+        "finalUrl": "https://www.airbnb.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:24.034Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Airbnb: Vacation Rentals, Cabins, Beach Houses, Unique Homes & Experiences'"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:19:24.034Z"
+  },
+  {
+    "rank": 16,
+    "slug": "ant-design",
+    "name": "Ant Design",
+    "aliases": [
+      "antd",
+      "AntD"
+    ],
+    "organization": {
+      "slug": "ant-group",
+      "name": "Ant Group",
+      "websiteUrl": "https://www.antgroup.com/"
+    },
+    "category": "design-system",
+    "summary": "Enterprise-oriented design language and React component library (npm antd) maintained by the Ant Design team at Ant Group, aimed at enterprise web applications.",
+    "homepageUrl": "https://ant.design/",
+    "docsUrl": "https://ant.design/components/overview/",
+    "repositoryUrl": "https://github.com/ant-design/ant-design",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "antd",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/antd"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/ant-design/ant-design/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2015-present Ant UED."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "6.7.0",
+    "latestReleaseAt": "2026-11-04T03:59:45.205Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "antd",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "china",
+      "theming",
+      "design-tokens"
+    ],
+    "relatedSlugs": [
+      "ant-design-mobile"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Self-described 'enterprise-class UI design language and React UI library'; classified design-system (spec + implementation). Only React is official; Vue/Angular ports (ant-design-vue, ng-zorro-antd) are community projects and are not claimed. Ant Design Mobile is a separate implementation with its own catalog (ant-design-mobile). No Figma link verified. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: organization.websiteUrl https://ant.design/ -> https://www.antgroup.com/.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ant.design/",
+        "status": 200,
+        "finalUrl": "https://ant.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:23.951Z",
+        "method": "http-check",
+        "note": "title 'Ant Design - ...React UI framework'; meta: enterprise-class UI design language and React UI library"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ant.design/components/overview",
+        "status": 200,
+        "finalUrl": "https://ant.design/components/overview/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.367Z",
+        "method": "http-check",
+        "note": "redirects to /components/overview/; title 'Components Overview - Ant Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ant.design/docs/react/introduce",
+        "status": 200,
+        "finalUrl": "https://ant.design/docs/react/introduce/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.667Z",
+        "method": "http-check",
+        "note": "title 'Ant Design of React - Ant Design'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/ant-design/ant-design",
+        "status": 200,
+        "finalUrl": "https://github.com/ant-design/ant-design",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:19.767Z",
+        "method": "http-check",
+        "note": "ant-design/ant-design repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/ant-design/ant-design/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/ant-design/ant-design/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:15.981Z",
+        "method": "repo-metadata",
+        "note": "MIT LICENSE, Copyright (c) 2015-present Ant UED"
+      },
+      {
+        "field": "package:antd",
+        "url": "https://www.npmjs.com/package/antd",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:24.285Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.7.0 published 2026-11-04; license MIT; deprecated: no; repo git+https://github.com/ant-design/ant-design.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://ant.design/docs/react/customize-theme",
+        "status": 200,
+        "finalUrl": "https://ant.design/docs/react/customize-theme/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.044Z",
+        "method": "http-check",
+        "note": "title 'Customize Theme - Ant Design' (design-token based theming)"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.antgroup.com/",
+        "status": 200,
+        "finalUrl": "https://www.antgroup.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.773Z",
+        "method": "http-check",
+        "note": "Ant Group corporate site (200; client-rendered, no static title); replaces ant.design, which is the system site, not the org site"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T04:21:02.773Z"
+  },
+  {
+    "rank": 17,
+    "slug": "ant-design-mobile",
+    "name": "Ant Design Mobile",
+    "aliases": [
+      "antd-mobile",
+      "antd mobile"
+    ],
+    "organization": {
+      "slug": "ant-group",
+      "name": "Ant Group",
+      "websiteUrl": "https://www.antgroup.com/"
+    },
+    "category": "component-library",
+    "summary": "React component library for mobile web applications (npm antd-mobile) from the Ant Design team at Ant Group, following Ant Design principles with a mobile-specific component catalog.",
+    "homepageUrl": "https://mobile.ant.design/",
+    "docsUrl": "https://mobile.ant.design/guide/quick-start/",
+    "repositoryUrl": "https://github.com/ant-design/ant-design-mobile",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "antd-mobile",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/antd-mobile"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/ant-design/ant-design-mobile/master/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2016-present Alipay.com."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.43.0",
+    "latestReleaseAt": "2026-09-14T09:02:40.702Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "antd-mobile",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "mobile-web"
+    ],
+    "tags": [
+      "mobile",
+      "open-source",
+      "china",
+      "theming"
+    ],
+    "relatedSlugs": [
+      "ant-design"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct implementation with its own catalog and package, so verified separately from ant-design (not a duplicate). Targets mobile web (site/repo: 'Essential UI blocks for building mobile web apps'); a React Native variant is not claimed here. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: organization.websiteUrl https://ant.design/ -> https://www.antgroup.com/; docsUrl Button page -> /guide/quick-start/; removed false note that the site has no docs landing.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://mobile.ant.design/",
+        "status": 200,
+        "finalUrl": "https://mobile.ant.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:12.848Z",
+        "method": "http-check",
+        "note": "title 'Ant Design Mobile'; 'Essential UI blocks for building mobile web apps.'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://mobile.ant.design/components/button",
+        "status": 200,
+        "finalUrl": "https://mobile.ant.design/components/button/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.472Z",
+        "method": "http-check",
+        "note": "redirects to /components/button/; title 'Button - Ant Design Mobile'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/ant-design/ant-design-mobile",
+        "status": 200,
+        "finalUrl": "https://github.com/ant-design/ant-design-mobile",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:20.067Z",
+        "method": "http-check",
+        "note": "ant-design/ant-design-mobile repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/ant-design/ant-design-mobile/master/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/ant-design/ant-design-mobile/master/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.280Z",
+        "method": "repo-metadata",
+        "note": "MIT LICENSE, Copyright (c) 2016-present Alipay.com"
+      },
+      {
+        "field": "package:antd-mobile",
+        "url": "https://www.npmjs.com/package/antd-mobile",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:24.454Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.43.0 published 2026-09-14; license MIT; deprecated: no; repo git+https://github.com/ant-design/ant-design-mobile.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.antgroup.com/",
+        "status": 200,
+        "finalUrl": "https://www.antgroup.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.773Z",
+        "method": "http-check",
+        "note": "Ant Group corporate site (200; client-rendered, no static title); replaces ant.design, which is the system site, not the org site"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://mobile.ant.design/guide/quick-start",
+        "status": 200,
+        "finalUrl": "https://mobile.ant.design/guide/quick-start/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:01.950Z",
+        "method": "http-check",
+        "note": "redirects to /guide/quick-start/; title 'Quick Start - Ant Design Mobile'"
+      },
+      {
+        "field": "tags",
+        "url": "https://mobile.ant.design/guide/theming",
+        "status": 200,
+        "finalUrl": "https://mobile.ant.design/guide/theming/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:02.300Z",
+        "method": "http-check",
+        "note": "redirects to /guide/theming/; title 'Theming - Ant Design Mobile' (supports theming tag)"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:21:02.773Z"
+  },
+  {
+    "rank": 18,
+    "slug": "alibaba-fusion",
+    "name": "Alibaba Fusion Design",
+    "aliases": [
+      "Fusion Design",
+      "Fusion Next",
+      "@alifd/next"
+    ],
+    "organization": {
+      "slug": "alibaba",
+      "name": "Alibaba Group",
+      "websiteUrl": "https://www.alibabagroup.com/"
+    },
+    "category": "design-system",
+    "summary": "Alibaba's Fusion Design platform for enterprise web products, combining design guidelines and theming tools with Fusion Next (@alifd/next), a configurable React component library.",
+    "homepageUrl": "https://fusion.design/",
+    "docsUrl": "https://github.com/alibaba-fusion/next/tree/master/components",
+    "repositoryUrl": "https://github.com/alibaba-fusion/next",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@alifd/next",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@alifd/next"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/alibaba-fusion/next/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2018-present Alibaba Group Holding Limited."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.27.34",
+    "latestReleaseAt": "2026-03-31T11:30:34.745Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@alifd/next",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "china",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "fusion.design is a client-rendered app answering 200 for every path (unknown paths get a soft-404 'Page Not Found' title; component routes get the generic home title), so its doc URLs cannot be verified statically; docsUrl points to the repo components folder, where each component has __docs__/index.en-us.md (GitHub robots disallow /tree/; ingest via raw.githubusercontent.com). Site app data names the owner as Alibaba.com international UED (阿里巴巴国际站UED) and lib @alifd/next. maintenanceStatus active on the basis of npm 1.27.34 published 2026-03-31 (within 12 months); release cadence is slower than other systems in this batch. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: docsUrl repo /docs folder (only 3 tooling files) -> repo /components folder holding per-component __docs__ markdown; corrected 'same 200 shell for every path' claim (unknown paths get a soft-404 title).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fusion.design/",
+        "status": 200,
+        "finalUrl": "https://fusion.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:32.719Z",
+        "method": "page-content",
+        "note": "meta: 'Fusion Design is an enterprise-level solution for building web products...'; app data: company 阿里巴巴国际站UED, npm @alifd/next"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fusion.design/pc/component/basic/button",
+        "status": 200,
+        "finalUrl": "https://fusion.design/pc/component/basic/button",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:33.020Z",
+        "method": "http-check",
+        "note": "SPA returns generic 200 shell for arbitrary paths, so not usable as evidence of a docs page"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://github.com/alibaba-fusion/next/tree/master/docs",
+        "status": 200,
+        "finalUrl": "https://github.com/alibaba-fusion/next/tree/master/docs",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:20.367Z",
+        "method": "http-check",
+        "note": "200, but per the jsDelivr file listing this folder holds only site tooling (.editorconfig, .eslintrc, adaptor.js), not documentation; no longer used"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/alibaba-fusion/next",
+        "status": 200,
+        "finalUrl": "https://github.com/alibaba-fusion/next",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:20.679Z",
+        "method": "http-check",
+        "note": "alibaba-fusion/next: configurable component library for web built on React"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/alibaba-fusion/next/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/alibaba-fusion/next/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.581Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2018-present Alibaba Group Holding Limited"
+      },
+      {
+        "field": "package:@alifd/next",
+        "url": "https://www.npmjs.com/package/@alifd/next",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:24.881Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.27.34 published 2026-03-31; license MIT; deprecated: no; repo git+https://github.com/alibaba-fusion/next.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.alibabagroup.com/",
+        "status": 200,
+        "finalUrl": "https://www.alibabagroup.com/en-US/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:24.639Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'Alibaba Group Official Website'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://github.com/alibaba-fusion/next/tree/master/components",
+        "status": 200,
+        "finalUrl": "https://github.com/alibaba-fusion/next/tree/master/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:01.820Z",
+        "method": "http-check",
+        "note": "title 'next/components at master'; each component has __docs__/index.en-us.md (robots disallow /tree/; ingest via raw/jsDelivr)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://data.jsdelivr.com/v1/packages/gh/alibaba-fusion/next@master?structure=flat",
+        "status": 200,
+        "finalUrl": "https://data.jsdelivr.com/v1/packages/gh/alibaba-fusion/next@master?structure=flat",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:06.224Z",
+        "method": "repo-metadata",
+        "note": "file listing: /docs has 3 tooling files; 702 markdown docs under /components/*/__docs__/"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://raw.githubusercontent.com/alibaba-fusion/next/master/components/button/__docs__/index.en-us.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/alibaba-fusion/next/master/components/button/__docs__/index.en-us.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:06.257Z",
+        "method": "repo-metadata",
+        "note": "Button doc: '# Button - category: Components ... Button used to trigger an action.'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fusion.design/this-path-does-not-exist-atlas-audit",
+        "status": 200,
+        "finalUrl": "https://fusion.design/this-path-does-not-exist-atlas-audit",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:03.995Z",
+        "method": "http-check",
+        "note": "soft 404: 200 with title 'Page Not Found' for an unknown path"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:21:06.257Z"
+  },
+  {
+    "rank": 19,
+    "slug": "semi-design",
+    "name": "ByteDance Semi Design",
+    "aliases": [
+      "Semi Design",
+      "Semi UI",
+      "@douyinfe/semi-ui"
+    ],
+    "organization": {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "websiteUrl": "https://www.bytedance.com/"
+    },
+    "category": "design-system",
+    "summary": "Design system and React component library maintained by ByteDance's Douyin front-end and UED teams, with an emphasis on theme customization.",
+    "homepageUrl": "https://semi.design/",
+    "docsUrl": "https://semi.design/en-US/start/introduction",
+    "repositoryUrl": "https://github.com/DouyinFE/semi-design",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@douyinfe/semi-ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@douyinfe/semi-ui"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/DouyinFE/semi-design/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2021 DouyinFE."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.104.0",
+    "latestReleaseAt": "2026-10-09T09:12:26.764Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@douyinfe/semi-ui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "china",
+      "theming",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Maintainer per site meta ('由抖音前端与 UED 团队维护' = maintained by the Douyin front-end and UED teams); repo under DouyinFE org. Docs available in English and Chinese (en-US / zh-CN paths). No Figma link verified. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://semi.design/",
+        "status": 200,
+        "finalUrl": "https://semi.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:13.963Z",
+        "method": "http-check",
+        "note": "title 'Semi Design'; meta: customizable modern design system, maintained by Douyin FE and UED teams"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://semi.design/en-US/start/introduction",
+        "status": 200,
+        "finalUrl": "https://semi.design/en-US/start/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.264Z",
+        "method": "http-check",
+        "note": "title 'Introduction - Semi Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://semi.design/zh-CN/start/introduction",
+        "status": 200,
+        "finalUrl": "https://semi.design/zh-CN/start/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.562Z",
+        "method": "http-check",
+        "note": "Chinese docs: 'Introduction 介绍 - Semi Design'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/DouyinFE/semi-design",
+        "status": 200,
+        "finalUrl": "https://github.com/DouyinFE/semi-design",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:20.966Z",
+        "method": "http-check",
+        "note": "DouyinFE/semi-design: design system and React UI library"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/DouyinFE/semi-design/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/DouyinFE/semi-design/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:16.880Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2021 DouyinFE"
+      },
+      {
+        "field": "package:@douyinfe/semi-ui",
+        "url": "https://www.npmjs.com/package/@douyinfe/semi-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:25.658Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.104.0 published 2026-10-09; license MIT; deprecated: no; repo git+https://github.com/DouyinFE/semi-design.git"
+      },
+      {
+        "field": "tags",
+        "url": "https://semi.design/en-US/basic/tokens",
+        "status": 200,
+        "finalUrl": "https://semi.design/en-US/basic/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.936Z",
+        "method": "http-check",
+        "note": "title 'Tokens - Semi Design'"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.bytedance.com/",
+        "status": 200,
+        "finalUrl": "https://www.bytedance.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:24.813Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'ByteDance - Inspire Creativity, Enrich Life'"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:19:24.813Z"
+  },
+  {
+    "rank": 20,
+    "slug": "arco-design",
+    "name": "Arco Design",
+    "aliases": [
+      "Arco",
+      "@arco-design/web-react",
+      "@arco-design/web-vue"
+    ],
+    "organization": {
+      "slug": "bytedance",
+      "name": "ByteDance",
+      "websiteUrl": "https://www.bytedance.com/"
+    },
+    "category": "design-system",
+    "summary": "ByteDance's enterprise design system with design guidance and official component libraries for React (@arco-design/web-react) and Vue 3 (@arco-design/web-vue).",
+    "homepageUrl": "https://arco.design/",
+    "docsUrl": "https://arco.design/react/docs/start",
+    "repositoryUrl": "https://github.com/arco-design/arco-design",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@arco-design/web-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@arco-design/web-react"
+      },
+      {
+        "name": "@arco-design/web-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@arco-design/web-vue"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/arco-design/arco-design/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2021 Bytedance, Inc. and its affiliates. Vue repo carries the same MIT text."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.66.18",
+    "latestReleaseAt": "2026-10-12T08:00:30.712Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@arco-design/web-react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@arco-design/web-vue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "china",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Homepage title (Chinese) describes a complete design and development solution for enterprise products. repositoryUrl = React library repo; Vue 3 library lives in arco-design/arco-design-vue (docs at arco.design/vue). latestVersion = @arco-design/web-react. Organization ByteDance per LICENSE copyright. No Figma link verified. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; changed: added themes-page check backing the theming tag.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://arco.design/",
+        "status": 200,
+        "finalUrl": "https://arco.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.137Z",
+        "method": "http-check",
+        "note": "title 'Arco Design - 企业级产品的完整设计和开发解决方案'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://arco.design/react/docs/start",
+        "status": 200,
+        "finalUrl": "https://arco.design/react/docs/start",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.554Z",
+        "method": "http-check",
+        "note": "React docs start page (200)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://arco.design/vue/docs/start",
+        "status": 200,
+        "finalUrl": "https://arco.design/vue/docs/start",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:14.904Z",
+        "method": "http-check",
+        "note": "title 'Arco Design Vue'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/arco-design/arco-design",
+        "status": 200,
+        "finalUrl": "https://github.com/arco-design/arco-design",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:21.266Z",
+        "method": "http-check",
+        "note": "React UI components library based on Arco Design"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/arco-design/arco-design-vue",
+        "status": 200,
+        "finalUrl": "https://github.com/arco-design/arco-design-vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:21.567Z",
+        "method": "http-check",
+        "note": "Vue.js 3 UI library based on Arco Design"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/arco-design/arco-design/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/arco-design/arco-design/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:17.181Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2021 Bytedance, Inc. and its affiliates"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/arco-design/arco-design-vue/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/arco-design/arco-design-vue/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:17.480Z",
+        "method": "repo-metadata",
+        "note": "MIT License (Vue repo), Bytedance"
+      },
+      {
+        "field": "package:@arco-design/web-react",
+        "url": "https://www.npmjs.com/package/@arco-design/web-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:25.754Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.66.18 published 2026-10-12; license MIT; deprecated: no; repo git+https://github.com/arco-design/arco-design.git"
+      },
+      {
+        "field": "package:@arco-design/web-vue",
+        "url": "https://www.npmjs.com/package/@arco-design/web-vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:26.121Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.59.0 published 2026-10-20; license MIT; deprecated: no; repo git+https://github.com/arco-design/arco-design-vue.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.bytedance.com/",
+        "status": 200,
+        "finalUrl": "https://www.bytedance.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:19:24.813Z",
+        "method": "http-check",
+        "note": "organization site (200); title 'ByteDance - Inspire Creativity, Enrich Life'"
+      },
+      {
+        "field": "tags",
+        "url": "https://arco.design/themes",
+        "status": 200,
+        "finalUrl": "https://arco.design/themes",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:21:03.006Z",
+        "method": "http-check",
+        "note": "title 'Arco Design Themes' (theme platform; supports theming tag)"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:21:03.006Z"
+  }
+]

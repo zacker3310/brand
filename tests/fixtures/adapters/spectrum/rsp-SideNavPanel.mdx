@@ -1,0 +1,25 @@
+import {Layout} from '../../src/Layout';
+export default Layout;
+
+import docs from 'docs:@react-spectrum/s2';
+import {StaticTable} from '../../src/StaticTable';
+
+export const tags = ['navigation', 'collapsible', 'sidebar', 'rail'];
+export const relatedPages = [
+  {title: 'SideNav', url: './SideNav'}
+];
+export const version = 'alpha';
+export const description = 'A collapsible container for a SideNav and other app chrome.';
+
+# SideNavPanel
+
+<PageDescription>{docs.exports.SideNavPanel.description}</PageDescription>
+
+A `SideNavPanel` wraps a [SideNav](SideNav), along with any other app chrome, in a container that collapses down to a narrow icon rail. It renders its own collapse/expand toggle at the bottom of the panel, and animates its width between the two states.
+
+The expanded width comes from the `styles` prop you pass to `SideNavPanel`.
+
+```tsx render type="s2" files={['packages/dev/s2-docs/pages/s2/SideNavPanelApp.tsx']}
+"use client";
+import {SideNavPanel, SideNav, SideNavItem, SideNavItemContent, SideNavItemLink, SideNavSection, SideNavHeader, Text} from '@react-spectrum/s2/SideNavPanel';
+import {SideNavPanelApp} from './SideNavPanelApp';

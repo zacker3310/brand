@@ -1,0 +1,45 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Concepts/Developer/Accessibility/Components/SpinButton" />
+
+# SpinButton Accessibility Spec
+
+## Component features and behavior
+
+This section documents accessibility-related behaviors of spin buttons.
+
+### Keyboarding
+
+#### Tab Order
+
+1. Value field
+
+#### States
+
+1. Rest (Focused)
+2. Editing (Focused and editing)
+
+#### Keyboard State Diagram
+
+| Starting state                              | Transition                              | Resulting state                             |
+| ------------------------------------------- | --------------------------------------- | ------------------------------------------- |
+| Content before spin button                  | Tab                                     | Rest                                        |
+| Rest                                        | Tab                                     | Content after spin button                   |
+| Editing                                     | Tab                                     | Content after spin button (Value committed) |
+| Editing                                     | Enter                                   | Rest (Value committed)                      |
+| Rest                                        | Any Edit Key (that results in a change) | Editing                                     |
+| Editing                                     | Any Edit Key                            | Editing                                     |
+| Content after spin button (Value committed) | Shift + Tab                             | Rest                                        |
+
+##### Edit keys
+
+| Edit Key           | Result                                                                |
+| ------------------ | --------------------------------------------------------------------- |
+| Home               | First item in defined range                                           |
+| End                | Last item in defined range                                            |
+| Up arrow           | Increments value higher, based on the step prop (defaulting to 1)     |
+| Down arrow         | Increments value lower, based on the step prop (defaulting to 1)      |
+| Page up            | Increments value higher, based on the stepPage prop (defaulting to 1) |
+| Page down          | Increments value lower, based on the stepPage prop (defaulting to 1)  |
+| Typing valid value | Valid value                                                           |
+

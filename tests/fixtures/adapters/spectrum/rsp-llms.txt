@@ -1,0 +1,12 @@
+# React Spectrum (S2) Documentation
+
+> Plain-text markdown documentation for React Spectrum S2 components.
+
+## Documentation
+- [Button](Button.md): Buttons allow users to perform an action.
+- [ComboBox](ComboBox.md): ComboBox allow users to choose a single option from a collapsible list of options when space is
+- [Forms](forms.md): Learn how to integrate with HTML forms, validate and submit data, and use React Spectrum with form libraries.
+- [Icons](icons.md): React Spectrum offers a set of open source icons that can be imported from `@react-spectrum/s2/icons`.
+- [SideNavPanel](SideNavPanel.md): A SideNavPanel contains a SideNav and other app chrome in a container that collapses to an icon
+- [Testing CheckboxGroup](CheckboxGroup/testing.md)
+- [v1.8.0](releases/v1-8-0.md): This release introduces [SideNavPanel](../SideNavPanel.md), a component that wraps SideNav and other app chrome in a container that can collapse into a compact icon rail.

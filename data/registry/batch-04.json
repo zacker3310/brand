@@ -1,0 +1,3255 @@
+[
+  {
+    "aliases": [
+      "Garden"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": "https://zendeskgarden.github.io/react-components/",
+    "packages": [
+      {
+        "name": "@zendeskgarden/react-buttons",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@zendeskgarden/react-buttons"
+      },
+      {
+        "name": "@zendeskgarden/react-theming",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@zendeskgarden/react-theming"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "open-source",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "9.16.1",
+    "latestReleaseAt": "2026-09-25T06:50:02.208Z",
+    "rank": 61,
+    "slug": "zendesk-garden",
+    "name": "Zendesk Garden",
+    "organization": {
+      "slug": "zendesk",
+      "name": "Zendesk",
+      "websiteUrl": "https://www.zendesk.com/"
+    },
+    "category": "design-system",
+    "summary": "Garden is Zendesk's design system: product design guidelines and component documentation at garden.zendesk.com, implemented as an open-source React component library published as scoped @zendeskgarden/react-* packages with a shared theming package.",
+    "homepageUrl": "https://garden.zendesk.com/",
+    "docsUrl": "https://garden.zendesk.com/components/",
+    "repositoryUrl": "https://github.com/zendeskgarden/react-components",
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/zendeskgarden/react-components/main/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Classified design-system (guidelines site plus code). The React library is split into per-area npm packages (@zendeskgarden/react-*), released in lockstep (9.16.1 for both checked packages); two representative packages recorded, so frameworks.packageName is null. Storybook is published on the zendeskgarden GitHub org's Pages site. No Figma link was found on the homepage, so figmaUrl is null. audited 2026-11-05: Storybook provenance confirmed (official repo About link); all URLs and npm metadata re-checked, no other changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://garden.zendesk.com",
+        "status": 200,
+        "finalUrl": "https://garden.zendesk.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.811Z",
+        "method": "http-check",
+        "note": "200; title 'Zendesk Garden'; meta: Garden is the design system by Zendesk"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://garden.zendesk.com/components",
+        "status": 200,
+        "finalUrl": "https://garden.zendesk.com/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:42.263Z",
+        "method": "http-check",
+        "note": "200; title 'Components overview / Components / Zendesk Garden'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/zendeskgarden/react-components",
+        "status": 200,
+        "finalUrl": "https://github.com/zendeskgarden/react-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.314Z",
+        "method": "http-check",
+        "note": "200; official zendeskgarden org repo 'garden React components'"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://zendeskgarden.github.io/react-components/",
+        "status": 200,
+        "finalUrl": "https://zendeskgarden.github.io/react-components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.408Z",
+        "method": "http-check",
+        "note": "200; Storybook served from the zendeskgarden org GitHub Pages"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/zendeskgarden/react-components/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/zendeskgarden/react-components/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.571Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md is Apache License 2.0"
+      },
+      {
+        "field": "package:@zendeskgarden/react-buttons",
+        "url": "https://registry.npmjs.org/@zendeskgarden/react-buttons",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:11.887Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.16.1 published 2026-09-25; license Apache-2.0; not deprecated; repo https://github.com/zendeskgarden/react-components. npm homepage garden.zendesk.com"
+      },
+      {
+        "field": "package:@zendeskgarden/react-theming",
+        "url": "https://registry.npmjs.org/@zendeskgarden/react-theming",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:12.076Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.16.1 published 2026-09-25; license Apache-2.0; not deprecated; repo https://github.com/zendeskgarden/react-components"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/@zendeskgarden/react-buttons",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:11.887Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.16.1 published 2026-09-25; license Apache-2.0; not deprecated; repo https://github.com/zendeskgarden/react-components. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.zendesk.com",
+        "status": 200,
+        "finalUrl": "https://www.zendesk.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.397Z",
+        "method": "http-check",
+        "note": "200; Zendesk corporate site"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://github.com/zendeskgarden/react-components",
+        "status": 200,
+        "finalUrl": "https://github.com/zendeskgarden/react-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:47.851Z",
+        "method": "page-content",
+        "note": "Official repo's About 'website' and Pages URL is https://zendeskgarden.github.io/react-components/ (links the Storybook)"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:12:47.851Z"
+  },
+  {
+    "aliases": [
+      "Paste"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@twilio-paste/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@twilio-paste/core"
+      },
+      {
+        "name": "@twilio-paste/design-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@twilio-paste/design-tokens"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@twilio-paste/core",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "design-tokens",
+      "saas"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "21.5.0",
+    "latestReleaseAt": "2025-08-25T15:14:26.536Z",
+    "rank": 62,
+    "slug": "twilio-paste",
+    "name": "Twilio Paste",
+    "organization": {
+      "slug": "twilio",
+      "name": "Twilio",
+      "websiteUrl": "https://www.twilio.com/en-us"
+    },
+    "category": "design-system",
+    "summary": "Paste is Twilio's open-source design system of React components, design tokens and usage guidance, published as @twilio-paste/* npm packages. Its standalone documentation website has been retired; documentation now lives as source pages in the GitHub repository.",
+    "homepageUrl": "https://github.com/twilio-labs/paste",
+    "docsUrl": "https://github.com/twilio-labs/paste/tree/main/packages/paste-website/src/pages",
+    "repositoryUrl": "https://github.com/twilio-labs/paste",
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/twilio-labs/paste/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "maintenance",
+    "registryStatus": "verified",
+    "notes": "paste.twilio.design now redirects to the GitHub repo, so the repo is recorded as homepage. PR #4399 (merged 2026-07-01, 'retire docs site warning') added a retirement banner and pointed the README at in-repo docs (packages/paste-website/src/pages). No package release since @twilio-paste/core 21.5.0 (2025-08-25); later commits are chores (Next upgrade, Cypress removal). No official deprecation found; an unanswered community discussion (#4405, 2026-07-03) asks about the project's future. maintenanceStatus 'maintenance' is inferred from this activity, not from an announcement. paste-dsys.com describes itself as independent documentation and is not treated as official. audited 2026-11-05: README's hosted Storybook (Chromatic) is login-walled (401), storybookUrl stays null; PR #4399 merge (2026-07-01) and last commit (2026-08-20, chore) re-confirmed.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://paste.twilio.design",
+        "status": 200,
+        "finalUrl": "https://github.com/twilio-labs/paste",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:34.214Z",
+        "method": "http-check",
+        "note": "Former docs domain paste.twilio.design redirects to github.com/twilio-labs/paste (docs site retired)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/twilio-labs/paste",
+        "status": 200,
+        "finalUrl": "https://github.com/twilio-labs/paste",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.613Z",
+        "method": "http-check",
+        "note": "200; official twilio-labs repo, 'Paste is a design system for ... Twilio'; not archived"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://github.com/twilio-labs/paste/tree/main/packages/paste-website/src/pages",
+        "status": 200,
+        "finalUrl": "https://github.com/twilio-labs/paste/tree/main/packages/paste-website/src/pages",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:13.136Z",
+        "method": "http-check",
+        "note": "200; in-repo documentation pages that the README now links for usage guidelines"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/twilio-labs/paste/pull/4399",
+        "status": 200,
+        "finalUrl": "https://github.com/twilio-labs/paste/pull/4399",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.378Z",
+        "method": "page-content",
+        "note": "PR 'chore: retire docs site warning' merged 2026-07-01: adds docs-site banner and points README to docs within GitHub"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/twilio-labs/paste/commits/main",
+        "status": 200,
+        "finalUrl": "https://github.com/twilio-labs/paste/commits/main",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.626Z",
+        "method": "page-content",
+        "note": "Latest commits 2026-08-20 (remove Cypress), 2026-07-01/02 (docs retirement, Next upgrade); last release commit 2025-08-25"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/twilio-labs/paste/discussions/4405",
+        "status": 200,
+        "finalUrl": "https://github.com/twilio-labs/paste/discussions/4405",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.027Z",
+        "method": "page-content",
+        "note": "Community discussion 2026-07-03 'Twilio Paste website retiring and roadmap blank'; no maintainer reply"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/twilio-labs/paste/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/twilio-labs/paste/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.291Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is MIT, Copyright (c) 2019 Twilio Inc."
+      },
+      {
+        "field": "package:@twilio-paste/core",
+        "url": "https://registry.npmjs.org/@twilio-paste/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:12.442Z",
+        "method": "package-metadata",
+        "note": "npm latest 21.5.0 published 2025-08-25; license MIT; not deprecated; repo none declared. No newer release in >12 months"
+      },
+      {
+        "field": "package:@twilio-paste/design-tokens",
+        "url": "https://registry.npmjs.org/@twilio-paste/design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:37.608Z",
+        "method": "package-metadata",
+        "note": "npm latest 10.15.0 published 2025-08-13; license MIT; not deprecated; repo none declared"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://paste-dsys.com",
+        "status": 200,
+        "finalUrl": "https://paste-dsys.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.126Z",
+        "method": "http-check",
+        "note": "Third-party site self-described as independent documentation; not Twilio-owned, not recorded"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.twilio.com",
+        "status": 200,
+        "finalUrl": "https://www.twilio.com/en-us",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.596Z",
+        "method": "http-check",
+        "note": "200; Twilio corporate site"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://main--5e53448165911c0022e68c74.chromatic.com",
+        "status": 401,
+        "finalUrl": "https://www.chromatic.com/login?redirect=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJyZWRpcmVjdFVybCI6Imh0dHBzOi8vbWFpbi0tNWU1MzQ0ODE2NTkxMWMwMDIyZTY4Yzc0LmNocm9tYXRpYy5jb20vIn0.vILHkFLz-a8QKwKlfGMRmLs3Q1uioliuDc7sCG3sRl8nxp1H_6DPOJ6-kLFJRGyJCLBTQafH1HMCozW6Dwe9Bl3e7BiMxNQCut527a_wiWQ9xSPmRiSfhBUGI3BRbSn-lxCguiwf6ZCL8cyZcweO0Djx7MTpvG4MfVZMusR_K3HKeSZ32l9MnB8QUg97LeFcFa4jBO64oEKMfXoFQ02NfkQz1sJZImbekw1a9BfsNhEb8ezpKcOVQObU9Bf-EIp8FyDQralvnTtOwKI08I7PgQiE1CZWrUAQWoMdU1fIUBmp15_OvVSfOYHWqSJtR70V0_EpR898DR0b-7aatq90PsOwIfpKyj-c_1ogu6-xqGAz-YF4aT_s8UeTiUPWhRhW32a5bOkZXPRhHoj4UwFpYYnGeF4sNUy5O_aArVFverFqgPeLJIPztr9ZQITJYUB-D-xNS4YCDPgMxyIvRZASML9EWqwojPuh2i2-O-rBJ5EqlAh4tqGxgiLIZfqjFvlFxgzpUb1eNvOxdSy5DsFmUItFsfbp9xsGi4_Sj1Ke2qL1WesO2ilwVo3k4hzScdLcZlq213a_PgXLvgBu5q6Fg4d_WlJ9glkBHEEAKu5fccl2wjPpU8vcjauOAe-KngD6NzE2ZUUqiydaSHfvwIYtX6_3DIfJ3wBHaCXO83fSzOs",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.454Z",
+        "method": "http-check",
+        "note": "Hosted Storybook linked from repo README; 401, redirects to Chromatic sign-in: not public, storybookUrl stays null"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:12:48.454Z"
+  },
+  {
+    "aliases": [
+      "EUI",
+      "Elastic UI"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@elastic/eui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@elastic/eui"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@elastic/eui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "data-dense",
+      "developer-tools",
+      "source-available",
+      "theming",
+      "data-visualization"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "123.3.0",
+    "latestReleaseAt": "2026-10-27T11:12:14.001Z",
+    "rank": 63,
+    "slug": "elastic-ui",
+    "name": "Elastic UI Framework",
+    "organization": {
+      "slug": "elastic",
+      "name": "Elastic",
+      "websiteUrl": "https://www.elastic.co/"
+    },
+    "category": "design-system",
+    "summary": "EUI (Elastic UI Framework) is Elastic's React component library and design system used to build Kibana and other Elastic products, with documentation covering components, patterns, content guidelines, data visualization and theming tokens.",
+    "homepageUrl": "https://eui.elastic.co/",
+    "docsUrl": "https://eui.elastic.co/docs/components/",
+    "repositoryUrl": "https://github.com/elastic/eui",
+    "license": {
+      "slug": "sspl-1.0-or-elastic-2.0",
+      "spdxId": "SSPL-1.0 OR Elastic-2.0",
+      "name": "Server Side Public License v1 / Elastic License 2.0 (dual)",
+      "url": "https://raw.githubusercontent.com/elastic/eui/main/LICENSE.txt",
+      "isOpenSource": false,
+      "redistribution": "conditional",
+      "notes": "Repository default is a dual SSPL-1.0 / Elastic License 2.0 license; some files are Apache-2.0-compatible or ELv2-only as noted in file headers. npm license field: 'SEE LICENSE IN LICENSE.txt'. Neither SSPL nor ELv2 is OSI-approved (source-available)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Canonical ATLAS entry for EUI (integrator decision); 'elastic-ui-framework' (rank 87) is recorded as duplicateOf elastic-ui. The docs site links an official Figma community file ('Elastic UI Borealis'), but figma.com returned 403 to the ATLAS checker, so figmaUrl is null. The /docs/ root returns 404; section pages (getting started, components) resolve. Classified design-system because docs include patterns, content and dataviz guidance beyond components. audited 2026-11-05: re-checked all URLs, LICENSE.txt and npm metadata (Borealis Figma file still 403); no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://eui.elastic.co",
+        "status": 200,
+        "finalUrl": "https://eui.elastic.co/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.398Z",
+        "method": "http-check",
+        "note": "200; title 'Elastic UI Framework'; meta 'The framework powering the Elastic Stack'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://eui.elastic.co/docs/components/",
+        "status": 200,
+        "finalUrl": "https://eui.elastic.co/docs/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.571Z",
+        "method": "http-check",
+        "note": "200; title 'Overview | Elastic UI Framework'; component docs with examples, guidelines and props"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://eui.elastic.co/docs/getting-started/setup/",
+        "status": 200,
+        "finalUrl": "https://eui.elastic.co/docs/getting-started/setup/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.271Z",
+        "method": "http-check",
+        "note": "200; title 'Setup | Elastic UI Framework'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://eui.elastic.co/docs/",
+        "status": 404,
+        "finalUrl": "https://eui.elastic.co/docs/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:49:42.180Z",
+        "method": "http-check",
+        "note": "/docs/ root returns 404 (section pages used instead)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/elastic/eui",
+        "status": 200,
+        "finalUrl": "https://github.com/elastic/eui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.915Z",
+        "method": "http-check",
+        "note": "200; official elastic/eui repo"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1656321711577585144/elastic-ui-borealis",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1656321711577585144/elastic-ui-borealis",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:54:19.455Z",
+        "method": "http-check",
+        "note": "Linked from eui.elastic.co nav, but figma.com returned 403 (CloudFront) to the checker; not recorded"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/elastic/eui/main/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/elastic/eui/main/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.871Z",
+        "method": "repo-metadata",
+        "note": "Default dual license SSPL v1 + Elastic License 2.0; some files Apache-2.0-compatible or ELv2-only per headers"
+      },
+      {
+        "field": "package:@elastic/eui",
+        "url": "https://registry.npmjs.org/@elastic/eui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:12.796Z",
+        "method": "package-metadata",
+        "note": "npm latest 123.3.0 published 2026-10-27; license SEE LICENSE IN LICENSE.txt; not deprecated; repo git+https://github.com/elastic/eui.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/@elastic/eui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:12.796Z",
+        "method": "package-metadata",
+        "note": "npm latest 123.3.0 published 2026-10-27; license SEE LICENSE IN LICENSE.txt; not deprecated; repo git+https://github.com/elastic/eui.git. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.elastic.co",
+        "status": 200,
+        "finalUrl": "https://www.elastic.co/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.392Z",
+        "method": "http-check",
+        "note": "200; Elastic corporate site"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:12.871Z"
+  },
+  {
+    "aliases": [
+      "LeafyGreen",
+      "LeafyGreen UI",
+      "MongoDB LeafyGreen"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": "https://storybook.mongodb.design/",
+    "packages": [
+      {
+        "name": "@leafygreen-ui/button",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@leafygreen-ui/button"
+      },
+      {
+        "name": "@leafygreen-ui/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@leafygreen-ui/tokens"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "design-tokens",
+      "developer-tools",
+      "saas"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": null,
+    "latestReleaseAt": "2026-10-02T15:06:09.790Z",
+    "rank": 64,
+    "slug": "mongodb-leafygreen",
+    "name": "LeafyGreen Design System",
+    "organization": {
+      "slug": "mongodb",
+      "name": "MongoDB",
+      "websiteUrl": "https://www.mongodb.com/"
+    },
+    "category": "design-system",
+    "summary": "LeafyGreen is MongoDB's design system; its React implementation, LeafyGreen UI, is an open-source monorepo of component, token and CSS packages published under the @leafygreen-ui npm scope, with guidelines and component docs at mongodb.design.",
+    "homepageUrl": "https://www.mongodb.design/",
+    "docsUrl": "https://www.mongodb.design/",
+    "repositoryUrl": "https://github.com/mongodb/leafygreen-ui",
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "mongodb.design pages render client-side (no <title> in server HTML); identity confirmed via the official repo README, which links mongodb.design and storybook.mongodb.design. The site itself is the documentation hub (component pages such as /component/button/live-example, foundations such as /foundation/tokens), so docsUrl equals homepageUrl. Packages are versioned independently (@leafygreen-ui/button 25.2.2, @leafygreen-ui/tokens 4.2.3), so latestVersion is null; latestReleaseAt is the most recent publish among checked packages. The homepage HTML links Figma files (LeafyGreen-Design-System), but the file redirects to figma.com/login for the checker (not publicly viewable), so figmaUrl is null. audited 2026-11-05: Figma note corrected (homepage does link a Figma file, which is login-walled); failed figma check added.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.mongodb.design",
+        "status": 200,
+        "finalUrl": "https://www.mongodb.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.935Z",
+        "method": "http-check",
+        "note": "200; client-rendered page (no server-side title)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.mongodb.design/component/button/live-example",
+        "status": 200,
+        "finalUrl": "https://www.mongodb.design/component/button/live-example",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:44.900Z",
+        "method": "http-check",
+        "note": "200; component documentation page"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.mongodb.design/foundation/tokens",
+        "status": 200,
+        "finalUrl": "https://www.mongodb.design/foundation/tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.905Z",
+        "method": "http-check",
+        "note": "200; tokens foundation page"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mongodb/leafygreen-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/mongodb/leafygreen-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:34.215Z",
+        "method": "http-check",
+        "note": "200; official mongodb/leafygreen-ui repo, 'LeafyGreen's React UI Kit'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:14.671Z",
+        "method": "repo-metadata",
+        "note": "README: React components, CSS patterns and CLI tools for MongoDB's LeafyGreen Design System; links mongodb.design and storybook.mongodb.design"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://storybook.mongodb.design",
+        "status": 200,
+        "finalUrl": "https://storybook.mongodb.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:10.714Z",
+        "method": "http-check",
+        "note": "200; official Storybook linked from repo README"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mongodb/leafygreen-ui/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:13.171Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is Apache License 2.0"
+      },
+      {
+        "field": "package:@leafygreen-ui/button",
+        "url": "https://registry.npmjs.org/@leafygreen-ui/button",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.149Z",
+        "method": "package-metadata",
+        "note": "npm latest 25.2.2 published 2026-10-02; license Apache-2.0; not deprecated; repo git+https://github.com/mongodb/leafygreen-ui.git"
+      },
+      {
+        "field": "package:@leafygreen-ui/tokens",
+        "url": "https://registry.npmjs.org/@leafygreen-ui/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.393Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.2.3 published 2026-10-02; license Apache-2.0; not deprecated; repo git+https://github.com/mongodb/leafygreen-ui.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/@leafygreen-ui/button",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.149Z",
+        "method": "package-metadata",
+        "note": "npm latest 25.2.2 published 2026-10-02; license Apache-2.0; not deprecated; repo git+https://github.com/mongodb/leafygreen-ui.git. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.mongodb.com",
+        "status": 200,
+        "finalUrl": "https://www.mongodb.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.698Z",
+        "method": "http-check",
+        "note": "200; MongoDB corporate site"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/file/4h2VwjCuJUbeZ7hzD2J1rq/LeafyGreen-Design-System",
+        "status": 200,
+        "finalUrl": "https://www.figma.com/login",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:47.989Z",
+        "method": "http-check",
+        "note": "Linked from mongodb.design HTML; redirects to figma.com/login ('Login | Figma'): not publicly viewable; not recorded"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:12:47.989Z"
+  },
+  {
+    "aliases": [
+      "Palantir Blueprint",
+      "Blueprint.js",
+      "BlueprintJS"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@blueprintjs/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/core"
+      },
+      {
+        "name": "@blueprintjs/icons",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/icons"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@blueprintjs/core",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "data-dense",
+      "enterprise",
+      "open-source",
+      "developer-tools"
+    ],
+    "relatedSlugs": [
+      "blueprint"
+    ],
+    "duplicateOf": "blueprint",
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "6.22.0",
+    "latestReleaseAt": "2026-11-02T17:02:04.897Z",
+    "rank": 65,
+    "slug": "palantir-blueprint",
+    "name": "Blueprint",
+    "organization": {
+      "slug": "palantir",
+      "name": "Palantir",
+      "websiteUrl": "https://www.palantir.com/"
+    },
+    "category": "component-library",
+    "summary": "Blueprint is Palantir's open-source React-based UI toolkit for building complex, data-dense web interfaces, published as @blueprintjs/* packages. This queue entry duplicates the canonical 'blueprint' registry entry.",
+    "homepageUrl": "https://blueprintjs.com/",
+    "docsUrl": "https://blueprintjs.com/docs/",
+    "repositoryUrl": "https://github.com/palantir/blueprint",
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "duplicate",
+    "notes": "Integrator decision: 'blueprint' (rank 40) is canonical; this rank-65 candidate names the same system (Palantir's Blueprint), so it is recorded as a duplicate and does not count toward the 100. Checks were still run and match the canonical identity (blueprintjs.com, palantir/blueprint, @blueprintjs/core 6.22.0 published 2026-11-02, Apache-2.0). audited 2026-11-05: re-checked; duplicate of blueprint (batch-02) upheld; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://blueprintjs.com",
+        "status": 200,
+        "finalUrl": "https://blueprintjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:33.461Z",
+        "method": "http-check",
+        "note": "200; title 'Blueprint – A React-based UI toolkit for the web'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://blueprintjs.com/docs/",
+        "status": 200,
+        "finalUrl": "https://blueprintjs.com/docs/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:42.214Z",
+        "method": "http-check",
+        "note": "200; title 'Blueprint – Documentation'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/palantir/blueprint",
+        "status": 200,
+        "finalUrl": "https://github.com/palantir/blueprint",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:34.514Z",
+        "method": "http-check",
+        "note": "200; official palantir/blueprint repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:13.472Z",
+        "method": "repo-metadata",
+        "note": "LICENSE (develop branch) is Apache License 2.0"
+      },
+      {
+        "field": "package:@blueprintjs/core",
+        "url": "https://registry.npmjs.org/@blueprintjs/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:13.633Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.22.0 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      },
+      {
+        "field": "package:@blueprintjs/icons",
+        "url": "https://registry.npmjs.org/@blueprintjs/icons",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:37.179Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.15.0 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.palantir.com",
+        "status": 200,
+        "finalUrl": "https://www.palantir.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.367Z",
+        "method": "http-check",
+        "note": "200; Palantir corporate site"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:13.472Z"
+  },
+  {
+    "aliases": [
+      "Canvas",
+      "Canvas Kit",
+      "Workday Sana Canvas Design System"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": "https://workday.github.io/canvas-kit/",
+    "packages": [
+      {
+        "name": "@workday/canvas-kit-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@workday/canvas-kit-react"
+      },
+      {
+        "name": "@workday/canvas-kit-styling",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@workday/canvas-kit-styling"
+      },
+      {
+        "name": "@workday/canvas-tokens-web",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@workday/canvas-tokens-web"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@workday/canvas-kit-react",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "open-source",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "16.2.17",
+    "latestReleaseAt": "2026-11-04T21:37:29.546Z",
+    "rank": 66,
+    "slug": "workday-canvas",
+    "name": "Workday Canvas Design System",
+    "organization": {
+      "slug": "workday",
+      "name": "Workday",
+      "websiteUrl": "https://www.workday.com/"
+    },
+    "category": "design-system",
+    "summary": "Canvas is Workday's design system; Canvas Kit is its open-source React implementation (@workday/canvas-kit-react and related styling packages), documented in a public Storybook, with design tokens published separately as @workday/canvas-tokens-web.",
+    "homepageUrl": "https://workday.github.io/canvas-kit/",
+    "docsUrl": "https://workday.github.io/canvas-kit/",
+    "repositoryUrl": "https://github.com/Workday/canvas-kit",
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/Workday/canvas-kit/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Canvas Kit code is Apache-2.0. The separately published @workday/canvas-tokens-web package declares CC-BY-ND-4.0 in npm metadata."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "The design-guidelines sites (canvas.workday.com, which canvas.workdaydesign.com redirects to, and design.workday.com/design-system, linked from the repo About section as the 'Workday Sana Canvas Design System') returned HTTP 403 (CloudFront) to the ATLAS checker, so they are not recorded as field values. homepageUrl/docsUrl fall back to the official Canvas Kit Storybook on Workday's GitHub Pages, which the README cites for component docs and guides. Re-verify canvas.workday.com from a browser-like client before promoting it to homepageUrl. audited 2026-11-05: canvas.workday.com, canvas.workdaydesign.com and design.workday.com still 403; Storybook fallback kept; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://canvas.workday.com",
+        "status": 403,
+        "finalUrl": "https://canvas.workday.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:49:33.546Z",
+        "method": "http-check",
+        "note": "403 'The request could not be satisfied' (CloudFront) for the ATLAS checker; not recorded"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://canvas.workdaydesign.com",
+        "status": 403,
+        "finalUrl": "https://canvas.workday.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:57:05.260Z",
+        "method": "http-check",
+        "note": "Redirects to canvas.workday.com, which returns 403 to the checker"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://design.workday.com/design-system",
+        "status": 403,
+        "finalUrl": "https://design.workday.com/design-system",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:49:42.536Z",
+        "method": "http-check",
+        "note": "Repo About link; 403 (CloudFront) for the checker; not recorded"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://workday.github.io/canvas-kit/",
+        "status": 200,
+        "finalUrl": "https://workday.github.io/canvas-kit/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:04.956Z",
+        "method": "http-check",
+        "note": "200; official Canvas Kit Storybook on Workday GitHub Pages"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/Workday/canvas-kit",
+        "status": 200,
+        "finalUrl": "https://github.com/Workday/canvas-kit",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:49:34.815Z",
+        "method": "http-check",
+        "note": "200; 'Development kits to implement UI following the Workday Sana Canvas Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Workday/canvas-kit/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Workday/canvas-kit/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:13.772Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is Apache License 2.0"
+      },
+      {
+        "field": "package:@workday/canvas-kit-react",
+        "url": "https://registry.npmjs.org/@workday/canvas-kit-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:14.081Z",
+        "method": "package-metadata",
+        "note": "npm latest 16.2.17 published 2026-11-04; license Apache-2.0; not deprecated; repo git+https://github.com/Workday/canvas-kit.git"
+      },
+      {
+        "field": "package:@workday/canvas-kit-styling",
+        "url": "https://registry.npmjs.org/@workday/canvas-kit-styling",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:37.114Z",
+        "method": "package-metadata",
+        "note": "npm latest 16.2.17 published 2026-11-04; license Apache-2.0; not deprecated; repo git+https://github.com/Workday/canvas-kit.git"
+      },
+      {
+        "field": "package:@workday/canvas-tokens-web",
+        "url": "https://registry.npmjs.org/@workday/canvas-tokens-web",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:14.616Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.5.1 published 2026-10-09; license CC-BY-ND-4.0; not deprecated; repo git+https://github.com/Workday/canvas-tokens.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/@workday/canvas-kit-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:50:14.081Z",
+        "method": "package-metadata",
+        "note": "npm latest 16.2.17 published 2026-11-04; license Apache-2.0; not deprecated; repo git+https://github.com/Workday/canvas-kit.git. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.workday.com",
+        "status": 200,
+        "finalUrl": "https://www.workday.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:04.948Z",
+        "method": "http-check",
+        "note": "200; Workday corporate site"
+      }
+    ],
+    "confidence": 0.82,
+    "verifiedAt": "2026-11-05T04:01:13.772Z"
+  },
+  {
+    "aliases": [
+      "IDS"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "finance",
+      "internal"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "rank": 67,
+    "slug": "intuit-design-system",
+    "name": "Intuit Design System",
+    "organization": {
+      "slug": "intuit",
+      "name": "Intuit",
+      "websiteUrl": "https://www.intuit.com/"
+    },
+    "category": "design-system",
+    "summary": "Intuit Design System (IDS) is Intuit's internal, company-wide design system for its product teams. ATLAS found no publicly accessible documentation for it.",
+    "homepageUrl": "https://design.intuit.com/",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "license": null,
+    "docAccess": "private",
+    "maintenanceStatus": "unknown",
+    "registryStatus": "rejected",
+    "notes": "Rejected: no public documentation (internal-only). designsystem.intuit.com redirects to Intuit enterprise SSO (federation.intuit.com), indicating staff-only access. design.intuit.com is a public design blog/hub ('Intuit Design Hub') with no IDS component, token or guideline documentation. Former public QuickBooks design URLs (designsystem.quickbooks.com, design.intuit.com/quickbooks, /quickbooks/brand/ and /quickbooks/brand/resources/qbds-sunset/) all redirect to the hub homepage. homepageUrl records the checked org design hub; docsUrl null. License unknown (no public package or repo found). audited 2026-11-05: designsystem.intuit.com still redirects to enterprise SSO; @ids-ts/button and @ids-ts/core not on npm (404); rejection stands.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://design.intuit.com",
+        "status": 200,
+        "finalUrl": "https://design.intuit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.301Z",
+        "method": "page-content",
+        "note": "200; 'Home - Intuit Design Hub' (articles); no IDS documentation found on page"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.intuit.com",
+        "status": 200,
+        "finalUrl": "https://federation.intuit.com/as/authorization.oauth2?scope=openid+profile+email&response_type=code&redirect_uri=https%3A%2F%2Fpartnerauth.platform.intuit.com%2Fexternal_partner%2Fintuit_eiam%2Fcallback&client_id=9d678f82-f00e-4e8f-875e-484cac84cbc1&state=awb.8c2c7118-b81a-42e8-8a59-dd159b2d0979",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.418Z",
+        "method": "http-check",
+        "note": "Redirects to Intuit 'Enterprise SSO' login (federation.intuit.com): internal-only"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.quickbooks.com",
+        "status": 200,
+        "finalUrl": "https://design.intuit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:28.944Z",
+        "method": "http-check",
+        "note": "Redirects to design.intuit.com homepage; no design-system docs"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design.intuit.com/quickbooks/brand/",
+        "status": 200,
+        "finalUrl": "https://design.intuit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.563Z",
+        "method": "http-check",
+        "note": "Redirects to design.intuit.com homepage"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design.intuit.com/quickbooks/brand/resources/qbds-sunset/",
+        "status": 200,
+        "finalUrl": "https://design.intuit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:27.891Z",
+        "method": "http-check",
+        "note": "QuickBooks design system sunset page now redirects to the hub homepage"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.intuit.com/",
+        "status": 200,
+        "finalUrl": "https://www.intuit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.222Z",
+        "method": "http-check",
+        "note": "200; Intuit corporate site"
+      }
+    ],
+    "confidence": 0.8,
+    "verifiedAt": "2026-11-05T04:01:12.222Z"
+  },
+  {
+    "aliases": [],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "saas"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "rank": 68,
+    "slug": "mailchimp-pattern-library",
+    "name": "Mailchimp Pattern Library",
+    "organization": {
+      "slug": "mailchimp",
+      "name": "Mailchimp",
+      "websiteUrl": "https://mailchimp.com/"
+    },
+    "category": "pattern-library",
+    "summary": "The Mailchimp Pattern Library was a public collection of the UI patterns and markup used in Mailchimp's product, hosted at ux.mailchimp.com/patterns. It was not reachable during ATLAS verification.",
+    "homepageUrl": "https://ux.mailchimp.com/patterns",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "license": null,
+    "docAccess": "unknown",
+    "maintenanceStatus": "unknown",
+    "registryStatus": "rejected",
+    "notes": "Rejected: no public documentation reachable. ux.mailchimp.com/patterns and ux.mailchimp.com returned HTTP 503 'Service Unavailable' in checks about six minutes apart. No official retirement notice and no current official successor were found. styleguide.mailchimp.com is Mailchimp's Content Style Guide (writing guidance), not a UI pattern library, so it is not substituted. Maintenance status unknown; if the host recovers, re-verify before promotion. audited 2026-11-05: third 503 recorded; rejection stands.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ux.mailchimp.com/patterns",
+        "status": 503,
+        "finalUrl": "https://ux.mailchimp.com/patterns",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:51:56.079Z",
+        "method": "http-check",
+        "note": "503 Service Unavailable"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://ux.mailchimp.com/patterns",
+        "status": 503,
+        "finalUrl": "https://ux.mailchimp.com/patterns",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:57:05.568Z",
+        "method": "http-check",
+        "note": "503 Service Unavailable on re-check"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://ux.mailchimp.com",
+        "status": 503,
+        "finalUrl": "https://ux.mailchimp.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:51:56.379Z",
+        "method": "http-check",
+        "note": "503 Service Unavailable"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://styleguide.mailchimp.com",
+        "status": 200,
+        "finalUrl": "https://styleguide.mailchimp.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.447Z",
+        "method": "http-check",
+        "note": "200; 'Mailchimp Content Style Guide' (writing guidelines), not a UI pattern library"
+      },
+      {
+        "field": "organization",
+        "url": "https://mailchimp.com",
+        "status": 200,
+        "finalUrl": "https://mailchimp.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:05.259Z",
+        "method": "http-check",
+        "note": "200; Mailchimp corporate site"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://ux.mailchimp.com/patterns",
+        "status": 503,
+        "finalUrl": "https://ux.mailchimp.com/patterns",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.554Z",
+        "method": "http-check",
+        "note": "503 Service Unavailable on audit re-check (~15 min after first checks)"
+      }
+    ],
+    "confidence": 0.7,
+    "verifiedAt": "2026-11-05T04:12:48.554Z"
+  },
+  {
+    "aliases": [
+      "Mozilla Protocol"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@mozilla-protocol/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@mozilla-protocol/core"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "@mozilla-protocol/core",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "design-tokens",
+      "marketing-sites"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "22.0.0",
+    "latestReleaseAt": "2025-10-03T20:39:48.714Z",
+    "rank": 69,
+    "slug": "mozilla-protocol",
+    "name": "Protocol",
+    "organization": {
+      "slug": "mozilla",
+      "name": "Mozilla",
+      "websiteUrl": "https://www.mozilla.org/en-US/"
+    },
+    "category": "design-system",
+    "summary": "Protocol is Mozilla's open-source design system for its websites, providing a CSS/Sass framework, components and design tokens; it is used primarily by Mozilla's marketing websites team, including for www.mozilla.org.",
+    "homepageUrl": "https://protocol.mozilla.org/",
+    "docsUrl": "https://protocol.mozilla.org/docs/usage/overview",
+    "repositoryUrl": "https://github.com/mozilla/protocol",
+    "license": {
+      "slug": "mpl-2.0",
+      "spdxId": "MPL-2.0",
+      "name": "Mozilla Public License 2.0",
+      "url": "https://raw.githubusercontent.com/mozilla/protocol/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "MPL-2.0 is file-level copyleft: modified MPL files must remain under MPL."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Homepage describes Protocol as still evolving and used primarily by the Mozilla Marketing Websites team for www.mozilla.org. Latest npm release @mozilla-protocol/core 22.0.0 is from 2025-10-03 (about 13 months before verification), but the repo has commits through 2026-10-29 (dependency and tooling updates), so status is active. Assets (fonts/logos) ship separately as @mozilla-protocol/assets from mozilla/protocol-assets. No Figma link on the homepage. audited 2026-11-05: re-checked; commits through 2026-10-29 confirmed; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://protocol.mozilla.org",
+        "status": 200,
+        "finalUrl": "https://protocol.mozilla.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:27.762Z",
+        "method": "http-check",
+        "note": "200; title 'Mozilla Protocol'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://protocol.mozilla.org/docs/usage/overview",
+        "status": 200,
+        "finalUrl": "https://protocol.mozilla.org/docs/usage/overview",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:48.454Z",
+        "method": "http-check",
+        "note": "200; title 'Using Protocol on Your Website | Mozilla Protocol'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/mozilla/protocol",
+        "status": 200,
+        "finalUrl": "https://github.com/mozilla/protocol",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:27.810Z",
+        "method": "http-check",
+        "note": "200; 'A design system for Mozilla websites.'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/mozilla/protocol/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/mozilla/protocol/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:15.271Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is Mozilla Public License 2.0"
+      },
+      {
+        "field": "package:@mozilla-protocol/core",
+        "url": "https://registry.npmjs.org/@mozilla-protocol/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:38.304Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.0.0 published 2025-10-03; license MPL-2.0; not deprecated; repo git+https://github.com/mozilla/protocol.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/mozilla/protocol/commits/main",
+        "status": 200,
+        "finalUrl": "https://github.com/mozilla/protocol/commits/main",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:36.025Z",
+        "method": "page-content",
+        "note": "Recent commits dated 2026-10-29 (Node 24, Sass upgrade, security updates) and 2026-10-16"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.mozilla.org",
+        "status": 200,
+        "finalUrl": "https://www.mozilla.org/en-US/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.602Z",
+        "method": "http-check",
+        "note": "200; Mozilla site"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:01:15.271Z"
+  },
+  {
+    "aliases": [
+      "GOV.UK Frontend"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "govuk-frontend",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/govuk-frontend"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "govuk-frontend",
+        "support": "official"
+      },
+      {
+        "slug": "nunjucks",
+        "packageName": "govuk-frontend",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "6.6.0",
+    "latestReleaseAt": "2026-10-15T10:19:51.755Z",
+    "rank": 70,
+    "slug": "govuk-design-system",
+    "name": "GOV.UK Design System",
+    "organization": {
+      "slug": "gds",
+      "name": "Government Digital Service",
+      "websiteUrl": "https://www.gov.uk/government/organisations/government-digital-service"
+    },
+    "category": "design-system",
+    "summary": "The GOV.UK Design System, maintained by the UK Government Digital Service, documents styles, components and patterns for UK government services; its code is published as the govuk-frontend package (HTML, Sass and JavaScript, with Nunjucks macros).",
+    "homepageUrl": "https://design-system.service.gov.uk/",
+    "docsUrl": "https://design-system.service.gov.uk/components/",
+    "repositoryUrl": "https://github.com/alphagov/govuk-frontend",
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/alphagov/govuk-frontend/main/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "MIT license of the govuk-frontend code (Crown Copyright, Government Digital Service). Licensing of the documentation content was not separately verified."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Docs site source lives in alphagov/govuk-design-system; component code lives in alphagov/govuk-frontend (recorded as repositoryUrl because it carries the packages). GOV.UK Frontend technical docs are at frontend.design-system.service.gov.uk and describe Nunjucks macro options alongside HTML, Sass and JavaScript APIs. A Figma kit was not verified, so figmaUrl is null. audited 2026-11-05: re-checked all URLs, LICENSE and npm metadata; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://design-system.service.gov.uk",
+        "status": 200,
+        "finalUrl": "https://design-system.service.gov.uk/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:27.729Z",
+        "method": "http-check",
+        "note": "200; title 'Home – GOV.UK Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design-system.service.gov.uk/components/",
+        "status": 200,
+        "finalUrl": "https://design-system.service.gov.uk/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.465Z",
+        "method": "http-check",
+        "note": "200; title 'Components – GOV.UK Design System'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/alphagov/govuk-frontend",
+        "status": 200,
+        "finalUrl": "https://github.com/alphagov/govuk-frontend",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:28.111Z",
+        "method": "http-check",
+        "note": "200; official alphagov/govuk-frontend repo"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/alphagov/govuk-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/alphagov/govuk-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:36.325Z",
+        "method": "http-check",
+        "note": "200; docs-site repo for the design system"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://frontend.design-system.service.gov.uk/",
+        "status": 200,
+        "finalUrl": "https://frontend.design-system.service.gov.uk/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:36.318Z",
+        "method": "page-content",
+        "note": "200; 'GOV.UK Frontend' technical docs incl. Nunjucks macro options, Sass and JS API references"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/alphagov/govuk-frontend/main/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/alphagov/govuk-frontend/main/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:15.872Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.txt is MIT, Crown Copyright (Government Digital Service)"
+      },
+      {
+        "field": "package:govuk-frontend",
+        "url": "https://registry.npmjs.org/govuk-frontend",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:38.401Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.6.0 published 2026-10-15; license MIT; not deprecated; repo git+https://github.com/alphagov/govuk-frontend.git. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.gov.uk/government/organisations/government-digital-service",
+        "status": 200,
+        "finalUrl": "https://www.gov.uk/government/organisations/government-digital-service",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.269Z",
+        "method": "http-check",
+        "note": "200; GDS organisation page on GOV.UK"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:01:15.872Z"
+  },
+  {
+    "aliases": [
+      "USWDS"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@uswds/uswds",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@uswds/uswds"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "@uswds/uswds",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "open-source",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "3.14.0",
+    "latestReleaseAt": "2026-08-18T18:47:46.784Z",
+    "rank": 71,
+    "slug": "uswds",
+    "name": "U.S. Web Design System",
+    "organization": {
+      "slug": "gsa",
+      "name": "U.S. General Services Administration",
+      "websiteUrl": "https://www.gsa.gov/"
+    },
+    "category": "design-system",
+    "summary": "USWDS is the U.S. federal government's design system for building accessible, mobile-friendly government websites, providing components, design tokens and guidance; it is maintained within the General Services Administration and published as the @uswds/uswds package.",
+    "homepageUrl": "https://designsystem.digital.gov/",
+    "docsUrl": "https://designsystem.digital.gov/components/overview/",
+    "repositoryUrl": "https://github.com/uswds/uswds",
+    "license": {
+      "slug": "cc0-1.0",
+      "spdxId": "CC0-1.0",
+      "name": "Public domain (U.S.) with CC0 1.0 Universal dedication",
+      "url": "https://raw.githubusercontent.com/uswds/uswds/develop/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "GSA's work is public domain in the U.S. and dedicated worldwide via CC0 1.0; bundled third-party parts keep their own licenses (SIL OFL 1.1 fonts, Apache-2.0 Roboto Mono and Material Icons, MIT normalize-derived files). GSA trademarks are not licensed. npm license field: 'SEE LICENSE IN LICENSE.md'."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Organization recorded as GSA because the repository LICENSE attributes modifications to the General Services Administration. Ships HTML/Sass/JS; no official framework wrappers recorded. Design tokens are documented at designsystem.digital.gov/design-tokens/. figmaUrl not verified, left null. audited 2026-11-05: re-checked all URLs, LICENSE.md and npm metadata; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.digital.gov",
+        "status": 200,
+        "finalUrl": "https://designsystem.digital.gov/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:27.766Z",
+        "method": "http-check",
+        "note": "200; title 'USWDS: The United States Web Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.digital.gov/components/overview/",
+        "status": 200,
+        "finalUrl": "https://designsystem.digital.gov/components/overview/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.483Z",
+        "method": "http-check",
+        "note": "200; title 'Components | U.S. Web Design System (USWDS)'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.digital.gov/design-tokens/",
+        "status": 200,
+        "finalUrl": "https://designsystem.digital.gov/design-tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.141Z",
+        "method": "http-check",
+        "note": "200; title 'Design tokens | U.S. Web Design System (USWDS)'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/uswds/uswds",
+        "status": 200,
+        "finalUrl": "https://github.com/uswds/uswds",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:28.458Z",
+        "method": "http-check",
+        "note": "200; official uswds/uswds repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/uswds/uswds/develop/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/uswds/uswds/develop/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:16.471Z",
+        "method": "repo-metadata",
+        "note": "Public domain in U.S. + CC0 1.0 worldwide waiver; third-party fonts/icons under OFL-1.1/Apache-2.0, some MIT files"
+      },
+      {
+        "field": "package:@uswds/uswds",
+        "url": "https://registry.npmjs.org/@uswds/uswds",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:38.791Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.14.0 published 2026-08-18; license SEE LICENSE IN LICENSE.md; not deprecated; repo git+https://github.com/uswds/uswds.git. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.gsa.gov",
+        "status": 200,
+        "finalUrl": "https://www.gsa.gov/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.601Z",
+        "method": "http-check",
+        "note": "200; GSA site"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:01:16.471Z"
+  },
+  {
+    "aliases": [
+      "NHS digital service manual design system",
+      "NHS.UK frontend"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "nhsuk-frontend",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/nhsuk-frontend"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "nhsuk-frontend",
+        "support": "official"
+      },
+      {
+        "slug": "nunjucks",
+        "packageName": "nhsuk-frontend",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "healthcare",
+      "government",
+      "public-sector",
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "10.7.1",
+    "latestReleaseAt": "2026-10-29T12:31:41.146Z",
+    "rank": 72,
+    "slug": "nhs-design-system",
+    "name": "NHS Design System",
+    "organization": {
+      "slug": "nhs-england",
+      "name": "NHS England",
+      "websiteUrl": null
+    },
+    "category": "design-system",
+    "summary": "The NHS design system, part of the NHS digital service manual, provides styles, components and patterns for building NHS websites and services; its code is published as the nhsuk-frontend package (HTML, Sass, JavaScript and Nunjucks macros), copyright NHS England.",
+    "homepageUrl": "https://service-manual.nhs.uk/design-system",
+    "docsUrl": "https://service-manual.nhs.uk/design-system/components",
+    "repositoryUrl": "https://github.com/nhsuk/nhsuk-frontend",
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/nhsuk/nhsuk-frontend/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "MIT, Copyright (c) 2019 NHS England (code)."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Guidance lives in the NHS digital service manual; code lives in nhsuk/nhsuk-frontend (examples site at nhsuk.github.io/nhsuk-frontend, which is not a Storybook). Nunjucks macros are official: component docs (e.g. Buttons) give Nunjucks examples importing '<component>/macro.njk', and nhsuk-frontend 10.7.1 ships 96 macro.njk files. figmaUrl not verified, left null. audited 2026-11-05: added official nunjucks framework (docs + package evidence); org websiteUrl null (england.nhs.uk check was a WAF challenge, not ok); summary mentions Nunjucks.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://service-manual.nhs.uk/design-system",
+        "status": 200,
+        "finalUrl": "https://service-manual.nhs.uk/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:28.250Z",
+        "method": "http-check",
+        "note": "200; title 'Design system – NHS digital service manual'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://service-manual.nhs.uk/design-system/components",
+        "status": 200,
+        "finalUrl": "https://service-manual.nhs.uk/design-system/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.721Z",
+        "method": "http-check",
+        "note": "200; title 'Components – NHS digital service manual'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/nhsuk/nhsuk-frontend",
+        "status": 200,
+        "finalUrl": "https://github.com/nhsuk/nhsuk-frontend",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:28.732Z",
+        "method": "http-check",
+        "note": "200; official nhsuk/nhsuk-frontend repo"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://nhsuk.github.io/nhsuk-frontend/",
+        "status": 200,
+        "finalUrl": "https://nhsuk.github.io/nhsuk-frontend/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:36.129Z",
+        "method": "http-check",
+        "note": "200; 'NHS.UK frontend' examples site from the nhsuk org"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/nhsuk/nhsuk-frontend/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/nhsuk/nhsuk-frontend/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:15.572Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is MIT, Copyright (c) 2019 NHS England"
+      },
+      {
+        "field": "package:nhsuk-frontend",
+        "url": "https://registry.npmjs.org/nhsuk-frontend",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:39.097Z",
+        "method": "package-metadata",
+        "note": "npm latest 10.7.1 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/nhsuk/nhsuk-frontend.git. Release within 12 months => active"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.england.nhs.uk/",
+        "status": 202,
+        "finalUrl": "https://www.england.nhs.uk/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.214Z",
+        "method": "http-check",
+        "note": "202 with empty title: AWS WAF challenge page, not the site; identity not verifiable by checker, websiteUrl set null"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://service-manual.nhs.uk/design-system/components/buttons",
+        "status": 200,
+        "finalUrl": "https://service-manual.nhs.uk/design-system/components/buttons",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:48.116Z",
+        "method": "page-content",
+        "note": "200 'Buttons – NHS digital service manual'; documents Nunjucks options and examples importing 'button/macro.njk' alongside HTML"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://data.jsdelivr.com/v1/packages/npm/nhsuk-frontend@10.7.1?structure=flat",
+        "status": 200,
+        "finalUrl": "https://data.jsdelivr.com/v1/packages/npm/nhsuk-frontend@10.7.1?structure=flat",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:47.922Z",
+        "method": "package-metadata",
+        "note": "jsDelivr file listing of nhsuk-frontend 10.7.1 includes 96 macro.njk files (official Nunjucks macros)"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T04:12:48.214Z"
+  },
+  {
+    "aliases": [
+      "AuDS",
+      "DTA Design System"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@gov.au/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gov.au/core"
+      }
+    ],
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "open-source",
+      "decommissioned"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "4.0.0",
+    "latestReleaseAt": "2021-06-04T04:33:15.722Z",
+    "rank": 73,
+    "slug": "australian-government-design-system",
+    "name": "Australian Government Design System",
+    "organization": {
+      "slug": "dta",
+      "name": "Digital Transformation Agency",
+      "websiteUrl": null
+    },
+    "category": "design-system",
+    "summary": "The Australian Government Design System was a design system and component library for Australian government services, built by the Digital Transformation Agency and published as @gov.au/* packages. It was decommissioned in 2021.",
+    "homepageUrl": "https://designsystem.gov.au",
+    "docsUrl": null,
+    "repositoryUrl": "https://github.com/govau/design-system-components",
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/govau/design-system-components/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "MIT, Copyright (c) 2017 Commonwealth of Australia."
+    },
+    "docAccess": "unknown",
+    "maintenanceStatus": "archived",
+    "registryStatus": "rejected",
+    "notes": "Rejected: discontinued with docs gone. designsystem.gov.au no longer resolves (DNS failure). The component repo was archived on 2021-08-26 and its README states the system has been decommissioned; @gov.au/core is deprecated on npm with a decommission notice whose community.digital.gov.au link also no longer resolves. A community fork, GOLD Design System, is maintained by Design System AU (designsystemau.org), which is not first-party; gold.designsystemau.org redirected to the designsystemau.org homepage during checks. GOLD could be assessed separately as a replacement candidate. dta.gov.au returned 503, so organization websiteUrl is null. audited 2026-11-05: designsystem.gov.au still fails DNS; repo archive (2021-08-26) and README decommission notice re-confirmed; rejection stands.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.gov.au",
+        "status": null,
+        "finalUrl": "https://designsystem.gov.au",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:51:31.399Z",
+        "method": "http-check",
+        "note": "DNS lookup failed (EAI_AGAIN): former official docs domain no longer resolves"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/govau/design-system-components",
+        "status": 200,
+        "finalUrl": "https://github.com/govau/design-system-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:29.031Z",
+        "method": "page-content",
+        "note": "200; repo archived by owner 2021-08-26 (read-only); README: 'The Australian Government Design System has been decommissioned'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/govau/design-system-components/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/govau/design-system-components/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:54.410Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is MIT, Copyright (c) 2017 Commonwealth of Australia"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://registry.npmjs.org/@gov.au/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:39.457Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.0.0 published 2021-06-04; license MIT; deprecated: \"The Australian Government Design System has been decommissioned. Visit https://community.digital.gov.au/t/dta-design-sys\"; repo git+https://github.com/govau/design-system-components.git"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://community.digital.gov.au/t/dta-design-system-has-been-decommissioned/4649",
+        "status": null,
+        "finalUrl": "https://community.digital.gov.au/t/dta-design-system-has-been-decommissioned/4649",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:02.038Z",
+        "method": "http-check",
+        "note": "Decommission notice URL from npm deprecation message no longer resolves (ENOTFOUND)"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://designsystemau.org/press/dta-decomissions-government-design-system-new-collective-to-provide-ongoing-management",
+        "status": 200,
+        "finalUrl": "https://designsystemau.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:56.467Z",
+        "method": "http-check",
+        "note": "Community collective press URL redirects to Design System AU homepage (community, not first-party)"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://gold.designsystemau.org",
+        "status": 200,
+        "finalUrl": "https://designsystemau.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:56.495Z",
+        "method": "http-check",
+        "note": "Community GOLD docs host redirects to designsystemau.org homepage"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.dta.gov.au",
+        "status": 503,
+        "finalUrl": "https://www.dta.gov.au/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:04.104Z",
+        "method": "http-check",
+        "note": "503 for the checker; websiteUrl left null"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:00:54.410Z"
+  },
+  {
+    "aliases": [],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@ongov/ontario-design-system-component-library",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ongov/ontario-design-system-component-library"
+      },
+      {
+        "name": "@ongov/ontario-design-system-component-library-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ongov/ontario-design-system-component-library-react"
+      },
+      {
+        "name": "@ongov/ontario-design-system-component-library-angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ongov/ontario-design-system-component-library-angular"
+      },
+      {
+        "name": "@ongov/ontario-design-system-global-styles",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ongov/ontario-design-system-global-styles"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@ongov/ontario-design-system-component-library",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@ongov/ontario-design-system-component-library-react",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "@ongov/ontario-design-system-component-library-angular",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@ongov/ontario-design-system-global-styles",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "web-components",
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "9.2.2",
+    "latestReleaseAt": "2026-10-19T18:39:22.268Z",
+    "rank": 74,
+    "slug": "ontario-design-system",
+    "name": "Ontario Design System",
+    "organization": {
+      "slug": "government-of-ontario",
+      "name": "Government of Ontario",
+      "websiteUrl": "https://www.ontario.ca/"
+    },
+    "category": "design-system",
+    "summary": "The Ontario Design System is the Government of Ontario's design system for its digital products, providing guidance plus a web component library with React and Angular wrappers and a global styles package, all published under the @ongov npm scope.",
+    "homepageUrl": "https://designsystem.ontario.ca/",
+    "docsUrl": "https://designsystem.ontario.ca/components/detail/components.html",
+    "repositoryUrl": "https://github.com/ongov/ontario-design-system",
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/ongov/ontario-design-system/develop/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "The Angular package's npm metadata declares no license; the repository LICENSE (develop branch; main has none at root) is Apache-2.0 and the other packages declare Apache-2.0. /components/ returns 404; the component index is /components/detail/components.html. All four packages are released in lockstep (9.2.2). figmaUrl not verified, left null. audited 2026-11-05: re-checked; main-branch LICENSE still 404, develop LICENSE Apache-2.0; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.ontario.ca",
+        "status": 200,
+        "finalUrl": "https://designsystem.ontario.ca/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:28.078Z",
+        "method": "http-check",
+        "note": "200; title 'Ontario Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.ontario.ca/components/detail/components.html",
+        "status": 200,
+        "finalUrl": "https://designsystem.ontario.ca/components/detail/components.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:48.680Z",
+        "method": "http-check",
+        "note": "200; title 'Components | Ontario Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.ontario.ca/components/",
+        "status": 404,
+        "finalUrl": "https://designsystem.ontario.ca/components/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:54:19.846Z",
+        "method": "http-check",
+        "note": "404 (component index lives at /components/detail/components.html)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/ongov/ontario-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/ongov/ontario-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:29.382Z",
+        "method": "http-check",
+        "note": "200; 'Web components and npm packages for the Ontario Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/ongov/ontario-design-system/develop/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/ongov/ontario-design-system/develop/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:14.372Z",
+        "method": "repo-metadata",
+        "note": "LICENSE (develop branch) is Apache License 2.0"
+      },
+      {
+        "field": "package:@ongov/ontario-design-system-component-library",
+        "url": "https://registry.npmjs.org/@ongov/ontario-design-system-component-library",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:39.788Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.2.2 published 2026-10-19; license Apache-2.0; not deprecated; repo git+https://github.com/ongov/ontario-design-system.git. Release within 12 months => active"
+      },
+      {
+        "field": "package:@ongov/ontario-design-system-component-library-react",
+        "url": "https://registry.npmjs.org/@ongov/ontario-design-system-component-library-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:34.368Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.2.2 published 2026-10-19; license Apache-2.0; not deprecated; repo git+https://github.com/ongov/ontario-design-system.git"
+      },
+      {
+        "field": "package:@ongov/ontario-design-system-component-library-angular",
+        "url": "https://registry.npmjs.org/@ongov/ontario-design-system-component-library-angular",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:34.768Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.2.2 published 2026-10-19; license none declared; not deprecated; repo git+https://github.com/ongov/ontario-design-system.git"
+      },
+      {
+        "field": "package:@ongov/ontario-design-system-global-styles",
+        "url": "https://registry.npmjs.org/@ongov/ontario-design-system-global-styles",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:40.011Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.2.2 published 2026-10-19; license Apache-2.0; not deprecated; repo git+https://github.com/ongov/ontario-design-system.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.ontario.ca",
+        "status": 200,
+        "finalUrl": "https://www.ontario.ca/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.462Z",
+        "method": "http-check",
+        "note": "200; 'Government of Ontario | ontario.ca'"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T04:01:14.372Z"
+  },
+  {
+    "aliases": [
+      "HDS"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": "https://hds.hel.fi/storybook/react/",
+    "packages": [
+      {
+        "name": "hds-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/hds-react"
+      },
+      {
+        "name": "hds-core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/hds-core"
+      },
+      {
+        "name": "hds-design-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/hds-design-tokens"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "hds-react",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "hds-core",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "government",
+      "public-sector",
+      "open-source",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "6.0.7",
+    "latestReleaseAt": "2026-10-23T11:52:10.152Z",
+    "rank": 75,
+    "slug": "helsinki-design-system",
+    "name": "Helsinki Design System",
+    "organization": {
+      "slug": "city-of-helsinki",
+      "name": "City of Helsinki",
+      "websiteUrl": "https://www.hel.fi/fi"
+    },
+    "category": "design-system",
+    "summary": "Helsinki Design System (HDS) is the City of Helsinki's open-source design system, offering guidelines, design tokens, a React component library (hds-react) and a CSS implementation (hds-core) for building accessible city services.",
+    "homepageUrl": "https://hds.hel.fi/",
+    "docsUrl": "https://hds.hel.fi/components/",
+    "repositoryUrl": "https://github.com/City-of-Helsinki/helsinki-design-system",
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/City-of-Helsinki/helsinki-design-system/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "MIT, Copyright (c) 2023 City of Helsinki."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "hds.hel.fi pages render client-side (no <title> in server HTML); identity confirmed via the official repo README, which links hds.hel.fi plus React and Core Storybooks (hds.hel.fi/storybook/react/ recorded; /storybook/core/ also verified). The README points designers to Sketch libraries; no Figma URL recorded. Packages are released in lockstep (6.0.7). audited 2026-11-05: re-checked all URLs, LICENSE and npm metadata; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://hds.hel.fi",
+        "status": 200,
+        "finalUrl": "https://hds.hel.fi/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:29.033Z",
+        "method": "http-check",
+        "note": "200; client-rendered page (no server-side title)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://hds.hel.fi/components/",
+        "status": 200,
+        "finalUrl": "https://hds.hel.fi/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.590Z",
+        "method": "http-check",
+        "note": "200; components section"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://hds.hel.fi/getting-started/developer",
+        "status": 200,
+        "finalUrl": "https://hds.hel.fi/getting-started/developer/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:48.775Z",
+        "method": "http-check",
+        "note": "200; developer getting-started section"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/City-of-Helsinki/helsinki-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/City-of-Helsinki/helsinki-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:29.659Z",
+        "method": "http-check",
+        "note": "200; 'Components, principles, documentation and templates for the City of Helsinki design system'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://raw.githubusercontent.com/City-of-Helsinki/helsinki-design-system/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/City-of-Helsinki/helsinki-design-system/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:14.972Z",
+        "method": "repo-metadata",
+        "note": "README: HDS is an open-source design system built by the City of Helsinki; links hds.hel.fi and Storybooks"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://hds.hel.fi/storybook/react/",
+        "status": 200,
+        "finalUrl": "https://hds.hel.fi/storybook/react/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.380Z",
+        "method": "http-check",
+        "note": "200; React Storybook linked from README"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://hds.hel.fi/storybook/core",
+        "status": 200,
+        "finalUrl": "https://hds.hel.fi/storybook/core/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.680Z",
+        "method": "http-check",
+        "note": "200; Core (CSS) Storybook linked from README"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/City-of-Helsinki/helsinki-design-system/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/City-of-Helsinki/helsinki-design-system/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:16.172Z",
+        "method": "repo-metadata",
+        "note": "LICENSE is MIT, Copyright (c) 2023 City of Helsinki"
+      },
+      {
+        "field": "package:hds-react",
+        "url": "https://registry.npmjs.org/hds-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:40.308Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.0.7 published 2026-10-23; license MIT; not deprecated; repo git+https://github.com/City-of-Helsinki/helsinki-design-system.git. Release within 12 months => active"
+      },
+      {
+        "field": "package:hds-core",
+        "url": "https://registry.npmjs.org/hds-core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:40.551Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.0.7 published 2026-10-23; license MIT; not deprecated; repo git+https://github.com/City-of-Helsinki/helsinki-design-system.git"
+      },
+      {
+        "field": "package:hds-design-tokens",
+        "url": "https://registry.npmjs.org/hds-design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:36.517Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.0.7 published 2026-10-23; license MIT; not deprecated; repo git+https://github.com/City-of-Helsinki/helsinki-design-system.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.hel.fi",
+        "status": 200,
+        "finalUrl": "https://www.hel.fi/fi",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.834Z",
+        "method": "http-check",
+        "note": "200; City of Helsinki site"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:01:16.172Z"
+  },
+  {
+    "aliases": [
+      "Nord"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@nordhealth/components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nordhealth/components"
+      },
+      {
+        "name": "@nordhealth/css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nordhealth/css"
+      },
+      {
+        "name": "@nordhealth/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@nordhealth/tokens"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@nordhealth/components",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@nordhealth/css",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "healthcare",
+      "web-components",
+      "design-tokens",
+      "tailwind",
+      "proprietary"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "5.5.1",
+    "latestReleaseAt": "2026-11-04T17:39:48.286Z",
+    "rank": 76,
+    "slug": "nord-design-system",
+    "name": "Nord Design System",
+    "organization": {
+      "slug": "nordhealth",
+      "name": "Nordhealth",
+      "websiteUrl": "https://nordhealth.com/"
+    },
+    "category": "design-system",
+    "summary": "Nord is Nordhealth's design system for its healthcare and veterinary software, providing web components, a CSS framework, design tokens and design guidelines; its npm packages are published under a proprietary license.",
+    "homepageUrl": "https://nordhealth.design/",
+    "docsUrl": "https://nordhealth.design/components/",
+    "repositoryUrl": null,
+    "license": {
+      "slug": "proprietary-nordhealth",
+      "spdxId": null,
+      "name": "Nordhealth proprietary package license",
+      "url": "https://cdn.jsdelivr.net/npm/@nordhealth/components@5.5.1/LICENSE.md",
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "Grants a limited, non-exclusive, revocable license to use the package solely for performing duties for and on behalf of Nordhealth; reproduction or redistribution otherwise not permitted. npm license field: 'SEE LICENSE IN LICENSE.md'."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Docs are public but the package license restricts use to work on behalf of Nordhealth, so ATLAS must treat code as non-redistributable (facts and short excerpts only). @nordhealth/css metadata references github.com/nordhealth/design-system, which returned 404 (private or removed), so repositoryUrl is null. The homepage says components work in plain HTML, React, Vue or any framework via web components; only web-components and html-css are recorded as official targets. The site documents a Tailwind CSS integration and a Figma Toolkit page, but no figma.com URL is recorded. Packages are versioned independently; latestVersion is @nordhealth/components. audited 2026-11-05: added failed check for the linked Figma Toolkit file (403); figmaUrl stays null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://nordhealth.design",
+        "status": 200,
+        "finalUrl": "https://nordhealth.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.207Z",
+        "method": "http-check",
+        "note": "200; title 'Nord Design System'; footer (c) 2026 Nordhealth Ltd"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://nordhealth.design/components/",
+        "status": 200,
+        "finalUrl": "https://nordhealth.design/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:54:19.524Z",
+        "method": "http-check",
+        "note": "200; title 'Web Components - Nord Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://nordhealth.design/tokens/",
+        "status": 200,
+        "finalUrl": "https://nordhealth.design/tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:48.460Z",
+        "method": "http-check",
+        "note": "200; title 'Design Tokens - Nord Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://nordhealth.design/css/tailwind/",
+        "status": 200,
+        "finalUrl": "https://nordhealth.design/css/tailwind/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.594Z",
+        "method": "http-check",
+        "note": "200; title 'Tailwind CSS - Nord Design System'"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://nordhealth.design/design/foundations/figma/",
+        "status": 200,
+        "finalUrl": "https://nordhealth.design/design/foundations/figma/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:09.248Z",
+        "method": "http-check",
+        "note": "200; official 'Figma Toolkit' page; links figma.com files (Nord Figma Toolkit v4, Nordicons); none verifiable, figmaUrl null"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/nordhealth/design-system",
+        "status": 404,
+        "finalUrl": "https://github.com/nordhealth/design-system",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:55:48.362Z",
+        "method": "http-check",
+        "note": "404: repo referenced by @nordhealth/css metadata is not public"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/@nordhealth/components@5.5.1/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@nordhealth/components@5.5.1/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.034Z",
+        "method": "repo-metadata",
+        "note": "Proprietary: limited revocable license solely for work for/on behalf of Nordhealth"
+      },
+      {
+        "field": "package:@nordhealth/components",
+        "url": "https://registry.npmjs.org/@nordhealth/components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:41.030Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.5.1 published 2026-11-04; license SEE LICENSE IN LICENSE.md; not deprecated; repo none declared. Release within 12 months => active"
+      },
+      {
+        "field": "package:@nordhealth/css",
+        "url": "https://registry.npmjs.org/@nordhealth/css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:36.036Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.3.1 published 2026-11-04; license SEE LICENSE IN LICENSE.md; not deprecated; repo git+https://github.com/nordhealth/design-system.git"
+      },
+      {
+        "field": "package:@nordhealth/tokens",
+        "url": "https://registry.npmjs.org/@nordhealth/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:36.470Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.0.5 published 2026-11-04; license SEE LICENSE IN LICENSE.md; not deprecated; repo none declared"
+      },
+      {
+        "field": "organization",
+        "url": "https://nordhealth.com",
+        "status": 200,
+        "finalUrl": "https://nordhealth.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.720Z",
+        "method": "http-check",
+        "note": "200; 'Nordhealth | Redefining digital healthcare'"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/design/yarhTRV8eFffff0BIpevi6/Nord-Figma-Toolkit-v4?node-id=1696-298217",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/design/yarhTRV8eFffff0BIpevi6/Nord-Figma-Toolkit-v4?node-id=1696-298217",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.354Z",
+        "method": "http-check",
+        "note": "Figma Toolkit file linked from nordhealth.design; 403 to checker; not recorded"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T04:12:48.354Z"
+  },
+  {
+    "aliases": [
+      "Audi UI React",
+      "Audi Design System"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "automotive"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "rank": 77,
+    "slug": "audi-ui",
+    "name": "Audi UI",
+    "organization": {
+      "slug": "audi",
+      "name": "Audi AG",
+      "websiteUrl": "https://www.audi.com/en"
+    },
+    "category": "design-system",
+    "summary": "Audi UI was Audi's digital design system, documented through a public Audi UI React Storybook (react.ui.audi) and UI component guidelines on the Audi corporate identity site. Neither public resource was reachable during ATLAS verification.",
+    "homepageUrl": "https://react.ui.audi/",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "license": null,
+    "docAccess": "unknown",
+    "maintenanceStatus": "unknown",
+    "registryStatus": "rejected",
+    "notes": "Rejected: no public documentation reachable. react.ui.audi (the Storybook linked from storybook.js.org's 'Audi UI React' showcase) returns 404. audi.com/ci user-interface component guide pages return 404, and audi.com/ci now redirects to styleguide.audi.com, a Frontify brand hub whose robots.txt disallows automated access (not crawled). The older vanilla CSS/JS repo github.com/audi/audi-ui returns 404; its npm package @audi/audi-ui was last published as 1.0.0-alpha.2 in 2017. @audi/audi-ui-react is not on npm. License unknown for the React system. Re-check if Audi republishes UI docs on the Frontify hub. audited 2026-11-05: react.ui.audi still 404, CI guide pages still 404; rejection stands.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://react.ui.audi/",
+        "status": 404,
+        "finalUrl": "https://react.ui.audi/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:53:02.614Z",
+        "method": "http-check",
+        "note": "404 (XML error body): former Audi UI React Storybook host"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://storybook.js.org/showcase/audi-ui-react",
+        "status": 200,
+        "finalUrl": "https://storybook.js.org/showcase/audi-ui-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:27.875Z",
+        "method": "http-check",
+        "note": "Third-party Storybook showcase listing 'Audi UI React' linking react.ui.audi (evidence of former location only)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.audi.com/ci",
+        "status": 200,
+        "finalUrl": "https://styleguide.audi.com/hub/271",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.520Z",
+        "method": "http-check",
+        "note": "Redirects to styleguide.audi.com/hub/271 ('Brand', Frontify)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://styleguide.audi.com/hub/271",
+        "status": 200,
+        "finalUrl": "https://styleguide.audi.com/hub/271",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:02.677Z",
+        "method": "http-check",
+        "note": "200 but robots.txt disallows automated access; not crawled"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://audi.com/ci/en/guides/user-interface/components/loader.html",
+        "status": 404,
+        "finalUrl": "https://www.audi.com/ci/en/guides/user-interface/components/loader.html",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:53:02.899Z",
+        "method": "http-check",
+        "note": "404 'Page not found | audi.com' (former CI UI component guide)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.audi.com/ci/en/guides/user-interface/components/table.html",
+        "status": 404,
+        "finalUrl": "https://www.audi.com/ci/en/guides/user-interface/components/table.html",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:52:28.145Z",
+        "method": "http-check",
+        "note": "404 'Page not found | audi.com'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/audi/audi-ui",
+        "status": 404,
+        "finalUrl": "https://github.com/audi/audi-ui",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:52:27.722Z",
+        "method": "http-check",
+        "note": "404: former vanilla CSS/JS Audi UI repo not available"
+      },
+      {
+        "field": "package:@audi/audi-ui",
+        "url": "https://registry.npmjs.org/@audi/audi-ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:03.858Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.0.0-alpha.2 published 2017-11-28; license Apache-2.0; not deprecated; repo git://github.com/audi/audi-ui.git. Stale alpha from 2017"
+      },
+      {
+        "field": "package:@audi/audi-ui-react",
+        "url": "https://registry.npmjs.org/@audi/audi-ui-react",
+        "status": 404,
+        "finalUrl": null,
+        "ok": false,
+        "checkedAt": "2026-11-05T03:52:41.464Z",
+        "method": "package-metadata",
+        "note": "npm registry returned 404: package not published under this name"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.audi.com",
+        "status": 200,
+        "finalUrl": "https://www.audi.com/en",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.736Z",
+        "method": "http-check",
+        "note": "200; Audi corporate site"
+      }
+    ],
+    "confidence": 0.72,
+    "verifiedAt": "2026-11-05T03:58:01.736Z"
+  },
+  {
+    "aliases": [
+      "PDS"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@porsche-design-system/components-js",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@porsche-design-system/components-js"
+      },
+      {
+        "name": "@porsche-design-system/components-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@porsche-design-system/components-react"
+      },
+      {
+        "name": "@porsche-design-system/components-angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@porsche-design-system/components-angular"
+      },
+      {
+        "name": "@porsche-design-system/components-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@porsche-design-system/components-vue"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@porsche-design-system/components-js",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@porsche-design-system/components-react",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "@porsche-design-system/components-angular",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@porsche-design-system/components-vue",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "automotive",
+      "web-components",
+      "open-source"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "4.10.1",
+    "latestReleaseAt": "2026-10-23T10:11:32.616Z",
+    "rank": 78,
+    "slug": "porsche-design-system",
+    "name": "Porsche Design System",
+    "organization": {
+      "slug": "porsche",
+      "name": "Dr. Ing. h.c. F. Porsche AG",
+      "websiteUrl": "https://www.porsche.com/"
+    },
+    "category": "design-system",
+    "summary": "The Porsche Design System is Porsche AG's design system for digital Porsche products, combining UX guidelines with a web component library and wrappers for React, Angular and Vue, published under the @porsche-design-system npm scope.",
+    "homepageUrl": "https://designsystem.porsche.com/v4/",
+    "docsUrl": "https://designsystem.porsche.com/v4/components/introduction/",
+    "repositoryUrl": "https://github.com/porsche-design-system/porsche-design-system",
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://designsystem.porsche.com/v4/license/",
+      "isOpenSource": true,
+      "redistribution": "conditional",
+      "notes": "Source code is Apache-2.0 (LICENSE.md, Dr. Ing. h.c. F. Porsche AG). Fonts, icons, marque and other assets fall under a separate Porsche Design System Assets License: use only for Porsche-related apps/sites, no modification or redistribution of assets."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "Root domain redirects to the /v4/ docs. Developing docs list Vanilla JS, Angular, React, Next.js, Remix and Vue (Next.js/Remix use the React package). Licensing is split: code Apache-2.0, brand assets restricted, so license.redistribution is 'conditional' even though the code license is permissive. The v4 homepage links figma.com/@porsche and a Figma design file, but figma.com returned 403 to the checker, so figmaUrl is null. audited 2026-11-05: license.redistribution permitted->conditional (matches assets licence and notes); Figma note corrected (homepage does link figma.com); 2 figma checks added.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.porsche.com",
+        "status": 200,
+        "finalUrl": "https://designsystem.porsche.com/v4/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.689Z",
+        "method": "http-check",
+        "note": "Redirects to /v4/; title 'Porsche Design System'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.porsche.com/v4/",
+        "status": 200,
+        "finalUrl": "https://designsystem.porsche.com/v4/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:48.917Z",
+        "method": "http-check",
+        "note": "200; title 'Porsche Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.porsche.com/v4/components/introduction/",
+        "status": 200,
+        "finalUrl": "https://designsystem.porsche.com/v4/components/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:09.570Z",
+        "method": "http-check",
+        "note": "200; 'Introduction - Components - Porsche Design System'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.porsche.com/v4/developing/introduction/",
+        "status": 200,
+        "finalUrl": "https://designsystem.porsche.com/v4/developing/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:10.922Z",
+        "method": "http-check",
+        "note": "200; available for Vanilla JS, Angular, React, Next JS, Remix and Vue"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/porsche-design-system/porsche-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/porsche-design-system/porsche-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:55.377Z",
+        "method": "http-check",
+        "note": "200; 'The official Porsche Design System repository'"
+      },
+      {
+        "field": "license",
+        "url": "https://designsystem.porsche.com/v4/license/",
+        "status": 200,
+        "finalUrl": "https://designsystem.porsche.com/v4/license/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:09.871Z",
+        "method": "http-check",
+        "note": "200; 'License - Porsche Design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/porsche-design-system/porsche-design-system/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/porsche-design-system/porsche-design-system/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:14.071Z",
+        "method": "repo-metadata",
+        "note": "Code Apache-2.0; separate restrictive Assets License Agreement for fonts/icons/marque"
+      },
+      {
+        "field": "package:@porsche-design-system/components-js",
+        "url": "https://registry.npmjs.org/@porsche-design-system/components-js",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:41.115Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.10.1 published 2026-10-23; license SEE LICENSE IN LICENSE; not deprecated; repo git+https://github.com/porsche-design-system/porsche-design-system.git. Release within 12 months => active"
+      },
+      {
+        "field": "package:@porsche-design-system/components-react",
+        "url": "https://registry.npmjs.org/@porsche-design-system/components-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:34.913Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.10.1 published 2026-10-23; license SEE LICENSE IN LICENSE; not deprecated; repo git+https://github.com/porsche-design-system/porsche-design-system.git"
+      },
+      {
+        "field": "package:@porsche-design-system/components-angular",
+        "url": "https://registry.npmjs.org/@porsche-design-system/components-angular",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:35.267Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.10.1 published 2026-10-23; license SEE LICENSE IN LICENSE; not deprecated; repo git+https://github.com/porsche-design-system/porsche-design-system.git"
+      },
+      {
+        "field": "package:@porsche-design-system/components-vue",
+        "url": "https://registry.npmjs.org/@porsche-design-system/components-vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:35.539Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.10.1 published 2026-10-23; license SEE LICENSE IN LICENSE; not deprecated; repo git+https://github.com/porsche-design-system/porsche-design-system.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.porsche.com",
+        "status": 200,
+        "finalUrl": "https://www.porsche.com/usa/?cs_redirect=1",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:01.602Z",
+        "method": "http-check",
+        "note": "200; Porsche official website (geo-redirect)"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://figma.com/@porsche",
+        "status": 403,
+        "finalUrl": "https://figma.com/@porsche",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.451Z",
+        "method": "http-check",
+        "note": "Linked from designsystem.porsche.com/v4/ (Porsche Figma community profile); 403 (CloudFront) to checker; not recorded"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://figma.com/design/EkdP468u4ZVuIRwalKCscb/Web-Design-System-v3?node-id=32923-48020",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/design/EkdP468u4ZVuIRwalKCscb/Web-Design-System-v3?node-id=32923-48020",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.751Z",
+        "method": "http-check",
+        "note": "Figma file linked from the v4 homepage; 403 to checker; not recorded"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:12:48.751Z"
+  },
+  {
+    "aliases": [],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "frameworks": [],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "automotive"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "rank": 79,
+    "slug": "bmw-group-design-system",
+    "name": "BMW Group Design System",
+    "organization": {
+      "slug": "bmw-group",
+      "name": "BMW Group",
+      "websiteUrl": "https://www.bmwgroup.com/en.html"
+    },
+    "category": "design-system",
+    "summary": "Research candidate for a public BMW Group digital design system. ATLAS found no official, publicly documented BMW Group UI design system; only unofficial third-party reconstructions of BMW's visual style were found.",
+    "homepageUrl": "https://www.bmwgroup.com/en.html",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "license": null,
+    "docAccess": "unknown",
+    "maintenanceStatus": "unknown",
+    "registryStatus": "rejected",
+    "notes": "Rejected: no public documentation found. Probed hostnames (bmwgroup.design, designsystem.bmwgroup.com, design.bmwgroup.com) do not resolve. The BMW Group GitHub org (github.com/bmwgroup) lists one repository, a C++ fork unrelated to UI. Web search surfaced only unofficial third-party 'DESIGN.md'-style reconstructions (e.g. on shadcn.io and open-design.ai), which are not first-party and were not recorded. An internal system may exist but is not publicly documented. homepageUrl records the checked BMW Group corporate site. audited 2026-11-05: probed hosts still ENOTFOUND; github.com/bmwgroup still lists 1 repo; rejection stands.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.bmwgroup.com",
+        "status": 200,
+        "finalUrl": "https://www.bmwgroup.com/en.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:28.968Z",
+        "method": "http-check",
+        "note": "200; BMW Group corporate site (no design-system documentation linked)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.bmwgroup.design",
+        "status": null,
+        "finalUrl": "https://www.bmwgroup.design",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:51:55.861Z",
+        "method": "http-check",
+        "note": "ENOTFOUND: hostname does not resolve"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.bmwgroup.com",
+        "status": null,
+        "finalUrl": "https://designsystem.bmwgroup.com",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:52:28.665Z",
+        "method": "http-check",
+        "note": "ENOTFOUND: hostname does not resolve"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design.bmwgroup.com",
+        "status": null,
+        "finalUrl": "https://design.bmwgroup.com",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:52:28.530Z",
+        "method": "http-check",
+        "note": "ENOTFOUND: hostname does not resolve"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/bmwgroup",
+        "status": 200,
+        "finalUrl": "https://github.com/bmwgroup",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:13.512Z",
+        "method": "page-content",
+        "note": "200; org lists one repository (eclipse-score-scrample, C++ fork), not a UI system"
+      }
+    ],
+    "confidence": 0.75,
+    "verifiedAt": "2026-11-05T04:01:13.512Z"
+  },
+  {
+    "aliases": [
+      "Volvo Cars Design System"
+    ],
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@volvo-cars/css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@volvo-cars/css"
+      },
+      {
+        "name": "@volvo-cars/react-icons",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@volvo-cars/react-icons"
+      },
+      {
+        "name": "@volvo-cars/react-accordion",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@volvo-cars/react-accordion"
+      }
+    ],
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "@volvo-cars/css",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "automotive",
+      "design-tokens",
+      "proprietary"
+    ],
+    "relatedSlugs": [],
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "latestVersion": "3.2.1",
+    "latestReleaseAt": "2026-11-04T13:24:04.814Z",
+    "rank": 80,
+    "slug": "volvo-cars-design-system",
+    "name": "Volvo Cars Web Design System",
+    "organization": {
+      "slug": "volvo-cars",
+      "name": "Volvo Cars",
+      "websiteUrl": null
+    },
+    "category": "design-system",
+    "summary": "The Volvo Cars Web Design System provides design guidance, styles and components for Volvo Cars web products, delivered mainly through the @volvo-cars/css package plus per-feature React packages; its documentation is public while the packages are unlicensed (proprietary).",
+    "homepageUrl": "https://designsystem.volvocars.com/web/",
+    "docsUrl": "https://designsystem.volvocars.com/web/developing/getting-started",
+    "repositoryUrl": null,
+    "license": {
+      "slug": "proprietary-volvo-cars",
+      "spdxId": null,
+      "name": "Proprietary (npm: UNLICENSED)",
+      "url": null,
+      "isOpenSource": false,
+      "redistribution": "restricted",
+      "notes": "All checked @volvo-cars packages declare 'UNLICENSED' on npm, i.e. no license is granted; no public terms page was found."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "registryStatus": "verified",
+    "notes": "designsystem.volvocars.com redirects to /web/. The brand portal (design.volvocars.com redirects to a brand.volvocars.com login) is not public and not recorded. npm metadata lists github.com/volvo-cars/design-system-web, which returns 404 (private), so repositoryUrl is null. Getting-started docs cover HTML and React; React support ships as per-feature packages (e.g. @volvo-cars/react-accordion, @volvo-cars/react-icons) plus hooks, so react packageName is null. @volvo-cars/ui-design-tokens is deprecated on npm ('Package no longer supported'). volvocars.com returned 403 to the checker, so organization websiteUrl is null. figmaUrl null. audited 2026-11-05: re-checked all URLs and npm metadata; no changes.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.volvocars.com",
+        "status": 200,
+        "finalUrl": "https://designsystem.volvocars.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.323Z",
+        "method": "http-check",
+        "note": "Root page redirects to /web/"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://designsystem.volvocars.com/web/",
+        "status": 200,
+        "finalUrl": "https://designsystem.volvocars.com/web/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:02.659Z",
+        "method": "http-check",
+        "note": "200; title 'Volvo Cars Web Design System'; official documentation"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.volvocars.com/web/developing/getting-started",
+        "status": 200,
+        "finalUrl": "https://designsystem.volvocars.com/web/developing/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:09.693Z",
+        "method": "http-check",
+        "note": "200; 'Getting started' for HTML and React"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://designsystem.volvocars.com/web/developing/installation/",
+        "status": 200,
+        "finalUrl": "https://designsystem.volvocars.com/web/developing/installation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:29.472Z",
+        "method": "http-check",
+        "note": "200; installation of @volvo-cars/css"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://designsystem.volvocars.com/web/changelog/",
+        "status": 200,
+        "finalUrl": "https://designsystem.volvocars.com/web/changelog/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:09.993Z",
+        "method": "http-check",
+        "note": "200; 'Changes across all design system packages'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design.volvocars.com",
+        "status": 200,
+        "finalUrl": "https://brand.volvocars.com/auth/?referer=%2F",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:51:56.306Z",
+        "method": "http-check",
+        "note": "Redirects to brand.volvocars.com login (brand portal, not public)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/volvo-cars/design-system-web",
+        "status": 404,
+        "finalUrl": "https://github.com/volvo-cars/design-system-web",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:53:02.104Z",
+        "method": "http-check",
+        "note": "404: repository named in npm metadata is not public"
+      },
+      {
+        "field": "package:@volvo-cars/css",
+        "url": "https://registry.npmjs.org/@volvo-cars/css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:41.894Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.2.1 published 2026-11-04; license UNLICENSED; not deprecated; repo https://github.com/volvo-cars/design-system-web. Release within 12 months => active"
+      },
+      {
+        "field": "package:@volvo-cars/react-icons",
+        "url": "https://registry.npmjs.org/@volvo-cars/react-icons",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:53:04.106Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.0.2 published 2026-10-29; license UNLICENSED; not deprecated; repo https://github.com/volvo-cars/design-system-web"
+      },
+      {
+        "field": "package:@volvo-cars/react-accordion",
+        "url": "https://registry.npmjs.org/@volvo-cars/react-accordion",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:37.057Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.3.24 published 2026-10-02; license UNLICENSED; not deprecated; repo https://github.com/volvo-cars/design-system-web"
+      },
+      {
+        "field": "package:@volvo-cars/ui-design-tokens",
+        "url": "https://registry.npmjs.org/@volvo-cars/ui-design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:52:42.396Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.17.0 published 2023-05-12; license UNLICENSED; deprecated: \"Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.\"; repo none declared"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.volvocars.com",
+        "status": 403,
+        "finalUrl": "https://www.volvocars.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:01.983Z",
+        "method": "http-check",
+        "note": "403 Access Denied for the checker; websiteUrl left null"
+      }
+    ],
+    "confidence": 0.88,
+    "verifiedAt": "2026-11-05T04:01:12.323Z"
+  }
+]

@@ -1,0 +1,199 @@
+{
+ "type": "npm",
+ "name": "govuk-frontend",
+ "version": "6.6.0",
+ "files": [
+  {
+   "name": "/dist/govuk/components/button/_button.import.scss",
+   "size": 129
+  },
+  {
+   "name": "/dist/govuk/components/button/_index.import.scss",
+   "size": 357
+  },
+  {
+   "name": "/dist/govuk/components/button/_index.scss",
+   "size": 340
+  },
+  {
+   "name": "/dist/govuk/components/button/_mixin.scss",
+   "size": 6984
+  },
+  {
+   "name": "/dist/govuk/components/button/_settings.import.scss",
+   "size": 643
+  },
+  {
+   "name": "/dist/govuk/components/button/_settings.scss",
+   "size": 698
+  },
+  {
+   "name": "/dist/govuk/components/button/button.bundle.js",
+   "size": 12806
+  },
+  {
+   "name": "/dist/govuk/components/button/button.bundle.mjs",
+   "size": 11709
+  },
+  {
+   "name": "/dist/govuk/components/button/button.mjs",
+   "size": 1812
+  },
+  {
+   "name": "/dist/govuk/components/button/fixtures.json",
+   "size": 20339
+  },
+  {
+   "name": "/dist/govuk/components/button/macro.njk",
+   "size": 82
+  },
+  {
+   "name": "/dist/govuk/components/button/macro-options.json",
+   "size": 2492
+  },
+  {
+   "name": "/dist/govuk/components/button/README.md",
+   "size": 597
+  },
+  {
+   "name": "/dist/govuk/components/button/template.njk",
+   "size": 2310
+  },
+  {
+   "name": "/dist/govuk/components/button/template-default.html",
+   "size": 101
+  },
+  {
+   "name": "/dist/govuk/components/hint/_hint.import.scss",
+   "size": 127
+  },
+  {
+   "name": "/dist/govuk/components/hint/_index.import.scss",
+   "size": 115
+  },
+  {
+   "name": "/dist/govuk/components/hint/_index.scss",
+   "size": 71
+  },
+  {
+   "name": "/dist/govuk/components/hint/_mixin.scss",
+   "size": 1665
+  },
+  {
+   "name": "/dist/govuk/components/hint/fixtures.json",
+   "size": 3276
+  },
+  {
+   "name": "/dist/govuk/components/hint/macro.njk",
+   "size": 80
+  },
+  {
+   "name": "/dist/govuk/components/hint/macro-options.json",
+   "size": 1000
+  },
+  {
+   "name": "/dist/govuk/components/hint/README.md",
+   "size": 653
+  },
+  {
+   "name": "/dist/govuk/components/hint/template.njk",
+   "size": 329
+  },
+  {
+   "name": "/dist/govuk/components/input/_index.import.scss",
+   "size": 183
+  },
+  {
+   "name": "/dist/govuk/components/input/_index.scss",
+   "size": 129
+  },
+  {
+   "name": "/dist/govuk/components/input/_input.import.scss",
+   "size": 128
+  },
+  {
+   "name": "/dist/govuk/components/input/_mixin.scss",
+   "size": 3879
+  },
+  {
+   "name": "/dist/govuk/components/input/fixtures.json",
+   "size": 43214
+  },
+  {
+   "name": "/dist/govuk/components/input/macro.njk",
+   "size": 81
+  },
+  {
+   "name": "/dist/govuk/components/input/macro-options.json",
+   "size": 9595
+  },
+  {
+   "name": "/dist/govuk/components/input/README.md",
+   "size": 602
+  },
+  {
+   "name": "/dist/govuk/components/input/template.njk",
+   "size": 4827
+  },
+  {
+   "name": "/dist/govuk/components/tabs/_index.import.scss",
+   "size": 115
+  },
+  {
+   "name": "/dist/govuk/components/tabs/_index.scss",
+   "size": 71
+  },
+  {
+   "name": "/dist/govuk/components/tabs/_mixin.scss",
+   "size": 3481
+  },
+  {
+   "name": "/dist/govuk/components/tabs/_tabs.import.scss",
+   "size": 127
+  },
+  {
+   "name": "/dist/govuk/components/tabs/fixtures.json",
+   "size": 25082
+  },
+  {
+   "name": "/dist/govuk/components/tabs/macro.njk",
+   "size": 80
+  },
+  {
+   "name": "/dist/govuk/components/tabs/macro-options.json",
+   "size": 3071
+  },
+  {
+   "name": "/dist/govuk/components/tabs/README.md",
+   "size": 587
+  },
+  {
+   "name": "/dist/govuk/components/tabs/tabs.bundle.js",
+   "size": 14139
+  },
+  {
+   "name": "/dist/govuk/components/tabs/tabs.bundle.mjs",
+   "size": 12908
+  },
+  {
+   "name": "/dist/govuk/components/tabs/tabs.mjs",
+   "size": 8221
+  },
+  {
+   "name": "/dist/govuk/components/tabs/template.njk",
+   "size": 1797
+  },
+  {
+   "name": "/dist/govuk/settings/_colours-functional.scss",
+   "size": 5011
+  },
+  {
+   "name": "/dist/govuk/settings/_spacing.scss",
+   "size": 1262
+  },
+  {
+   "name": "/package.json",
+   "size": 3161
+  }
+ ]
+}

@@ -1,0 +1,195 @@
+{
+ "total": 7,
+ "offset": 0,
+ "limit": 150,
+ "data": [
+  {
+   "path": "/content/voice-and-tone",
+   "title": "Voice and tone",
+   "description": "Our design principles apply to the words used throughout our products to ensure that language seamlessly integrates with visual design. We apply these principles to ...",
+   "date": "",
+   "lastModified": 1789413150,
+   "image": "/content/media_127a0b0abdcc1c3f61101bff8d0cc382f1869ed51.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "Voice and tone\nJust as products should look and act consistently, they should al"
+   ],
+   "platform": "",
+   "tags": [
+    "voice",
+    "tone",
+    "brand guidelines",
+    "Adobe Style Guide",
+    "language guidelines",
+    "readability",
+    "user experience",
+    "tone spectrum"
+   ],
+   "fragments": [],
+   "implementation": ""
+  },
+  {
+   "path": "/getting-started/principles",
+   "title": "Principles",
+   "description": "Spectrum's foundational principles \u2014 rational, human, focused, and collaborative \u2014 reflect our core values that guide our decisions and how we work. These principles aren't ...",
+   "date": "",
+   "lastModified": 1789072467,
+   "image": "/getting-started/media_182dffe82dc731b3784bda2e1a6bd598cb45d55e4.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "Principles\n\nSpectrum's foundational principles \u2014 rational, human, focused, and c"
+   ],
+   "platform": "",
+   "tags": [],
+   "fragments": [],
+   "implementation": ""
+  },
+  {
+   "path": "/web/swc/components/button",
+   "title": "Button",
+   "description": "Buttons enable actions or navigation between views. They come in multiple styles to support different levels of emphasis, and are commonly used to guide progression through a flow.",
+   "date": "",
+   "lastModified": 1788886507,
+   "image": "/default-meta-image.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "Button implementation\nswc\ncomponent\nbutton Anatomy\n\nhttps://main--spectrum-hub--"
+   ],
+   "platform": "web",
+   "tags": [
+    "component",
+    "actions",
+    "navigation",
+    "emphasis",
+    "pending state",
+    "static color",
+    "accessibility",
+    "internationalization"
+   ],
+   "fragments": [
+    "/fragments/components/button/anatomy",
+    "/fragments/components/button/option-details",
+    "/fragments/components/button/states",
+    "/fragments/components/button/behaviors",
+    "/fragments/components/button/content-standards",
+    "/fragments/components/button/internationalization",
+    "/fragments/components/button/accessibility"
+   ],
+   "implementation": "swc"
+  },
+  {
+   "path": "/web/rsp/components/link",
+   "title": "Link",
+   "description": "Links provide navigation to a different location. They can appear within a paragraph or as standalone text.",
+   "date": "",
+   "lastModified": 1787151059,
+   "image": "/default-meta-image.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "Link\nimplementation\nrsp\ncomponent\nlink Component options\nhttps://main--spectrum-"
+   ],
+   "platform": "web",
+   "tags": [
+    "component",
+    "navigation",
+    "hyperlink",
+    "body copy",
+    "accessibility",
+    "quiet link"
+   ],
+   "fragments": [
+    "/fragments/components/link/option-details",
+    "/fragments/components/link/states",
+    "/fragments/components/link/usage-guidelines",
+    "/fragments/components/link/content-standards",
+    "/fragments/components/link/accessibility"
+   ],
+   "implementation": "rsp"
+  },
+  {
+   "path": "/foundations/app-frame/overview",
+   "title": "App frame",
+   "description": "The app frame is the core navigation direction for Spectrum 2. It\u2019s designed as a flexible framework that\u2019s readily adaptable to specific product needs while ...",
+   "date": "",
+   "lastModified": 1788501568,
+   "image": "/foundations/app-frame/media_1888eb15925ef38add72e53457d0b49a04da716e6.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "App frame\n\nThe app frame is the core navigation direction for Spectrum 2. It\u2019s d"
+   ],
+   "platform": "",
+   "tags": [
+    "App frame",
+    "Framework",
+    "Navigation",
+    "Browsing context",
+    "Editing context"
+   ],
+   "fragments": [],
+   "implementation": ""
+  },
+  {
+   "path": "/web/design-only/components/rating",
+   "title": "Rating",
+   "description": "Ratings allow scoring of an item or experience based on quality or preference. Common examples include images, forum posts, or products.",
+   "date": "",
+   "lastModified": 1786631048,
+   "image": "/default-meta-image.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "Rating Anatomy\n\nhttps://main--spectrum-hub--adobe.aem.page/fragments/components/"
+   ],
+   "platform": "web",
+   "tags": [],
+   "fragments": [
+    "/fragments/components/rating/anatomy",
+    "/fragments/components/rating/option-details",
+    "/fragments/components/rating/states",
+    "/fragments/components/rating/behaviors",
+    "/fragments/components/rating/usage-guidelines"
+   ],
+   "implementation": ""
+  },
+  {
+   "path": "/web/rsp/components/button",
+   "title": "Button",
+   "description": "Buttons enable actions or navigation between views. They come in multiple styles to support different levels of emphasis, and are commonly used to guide progression through a flow.",
+   "date": "",
+   "lastModified": 1787151059,
+   "image": "/default-meta-image.png?width=1200&format=pjpg&optimize=medium",
+   "content": [
+    "Button\nimplementation\nrsp\ncomponent\nbutton Anatomy\n\nhttps://main--spectrum-hub--"
+   ],
+   "platform": "web",
+   "tags": [
+    "component",
+    "actions",
+    "navigation",
+    "emphasis",
+    "pending state",
+    "static color",
+    "accessibility",
+    "internationalization"
+   ],
+   "fragments": [
+    "/fragments/components/button/anatomy",
+    "/fragments/components/button/option-details",
+    "/fragments/components/button/states",
+    "/fragments/components/button/behaviors",
+    "/fragments/components/button/usage-guidelines",
+    "/fragments/components/button/content-standards",
+    "/fragments/components/button/internationalization",
+    "/fragments/components/button/accessibility"
+   ],
+   "implementation": "rsp"
+  }
+ ],
+ "columns": [
+  "path",
+  "title",
+  "description",
+  "date",
+  "lastModified",
+  "image",
+  "content",
+  "platform",
+  "tags",
+  "fragments",
+  "implementation"
+ ],
+ ":type": "sheet"
+}

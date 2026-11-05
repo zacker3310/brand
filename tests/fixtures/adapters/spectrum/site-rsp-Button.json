@@ -1,0 +1,77 @@
+{
+ "props": [
+  {
+   "property": "children",
+   "type": "string | number | bigint | false | true | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<AwaitedReactNode>",
+   "kind": "unknown",
+   "values": [],
+   "required": true,
+   "description": "The content to display in the Button."
+  },
+  {
+   "property": "isDisabled",
+   "type": "boolean",
+   "kind": "boolean",
+   "values": [],
+   "description": "Whether the button is disabled."
+  },
+  {
+   "property": "onPress",
+   "type": "(e: PressEvent) => void",
+   "kind": "unknown",
+   "values": [],
+   "description": "Handler that is called when the press is released over the target.",
+   "inheritedFrom": "PressEvents"
+  },
+  {
+   "property": "isPending",
+   "type": "boolean",
+   "kind": "boolean",
+   "values": [],
+   "description": "Whether the button is in a pending state. This disables press and hover events\nwhile retaining focusability, and announces the pending state to screen readers."
+  },
+  {
+   "property": "variant",
+   "type": "\"primary\" | \"secondary\" | \"accent\" | \"negative\" | \"premium\" | \"genai\"",
+   "kind": "enum",
+   "values": [
+    "primary",
+    "secondary",
+    "accent",
+    "negative",
+    "premium",
+    "genai"
+   ],
+   "default": "'primary'",
+   "description": "The [visual style](https://spectrum.adobe.com/web/rsp/components/button#component-options) of\nthe button.",
+   "inheritedFrom": "ButtonStyleProps"
+  },
+  {
+   "property": "fillStyle",
+   "type": "\"fill\" | \"outline\"",
+   "kind": "enum",
+   "values": [
+    "fill",
+    "outline"
+   ],
+   "default": "'fill'",
+   "description": "The background style of the Button.",
+   "inheritedFrom": "ButtonStyleProps"
+  },
+  {
+   "property": "size",
+   "type": "\"S\" | \"M\" | \"L\" | \"XL\"",
+   "kind": "enum",
+   "values": [
+    "S",
+    "M",
+    "L",
+    "XL"
+   ],
+   "default": "'M'",
+   "description": "The size of the Button.",
+   "inheritedFrom": "ButtonStyleProps"
+  }
+ ],
+ "status": "stable"
+}

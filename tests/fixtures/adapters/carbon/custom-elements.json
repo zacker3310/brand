@@ -1,0 +1,119 @@
+{
+  "_deprecated": {
+    "message": "The WCA manifest format is deprecated and will be removed in the next major version (v3.0.0), in favor of the standard Custom Elements Manifest (CEM).",
+    "removeInVersion": "3.0.0",
+    "replacement": "Custom Elements Manifest (CEM)",
+    "issue": "https://github.com/carbon-design-system/carbon/issues/20670"
+  },
+  "version": "experimental",
+  "tags": [
+    {
+      "name": "cds-button",
+      "path": "./src/components/button/button.ts",
+      "description": "Button.",
+      "attributes": [
+        {
+          "name": "autofocus",
+          "description": "`true` if the button should have input focus when the page loads.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "batch-action",
+          "description": "`true` if the button is being used within a data table batch action toolbar",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "button-class-name",
+          "description": "Specify an optional className to be added to your Button"
+        },
+        {
+          "name": "danger-description",
+          "description": "Specify the message read by screen readers for the danger button variants",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "disabled",
+          "description": "Specify whether the Button should be disabled, or not",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "download",
+          "description": "The default file name, used if this button is rendered as `<a>`.",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "cds-combo-box",
+      "path": "./src/components/combo-box/combo-box.ts",
+      "description": "Combo box.",
+      "attributes": [
+        {
+          "name": "clear-selection-label",
+          "description": "The `aria-label` attribute for the icon to clear selection.",
+          "type": "string",
+          "default": "\"Clear selection\""
+        },
+        {
+          "name": "input-label",
+          "description": "The `aria-label` attribute for the `<input>` for filtering.",
+          "type": "string",
+          "default": "\"\""
+        },
+        {
+          "name": "should-filter-item",
+          "description": "Provide custom filtering behavior. This attribute will be ignored if\n`typeahead` is enabled and will default to `true`",
+          "type": "boolean | ShouldFilterItem",
+          "default": "false"
+        },
+        {
+          "name": "typeahead",
+          "description": "**Experimental**: will enable autocomplete and typeahead for the input field.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "allow-custom-value",
+          "description": "`true` to allow custom values that do not match any item in the list.",
+          "type": "boolean",
+          "default": "false"
+        },
+        {
+          "name": "aria-label",
+          "description": "'aria-label' of the ListBox component.\nSpecify a label to be read by screen readers on the container node",
+          "type": "string",
+          "default": "\"\""
+        }
+      ]
+    },
+    {
+      "name": "cds-ai-label",
+      "path": "./src/components/ai-label/ai-label.ts",
+      "description": "Basic AI Label.",
+      "attributes": [
+        {
+          "name": "slot",
+          "type": "string",
+          "default": "\"ai-label\"",
+          "deprecatedMessage": "the slot string will be renamed to \"decorator\""
+        },
+        {
+          "name": "ai-text",
+          "description": "Specify the correct translation of the AI text",
+          "type": "string",
+          "default": "\"AI\""
+        },
+        {
+          "name": "ai-text-label",
+          "description": "Specify additional text to be rendered next to the AI label in the inline variant",
+          "type": "string",
+          "default": "\"\""
+        }
+      ]
+    }
+  ]
+}

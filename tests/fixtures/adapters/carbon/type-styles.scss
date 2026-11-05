@@ -1,0 +1,67 @@
+// Excerpt of @carbon/type scss/_styles.scss (Apache-2.0, Copyright IBM Corp.)
+
+/// @type Map
+/// @access public
+/// @deprecated
+/// @group @carbon/type
+$caption-01: (
+  font-size: scale.type-scale(1),
+  font-weight: font-family.font-weight('regular'),
+  line-height: 1.33333,
+  letter-spacing: 0.32px,
+) !default;
+
+/// @type Map
+/// @access public
+/// @group @carbon/type
+$label-01: (
+  font-size: scale.type-scale(1),
+  font-weight: font-family.font-weight('regular'),
+  line-height: 1.33333,
+  letter-spacing: 0.32px,
+) !default;
+
+/// @type Map
+/// @access public
+/// @group @carbon/type
+$body-short-01: (
+  font-size: scale.type-scale(2),
+  font-weight: font-family.font-weight('regular'),
+  line-height: 1.28572,
+  letter-spacing: 0.16px,
+) !default;
+
+/// @type Map
+/// @access public
+/// @group @carbon/type
+$body-compact-01: $body-short-01 !default;
+
+/// @type Map
+/// @access public
+/// @group @carbon/type
+$body-long-01: (
+  font-size: scale.type-scale(2),
+  font-weight: font-family.font-weight('regular'),
+  line-height: 1.42857,
+  letter-spacing: 0.16px,
+) !default;
+
+/// @type Map
+/// @access public
+/// @group @carbon/type
+$expressive-heading-03: (
+  font-size: scale.type-scale(5),
+  font-weight: font-family.font-weight('regular'),
+  line-height: 1.4,
+  letter-spacing: 0,
+  breakpoints: (
+    xlg: (
+      font-size: scale.type-scale(5),
+      line-height: 1.4,
+    ),
+    max: (
+      font-size: scale.type-scale(6),
+      line-height: 1.334,
+    ),
+  ),
+) !default;

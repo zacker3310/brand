@@ -1,0 +1,59 @@
+/**
+ * Trimmed from @primer/primitives@11.10.0 src/tokens/base/color/light/light.json5 (MIT, Copyright (c) 2018 GitHub Inc.)
+ * @description Also used as a base for all other light mode themes
+ */
+{
+  base: {
+    color: {
+      black: {
+        $value: {
+          colorSpace: 'hsl',
+          components: [213.3, 12.7, 13.9],
+          hex: '#1f2328',
+        },
+        $type: 'color',
+        $extensions: {
+          'org.primer.figma': {
+            collection: 'base/color/light',
+          },
+        },
+      },
+      transparent: {
+        $value: {
+          colorSpace: 'hsl',
+          components: [0, 0, 100],
+          hex: '#ffffff',
+        },
+        $type: 'color',
+        $extensions: {
+          'org.primer.figma': {
+            collection: 'base/color/light',
+          },
+        },
+        alpha: 0,
+      },
+      white: {
+        $value: {
+          colorSpace: 'hsl',
+          components: [0, 0, 100],
+          hex: '#ffffff',
+        },
+        $type: 'color',
+      },
+      neutral: {
+        '0': {
+          $value: '{base.color.white}',
+          $type: 'color',
+        },
+        '13': {
+          $value: {
+            colorSpace: 'hsl',
+            components: [213.3, 12.7, 13.9],
+            hex: '#1f2328',
+          },
+          $type: 'color',
+        },
+      },
+    },
+  },
+}

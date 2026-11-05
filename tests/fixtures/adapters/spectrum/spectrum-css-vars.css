@@ -1,0 +1,6 @@
+:root {
+	--spectrum-accent-color-100: var(--spectrum-blue-100);
+	--spectrum-black: rgb(var(--spectrum-black-rgb));
+	--spectrum-blue-100: rgb(var(--spectrum-blue-100-rgb));
+	--spectrum-spacing-100: 8px;
+}

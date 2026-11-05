@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- Trimmed fixture from https://primer.style/product/components/button-group/accessibility/ (retrieved 2026-11-05) for ATLAS parser tests; most content removed. -->
+<html><head><meta name="description" content="ButtonGroup renders a series of buttons."/></head><body><main id="skip-nav"><div><div><nav aria-label="Breadcrumbs"><ol><li><a href="/product/">Product UI</a></li><li><a href="/product/components/">Components</a></li><li><a href="/product/components/button-group/">ButtonGroup</a></li><li><a aria-current="page" href="/product/components/button-group/accessibility/">Accessibility</a></li></ol></nav><h1>ButtonGroup</h1><p>ButtonGroup renders a series of buttons.</p></div><h2>Page navigation navigation</h2><nav aria-label="Page navigation"><ul role="list"><li role="presentation" aria-hidden="true"></li><li><a href="/product/components/button-group/"><span>Overview</span></a></li><li><a href="/product/components/button-group/guidelines/"><span>Guidelines</span></a></li><li><a aria-current="page" href="/product/components/button-group/accessibility/"><span>Accessibility</span></a></li></ul><div><div></div><button type="button" aria-haspopup="true" aria-expanded="false" id="_R_1aeav5ujb_"><span><span><span>More<span> items</span></span></span></span><span></span></button></div></nav><div class="RMjMGq_Markdown"><h3 id="interaction"><a href="#interaction">Interaction</a></h3><h4 id="keyboard"><a href="#keyboard">Keyboard<!-- --> </a></h4>
+<ul>
+<li>Each button must receive focus when navigating with the <code>Tab</code> key</li>
+<li><code>Enter</code> or <code>Space</code> must select the button</li>
+<li>Buttons must receive focus in a logical order, which in the majority of cases, will be the order that they are visually displayed</li>
+<li>When <code>role=&quot;toolbar&quot;</code> is used, individual buttons aren&#x27;t separately focusable. Instead, only one button receives focus, and users switch between all buttons in the toolbar using the cursor keys. This behaviour is baked into the component</li>
+<li>For a split button with a dropdown, ensure that when the dropdown is triggered, focus moves to the first item in the list. After an option is selected, focus should return to the button that originally triggered the dropdown</li>
+</ul>
+<h2 id="built-in-accessibility-features"><a href="#built-in-accessibility-features">Built-in accessibility features<!-- --> </a></h2>
+<ul>
+<li>For the split button with a dropdown that reveals an additional list of actions, the button element containing the downward-facing chevron should include <code>aria-haspopup=&quot;true&quot;</code> to indicate the presence of a submenu, along with <code>aria-expanded</code> to reflect the current state of the dropdown (i.e., <code>true</code> when open, <code>false</code> when closed)</li>
+<li>The dropdown&#x27;s list of actions should be structured using <code>&lt;li&gt;</code> elements within a <code>&lt;ul&gt;</code> that has <code>role=&quot;menu&quot;</code>, with each individual action assigned <code>role=&quot;menuitem&quot;</code></li>
+</ul>
+<h3 id="component-tests"><a href="#component-tests">Component tests<!-- --> </a></h3>
+<ul>
+<li>Verify that if the button group is intended as a toolbar, there is a <code>role=&quot;toolbar&quot;</code> on the <code>div</code> that wraps around the buttons, additionally, ensure there is an accessible name provided to this <code>toolbar</code>, this can be via an <code>aria-label</code></li>
+<li>In the case of the split button with a dropdown, ensure the correct ARIA attributes are applied to the button that triggers the list: <code>aria-haspopup=&quot;true&quot;</code>, and <code>aria-expanded</code> with a value of <code>true</code> when the list is expanded, and <code>false</code> when it is collapsed</li>
+</ul></div></div></main></div></div></main></body></html>

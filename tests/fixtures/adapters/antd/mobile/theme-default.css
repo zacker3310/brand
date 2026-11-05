@@ -1,0 +1,12 @@
+:root {
+  --adm-radius-s: 4px;
+  --adm-color-primary: #1677ff;
+  --adm-color-danger: #ff3141;
+  --adm-color-text: #333333;
+  --adm-color-border: #eeeeee;
+  --adm-color-background: #ffffff;
+  --adm-color-highlight: var(--adm-color-danger);
+  --adm-font-family: -apple-system, blinkmacsystemfont, 'Helvetica Neue',
+    helvetica, sans-serif;
+  --adm-border-color: var(--adm-color-border);
+}

@@ -1,0 +1,33 @@
+export const meta = {
+  title: 'Alert Dialog - Components',
+  package: '@twilio-paste/alert-dialog',
+  description: 'An alert dialog displays content over the main page and blocks any interaction with the page.',
+  slug: '/components/alert-dialog/',
+};
+
+import {AlertDialog} from '@twilio-paste/alert-dialog';
+import packageJson from '@twilio-paste/alert-dialog/package.json';
+import ComponentPageLayout from '../../../layouts/ComponentPageLayout';
+
+export default ComponentPageLayout;
+
+export const getStaticProps = async () => {
+  return {
+    props: {
+      data: {...packageJson},
+      pageHeaderData: {
+        storybookUrl: '/?path=/story/components-alert-dialog--alert-dialog-with-two-actions-story',
+      },
+    },
+  };
+};
+
+<LivePreview scope={{AlertDialog}} noInline>
+  {defaultExample}
+</LivePreview>
+
+## Guidelines
+
+### About Alert Dialog
+
+The Alert Dialog should be used to interrupt a user flow until a specific action is taken.

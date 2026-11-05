@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 2,
+  "components": {
+    "button": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/Button",
+      "id": "button",
+      "name": "Button",
+      "status": "alpha",
+      "a11yReviewed": "2025-01-08",
+      "stories": [
+        {
+          "id": "components-button--default",
+          "code": "() => <Button>Default</Button>"
+        },
+        {
+          "id": "components-button-features--primary",
+          "code": "() => <Button variant=\"primary\">Primary</Button>"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "block",
+          "type": "boolean",
+          "description": "Allow button width to fill its container."
+        },
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the button."
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button.\nThis is intended to be used when a system error such as an outage prevents the button from performing its usual action.\nInactive styles are slightly different from disabled styles because inactive buttons need to have an accessible color contrast ratio. This is because inactive buttons can have tooltips or perform an action such as opening a dialog explaining why it's inactive.\nIf both `disabled` and `inactive` are true, `disabled` takes precedence."
+        },
+        {
+          "name": "leadingIcon",
+          "type": "React.ComponentType<OcticonProps>",
+          "description": "An icon to display before the button text.",
+          "deprecated": true
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "description": "When true, the button is in a loading state."
+        },
+        {
+          "name": "size",
+          "type": "'small'\n| 'medium'\n| 'large'",
+          "defaultValue": "'medium'"
+        },
+        {
+          "name": "variant",
+          "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'\n| 'link'",
+          "defaultValue": "'default'",
+          "description": "Change the visual style of the button."
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "description": "Avoid disabling buttons because it will make them inaccessible to users who rely on keyboard navigation. Buttons that are disabled can not be clicked, selected, or navigated through.",
+          "defaultValue": ""
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    },
+    "action_menu": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/ActionMenu",
+      "id": "action_menu",
+      "name": "ActionMenu",
+      "status": "beta",
+      "a11yReviewed": "2025-01-08",
+      "stories": [
+        {
+          "id": "components-actionmenu--default",
+          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Button>Open menu</ActionMenu.Button>\n    <ActionMenu.Overlay width=\"medium\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Copy link clicked')}>\n          Copy link\n          <ActionList.TrailingVisual>\u2318C</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>\n          Quote reply\n          <ActionList.TrailingVisual>\u2318Q</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>\n          Edit comment\n          <ActionList.TrailingVisual>\u2318E</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Item\n          variant=\"danger\"\n          onSelect={() => alert('Delete file clicked')}\n        >\n          Delete file\n          <ActionList.TrailingVisual>\u2318D</ActionList.TrailingVisual>\n        </ActionList.Item>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`"
+        },
+        {
+          "name": "open",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`."
+        },
+        {
+          "name": "onOpenChange",
+          "type": "(open: boolean) => void",
+          "defaultValue": "",
+          "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`."
+        },
+        {
+          "name": "anchorRef",
+          "type": "React.RefObject<HTMLElement>",
+          "defaultValue": "",
+          "description": "Useful for defining an external anchor"
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "ActionMenu.Button",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactElement",
+              "defaultValue": "",
+              "required": true,
+              "description": ""
+            }
+          ],
+          "passthrough": {
+            "element": "Button",
+            "url": "/react/Button"
+          }
+        },
+        {
+          "name": "ActionMenu.Anchor",
+          "props": [
+            {
+              "name": "children",
+              "type": "React.ReactElement",
+              "defaultValue": "",
+              "required": true,
+              "description": "Accepts a single child element"
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "description": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ]
+    },
+    "tooltip_v2": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/TooltipV2",
+      "id": "tooltip_v2",
+      "name": "Tooltip",
+      "docsId": "tooltip",
+      "status": "beta",
+      "a11yReviewed": "2025-01-08",
+      "importPath": "@primer/react/next",
+      "stories": [
+        {
+          "id": "components-tooltipv2--default"
+        }
+      ],
+      "props": [
+        {
+          "name": "direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "s",
+          "description": "Sets where the tooltip renders in relation to the target."
+        },
+        {
+          "name": "text",
+          "required": true,
+          "type": "string",
+          "description": "The text to be displayed in the tooltip"
+        }
+      ],
+      "subcomponents": []
+    },
+    "tooltip": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/Tooltip",
+      "id": "tooltip",
+      "name": "Tooltip",
+      "docsId": "tooltip",
+      "status": "deprecated",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "deprecated-components-tooltip--default"
+        }
+      ],
+      "importPath": "@primer/react/deprecated",
+      "props": [
+        {
+          "name": "align",
+          "type": "'left' | 'right'"
+        },
+        {
+          "name": "direction",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "n",
+          "description": "Sets where the tooltip renders in relation to the target."
+        }
+      ],
+      "subcomponents": []
+    },
+    "text_input": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/TextInput",
+      "id": "text_input",
+      "name": "TextInput",
+      "status": "alpha",
+      "a11yReviewed": "2025-01-08",
+      "stories": [],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "size",
+          "type": "'small' | 'medium' | 'large'",
+          "defaultValue": "",
+          "description": "Creates a smaller or larger input than the default."
+        },
+        {
+          "name": "validationStatus",
+          "type": "'error' | 'success'",
+          "defaultValue": "",
+          "description": "Style the input to match the status"
+        }
+      ],
+      "subcomponents": []
+    },
+    "text_input_with_tokens": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/TextInputWithTokens",
+      "id": "text_input_with_tokens",
+      "name": "TextInputWithTokens",
+      "status": "deprecated",
+      "a11yReviewed": "2025-01-08",
+      "stories": [],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "tokens",
+          "type": "TokenProps[]",
+          "defaultValue": "",
+          "required": true,
+          "description": "The array of tokens to render"
+        },
+        {
+          "name": "onTokenRemove",
+          "type": "(tokenId: string|number) => void",
+          "defaultValue": "",
+          "required": true,
+          "description": "The function that gets called when a token is removed"
+        }
+      ],
+      "passthrough": {
+        "element": "TextInput",
+        "url": "/react/TextInput"
+      },
+      "subcomponents": []
+    },
+    "data_table": {
+      "source": "https://github.com/primer/react/tree/main/packages/react/src/DataTable",
+      "id": "data_table",
+      "name": "DataTable",
+      "status": "alpha",
+      "a11yReviewed": "2025-01-08",
+      "stories": [],
+      "importPath": "@primer/react/experimental",
+      "props": [
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely describes this table"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "Provide an id to an element which uniquely labels this table"
+        },
+        {
+          "name": "aria-describedby",
+          "type": "string",
+          "required": false,
+          "description": "Provide an id to an element which uniquely describes this table",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "required": false,
+          "description": "Provide an id to an element which uniquely labels this table",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    }
+  }
+}

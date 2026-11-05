@@ -1,0 +1,29 @@
+{
+  "color": {
+    "base": {
+      "gray": {
+        "light": { "value": "#CCCCCC", "comment": "Light gray" },
+        "dark": { "value": "#333333" }
+      },
+      "red": { "value": "#FF0000", "type": "color" }
+    },
+    "font": {
+      "base": { "value": "{color.base.gray.dark.value}" },
+      "secondary": { "value": "{color.base.gray.light.value}" },
+      "danger": { "value": "{color.base.red.value}" }
+    }
+  },
+  "size": {
+    "font": {
+      "small": { "value": "0.75", "comment": "the small size of the font" },
+      "base": { "value": "1rem" },
+      "large": { "value": "2rem" }
+    },
+    "padding": { "base": { "value": "16px" }, "double": { "value": "calc({size.padding.base.value} * 2)" } },
+    "line-height": { "body": { "value": "24px" } }
+  },
+  "z-index": { "modal": { "value": 1000 } },
+  "breakpoint": { "md": { "value": "768px" } },
+  "border": { "width": { "thin": { "value": "1px" } } },
+  "time": { "base": { "value": "200ms" } }
+}

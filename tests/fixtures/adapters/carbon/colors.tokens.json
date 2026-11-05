@@ -1,0 +1,58 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "$description": "Carbon color palette in DTCG format. This is the source of truth for @carbon/colors.",
+  "white": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ],
+      "hex": "#ffffff"
+    },
+    "$description": "white"
+  },
+  "gray": {
+    "10": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.956863,
+          0.956863,
+          0.956863
+        ],
+        "hex": "#f4f4f4"
+      },
+      "$description": "gray 10"
+    },
+    "50": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.552941,
+          0.552941,
+          0.552941
+        ],
+        "hex": "#8d8d8d"
+      },
+      "$description": "gray 50"
+    },
+    "100": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          0.086275,
+          0.086275,
+          0.086275
+        ],
+        "hex": "#161616"
+      },
+      "$description": "gray 100"
+    }
+  }
+}

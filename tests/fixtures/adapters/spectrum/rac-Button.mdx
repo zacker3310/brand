@@ -1,0 +1,22 @@
+import {Layout} from '../../src/Layout';
+export default Layout;
+
+import {Card, CardPreview, Content, Image, Text, InlineAlert, Heading} from '@react-spectrum/s2';
+import docs from 'docs:react-aria-components';
+import {Button as VanillaButton} from 'vanilla-starter/Button';
+import {Button as TailwindButton} from 'tailwind-starter/Button';
+/* import {Button as MacroButton} from './ButtonExample'; */
+import vanillaDocs from 'docs:vanilla-starter/Button';
+import tailwindDocs from 'docs:tailwind-starter/Button';
+import '../../tailwind/tailwind.css';
+import typesDocs from 'docs:@react-types/shared/src/events.d.ts';
+
+export const tags = ['btn'];
+export const relatedPages = [{'title': 'useButton', 'url': './Button/useButton'}];
+export const description = 'Allows a user to perform an action, with mouse, touch, and keyboard interactions.';
+
+# Button
+
+<PageDescription>{docs.exports.Button.description}</PageDescription>
+
+<ExampleSwitcher examples={['Vanilla CSS', 'Tailwind'/*, 'Style Macro'*/]}>

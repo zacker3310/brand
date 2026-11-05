@@ -1,0 +1,47 @@
+{% extends "layouts/app-layout.njk" %}
+
+{% set pageTitle = "Design principles" %}
+{% set pageDescription = "These principles guide all of our design. Use them to get started on a project and to help with making decisions." %}
+{% set pageSection = "Design system" %}
+{% set subSection = "Design system" %}
+{% set theme = "Principles" %}
+{% set dateUpdated = "April 2023" %}
+{% set backlog_issue_id = "442" %}
+
+{% block beforeContent %}
+  {% include "design-system/_breadcrumb.njk" %}
+{% endblock %}
+
+{% block bodyContent %}
+
+  <p>They're inspired by the <a href="https://www.gov.uk/government/publications/the-nhs-constitution-for-england/the-nhs-constitution-for-england">NHS Constitution</a>.</p>
+
+  <p><a href="/assets/nhs-design-principles.pdf">Download design principles poster (PDF, 126KB)</a></p>
+
+  <ol class="featured-list">
+
+    <li class="featured-list--item">
+      <div class="featured-list--item__content">
+        <span class="featured-list--item__number featured-list--item__number--mobile nhsuk-heading-xl">1</span>
+        <h2 class="featured-list--item__heading nhsuk-heading-m" id="put-people-at-the-heart-of-everything-you-do">
+          <span class="featured-list--item__number nhsuk-heading-l nhsuk-u-margin-bottom-1">1</span>
+          Put people at the heart of everything you do
+        </h2>
+        <p>Patients, family, carers, staff. Design things that understand and respect people's needs. Take the time to learn about the whole person, including their emotional, physical and technical needs.</p>
+        <p>Design with compassion.</p>
+      </div>
+    </li>
+
+    <li class="featured-list--item">
+      <div class="featured-list--item__content">
+        <span class="featured-list--item__number featured-list--item__number--mobile nhsuk-heading-l">2</span>
+        <h2 class="featured-list--item__heading nhsuk-heading-m" id="design-for-the-outcome">
+          <span class="featured-list--item__number nhsuk-heading-l">2</span>
+          Design for the outcome
+        </h2>
+        <p>What will good look like? What are the health, wellbeing or other measurable outcomes that your work will impact? Your work should improve lives, either directly or indirectly.</p>
+      </div>
+    </li>
+
+      </ol>
+{% endblock %}
