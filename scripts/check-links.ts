@@ -10,6 +10,8 @@ import { closeDb, getDb } from "../src/db/client";
 import { designSystems, sources } from "../src/db/schema";
 import { PoliteFetcher } from "../src/ingestion/http";
 
+const RESTRICTED = new Set([401, 403, 429]);
+
 async function main() {
   const args = process.argv.slice(2);
   const sys = args.includes("--system") ? args[args.indexOf("--system") + 1] : undefined;
@@ -25,6 +27,7 @@ async function main() {
   let ok = 0;
   let bad = 0;
   let blocked = 0;
+  let unverifiable = 0;
   const queue = [...rows];
   await Promise.all(
     Array.from({ length: 8 }, async () => {
@@ -34,21 +37,27 @@ async function main() {
         if (!res.blockedByRobots && (res.status === 405 || res.status === 403 || res.status === 0 || res.status >= 500))
           res = await http.get(r.url, { timeoutMs: 20_000, maxRetries: 1, maxBytes: 5 * 1024 * 1024 });
         const robots = res.blockedByRobots;
-        const error = robots ? "ROBOTS_DISALLOWED" : res.ok ? null : (res.error ?? `HTTP_${res.status}`);
+        // 401/403/429 mean "access restricted for automated clients" (e.g. npmjs.com bot challenge), not a
+        // broken link: the URL could not be verified. Recorded with a RESTRICTED_ error and counted apart.
+        const restricted = !robots && RESTRICTED.has(res.status);
+        const error = robots ? "ROBOTS_DISALLOWED" : res.ok ? null : restricted ? `RESTRICTED_${res.status}` : (res.error ?? `HTTP_${res.status}`);
         await db
           .update(sources)
           .set({ lastCheckedAt: new Date(), lastStatus: robots ? null : res.status, lastError: error, robotsAllowed: !robots })
           .where(eq(sources.id, r.id));
         if (robots) blocked++;
         else if (res.ok) ok++;
-        else {
+        else if (restricted) {
+          unverifiable++;
+          console.log(`RESTRICTED ${r.slug} ${r.kind} ${r.url} -> ${res.status}`);
+        } else {
           bad++;
           console.log(`BROKEN ${r.slug} ${r.kind} ${r.url} -> ${res.status} ${error}`);
         }
       }
     }),
   );
-  console.log(JSON.stringify({ checked: rows.length, ok, broken: bad, robotsBlocked: blocked }));
+  console.log(JSON.stringify({ checked: rows.length, ok, broken: bad, restricted: unverifiable, robotsBlocked: blocked }));
   await closeDb();
 }
 

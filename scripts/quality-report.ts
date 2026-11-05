@@ -85,7 +85,13 @@ async function main() {
   const brokenSources = await q<{ slug: string; kind: string; url: string; last_status: number | null; last_error: string | null }>(sql`
     select d.slug, s.kind, s.url, s.last_status, s.last_error from source s join design_system d on d.id = s.design_system_id
     where s.last_checked_at is not null and (s.last_status is null or s.last_status >= 400 or s.last_error is not null)
+      and coalesce(s.last_status, 0) not in (401, 403, 429) and coalesce(s.last_error, '') <> 'ROBOTS_DISALLOWED'
     order by d.slug limit 200`);
+  const restrictedSources = await q<{ host: string; last_status: number; n: string }>(sql`
+    select substring(s.url from '^https?://([^/]+)') host, s.last_status, count(*) n from source s
+    where s.last_checked_at is not null and s.last_status in (401, 403, 429)
+    group by 1, 2 order by 3 desc`);
+  const robotsSources = await q<Row>(sql`select count(*) n from source where last_error = 'ROBOTS_DISALLOWED'`);
   const sourcesChecked = await q<Row>(sql`select count(*) total, count(*) filter (where last_checked_at is not null) checked from source`);
 
   const dupComponents = await q<{ slug: string; name: string; n: string }>(sql`
@@ -204,8 +210,15 @@ async function main() {
   L("## Broken links");
   L();
   const sc = sourcesChecked[0] ?? {};
-  L(`Sources: ${sc.total}; link-checked: ${sc.checked}; failing: ${brokenSources.length}.`);
+  L(
+    `Sources: ${sc.total}; link-checked: ${sc.checked}; broken (404/410/5xx/network): ${brokenSources.length}; ` +
+      `restricted for automated clients (401/403/429, not verifiable, not counted as broken): ${restrictedSources.reduce((n, r) => n + num(r.n), 0)}; robots-disallowed: ${num(robotsSources[0]?.n)}.`,
+  );
   L();
+  if (restrictedSources.length) {
+    L("Restricted hosts: " + restrictedSources.map((r) => `${r.host} (HTTP ${r.last_status}) ${r.n}`).join(" · "));
+    L();
+  }
   if (brokenSources.length) {
     L("| System | Kind | URL | Status | Error |");
     L("|---|---|---|---|---|");
