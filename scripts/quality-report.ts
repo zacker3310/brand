@@ -122,11 +122,12 @@ async function main() {
   const restrictedDocs = await q<{ slug: string; status: string; n: string }>(sql`
     select d.slug, sd.status::text, count(*) n from source_document sd join design_system d on d.id = sd.design_system_id
     where sd.status <> 'active' group by 1, 2 order by 3 desc, 1 limit 50`);
-  const latestRunErrors = await q<{ slug: string; stage: string; code: string; n: string }>(sql`
-    select d.slug, e.stage, e.code, count(*) n from ingestion_error e join design_system d on d.id = e.design_system_id
+  const latestRunErrors = await q<{ slug: string; run_status: string; stage: string; code: string; n: string }>(sql`
+    select d.slug, r.status::text run_status, e.stage, e.code, count(*) n from ingestion_error e
+    join design_system d on d.id = e.design_system_id join ingestion_run r on r.id = e.run_id
     where e.resolved_at is null and e.severity = 'error'
       and e.run_id in (select distinct on (design_system_id) id from ingestion_run order by design_system_id, created_at desc)
-    group by 1, 2, 3 order by 4 desc, 1 limit 50`);
+    group by 1, 2, 3, 4 order by 5 desc, 1 limit 50`);
 
   const verifiedCount = num(registry.find((r) => r.registry_status === "verified")?.n);
   const c0 = completeness[0] ?? {};
@@ -248,12 +249,16 @@ async function main() {
   L(`Documents not active (gone, robots-blocked or erroring): ${restrictedDocs.reduce((n, r) => n + num(r.n), 0)}.`);
   for (const r of restrictedDocs) L(`- ${r.slug}: ${r.status} ${r.n}`);
   L();
-  L(`Errors in each system's latest run: ${latestRunErrors.reduce((n, r) => n + num(r.n), 0)}.`);
-  for (const r of latestRunErrors) L(`- ${r.slug}: ${r.stage}/${r.code} x${r.n}`);
+  L(`Errors recorded in each system's latest run: ${latestRunErrors.reduce((n, r) => n + num(r.n), 0)} (a run still succeeds when a retried attempt does).`);
+  for (const r of latestRunErrors) L(`- ${r.slug} (run ${r.run_status}): ${r.stage}/${r.code} x${r.n}`);
   L();
   L("## Duplicates and conflicts");
   L();
-  L(`Duplicate component names within a system (case-insensitive): ${dupComponents.length}.`);
+  L(
+    `Display names shared by distinct components within a system (case-insensitive): ${dupComponents.length}. ` +
+      "These are separate source records with distinct slugs and docs, e.g. current vs deprecated/legacy implementations " +
+      "(Primer, Cloudscape), web components vs the archived React package (Polaris), compat vs preview (Fluent).",
+  );
   for (const d of dupComponents.slice(0, 20)) L(`- ${d.slug}: "${d.name}" x${d.n}`);
   L();
   L("Latest-run extraction validation: " + (extractionStates.map((e) => `${e.validation} ${e.n}`).join(" · ") || "none"));
