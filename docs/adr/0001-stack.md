@@ -7,8 +7,8 @@ The host repository (`zacker3310/brand`) is a static brand-asset repo with no bu
 server-rendered web app, a relational store with full-text search, and background workers.
 
 ## Decision
-- ATLAS lives in a self-contained `atlas/` workspace with its own `package.json`. Nothing outside `atlas/` is touched,
-  so the jsDelivr-served brand assets are unaffected. (Recommendation: move to a dedicated repository before production.)
+- ATLAS replaced the former brand-asset contents of this repository and lives at the repository root. The old
+  assets remain reachable at the immutable jsDelivr pin `@fdace58` for sites that still reference them.
 - Next.js 16 App Router + React 19 + TypeScript strict (`noUncheckedIndexedAccess`).
 - PostgreSQL 16 with `pg_trgm` (fuzzy) and native full-text search. No search engine dependency for v1.
 - Drizzle ORM over Prisma: SQL-first, supports generated `tsvector` columns, partial unique indexes and

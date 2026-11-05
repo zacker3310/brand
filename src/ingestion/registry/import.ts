@@ -468,6 +468,9 @@ export async function importRegistry(opts: ImportOptions = {}): Promise<ImportRe
     });
   }
   const seen = new Map<string, string>();
+  // Derive replacedBy for rejected/duplicate entries from the replacement entries' replacesSlug.
+  const replacedBy = new Map(valid.filter((v) => v.entry.replacesSlug).map((v) => [v.entry.replacesSlug!, v.entry.slug]));
+  for (const v of valid) if (!v.entry.replacedBy && replacedBy.has(v.entry.slug)) v.entry = { ...v.entry, replacedBy: replacedBy.get(v.entry.slug)! };
   for (const v of valid) {
     const first = seen.get(v.entry.slug);
     if (first) {

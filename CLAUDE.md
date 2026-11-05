@@ -4,7 +4,7 @@ This repository is ATLAS, a design system intelligence platform: a source-attrib
 real-world design systems (components, tokens, patterns, accessibility guidance) with cross-system
 comparison. It replaced the former brand-asset contents of this repo.
 
-App root: `atlas/` (moving to the repository root; paths below are relative to the app root).
+The application lives at the repository root.
 
 ## Stack
 
