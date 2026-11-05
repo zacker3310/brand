@@ -103,45 +103,6 @@ function looksLikeSdToken(node: Record<string, unknown>): boolean {
   return false;
 }
 
-const NAME_HINTS: [RegExp, TokenCategory][] = [
-  [/(^|[.\-_/ ])(colou?r|bg|background|foreground|fg|border-?colou?r|fill|stroke|surface|text-?colou?r|palette|accent|brand|neutral|ink|icon-?colou?r|outline-?colou?r|scrim|shadow-?colou?r|link-?colou?r|focus-?colou?r)([.\-_/ ]|$)/i, "color"],
-  [/(^|[.\-_/ ])(font|type|typography|text-?style|line-?height|letter-?spacing|tracking|leading|font-?weight|font-?size|font-?family|heading|body|display|caption|label-?(small|medium|large))([.\-_/ ]|$)/i, "typography"],
-  [/(^|[.\-_/ ])(space|spacing|gap|padding|margin|inset|gutter|stack|size-?\d|layout-?\d)([.\-_/ ]|$)/i, "spacing"],
-  [/(^|[.\-_/ ])(radius|radii|rounded|corner|border-?width|border-?radius|stroke-?width|outline-?width|shape)([.\-_/ ]|$)/i, "shape"],
-  [/(^|[.\-_/ ])(shadow|elevation|z-?index|depth|layer)([.\-_/ ]|$)/i, "elevation"],
-  [/(^|[.\-_/ ])(duration|easing|ease|motion|transition|animation|timing|delay|curve)([.\-_/ ]|$)/i, "motion"],
-  [/(^|[.\-_/ ])(breakpoint|container|grid|viewport|screen|max-?width|min-?width|column)([.\-_/ ]|$)/i, "layout"],
-  [/(^|[.\-_/ ])(opacity|alpha|transparency)([.\-_/ ]|$)/i, "opacity"],
-];
-
-const TYPE_TO_CATEGORY: Record<string, TokenCategory> = {
-  color: "color",
-  fontFamily: "typography",
-  fontWeight: "typography",
-  fontSize: "typography",
-  lineHeight: "typography",
-  letterSpacing: "typography",
-  typography: "typography",
-  fontStyle: "typography",
-  textCase: "typography",
-  textDecoration: "typography",
-  duration: "motion",
-  cubicBezier: "motion",
-  transition: "motion",
-  shadow: "elevation",
-  borderRadius: "shape",
-  borderWidth: "shape",
-  border: "shape",
-  strokeStyle: "shape",
-  opacity: "opacity",
-  spacing: "spacing",
-  sizing: "spacing",
-  gradient: "color",
-};
-
-const COLOR_VALUE = /^(#[0-9a-f]{3,8}|rgba?\(|hsla?\(|oklch\(|oklab\(|lab\(|lch\(|color\()/i;
-const DURATION_VALUE = /^-?\d*\.?\d+(ms|s)$/i;
-
 /**
  * Infer token category. Returns category and whether it came from an explicit $type.
  * Delegates to categorize.ts (more precise rules: lineHeight vs spacing, z-index, breakpoints, border shorthands).

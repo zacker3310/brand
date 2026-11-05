@@ -5,7 +5,9 @@ const config = [
   ...nextVitals,
   ...nextTs,
   {
-    ignores: [".next*/**", "node_modules/**", ".cache/**", "drizzle/**", "playwright-report/**", "test-results/**", "next-env.d.ts"],
+    ignores: [".next*/**", "node_modules/**", ".cache/**", "drizzle/**", "playwright-report/**", "test-results/**", "next-env.d.ts",
+      // Verbatim third-party source snapshots used as parser fixtures; not our code.
+      "tests/fixtures/**/*.js", "tests/fixtures/**/*.mjs", "tests/fixtures/**/*.cjs"],
   },
   {
     rules: {

@@ -138,7 +138,11 @@ export function normalizeWc(frags: FluentFragment[], opts: { limit?: number } = 
       const parentEl = elements.find((x) => x.className === base);
       if (parentEl) relationships.push({ kind: "extends", targetSlug: tagToSlug.get(parentEl.tagName)!, targetType: null });
     }
-    coverage.relationships = relationships.length ? "documented" : "not-documented";
+    // TSDoc that links or names other elements ("designed for use in the Dropdown element",
+    // {@link (BaseDropdown:class)}) describes relationships this inheritance scan does not model.
+    const docText = el.rawDocs[0] ?? "";
+    const mentionsOthers = /\{@link\b/.test(docText) || elements.some((x) => x !== el && x.className.length > 3 && new RegExp(`\\b${x.className}\\b`).test(docText.replace(new RegExp(`\\b${el.className}\\b`, "g"), "")));
+    coverage.relationships = relationships.length ? "documented" : mentionsOthers ? "not-extracted" : "not-documented";
     if (relationships.length) ev.push(evidence(dts.prov, "relationships", "dts-custom-element", { location: `dist/web-components.d.ts#L${el.line}`, excerpt: `class ${el.className} extends ${el.chain[1]}` }));
     coverage.keyboard = "not-extracted";
     coverage.tokens = "not-extracted";

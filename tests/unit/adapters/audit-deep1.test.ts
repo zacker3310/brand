@@ -8,10 +8,12 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { parseDocsPage } from "@/ingestion/adapters/atlassian/html";
 import { parseA11y, parseUsage } from "@/ingestion/adapters/carbon/docs";
+import { wcDtsElements } from "@/ingestion/adapters/fluent";
 import { parseDts, resolveProps } from "@/ingestion/adapters/fluent/dts";
 import { componentEntries, parseF2Page, parseNav } from "@/ingestion/adapters/fluent/f2-html";
 import type { FluentFragment } from "@/ingestion/adapters/fluent/fragments";
 import { normalizeF2 } from "@/ingestion/adapters/fluent/normalize-f2";
+import { normalizeWc } from "@/ingestion/adapters/fluent/normalize-wc";
 import type { Prov as FluentProv } from "@/ingestion/adapters/fluent/shared";
 import { sentencesMatching } from "@/ingestion/adapters/govuk/docs";
 import { parseCem } from "@/ingestion/adapters/material/cem";
@@ -59,6 +61,49 @@ export declare type OptionProps = {
     const f = parseDts(`export declare type P = { a?: string } & { a: string; b?: number };`);
     const m = new Map(resolveProps("P", f).members.map((x) => [x.name, x]));
     expect(m.get("a")?.optional).toBe(false);
+  });
+});
+
+describe("fluent web components: relationships named in TSDoc", () => {
+  it("an element whose TSDoc names another element is not-extracted for relationships (DropdownOption)", () => {
+    const dts = `/**
+ * A Dropdown Custom HTML Element.
+ *
+ * @tag fluent-dropdown
+ *
+ * @public
+ */
+export declare class Dropdown extends FASTElement {
+    disabled?: boolean;
+}
+
+/**
+ * A DropdownOption Custom HTML Element.
+ *
+ * @tag fluent-dropdown-option
+ *
+ * @remarks
+ * The Option element is specifically designed for use in the Dropdown element.
+ *
+ * @public
+ */
+export declare class DropdownOption extends FASTElement {
+    value: string;
+}
+`;
+    const frags: FluentFragment[] = [
+      {
+        kind: "wc-dts",
+        prov: { sourceUrl: "https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.1.4/dist/web-components.d.ts", retrievedAt: "2026-11-05T00:00:00.000Z", contentHash: "abc", file: "dist/web-components.d.ts" },
+        npm: { pkg: "@fluentui/web-components", version: "3.1.4", publishedAt: null, license: "MIT", deprecated: null, url: "https://www.npmjs.com/package/@fluentui/web-components" },
+        elements: wcDtsElements(dts),
+        distDirs: [],
+      },
+    ];
+    const { components } = normalizeWc(frags);
+    const by = new Map(components.map((c) => [c.name, c]));
+    expect(by.get("DropdownOption")?.coverage.relationships).toBe("not-extracted");
+    expect(by.get("Dropdown")?.coverage.relationships).toBe("not-documented");
   });
 });
 
