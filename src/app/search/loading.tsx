@@ -11,7 +11,7 @@ export default function SearchLoading() {
           <Skeleton className="h-8 w-80 max-w-full" />
           <Skeleton className="h-10 w-full rounded-lg" />
         </div>
-        <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
           <div className="hidden space-y-5 lg:block">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="space-y-2">

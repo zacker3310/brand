@@ -275,7 +275,9 @@ export function MotionView(p: ViewProps) {
                   <NameCell t={t} p={p} label={g.label} />
                 </TokenAnchor>
                 <span className="col-span-2 row-start-2 min-w-0 md:col-span-1 md:row-start-auto">
-                  {duration !== null && kind ? (
+                  {duration === 0 ? (
+                    <span className="text-[11px] text-muted-foreground">0ms: changes apply instantly, nothing to animate.</span>
+                  ) : duration !== null && kind ? (
                     <MotionPreview durationMs={duration} easing={easing} label={t.name} />
                   ) : (
                     <span className="text-[11px] text-subtle-foreground">Not a duration or easing; not animated.</span>

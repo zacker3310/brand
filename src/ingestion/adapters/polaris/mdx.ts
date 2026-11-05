@@ -36,13 +36,19 @@ export function componentPathsFromRedirects(redirects: Redirect[]): string[] {
   return [...out].sort();
 }
 
-/** Normalize a docs link (absolute polaris.shopify.com URL or site-relative path) to a component doc path. */
-export function componentPathFromLink(href: string, redirects: Map<string, string>): string | null {
+/** Site path of a docs link under /components/ (absolute polaris.shopify.com URL or site-relative), redirects not applied. */
+export function componentSitePath(href: string): string | null {
   let p = href.trim();
   if (p.startsWith(LEGACY_DOCS_ORIGIN)) p = p.slice(LEGACY_DOCS_ORIGIN.length);
   else if (/^https?:\/\//.test(p)) return null;
   p = p.split("#")[0]!.split("?")[0]!.replace(/\/$/, "");
-  if (!p.startsWith("/components/")) return null;
+  return p.startsWith("/components/") ? p : null;
+}
+
+/** Normalize a docs link to a component doc path ("/components/<category>/<slug>"), following legacy redirects. */
+export function componentPathFromLink(href: string, redirects: Map<string, string>): string | null {
+  let p = componentSitePath(href);
+  if (!p) return null;
   for (let i = 0; i < 3; i++) {
     const r = redirects.get(p);
     if (!r) break;
@@ -76,8 +82,9 @@ export interface ReactMdxDoc {
   examples: ReactMdxExample[];
   lede: string | null;
   bestPractices: string[];
-  related: { text: string; path: string | null; url: string }[];
-  /** Every component doc path linked from the page (for discovery closure). */
+  /** "Related components" links: site paths before legacy redirects are applied (see componentPathFromLink). */
+  related: { text: string; sitePath: string | null; url: string }[];
+  /** Every /components/ site path linked from the page (pre-redirect; for discovery closure). */
   linkedPaths: string[];
   accessibility: {
     guidance: string | null;
@@ -93,7 +100,7 @@ export interface ReactMdxDoc {
 
 const str = (v: unknown): string | null => (typeof v === "string" && v.trim() ? collapse(v) : null);
 
-export function parseReactMdx(text: string, docPath: string, redirects: Map<string, string>): ReactMdxDoc {
+export function parseReactMdx(text: string, docPath: string): ReactMdxDoc {
   const { frontmatter: fm, body, tree } = parseMd(text);
   const wc = fm.webComponent as { name?: unknown; url?: unknown; type?: unknown } | undefined;
   const examples: ReactMdxExample[] = [];
@@ -127,7 +134,7 @@ export function parseReactMdx(text: string, docPath: string, redirects: Map<stri
   };
   const linked = new Set<string>();
   for (const l of linksOf(tree.children as Nodes[])) {
-    const p = componentPathFromLink(l.url, redirects);
+    const p = componentSitePath(l.url);
     if (p && p !== docPath) linked.add(p);
   }
   doc.linkedPaths = [...linked].sort();
@@ -140,9 +147,9 @@ export function parseReactMdx(text: string, docPath: string, redirects: Map<stri
     } else if (h === "related components") {
       for (const li of listItems(s.nodes)) {
         for (const l of linksOf(li.node)) {
-          const path = componentPathFromLink(l.url, redirects);
-          if (path === docPath) continue;
-          doc.related.push({ text: clip(li.text, 200) ?? l.text, path, url: l.url });
+          const sitePath = componentSitePath(l.url);
+          if (sitePath === docPath) continue;
+          doc.related.push({ text: clip(li.text, 200) ?? l.text, sitePath, url: l.url });
         }
       }
     } else if (h === "accessibility") {

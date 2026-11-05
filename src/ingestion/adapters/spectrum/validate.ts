@@ -5,7 +5,7 @@ import { ADAPTER_ID, type SpectrumSystem } from "./constants";
 const EXPECT: Record<SpectrumSystem, { components: string[]; minComponents: number; docsHost: RegExp; minPatterns: number }> = {
   "adobe-spectrum": { components: ["button", "text-field", "picker", "menu", "tabs", "checkbox", "switch"], minComponents: 60, docsHost: /^https:\/\/spectrum\.adobe\.com\/web\//, minPatterns: 5 },
   "react-spectrum": { components: ["button", "text-field", "picker", "menu", "dialog", "table-view", "tabs", "combo-box"], minComponents: 55, docsHost: /^https:\/\/react-spectrum\.adobe\.com\/[A-Z]/, minPatterns: 2 },
-  "react-aria": { components: ["button", "combo-box", "select", "menu", "dialog", "table", "tabs", "text-field"], minComponents: 40, docsHost: /^https:\/\/react-aria\.adobe\.com\/[A-Z]/, minPatterns: 2 },
+  "react-aria": { components: ["button", "combo-box", "select", "menu", "modal", "table", "tabs", "text-field"], minComponents: 40, docsHost: /^https:\/\/react-aria\.adobe\.com\/[A-Z]/, minPatterns: 2 },
 };
 
 export function validateSpectrumBundle(system: SpectrumSystem, bundle: NormalizedBundle, limit?: number): ValidationIssue[] {

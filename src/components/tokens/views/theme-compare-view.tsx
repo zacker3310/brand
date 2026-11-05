@@ -26,7 +26,7 @@ export function ThemeCompareView({
   differing: number;
   hrefFor: (id: string) => string;
 }) {
-  const opts = m.themedSets.map((s) => ({ value: s.slug, label: `${s.name} (${s.theme})` }));
+  const opts = m.themedSets.map((s) => ({ value: s.slug, label: s.theme && !s.name.toLowerCase().includes(s.theme.toLowerCase()) ? `${s.name} (${s.theme})` : s.name }));
   return (
     <div className="space-y-5">
       <Form action="/tokens" className="flex flex-wrap items-end gap-3 rounded-xl border bg-card p-4">

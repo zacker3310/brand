@@ -359,7 +359,7 @@ function interactionGroup(ctx: Ctx): MatrixGroup {
     rows.push(
       row(ctx, `key:${key}`, key, (c) => {
         const entries = keyboardOf(c).filter((k) => splitKeys(k.keys).includes(key));
-        if (entries.length) return cell({ kind: "keyboard", entries: dedupeKeyboard(entries) }, "has");
+        if (entries.length) return cell({ kind: "keyboard", entries: dedupeKeyboard(entries), hideKeys: true }, "has");
         const cov = a11yCoverage(c, "keyboard", "keyboard");
         return covCell(keyboardOf(c).length ? absentFrom(cov) : emptyField(cov));
       }, { hint: "Documented key" }),

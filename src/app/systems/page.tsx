@@ -143,7 +143,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-[232px_minmax(0,1fr)] lg:gap-8">
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-[232px_minmax(0,1fr)] lg:gap-8">
             {/* filters: visible on desktop; disclosed by a CSS-only toggle on small screens (works without JS) */}
             <div className="lg:sticky lg:top-20 lg:max-h-[calc(100dvh-6rem)] lg:self-start lg:overflow-y-auto lg:pr-1 lg:pb-6">
               <input type="checkbox" id="filters-toggle" className="peer sr-only" aria-label="Show filters" data-no-sync data-no-autosubmit />
@@ -225,7 +225,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
               ) : params.view === "list" ? (
                 <SystemsTable rows={result.rows} />
               ) : (
-                <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
                   {result.rows.map((r) => (
                     <li key={r.id}>
                       <SystemCard row={r} max={max} />

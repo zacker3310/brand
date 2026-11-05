@@ -65,7 +65,8 @@ function flatten(list: unknown, prefix: string, depth: number, out: MacroParam[]
     const name = prefix ? `${prefix}${parentIsArray ? "[]" : ""}.${seg}` : seg;
     const description = typeof raw.description === "string" ? clip(raw.description, 600) : null;
     const type = typeof raw.type === "string" ? raw.type : null;
-    if (out.length >= MAX_PARAMS || depth > MAX_DEPTH) {
+    if (out.length >= MAX_PARAMS || depth > MAX_DEPTH || out.some((x) => x.name === name)) {
+      // Bounds, or a duplicated option in the source (first definition kept).
       counter.dropped++;
     } else {
       out.push({

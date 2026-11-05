@@ -64,7 +64,7 @@ const EXAMPLE_QUERIES = ["React combobox", "date picker", "dark theme color toke
 
 export function Hero({ stats }: { stats: HomeStats }) {
   return (
-    <div className="grid gap-10 pt-6 pb-2 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
+    <div className="grid grid-cols-1 gap-10 pt-6 pb-2 sm:pt-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-end lg:gap-16">
       <div className="space-y-7">
         <p className="type-eyebrow">
           Design system intelligence
@@ -172,24 +172,26 @@ export function FeaturedSystems({ rows }: { rows: FeaturedRow[] }) {
           No system has been deeply indexed yet. Every system in the directory has verified registry facts; component and token extraction runs per adapter.
         </p>
       ) : (
-        <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
           {rows.map((r, i) => (
             <li key={r.slug}>
               <article className="group relative flex h-full flex-col rounded-xl border bg-card p-4 transition-colors hover:border-foreground/20">
-                <div className="flex items-start justify-between gap-3">
+                <div className="flex items-start gap-3">
                   <SystemMark name={r.name} slug={r.slug} />
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-[15px] leading-tight font-semibold tracking-tight">
+                      <Link href={`/systems/${r.slug}`} className="after:absolute after:inset-0 after:rounded-xl">
+                        {r.name}
+                      </Link>
+                    </h3>
+                    <p className="mt-1 truncate text-xs text-muted-foreground">
+                      {r.organization ?? "—"} · {SYSTEM_CATEGORY_LABELS[r.category as SystemCategory] ?? r.category}
+                    </p>
+                  </div>
                   <span className="tabular font-mono text-[11px] text-subtle-foreground" aria-label={`Rank ${i + 1}`}>
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
-                <h3 className="mt-3 text-[15px] leading-tight font-semibold tracking-tight">
-                  <Link href={`/systems/${r.slug}`} className="after:absolute after:inset-0 after:rounded-xl">
-                    {r.name}
-                  </Link>
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {r.organization ?? "—"} · {SYSTEM_CATEGORY_LABELS[r.category as SystemCategory] ?? r.category}
-                </p>
                 <dl className="mt-4 grid grid-cols-3 gap-2 border-t border-border/70 pt-3">
                   {[
                     { k: "Components", v: r.components },
@@ -231,7 +233,7 @@ export function ComponentGroups({ groups, indexedSystems }: { groups: GroupStat[
       rule={`ATLAS taxonomy groups with their canonical component types and the implementations indexed across ${plural(indexedSystems, "deeply indexed system")}.`}
       action={<SectionLink href="/components">Browse the catalog</SectionLink>}
     >
-      <ul className="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-5">
+      <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-2 lg:grid-cols-5">
         {groups.map((g) => (
           <li key={g.slug} className="bg-card">
             <Link href={`/components?group=${g.slug}`} className="group flex h-full flex-col gap-2 p-4 transition-colors hover:bg-surface-1">
@@ -373,7 +375,7 @@ export function CuratedCollections({ items }: { items: CuratedCollection[] }) {
   if (!items.length) return null;
   return (
     <HomeSection id="collections" eyebrow="Editorial" title="Curated collections" rule="Hand-picked sets maintained by ATLAS editors." action={<SectionLink href="/collections">All collections</SectionLink>}>
-      <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {items.map((c) => (
           <li key={`${c.ownerId}:${c.slug}`}>
             <Link href={`/collections/${c.slug}`} className="group flex h-full flex-col rounded-xl border bg-card p-4 transition-colors hover:border-foreground/20">
@@ -441,7 +443,7 @@ export function HonestyStrip({ stats }: { stats: HomeStats }) {
           How ATLAS verifies data <ArrowUpRightIcon className="size-3.5" aria-hidden />
         </Link>
       </div>
-      <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <ul className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         {cols.map((c) => (
           <li key={c.title} className="space-y-2">
             <div>{c.badge}</div>

@@ -55,7 +55,7 @@ export function SectionNav({ sections }: { sections: NavSection[] }) {
       <p className="type-eyebrow mb-3 hidden lg:block">On this page</p>
       <ul
         ref={barRef}
-        className="-mx-4 flex gap-1 overflow-x-auto px-4 py-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 lg:py-0 [&::-webkit-scrollbar]:hidden"
+        className="flex gap-1 overflow-x-auto px-4 py-2 [scrollbar-width:none] sm:px-6 lg:flex-col lg:gap-0.5 lg:overflow-visible lg:px-0 lg:py-0 [&::-webkit-scrollbar]:hidden"
       >
         {sections.map((s) => {
           const isActive = s.id === active;

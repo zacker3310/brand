@@ -10,7 +10,8 @@ const SLUG_RE = /^[A-Za-z0-9]{6,16}$/;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const saved = SLUG_RE.test(slug) ? await getComparisonBySlug(slug) : null;
-  return saved ? { title: saved.title, description: `Saved ATLAS comparison: ${saved.title}.` } : { title: "Saved comparison not found" };
+  if (!saved) notFound();
+  return { title: saved.title, description: `Saved ATLAS comparison: ${saved.title}.` };
 }
 
 /**

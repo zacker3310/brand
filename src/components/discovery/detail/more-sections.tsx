@@ -16,7 +16,7 @@ import { ClassificationBadge } from "./components-section";
 export function PatternsSection({ detail }: { detail: SystemDetail }) {
   const { patterns, core } = detail;
   return (
-    <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+    <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
       {patterns.map((p) => (
         <li key={p.slug} className="flex flex-col rounded-xl border bg-card p-4">
           <h3 className="text-sm font-semibold">
@@ -110,11 +110,11 @@ export function AccessibilitySection({ detail }: { detail: SystemDetail }) {
   const a = detail.accessibility;
   return (
     <div className="space-y-4">
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <CoverageBreakdown title="Component accessibility guidance" counts={a.a11yCoverage} total={a.components} />
         <CoverageBreakdown title="Keyboard interaction docs" counts={a.keyboardCoverage} total={a.components} />
       </div>
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="space-y-2.5 rounded-xl border bg-card p-4">
           <h3 className="text-xs font-medium text-muted-foreground">WAI-ARIA patterns referenced</h3>
           {a.ariaPatterns.length ? (
@@ -188,8 +188,8 @@ export function AccessibilitySection({ detail }: { detail: SystemDetail }) {
 export function FrameworksSection({ detail }: { detail: SystemDetail }) {
   const { frameworks, platforms } = detail;
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
-      <div className="overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Framework support" tabIndex={0}>
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
+      <div className="relative overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Framework support" tabIndex={0}>
         {frameworks.length ? (
           <table className="w-full min-w-[520px] text-sm">
             <caption className="sr-only">Frameworks with support level, package and verification state</caption>
@@ -503,7 +503,7 @@ export function RegistrySection({ detail }: { detail: SystemDetail }) {
   const { core, related } = detail;
   const checksOk = core.registryChecks.filter((c) => c.ok).length;
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
       <div className="space-y-3 rounded-xl border bg-card p-4">
         <h3 className="text-xs font-medium text-muted-foreground">Classification &amp; deduplication reasoning</h3>
         {core.registryNotes ? <p className="text-[13px] leading-relaxed text-foreground/90">{core.registryNotes}</p> : <MissingValue state="not-extracted" />}

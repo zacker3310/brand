@@ -83,7 +83,7 @@ export function ComponentsSection({ systemSlug, components }: { systemSlug: stri
               {g.rows.map((c) => (
                 <li
                   key={c.id}
-                  className="grid gap-x-4 gap-y-1.5 px-4 py-2.5 text-sm md:grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)_repeat(3,minmax(0,0.7fr))] md:items-center"
+                  className="grid grid-cols-1 gap-x-4 gap-y-1.5 px-4 py-2.5 text-sm md:grid-cols-[minmax(0,1.3fr)_minmax(0,1.2fr)_repeat(3,minmax(0,0.7fr))] md:items-center"
                 >
                   <div className="min-w-0">
                     <Link href={`/systems/${systemSlug}/components/${c.slug}`} className="font-medium hover:underline">

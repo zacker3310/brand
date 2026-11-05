@@ -153,19 +153,15 @@ export function SystemPicker({
                             disabled && "cursor-not-allowed opacity-50 hover:bg-transparent",
                           )}
                         >
-                          {hydrated ? (
-                            <input
-                              type="checkbox"
-                              name="systems"
-                              value={s.slug}
-                              checked={checked}
-                              disabled={disabled}
-                              onChange={(e) => toggle(s.slug, e.target.checked)}
-                              className="size-4 shrink-0 accent-primary"
-                            />
-                          ) : (
-                            <input type="checkbox" name="systems" value={s.slug} defaultChecked={checked} className="size-4 shrink-0 accent-primary" />
-                          )}
+                          <input
+                            type="checkbox"
+                            name="systems"
+                            value={s.slug}
+                            checked={checked}
+                            disabled={disabled}
+                            onChange={(e) => toggle(s.slug, e.target.checked)}
+                            className="size-4 shrink-0 accent-primary"
+                          />
                           <SystemMark name={s.name} slug={s.slug} size="sm" />
                           <span className="min-w-0 flex-1 truncate">{s.name}</span>
                           <span className={cn("shrink-0 text-xs", meta(s).includes("component") ? "text-muted-foreground" : "text-subtle-foreground")}>{meta(s)}</span>

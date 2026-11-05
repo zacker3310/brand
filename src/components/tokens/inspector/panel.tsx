@@ -146,17 +146,34 @@ function Copy({ text, label }: { text: string; label: string }) {
   );
 }
 
+/** Token name with break opportunities after dots/dashes (no mid-word breaks). */
+export function Breakable({ text }: { text: string }) {
+  const parts = text.split(/(?<=[.\-/])/);
+  return (
+    <>
+      {parts.map((p, i) => (
+        <span key={i}>
+          {p}
+          {i < parts.length - 1 && <wbr />}
+        </span>
+      ))}
+    </>
+  );
+}
+
 function TokenButton({ id, name, sub }: { id: string | null; name: string; sub?: string | null }) {
   const { select } = useInspector();
   const inner = (
-    <>
-      <span className="min-w-0 truncate font-mono text-[12px]">{name}</span>
-      {sub && <span className="shrink-0 font-mono text-[11px] text-muted-foreground">{sub}</span>}
-    </>
+    <span className="flex min-w-0 flex-col">
+      <span className="font-mono text-[12px] leading-snug">
+        <Breakable text={name} />
+      </span>
+      {sub && <span className="truncate font-mono text-[10.5px] text-muted-foreground">{sub}</span>}
+    </span>
   );
-  if (!id) return <span className="flex min-w-0 items-center gap-2">{inner}</span>;
+  if (!id) return <span className="min-w-0">{inner}</span>;
   return (
-    <button type="button" onClick={() => select(id)} className="flex min-w-0 items-center gap-2 rounded text-left hover:text-primary hover:underline focus-visible:underline">
+    <button type="button" onClick={() => select(id)} className="min-w-0 rounded text-left hover:text-primary hover:underline focus-visible:underline">
       {inner}
     </button>
   );
@@ -173,10 +190,12 @@ function EdgeTree({ fromId, edges, depth = 0, seen }: { fromId: string; edges: C
         if (e.targetId) next.add(e.targetId);
         return (
           <li key={`${e.fromId}-${e.ref}`} className="min-w-0">
-            <div className="flex min-w-0 items-center gap-2">
-              <CornerDownRightIcon className="size-3 shrink-0 text-subtle-foreground" aria-hidden />
-              {e.targetId && e.targetResolved !== undefined && <Swatch value={e.targetResolved} className="size-3.5" />}
-              <TokenButton id={e.targetId} name={e.targetName ?? e.ref} sub={e.targetSetSlug} />
+            <div className="flex min-w-0 items-start gap-2">
+              <CornerDownRightIcon className="mt-0.5 size-3 shrink-0 text-subtle-foreground" aria-hidden />
+              {e.targetId && swatchColor(e.targetResolved) && <Swatch value={e.targetResolved} className="mt-0.5 size-3.5" />}
+              <span className="min-w-0 flex-1">
+                <TokenButton id={e.targetId} name={e.targetName ?? e.ref} sub={e.targetSetSlug} />
+              </span>
               <AliasStateBadge state={e.state} compact />
             </div>
             {e.state === "theme-dependent" && <p className="mt-1 ml-5 text-[11px] text-muted-foreground">Resolves to a different value in each themed set; one is shown here.</p>}
@@ -223,8 +242,8 @@ function InspectorContent({ data, onClose, contrastHref }: { data: InspectorData
           </button>
         </div>
         <div className="flex items-start gap-1">
-          <h2 ref={headingRef} tabIndex={-1} className="min-w-0 font-mono text-[15px] leading-snug font-medium break-all outline-none">
-            {t.name}
+          <h2 ref={headingRef} tabIndex={-1} className="min-w-0 font-mono text-[15px] leading-snug font-medium [overflow-wrap:anywhere] outline-none">
+            <Breakable text={t.name} />
           </h2>
           <Copy text={t.name} label="token name" />
         </div>
@@ -264,7 +283,10 @@ function InspectorContent({ data, onClose, contrastHref }: { data: InspectorData
           {tv.length ? (
             <span className="text-muted-foreground">Per theme (below)</span>
           ) : resolved ? (
-            <code className="font-mono text-[12px] break-all">{resolved}</code>
+            <span className="flex flex-col">
+              {isColor && swatchColor(pv) && colorLabel(pv) !== resolved && <code className="font-mono text-[12px]">{colorLabel(pv)}</code>}
+              <code className={cn("font-mono text-[12px] break-all", isColor && swatchColor(pv) && colorLabel(pv) !== resolved && "text-muted-foreground")}>{resolved}</code>
+            </span>
           ) : (
             <span className="text-muted-foreground">No static value ({t.aliasState ?? "literal"})</span>
           )}

@@ -177,7 +177,7 @@ export function OverviewSection({ detail }: { detail: SystemDetail }) {
       <div className="overflow-hidden rounded-xl border bg-card">
         <dl className="divide-y divide-border/70">
           {facts.map((f) => (
-            <div key={f.label} className="grid gap-x-6 gap-y-1.5 px-4 py-3 sm:grid-cols-[9rem_minmax(0,1fr)_auto] sm:items-start">
+            <div key={f.label} className="grid grid-cols-1 gap-x-6 gap-y-1.5 px-4 py-3 sm:grid-cols-[9rem_minmax(0,1fr)_auto] sm:items-start">
               <dt className="pt-px text-xs font-medium text-muted-foreground">{f.label}</dt>
               <dd className="min-w-0 text-sm">
                 {f.value}
@@ -212,7 +212,7 @@ export function PhilosophySection({ detail }: { detail: SystemDetail }) {
     );
   }
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,18rem)]">
       <div className="space-y-3">
         {core.philosophy ? (
           <p className="max-w-3xl text-[15px] leading-relaxed text-foreground/90">{core.philosophy}</p>

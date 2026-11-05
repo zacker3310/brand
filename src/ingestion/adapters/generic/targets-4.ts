@@ -34,7 +34,7 @@ export const TARGETS_4: GenericTarget[] = [
     repo: {
       kind: "gh",
       name: "salesforce-ux/design-system",
-      ref: "master",
+      ref: "main",
       docsUrlTemplate: "https://v1.lightningdesignsystem.com/components/{segment}/",
     },
     include: "^ui/components/([a-z0-9-]+)/docs\\.mdx$",
@@ -43,7 +43,7 @@ export const TARGETS_4: GenericTarget[] = [
     titleSuffix: "\\s+-\\s+Lightning Design System$",
     maxPages: 100,
     notes:
-      "www.lightningdesignsystem.com now serves 'Lightning Design System 2' from a client-rendered zeroheight site (no links in static HTML; its sitemap.xml is zeroheight's own), so components are enumerated from the official SLDS source repository: one ui/components/<name>/docs.mdx per documented CSS blueprint (jsDelivr gh listing, 86 dirs). Docs URLs point at the SLDS 1 docs (v1.lightningdesignsystem.com/components/<name>/), whose static nav lists the same set; each URL is confirmed by a page fetch. lookups-mobile has docs.mdx but no v1 page (404) and is excluded. Caveats: v1.lightningdesignsystem.com has no robots.txt (404 => allowed) but its pages carry <meta name=robots content='noindex, nofollow'>; only the page <title>/<h1> are read to confirm the link (v1 pages have no meta description). Set fetchPages:false to avoid fetching them (docs URLs would then be dropped as unconfirmed). Blueprints are the html-css implementation; Lightning Web Components / design-system-react are separate.",
+      "www.lightningdesignsystem.com now serves 'Lightning Design System 2' from a client-rendered zeroheight site (no links in static HTML; its sitemap.xml is zeroheight's own), so components are enumerated from the official SLDS source repository: one ui/components/<name>/docs.mdx per documented CSS blueprint (jsDelivr gh listing of the 'main' branch, 86 dirs; the stale 'master' branch, package version 2.16.2, lists the same set). Docs URLs point at the SLDS 1 docs (v1.lightningdesignsystem.com/components/<name>/), whose static nav lists the same set; each URL is confirmed by a page fetch. lookups-mobile has docs.mdx but no v1 page (404) and is excluded. Caveats: v1.lightningdesignsystem.com has no robots.txt (404 => allowed) but its pages carry <meta name=robots content='noindex, nofollow'>; only the page <title>/<h1> are read to confirm the link (v1 pages have no meta description). Set fetchPages:false to avoid fetching them (docs URLs would then be dropped as unconfirmed). Blueprints are the html-css implementation; Lightning Web Components / design-system-react are separate.",
   },
   {
     slug: "sap-fiori",
@@ -65,7 +65,7 @@ export const TARGETS_4: GenericTarget[] = [
     frameworks: ["react"],
     fetchPages: false,
     notes:
-      "The Braid docs components index (server-rendered React, GitHub Pages; robots.txt allows all, no sitemap) links every component page in its sidebar. The 'Logic' section (BraidPortal, BraidProvider, BraidTestProvider, Link, ThemeNameConsumer and use* hooks) and the useToast hook are excluded as non-visual providers/hooks; 64 components remain. Page fetches are disabled: every page shares the site-wide meta description, and nav link texts are the exact component names (e.g. 'TextField').",
+      "The Braid docs components index (server-rendered React, GitHub Pages; robots.txt allows all, no sitemap) links every component page in its sidebar. The 'Logic' section (BraidPortal, BraidProvider, BraidTestProvider, Link, ThemeNameConsumer and use* hooks) and the useToast hook are excluded as non-visual providers/hooks; 58 components remain. Page fetches are disabled: every page shares the site-wide meta description, and nav link texts are the exact component names (e.g. 'TextField').",
   },
   {
     slug: "semantic-ui",
@@ -112,9 +112,10 @@ export const TARGETS_4: GenericTarget[] = [
     strategy: "sitemap",
     sitemapUrl: "https://www.skyscanner.design/latest/sitemap.xml",
     include: "^https://www\\.skyscanner\\.design/latest/components/(?:[a-z0-9-]+/)?([a-z0-9-]+)/[a-z0-9-]+-[A-Za-z0-9]{8}$",
+    exclude: ["/components/utility-components/(?:theming|z-index)/"],
     titleSuffix: "^[^|]+\\|\\s+",
     notes:
-      "skyscanner.design is a client-rendered Supernova site (sidebar not in static HTML); its /latest/sitemap.xml lists every page. /robots.txt redirects to an HTML page, i.e. no rules (allowed). Component pages are /latest/components/[<group>/]<component>/<tab>-<id> with one page per tab (overview, usage, web, compose, swift-ui, ...); the include rule captures the component directory so the tabs collapse to one component (109), using the shortest tab URL as the docs URL. Groups (cells/, chat-ui/, compare/) are skipped in the capture; utility-components/* and foundations are outside the rule. Titles read '<Tab> | <Component>' (the titleSuffix strips the tab). Pages carry <meta name=robots content=nofollow> (no noindex); the sitemap is the enumeration source, links are not followed. Frameworks unset: pages document web (React) and native (iOS/Android) implementations.",
+      "skyscanner.design is a client-rendered Supernova site (sidebar not in static HTML); its /latest/sitemap.xml lists every page. /robots.txt redirects to an HTML page, i.e. no rules (allowed). Component pages are /latest/components/[<group>/]<component>/<tab>-<id> with one page per tab (overview, usage, web, compose, swift-ui, ...); the include rule captures the component directory so the tabs collapse to one component, using the shortest tab URL as the docs URL. Groups (cells/, chat-ui/, compare/, utility-components/) are skipped in the capture; foundations are outside the rule. Excluded: utility-components/theming (a theming guide) and utility-components/z-index (Sass tokens); 104 components remain. Known adapter effect: components with several tab pages get keys prefixed with their parent path part (e.g. 'components-button'), see the workstream report. Titles read '<Tab> | <Component>' (the titleSuffix strips the tab). Pages carry <meta name=robots content=nofollow> (no noindex); the sitemap is the enumeration source, links are not followed. Frameworks unset: pages document web (React) and native (iOS/Android) implementations.",
   },
   {
     slug: "syncfusion-essential-studio",
@@ -123,7 +124,7 @@ export const TARGETS_4: GenericTarget[] = [
     include: "^https://ej2\\.syncfusion\\.com/documentation/([a-z0-9-]+)/getting-started$",
     fetchPages: false,
     notes:
-      "The Essential JS 2 (TypeScript/JavaScript) documentation introduction page statically lists every control with a link to its getting-started page (101 controls). ej2.syncfusion.com/robots.txt disallows the *-docs sitemaps, sample folders and versioned paths but allows /documentation/<control>/getting-started. Pages are not fetched: their titles/descriptions describe the getting-started guide, not the control. Names come from nav link texts where they match the URL slug, otherwise from the slug (e.g. 'Pivotview' for 'Pivot Table', 'Maskedtextbox' for 'Input Mask'). Scope caveat: Essential Studio spans 1,600+ components across platforms; this is the EJ2 web suite (each control also ships React/Angular/Vue/Blazor wrappers), so frameworks are left unset.",
+      "The Essential JS 2 (TypeScript/JavaScript) documentation introduction page statically lists every control with a link to its getting-started page (98 controls). ej2.syncfusion.com/robots.txt disallows the *-docs sitemaps, sample folders and versioned paths but allows /documentation/<control>/getting-started. Pages are not fetched: their titles/descriptions describe the getting-started guide, not the control. Names come from nav link texts where they match the URL slug, otherwise from the slug (e.g. 'Pivotview' for 'Pivot Table', 'Maskedtextbox' for 'Input Mask'). Scope caveat: Essential Studio spans 1,600+ components across platforms; this is the EJ2 web suite (each control also ships React/Angular/Vue/Blazor wrappers), so frameworks are left unset.",
   },
   {
     slug: "thumbprint",
@@ -141,7 +142,7 @@ export const TARGETS_4: GenericTarget[] = [
       kind: "npm",
       name: "@twilio-paste/core",
       ref: "21.5.0",
-      docsUrlTemplate: "https://raw.githubusercontent.com/twilio-labs/paste/main/packages/paste-website/src/pages/components/{segment}/index.mdx",
+      docsUrlTemplate: "https://github.com/twilio-labs/paste/blob/main/packages/paste-website/src/pages/components/{segment}/index.mdx",
     },
     include: "^([a-z0-9-]+)/package\\.json$",
     exclude: [
@@ -152,7 +153,7 @@ export const TARGETS_4: GenericTarget[] = [
     frameworks: ["react"],
     maxPages: 100,
     notes:
-      "paste.twilio.design now redirects to the GitHub repo and the docs live in-repo (packages/paste-website/src/pages); the Paste Storybook is behind a Chromatic login (401) and the repo is too large for a jsDelivr gh listing (403). Components are therefore enumerated from the latest @twilio-paste/core bundle (21.5.0, jsDelivr npm listing): one <name>/package.json entry per bundled package (116). Excluded: libraries (*-library), primitives (*-primitive, box, text, sibling-box, base-radio-checkbox), utilities and theming packages (utils, *-utils, customization, design-tokens, theme, style-props, types), and five packages without a docs page of the same name (footnote, form -> 'form-layout', inline-control-group, input-box, status -> 'status-badge'/'status-menu'). Docs URLs are the in-repo MDX docs on raw.githubusercontent.com (GitHub tree pages are robots-disallowed; GitHub blob pages would yield the repo-wide meta description), each confirmed by a fetch. Names come from the package slug; descriptions stay not-extracted (meta lives in an MDX export, not frontmatter).",
+      "paste.twilio.design now redirects to the GitHub repo and the docs live in-repo (packages/paste-website/src/pages); the Paste Storybook is behind a Chromatic login (401) and the repo is too large for a jsDelivr gh listing (403). Components are therefore enumerated from the latest @twilio-paste/core bundle (21.5.0, jsDelivr npm listing): one <name>/package.json entry per bundled package (116). Excluded: libraries (*-library), primitives (*-primitive, box, text, sibling-box, base-radio-checkbox), utilities and theming packages (utils, *-utils, customization, design-tokens, theme, style-props, types), and five packages without a docs page of the same name (footnote, form -> 'form-layout', inline-control-group, input-box, status -> 'status-badge'/'status-menu'). Docs URL template = GitHub blob of the in-repo MDX docs page (GitHub tree pages are robots-disallowed); the adapter confirms it by fetching the raw file. All 80 pages exist (HEAD-checked 2026-11-05), but they carry their title/description in an MDX 'export const meta = {...}' block and have no '# ' heading, so the adapter currently cannot confirm them and records no docs URL (see the workstream report's requested change). Names come from the package slug.",
   },
   {
     slug: "uikit",
@@ -203,15 +204,15 @@ export const TARGETS_4: GenericTarget[] = [
     repo: {
       kind: "gh",
       name: "vuetifyjs/vuetify",
-      ref: "master",
-      docsUrlTemplate: "https://vuetifyjs.com/en/components/{segment}/",
+      ref: "v{npm:vuetify}",
+      docsUrlTemplate: "https://github.com/vuetifyjs/vuetify/blob/{ref}/{path}",
     },
     include: "^packages/docs/src/pages/en/components/([a-z0-9-]+)\\.md$",
     exclude: ["/components/all\\.md$"],
     frameworks: ["vue"],
     maxPages: 100,
     notes:
-      "vuetifyjs.com is a client-rendered SPA (robots.txt allows all, but /sitemap.xml returns the SPA shell), so components are enumerated from the docs sources in the official repo: packages/docs/src/pages/en/components/<page>.md (jsDelivr gh listing), which the docs router serves at /en/components/<page>/ (87 pages, names are the page slugs, e.g. 'App Bars'). Excluded: all.md (the 'All components' index). Not covered: the multi-page Data tables section (data-tables/*.md) and the component explorer. Caveat: the confirming page fetch only proves the SPA responds (it returns 200 for any route); the page's existence is evidenced by the source file. Descriptions stay not-extracted (the SPA shell's description is site-wide).",
+      "vuetifyjs.com is a client-rendered SPA (robots.txt allows all, but /sitemap.xml returns the SPA shell), so components are enumerated from the docs sources in the official repo: packages/docs/src/pages/en/components/<page>.md, which the docs router serves at /en/components/<page>/. Listed via jsDelivr at the release tag of the latest npm version (v{npm:vuetify}, v4.3.2 on 2026-11-05): jsDelivr's cached 'master' listing was stale (88 vs 106 pages, missing e.g. avatar-groups, hotkeys, split-buttons). Docs URL = GitHub blob of the page source (proven by the listing; the vuetifyjs.com route cannot be confirmed statically because the SPA answers 200 for any path); name = its '# Heading' (page titles are plural, e.g. 'Buttons'), description = first paragraph. Excluded: all.md (the 'All components' index). Not covered: the multi-page Data tables section (data-tables/*.md) and the component explorer.",
   },
   {
     slug: "web-awesome",

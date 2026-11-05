@@ -352,7 +352,7 @@ const KEY_PATTERNS: [RegExp, string][] = [
   [/\b(?:left|right) arrow(?: key)?\b/i, "ArrowLeft / ArrowRight"],
   [/\b(?:up|down) arrow(?: key)?\b/i, "ArrowUp / ArrowDown"],
   [/\barrow keys?\b/i, "Arrow keys"],
-  [/\btab key\b|\bpress(?:ing|es)? tab\b|\b(?:use|using) tab\b|\btab(?:bing)? (?:to|through|into|out|order)\b/i, "Tab"],
+  [/\btab key\b|\bpress(?:ing|es)? (?:the )?tab\b|\b(?:use|using) (?:the )?tab\b|\btab(?:bing)? (?:to|through|into|out of)\b/i, "Tab"],
   [/\benter key\b|\bpress(?:ing|es)? enter\b|\benter or space\b|\bspace or enter\b|\benter\/space\b/i, "Enter"],
   [/\bspace ?bar\b|\bspace key\b|\bpress(?:ing|es)? space\b|\benter or space\b|\bspace or enter\b/i, "Space"],
   [/\b(?:esc|escape) key\b|\bpress(?:ing|es)? (?:esc|escape)\b|\bESC\b|\bEscape\b/, "Escape"],
@@ -364,7 +364,7 @@ const KEY_PATTERNS: [RegExp, string][] = [
 export function extractKeyboard(textBlock: string): { keys: string; action: string }[] {
   const out: { keys: string; action: string }[] = [];
   const seen = new Set<string>();
-  for (const sentence of splitSentences(cleanText(textBlock))) {
+  for (const sentence of sentencesOf(textBlock)) {
     if (!/\bkey(?:s|board)?\b|\bpress|\barrow\b|\btab(?:bing)?\b|\bescape\b|\besc\b/i.test(sentence)) continue;
     const keys: string[] = [];
     for (const [re, k] of KEY_PATTERNS) if (re.test(sentence) && !keys.includes(k)) keys.push(k);
@@ -387,8 +387,11 @@ export function extractRoles(textBlock: string): string[] {
   return [...roles].sort();
 }
 
+/** Complete sentences only (a bounded section may end in a truncated "…" sentence). */
+const sentencesOf = (textBlock: string) => splitSentences(cleanText(textBlock)).filter((x) => !x.endsWith("…"));
+
 function sentencesMatching(textBlock: string, re: RegExp, max: number): string | null {
-  const s = splitSentences(cleanText(textBlock)).filter((x) => re.test(x));
+  const s = sentencesOf(textBlock).filter((x) => re.test(x));
   return s.length ? shortText(s.join(" "), max) : null;
 }
 
@@ -445,6 +448,9 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   const notes = [code, examples, usage, pages.overview, pages.about].filter((p): p is PageRef => !!p).flatMap((p) => p.page.statusNotes.map((n) => ({ n, p })));
   const phaseNote = notes.find(({ n }) => lifecycleFrom(n.heading));
   const llmsEntry: LlmsComponentEntry | null = pkg && a.llms ? (a.llms.entries.find((x) => x.packageName === pkg && normKey(x.exportName) === normKey(name)) ?? null) : null;
+  // Package-level status: every export of the package listed with the same status (main docs page of the package only).
+  const pkgEntries = pkg && a.llms && !llmsEntry && entry.path === `/components/${pkg.replace(/^@atlaskit\//, "")}` ? a.llms.entries.filter((x) => x.packageName === pkg) : [];
+  const pkgStatus = pkgEntries.length && pkgEntries.every((x) => x.status && x.status === pkgEntries[0]!.status) ? pkgEntries[0]!.status : null;
   const subPage = npm?.info?.website?.subPages.find((sp) => normKey(sp.title) === normKey(name) || sp.id === entry.path.split("/").pop());
   if (phaseNote) {
     lifecycle = lifecycleFrom(phaseNote.n.heading)!;
@@ -461,6 +467,9 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   } else if (lifecycleFrom(llmsEntry?.status ?? null)) {
     lifecycle = lifecycleFrom(llmsEntry!.status)!;
     evidence.push(ev(a.llms!.stamp, "lifecycle", METHOD.llms, { location: `line ${llmsEntry!.line}`, excerpt: `${llmsEntry!.packageName} ${llmsEntry!.exportName}: Status ${llmsEntry!.status}`, confidence: 0.85 }));
+  } else if (lifecycleFrom(pkgStatus)) {
+    lifecycle = lifecycleFrom(pkgStatus)!;
+    evidence.push(ev(a.llms!.stamp, "lifecycle", METHOD.llms, { location: `lines ${pkgEntries.map((x) => x.line).join(", ")}`, excerpt: `${pkg}: all ${pkgEntries.length} exports (${pkgEntries.map((x) => x.exportName).join(", ")}) have Status ${pkgStatus}`, confidence: 0.8 }));
   }
 
   // Classification (inferred from the name; overrides where the taxonomy match is wrong/missing)

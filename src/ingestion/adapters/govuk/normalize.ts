@@ -170,7 +170,7 @@ const STATE_MODIFIERS: Record<string, { name: string; canonical: string }> = {
   focused: { name: "Focused", canonical: "focus" },
 };
 const NON_VARIANT_MODIFIER = /^(js-|no-js|hidden$|visually-hidden|visible$|with-|has-|is-)/;
-const SIZE_MODIFIER = /^(small|large|s|m|l|xl|width-.+|fixed-width.*|full-width|extra-letter-spacing)$/;
+const SIZE_MODIFIER = /^(small|large|s|m|l|xl|width-.+|fixed-width.*|full-width)$/;
 const TONE_MODIFIER = /^(grey|green|turquoise|teal|blue|light-blue|purple|pink|magenta|red|orange|yellow|brown|black|white)$/;
 
 function variantAxis(mod: string): string {

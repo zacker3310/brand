@@ -153,7 +153,7 @@ export default async function SearchPage({ searchParams }: Props) {
           }
         />
       ) : (
-        <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
           <aside aria-label="Refine results" className="order-2 lg:order-1">
             <details className="group/f rounded-xl border bg-card p-3 lg:hidden" open={hasFilters(state) || undefined}>
               <summary className="cursor-pointer list-none text-[13px] font-medium select-none [&::-webkit-details-marker]:hidden">

@@ -44,7 +44,7 @@ import { TypographyView } from "./views/typography-view";
 /** Tokens per page by category (visual views pack whole groups up to roughly this many tokens). */
 const PAGE_SIZE: Record<TokenCategory, number> = {
   color: 240,
-  typography: 80,
+  typography: 320,
   spacing: 150,
   shape: 120,
   elevation: 80,
@@ -155,8 +155,10 @@ export async function TokenExplorer({ raw }: { raw: Raw }) {
   let pagination: React.ReactNode = null;
 
   if (view === "themes") {
-    const light = themedSets.find((s) => s.theme === "light") ?? themedSets[0]!;
-    const dark = themedSets.find((s) => s.theme === "dark" && s.id !== light.id) ?? themedSets.find((s) => s.id !== light.id)!;
+    // default pair: the largest light set and the largest dark set (usually the semantic theme files)
+    const bySize = [...themedSets].sort((x, y) => y.tokenCount - x.tokenCount);
+    const light = bySize.find((s) => s.theme === "light") ?? bySize[0]!;
+    const dark = bySize.find((s) => s.theme === "dark" && s.id !== light.id) ?? bySize.find((s) => s.id !== light.id)!;
     const a = themedSets.find((s) => s.slug === params.a) ?? light;
     const b = themedSets.find((s) => s.slug === params.b) ?? dark;
     const cmp = await getThemeComparison(system.id, a, b, { q: params.q || undefined, page: params.page, pageSize: THEME_PAGE });
@@ -214,9 +216,9 @@ export async function TokenExplorer({ raw }: { raw: Raw }) {
         ramps: category === "color",
         order: VALUE_ORDER.has(category) ? "value" : "name",
         setOrder: scopeSets.map((s) => s.id),
-        maxDepth: category === "typography" ? 4 : 3,
       });
-      const pages = paginateGroups(groups, PAGE_SIZE[category]);
+      // keep sibling tokens (same parent path) on one page so composed typography specimens stay whole
+      const pages = paginateGroups(groups, PAGE_SIZE[category], category === "typography" ? (r) => r.path.slice(0, -1).join(".") : undefined);
       const page = Math.min(params.page, Math.max(1, pages.length));
       const slice = pages[page - 1] ?? [];
       const { tokens, edges } = await getTokensByIds(pageRowIds(slice));

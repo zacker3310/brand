@@ -59,10 +59,12 @@ export const DOC_KINDS = {
   redirects: "polaris-archive-redirects",
   reactMdx: "polaris-react-mdx",
   reactDts: "polaris-react-dts",
+  reactIndex: "polaris-react-index",
   storybook: "polaris-storybook-index",
   tokensCss: "polaris-tokens-css",
   tokensMeta: "polaris-tokens-esm-meta",
   license: "polaris-license",
+  readme: "polaris-readme",
 } as const;
 
 /** Evidence extraction methods: "adapter:polaris:<parser>". */

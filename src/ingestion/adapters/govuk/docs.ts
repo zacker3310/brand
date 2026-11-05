@@ -167,9 +167,13 @@ const KEY_WORDS: [RegExp, string][] = [
 ];
 const KEY_CONTEXT_RE = /\b(press(?:es|ed|ing)?|key presses|keyboard|key)\b/i;
 
-/** Documented keyboard interactions: sentences that name a key and describe pressing it. */
+/**
+ * Documented keyboard interactions: sentences that name a key and describe pressing it. At most two
+ * sentences per key set, preferring present-tense instructions ("press shift 3 times").
+ */
 export function keyboardSentences(blocksBySection: { section: string | null; blocks: string[] }[]): DocKeyboard[] {
-  const out: DocKeyboard[] = [];
+  const found: (DocKeyboard & { score: number; order: number })[] = [];
+  let order = 0;
   for (const { section, blocks } of blocksBySection) {
     for (const b of blocks) {
       for (const s of splitSentences(b)) {
@@ -179,12 +183,19 @@ export function keyboardSentences(blocksBySection: { section: string | null; blo
         // "We considered ... the 'esc' key" style sentences describe rejected options, not behaviour.
         if (/\bconsidered\b|\bwe could not\b|\binstead of\b/i.test(s) && !/\bpress(?:es|ing)? shift\b/i.test(s)) continue;
         const action = firstSentences(s, 220)!;
-        if (out.some((k) => k.action.toLowerCase() === action.toLowerCase())) continue;
-        out.push({ keys: keys.join(" / "), action, section });
+        if (found.some((k) => k.action.toLowerCase() === action.toLowerCase())) continue;
+        const score = /\bpress(es)?\b/i.test(s) ? 2 : /\buse (the )?\w+ key\b/i.test(s) ? 1.5 : 1;
+        found.push({ keys: keys.join(" / "), action, section, score, order: order++ });
       }
     }
   }
-  return out.slice(0, 10);
+  const byKeys = new Map<string, typeof found>();
+  for (const f of found) byKeys.set(f.keys, [...(byKeys.get(f.keys) ?? []), f]);
+  const kept = [...byKeys.values()].flatMap((g) => [...g].sort((a, b) => b.score - a.score || a.order - b.order).slice(0, 2));
+  return kept
+    .sort((a, b) => a.order - b.order)
+    .slice(0, 10)
+    .map(({ keys, action, section }) => ({ keys, action, section }));
 }
 
 /* ---------------------------- component doc pages --------------------------- */
@@ -451,6 +462,6 @@ export function parsePrinciplesApi(text: string): { title: string | null; update
 export function parseReadme(text: string): { title: string | null; guidance: string | null } {
   const title = /^#\s+(.+)$/m.exec(text)?.[1]?.trim() ?? null;
   const g = /##\s+Guidance and Examples\s*\n+([\s\S]*?)(?:\n##\s|$)/.exec(text)?.[1] ?? null;
-  const guidance = g ? firstSentences(collapse(g.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")), 280) : null;
+  const guidance = g ? (splitSentences(collapse(g.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")))[0] ?? null) : null;
   return { title, guidance };
 }

@@ -40,14 +40,14 @@ const SITEMAP_MAX_BYTES = 40 * 1024 * 1024;
 const prefetched = new Map<string, FetchResult>();
 
 /** Target config changes alter parse output, so they are part of the adapter version (forces re-parse). */
-const TARGETS_FINGERPRINT = sha256(stableStringify(GENERIC_TARGETS)).slice(0, 10);
+const fingerprint = (targets: GenericTarget[]) => sha256(stableStringify(targets)).slice(0, 10);
 
 export function targetFor(slug: string): GenericTarget | undefined {
   return GENERIC_TARGETS.find((t) => t.slug === slug);
 }
 
-function requireTarget(slug: string): GenericTarget {
-  const t = targetFor(slug);
+function requireTarget(targets: GenericTarget[], slug: string): GenericTarget {
+  const t = targets.find((x) => x.slug === slug);
   if (!t) throw new Error(`generic: no target configured for "${slug}"`);
   return t;
 }
@@ -226,99 +226,104 @@ const stampOf = (ctx: AdapterContext, doc: DiscoveredDocument, result: FetchResu
 /** Per-run truncation counts (for validate()). */
 const truncatedBySystem = new Map<string, number>();
 
-export const adapter: SourceAdapter = {
-  id: ADAPTER_ID,
-  version: `1.0.0+${TARGETS_FINGERPRINT}`,
-  systems: GENERIC_TARGETS.map((t) => t.slug),
-  description:
-    "Generic metadata-level adapter: component names, docs URLs and page-specific meta descriptions enumerated from each system's official sitemap, docs index page or repository/package file listing (researched per system); classification inferred; all other fields not-extracted.",
+/** Build the generic adapter over a target list (tests inject their own targets). */
+export function createGenericAdapter(targets: GenericTarget[] = GENERIC_TARGETS): SourceAdapter {
+  return {
+    id: ADAPTER_ID,
+    version: `1.0.0+${fingerprint(targets)}`,
+    systems: targets.map((t) => t.slug),
+    description:
+      "Generic metadata-level adapter: component names, docs URLs and page-specific meta descriptions enumerated from each system's official sitemap, docs index page or repository/package file listing (researched per system); classification inferred; all other fields not-extracted.",
 
-  async discover(ctx) {
-    const t = requireTarget(ctx.systemSlug);
-    const indexDocs = t.strategy === "sitemap" ? await discoverSitemaps(ctx, t) : t.strategy === "nav" ? await discoverNav(ctx, t) : await discoverListing(ctx, t);
-    const repoRef = (indexDocs[0]?.doc.meta as { repo?: { ref?: string } } | undefined)?.repo?.ref;
-    const { planned, total, truncated } = planComponents(t, indexDocs.map((d) => d.candidates), ctx.limit, repoRef);
-    truncatedBySystem.set(ctx.systemSlug, truncated);
-    ctx.log.info(`generic: ${t.slug}: ${t.strategy} enumerated ${total} components (${planned.length} selected, ${planned.filter((p) => p.fetchPage).length} pages to fetch)`);
-    if (!total) ctx.log.warn(`generic: ${t.slug}: no URLs/paths matched the include rule`);
-    const docs: DiscoveredDocument[] = indexDocs.map((d) => d.doc);
-    let i = 0;
-    for (const p of planned) {
-      if (!p.fetchPage || !p.fetchUrl || !p.docsUrl) continue;
-      let origin: string;
-      try {
-        origin = new URL(p.docsUrl).origin;
-        new URL(p.fetchUrl);
-      } catch {
-        continue;
+    async discover(ctx) {
+      const t = requireTarget(targets, ctx.systemSlug);
+      const indexDocs = t.strategy === "sitemap" ? await discoverSitemaps(ctx, t) : t.strategy === "nav" ? await discoverNav(ctx, t) : await discoverListing(ctx, t);
+      const repoRef = (indexDocs[0]?.doc.meta as { repo?: { ref?: string } } | undefined)?.repo?.ref;
+      const { planned, total, truncated } = planComponents(t, indexDocs.map((d) => d.candidates), ctx.limit, repoRef);
+      truncatedBySystem.set(ctx.systemSlug, truncated);
+      ctx.log.info(`generic: ${t.slug}: ${t.strategy} enumerated ${total} components (${planned.length} selected, ${planned.filter((p) => p.fetchPage).length} pages to fetch)`);
+      if (!total) ctx.log.warn(`generic: ${t.slug}: no URLs/paths matched the include rule`);
+      const docs: DiscoveredDocument[] = indexDocs.map((d) => d.doc);
+      let i = 0;
+      for (const p of planned) {
+        if (!p.fetchPage || !p.fetchUrl || !p.docsUrl) continue;
+        let origin: string;
+        try {
+          origin = new URL(p.docsUrl).origin;
+          new URL(p.fetchUrl);
+        } catch {
+          continue;
+        }
+        const isRepoFile = p.fetchUrl !== p.docsUrl;
+        docs.push({
+          url: p.fetchUrl,
+          docKind: DOC_KINDS.page,
+          source: isRepoFile && t.repo ? { kind: t.repo.kind === "gh" ? "repository" : "package", url: (indexDocs[0]?.doc.source.url ?? origin + "/"), label: indexDocs[0]?.doc.source.label } : { kind: "docs", url: `${origin}/`, label: new URL(origin).host },
+          title: p.docsUrl,
+          evidenceUrl: p.docsUrl,
+          meta: { key: p.key, segment: p.segment },
+          priority: 10 + i++,
+        });
       }
-      const isRepoFile = p.fetchUrl !== p.docsUrl;
-      docs.push({
-        url: p.fetchUrl,
-        docKind: DOC_KINDS.page,
-        source: isRepoFile && t.repo ? { kind: t.repo.kind === "gh" ? "repository" : "package", url: (indexDocs[0]?.doc.source.url ?? origin + "/"), label: indexDocs[0]?.doc.source.label } : { kind: "docs", url: `${origin}/`, label: new URL(origin).host },
-        title: p.docsUrl,
-        evidenceUrl: p.docsUrl,
-        meta: { key: p.key, segment: p.segment },
-        priority: 10 + i++,
-      });
-    }
-    return docs;
-  },
+      return docs;
+    },
 
-  async fetch(ctx, doc, prev) {
-    const pre = prefetched.get(doc.url);
-    if (pre) {
-      prefetched.delete(doc.url);
-      return pre;
-    }
-    const maxBytes = doc.docKind === DOC_KINDS.sitemap ? SITEMAP_MAX_BYTES : undefined;
-    return ctx.http.get(doc.url, { etag: prev.etag, lastModified: prev.lastModified, lastHash: prev.lastHash, signal: ctx.signal, ...(maxBytes ? { maxBytes } : {}) });
-  },
+    async fetch(ctx, doc, prev) {
+      const pre = prefetched.get(doc.url);
+      if (pre) {
+        prefetched.delete(doc.url);
+        return pre;
+      }
+      const maxBytes = doc.docKind === DOC_KINDS.sitemap ? SITEMAP_MAX_BYTES : undefined;
+      return ctx.http.get(doc.url, { etag: prev.etag, lastModified: prev.lastModified, lastHash: prev.lastHash, signal: ctx.signal, ...(maxBytes ? { maxBytes } : {}) });
+    },
 
-  async parse(ctx, fetched: FetchedDocument): Promise<ParsedFragment | null> {
-    const { doc, result } = fetched;
-    const body = result.body;
-    if (body === null) return null;
-    const t = requireTarget(ctx.systemSlug);
-    const c = compileTarget(t);
-    const stamp = stampOf(ctx, doc, result);
-    const frag = (data: GenericFragment, warnings?: string[]): ParsedFragment => ({ docUrl: doc.url, docKind: doc.docKind, data, warnings: warnings?.length ? warnings : undefined });
-    switch (doc.docKind) {
-      case DOC_KINDS.sitemap: {
-        const candidates = sitemapCandidates(body, doc.url, c);
-        return frag({ type: "index", strategy: "sitemap", stamp, candidates } satisfies IndexFragment, candidates.length ? [] : ["no component URLs matched in sitemap"]);
+    async parse(ctx, fetched: FetchedDocument): Promise<ParsedFragment | null> {
+      const { doc, result } = fetched;
+      const body = result.body;
+      if (body === null) return null;
+      const t = requireTarget(targets, ctx.systemSlug);
+      const c = compileTarget(t);
+      const stamp = stampOf(ctx, doc, result);
+      const frag = (data: GenericFragment, warnings?: string[]): ParsedFragment => ({ docUrl: doc.url, docKind: doc.docKind, data, warnings: warnings?.length ? warnings : undefined });
+      switch (doc.docKind) {
+        case DOC_KINDS.sitemap: {
+          const candidates = sitemapCandidates(body, doc.url, c);
+          return frag({ type: "index", strategy: "sitemap", stamp, candidates } satisfies IndexFragment, candidates.length ? [] : ["no component URLs matched in sitemap"]);
+        }
+        case DOC_KINDS.nav: {
+          const links = extractNavLinks(body, result.finalUrl || doc.url, t.navSelector);
+          return frag({ type: "index", strategy: "nav", stamp, candidates: selectCandidates(links, c, { distinctPages: true }) } satisfies IndexFragment);
+        }
+        case DOC_KINDS.listing: {
+          const repo = (doc.meta as { repo?: IndexFragment["repo"] } | undefined)?.repo;
+          const candidates = selectCandidates(parseListing(body).map((p) => ({ value: p })), c);
+          return frag({ type: "index", strategy: "repo-listing", stamp, candidates, repo } satisfies IndexFragment);
+        }
+        case DOC_KINDS.page: {
+          const m = (doc.meta ?? {}) as { key?: string; segment?: string };
+          if (!m.key || !m.segment) return null;
+          const meta = isMarkdownDoc(doc.url, result.contentType) ? parseMarkdownMeta(body) : parsePageMeta(body, result.finalUrl || doc.url);
+          return frag({ type: "page", key: m.key, segment: m.segment, stamp, finalUrl: result.finalUrl || doc.url, status: result.status, meta } satisfies PageFragment);
+        }
+        default:
+          ctx.log.warn(`generic: unknown docKind ${doc.docKind}`);
+          return null;
       }
-      case DOC_KINDS.nav: {
-        const links = extractNavLinks(body, result.finalUrl || doc.url, t.navSelector);
-        return frag({ type: "index", strategy: "nav", stamp, candidates: selectCandidates(links, c, { distinctPages: true }) } satisfies IndexFragment);
-      }
-      case DOC_KINDS.listing: {
-        const repo = (doc.meta as { repo?: IndexFragment["repo"] } | undefined)?.repo;
-        const candidates = selectCandidates(parseListing(body).map((p) => ({ value: p })), c);
-        return frag({ type: "index", strategy: "repo-listing", stamp, candidates, repo } satisfies IndexFragment);
-      }
-      case DOC_KINDS.page: {
-        const m = (doc.meta ?? {}) as { key?: string; segment?: string };
-        if (!m.key || !m.segment) return null;
-        const meta = isMarkdownDoc(doc.url, result.contentType) ? parseMarkdownMeta(body) : parsePageMeta(body, result.finalUrl || doc.url);
-        return frag({ type: "page", key: m.key, segment: m.segment, stamp, finalUrl: result.finalUrl || doc.url, status: result.status, meta } satisfies PageFragment);
-      }
-      default:
-        ctx.log.warn(`generic: unknown docKind ${doc.docKind}`);
-        return null;
-    }
-  },
+    },
 
-  async normalize(ctx, fragments): Promise<NormalizedBundle> {
-    const t = requireTarget(ctx.systemSlug);
-    const data = fragments.map((f) => f.data as GenericFragment).filter((d) => d && typeof d === "object" && "type" in d);
-    return normalizeGeneric(data, { systemSlug: ctx.systemSlug, target: t, limit: ctx.limit, log: (m) => ctx.log.warn(`generic: ${t.slug}: ${m}`) });
-  },
+    async normalize(ctx, fragments): Promise<NormalizedBundle> {
+      const t = requireTarget(targets, ctx.systemSlug);
+      const data = fragments.map((f) => f.data as GenericFragment).filter((d) => d && typeof d === "object" && "type" in d);
+      return normalizeGeneric(data, { systemSlug: ctx.systemSlug, target: t, limit: ctx.limit, log: (m) => ctx.log.warn(`generic: ${t.slug}: ${m}`) });
+    },
 
-  validate(ctx, bundle) {
-    const t = targetFor(ctx.systemSlug);
-    if (!t) return [];
-    return validateGeneric(bundle, t, { limit: ctx.limit, truncated: truncatedBySystem.get(ctx.systemSlug) });
-  },
-};
+    validate(ctx, bundle) {
+      const t = targets.find((x) => x.slug === ctx.systemSlug);
+      if (!t) return [];
+      return validateGeneric(bundle, t, { limit: ctx.limit, truncated: truncatedBySystem.get(ctx.systemSlug) });
+    },
+  };
+}
+
+export const adapter: SourceAdapter = createGenericAdapter();

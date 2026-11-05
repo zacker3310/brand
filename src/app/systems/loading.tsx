@@ -16,7 +16,7 @@ export default function SystemsLoading() {
           <Skeleton className="h-9 flex-1 rounded-lg" />
           <Skeleton className="hidden h-9 w-56 rounded-lg sm:block" />
         </div>
-        <div className="grid gap-8 lg:grid-cols-[232px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[232px_minmax(0,1fr)]">
           <div className="hidden space-y-6 lg:block">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="space-y-2">
@@ -29,7 +29,7 @@ export default function SystemsLoading() {
           </div>
           <div className="space-y-4">
             <Skeleton className="h-4 w-48" />
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
                 <div key={i} className="space-y-3 rounded-xl border p-4">
                   <div className="flex gap-3">

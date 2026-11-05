@@ -75,7 +75,7 @@ export default async function SystemDetailPage({ params, searchParams }: Props) 
     <PageContainer className="space-y-8">
       <SystemHeader detail={detail} />
       <div className="lg:grid lg:grid-cols-[176px_minmax(0,1fr)] lg:gap-10">
-        <div className="sticky top-14 z-20 -mx-4 border-b border-border/70 bg-background/90 px-4 backdrop-blur sm:-mx-6 sm:px-6 lg:top-20 lg:mx-0 lg:self-start lg:border-0 lg:bg-transparent lg:px-0 lg:backdrop-blur-none">
+        <div className="sticky top-14 z-20 -mx-4 border-b border-border/70 bg-background/90 backdrop-blur sm:-mx-6 lg:top-20 lg:mx-0 lg:self-start lg:border-0 lg:bg-transparent lg:backdrop-blur-none">
           <SectionNav sections={sections} />
         </div>
         <div className="min-w-0 space-y-14 pt-6 lg:pt-0">

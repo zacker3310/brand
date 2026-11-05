@@ -195,17 +195,20 @@ function buildGroup<R extends IndexRow>(
       arr.push({ row: r, step: ps.step, stepLabel: ps.raw });
       fam.set(famKey, arr);
     }
+    const base = label.split(".").pop() || label;
+    const order: { ramp: Ramp<R>; family: string; suffix: string }[] = [];
     for (const [famKey, steps] of fam) {
       const distinct = new Set(steps.map((s) => s.step)).size;
       if (steps.length >= 3 && distinct === steps.length) {
         const [family, suffix] = famKey.split("\u0000") as [string, string];
-        const famLabel = [family, suffix].filter(Boolean).join(" · ");
-        ramps.push({ family: famKey, label: famLabel || label.split(".").pop() || label, steps: steps.sort((a, b) => a.step - b.step) });
+        const famLabel = [family || base, suffix].filter(Boolean).join(" · ");
+        order.push({ ramp: { family: famKey, label: famLabel, steps: steps.sort((a, b) => a.step - b.step) }, family, suffix });
       } else {
         left.push(...steps.map((s) => s.row));
       }
     }
-    ramps.sort((a, b) => naturalCompare(a.label, b.label));
+    order.sort((a, b) => naturalCompare(a.family, b.family) || (a.suffix ? 1 : 0) - (b.suffix ? 1 : 0) || naturalCompare(a.suffix, b.suffix));
+    ramps.push(...order.map((o) => o.ramp));
     list = left;
   }
   const cmp = byNameOrValue<R>(order);
@@ -217,8 +220,32 @@ export interface GroupSlice<R extends IndexRow = IndexRow> extends TokenGroup<R>
   part: { index: number; total: number } | null;
 }
 
+/** Split rows into chunks of ~size without separating rows that share a keepTogether key (unless a run exceeds 2x size). */
+export function chunkRows<R>(rows: readonly R[], size: number, keepTogether?: (r: R) => string): R[][] {
+  if (!keepTogether) {
+    const out: R[][] = [];
+    for (let i = 0; i < rows.length; i += size) out.push(rows.slice(i, i + size));
+    return out;
+  }
+  const out: R[][] = [];
+  let cur: R[] = [];
+  for (let i = 0; i < rows.length; i++) {
+    const r = rows[i]!;
+    if (cur.length >= size) {
+      const prev = cur[cur.length - 1]!;
+      if (keepTogether(prev) !== keepTogether(r) || cur.length >= size * 2) {
+        out.push(cur);
+        cur = [];
+      }
+    }
+    cur.push(r);
+  }
+  if (cur.length) out.push(cur);
+  return out;
+}
+
 /** Split oversized groups and pack groups into pages of roughly pageSize tokens. */
-export function paginateGroups<R extends IndexRow>(groups: readonly TokenGroup<R>[], pageSize: number): GroupSlice<R>[][] {
+export function paginateGroups<R extends IndexRow>(groups: readonly TokenGroup<R>[], pageSize: number, keepTogether?: (r: R) => string): GroupSlice<R>[][] {
   const size = Math.max(1, pageSize);
   const slices: GroupSlice<R>[] = [];
   for (const g of groups) {
@@ -230,8 +257,8 @@ export function paginateGroups<R extends IndexRow>(groups: readonly TokenGroup<R
     type Unit = { kind: "ramp"; ramp: Ramp<R>; n: number } | { kind: "themed" | "list"; rows: R[]; n: number };
     const units: Unit[] = [];
     for (const r of g.ramps) units.push({ kind: "ramp", ramp: r, n: r.steps.length });
-    for (let i = 0; i < g.themed.length; i += size) units.push({ kind: "themed", rows: g.themed.slice(i, i + size), n: Math.min(size, g.themed.length - i) });
-    for (let i = 0; i < g.list.length; i += size) units.push({ kind: "list", rows: g.list.slice(i, i + size), n: Math.min(size, g.list.length - i) });
+    for (const c of chunkRows(g.themed, size)) units.push({ kind: "themed", rows: c, n: c.length });
+    for (const c of chunkRows(g.list, size, keepTogether)) units.push({ kind: "list", rows: c, n: c.length });
     const parts: GroupSlice<R>[] = [];
     let cur: GroupSlice<R> | null = null;
     for (const u of units) {

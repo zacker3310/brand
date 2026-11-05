@@ -18,12 +18,12 @@ export const TARGETS_3: GenericTarget[] = [
     navSelector: "#tree-components",
     // Fractal links a component to its default variant ("button--primary"); capture the component handle.
     include: "^https://protocol\\.mozilla\\.org/components/detail/([a-z0-9]+(?:-[a-z0-9]+)*?)(?:--[a-z0-9-]+)?$",
-    exclude: ["/components/detail/example-"],
+    exclude: ["/components/detail/example-", "/components/detail/details$"],
     docsUrlTemplate: "https://protocol.mozilla.org/components/detail/{segment}",
     frameworks: ["html-css"],
     titleSuffix: "\\s*\\|\\s*Mozilla Protocol$|\\s+full view$",
     notes:
-      "Static Fractal docs: every page carries the component tree (#tree-components) of the Protocol pattern library, one link per component (default variant). The component handle page (/components/detail/<handle>) exists for every component and is used as the docs URL; its h1 ends with a 'full view' link, stripped via titleSuffix. robots.txt returns 404 (unrestricted). Excluded: 'Example *' entries (example compositions, not components). Some entries are base-element styles (Headings, Paragraphs, Links) that Protocol documents as components.",
+      "Static Fractal docs: every page carries the component tree (#tree-components) of the Protocol pattern library, one link per component (default variant). The component handle page (/components/detail/<handle>) exists for every component and is used as the docs URL; its h1 ends with a 'full view' link, stripped via titleSuffix. robots.txt returns 404 (unrestricted). Excluded: 'Example *' entries (example compositions, not components) and the base-element style page for native <details> (/components/detail/details), whose name would collide with the 'Details Component' (the adapter drops a trailing 'Component' from names). Some entries are base-element styles (Headings, Paragraphs, Links) that Protocol documents as components.",
   },
   {
     slug: "naive-ui",

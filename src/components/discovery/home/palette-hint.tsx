@@ -10,10 +10,10 @@ export function PaletteHint() {
     <button
       type="button"
       onClick={() => setOpen(true)}
-      className="inline-flex items-center gap-1.5 rounded-md text-xs text-muted-foreground transition-colors hover:text-foreground"
+      className="hidden rounded-md text-left text-xs text-muted-foreground transition-colors hover:text-foreground sm:inline"
       aria-keyshortcuts="Meta+K Control+K"
     >
-      or press <Kbd className="font-mono">⌘K</Kbd> anywhere to jump to a system, component or token
+      or press <Kbd className="mx-0.5 font-mono align-[1px]">⌘K</Kbd> anywhere to jump to a system, component or token
     </button>
   );
 }

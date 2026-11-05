@@ -46,7 +46,7 @@ function Specimen({ spec, children, notes }: { spec: TypographySpec; children: R
         {SAMPLE}
       </p>
       <div className="flex flex-wrap gap-x-3 gap-y-1">
-        <FontStatus family={primaryFamily(spec.fontFamily)} />
+        <FontStatus family={primaryFamily(spec.fontFamily)} stack={spec.fontFamily} />
         {capped && <span className="text-[11px] text-muted-foreground">Shown at {MAX_PX}px (authored {spec.fontSize}).</span>}
         {spec.unevaluated.length > 0 && (
           <span className="text-[11px] text-inferred">Not applied (unevaluated in source): {spec.unevaluated.join(", ")}.</span>
@@ -164,7 +164,7 @@ export function TypographyView(p: ViewProps) {
 
 function ScalarRow({ t, p, label }: { t: ExplorerToken; p: ViewProps; label: string }) {
   const v = previewValue(t);
-  const field = typographyFieldOf(t.path[t.path.length - 1] ?? "", t.type);
+  const field = typographyFieldOf(t.path[t.path.length - 1] ?? "", t.type, t.path);
   const css = field ? typographyScalar(field, v) : null;
   const display = t.valueText ?? authoredLabel(t.rawValue, t.type);
   let preview: React.ReactNode = null;

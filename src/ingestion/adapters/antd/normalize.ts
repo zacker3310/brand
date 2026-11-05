@@ -408,7 +408,7 @@ function buildAntdTokens(frags: AntdFragment[], pkg: PkgInfo | null, license: Li
       const names: string[] = [];
       for (const t of [...merged.get(key)!.values()].sort((a, b) => a.token.localeCompare(b.token))) {
         const v = entry?.component[t.token];
-        if (v === undefined) {
+        if (v === undefined || v === "") {
           missingValues.push(`${key}.${t.token}`);
           continue;
         }

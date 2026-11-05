@@ -25,7 +25,7 @@ function SystemRef({ slug, name, published }: { slug: string; name: string | nul
 export function RegistryDecisions({ decisions, summary }: { decisions: RegistryDecision[]; summary: RegistrySummary }) {
   return (
     <div className="space-y-6">
-      <div className="grid gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-4">
+      <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border bg-border sm:grid-cols-4">
         {[
           { n: summary.verified, label: "Verified and published", hint: `${summary.verifiedFromQueue} from the research queue + ${summary.replacements} replacements` },
           { n: summary.rejected, label: "Rejected", hint: "Inaccessible or unsuitable; kept with the reason" },
@@ -48,7 +48,7 @@ export function RegistryDecisions({ decisions, summary }: { decisions: RegistryD
             const meta = STATUS_META[d.status as keyof typeof STATUS_META] ?? STATUS_META.rejected;
             const Icon = meta.icon;
             return (
-              <li key={d.slug} className="grid gap-3 p-4 sm:p-5 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:gap-6">
+              <li key={d.slug} className="grid grid-cols-1 gap-3 p-4 sm:p-5 md:grid-cols-[minmax(0,15rem)_minmax(0,1fr)] md:gap-6">
                 <div className="space-y-2">
                   <span className={cn("inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[11px] leading-none font-medium", meta.className)}>
                     <Icon className="size-3" aria-hidden />

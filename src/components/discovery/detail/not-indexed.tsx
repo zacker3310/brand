@@ -21,7 +21,7 @@ export function NotIndexedPanel({ detail }: { detail: SystemDetail }) {
   const failed = core.registryChecks.filter((c) => !c.ok);
   const fields = [...new Set(passed.map((c) => checkFieldLabel(c.field)))];
   return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
       <div className="space-y-4 rounded-xl border border-dashed p-4 sm:p-5">
         <div className="space-y-1.5">
           <p className="text-sm font-medium">Deep ingestion has not been performed for {core.name}.</p>
@@ -32,7 +32,7 @@ export function NotIndexedPanel({ detail }: { detail: SystemDetail }) {
             Until it does, ATLAS cannot say how many components, tokens or patterns it documents. Empty here means unknown, not none.
           </p>
         </div>
-        <ul className="grid gap-2 sm:grid-cols-2">
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {KINDS.map((k) => (
             <li key={k.id} id={k.id} className="hatch scroll-mt-28 rounded-lg border border-dashed bg-card/60 p-3">
               <div className="flex items-center justify-between gap-2">

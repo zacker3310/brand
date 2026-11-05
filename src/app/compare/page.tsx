@@ -9,9 +9,11 @@ type Props = { searchParams: Promise<SearchParamsRecord> };
 
 export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
   const p = parseComponentCompareParams(await searchParams);
-  if (p.type && p.systems.length >= MIN_SYSTEMS) {
+  if (p.type) {
     const [type, sys] = await Promise.all([getTypeRef(p.type), resolveSystems(p.systems)]);
-    if (type && sys.found.length >= MIN_SYSTEMS) {
+    // Unknown type: a real 404 where metadata blocks (crawlers); browsers get the streamed not-found UI.
+    if (!type) notFound();
+    if (sys.found.length >= MIN_SYSTEMS) {
       const names = sys.found.map((s) => s.name);
       return {
         title: `${type.name}: ${names.join(" vs ")}`,

@@ -6,7 +6,7 @@ import type { SavedComparison, SuggestedComparison } from "@/server/queries/comp
 
 function MarkStack({ systems, names }: { systems: string[]; names: Map<string, string> }) {
   return (
-    <span className="flex -space-x-1.5" aria-hidden>
+    <span className="hidden -space-x-1 sm:flex" aria-hidden>
       {systems.slice(0, 5).map((s) => (
         <SystemMark key={s} name={names.get(s) ?? s} slug={s} size="sm" className="size-6 text-[9px] ring-2 ring-card" />
       ))}
@@ -28,8 +28,9 @@ export function SuggestedList({ items, names }: { items: SuggestedComparison[]; 
               <span className="block truncate text-sm font-medium">{s.typeName}</span>
               <span className="block truncate text-xs text-muted-foreground">{s.systems.map((x) => names.get(x) ?? x).join(" · ")}</span>
             </span>
-            <span className="tabular shrink-0 font-mono text-[11px] text-subtle-foreground">
-              {s.systemCount} sys · {s.componentCount} comp
+            <span className="tabular shrink-0 text-right text-[11px] leading-tight text-muted-foreground">
+              {s.systemCount} systems
+              <span className="block text-subtle-foreground">{s.componentCount} components</span>
             </span>
             <ArrowRightIcon className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
           </Link>

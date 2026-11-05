@@ -1,0 +1,16 @@
+{
+  "type": "gh",
+  "name": "example/ds",
+  "version": "1.2.3",
+  "default": null,
+  "files": [
+    { "name": "/README.md", "hash": "x", "size": 10 },
+    { "name": "/components/Button/README.en-US.md", "hash": "x", "size": 10 },
+    { "name": "/components/Button/README.zh-CN.md", "hash": "x", "size": 10 },
+    { "name": "/components/Button/index.tsx", "hash": "x", "size": 10 },
+    { "name": "/components/AutoComplete/README.en-US.md", "hash": "x", "size": 10 },
+    { "name": "/components/DatePicker/README.en-US.md", "hash": "x", "size": 10 },
+    { "name": "/components/_util/README.en-US.md", "hash": "x", "size": 10 },
+    { "name": "/components/Overview/README.en-US.md", "hash": "x", "size": 10 }
+  ]
+}

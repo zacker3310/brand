@@ -26,7 +26,7 @@ export default async function HomePage() {
       <Hero stats={stats} />
       <FeaturedSystems rows={pickFeatured(featured, 8)} />
       <ComponentGroups groups={groups} indexedSystems={stats.systemsIndexed + stats.systemsPartial} />
-      <div className="grid gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
+      <div className="grid grid-cols-1 gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-12">
         <SuggestedComparisons items={suggestComparisons(types, 6)} />
         <RecentlyUpdated rows={pickRecent(recent)} />
       </div>

@@ -34,7 +34,7 @@ function detect(family: string): boolean {
 
 const GENERIC = /^(serif|sans-serif|monospace|cursive|fantasy|system-ui|ui-[a-z-]+|-apple-system|blinkmacsystemfont|inherit|initial|math|emoji)$/i;
 
-export function FontStatus({ family }: { family: string | null }) {
+export function FontStatus({ family, stack }: { family: string | null; stack?: string | null }) {
   const [state, setState] = useState<"unknown" | "available" | "missing">("unknown");
   useEffect(() => {
     if (!family || GENERIC.test(family)) return;
@@ -46,9 +46,11 @@ export function FontStatus({ family }: { family: string | null }) {
   if (GENERIC.test(family)) return <span className="text-[11px] text-muted-foreground">Generic family; rendered by your browser.</span>;
   if (state === "unknown") return <span className="text-[11px] text-muted-foreground">Rendered with fonts available on this device.</span>;
   if (state === "available") return <span className="text-[11px] text-muted-foreground">{family} is available on this device.</span>;
+  const families = (stack ?? family).split(",").map((f) => f.trim().replace(/^['"]|['"]$/g, ""));
+  const fallback = families.length > 1 ? "the next available font in the stack is shown" : "the stack declares no fallback, so your browser's default font is shown";
   return (
     <span className="text-[11px] text-inferred">
-      {family} is not installed here; a fallback from the stack is shown. <span className="text-muted-foreground">(detected by text metrics)</span>
+      {family} is not installed here; {fallback}. <span className="text-muted-foreground">(detected by text metrics)</span>
     </span>
   );
 }

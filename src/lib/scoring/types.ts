@@ -227,7 +227,7 @@ export type CellValue =
   | { kind: "chips"; items: { label: string; hint?: string }[]; mono?: boolean; inferred?: boolean; meta?: string }
   | { kind: "classification"; state: VerificationState; method: string | null; confidence: number; typeName: string }
   | { kind: "props"; entries: { implementation: string; name: string; type: string | null; defaultValue: string | null; required: boolean | null; deprecated: boolean }[] }
-  | { kind: "keyboard"; entries: { keys: string; action: string }[] }
+  | { kind: "keyboard"; entries: { keys: string; action: string }[]; hideKeys?: boolean }
   | {
       kind: "tokens";
       total: number;

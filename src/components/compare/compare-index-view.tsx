@@ -34,7 +34,7 @@ export async function CompareIndexView({ type, systems, error }: { type: string 
       />
 
       <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-10">
-        <section aria-labelledby="picker-title" className="min-w-0 rounded-xl border bg-card p-4 shadow-xs sm:p-6">
+        <section aria-labelledby="picker-title" className="min-w-0 rounded-xl border bg-card p-4 shadow-xs sm:p-6 lg:self-start">
           <h2 id="picker-title" className="mb-5 text-base font-semibold tracking-tight">
             Component comparison
           </h2>

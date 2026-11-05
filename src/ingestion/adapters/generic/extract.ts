@@ -346,6 +346,7 @@ const stripMdInline = (s: string) =>
       .replace(/<[^>]+>/g, " ")
       .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
       .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+      .replace(/\s*\^\([^)]*\)/g, "") // VitePress badges: "ColorPickerPanel ^(beta)"
       .replace(/[`*_~]+/g, "")
       .replace(/\{#[^}]*\}\s*$/, ""),
   );
@@ -475,6 +476,20 @@ export function chooseName(
   linkText: string | null | undefined,
   suffix: RegExp | null,
 ): { name: string; from: NameSource } {
+  const r = chooseNameRaw(segment, page, linkText, suffix);
+  // Versioned modules ("calendar2", "date-picker2") whose docs heading omits the version ("Calendar"):
+  // keep the version digits from the source path so the two generations stay distinguishable.
+  const v = /^(.*[a-z])(\d+)$/i.exec(segment.split("/").pop() ?? segment);
+  if (v && r.from !== "segment" && !/\d$/.test(r.name) && compact(r.name) === compact(humanizeSegment(v[1]!))) return { name: `${r.name}${v[2]}`, from: r.from };
+  return r;
+}
+
+function chooseNameRaw(
+  segment: string,
+  page: Pick<PageMeta, "title" | "h1" | "h1Own"> | null,
+  linkText: string | null | undefined,
+  suffix: RegExp | null,
+): { name: string; from: NameSource } {
   const ok = (s: string | null | undefined): s is string => plausibleName(s);
   const rel = (s: string | null | undefined): s is string => ok(s) && relatesToSegment(s, segment);
   if (page) {
@@ -494,8 +509,17 @@ export function chooseName(
   if (linkParts.length > 1) {
     const segC = compact(humanizeSegment(segment));
     const specific = linkParts.filter((x) => !GENERIC_PART.test(x));
-    const tail = specific.find((x) => ok(x) && compact(x).length >= 3 && segC.endsWith(compact(x)));
-    if (tail) return { name: tail, from: "link" };
+    const ti = specific.findIndex((x) => ok(x) && compact(x).length >= 3 && segC.endsWith(compact(x)));
+    if (ti >= 0) {
+      const tail = specific[ti]!;
+      // "Notifications/Inline" -> "Notifications / Inline": keep the parent when the segment names it
+      // and the deepest part alone does not ("Skeleton/Skeleton Icon" stays "Skeleton Icon").
+      const parent = specific[ti + 1];
+      const pc = parent ? stem(compact(parent)) : "";
+      const joined = parent ? `${parent} / ${tail}` : tail;
+      if (parent && pc.length >= 3 && segC.includes(pc) && !compact(tail).includes(pc) && ok(joined)) return { name: joined, from: "link" };
+      return { name: tail, from: "link" };
+    }
     const any = specific.find((x) => rel(x));
     if (any) return { name: any, from: "link" };
   }

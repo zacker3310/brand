@@ -24,7 +24,7 @@ type Sel = Cheerio<any>;
 type El = any;
 
 const PROPS_CONTAINER = '[data-testid="tsmorph-props--container"]';
-const MAX_SECTION_TEXT = 1500;
+const MAX_SECTION_TEXT = 4000;
 
 export interface NavEntry {
   name: string;
@@ -123,7 +123,23 @@ export function loadPage(html: string): CheerioAPI {
   return $;
 }
 
-const text = ($: CheerioAPI, el: El | Sel): string => cleanText($(el).text());
+const BLOCK_TAGS = new Set([
+  "p", "div", "li", "ul", "ol", "h1", "h2", "h3", "h4", "h5", "h6", "td", "th", "tr", "table", "section", "br", "dd", "dt", "dl",
+  "blockquote", "caption", "figure", "figcaption", "header", "footer", "nav", "main", "article", "aside", "hr",
+]);
+
+/** Text content with whitespace between block-level elements (list items, paragraphs, cells). */
+function nodeText(node: El): string {
+  if (!node) return "";
+  if (node.type === "text") return node.data ?? "";
+  if (node.type !== "tag" && node.type !== "root") return "";
+  const inner = ((node.children ?? []) as El[]).map(nodeText).join("");
+  // Do / Don't captions of guidance cards read as "Do: <text>".
+  if (node.type === "tag" && /^h[3-6]$/.test(node.name) && /^\s*(do|don[’']t|caution)\s*$/i.test(inner)) return ` ${inner.trim()}: `;
+  return node.type === "tag" && BLOCK_TAGS.has(node.name) ? ` ${inner} ` : inner;
+}
+
+const text = ($: CheerioAPI, el: El | Sel): string => cleanText(($(el).toArray() as El[]).map(nodeText).join(" "));
 
 /** Resolve an href to an internal docs path ("/components/x") or an absolute external URL; null for anchors/mailto. */
 export function resolveHref(href: string | undefined | null): string | null {
@@ -156,17 +172,17 @@ export function parseNav($: CheerioAPI): NavEntry[] {
   const out = new Map<string, NavEntry>();
   $("nav [role=group][aria-labelledby]").each((_, g) => {
     const id = $(g).attr("aria-labelledby") ?? "";
-    const heading = id ? cleanText($(`[id="${id.replace(/"/g, '\\"')}"]`).first().text()) : "";
+    const heading = id ? text($, $(`[id="${id.replace(/"/g, '\\"')}"]`).first()) : "";
     if (!heading) return;
     $(g)
       .find("a[href]")
       .each((__, a) => {
         const path = resolveHref($(a).attr("href"));
         if (!path || !path.startsWith("/components/")) return;
-        const name = cleanText($(a).find("span span").first().text()) || text($, a);
+        const name = text($, $(a).find("span span").first()) || text($, a);
         if (!name) return;
         const wrap = $(a).closest("[data-selected]");
-        const badge = wrap.length ? cleanText(wrap.clone().children("a").remove().end().text()) || null : null;
+        const badge = wrap.length ? text($, wrap.clone().children("a").remove().end()) || null : null;
         const prev = out.get(path);
         // Deeper (more specific) group wins: nested groups are visited after their parents.
         if (!prev || prev.category !== heading) out.set(path, { name, path, category: heading, badge: badge ?? prev?.badge ?? null });
@@ -225,10 +241,11 @@ function sectionItems($: CheerioAPI, els: El[]): SectionItem[] {
         let strong = $(li).children("strong,b").first();
         if (!strong.length) strong = $(li).children("p").first().children("strong,b").first();
         if (!strong.length) return;
-        const term = cleanText(strong.text()).replace(/:$/, "").trim();
+        const strongText = text($, strong);
+        const term = strongText.replace(/:$/, "").trim();
         const full = text($, li);
         if (!term || term.length > 60) return;
-        const rest = full.slice(cleanText(strong.text()).length).replace(/^[:\s–-]+/, "").trim();
+        const rest = full.slice(strongText.length).replace(/^[:\s–-]+/, "").trim();
         items.push({ term, text: rest });
       });
   }
@@ -298,23 +315,23 @@ function parsePropsContainer($: CheerioAPI, container: Sel, group: string | null
   const rows: PropRow[] = [];
   container.children("div[id]").each((_, d) => {
     const caption = $(d).find("caption").first();
-    const name = cleanText(caption.find("code").first().text());
+    const name = text($, caption.find("code").first());
     if (!name) return;
-    const captionText = cleanText(caption.text());
+    const captionText = text($, caption);
     const badges = captionText.slice(captionText.indexOf(name) + name.length);
     const fields: Record<string, { text: string; code: string }> = {};
     $(d)
       .find("tbody > tr")
       .each((__, tr) => {
-        const th = cleanText($(tr).children("th").first().text()).toLowerCase();
+        const th = text($, $(tr).children("th").first()).toLowerCase();
         const td = $(tr).children("td").first();
         if (!th || !td.length) return;
         const code = td
           .find("code")
-          .map((___, c) => cleanText($(c).text()))
+          .map((___, c) => text($, c))
           .get()
           .join(" ");
-        fields[th] = { text: cleanText(td.text()), code };
+        fields[th] = { text: text($, td), code };
       });
     const desc = fields.description?.text ?? null;
     rows.push({
@@ -335,10 +352,10 @@ export function parseCodeTab($: CheerioAPI, panel: Sel): CodeTab {
   const install: Record<string, { text: string; href: string | null }> = {};
   panel.find("tr").each((_, tr) => {
     if ($(tr).closest(PROPS_CONTAINER).length) return;
-    const th = cleanText($(tr).children("th").first().text()).toLowerCase();
+    const th = text($, $(tr).children("th").first()).toLowerCase();
     const td = $(tr).children("td").first();
     if (!th || !td.length || install[th]) return;
-    install[th] = { text: cleanText(td.text()), href: td.find("a[href]").first().attr("href") ?? null };
+    install[th] = { text: text($, td), href: td.find("a[href]").first().attr("href") ?? null };
   });
   const npmText = install.npm?.text ?? "";
   const fromNpm = /(@atlaskit\/[a-z0-9._-]+)/.exec(npmText)?.[1] ?? /npmjs\.com\/package\/(@[^/?#]+\/[^/?#]+)/.exec(install.npm?.href ?? "")?.[1] ?? null;
@@ -390,7 +407,7 @@ export function parseDocsPage(html: string, url: string, opts: { code?: boolean 
   const $ = loadPage(html);
   const main = $("#main-content").first();
   const root = main.length ? main : $("body");
-  const titleTag = cleanText($("title").first().text());
+  const titleTag = text($, $("title").first());
   const notFound = /^(page not found|404)/i.test(titleTag) || /og:url" content="https:\/\/atlassian\.design\/404"/.test(html.slice(0, 5000));
   const h1 = root.find("h1").first();
   const title = h1.length ? text($, h1) || null : null;
@@ -405,15 +422,9 @@ export function parseDocsPage(html: string, url: string, opts: { code?: boolean 
   const statusNotes: StatusNote[] = [];
   root.find("section").each((_, s) => {
     if ($(s).closest("[role=tabpanel]").length) return;
-    const heading = cleanText($(s).find("h2,h3").first().text());
+    const heading = text($, $(s).find("h2,h3").first());
     if (!heading) return;
-    const body = cleanText(
-      $(s)
-        .find("p")
-        .map((__, p) => $(p).text())
-        .get()
-        .join(" "),
-    );
+    const body = text($, $(s).find("p"));
     const tone = $(s).find("[role=img][aria-label]").first().attr("aria-label") ?? null;
     statusNotes.push({ heading, text: body, tone, links: sectionLinks($, [s]) });
   });

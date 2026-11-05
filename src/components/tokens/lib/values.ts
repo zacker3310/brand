@@ -160,11 +160,17 @@ export function typographySpec(value: unknown): TypographySpec | null {
 }
 
 /** Field a scalar typography token contributes to a composed specimen, from its last path segment. */
-export function typographyFieldOf(lastSegment: string, type: string | null | undefined): keyof Omit<TypographySpec, "unevaluated" | "fontSizePx"> | null {
+export function typographyFieldOf(lastSegment: string, type: string | null | undefined, path?: readonly string[]): keyof Omit<TypographySpec, "unevaluated" | "fontSizePx"> | null {
   const t = (type ?? "").toLowerCase().replace(/[-_]/g, "");
   if (KEYMAP[t]) return KEYMAP[t]!;
   const s = lastSegment.toLowerCase().replace(/[-_]/g, "");
-  return KEYMAP[s] ?? null;
+  if (KEYMAP[s]) return KEYMAP[s]!;
+  // "base.text.lineHeight.loose": the property is named by an ancestor segment
+  for (const seg of [...(path ?? [])].reverse().slice(1)) {
+    const k = seg.toLowerCase().replace(/[-_]/g, "");
+    if (KEYMAP[k] && k !== "font") return KEYMAP[k]!;
+  }
+  return null;
 }
 
 /** First family in a font stack: "'Mona Sans VF', -apple-system, sans-serif" -> "Mona Sans VF". */

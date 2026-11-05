@@ -13,8 +13,8 @@ const DIFF_HIDE = "group-data-[diff=on]/matrix:hidden";
 const OVERFLOW_HIDE = "group-data-[props=collapsed]/matrix:hidden";
 
 const MISSING_TEXT = {
-  "not-indexed": "ATLAS has not indexed this system's components yet (registry metadata only).",
-  "no-component": "No indexed component is classified as this type. It may exist under a name ATLAS did not classify.",
+  "not-indexed": "Registry metadata only: components not indexed yet.",
+  "no-component": "No indexed component classified as this type.",
 } as const;
 
 export interface MatrixLinks {
@@ -53,7 +53,7 @@ function ColumnHeader({ col, links, typeName }: { col: ComparisonColumn; links: 
               options={col.candidates.map((x) => ({ slug: x.slug, name: x.name, lifecycle: x.lifecycle }))}
               diffOnly={links.diffOnly}
             />
-            <p className="mt-1 text-[11px] font-normal text-subtle-foreground">
+            <p className="sr-only">
               {col.candidates.length} components classified as {typeName}
             </p>
           </div>
@@ -69,7 +69,7 @@ function RowLabel({ row }: { row: MatrixRow }) {
     <div className="space-y-1">
       <div className={cn("text-[13px] leading-snug font-medium break-words", row.alignment && "font-mono text-xs")}>{row.label}</div>
       {row.alignment ? (
-        <div className="text-[11px] leading-snug text-inferred" title={row.alignment.method === "normalized" ? `Spellings: ${row.alignment.names.join(", ")}` : undefined}>
+        <div className={cn("text-[11px] leading-snug", row.alignment.method === "normalized" ? "text-inferred" : "text-subtle-foreground")}>
           aligned by {row.alignment.method === "exact" ? "name" : "normalized name"} (inferred)
           {row.alignment.method === "normalized" && <span className="block font-mono text-subtle-foreground">{row.alignment.names.join(" · ")}</span>}
         </div>
@@ -111,14 +111,14 @@ function DesktopMatrix({ matrix, columns, links, typeName }: { matrix: Component
       </colgroup>
       <thead>
         <tr>
-          <th scope="col" className="sticky top-14 z-20 border-b bg-background/95 px-3 py-3 text-left align-bottom backdrop-blur supports-[backdrop-filter]:bg-background/80">
+          <th scope="col" className="sticky top-14 z-20 border-b bg-background px-3 py-3 text-left align-bottom">
             <span className="type-eyebrow">Attribute</span>
           </th>
           {columns.map((col) => (
             <th
               key={col.system.slug}
               scope="col"
-              className="sticky top-14 z-20 border-b border-l border-l-border/60 bg-background/95 px-3 py-3 text-left align-top backdrop-blur supports-[backdrop-filter]:bg-background/80"
+              className="sticky top-14 z-20 border-b border-l border-l-border/60 bg-background px-3 py-3 text-left align-top"
             >
               <ColumnHeader col={col} links={links} typeName={typeName} />
             </th>
@@ -132,9 +132,9 @@ function DesktopMatrix({ matrix, columns, links, typeName }: { matrix: Component
               <GroupHeading group={g} id={`g-${g.id}`} />
             </th>
           </tr>
-          {g.rows.map((r, i) => (
+          {g.rows.map((r) => (
             <tr key={r.id} className={cn("transition-colors hover:bg-surface-1/60", r.same && DIFF_HIDE, r.overflow && OVERFLOW_HIDE)}>
-              <th scope="row" className={cn("border-t px-3 py-3 text-left align-top font-normal", i === 0 && "border-t-border")}>
+              <th scope="row" className="border-t px-3 py-3 text-left align-top font-normal">
                 <RowLabel row={r} />
               </th>
               {r.span ? (

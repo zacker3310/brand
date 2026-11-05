@@ -87,7 +87,7 @@ export function TokensSection({ detail }: { detail: SystemDetail }) {
         </figure>
       )}
 
-      <div className="grid gap-4 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <div className="space-y-2.5 rounded-xl border bg-card p-4">
           <h3 className="text-xs font-medium text-muted-foreground">By category</h3>
           <ul className="space-y-1.5">

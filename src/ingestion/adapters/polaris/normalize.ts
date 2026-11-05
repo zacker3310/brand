@@ -10,17 +10,7 @@
  * Tokens: four theme sets from @shopify/polaris-tokens styles.css (redistribution restricted).
  * No code is stored (Polaris License field-of-use restriction; @shopify/polaris-types has no license).
  */
-import type {
-  CoverageMap,
-  EvidenceInput,
-  KeyboardInteraction,
-  NormalizedBundle,
-  NormalizedComponent,
-  NormalizedPattern,
-  NormalizedProperty,
-  NormalizedSystemFacts,
-  NormalizedTokenSet,
-} from "@/lib/contracts";
+import type { CoverageState, EvidenceInput, KeyboardInteraction, NormalizedBundle, NormalizedComponent, NormalizedPattern, NormalizedSystemFacts, NormalizedTokenSet } from "@/lib/contracts";
 import { canonicalState, classifyComponentName, classifyPatternName, componentTypeBySlug } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
 import { githubBlobUrl, npmFileUrl } from "../../http";
@@ -42,7 +32,7 @@ import {
 } from "./constants";
 import type { DocApiSection, DocProp, WcPage } from "./devdocs";
 import type { NpmInfo, PolarisFragmentData, ReactProp, StoryRef } from "./fragments";
-import { phraseKeys, type ReactMdxDoc } from "./mdx";
+import { componentPathFromLink, phraseKeys, type ReactMdxDoc } from "./mdx";
 import { clip, evidence, firstSentence, literalUnion, sortBy, type Stamp, uniq } from "./text";
 import { themeTokens, toPolarisToken } from "./tokens";
 
@@ -53,6 +43,8 @@ export interface NormalizeOptions {
 }
 
 type Frag<T extends PolarisFragmentData["type"]> = Extract<PolarisFragmentData, { type: T }>;
+type NormalizedProperty = NormalizedComponent["properties"][number];
+type CoverageMap = Record<string, CoverageState>;
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 const npmPage = (pkg: string) => `https://www.npmjs.com/package/${pkg}`;
@@ -387,12 +379,14 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
 interface ReactContext {
   mdx: Frag<"react-mdx">[];
   dts: Map<string, Frag<"react-dts">>;
-  exports: Set<string> | null;
+  /** component directory -> exported import name (package index). */
+  exports: Map<string, string> | null;
   stories: Map<string, StoryRef[]>;
   storybook: Frag<"storybook"> | null;
   reactNpm: NpmInfo | null;
   readme: Frag<"archive-readme"> | null;
   wcSlugs: Set<string>;
+  redirects: Map<string, string>;
   runStartedAt: string;
 }
 
@@ -441,7 +435,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
     const docsUrl = m.stamp.evidenceUrl;
     const dts = r.dts.get(doc.docPath) ?? null;
     const dir = dts?.dir ?? null;
-    const exported = dir ? (r.exports ? r.exports.has(dir) : true) : false;
+    const importName = dir ? (r.exports ? (r.exports.get(dir) ?? null) : dir) : null;
+    const exported = !!importName;
     const ev: EvidenceInput[] = [];
     const push = (stamp: Stamp, field: string, method: string, o: Parameters<typeof evidence>[3] = {}) => ev.push(evidence(stamp, field, method, o));
     const mdxLoc = m.file;
@@ -465,8 +460,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
     // frameworks
     const frameworks: NormalizedComponent["frameworks"] = [];
     if (r.reactNpm) {
-      frameworks.push({ slug: "react", packageName: REACT_PKG, importName: dir && exported ? dir : null, sourceUrl: npmPage(REACT_PKG) });
-      if (dts) push(dts.stamp, "frameworks", METHOD.dts, { location: dts.file, excerpt: `${REACT_PKG}@${dts.npm.version} ${dir}${exported ? " (exported from the package index)" : ""}` });
+      frameworks.push({ slug: "react", packageName: REACT_PKG, importName, sourceUrl: npmPage(REACT_PKG) });
+      if (dts) push(dts.stamp, "frameworks", METHOD.dts, { location: dts.file, excerpt: `${REACT_PKG}@${dts.npm.version} components/${dir}${exported ? ` (exported as ${importName})` : " (not exported from the package index)"}` });
       else push(npmStamp(r.reactNpm, r.runStartedAt), "frameworks", METHOD.npm, { location: `${REACT_PKG}@${r.reactNpm.version}`, excerpt: `React component documented for ${REACT_PKG}` });
     }
 
@@ -532,7 +527,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       }
     }
     for (const rel of doc.related) {
-      const t = rel.path ? slugs.get(rel.path) : undefined;
+      const path = rel.sitePath ? componentPathFromLink(rel.sitePath, r.redirects) : null;
+      const t = path && path !== doc.docPath ? slugs.get(path) : undefined;
       if (t && t !== slug && allSlugs.has(t) && !relationships.some((x) => x.targetSlug === t)) relationships.push({ kind: "related", targetSlug: t, targetType: null });
     }
     if (doc.related.length) push(m.stamp, "relationships", METHOD.mdx, { location: `${mdxLoc}#related-components`, excerpt: doc.related.map((x) => x.text).join(" / ") });
@@ -716,7 +712,18 @@ export function normalizePolaris(fragments: PolarisFragmentData[], opts: Normali
   const dtsByDoc = new Map<string, Frag<"react-dts">>();
   for (const d of sortBy(dtsFrags, (x) => x.file)) if (d.docPath && !dtsByDoc.has(d.docPath)) dtsByDoc.set(d.docPath, d);
   const react = buildReactComponents(
-    { mdx: of("react-mdx"), dts: dtsByDoc, exports: reactIndex ? new Set(reactIndex.exports) : null, stories, storybook, reactNpm, readme, wcSlugs, runStartedAt: opts.runStartedAt },
+    {
+      mdx: of("react-mdx"),
+      dts: dtsByDoc,
+      exports: reactIndex ? new Map(Object.entries(reactIndex.exports)) : null,
+      stories,
+      storybook,
+      reactNpm,
+      readme,
+      wcSlugs,
+      redirects: new Map((first("redirects")?.redirects ?? []).map((x) => [x.source, x.destination])),
+      runStartedAt: opts.runStartedAt,
+    },
     opts.limit,
   );
 

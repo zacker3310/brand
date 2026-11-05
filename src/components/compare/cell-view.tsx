@@ -7,6 +7,12 @@ import { cn } from "@/lib/utils";
 
 const chipClass = "inline-flex max-w-full items-center rounded border border-border/80 bg-surface-1 px-1.5 py-0.5 text-xs leading-4 break-words";
 
+const ALIAS_TEXT: Record<string, string> = {
+  external: "references a token outside this system",
+  unresolved: "alias could not be resolved",
+  cycle: "circular alias",
+};
+
 function InferredMark() {
   return <VerificationBadge state="inferred" compact detail="ATLAS inferred this value from the source (heuristic), rather than the source stating it." />;
 }
@@ -109,14 +115,16 @@ export function CellView({ value }: { value: CellValue }) {
         <ul className="space-y-1.5">
           {value.entries.slice(0, 6).map((e, i) => (
             <li key={i} className="text-[13px] leading-snug">
-              <span className="mr-1.5 inline-flex flex-wrap gap-1 align-middle">
-                {e.keys.split(/\s*\/\s*/).map((k) => (
-                  <kbd key={k} className="rounded border border-border bg-surface-1 px-1 py-px font-mono text-[10px] leading-4 text-foreground/90">
-                    {k}
-                  </kbd>
-                ))}
-              </span>
-              <span className="text-muted-foreground">{e.action}</span>
+              {!value.hideKeys && (
+                <span className="mr-1.5 inline-flex flex-wrap gap-1 align-middle">
+                  {e.keys.split(/\s*\/\s*/).map((k) => (
+                    <kbd key={k} className="rounded border border-border bg-surface-1 px-1 py-px font-mono text-[10px] leading-4 text-foreground/90">
+                      {k}
+                    </kbd>
+                  ))}
+                </span>
+              )}
+              <span className={value.hideKeys ? "text-foreground/85" : "text-muted-foreground"}>{e.action}</span>
             </li>
           ))}
           {value.entries.length > 6 && <li className="text-xs text-muted-foreground">+{value.entries.length - 6} more interactions</li>}
@@ -140,7 +148,11 @@ export function CellView({ value }: { value: CellValue }) {
                 )}
                 <span className="min-w-0">
                   <code className="block font-mono text-[11px] leading-4 break-all text-foreground/90">{t.name}</code>
-                  {t.valueText && <span className="block font-mono text-[10.5px] leading-4 break-words text-muted-foreground">{t.valueText}</span>}
+                  {t.valueText ? (
+                    <span className="block font-mono text-[10.5px] leading-4 break-words text-muted-foreground">{t.valueText}</span>
+                  ) : (
+                    <span className="block text-[10.5px] leading-4 text-unavailable">{ALIAS_TEXT[t.aliasState ?? ""] ?? "value not resolved"}</span>
+                  )}
                 </span>
               </li>
             ))}

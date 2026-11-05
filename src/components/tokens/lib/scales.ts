@@ -61,3 +61,60 @@ export function formatScaleValue(value: number, unit: ScaleUnit): string {
       return n;
   }
 }
+
+/* -------------------------------------------------------------------------- */
+/* Comparison model                                                            */
+/* -------------------------------------------------------------------------- */
+
+export const COMPARE_CATEGORIES = ["spacing", "shape", "typography"] as const;
+export type CompareCategory = (typeof COMPARE_CATEGORIES)[number];
+
+/** Scales shown per comparison category: [scale key passed to extractScale, label]. */
+export const COMPARE_SCALES: Record<CompareCategory, { key: string; label: string; description: string }[]> = {
+  spacing: [{ key: "spacing", label: "Spacing & sizing", description: "Every spacing-category dimension, converted to px." }],
+  shape: [
+    { key: "radius", label: "Corner radius", description: "Radius tokens, converted to px." },
+    { key: "borderWidth", label: "Border width", description: "Border and stroke widths, converted to px." },
+  ],
+  typography: [
+    { key: "fontSize", label: "Font size", description: "Font sizes, converted to px." },
+    { key: "fontWeight", label: "Font weight", description: "Numeric font weights (keywords mapped to CSS weights)." },
+    { key: "lineHeight", label: "Line height", description: "Unitless ratios and px line heights are listed separately." },
+    { key: "letterSpacing", label: "Letter spacing", description: "Tracking, converted to px where possible." },
+  ],
+};
+
+export interface SystemScale {
+  steps: ScaleStep[];
+  /** Distinct numeric values. */
+  values: number;
+}
+
+export interface ScaleComparisonView {
+  key: string;
+  label: string;
+  description: string;
+  perSystem: SystemScale[];
+  rows: AlignedRow[];
+  /** Pairwise value-overlap of each system against the first (index 0 is null). */
+  overlapWithFirst: ({ exact: number; overlap: number } | null)[];
+}
+
+/** Build the aligned comparison for one category from per-system scale extractors. */
+export function buildScaleComparison(
+  category: CompareCategory,
+  extract: (systemIndex: number, scaleKey: string) => ScaleStep[],
+  systems: number,
+  pairwise: (a: ScaleStep[], b: ScaleStep[]) => { exact: number; overlap: number },
+): ScaleComparisonView[] {
+  return COMPARE_SCALES[category].map((sc) => {
+    const perSystem = Array.from({ length: systems }, (_, i) => {
+      const steps = dedupeSteps(extract(i, sc.key));
+      return { steps, values: new Set(steps.map((s) => `${s.unit}:${s.value}`)).size };
+    });
+    const rows = alignScales(perSystem.map((p) => p.steps));
+    const first = perSystem[0]?.steps ?? [];
+    const overlapWithFirst = perSystem.map((p, i) => (i === 0 ? null : pairwise(first, p.steps)));
+    return { ...sc, perSystem, rows, overlapWithFirst };
+  });
+}
