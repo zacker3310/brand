@@ -2,27 +2,36 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { NormalizedBundle } from "@/lib/contracts";
-import { createGenericAdapter, sitemapCandidates, targetOrigin } from "@/ingestion/adapters/generic";
+import { createGenericAdapter, sitemapCandidates, sitemapEntries, targetOrigin } from "@/ingestion/adapters/generic";
 import {
   chooseName,
   compileTarget,
   extractNavLinks,
   humanizeSegment,
+  navOutline,
   parseListing,
   parseMarkdownMeta,
+  parseMdxExportMeta,
   parsePageMeta,
   parseSitemapXml,
   parseStorybookIndex,
   relatesToSegment,
   selectCandidates,
   shortDescription,
+  stripComponentWord,
+  stripDecoration,
+  type PageMeta,
 } from "@/ingestion/adapters/generic/extract";
 import {
+  ADAPTER_VERSION,
   applyTemplate,
+  indexCandidates,
+  maskName,
   normalizeGeneric,
   planComponents,
   rawFileUrl,
   siteWideDescriptions,
+  targetFingerprint,
   validateGeneric,
   type GenericFragment,
   type IndexFragment,
@@ -49,6 +58,8 @@ const sitemapTarget: GenericTarget = {
 };
 
 const stamp = (url: string) => ({ url, evidenceUrl: url, retrievedAt: T0, hash: "h" });
+const sitemapIndex = (file: string, url: string): IndexFragment => ({ type: "index", source: "sitemap", stamp: stamp(url), ...sitemapEntries(fx(file), url) });
+const meta = (m: Partial<PageMeta>): PageMeta => ({ title: null, h1: null, h1Own: null, metaDescription: null, canonical: null, lang: null, soft404: false, ...m });
 
 describe("generic extract: sitemaps", () => {
   it("parses sitemap indexes and urlsets (CDATA, entities)", () => {
@@ -192,7 +203,7 @@ describe("generic planning and normalization", () => {
   });
 
   it("rejects site-wide and templated meta descriptions", () => {
-    const page = (key: string, h1: string, d: string): PageFragment => ({ type: "page", key, segment: key, stamp: stamp(`https://x/${key}`), finalUrl: `https://x/${key}`, status: 200, meta: { title: h1, h1, h1Own: null, metaDescription: d, canonical: null, lang: null, soft404: false } });
+    const page = (key: string, h1: string, d: string) => ({ segment: key, meta: meta({ title: h1, h1, metaDescription: d }) });
     const set = siteWideDescriptions([
       page("a", "Alpha", "Same site text for everyone here."),
       page("b", "Beta", "Same site text for everyone here."),
@@ -207,17 +218,15 @@ describe("generic planning and normalization", () => {
   });
 
   it("normalizes metadata-level components with honest coverage and evidence", () => {
-    const c = compileTarget(sitemapTarget);
-    const smUrl = "https://ds.example.com/sitemap-0.xml";
-    const index: IndexFragment = { type: "index", strategy: "sitemap", stamp: stamp(smUrl), candidates: sitemapCandidates(fx("sitemap-0.xml"), smUrl, c) };
-    const pageFrag = (key: string, file: string, url: string, finalUrl = url): PageFragment => ({ type: "page", key, segment: key, stamp: stamp(url), finalUrl, status: 200, meta: parsePageMeta(fx(file), finalUrl) });
+    const index = sitemapIndex("sitemap-0.xml", "https://ds.example.com/sitemap-0.xml");
+    const pageFrag = (file: string, url: string, finalUrl = url): PageFragment => ({ type: "page", stamp: stamp(url), finalUrl, status: 200, meta: parsePageMeta(fx(file), finalUrl) });
     const frags: GenericFragment[] = [
       index,
-      pageFrag("button", "page-button.html", "https://ds.example.com/components/button/"),
-      pageFrag("date-picker", "page-date-picker.html", "https://ds.example.com/components/date-picker/"),
-      pageFrag("text-field", "page-text-field.html", "https://ds.example.com/components/text-field/"),
-      pageFrag("tabs", "page-soft404.html", "https://ds.example.com/components/tabs/"),
-      pageFrag("forms-text", "page-shell.html", "https://ds.example.com/components/forms/text/"),
+      pageFrag("page-button.html", "https://ds.example.com/components/button/"),
+      pageFrag("page-date-picker.html", "https://ds.example.com/components/date-picker/"),
+      pageFrag("page-text-field.html", "https://ds.example.com/components/text-field/"),
+      pageFrag("page-soft404.html", "https://ds.example.com/components/tabs/"),
+      pageFrag("page-shell.html", "https://ds.example.com/components/forms/text/"),
     ];
     const logs: string[] = [];
     const bundle = normalizeGeneric(frags, { systemSlug: "example-ds", target: sitemapTarget, log: (m) => logs.push(m) });
@@ -258,11 +267,9 @@ describe("generic planning and normalization", () => {
   });
 
   it("treats a re-parsed 304 (cached body) like a fresh 200", () => {
-    const c = compileTarget(sitemapTarget);
-    const smUrl = "https://ds.example.com/sitemap-0.xml";
-    const index: IndexFragment = { type: "index", strategy: "sitemap", stamp: stamp(smUrl), candidates: sitemapCandidates(fx("sitemap-0.xml"), smUrl, c) };
+    const index = sitemapIndex("sitemap-0.xml", "https://ds.example.com/sitemap-0.xml");
     const url = "https://ds.example.com/components/button/";
-    const mk = (status: number): PageFragment => ({ type: "page", key: "button", segment: "button", stamp: stamp(url), finalUrl: url, status, meta: parsePageMeta(fx("page-button.html"), url) });
+    const mk = (status: number): PageFragment => ({ type: "page", stamp: stamp(url), finalUrl: url, status, meta: parsePageMeta(fx("page-button.html"), url) });
     const fresh = normalizeGeneric([index, mk(200)], { systemSlug: "example-ds", target: sitemapTarget });
     const cached = normalizeGeneric([index, mk(304)], { systemSlug: "example-ds", target: sitemapTarget });
     expect(JSON.stringify(cached)).toBe(JSON.stringify(fresh));
@@ -271,8 +278,8 @@ describe("generic planning and normalization", () => {
 
   it("drops constructed docs URLs that no page confirmed", () => {
     const t: GenericTarget = { slug: "x", strategy: "repo-listing", include: "^c/([a-z]+)/index\\.js$", repo: { kind: "npm", name: "p", ref: "1.0.0", docsUrlTemplate: "https://docs.example.com/{segment}/" }, notes: "" };
-    const index: IndexFragment = { type: "index", strategy: "repo-listing", stamp: stamp("https://data.jsdelivr.com/x"), candidates: [{ key: "alpha", segment: "alpha", matched: "c/alpha/index.js" }, { key: "beta", segment: "beta", matched: "c/beta/index.js" }], repo: { kind: "npm", name: "p", ref: "1.0.0" } };
-    const ok: PageFragment = { type: "page", key: "alpha", segment: "alpha", stamp: stamp("https://docs.example.com/alpha/"), finalUrl: "https://docs.example.com/alpha/", status: 200, meta: { title: "Alpha | Docs", h1: "Alpha", h1Own: null, metaDescription: null, canonical: null, lang: null, soft404: false } };
+    const index: IndexFragment = { type: "index", source: "repo-listing", stamp: stamp("https://data.jsdelivr.com/x"), values: ["c/alpha/index.js", "c/beta/index.js", "README.md"], repo: { kind: "npm", name: "p", ref: "1.0.0" } };
+    const ok: PageFragment = { type: "page", stamp: stamp("https://docs.example.com/alpha/"), finalUrl: "https://docs.example.com/alpha/", status: 200, meta: meta({ title: "Alpha | Docs", h1: "Alpha" }) };
     const bundle = normalizeGeneric([index, ok], { systemSlug: "x", target: t });
     expect(bundle.components.map((c) => [c.slug, c.docsUrl])).toEqual([
       ["alpha", "https://docs.example.com/alpha/"],
@@ -309,7 +316,7 @@ describe("generic adapter end-to-end (mocked network)", () => {
   it("discovers, fetches, parses and normalizes from a sitemap index", async () => {
     const adapter = createGenericAdapter([{ ...sitemapTarget, maxPages: 3 }]);
     expect(adapter.systems).toEqual(["example-ds"]);
-    expect(adapter.version).toMatch(/^1\.0\.0\+[0-9a-f]{10}$/);
+    expect(adapter.version).toBe(ADAPTER_VERSION); // parser code version only, never a target fingerprint
     const http = new PoliteFetcher({ fetchImpl, cacheDir: null, hostDelayMs: 0 });
     const log = { info: () => {}, warn: () => {}, error: () => {} };
     const ctx: AdapterContext = { systemSlug: "example-ds", http, log, runStartedAt: T0 };
