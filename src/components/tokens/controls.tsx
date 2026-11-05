@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDownIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { cn } from "@/lib/utils";
 
 /**
@@ -61,8 +61,11 @@ export function NativeSelect({
 
 /** Submit button shown only until hydration (selects auto-submit with JS). */
 export function NoJsSubmit({ label = "Apply", className }: { label?: string; className?: string }) {
-  const [hydrated, setHydrated] = useState(false);
-  useEffect(() => setHydrated(true), []);
+  const hydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   if (hydrated) return null;
   return (
     <button type="submit" className={cn("h-9 rounded-md border px-3 text-sm hover:bg-accent", className)}>

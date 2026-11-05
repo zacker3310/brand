@@ -18,7 +18,7 @@ import { classifyComponentName } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
 import { baseCoverage, pick, sizesFromProps, statesFromProps, strongest, toProperty, variantsFromProps, type FluentFragment, type WcElementLite } from "./fragments";
 import { wcComponentPages, type WcDocPage } from "./storybook";
-import { PKG, REPO_URL, SB_WC, clip, evidence, humanize, leadSentences, lifecycleFromVersion, npmFile, npmPage, sortBy, uniq } from "./shared";
+import { PKG, REPO_URL, SB_WC, clip, evidence, humanize, leadSentences, lifecycleFromVersion, nameCandidates, npmFile, npmPage, sortBy, uniq } from "./shared";
 
 /** ARIA roles and APG pattern slugs linked from TSDoc (`https://w3c.github.io/aria/#checkbox`). */
 export function ariaRefs(raw: string[]): { roles: string[]; patterns: string[] } {
@@ -145,7 +145,7 @@ export function normalizeWc(frags: FluentFragment[], opts: { limit?: number } = 
     const lifecycle = el.deprecated ? "deprecated" : lifecycleFromVersion(version);
     ev.push(evidence(dts.prov, "lifecycle", "npm-version", { location: `${PKG.webComponents}@${version}`, excerpt: `${PKG.webComponents}@${version}` }));
 
-    const cls = strongest([classifyComponentName(name), classifyComponentName(humanize(name)), classifyComponentName(dir.replace(/-/g, " ")), classifyComponentName(name.replace(/(?<=[a-z])list$/i, " list"))]);
+    const cls = strongest([...nameCandidates(name), dir.replace(/-/g, " ")].map((x) => classifyComponentName(x)));
     let canonicalType = cls?.slug ?? null;
     let classification: NormalizedComponent["classification"] = cls ? { state: "inferred", method: cls.method, confidence: cls.confidence } : null;
     if (cls && aria.roles.includes(cls.slug)) classification = { state: "verified", method: `${cls.method} + tsdoc-aria-role:${cls.slug}`, confidence: Math.max(cls.confidence, 0.9) };

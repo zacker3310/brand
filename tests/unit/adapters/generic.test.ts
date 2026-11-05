@@ -324,6 +324,15 @@ describe("generic adapter end-to-end (mocked network)", () => {
     // Re-normalizing the same fragments is deterministic (idempotent publish).
     expect(JSON.stringify(await adapter.normalize(ctx, [...frags].reverse()))).toBe(JSON.stringify(bundle));
   });
+
+  it("fails discovery when the index source is unreachable or robots-disallowed", async () => {
+    const http = new PoliteFetcher({ fetchImpl, cacheDir: null, hostDelayMs: 0 });
+    const ctx: AdapterContext = { systemSlug: "example-ds", http, log: { info: () => {}, warn: () => {}, error: () => {} }, runStartedAt: T0 };
+    const missing = createGenericAdapter([{ ...sitemapTarget, sitemapUrl: "https://ds.example.com/missing.xml" }]);
+    await expect(missing.discover(ctx)).rejects.toThrow(/no sitemap could be fetched/);
+    const blocked = createGenericAdapter([{ ...sitemapTarget, strategy: "nav", navUrl: "https://ds.example.com/private/index.html" }]);
+    await expect(blocked.discover(ctx)).rejects.toThrow(/robots\.txt disallows/);
+  });
 });
 
 describe("generic targets (workstream configs)", () => {

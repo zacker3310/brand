@@ -30,7 +30,7 @@ export function SuggestedList({ items, names }: { items: SuggestedComparison[]; 
             </span>
             <span className="tabular shrink-0 text-right text-[11px] leading-tight text-muted-foreground">
               {s.systemCount} systems
-              <span className="block text-subtle-foreground">{s.componentCount} components</span>
+              <span className="block text-muted-foreground">{s.componentCount} components</span>
             </span>
             <ArrowRightIcon className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" aria-hidden />
           </Link>

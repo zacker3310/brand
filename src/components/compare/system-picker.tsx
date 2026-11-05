@@ -98,7 +98,7 @@ export function SystemPicker({
             const s = byslug.get(slug);
             return (
               <span key={slug} className="inline-flex items-center gap-1.5 rounded-md border bg-surface-1 py-0.5 pr-0.5 pl-1.5 text-xs">
-                <span className="tabular font-mono text-[10px] text-subtle-foreground">{i + 1}</span>
+                <span className="tabular font-mono text-[10px] text-muted-foreground">{i + 1}</span>
                 <span className="max-w-40 truncate font-medium">{s?.name ?? slug}</span>
                 <button
                   type="button"
@@ -135,8 +135,8 @@ export function SystemPicker({
             return (
               <div key={sec.id} role="group" aria-labelledby={`${uid}-${sec.id}`}>
                 <div id={`${uid}-${sec.id}`} className="sticky top-0 z-10 flex items-center justify-between border-b bg-surface-1/95 px-3 py-1.5 backdrop-blur">
-                  <span className="type-eyebrow">{sec.title}</span>
-                  <span className="tabular font-mono text-[11px] text-subtle-foreground">{sec.items.length}</span>
+                  <span className="type-eyebrow text-muted-foreground">{sec.title}</span>
+                  <span className="tabular font-mono text-[11px] text-muted-foreground">{sec.items.length}</span>
                 </div>
                 {sec.items.length === 0 && sec.empty && <p className="px-3 py-3 text-xs text-muted-foreground">{sec.empty}</p>}
                 {hydrated && sec.items.length > 0 && visible.length === 0 && <p className="px-3 py-3 text-xs text-muted-foreground">No match in this group.</p>}
@@ -164,7 +164,7 @@ export function SystemPicker({
                           />
                           <SystemMark name={s.name} slug={s.slug} size="sm" />
                           <span className="min-w-0 flex-1 truncate">{s.name}</span>
-                          <span className={cn("shrink-0 text-xs", meta(s).includes("component") ? "text-muted-foreground" : "text-subtle-foreground")}>{meta(s)}</span>
+                          <span className={cn("shrink-0 text-xs", meta(s).includes("component") ? "text-muted-foreground" : "text-muted-foreground")}>{meta(s)}</span>
                         </label>
                       </li>
                     );

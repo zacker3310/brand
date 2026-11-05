@@ -16,7 +16,7 @@ function Count({ n, field, coverage }: { n: number; field: string; coverage: Typ
 
 export function ImplementationsTable({ rows }: { rows: TypeImplementation[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Implementations, scrollable" tabIndex={0}>
+    <div className="relative overflow-x-auto rounded-xl border bg-card" role="region" aria-label="Implementations, scrollable" tabIndex={0}>
       <table className="w-full min-w-[960px] border-separate border-spacing-0 text-[13px]">
         <caption className="sr-only">Implementations of this canonical type across indexed design systems</caption>
         <thead>

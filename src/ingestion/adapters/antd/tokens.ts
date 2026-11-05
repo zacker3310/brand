@@ -322,7 +322,7 @@ export function parsePresetColorsDts(dts: string): { presets: string[]; palettes
 /** es/index.d.ts: `export { default as Button } from './button'` -> { "button": ["Button"] }. */
 export function parseIndexExports(dts: string, prefix = "./"): Record<string, string[]> {
   const out: Record<string, string[]> = {};
-  const re = new RegExp(`export\\s*\\{\\s*default\\s+as\\s+([A-Za-z_$][\\w$]*)\\s*\\}\\s*from\\s*['"]${prefix.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")}([a-z0-9-]+)['"]`, "g");
+  const re = new RegExp(`export\\s*\\{\\s*default\\s+as\\s+([A-Za-z_$][\\w$]*)\\s*(?:,[^}]*)?\\}\\s*from\\s*['"]${prefix.replace(/[.*+?^${}()|[\]\\/]/g, "\\$&")}([a-z0-9-]+)['"]`, "g");
   for (const m of dts.matchAll(re)) {
     const dir = m[2]!;
     out[dir] = [...new Set([...(out[dir] ?? []), m[1]!])];

@@ -127,7 +127,7 @@ export function TypeCombobox({
                         <CheckIcon className={cn("size-3.5", t.slug === value ? "opacity-100" : "opacity-0")} aria-hidden />
                         <span className={cn("truncate", t.systemCount === 0 && "text-muted-foreground")}>{t.name}</span>
                       </span>
-                      <span className={cn("tabular shrink-0 font-mono text-[11px]", t.systemCount ? "text-muted-foreground" : "text-subtle-foreground")}>
+                      <span className={cn("tabular shrink-0 font-mono text-[11px]", t.systemCount ? "text-muted-foreground" : "text-muted-foreground")}>
                         {t.systemCount || "—"}
                       </span>
                     </CommandItem>

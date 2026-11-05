@@ -68,7 +68,7 @@ export function Interpretation({ result, systemNames }: { result: SearchResult; 
           <span className="text-muted-foreground">Interpreted:</span>
           {entries.map(([k, vs]) => (
             <span key={k} className="inline-flex items-center gap-1 rounded-md border border-info/25 bg-info-soft px-1.5 py-0.5 text-info">
-              <span className="opacity-75">{INTERPRETATION_LABELS[k] ?? k}</span>
+              <span className="font-normal">{INTERPRETATION_LABELS[k] ?? k}</span>
               <span className="font-medium">{vs.map((v) => valueLabel(k, v)).join(", ")}</span>
             </span>
           ))}

@@ -158,3 +158,15 @@ export function lifecycleFromVersion(version: string | null | undefined, opts: {
   if (/^\d+\.\d+\.\d+$/.test(version)) return "stable";
   return "unknown";
 }
+
+const COMPOUND_SUFFIXES = ["list", "box", "bar", "button", "group", "picker", "field", "label", "display", "indicator", "item", "panel", "header", "footer"];
+
+/** Name forms tried for classification: as authored, humanized, and closed compounds split ("Tablist" -> "Tab list"). */
+export function nameCandidates(name: string): string[] {
+  const out = [name, humanize(name)];
+  for (const word of [name, humanize(name)]) {
+    const m = new RegExp(`^(.*[a-z])(${COMPOUND_SUFFIXES.join("|")})$`, "i").exec(word);
+    if (m && m[1]!.length >= 3) out.push(`${m[1]} ${m[2]!.toLowerCase()}`);
+  }
+  return uniq(out);
+}

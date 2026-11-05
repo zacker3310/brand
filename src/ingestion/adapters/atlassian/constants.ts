@@ -164,6 +164,18 @@ export const CLASSIFICATION_OVERRIDES: Record<string, { slug: string | null; rea
   "Table tree": { slug: "tree", reason: "table with expandable hierarchical rows" },
   "Filter button": { slug: "button", reason: "button that opens filter options" },
   "Atlassian navigation": { slug: "navigation-bar", reason: "horizontal top navigation of Atlassian apps" },
+  "Icon tile": { slug: null, reason: "icon on a tile background; the 'tile' alias match to card is wrong" },
+  "Object tile": { slug: null, reason: "object icon on a tile background; the 'tile' alias match to card is wrong" },
+  "Spotlight card": { slug: "onboarding", reason: "onboarding message card; the 'spotlight' alias maps to command-palette" },
+  "Date label dropdown trigger": { slug: "menu-button", reason: "interactive date label that opens a dropdown" },
+  "Lozenge dropdown trigger": { slug: "menu-button", reason: "interactive lozenge that opens a dropdown" },
+  "Dropdown item": { slug: null, reason: "item inside a dropdown menu; no taxonomy type for menu items" },
+  "Dropdown item checkbox": { slug: null, reason: "checkbox item inside a dropdown menu; no taxonomy type for menu items" },
+  "Dropdown item radio": { slug: null, reason: "radio item inside a dropdown menu; no taxonomy type for menu items" },
+  "Checkbox select": { slug: "multi-select", reason: "select allowing multiple selections with checkboxes" },
+  "Grid column": { slug: "grid", reason: "column of the Page grid; the 'column' alias match to stack is wrong" },
+  "Avatar tag": { slug: "tag", reason: "tag representing a person/team with an avatar" },
+  Layout: { slug: null, reason: "navigation-system page structure components; no single taxonomy type" },
 };
 
 /** Patterns classification skips (alias match known wrong for the Atlassian page). */

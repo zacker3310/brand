@@ -40,7 +40,7 @@ export function ScoreValue({ r, size = "md" }: { r: RubricResult; size?: "md" | 
   return (
     <span className="inline-flex items-baseline gap-0.5">
       <span className={cn("tabular font-semibold tracking-tight", size === "lg" ? "text-2xl" : "text-xl")}>{r.score}</span>
-      <span className="text-[11px] text-subtle-foreground">/100</span>
+      <span className="text-[11px] text-muted-foreground">/100</span>
     </span>
   );
 }
@@ -56,7 +56,7 @@ export function ScoreBar({ score }: { score: number | null }) {
 }
 
 export function ConfidenceLine({ r }: { r: RubricResult }) {
-  if (r.status === "not-indexed") return <span className="block text-[11px] text-subtle-foreground">Registry metadata only</span>;
+  if (r.status === "not-indexed") return <span className="block text-[11px] text-muted-foreground">Registry metadata only</span>;
   return (
     <span className="flex items-center gap-1.5 text-[11px] text-muted-foreground">
       <ConfidenceMeter confidence={r.confidence} />
@@ -124,7 +124,7 @@ export function Scorecard({ systems, criteria }: { systems: ScoredSystem[]; crit
         <thead>
           <tr>
             <th scope="col" className="sticky left-0 z-10 w-32 border-b bg-card px-3 py-3 align-bottom sm:w-56">
-              <span className="type-eyebrow">Criterion</span>
+              <span className="type-eyebrow text-muted-foreground">Criterion</span>
             </th>
             {systems.map((s) => (
               <th key={s.slug} scope="col" className="min-w-32 border-b border-l border-l-border/60 px-3 py-3 align-top font-normal">

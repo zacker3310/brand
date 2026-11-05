@@ -17,7 +17,7 @@ import type { EvidenceInput, NormalizedComponent } from "@/lib/contracts";
 import { classifyComponentName } from "@/lib/taxonomy";
 import { slugify } from "@/lib/utils";
 import { baseCoverage, pick, sizesFromProps, statesFromProps, strongest, toProperty, variantsFromProps, type FluentFragment, type FragOf, type ReactComponentLite } from "./fragments";
-import { SB_REACT, clip, evidence, firstSentence, humanize, leadSentences, lifecycleFromVersion, npmFile, npmPage, repoTree, sortBy, uniq } from "./shared";
+import { SB_REACT, clip, evidence, firstSentence, humanize, lifecycleFromVersion, nameCandidates, npmFile, npmPage, repoTree, sortBy, uniq } from "./shared";
 
 type Example = NormalizedComponent["examples"][number];
 
@@ -89,7 +89,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
   const mainCls = new Map<string, ReturnType<typeof classifyComponentName>>();
   for (const p of pages) {
     const n = mainName(p);
-    mainCls.set(n, strongest([classifyComponentName(n), classifyComponentName(humanize(n)), classifyComponentName(p.page.leaf), classifyComponentName(n.replace(/(?<=[a-z])list$/i, " list"))]));
+    mainCls.set(n, strongest([...nameCandidates(n), p.page.leaf].map((x) => classifyComponentName(x))));
   }
   const classify = (name: string, own: ReturnType<typeof classifyComponentName>) => {
     if (own && own.confidence > 0.6) return own;
@@ -298,7 +298,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     coverage.examples = "documented";
     coverage.accessibility = "not-extracted";
     coverage.keyboard = "not-extracted";
-    const cls = classify(name, strongest([classifyComponentName(name), classifyComponentName(humanize(name))]));
+    const cls = classify(name, strongest(nameCandidates(name).map((x) => classifyComponentName(x))));
     components.push({
       slug,
       name,

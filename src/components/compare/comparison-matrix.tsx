@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { CellView } from "./cell-view";
 import { ComponentPickSelect } from "./component-pick-select";
 import { PropsToggle } from "./matrix-controls";
+import { INFERRED_TEXT } from "./tone";
 
 /** Hidden when "show differences only" is on (data attribute on MatrixRoot). */
 const DIFF_HIDE = "group-data-[diff=on]/matrix:hidden";
@@ -69,14 +70,14 @@ function RowLabel({ row, sameLabel }: { row: MatrixRow; sameLabel: string }) {
     <div className="space-y-1">
       <div className={cn("text-[13px] leading-snug font-medium break-words", row.alignment && "font-mono text-xs")}>{row.label}</div>
       {row.alignment ? (
-        <div className={cn("text-[11px] leading-snug", row.alignment.method === "normalized" ? "text-inferred" : "text-subtle-foreground")}>
+        <div className={cn("text-[11px] leading-snug", row.alignment.method === "normalized" ? INFERRED_TEXT : "text-muted-foreground")}>
           aligned by {row.alignment.method === "exact" ? "name" : "normalized name"} (inferred)
-          {row.alignment.method === "normalized" && <span className="block font-mono text-subtle-foreground">{row.alignment.names.join(" · ")}</span>}
+          {row.alignment.method === "normalized" && <span className="block font-mono text-muted-foreground">{row.alignment.names.join(" · ")}</span>}
         </div>
       ) : row.hint ? (
-        <div className="text-[11px] leading-snug text-subtle-foreground">{row.hint}</div>
+        <div className="text-[11px] leading-snug text-muted-foreground">{row.hint}</div>
       ) : null}
-      {row.same && !row.span && <div className="text-[11px] text-subtle-foreground">{sameLabel}</div>}
+      {row.same && !row.span && <div className="text-[11px] text-muted-foreground">{sameLabel}</div>}
     </div>
   );
 }
@@ -89,7 +90,7 @@ function GroupHeading({ group, id }: { group: MatrixGroup; id: string }) {
       </h3>
       {group.description && <p className="text-xs font-normal text-muted-foreground">{group.description}</p>}
       {group.note && (
-        <p className="inline-flex max-w-3xl items-start gap-1.5 rounded-md border border-inferred/30 bg-inferred-soft px-2 py-1 text-xs font-normal text-inferred">{group.note}</p>
+        <p className={cn("inline-flex max-w-3xl items-start gap-1.5 rounded-md border border-inferred/30 bg-inferred-soft px-2 py-1 text-xs font-normal", INFERRED_TEXT)}>{group.note}</p>
       )}
     </div>
   );
@@ -112,7 +113,7 @@ function DesktopMatrix({ matrix, columns, links, typeName }: { matrix: Component
       <thead>
         <tr>
           <th scope="col" className="sticky top-14 z-20 border-b bg-background px-3 py-3 text-left align-bottom">
-            <span className="type-eyebrow">Attribute</span>
+            <span className="type-eyebrow text-muted-foreground">Attribute</span>
           </th>
           {columns.map((col) => (
             <th
@@ -177,7 +178,7 @@ function MobileMatrix({ matrix, columns, links, typeName }: { matrix: ComponentM
             <GroupHeading group={g} id={`m-${g.id}`} />
             {spans.map((r) => (
               <div key={r.id} className="rounded-lg border border-dashed bg-surface-1/70 px-3 py-2.5">
-                <p className="type-eyebrow mb-1">{r.label}</p>
+                <p className="type-eyebrow text-muted-foreground mb-1">{r.label}</p>
                 <CellView value={r.span!} />
               </div>
             ))}

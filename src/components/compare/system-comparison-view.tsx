@@ -68,7 +68,7 @@ export async function SystemComparisonView({ params: p }: { params: SystemCompar
       </Breadcrumb>
 
       <PageHeader
-        eyebrow={ready ? `Compare · ${scored.length} systems` : "Compare"}
+        eyebrow={<span className="text-muted-foreground">{ready ? `Compare · ${scored.length} systems` : "Compare"}</span>}
         display
         title={ready ? "System comparison" : "Compare design systems"}
         description={

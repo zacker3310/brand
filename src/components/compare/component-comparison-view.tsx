@@ -71,7 +71,7 @@ export async function ComponentComparisonView({ params: p }: { params: Component
       </Breadcrumb>
 
       <PageHeader
-        eyebrow={`Component comparison${data.type.group ? ` · ${data.type.group}` : ""}`}
+        eyebrow={<span className="text-muted-foreground">{`Component comparison${data.type.group ? ` · ${data.type.group}` : ""}`}</span>}
         display
         title={data.type.name}
         description={
@@ -146,7 +146,7 @@ export async function ComponentComparisonView({ params: p }: { params: Component
 
         {/* Mobile: which component fills each column (desktop has this in the sticky header). */}
         <section aria-label="Compared components" className="space-y-2 lg:hidden">
-          <h2 className="type-eyebrow">Compared components</h2>
+          <h2 className="type-eyebrow text-muted-foreground">Compared components</h2>
           <ul className="divide-y rounded-lg border bg-card">
             {data.columns.map((c) => (
               <li key={c.system.slug} className="flex items-center gap-3 px-3 py-2.5">

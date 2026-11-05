@@ -1,0 +1,134 @@
+{
+ "v": 5,
+ "entries": {
+  "playground--details-page": {
+   "type": "story",
+   "id": "playground--details-page",
+   "name": "DetailsPage",
+   "title": "Playground",
+   "importPath": "./playground/stories.tsx",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "playground--kitchen-sink": {
+   "type": "story",
+   "id": "playground--kitchen-sink",
+   "name": "KitchenSink",
+   "title": "Playground",
+   "importPath": "./playground/stories.tsx",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "playground--playground": {
+   "type": "story",
+   "id": "playground--playground",
+   "name": "Playground",
+   "title": "Playground",
+   "importPath": "./playground/stories.tsx",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-badge--default": {
+   "type": "story",
+   "id": "all-components-badge--default",
+   "name": "Default",
+   "title": "All components/Badge",
+   "importPath": "./src/components/Badge/Badge.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-badge--informational": {
+   "type": "story",
+   "id": "all-components-badge--informational",
+   "name": "Informational",
+   "title": "All components/Badge",
+   "importPath": "./src/components/Badge/Badge.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-badge--success": {
+   "type": "story",
+   "id": "all-components-badge--success",
+   "name": "Success",
+   "title": "All components/Badge",
+   "importPath": "./src/components/Badge/Badge.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-badge--attention": {
+   "type": "story",
+   "id": "all-components-badge--attention",
+   "name": "Attention",
+   "title": "All components/Badge",
+   "importPath": "./src/components/Badge/Badge.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-button--all": {
+   "type": "story",
+   "id": "all-components-button--all",
+   "name": "All",
+   "title": "All components/Button",
+   "importPath": "./src/components/Button/Button.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-button--default": {
+   "type": "story",
+   "id": "all-components-button--default",
+   "name": "Default",
+   "title": "All components/Button",
+   "importPath": "./src/components/Button/Button.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-button--critical": {
+   "type": "story",
+   "id": "all-components-button--critical",
+   "name": "Critical",
+   "title": "All components/Button",
+   "importPath": "./src/components/Button/Button.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  },
+  "all-components-button--plain": {
+   "type": "story",
+   "id": "all-components-button--plain",
+   "name": "Plain",
+   "title": "All components/Button",
+   "importPath": "./src/components/Button/Button.stories.tsx",
+   "componentPath": "@shopify/polaris",
+   "tags": [
+    "dev",
+    "test"
+   ]
+  }
+ }
+}

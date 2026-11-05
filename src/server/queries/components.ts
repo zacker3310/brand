@@ -958,15 +958,23 @@ export async function getComponentDetail(systemSlug: string, componentSlug: stri
       order by 1 desc, 2, 6
     `),
     db.execute<{ name: string; category: string; properties: string[] | null; vals: TokenUsageValue[] }>(sql`
-      with u as (select distinct tu.token_id from token_usage tu where tu.component_id = ${id})
-      select t.name, t.category::text as category,
-        array(select distinct tu2.property from token_usage tu2 join token t2 on t2.id = tu2.token_id
-          where tu2.component_id = ${id} and t2.name = t.name and tu2.property is not null order by 1) as properties,
+      with u as (
+        select tu.token_id, t.name, tu.property
+        from token_usage tu join token t on t.id = tu.token_id
+        where tu.component_id = ${id}
+      ),
+      props as (
+        select u.name, array_agg(distinct u.property order by u.property) filter (where u.property is not null) as properties
+        from u group by u.name
+      ),
+      toks as (select distinct u.token_id from u)
+      select t.name, t.category::text as category, coalesce(p.properties, '{}'::text[]) as properties,
         json_agg(json_build_object('set', ts.slug, 'setName', ts.name, 'theme', ts.theme, 'valueText', t.value_text,
           'aliasState', t.alias_state, 'resolvedValue', t.resolved_value, 'type', t.type) order by ts.theme nulls first, ts.slug) as vals
-      from u join token t on t.id = u.token_id join token_set ts on ts.id = t.token_set_id
+      from toks join token t on t.id = toks.token_id join token_set ts on ts.id = t.token_set_id
+      left join props p on p.name = t.name
       where ts.publish_state = 'published'
-      group by t.name, t.category
+      group by t.name, t.category, p.properties
       order by t.category, t.name
     `),
     c.component_type_id

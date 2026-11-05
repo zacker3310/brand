@@ -907,7 +907,7 @@ export function customElementsOf(file: DtsFile): DtsElement[] {
       seen.add(cur.name);
       chain.push(cur.name);
       chainDecls.push(cur);
-      const parent = cur.extends[0] ? genericRef(cur.extends[0])?.name : undefined;
+      const parent: string | undefined = cur.extends[0] ? genericRef(cur.extends[0])?.name : undefined;
       cur = parent ? firstDecl(file, parent, ["class"]) : undefined;
     }
     // Base classes first so subclasses override.

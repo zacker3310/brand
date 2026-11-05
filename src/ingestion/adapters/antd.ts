@@ -62,6 +62,8 @@ const prefetched = new Map<string, { run: string; result: FetchResult }>();
 
 async function prefetch(ctx: AdapterContext, url: string): Promise<FetchResult> {
   for (const [k, v] of prefetched) if (v.run !== ctx.runStartedAt) prefetched.delete(k);
+  const have = prefetched.get(url);
+  if (have) return have.result;
   const res = await ctx.http.get(url, { signal: ctx.signal });
   if (res.ok && res.body !== null) prefetched.set(url, { run: ctx.runStartedAt, result: res });
   return res;
@@ -299,19 +301,26 @@ async function discoverMobile(ctx: AdapterContext): Promise<DiscoveredDocument[]
   const ordered = byPriority(routes, (r) => r.name, MOBILE_PRIORITY);
   const wanted = ctx.limit && ctx.limit > 0 ? ordered.slice(0, ctx.limit) : ordered;
   const candidatesFor = (n: string) => [`src/components/${n}/index.en.md`, `src/components/${n}/${n}.en.md`, `docs/components/${n}/index.en.md`];
-  let order = 0;
-  for (const r of wanted) {
-    let file = candidatesFor(r.name).find((f) => repoFiles.has(f)) ?? null;
-    if (!file && !repoFiles.size) {
-      for (const c of candidatesFor(r.name)) {
-        const res = await prefetch(ctx, rawUrl(p, pkg.ref, c));
-        if (res.ok && res.body) {
-          file = c;
-          break;
+  // Resolve each route's English docs file (repository listing, else probing), then prefetch all pages in parallel.
+  const resolved = await Promise.all(
+    wanted.map(async (r) => {
+      let file = candidatesFor(r.name).find((f) => repoFiles.has(f)) ?? null;
+      if (!file && !repoFiles.size) {
+        for (const c of candidatesFor(r.name)) {
+          const res = await prefetch(ctx, rawUrl(p, pkg.ref, c));
+          if (res.ok && res.body) {
+            file = c;
+            break;
+          }
         }
       }
-    }
-    if (!file) {
+      const res = file ? await prefetch(ctx, rawUrl(p, pkg.ref, file)) : null;
+      return { r, file, body: res?.ok ? res.body : null };
+    }),
+  );
+  let order = 0;
+  for (const { r, file, body } of resolved) {
+    if (!file || body === null) {
       ctx.log.warn(`antd-mobile: no English docs file for ${r.route} at ${pkg.ref}`);
       continue;
     }
@@ -326,15 +335,17 @@ async function discoverMobile(ctx: AdapterContext): Promise<DiscoveredDocument[]
       priority: 10 + i,
     });
     const dir = file.replace(/\/[^/]+$/, "");
-    const demo = [`${dir}/demos/demo1.tsx`].find((f) => repoFiles.has(f));
+    // First demo referenced by the page (<code src="./demos/x.tsx">), else demos/demo1.tsx when listed.
+    const referenced = parseDoc(body).demos.map((x) => x.src).find((src) => /^\.\/demos\/[A-Za-z0-9_-]+\.tsx$/.test(src));
+    const demo = [referenced ? `${dir}/${referenced.replace(/^\.\//, "")}` : null, `${dir}/demos/demo1.tsx`].find((f): f is string => !!f && (!repoFiles.size || repoFiles.has(f)));
     if (demo)
       docs.push({
         url: ghCdnUrl(p, pkg.ref, demo),
         docKind: DOC_KINDS.mobileDemo,
         source: repoSource,
         evidenceUrl: blobUrl(p, pkg.ref, demo),
-        title: `${r.name} demo1`,
-        meta: { systemSlug: p.systemSlug, file: demo, slug: r.name, demo: "demo1", pkg, fallbackUrl: rawUrl(p, pkg.ref, demo) } satisfies AntdDocMeta,
+        title: `${r.name} ${demo.replace(/^.*\//, "")}`,
+        meta: { systemSlug: p.systemSlug, file: demo, slug: r.name, demo: demo.replace(/^.*\//, "").replace(/\.tsx$/, ""), pkg, fallbackUrl: rawUrl(p, pkg.ref, demo) } satisfies AntdDocMeta,
         priority: 30 + i,
       });
   }

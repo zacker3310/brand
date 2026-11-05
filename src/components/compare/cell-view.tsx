@@ -4,6 +4,7 @@ import { SourceLink } from "@/components/atlas/source-link";
 import { VerificationBadge } from "@/components/atlas/verification-badge";
 import type { CellValue } from "@/lib/scoring/types";
 import { cn } from "@/lib/utils";
+import { INFERRED_TEXT } from "./tone";
 
 const chipClass = "inline-flex max-w-full items-center rounded border border-border/80 bg-surface-1 px-1.5 py-0.5 text-xs leading-4 break-words";
 
@@ -14,7 +15,7 @@ const ALIAS_TEXT: Record<string, string> = {
 };
 
 function InferredMark() {
-  return <VerificationBadge state="inferred" compact detail="ATLAS inferred this value from the source (heuristic), rather than the source stating it." />;
+  return <VerificationBadge state="inferred" compact className={INFERRED_TEXT} detail="ATLAS inferred this value from the source (heuristic), rather than the source stating it." />;
 }
 
 /** Renders one comparison cell. Server component (interactive bits are small client leaves). */
@@ -82,6 +83,7 @@ export function CellView({ value }: { value: CellValue }) {
         <div className="flex flex-wrap items-center gap-1.5">
           <VerificationBadge
             state={value.state}
+            className={value.state === "inferred" ? INFERRED_TEXT : undefined}
             detail={`${value.state === "verified" ? "Declared by the source" : "Inferred by ATLAS taxonomy matching"}${value.method ? ` · method ${value.method}` : ""} · confidence ${Math.round(value.confidence * 100)}%`}
           />
           <span className="tabular font-mono text-[11px] text-muted-foreground">{Math.round(value.confidence * 100)}%</span>
@@ -95,13 +97,13 @@ export function CellView({ value }: { value: CellValue }) {
             <li key={`${e.implementation}-${e.name}-${i}`} className="min-w-0 space-y-0.5">
               <div className="flex flex-wrap items-baseline gap-x-1.5">
                 <code className="font-mono text-xs font-medium break-all">{e.name}</code>
-                <span className="font-mono text-[10px] text-subtle-foreground">{e.implementation}</span>
+                <span className="font-mono text-[10px] text-muted-foreground">{e.implementation}</span>
                 {e.required && <span className="text-[10px] font-medium text-foreground/80">required</span>}
                 {e.deprecated && <span className="text-[10px] font-medium text-conflicting">deprecated</span>}
               </div>
               {(e.type || e.defaultValue) && (
                 <div className="font-mono text-[11px] leading-snug break-words text-muted-foreground">
-                  {e.type ?? <span className="text-subtle-foreground">type not documented</span>}
+                  {e.type ?? <span className="text-muted-foreground">type not documented</span>}
                   {e.defaultValue && <span className="text-foreground/70"> = {e.defaultValue}</span>}
                 </div>
               )}

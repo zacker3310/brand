@@ -798,7 +798,7 @@ function mobileCssVarRows(f: F<"m-component-doc">, title: string): { rows: Mobil
     const owner = parent && parent.depth >= 2 && /^[A-Z][A-Za-z0-9.]*$/.test(parent.text) ? parent.text : title;
     for (const r of t.rows) {
       const local = (r[nameIdx]?.text ?? "").trim();
-      if (!/^--[a-z0-9-]+$/.test(local)) continue;
+      if (!/^--[a-z][a-z0-9-]*$/.test(local)) continue;
       const dc = r[defIdx];
       const value = dc && dc.codes.length === 1 && dc.text === dc.codes[0]!.replace(/\s+/g, " ").trim() ? dc.codes[0]!.trim() : null;
       const glob = globIdx >= 0 ? ((r[globIdx]?.codes[0] ?? r[globIdx]?.text ?? "").trim() || null) : null;
@@ -970,9 +970,12 @@ export function normalizeMobile(systemSlug: string, frags: AntdFragment[], opts:
       }),
     );
     if (nav) evidence.push(ev(nav.stamp, "lifecycle", METHOD.mobileNav, { location: `config/components.ts#${f.group ?? "?"}`, excerpt: `${f.route} listed in nav group "${f.group}"`, confidence: 0.9 }));
-    const description = firstSentences(d.lead, 280);
+    // Lead paragraph; version notices ("This component is available since ...") fall back to "When to Use".
+    const lead = d.lead && !/^this component is available since\b/i.test(d.lead) ? d.lead : null;
+    const whenToUse = Object.entries(d.sectionText).find(([k]) => /^when to use$/i.test(k))?.[1] ?? null;
+    const description = firstSentences(lead ?? whenToUse, 280);
     coverage.description = description ? "documented" : "not-documented";
-    if (description) evidence.push(ev(f.stamp, "description", METHOD.docsMd, { location: `${file} (lead paragraph)`, excerpt: description }));
+    if (description) evidence.push(ev(f.stamp, "description", METHOD.docsMd, { location: `${file} (${lead ? "lead paragraph" : "When to Use"})`, excerpt: description }));
     const firstProps = d.tables.find((t) => t.headers.some((h) => /^type$/i.test(h)));
     if (properties.length) evidence.push(ev(f.stamp, "properties", METHOD.apiTable, { location: `${file}#L${firstProps?.line ?? 1}`, excerpt: `${properties.length} props from Props tables (Name | Description | Type | Default)`, confidence: 0.9 }));
     const { variants, states, sizes } = variantsStatesSizes(props, f.docsUrl, file);

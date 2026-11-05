@@ -68,7 +68,7 @@ export function SectionNav({ items }: { items: { id: string; label: string; coun
   return (
     <nav aria-label="On this page" className="text-[13px]">
       <p className="type-eyebrow text-muted-foreground mb-2 hidden lg:block">On this page</p>
-      <ul className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0">
+      <ul className="relative -mx-4 flex gap-1 overflow-x-auto px-4 pb-1 lg:mx-0 lg:flex-col lg:gap-0 lg:overflow-visible lg:px-0">
         {items.map((it) => (
           <li key={it.id} className="shrink-0">
             <a
@@ -235,7 +235,7 @@ export function SizesBlock({ sizes, state }: { sizes: string[] | null; state: Co
 
 export function StatesTable({ states }: { states: ComponentStateRow[] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border bg-card">
+    <div className="relative overflow-x-auto rounded-xl border bg-card">
       <table className="w-full text-[13px]">
         <caption className="sr-only">Documented states and their ATLAS canonical state</caption>
         <thead className="border-b bg-surface-1 text-left">
@@ -376,7 +376,7 @@ export function AccessibilityBlock({
           Keyboard interactions <CoverageChip state={sub("keyboard", keyState)} />
         </h3>
         {a11y?.keyboard?.length ? (
-          <div className="overflow-x-auto rounded-xl border bg-card">
+          <div className="relative overflow-x-auto rounded-xl border bg-card">
             <table className="w-full text-[13px]">
               <caption className="sr-only">Documented keyboard interactions</caption>
               <thead className="border-b bg-surface-1 text-left">
@@ -505,7 +505,7 @@ const VISIBLE_LINKS = 8;
 
 function CodeExample({ ex, open = false }: { ex: ComponentExampleRow; open?: boolean }) {
   return (
-    <details open={open} className="group/code overflow-hidden rounded-xl border bg-card">
+    <details open={open} className="group/code relative overflow-hidden rounded-xl border bg-card">
       <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-2 bg-surface-1 px-3 py-2 group-open/code:border-b [&::-webkit-details-marker]:hidden">
         <span className="flex items-center gap-2 text-[13px] font-medium">
           <ChevronRightIcon className="size-3.5 text-muted-foreground transition-transform group-open/code:rotate-90" aria-hidden />
@@ -516,7 +516,7 @@ function CodeExample({ ex, open = false }: { ex: ComponentExampleRow; open?: boo
           {ex.license && <span className="rounded border px-1 py-px normal-case">{ex.license.name}</span>}
         </span>
       </summary>
-      <pre tabIndex={0} aria-label={`${ex.title} code`} className="max-h-72 overflow-auto p-3 font-mono text-[12px] leading-relaxed text-foreground/90">
+      <pre tabIndex={0} aria-label={`${ex.title} code`} className="relative max-h-72 overflow-auto p-3 font-mono text-[12px] leading-relaxed text-foreground/90">
         <code>{ex.code}</code>
       </pre>
       <div className="flex flex-wrap items-center justify-between gap-2 border-t px-3 py-2 text-[11px] text-muted-foreground">

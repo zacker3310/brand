@@ -78,7 +78,7 @@ export function PropsTable({
     replaceParam("impl", v === implementations[0]?.key ? null : v);
   };
   const table = (
-      <div className="overflow-x-auto rounded-xl border bg-card" role="region" aria-label={`${active.label} props, scrollable`} tabIndex={0}>
+      <div className="relative overflow-x-auto rounded-xl border bg-card" role="region" aria-label={`${active.label} props, scrollable`} tabIndex={0}>
       <table className="w-full min-w-[760px] border-separate border-spacing-0 text-[13px]">
         <caption className="sr-only">Props documented for the {active.label} implementation</caption>
         <thead>

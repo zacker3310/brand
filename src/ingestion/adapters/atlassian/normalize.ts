@@ -74,15 +74,24 @@ export function selectComponentEntries(entries: NavEntry[], limit?: number): Nav
   return limit && limit > 0 ? sorted.slice(0, limit) : sorted;
 }
 
-/** Stable component slugs from navigation names; collisions fall back to the docs path. */
-export function assignSlugs(entries: NavEntry[]): Map<string, string> {
+/**
+ * Stable component slugs from navigation names. Entries of the components index navigation are
+ * assigned first (so a newly documented sub-page can never take an existing component's slug);
+ * sub-pages whose name is taken get "<parent slug>-<name>" (e.g. page > Grid -> "page-grid").
+ */
+export function assignSlugs(entries: NavEntry[], topLevel: Set<string>): Map<string, string> {
   const out = new Map<string, string>();
   const used = new Set<string>();
-  for (const e of sortBy(entries, (x) => x.path)) {
-    let slug = slugify(e.name) || slugify(e.path);
-    if (used.has(slug)) slug = slugify(e.path.replace(/^\/components\//, ""));
+  const ordered = [...sortBy(entries.filter((e) => topLevel.has(e.path)), (x) => x.path), ...sortBy(entries.filter((e) => !topLevel.has(e.path)), (x) => x.path)];
+  for (const e of ordered) {
+    const base = slugify(e.name) || slugify(e.path);
+    let slug = base;
+    if (used.has(slug)) {
+      const parent = out.get(e.path.replace(/\/[a-z0-9-]+$/, ""));
+      slug = parent ? `${parent}-${base}` : slugify(e.path.replace(/^\/components\//, ""));
+    }
     let n = 2;
-    while (used.has(slug)) slug = `${slugify(e.name)}-${n++}`;
+    while (used.has(slug)) slug = `${base}-${n++}`;
     used.add(slug);
     out.set(e.path, slug);
   }
@@ -164,7 +173,7 @@ export function normalizeAtlassian(fragments: AtlFragmentData[], opts: Normalize
   for (const f of sortBy(byType("component-page"), (x) => x.page.url)) for (const e of f.page.navChildren ?? []) if (!allEntries.has(e.path)) allEntries.set(e.path, e);
   const navEntries = [...allEntries.values()];
   const entries = index ? selectComponentEntries(navEntries, opts.limit) : [];
-  const slugs = assignSlugs(navEntries.filter(isComponentEntry));
+  const slugs = assignSlugs(navEntries.filter(isComponentEntry), new Set((index?.entries ?? []).map((e) => e.path)));
   const known = new Set(entries.map((e) => e.path));
   const pagesByPath = new Map<string, ComponentPages>();
   for (const f of byType("component-page")) {
@@ -185,6 +194,7 @@ export function normalizeAtlassian(fragments: AtlFragmentData[], opts: Normalize
         npmByPkg,
         llms,
         slugByPath,
+        pagesByPath,
       }),
     );
   }
@@ -329,6 +339,7 @@ interface BuildArgs {
   npmByPkg: Map<string, Frag<"npm">>;
   llms: Frag<"llms"> | null;
   slugByPath: Map<string, string>;
+  pagesByPath: Map<string, ComponentPages>;
 }
 
 const tabUrl = (pages: ComponentPages, tab: keyof ComponentPages) => pages[tab]?.page.url ?? null;
@@ -432,7 +443,13 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   const anyPage = code ?? examples ?? usage ?? pages.overview ?? pages.about;
   const docsUrl = `${DOCS_ORIGIN}${entry.path}`;
   const name = anyPage?.page.title ?? entry.name;
-  const pkg = code?.page.code?.packageName ?? null;
+  // Sub-pages (/components/<parent>/<page>) document exports of the parent's package: their code tab
+  // has no installation table and their Changelog tab links to the parent's.
+  const parentPath = entry.path.split("/").length === 4 ? entry.path.replace(/\/[a-z0-9-]+$/, "") : null;
+  const parentCode = parentPath ? (a.pagesByPath.get(parentPath)?.code ?? null) : null;
+  const ownPkg = code?.page.code?.packageName ?? null;
+  const pkgRef = ownPkg && code ? { pkg: ownPkg, ref: code, inherited: false } : parentCode?.page.code?.packageName ? { pkg: parentCode.page.code.packageName, ref: parentCode, inherited: true } : null;
+  const pkg = pkgRef?.pkg ?? null;
   const npm = pkg ? (a.npmByPkg.get(pkg) ?? null) : null;
 
   // Whole-record evidence: navigation listing (+ the main fetched page)
@@ -493,12 +510,18 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
 
   // Frameworks (React package documented on the code tab; npm peerDependencies confirm React)
   const frameworks: NormalizedComponent["frameworks"] = [];
-  if (pkg && (!npm?.info || npm.info.peerDependencies.includes("react"))) {
+  if (pkgRef && pkg && (!npm?.info || npm.info.peerDependencies.includes("react"))) {
     frameworks.push({ slug: "react", packageName: pkg, importName: null, sourceUrl: npmPageUrl(pkg) });
-    evidence.push(ev(code!.stamp, "frameworks", METHOD.docsHtml, { location: "#installation table (npm)", excerpt: code!.page.code?.installCommand ?? `npm ${pkg}`, confidence: 0.9 }));
+    evidence.push(
+      ev(pkgRef.ref.stamp, "frameworks", METHOD.docsHtml, {
+        location: pkgRef.inherited ? `#installation table of the parent page ${parentPath}` : "#installation table (npm)",
+        excerpt: `${pkgRef.ref.page.code?.installCommand ?? `npm ${pkg}`}${pkgRef.inherited ? ` (sub-page of ${parentPath}; same package)` : ""}`,
+        confidence: pkgRef.inherited ? 0.8 : 0.9,
+      }),
+    );
     if (npm?.info) evidence.push(ev(npm.stamp, "frameworks", METHOD.npm, { url: npmPageUrl(pkg, npm.info.version), location: "peerDependencies", excerpt: `${pkg}@${npm.info.version} peerDependencies: ${npm.info.peerDependencies.join(", ")}`, confidence: 0.95 }));
   }
-  coverage.frameworks = frameworks.length ? "documented" : code ? "not-documented" : "not-extracted";
+  coverage.frameworks = frameworks.length ? "documented" : code || parentCode ? "not-documented" : "not-extracted";
 
   // Properties (generated props tables on the code tab)
   const codeTab = code?.page.code ?? null;
@@ -724,7 +747,8 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   // Aliases: the export name from the generated llms index when it differs from the docs name
   const aliases = llmsEntry && llmsEntry.exportName !== name && normKey(llmsEntry.exportName) === normKey(name) ? [llmsEntry.exportName] : [];
 
-  if (code?.page.code?.sourceUrl) evidence.push(ev(code.stamp, "sourceCodeUrl", METHOD.docsHtml, { location: "#installation table (Source)", excerpt: code.page.code.sourceUrl, confidence: 0.95 }));
+  const sourceRef = code?.page.code?.sourceUrl ? code : parentCode?.page.code?.sourceUrl ? parentCode : null;
+  if (sourceRef) evidence.push(ev(sourceRef.stamp, "sourceCodeUrl", METHOD.docsHtml, { location: sourceRef === code ? "#installation table (Source)" : `#installation table of the parent page ${parentPath}`, excerpt: sourceRef.page.code!.sourceUrl, confidence: sourceRef === code ? 0.95 : 0.8 }));
 
   return {
     slug,
@@ -732,7 +756,7 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
     aliases,
     description,
     docsUrl,
-    sourceCodeUrl: code?.page.code?.sourceUrl ?? null,
+    sourceCodeUrl: sourceRef?.page.code?.sourceUrl ?? null,
     lifecycle,
     canonicalType: cls?.slug ?? null,
     classification,

@@ -33,7 +33,7 @@ export function EvidenceDisclosure({ rows, className, emptyLabel = "No evidence 
       >
         <Icon className="size-3" aria-hidden />
         {meta.label}
-        <span className="font-normal opacity-75">
+        <span className="font-normal">
           · {rows.length} {rows.length === 1 ? "source" : "sources"}
         </span>
         <ChevronDownIcon className="size-3 transition-transform group-open/ev:rotate-180" aria-hidden />

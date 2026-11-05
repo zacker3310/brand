@@ -59,7 +59,8 @@ export default async function ApiDocsPage() {
 
   return (
     <PageContainer>
-      <header className="max-w-3xl space-y-4 border-b pb-10">
+      <header className="border-b pb-10">
+        <div className="max-w-3xl space-y-4">
         <p className="type-eyebrow">Developers</p>
         <h1 className="type-display text-4xl sm:text-6xl">REST API</h1>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
@@ -77,6 +78,7 @@ export default async function ApiDocsPage() {
             <DownloadIcon className="size-4" aria-hidden /> components.csv
           </a>
         </div>
+      </div>
       </header>
 
       <div className="mt-10 grid gap-12 lg:grid-cols-[14rem_minmax(0,1fr)]">
@@ -255,7 +257,7 @@ function typeOf(s: Record<string, unknown>): string {
   if (typeof s.minimum === "number" && typeof s.maximum === "number" && s.maximum < 1e9) bits.push(`${s.minimum}–${s.maximum}`);
   else if (typeof s.maximum === "number" && s.maximum < 1e9) bits.push(`≤ ${s.maximum}`);
   if (typeof s.maxLength === "number") bits.push(`≤ ${s.maxLength} chars`);
-  if (typeof s.pattern === "string" && !fmt) bits.push("pattern");
+  if (typeof s.pattern === "string" && !fmt) bits.push(/a-z0-9/.test(s.pattern) ? "slug" : "pattern");
   return bits.join(", ") || "string";
 }
 
@@ -294,7 +296,7 @@ function ParamTable({ title, rows }: { title: string; rows: ParamRow[] }) {
               <code className="font-mono text-[12.5px] font-medium">{r.name}</code>
               <span className="font-mono text-[11px] text-subtle-foreground">{r.in}</span>
               <span className="font-mono text-[11px] break-all text-info">{r.type}</span>
-              {r.required ? <span className="text-[11px] font-medium text-conflicting">required</span> : null}
+              {r.required ? <span className="text-[11px] font-medium text-foreground/80">required</span> : null}
               {r.def !== null && <span className="font-mono text-[11px] text-muted-foreground">default {r.def}</span>}
             </div>
             {r.description && <p className="text-[13px] text-muted-foreground">{r.description}</p>}

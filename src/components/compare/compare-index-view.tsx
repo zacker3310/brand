@@ -22,7 +22,7 @@ export async function CompareIndexView({ type, systems, error }: { type: string 
   return (
     <PageContainer>
       <PageHeader
-        eyebrow="Compare"
+        eyebrow={<span className="text-muted-foreground">Compare</span>}
         display
         title="Compare implementations"
         description={
@@ -89,7 +89,7 @@ export async function CompareIndexView({ type, systems, error }: { type: string 
         </aside>
       </div>
 
-      <p className="tabular mt-10 text-xs text-subtle-foreground">
+      <p className="tabular mt-10 text-xs text-muted-foreground">
         {types.length} canonical component types · {implemented} with at least one indexed implementation · {indexedCount} systems with indexed components ·{" "}
         {systemOptions.length} verified systems in the registry
       </p>

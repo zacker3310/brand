@@ -93,7 +93,7 @@ export function TokenUsage({ tokens, systemSlug }: { tokens: TokenUsageRow[]; sy
               {cat}
               <span className="tabular font-mono text-[11px] font-normal text-muted-foreground">{formatCount(rows.length)}</span>
             </h3>
-            <div className="overflow-hidden rounded-xl border bg-card">
+            <div className="relative overflow-hidden rounded-xl border bg-card">
               <table className={cn("w-full table-fixed border-separate border-spacing-0 text-[13px]")}>
                 <caption className="sr-only">{cat} tokens used by this component</caption>
                 <thead className="sr-only">

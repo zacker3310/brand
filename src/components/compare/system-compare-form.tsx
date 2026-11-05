@@ -57,7 +57,7 @@ export function SystemCompareForm({
               <button type="button" className="text-muted-foreground hover:text-foreground" onClick={() => setCrit(criteria.map((c) => c.id))}>
                 All
               </button>
-              <span className="text-subtle-foreground" aria-hidden>
+              <span className="text-muted-foreground" aria-hidden>
                 ·
               </span>
               <button type="button" className="text-muted-foreground hover:text-foreground" onClick={() => setCrit([])}>

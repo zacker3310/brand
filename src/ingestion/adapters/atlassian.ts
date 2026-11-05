@@ -91,10 +91,15 @@ async function planComponent(ctx: AdapterContext, entry: NavEntry): Promise<Comp
   if (res.ok && res.body && !isNotFoundHtml(res.body)) first = { url: codeUrl, html: res.body };
   else {
     prefetched.delete(codeUrl);
-    // No code tab: follow the base path's redirect stub to the default tab.
-    const stub = await ctx.http.get(`${DOCS_ORIGIN}${entry.path}`, { signal: ctx.signal });
+    // No code tab: the base path is either a redirect stub to the default tab or a single, tab-less page.
+    const baseUrl = `${DOCS_ORIGIN}${entry.path}`;
+    const stub = await prefetch(ctx, baseUrl);
     const target = stub.ok && stub.body ? parseRedirectStub(stub.body) : null;
-    if (target && target.startsWith(`${entry.path}/`)) {
+    if (!target) prefetched.delete(baseUrl);
+    if (!target && stub.ok && stub.body && !isNotFoundHtml(stub.body) && /id="main-content"/.test(stub.body)) {
+      prefetched.set(baseUrl, stub);
+      first = { url: baseUrl, html: stub.body };
+    } else if (target && target.startsWith(`${entry.path}/`)) {
       const url = `${DOCS_ORIGIN}${target}`;
       const r2 = await prefetch(ctx, url);
       if (r2.ok && r2.body && !isNotFoundHtml(r2.body)) first = { url, html: r2.body };
@@ -110,6 +115,7 @@ async function planComponent(ctx: AdapterContext, entry: NavEntry): Promise<Comp
     .filter((p) => p.startsWith(`${entry.path}/`) && !p.slice(entry.path.length + 1).includes("/"))
     .map((p) => ({ tab: p.slice(entry.path.length + 1), path: p }))
     .filter((t) => (COMPONENT_TABS as readonly string[]).includes(t.tab));
+  if (docsPath(first.url) === entry.path) tabs.unshift({ tab: "overview", path: entry.path });
   const children = /aria-expanded="true"/.test(first.html) ? parseIndexPage(first.html).entries.filter((e) => e.path.startsWith(`${entry.path}/`)) : [];
   return { entry, tabs, packageName: first.url === codeUrl ? packageFromCodeHtml(first.html) : null, children };
 }

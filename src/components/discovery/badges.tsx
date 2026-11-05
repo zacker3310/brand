@@ -10,6 +10,9 @@ import { DEPTH_DESCRIPTIONS, DEPTH_LABELS, MAINTENANCE_LABELS, depthOf, type Dep
  */
 export const INFERRED_TEXT = "text-[oklch(0.5_0.11_65)]! dark:text-inferred!";
 
+/** Same for --conflicting on --conflicting-soft at 11px (axe measures it below 4.5:1 in light mode). */
+export const CONFLICTING_TEXT = "text-[oklch(0.48_0.17_25)]! dark:text-conflicting!";
+
 const MAINTENANCE_META: Record<MaintenanceStatus, { icon: LucideIcon; className: string; description: string }> = {
   active: {
     icon: CircleDotIcon,
@@ -23,12 +26,12 @@ const MAINTENANCE_META: Record<MaintenanceStatus, { icon: LucideIcon; className:
   },
   deprecated: {
     icon: CircleSlashIcon,
-    className: "border-conflicting/35 bg-conflicting-soft text-conflicting",
+    className: `border-conflicting/35 bg-conflicting-soft ${CONFLICTING_TEXT}`,
     description: "Officially deprecated. Prefer the recommended successor for new work.",
   },
   archived: {
     icon: ArchiveIcon,
-    className: "border-conflicting/35 bg-conflicting-soft text-conflicting",
+    className: `border-conflicting/35 bg-conflicting-soft ${CONFLICTING_TEXT}`,
     description: "The official repository or site is archived; no further releases are expected.",
   },
   unknown: {

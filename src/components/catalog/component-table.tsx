@@ -18,7 +18,7 @@ export function ComponentTable({ rows, systems }: { rows: CatalogComponentRow[];
   return (
     <>
       {/* Desktop: dense table */}
-      <div className="hidden overflow-x-auto rounded-xl border bg-card md:block">
+      <div className="relative hidden overflow-x-auto rounded-xl border bg-card md:block">
         <table className="w-full text-[13px]">
           <caption className="sr-only">Published components matching the current filters</caption>
           <thead className="border-b bg-surface-1 text-left">

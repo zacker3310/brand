@@ -3,10 +3,11 @@ import { ArrowRightIcon, CopyIcon, XCircleIcon } from "lucide-react";
 import { SourceLink, SystemMark } from "@/components/atlas";
 import type { RegistryDecision, RegistrySummary } from "@/server/queries/systems";
 import { cn } from "@/lib/utils";
+import { CONFLICTING_TEXT } from "./badges";
 import { formatDate, plural } from "./lib/format";
 
 const STATUS_META = {
-  rejected: { label: "Rejected", icon: XCircleIcon, className: "border-conflicting/30 bg-conflicting-soft text-conflicting" },
+  rejected: { label: "Rejected", icon: XCircleIcon, className: `border-conflicting/30 bg-conflicting-soft ${CONFLICTING_TEXT}` },
   duplicate: { label: "Duplicate", icon: CopyIcon, className: "border-border bg-muted text-foreground" },
   replaced: { label: "Replaced", icon: ArrowRightIcon, className: "border-border bg-muted text-foreground" },
 } as const;

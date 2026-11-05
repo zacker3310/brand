@@ -35,13 +35,15 @@ export default async function MethodologyPage() {
 
   return (
     <PageContainer>
-      <header className="max-w-3xl space-y-4 border-b pb-10">
+      <header className="border-b pb-10">
+        <div className="max-w-3xl space-y-4">
         <p className="type-eyebrow">Methodology</p>
         <h1 className="type-display text-4xl sm:text-6xl">How ATLAS knows what it shows.</h1>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
           Every number on this page is computed from the live index
           {s.lastIngestedAt ? <> (last ingestion {relativeTime(s.lastIngestedAt)})</> : null}. The rules below are the ones the code enforces, not aspirations.
         </p>
+      </div>
       </header>
 
       <div className="mt-10 grid gap-12 lg:grid-cols-[13rem_minmax(0,1fr)]">

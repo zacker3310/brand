@@ -17,7 +17,7 @@ const fmt = (iso: string) => new Date(iso).toLocaleDateString("en-US", { year: "
 export function SourcesCredit({ items }: { items: CreditItem[] }) {
   return (
     <section aria-labelledby="sources-title" className="space-y-3 border-t pt-6">
-      <h2 id="sources-title" className="type-eyebrow">
+      <h2 id="sources-title" className="type-eyebrow text-muted-foreground">
         Sources
       </h2>
       <ul className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
@@ -39,7 +39,7 @@ export function SourcesCredit({ items }: { items: CreditItem[] }) {
           </li>
         ))}
       </ul>
-      <p className="max-w-3xl text-xs leading-relaxed text-subtle-foreground">{COMPARISON_DISCLAIMER}</p>
+      <p className="max-w-3xl text-xs leading-relaxed text-muted-foreground">{COMPARISON_DISCLAIMER}</p>
     </section>
   );
 }

@@ -19,7 +19,7 @@ import type { F2Page, F2Section } from "./f2-html";
 import { sectionById } from "./f2-html";
 import { baseCoverage, pick, strongest, type FluentFragment, type FragOf } from "./fragments";
 import { storybookIdFromUrl } from "./storybook";
-import { PKG, SB_REACT, SB_WC, clip, evidence, firstSentence, leadSentences, sortBy, storybookDocsUrl, uniq } from "./shared";
+import { PKG, SB_REACT, SB_WC, clip, evidence, firstSentence, leadSentences, nameCandidates, sortBy, storybookDocsUrl, uniq } from "./shared";
 
 const LIB_ORDER: Record<string, number> = { "web/react": 0, "web/web-components": 1, ios: 2, android: 3, windows: 4 };
 const LIB_LABEL: Record<string, string> = { "web/react": "Web", "web/web-components": "Web Components", ios: "iOS", android: "Android", windows: "Windows" };
@@ -163,13 +163,13 @@ export function normalizeF2(frags: FluentFragment[], opts: { limit?: number } = 
     if (relationships.length) ev.push(evidence(primary.prov, "relationships", "f2-html", { location: new URL(docsUrl).pathname, excerpt: `links to: ${rel.join(", ")}` }));
 
     // sourceCodeUrl: only explicit "code" resources (e.g. fluentui-apple / fluentui-android folders)
-    const code = list.flatMap((p) => p.page.resources).find((r) => /^https:\/\/github\.com\//.test(r.href) && /code/i.test(r.title));
+    const code = page.resources.find((r) => /^https:\/\/github\.com\//.test(r.href) && /code/i.test(r.title));
     coverage.properties = "not-documented";
     coverage.states = "not-documented";
     coverage.sizes = "not-documented";
     coverage.tokens = "not-documented";
 
-    const cls = strongest([classifyComponentName(name)]);
+    const cls = strongest(nameCandidates(name).map((x) => classifyComponentName(x)));
     let classification: NormalizedComponent["classification"] = cls ? { state: "inferred", method: cls.method, confidence: cls.confidence } : null;
     if (cls && apg && componentTypeBySlug.get(cls.slug)?.ariaPattern === apg.slug) classification = { state: "verified", method: `${cls.method} + wai-apg-link:${apg.slug}`, confidence: Math.max(cls.confidence, 0.9) };
     components.push({
@@ -236,8 +236,16 @@ export function f2Facts(frags: FluentFragment[]): NormalizedSystemFacts {
   const parts: string[] = [];
   const home = content.get("home");
   if (home?.page.metaDescription && /design system/i.test(home.page.metaDescription)) {
-    parts.push("Fluent 2 is Microsoft's design system, intended to carry one design language from design to development and across platforms (web, iOS, Android and Windows).");
+    parts.push("Fluent 2 is Microsoft's design system, built so teams can move fluidly from design to development, between apps and across platforms.");
     ev.push(evidence(home.prov, "philosophy", "f2-html", { location: "/ <meta name=description>", excerpt: home.page.metaDescription }));
+  }
+  const nav = pick(frags, "f2-nav")[0];
+  const libs = uniq((nav?.groups ?? []).filter((g) => g.title === "Components" && g.library && g.pages.some((p) => /\/usage\/?$/.test(p.href))).map((g) => g.library!));
+  const LABEL: Record<string, string> = { "web/react": "web", ios: "iOS", android: "Android" };
+  if (nav && libs.length) {
+    const names = libs.map((l) => LABEL[l] ?? l);
+    parts.push(`Its site publishes component usage guidance for ${names.length > 1 ? `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}` : names[0]}.`);
+    ev.push(evidence(nav.prov, "philosophy", "f2-nav", { location: "Nav island props: Components groups", excerpt: `Component libraries in navigation: ${libs.join(", ")}` }));
   }
   const principlesPage = content.get("principles");
   const principles: { name: string; sourceUrl: string }[] = [];

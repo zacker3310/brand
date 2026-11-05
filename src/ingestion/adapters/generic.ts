@@ -143,6 +143,7 @@ async function discoverSitemaps(ctx: AdapterContext, t: GenericTarget): Promise<
   }
   const out: IndexDoc[] = [];
   const seen = new Set<string>();
+  let fetchedAny = false;
   let queue = roots.map((u) => ({ url: u, depth: 0 }));
   while (queue.length && seen.size < MAX_SITEMAPS) {
     const next: typeof queue = [];
@@ -154,6 +155,7 @@ async function discoverSitemaps(ctx: AdapterContext, t: GenericTarget): Promise<
         continue;
       }
       const res = await prefetch(ctx, url, SITEMAP_MAX_BYTES);
+      if (res.ok && res.body !== null) fetchedAny = true;
       if (!res.ok || res.body === null) {
         ctx.log.warn(`generic: ${t.slug}: sitemap ${url} unavailable (${res.blockedByRobots ? "robots.txt disallows" : `HTTP ${res.status} ${res.error ?? ""}`})`);
         continue;
@@ -177,6 +179,8 @@ async function discoverSitemaps(ctx: AdapterContext, t: GenericTarget): Promise<
     queue = next;
   }
   if (seen.size >= MAX_SITEMAPS && queue.length) ctx.log.warn(`generic: ${t.slug}: sitemap traversal capped at ${MAX_SITEMAPS} files`);
+  // Unavailable source: fail the run instead of publishing an empty inventory.
+  if (!fetchedAny) throw new Error(`generic: ${t.slug}: no sitemap could be fetched (${roots.join(", ")})`);
   return out;
 }
 

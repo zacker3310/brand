@@ -21,7 +21,7 @@ import {
   listOwnerCollections,
   toggleBookmark,
 } from "@/server/queries/collections";
-import { CollectionInput, ENTITY_TYPES, EntityRef } from "@/components/collections/schema";
+import { CollectionInput, ENTITY_TYPES } from "@/components/collections/schema";
 import {
   exportComponents,
   exportSystems,
@@ -408,7 +408,11 @@ const bookmarksSet = defineEndpoint({
   description: "Sets the bookmark state (bookmarked omitted = toggle). Issues the atlas_owner cookie if needed. JSON body; cross-origin browser requests are refused.",
   auth: "owner",
   cache: "owner",
-  body: z.object({ ...EntityRef.shape, bookmarked: z.boolean().optional().describe("Desired state; omit to toggle") }),
+  body: z.object({
+    entityType: z.enum(ENTITY_TYPES).describe("Entity type"),
+    entityId: z.uuid().describe("Entity UUID (the record's id)"),
+    bookmarked: z.boolean().optional().describe("Desired state; omit to toggle"),
+  }),
   returns: "ItemEnvelope<{ bookmarked: boolean }>",
   responseKind: "item",
   errors: [400, 403, 415],
