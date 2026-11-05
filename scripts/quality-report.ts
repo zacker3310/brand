@@ -103,6 +103,19 @@ async function main() {
   const errors = await q<{ stage: string; code: string; n: string }>(sql`
     select stage, code, count(*) n from ingestion_error where resolved_at is null group by 1, 2 order by 3 desc limit 30`);
   const evidenceStates = await q<{ state: string; n: string }>(sql`select state, count(*) n from verification_evidence group by 1 order by 2 desc`);
+  const depth = await q<{ ingestion_status: string; n: string }>(sql`
+    select ingestion_status::text, count(*) n from design_system where registry_status = 'verified' group by 1 order by 2 desc`);
+  const shallow = await q<{ slug: string; name: string; ingestion_status: string; registry_notes: string | null }>(sql`
+    select slug, name, ingestion_status::text, registry_notes from design_system
+    where registry_status = 'verified' and ingestion_status not in ('indexed', 'inventory') order by ingestion_status, slug`);
+  const restrictedDocs = await q<{ slug: string; status: string; n: string }>(sql`
+    select d.slug, sd.status::text, count(*) n from source_document sd join design_system d on d.id = sd.design_system_id
+    where sd.status <> 'active' group by 1, 2 order by 3 desc, 1 limit 50`);
+  const latestRunErrors = await q<{ slug: string; stage: string; code: string; n: string }>(sql`
+    select d.slug, e.stage, e.code, count(*) n from ingestion_error e join design_system d on d.id = e.design_system_id
+    where e.resolved_at is null and e.severity = 'error'
+      and e.run_id in (select distinct on (design_system_id) id from ingestion_run order by design_system_id, created_at desc)
+    group by 1, 2, 3 order by 4 desc, 1 limit 50`);
 
   const verifiedCount = num(registry.find((r) => r.registry_status === "verified")?.n);
   const c0 = completeness[0] ?? {};
@@ -122,7 +135,8 @@ async function main() {
   L("| Metric | Value |");
   L("|---|---|");
   L(`| Verified systems (registry) | ${verifiedCount} / 100 |`);
-  L(`| Systems ingested (indexed or partial) | ${deep.length} |`);
+  L(`| Systems deeply indexed (indexed or partial) | ${deep.length} |`);
+  L(`| Ingestion depth (verified systems) | ${depth.map((d) => `${d.ingestion_status} ${d.n}`).join(" · ")} |`);
   L(`| Systems with component records | ${withComponents.length} |`);
   L(`| Systems with token records | ${withTokens.length} |`);
   L(`| Published components | ${totalComponents} |`);
@@ -198,6 +212,27 @@ async function main() {
     for (const b of brokenSources) L(`| ${b.slug} | ${b.kind} | ${b.url} | ${b.last_status ?? ""} | ${b.last_error ?? ""} |`);
     L();
   }
+  L("## Restricted, failed and metadata-only sources");
+  L();
+  L(
+    "Systems without extracted components or tokens, with the registry's reason. ATLAS never bypasses robots.txt, authentication, bot challenges or client-side rendering; these stay metadata-level until a static, permitted source exists.",
+  );
+  L();
+  if (shallow.length) {
+    L("| System | Ingestion | Reason (registry note) |");
+    L("|---|---|---|");
+    for (const r of shallow) L(`| ${r.name} (\`${r.slug}\`) | ${r.ingestion_status} | ${(r.registry_notes ?? "").replace(/\|/g, "/").replace(/\s+/g, " ").slice(0, 240)} |`);
+    L();
+  } else {
+    L("None.");
+    L();
+  }
+  L(`Documents not active (gone, robots-blocked or erroring): ${restrictedDocs.reduce((n, r) => n + num(r.n), 0)}.`);
+  for (const r of restrictedDocs) L(`- ${r.slug}: ${r.status} ${r.n}`);
+  L();
+  L(`Errors in each system's latest run: ${latestRunErrors.reduce((n, r) => n + num(r.n), 0)}.`);
+  for (const r of latestRunErrors) L(`- ${r.slug}: ${r.stage}/${r.code} x${r.n}`);
+  L();
   L("## Duplicates and conflicts");
   L();
   L(`Duplicate component names within a system (case-insensitive): ${dupComponents.length}.`);
