@@ -126,7 +126,7 @@ export function Hero({ stats }: { stats: HomeStats }) {
 /** The library at a glance: every number is a live aggregate of published records. */
 function LibraryLedger({ stats }: { stats: HomeStats }) {
   const rows: { label: string; value: number; href?: string; hint?: string }[] = [
-    { label: "Verified systems", value: stats.systemsVerified, href: "/systems", hint: depthLabel(stats.systemsIndexed, stats.systemsPartial, stats.systemsMetadataOnly) },
+    { label: "Verified systems", value: stats.systemsVerified, href: "/systems", hint: depthLabel(stats.systemsIndexed, stats.systemsPartial, stats.systemsMetadataOnly, stats.systemsInventory) },
     { label: "Components", value: stats.components, href: "/components", hint: `${stats.componentTypesCovered} of ${stats.componentTypes} canonical types covered` },
     { label: "Design tokens", value: stats.tokens, href: "/tokens", hint: plural(stats.tokenSets, "token set") },
     { label: "Patterns", value: stats.patterns, href: "/patterns" },

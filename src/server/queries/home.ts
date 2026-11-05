@@ -13,6 +13,7 @@ export interface HomeStats {
   systemsVerified: number;
   systemsIndexed: number;
   systemsPartial: number;
+  systemsInventory: number;
   systemsMetadataOnly: number;
   components: number;
   componentsClassified: number;
@@ -48,7 +49,8 @@ export async function getHomeStats(): Promise<HomeStats> {
       (select count(*) from sys) as systems_verified,
       (select count(*) from sys where ingestion_status = 'indexed') as systems_indexed,
       (select count(*) from sys where ingestion_status = 'partial') as systems_partial,
-      (select count(*) from sys where ingestion_status not in ('indexed', 'partial')) as systems_metadata,
+      (select count(*) from sys where ingestion_status = 'inventory') as systems_inventory,
+      (select count(*) from sys where ingestion_status not in ('indexed', 'partial', 'inventory')) as systems_metadata,
       (select count(*) from comp) as components,
       (select count(*) from comp where component_type_id is not null) as components_classified,
       (select count(*) from comp where component_type_id is not null and classification_state = 'verified') as components_classified_verified,
@@ -76,6 +78,7 @@ export async function getHomeStats(): Promise<HomeStats> {
     systemsVerified: num(x.systems_verified),
     systemsIndexed: num(x.systems_indexed),
     systemsPartial: num(x.systems_partial),
+    systemsInventory: num(x.systems_inventory),
     systemsMetadataOnly: num(x.systems_metadata),
     components: num(x.components),
     componentsClassified: num(x.components_classified),

@@ -36,7 +36,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
   const [rows, registry] = await Promise.all([listDirectoryRows(params.q), getRegistryDecisions()]);
   const result = applyDirectory(rows, params);
 
-  const depthCounts = { indexed: 0, partial: 0, metadata: 0 };
+  const depthCounts = { indexed: 0, partial: 0, inventory: 0, metadata: 0 };
   for (const r of rows) depthCounts[depthOf(r.ingestionStatus)]++;
   const max = {
     components: Math.max(0, ...rows.map((r) => r.counts.components)),

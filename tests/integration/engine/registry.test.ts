@@ -71,10 +71,10 @@ describe("registry import", () => {
     const gamma = await system("atlas-test-gamma");
     expect(gamma).toMatchObject({ publishState: "published", ingestionStatus: "not_started", adapterId: "fake" });
 
-    // shared reference rows are filled, never overwritten (beta's different MIT wording is ignored)
+    // shared SPDX license rows use the canonical SPDX URL and carry no system-specific notes
     const lic = await db().select().from(s.licenses);
     expect(lic.length).toBe(1);
-    expect(lic[0]).toMatchObject({ slug: "mit", name: "MIT License", url: "https://opensource.org/license/mit", notes: "different wording on purpose" });
+    expect(lic[0]).toMatchObject({ slug: "mit", name: "MIT License", url: "https://spdx.org/licenses/MIT.html", notes: null });
     expect(alpha.licenseId).toBe(lic[0]!.id);
     expect((await db().select().from(s.organizations)).length).toBe(2);
 

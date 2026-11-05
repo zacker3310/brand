@@ -133,19 +133,21 @@ export function prioritize(slugs: string[], system: MuiSystem, limit?: number): 
 }
 
 /**
- * Per-system corrections to the shared name heuristic (classifyComponentName). `slug: null` leaves a
- * component unclassified where the heuristic's alias match is wrong for what MUI documents; a slug is
- * used only where the component's own documented description matches the taxonomy definition.
- * Every result stays "inferred".
+ * Per-system corrections to the shared name heuristic (classifyComponentName), applied where its
+ * alias match is wrong for what MUI documents. A slug is used only when the component's own
+ * documented description matches the taxonomy definition, or for documented parts of a component
+ * family (same docs page), mirroring how the heuristic already treats AccordionDetails, TableCell...
+ * `slug: null` = no defensible type (note: the engine currently re-applies its name heuristic to
+ * unclassified components; see the adapter report). Every result stays "inferred".
  */
 export const CLASSIFICATION_RULES: Record<MuiSystem, Record<string, { slug: string | null; reason: string }>> = {
   mui: {
-    SpeedDial: { slug: null, reason: "FAB that reveals related actions; the 'dial' alias match to gauge is wrong" },
+    SpeedDial: { slug: "floating-action-button", reason: "documented as a floating action button that displays related actions; the 'dial' alias match to gauge is wrong" },
     SpeedDialAction: { slug: null, reason: "action inside a SpeedDial; the 'dial' alias match to gauge is wrong" },
-    CardHeader: { slug: null, reason: "header region of a Card; the 'header' alias match to navigation-bar is wrong" },
-    TabPanel: { slug: null, reason: "panel content of Tabs; the 'panel' alias match to sheet is wrong" },
-    TableSortLabel: { slug: null, reason: "sort control in a table header cell, not a form label" },
-    StepLabel: { slug: null, reason: "label of a Stepper step, not a form label" },
+    CardHeader: { slug: "card", reason: "part of the Card family (react-card page); the 'header' alias match to navigation-bar is wrong" },
+    TabPanel: { slug: "tabs", reason: "part of the Tabs family (react-tabs page, role tabpanel); the 'panel' alias match to sheet is wrong" },
+    TableSortLabel: { slug: "table", reason: "part of the Table family (react-table page); not a form label" },
+    StepLabel: { slug: "stepper", reason: "part of the Stepper family (react-stepper page); not a form label" },
     ImageList: { slug: null, reason: "grid of images; the 'image' alias match is wrong" },
     ImageListItem: { slug: null, reason: "item of an image grid; the 'list' alias match is wrong" },
     ImageListItemBar: { slug: null, reason: "title bar of an image grid item; the 'list' alias match is wrong" },
@@ -154,10 +156,10 @@ export const CLASSIFICATION_RULES: Record<MuiSystem, Record<string, { slug: stri
   },
   "joy-ui": {
     Sheet: { slug: "box", reason: "documented as 'a generic container that supports Joy UI's global variants' (a surface, not an overlay sheet)" },
-    TabPanel: { slug: null, reason: "panel content of Tabs; the 'panel' alias match to sheet is wrong" },
+    TabPanel: { slug: "tabs", reason: "part of the Tabs family (react-tabs page, role tabpanel); the 'panel' alias match to sheet is wrong" },
   },
   "base-ui": {
-    "Navigation Menu": { slug: null, reason: "site navigation links with dropdown panels; the 'menu' alias match (action menu) is wrong" },
+    "Navigation Menu": { slug: "navigation-bar", reason: "documented as 'a collection of links and menus for website navigation'; the 'menu' alias match (action menu) is wrong" },
     "OTP Field": { slug: "pin-input", reason: "documented as 'a one-time password input composed of individual character slots'" },
     Toggle: { slug: "toggle-button", reason: "documented as 'a two-state button that can be on or off'" },
   },

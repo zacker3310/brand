@@ -307,7 +307,7 @@ export async function getComponentComparison(input: { type: string; systems: str
       system,
       candidates: pk.candidates,
       component,
-      missing: component ? null : s.ingestionStatus === "indexed" || s.ingestionStatus === "partial" ? "no-component" : "not-indexed",
+      missing: component ? null : s.ingestionStatus === "indexed" || s.ingestionStatus === "partial" || s.ingestionStatus === "inventory" ? "no-component" : "not-indexed",
     };
   });
   return { type, columns, unknownSystems };
@@ -671,7 +671,7 @@ export async function getSystemComparison(slugs: string[]): Promise<{ entries: S
 /** Systems with indexed component data, for "compare the indexed systems" shortcuts. */
 export function indexedSystemSlugs(systems: SystemOption[], limit = 5): string[] {
   return systems
-    .filter((s) => (s.ingestionStatus === "indexed" || s.ingestionStatus === "partial") && s.components > 0)
+    .filter((s) => (s.ingestionStatus === "indexed" || s.ingestionStatus === "partial" || s.ingestionStatus === "inventory") && s.components > 0)
     .sort((a, b) => b.components - a.components)
     .slice(0, limit)
     .map((s) => s.slug);

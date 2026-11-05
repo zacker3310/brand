@@ -179,7 +179,8 @@ describe("primaryComponents", () => {
 
 describe("classification corrections", () => {
   it("leaves known heuristic mismatches unclassified and keeps the rest inferred", () => {
-    expect(classifyFor("mui", "SpeedDial", classifyComponentName)).toBeNull();
+    expect(classifyFor("mui", "Collapse", classifyComponentName)).toBeNull();
+    expect(classifyFor("mui", "SpeedDial", classifyComponentName)!.slug).toBe("floating-action-button");
     expect(classifyFor("base-ui", "Toggle", classifyComponentName)).toMatchObject({ slug: "toggle-button" });
     expect(classifyFor("mui", "Button", classifyComponentName)!.slug).toBe("button");
   });

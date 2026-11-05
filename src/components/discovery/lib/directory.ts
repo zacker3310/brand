@@ -87,22 +87,26 @@ export function licenseKind(l: DirectoryLicense | null): LicenseKind {
   return l.isOpenSource ? "open-source" : "proprietary";
 }
 
-export const DEPTHS = ["indexed", "partial", "metadata"] as const;
+export const DEPTHS = ["indexed", "partial", "inventory", "metadata"] as const;
 export type Depth = (typeof DEPTHS)[number];
 export const DEPTH_LABELS: Record<Depth, string> = {
   indexed: "Deeply indexed",
   partial: "Partially indexed",
+  inventory: "Component inventory",
   metadata: "Metadata only",
 };
 export const DEPTH_DESCRIPTIONS: Record<Depth, string> = {
-  indexed: "An ATLAS adapter ingested official sources and published component, token or pattern records.",
+  indexed: "A dedicated ATLAS adapter ingested official sources and published component, token or pattern records.",
   partial: "Some official documents were ingested; coverage is incomplete.",
+  inventory:
+    "The component list (names and official docs links) was read from the official docs. Variants, props, states, accessibility and tokens have not been extracted.",
   metadata: "Registry facts (links, license, frameworks, maintenance) are verified, but components, tokens and patterns have not been extracted yet.",
 };
 
 export function depthOf(status: IngestionStatus): Depth {
   if (status === "indexed") return "indexed";
   if (status === "partial") return "partial";
+  if (status === "inventory") return "inventory";
   return "metadata";
 }
 

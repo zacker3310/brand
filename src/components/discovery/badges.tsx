@@ -1,4 +1,4 @@
-import { ArchiveIcon, CircleDotIcon, CircleSlashIcon, DatabaseIcon, LayersIcon, WrenchIcon, type LucideIcon } from "lucide-react";
+import { ArchiveIcon, CircleDotIcon, CircleSlashIcon, DatabaseIcon, LayersIcon, ListIcon, WrenchIcon, type LucideIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { IngestionStatus, MaintenanceStatus, Redistribution } from "@/lib/contracts";
 import { cn } from "@/lib/utils";
@@ -98,7 +98,7 @@ export function MaintenanceBadge({
   );
 }
 
-const DEPTH_ICON: Record<Depth, LucideIcon> = { indexed: LayersIcon, partial: LayersIcon, metadata: DatabaseIcon };
+const DEPTH_ICON: Record<Depth, LucideIcon> = { indexed: LayersIcon, partial: LayersIcon, inventory: ListIcon, metadata: DatabaseIcon };
 
 export function DepthBadge({ status, className, interactive = true }: { status: IngestionStatus; className?: string; interactive?: boolean }) {
   const depth = depthOf(status);
@@ -107,6 +107,7 @@ export function DepthBadge({ status, className, interactive = true }: { status: 
     "inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap",
     depth === "indexed" && "border-info/30 bg-info-soft text-info",
     depth === "partial" && "border-info/30 border-dashed text-info",
+    depth === "inventory" && "border-border text-foreground/80",
     depth === "metadata" && "border-dashed border-border text-muted-foreground",
     className,
   );
@@ -127,6 +128,7 @@ export function DepthBadge({ status, className, interactive = true }: { status: 
             "inline-flex items-center gap-1 rounded-full border px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap",
             depth === "indexed" && "border-info/30 bg-info-soft text-info",
             depth === "partial" && "border-info/30 border-dashed text-info",
+            depth === "inventory" && "border-border text-foreground/80",
             depth === "metadata" && "border-dashed border-border text-muted-foreground",
             className,
           )}
@@ -138,7 +140,7 @@ export function DepthBadge({ status, className, interactive = true }: { status: 
       <TooltipContent className="max-w-xs text-xs">
         <p className="font-medium">{DEPTH_LABELS[depth]}</p>
         <p className="opacity-80">{DEPTH_DESCRIPTIONS[depth]}</p>
-        {status !== "indexed" && status !== "partial" && status !== "metadata_only" && (
+        {status !== "indexed" && status !== "partial" && status !== "inventory" && status !== "metadata_only" && (
           <p className="mt-1 font-mono opacity-70">ingestion status: {status.replace(/_/g, " ")}</p>
         )}
       </TooltipContent>

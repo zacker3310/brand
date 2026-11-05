@@ -62,7 +62,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("text-field", "Text field", "inputs", "Single-line free-text input.", ["text field", "textfield", "text input", "input", "textinput", "input field", "text box", "textbox"], ["search field"]),
   t("textarea", "Textarea", "inputs", "Multi-line free-text input.", ["textarea", "text area", "multiline text field", "multiline input"], ["rich text editor"]),
   t("number-field", "Number field", "inputs", "Numeric input, often with increment and decrement controls.", ["number field", "number input", "numberinput", "numeric input", "stepper input", "spin button", "spinbutton", "input number"], [], "spinbutton"),
-  t("search-field", "Search field", "inputs", "A text input specialized for entering search queries.", ["search field", "search input", "searchbar", "search bar", "search box"], ["text field", "combobox", "command palette"]),
+  t("search-field", "Search field", "inputs", "A text input specialized for entering search queries.", ["search field", "search input", "searchbar", "search bar", "search box", "searchbox"], ["text field", "combobox", "command palette"]),
   t("password-field", "Password field", "inputs", "Text input for secrets with masked entry.", ["password field", "password input", "passwordinput"], ["text field"]),
   t("checkbox", "Checkbox", "inputs", "Toggles a single option on or off, or selects multiple options from a set.", ["checkbox", "check box", "checkbox group"], ["switch"], "checkbox"),
   t("radio", "Radio", "inputs", "Selects exactly one option from a set.", ["radio", "radio button", "radio group", "radiogroup", "radiobutton"], ["segmented control"], "radio"),
@@ -71,7 +71,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("select", "Select", "inputs", "Chooses one value from a collapsed list of options.", ["select", "native select", "select field", "picker", "selectfield"], ["dropdown", "combobox", "listbox"], "listbox"),
   t("combobox", "Combobox", "inputs", "A text input combined with a popup list of suggested values.", ["combobox", "combo box", "autocomplete input", "typeahead", "filterable select", "searchable select"], ["autocomplete", "select", "dropdown", "search field"], "combobox"),
   t("autocomplete", "Autocomplete", "inputs", "Suggests completions as the user types into a field.", ["autocomplete", "auto complete", "autosuggest", "auto suggest"], ["combobox", "typeahead"], "combobox"),
-  t("multi-select", "Multi-select", "inputs", "Selects multiple values from a list, often rendered as chips.", ["multiselect", "multi select", "multi-select", "tag input", "tags input"], ["combobox", "chip"]),
+  t("multi-select", "Multi-select", "inputs", "Selects multiple values from a list, often rendered as chips.", ["multiselect", "multi select", "multi-select", "tag input", "tags input", "tag picker"], ["combobox", "chip"]),
   t("date-picker", "Date picker", "inputs", "Selects a date or date range, typically via a calendar.", ["date picker", "datepicker", "date input", "date field", "date range picker", "calendar picker"], ["calendar"], "dialog-modal"),
   t("calendar", "Calendar", "inputs", "A month grid for selecting or displaying dates.", ["calendar", "range calendar"], ["date picker"], "grid"),
   t("time-picker", "Time picker", "inputs", "Selects a time of day.", ["time picker", "timepicker", "time input", "time field"], []),
@@ -107,7 +107,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("tree", "Tree", "data-display", "Hierarchical list with expandable nodes.", ["tree", "tree view", "treeview", "tree list"], [], "treeview"),
   t("card", "Card", "data-display", "A container grouping content and actions about a single subject.", ["card", "tile", "panel card", "media card"], ["box", "container"]),
   t("badge", "Badge", "data-display", "A small indicator of count or status attached to another element.", ["badge", "counter", "count badge", "notification badge", "indicator", "counter label"], ["tag", "status"]),
-  t("tag", "Tag", "data-display", "A compact label for categorization or filtering, sometimes removable.", ["tag", "chip", "pill", "token", "label tag", "lozenge", "issue label"], ["badge"]),
+  t("tag", "Tag", "data-display", "A compact label for categorization or filtering, sometimes removable.", ["tag", "chip", "pill", "token", "label tag", "lozenge", "issue label", "interaction tag"], ["badge"]),
   t("avatar", "Avatar", "data-display", "Represents a person or entity with an image, initials or icon.", ["avatar", "user avatar", "profile picture", "avatar group", "avatar stack", "persona"], []),
   t("tooltip", "Tooltip", "data-display", "A brief label shown on hover or focus to describe an element.", ["tooltip", "tool tip", "info tip"], ["popover", "toggletip"], "tooltip"),
   t("toggletip", "Toggletip", "data-display", "A disclosure of supplemental info triggered by click, not hover.", ["toggletip", "toggle tip", "info button"], ["tooltip", "popover"]),
@@ -412,10 +412,12 @@ export function classifyComponentName(name: string): Classification | null {
     }
   }
   // token containment (longest alias contained in name), e.g. "Overflow Menu" -> menu-button via alias
+  // Containment only in head-noun position (the alias ends the name): "Inline error" is not a stack,
+  // "Page actions" is not a container, but "Overflow menu" is a menu.
   let best: { slug: string; alias: string } | null = null;
   for (const [alias, slug] of ALIAS_INDEX) {
     if (alias.length < 4) continue;
-    const re = new RegExp(`(^| )${alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}( |$)`);
+    const re = new RegExp(`(^| )${alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`);
     if (re.test(n) && (!best || alias.length > best.alias.length)) best = { slug, alias };
   }
   if (best) return { slug: best.slug, method: `alias-contained:${best.alias}`, confidence: 0.55 };

@@ -65,7 +65,8 @@ describe("validateBundle", () => {
   it("quarantines navigation/marketing text posing as component names", () => {
     const r = run({ components: [comp("getting-started", { name: "Getting started" }), comp("learn-more", { name: "Learn more →" }), comp("button", { name: "Button" })] });
     expect(entity(r, "component", "getting-started").validation).toBe("invalid");
-    expect(entity(r, "component", "learn-more").validation).toBe("invalid");
+    // ambiguous phrases ("Learn more", "Table of contents", "Download") are real component names in some systems: warn only
+    expect(entity(r, "component", "learn-more").validation).toBe("warning");
     expect(entity(r, "component", "button").validation).toBe("valid");
   });
 
