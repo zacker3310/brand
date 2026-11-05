@@ -104,12 +104,12 @@ export function formatCubicBezier(v: unknown): string | null {
   return null;
 }
 
-const isShadowObject = (v: unknown): v is Record<string, unknown> =>
+const isShadowObject = (v: unknown): boolean =>
   isObj(v) && ("offsetX" in v || "offsetY" in v || "x" in v || "y" in v || "blur" in v || ("color" in v && "spread" in v));
 
 function formatOneShadow(v: unknown, opts: FormatOptions): string | null {
   if (typeof v === "string") return v.trim();
-  if (!isShadowObject(v)) return null;
+  if (!isObj(v) || !isShadowObject(v)) return null;
   const dim = (x: unknown) => (x === undefined || x === null ? "0" : (formatDimension(x) ?? fallbackString(x, opts)));
   const inset = v.inset === true || v.type === "innerShadow" || v.type === "inset";
   const parts = [dim(v.offsetX ?? v.x), dim(v.offsetY ?? v.y), dim(v.blur), dim(v.spread)];
@@ -127,7 +127,7 @@ export function formatShadow(v: unknown, opts: FormatOptions = {}): string | nul
 }
 
 const TYPO_KEYS = ["fontFamily", "fontSize", "fontWeight", "lineHeight", "letterSpacing", "fontStyle", "textCase", "textDecoration", "paragraphSpacing", "textTransform"];
-const isTypographyObject = (v: unknown): v is Record<string, unknown> =>
+const isTypographyObject = (v: unknown): boolean =>
   isObj(v) && ["fontFamily", "fontSize", "fontWeight", "lineHeight"].filter((k) => k in v).length >= 1 && Object.keys(v).every((k) => TYPO_KEYS.includes(k) || k.startsWith("$"));
 
 /** Typography composite -> "italic 600 16px/1.5 Inter, sans-serif; letter-spacing 0.01em". */

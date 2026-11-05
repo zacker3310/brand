@@ -144,7 +144,7 @@ const sepNormalize = (s: string) => s.replace(/[/\\]/g, ".").replace(/\s+/g, "")
 
 /** Build the lookup index and parse every token's references. Never throws. */
 export function analyzeTokenReferences(input: readonly ResolvableToken[], opts: ResolveOptions = {}): TokenIndex {
-  const list = Array.isArray(input) ? input : [];
+  const list: readonly ResolvableToken[] = Array.isArray(input) ? input : [];
   // Dedupe: last occurrence wins.
   const lastIdx = new Map<string, number>();
   const dupCount = new Map<string, number>();
@@ -212,9 +212,10 @@ export function analyzeTokenReferences(input: readonly ResolvableToken[], opts: 
       return { ref: r.ref, raw: r.raw, syntax: r.syntax, target, fallback: r.fallback, whole: r.whole, path: r.path, fallbackTargets, fallbackMissing };
     });
     let declaredOnly = false;
-    if (refs.length === 0 && Array.isArray(t.references) && t.references.length) {
+    const declared: unknown[] = Array.isArray(t.references) ? (t.references as unknown[]) : [];
+    if (refs.length === 0 && declared.length) {
       declaredOnly = true;
-      for (const d of new Set(t.references.filter((x): x is string => typeof x === "string" && x.length > 0))) {
+      for (const d of new Set(declared.filter((x): x is string => typeof x === "string" && x.length > 0))) {
         refs.push({ ref: d, raw: d, syntax: "declared", target: lookup(d, "declared"), fallback: null, whole: false, path: [], fallbackTargets: [], fallbackMissing: [] });
       }
     }

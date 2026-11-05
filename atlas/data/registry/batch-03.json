@@ -10,7 +10,7 @@
       "websiteUrl": "https://getbootstrap.com/"
     },
     "category": "css-framework",
-    "summary": "Open-source front-end toolkit of Sass/CSS components, a responsive grid, utility classes and JavaScript plugins, maintained by the Bootstrap team in the twbs GitHub organization. v5.3 is the current stable line; v6 is in alpha.",
+    "summary": "Open-source front-end toolkit of Sass/CSS components, a responsive grid system and JavaScript plugins, maintained by the Bootstrap team in the twbs GitHub organization. v5.3 is the current stable line; v6 is in alpha.",
     "homepageUrl": "https://getbootstrap.com/",
     "docsUrl": "https://getbootstrap.com/docs/5.3/getting-started/introduction/",
     "repositoryUrl": "https://github.com/twbs/bootstrap",
