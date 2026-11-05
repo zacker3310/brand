@@ -82,12 +82,12 @@ export function remainderAfter(prefix: readonly string[], path: readonly string[
 const STEP_RE = /^(.*?)(\d+(?:\.\d+)?)([A-Za-z][A-Za-z-]*)?$/;
 
 /** "blue0" -> {family:"blue", step:0}; "100Hover" -> {family:"", step:100, suffix:"Hover"}; "5" -> {family:"", step:5}. */
-export function parseStep(seg: string): { family: string; step: number; suffix: string } | null {
+export function parseStep(seg: string): { family: string; step: number; raw: string; suffix: string } | null {
   const m = STEP_RE.exec(seg);
   if (!m) return null;
   const step = Number(m[2]);
   if (!Number.isFinite(step)) return null;
-  return { family: (m[1] ?? "").replace(/[-_.]+$/, ""), step, suffix: m[3] ?? "" };
+  return { family: (m[1] ?? "").replace(/[-_.]+$/, ""), step, raw: m[2]!, suffix: m[3] ?? "" };
 }
 
 function byNameOrValue<R extends IndexRow>(order: "name" | "value") {
@@ -192,7 +192,7 @@ function buildGroup<R extends IndexRow>(
       const family = [...rem.slice(0, -1), ps.family].filter(Boolean).join(".");
       const famKey = `${family}\u0000${ps.suffix}`;
       const arr = fam.get(famKey) ?? [];
-      arr.push({ row: r, step: ps.step, stepLabel: last!.replace(/^[A-Za-z-]+(?=\d)/, "") });
+      arr.push({ row: r, step: ps.step, stepLabel: ps.raw });
       fam.set(famKey, arr);
     }
     for (const [famKey, steps] of fam) {

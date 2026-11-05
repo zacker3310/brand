@@ -50,7 +50,6 @@ export interface PageFragment {
 export type GenericFragment = IndexFragment | PageFragment;
 
 export interface PlannedComponent extends Candidate {
-  key: string;
   /** Docs URL candidate (matched URL, or docsUrlTemplate applied to the segment). */
   docsUrl: string | null;
   /** docsUrl was constructed from a template (must be confirmed by a successful page fetch). */
@@ -72,10 +71,9 @@ export function planComponents(target: GenericTarget, candidateLists: Candidate[
   const byKey = new Map<string, Candidate>();
   for (const list of candidateLists) {
     for (const c of list) {
-      const key = segmentKey(c.segment);
-      if (!key) continue;
-      const prev = byKey.get(key);
-      if (!prev || c.matched.length < prev.matched.length || (c.matched.length === prev.matched.length && c.matched < prev.matched)) byKey.set(key, prev?.text && !c.text ? { ...c, text: prev.text } : c);
+      if (!c.key) continue;
+      const prev = byKey.get(c.key);
+      if (!prev || c.matched.length < prev.matched.length || (c.matched.length === prev.matched.length && c.matched < prev.matched)) byKey.set(c.key, prev?.text && !c.text ? { ...c, text: prev.text } : c);
     }
   }
   const keys = [...byKey.keys()].sort();
@@ -88,7 +86,7 @@ export function planComponents(target: GenericTarget, candidateLists: Candidate[
     const fromTemplate = template ? applyTemplate(template, c.segment) : null;
     const docsUrl = fromTemplate ?? (target.strategy === "repo-listing" ? null : c.matched);
     const constructed = !!fromTemplate && fromTemplate !== c.matched;
-    return { ...c, key, docsUrl, constructed, fetchPage: target.fetchPages !== false && !!docsUrl && i < pageCap };
+    return { ...c, docsUrl, constructed, fetchPage: target.fetchPages !== false && !!docsUrl && i < pageCap };
   });
   return { planned, total: keys.length, truncated: keys.length - selected.length };
 }
@@ -150,7 +148,7 @@ export function normalizeGeneric(fragments: GenericFragment[], opts: NormalizeOp
   const wanted = new Map(planned.map((p) => [p.key, p.matched]));
   for (const f of indexes) {
     for (const cand of f.candidates) {
-      const k = segmentKey(cand.segment);
+      const k = cand.key;
       if (!k || !wanted.has(k)) continue;
       const prev = sourceOf.get(k);
       if (!prev || (prev.cand.matched !== wanted.get(k) && cand.matched === wanted.get(k))) sourceOf.set(k, { frag: f, cand });
@@ -176,7 +174,7 @@ export function normalizeGeneric(fragments: GenericFragment[], opts: NormalizeOp
         // Redirected: adopt the final URL only when it is still this component's page.
         const finalSeg = matchOne(final, c);
         const lastPart = safePathTail(final);
-        const stillThisComponent = (!!finalSeg && segmentKey(finalSeg) === p.key) || (!!lastPart && relatesToSegment(lastPart, p.segment));
+        const stillThisComponent = (!!finalSeg && segmentKey(finalSeg) === segmentKey(p.segment)) || (!!lastPart && relatesToSegment(lastPart, p.segment));
         if (stillThisComponent) docsUrl = final;
         else {
           opts.log?.(`${p.key}: ${page!.stamp.url} redirects to unrelated ${final}; page metadata ignored`);

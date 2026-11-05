@@ -79,6 +79,8 @@ export function parseSitemapXml(xml: string): ParsedSitemap {
 /* -------------------------------------------------------------------------- */
 
 export interface Candidate {
+  /** Stable component key (slug): segmentKey(segment), disambiguated by the parent path part on collisions. */
+  key: string;
   /** Captured component segment (raw, as in the URL/path). */
   segment: string;
   /** Matched absolute URL (sitemap/nav) or file path (repo-listing). */
@@ -101,7 +103,7 @@ export function compileTarget(t: GenericTarget): CompiledTarget {
   const c: CompiledTarget = {
     include: new RegExp(t.include),
     exclude: (t.exclude ?? []).map((x) => new RegExp(x)),
-    titleSuffix: t.titleSuffix ? new RegExp(t.titleSuffix) : null,
+    titleSuffix: t.titleSuffix ? new RegExp(t.titleSuffix, "g") : null,
   };
   compiled.set(t, c);
   return c;
@@ -141,26 +143,86 @@ export const segmentKey = (segment: string) =>
     .replace(/^-+|-+$/g, "")
     .slice(0, 80);
 
+/** Identity of a document for dedupe: host + path without trailing slash / .html, lowercased. */
+export function docIdentity(value: string): string {
+  try {
+    const u = new URL(value);
+    return `${u.host}${u.pathname.replace(/\/+$/, "").replace(/\.html?$/, "")}`.toLowerCase();
+  } catch {
+    return value;
+  }
+}
+
+/** Path component right before the captured segment (for disambiguating colliding keys). */
+function parentPart(value: string, segment: string): string | null {
+  let path = value;
+  try {
+    path = new URL(value).pathname;
+  } catch {
+    /* repo path */
+  }
+  const parts = path.split("/").filter(Boolean);
+  const segParts = segment.split("/").filter(Boolean);
+  const first = segParts[0];
+  const idx = first ? parts.lastIndexOf(first) : -1;
+  return idx > 0 ? parts[idx - 1]! : null;
+}
+
+const better = (a: { value: string }, b: { value: string }) => a.value.length < b.value.length || (a.value.length === b.value.length && a.value < b.value);
+
 /**
  * Filter raw values (URLs or paths) through the target rules, dedupe by segment key and sort
- * deterministically (by key; for one key the shortest, then lexicographically first value wins).
+ * deterministically by key. For one key the shortest, then lexicographically first value wins.
+ * With `distinctPages` (sitemap/nav), different documents capturing the same segment (e.g.
+ * /forms/text/ and /display/text/) are kept as separate components keyed "<parent>-<segment>";
+ * URL variants of one document (trailing slash, .html) still collapse.
  */
-export function selectCandidates(values: { value: string; text?: string | null }[], c: CompiledTarget): Candidate[] {
-  const byKey = new Map<string, Candidate>();
+export function selectCandidates(values: { value: string; text?: string | null }[], c: CompiledTarget, opts: { distinctPages?: boolean } = {}): Candidate[] {
+  type Hit = { segment: string; value: string; text: string | null };
+  const groups = new Map<string, Hit[]>();
   for (const { value, text } of values) {
     const seg = matchOne(value, c);
     if (!seg) continue;
     const key = segmentKey(seg);
     if (!key) continue;
-    const prev = byKey.get(key);
-    const cand: Candidate = { segment: seg, matched: value, text: text ?? null };
-    if (!prev || value.length < prev.matched.length || (value.length === prev.matched.length && value < prev.matched)) {
-      byKey.set(key, prev?.text && !cand.text ? { ...cand, text: prev.text } : cand);
-    } else if (!prev.text && cand.text) {
-      prev.text = cand.text;
+    const g = groups.get(key) ?? [];
+    g.push({ segment: seg, value, text: text ? clean(text) || null : null });
+    groups.set(key, g);
+  }
+  const pick = (hits: Hit[]): Hit => {
+    let best = hits[0]!;
+    for (const h of hits.slice(1)) if (better(h, best)) best = h;
+    const text = best.text ?? hits.find((h) => h.text)?.text ?? null;
+    return { ...best, text };
+  };
+  const out = new Map<string, Candidate>();
+  const put = (key: string, h: Hit) => {
+    const prev = out.get(key);
+    if (!prev || better(h, { value: prev.matched })) out.set(key, { key, segment: h.segment, matched: h.value, text: h.text ?? prev?.text ?? null });
+  };
+  for (const [key, hits] of groups) {
+    if (!opts.distinctPages) {
+      put(key, pick(hits));
+      continue;
+    }
+    const docs = new Map<string, Hit[]>();
+    for (const h of hits) {
+      const id = docIdentity(h.value);
+      const g = docs.get(id) ?? [];
+      g.push(h);
+      docs.set(id, g);
+    }
+    if (docs.size === 1) {
+      put(key, pick(hits));
+      continue;
+    }
+    for (const g of docs.values()) {
+      const h = pick(g);
+      const parent = parentPart(h.value, h.segment);
+      put(parent ? segmentKey(`${parent}-${h.segment}`) || key : key, h);
     }
   }
-  return [...byKey.entries()].sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0)).map(([, v]) => v);
+  return [...out.values()].sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0));
 }
 
 /* -------------------------------------------------------------------------- */
@@ -257,50 +319,65 @@ const plausibleName = (s: string | null | undefined): s is string => {
   return !!n && n.length <= MAX_NAME_CHARS && n.split(" ").length <= MAX_NAME_WORDS && !/[<>{}]/.test(n);
 };
 
-/** Strip the configured site suffix, then fall back to the separator part that names the segment. */
-export function cleanTitle(title: string, segment: string, suffix: RegExp | null): string | null {
+/**
+ * Strip the configured site decoration (titleSuffix), then split on title separators.
+ * Returns the part that names the segment (best) and the first part (first).
+ */
+export function cleanTitle(title: string, segment: string, suffix: RegExp | null): { best: string | null; first: string | null } {
   let t = clean(title);
   if (suffix) t = clean(t.replace(suffix, ""));
-  if (!t) return null;
-  const parts = t.split(/\s+[|–—·•:]\s+|\s+-\s+/).map(clean).filter(Boolean);
-  if (parts.length > 1) {
-    const hit = parts.find((p) => relatesToSegment(p, segment));
-    return hit ?? null;
-  }
-  return t;
+  if (!t) return { best: null, first: null };
+  const parts = t.split(/\s+[|–—·•]\s+|\s+-\s+/).map(clean).filter(Boolean);
+  if (parts.length > 1) return { best: parts.find((p) => relatesToSegment(p, segment)) ?? null, first: parts[0] ?? null };
+  return { best: t, first: t };
 }
 
 const stripComponentWord = (s: string) => clean(s.replace(/\s+(component|components|element|web component)$/i, ""));
+const strip = (s: string | null | undefined, suffix: RegExp | null): string | null => {
+  if (!s) return null;
+  const v = stripComponentWord(suffix ? clean(clean(s).replace(suffix, "")) : clean(s));
+  return v || null;
+};
+const sameText = (a: string | null, b: string | null) => !!a && !!b && a.toLowerCase() === b.toLowerCase();
+
+export type NameSource = "h1" | "title" | "link" | "segment";
 
 /**
- * Choose the component display name: h1 > title > nav link text > humanized segment.
- * A candidate must be short and plausibly name the segment; otherwise the next one is used.
+ * Choose the component display name. Order:
+ *  1. the heading that agrees with the page title (h1 own text first: drops status badges like "Button Ready"),
+ *  2. h1 / title / h1 own text that plausibly names the URL segment,
+ *  3. nav link text that names the segment, 4. the humanized segment.
+ * `suffix` (target.titleSuffix) strips site decoration from both <title> and <h1>.
  */
-export function chooseName(segment: string, page: Pick<PageMeta, "title" | "h1" | "h1Own"> | null, linkText: string | null | undefined, suffix: RegExp | null): { name: string; from: "h1" | "title" | "link" | "segment" } {
-  const ok = (s: string | null | undefined) => plausibleName(s) && relatesToSegment(s, segment);
+export function chooseName(
+  segment: string,
+  page: Pick<PageMeta, "title" | "h1" | "h1Own"> | null,
+  linkText: string | null | undefined,
+  suffix: RegExp | null,
+): { name: string; from: NameSource } {
+  const ok = (s: string | null | undefined): s is string => plausibleName(s);
+  const rel = (s: string | null | undefined): s is string => ok(s) && relatesToSegment(s, segment);
   if (page) {
-    for (const h of [page.h1, page.h1Own]) {
-      if (!h) continue;
-      const v = stripComponentWord(h);
-      if (ok(v)) return { name: v, from: "h1" };
-    }
-    if (page.title) {
-      const t = cleanTitle(page.title, segment, suffix);
-      const v = t ? stripComponentWord(t) : null;
-      if (ok(v)) return { name: v!, from: "title" };
-    }
+    const h1 = strip(page.h1, suffix);
+    const h1Own = strip(page.h1Own, suffix);
+    const t = page.title ? cleanTitle(page.title, segment, suffix) : { best: null, first: null };
+    const title = strip(t.best, null);
+    const titleFirst = strip(t.first, null);
+    for (const h of [h1Own, h1]) if (ok(h) && (sameText(h, title) || sameText(h, titleFirst))) return { name: h, from: "h1" };
+    if (rel(h1)) return { name: h1, from: "h1" };
+    if (rel(title)) return { name: title, from: "title" };
+    if (rel(h1Own)) return { name: h1Own, from: "h1" };
   }
-  if (linkText) {
-    const v = stripComponentWord(linkText);
-    if (ok(v)) return { name: v, from: "link" };
-  }
+  const link = strip(linkText, null);
+  if (rel(link)) return { name: link, from: "link" };
   return { name: humanizeSegment(segment), from: "segment" };
 }
 
 /** Bounded, whitespace-normalized description (first sentences up to `max` chars). */
 export function shortDescription(s: string | null | undefined, max = 300): string | null {
   const t = clean(s);
-  if (t.length < 12) return null;
+  // Too short to be a description ("Text field", "Not in SB", "Building block only").
+  if (t.length < 20 || t.split(" ").length < 4) return null;
   if (t.length <= max) return t;
   const sentences = t.match(/[^.!?。]+[.!?。]+(\s|$)/g) ?? [];
   let out = "";

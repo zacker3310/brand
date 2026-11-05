@@ -77,3 +77,19 @@ export function plural(n: number, one: string, many = `${one}s`): string {
 export function joinNames(names: string[], max = 6): { shown: string[]; more: number } {
   return { shown: names.slice(0, max), more: Math.max(0, names.length - max) };
 }
+
+const GENERIC_REMAINDERS = new Set(["design system", "design", "design language", "ui", "components", "system", "design guidelines"]);
+
+/**
+ * Display-only short name for dense lists: drops a leading organization name when the system
+ * name starts with it ("GitHub Primer" -> "Primer"), unless the remainder would be generic
+ * ("Atlassian Design System" stays). The full name is always available alongside.
+ */
+export function shortSystemName(name: string, orgName: string | null | undefined): string {
+  if (!orgName) return name;
+  const org = orgName.trim();
+  if (!org || !name.toLowerCase().startsWith(`${org.toLowerCase()} `)) return name;
+  const rest = name.slice(org.length).trim();
+  if (!rest || GENERIC_REMAINDERS.has(rest.toLowerCase())) return name;
+  return rest;
+}
