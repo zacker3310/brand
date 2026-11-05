@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { EmptyState, PageContainer } from "@/components/atlas";
 import { Button } from "@/components/ui/button";
 
-export default function SearchError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function SearchError({ error, retry }: { error: Error & { digest?: string }; retry: () => void }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -23,7 +23,7 @@ export default function SearchError({ error, reset }: { error: Error & { digest?
         }
         action={
           <div className="flex gap-2">
-            <Button size="sm" variant="outline" onClick={reset}>
+            <Button size="sm" variant="outline" onClick={() => retry()}>
               Try again
             </Button>
             <Button asChild size="sm" variant="ghost">

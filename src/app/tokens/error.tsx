@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { EmptyState, PageContainer } from "@/components/atlas";
 import { Button } from "@/components/ui/button";
 
-export default function TokensError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function TokensError({ error, retry }: { error: Error & { digest?: string }; retry: () => void }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -21,7 +21,7 @@ export default function TokensError({ error, reset }: { error: Error & { digest?
           </>
         }
         action={
-          <Button size="sm" variant="outline" onClick={reset}>
+          <Button size="sm" variant="outline" onClick={() => retry()}>
             Try again
           </Button>
         }

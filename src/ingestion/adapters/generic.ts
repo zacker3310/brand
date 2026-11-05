@@ -11,18 +11,23 @@
  *  - nav:          links inside an official docs index page (static HTML, optional CSS selector)
  *  - repo-listing: jsDelivr flat file listing of a GitHub repo or npm package + docs URL template
  * All requests go through PoliteFetcher (robots.txt, rate limits). Static parsing only.
+ *
+ * Versioning: parse() output depends only on the fetched document; normalize() applies the system's
+ * current target. The adapter version is therefore the parser code version (ADAPTER_VERSION) and a
+ * target edit re-derives only that system's bundle (design note in ./generic/normalize.ts).
  */
 import type { NormalizedBundle } from "@/lib/contracts";
-import { stableStringify } from "@/lib/utils";
 import type { FetchResult } from "../http";
-import { sha256 } from "../http";
 import type { AdapterContext, DiscoveredDocument, FetchedDocument, ParsedFragment, SourceAdapter } from "../types";
-import { compileTarget, extractNavLinks, isMarkdownDoc, normalizeUrl, parseListing, parseMarkdownMeta, parsePageMeta, parseSitemapXml, parseStorybookIndex, selectCandidates, type Candidate } from "./generic/extract";
+import { compileTarget, isMarkdownDoc, navOutline, normalizeUrl, parseListing, parseMarkdownMeta, parsePageMeta, parseSitemapXml, parseStorybookIndex, type Candidate, type CompiledTarget } from "./generic/extract";
 import {
   ADAPTER_ID,
+  ADAPTER_VERSION,
   DOC_KINDS,
+  indexCandidates,
   normalizeGeneric,
   planComponents,
+  targetFingerprint,
   validateGeneric,
   type GenericFragment,
   type IndexFragment,
@@ -39,9 +44,6 @@ const SITEMAP_MAX_BYTES = 40 * 1024 * 1024;
 /** Bodies fetched during discover(), handed to fetch() once to avoid duplicate downloads in one run. */
 const prefetched = new Map<string, FetchResult>();
 
-/** Target config changes alter parse output, so they are part of the adapter version (forces re-parse). */
-const fingerprint = (targets: GenericTarget[]) => sha256(stableStringify(targets)).slice(0, 10);
-
 export function targetFor(slug: string): GenericTarget | undefined {
   return GENERIC_TARGETS.find((t) => t.slug === slug);
 }
@@ -57,7 +59,7 @@ export function targetOrigin(t: GenericTarget): string | null {
   for (const u of [t.sitemapUrl, t.navUrl, t.docsUrlTemplate]) {
     if (!u) continue;
     try {
-      return new URL(u.replace(/\{segment\}/g, "x")).origin;
+      return new URL(u.replace(/\{[A-Za-z]+\}/g, "x")).origin;
     } catch {
       /* ignore */
     }
@@ -114,15 +116,21 @@ async function prefetch(ctx: AdapterContext, url: string, maxBytes?: number): Pr
   return res;
 }
 
-/** Candidates from a sitemap document: XML urlset, or a Storybook index.json/stories.json. */
-export function sitemapCandidates(body: string, url: string, c: ReturnType<typeof compileTarget>): Candidate[] {
+/** Listed entries of a sitemap document (XML urlset, or a Storybook index.json/stories.json); target-independent. */
+export function sitemapEntries(body: string, url: string): Pick<IndexFragment, "values" | "texts"> {
   const sm = parseSitemapXml(body);
-  if (sm.kind === "urlset") return selectCandidates(sm.locs.map((u) => ({ value: normalizeUrl(u) ?? u })), c, { distinctPages: true });
+  if (sm.kind === "urlset") return { values: [...new Set(sm.locs.map((u) => normalizeUrl(u) ?? u))] };
   if (/^\s*[{[]/.test(body)) {
     const sb = parseStorybookIndex(body, url);
-    if (sb) return selectCandidates(sb, c, { distinctPages: true });
+    if (sb) return { values: sb.map((e) => e.value), texts: sb.map((e) => e.text || null) };
   }
-  return [];
+  return { values: [] };
+}
+
+/** Candidates of a sitemap document under a compiled target. */
+export function sitemapCandidates(body: string, url: string, c: CompiledTarget, target?: GenericTarget): Candidate[] {
+  const t = target ?? ({ slug: "", strategy: "sitemap", include: c.include.source, notes: "" } satisfies GenericTarget);
+  return indexCandidates({ source: "sitemap", stamp: { url, evidenceUrl: url, retrievedAt: "", hash: null }, ...sitemapEntries(body, url) }, t, c);
 }
 
 interface IndexDoc {
@@ -166,7 +174,7 @@ async function discoverSitemaps(ctx: AdapterContext, t: GenericTarget): Promise<
         if (depth < MAX_SITEMAP_DEPTH) next.push(...sm.locs.map((u) => ({ url: u, depth: depth + 1 })));
         continue;
       }
-      const candidates = sitemapCandidates(res.body, url, c);
+      const candidates = sitemapCandidates(res.body, url, c, t);
       if (!candidates.length) {
         prefetched.delete(url);
         continue;
@@ -190,8 +198,8 @@ async function discoverNav(ctx: AdapterContext, t: GenericTarget): Promise<Index
   if (!res.ok || res.body === null) {
     throw new Error(`generic: ${t.slug}: nav page ${t.navUrl} unavailable (${res.blockedByRobots ? "robots.txt disallows" : `HTTP ${res.status} ${res.error ?? ""}`})`);
   }
-  const links = extractNavLinks(res.body, res.finalUrl || t.navUrl, t.navSelector);
-  const candidates = selectCandidates(links, compileTarget(t), { distinctPages: true });
+  // Same derivation as normalize(): candidates from the page's link outline.
+  const candidates = indexCandidates({ source: "nav", stamp: { url: t.navUrl, evidenceUrl: t.navUrl, retrievedAt: "", hash: null }, outline: navOutline(res.body), base: res.finalUrl || t.navUrl }, t);
   return [{ doc: { url: t.navUrl, docKind: DOC_KINDS.nav, source: { kind: "docs", url: t.navUrl, label: `${new URL(t.navUrl).host} docs index` }, title: t.navUrl, evidenceUrl: t.navUrl, priority: 0 }, candidates }];
 }
 
@@ -202,7 +210,7 @@ async function discoverListing(ctx: AdapterContext, t: GenericTarget): Promise<I
   if (!res.ok || res.body === null) {
     throw new Error(`generic: ${t.slug}: listing ${r.listingUrl} unavailable (HTTP ${res.status} ${res.error ?? ""}; jsDelivr refuses listings for repos/packages > 50 MB)`);
   }
-  const candidates = selectCandidates(parseListing(res.body).map((p) => ({ value: p })), compileTarget(t));
+  const candidates = indexCandidates({ source: "repo-listing", stamp: { url: r.listingUrl, evidenceUrl: r.evidenceUrl, retrievedAt: "", hash: null }, values: parseListing(res.body) }, t);
   const repoMeta = { kind: t.repo.kind, name: t.repo.name, ref: r.ref };
   return [
     {
@@ -234,7 +242,8 @@ const truncatedBySystem = new Map<string, number>();
 export function createGenericAdapter(targets: GenericTarget[] = GENERIC_TARGETS): SourceAdapter {
   return {
     id: ADAPTER_ID,
-    version: `1.0.0+${fingerprint(targets)}`,
+    // Parser code version only: targets are applied in normalize() (see ./generic/normalize.ts).
+    version: ADAPTER_VERSION,
     systems: targets.map((t) => t.slug),
     description:
       "Generic metadata-level adapter: component names, docs URLs and page-specific meta descriptions enumerated from each system's official sitemap, docs index page or repository/package file listing (researched per system); classification inferred; all other fields not-extracted.",
@@ -245,7 +254,7 @@ export function createGenericAdapter(targets: GenericTarget[] = GENERIC_TARGETS)
       const repoRef = (indexDocs[0]?.doc.meta as { repo?: { ref?: string } } | undefined)?.repo?.ref;
       const { planned, total, truncated } = planComponents(t, indexDocs.map((d) => d.candidates), ctx.limit, repoRef);
       truncatedBySystem.set(ctx.systemSlug, truncated);
-      ctx.log.info(`generic: ${t.slug}: ${t.strategy} enumerated ${total} components (${planned.length} selected, ${planned.filter((p) => p.fetchPage).length} pages to fetch)`);
+      ctx.log.info(`generic: ${t.slug}: target ${targetFingerprint(t)} (adapter ${ADAPTER_VERSION}); ${t.strategy} enumerated ${total} components (${planned.length} selected, ${planned.filter((p) => p.fetchPage).length} pages to fetch)`);
       if (!total) ctx.log.warn(`generic: ${t.slug}: no URLs/paths matched the include rule`);
       const docs: DiscoveredDocument[] = indexDocs.map((d) => d.doc);
       let i = 0;
@@ -265,7 +274,7 @@ export function createGenericAdapter(targets: GenericTarget[] = GENERIC_TARGETS)
           source: isRepoFile && t.repo ? { kind: t.repo.kind === "gh" ? "repository" : "package", url: (indexDocs[0]?.doc.source.url ?? origin + "/"), label: indexDocs[0]?.doc.source.label } : { kind: "docs", url: `${origin}/`, label: new URL(origin).host },
           title: p.docsUrl,
           evidenceUrl: p.docsUrl,
-          meta: { key: p.key, segment: p.segment },
+          meta: { key: p.key, segment: p.segment }, // informational only: parse() output never depends on it
           priority: 10 + i++,
         });
       }
@@ -282,33 +291,30 @@ export function createGenericAdapter(targets: GenericTarget[] = GENERIC_TARGETS)
       return ctx.http.get(doc.url, { etag: prev.etag, lastModified: prev.lastModified, lastHash: prev.lastHash, signal: ctx.signal, ...(maxBytes ? { maxBytes } : {}) });
     },
 
+    /**
+     * Pure function of the document (URL, kind, body): no target is consulted, so cached fragments
+     * stay valid when any target changes. Target rules are applied in normalize().
+     */
     async parse(ctx, fetched: FetchedDocument): Promise<ParsedFragment | null> {
       const { doc, result } = fetched;
       const body = result.body;
       if (body === null) return null;
-      const t = requireTarget(targets, ctx.systemSlug);
-      const c = compileTarget(t);
       const stamp = stampOf(ctx, doc, result);
       const frag = (data: GenericFragment, warnings?: string[]): ParsedFragment => ({ docUrl: doc.url, docKind: doc.docKind, data, warnings: warnings?.length ? warnings : undefined });
       switch (doc.docKind) {
         case DOC_KINDS.sitemap: {
-          const candidates = sitemapCandidates(body, doc.url, c);
-          return frag({ type: "index", strategy: "sitemap", stamp, candidates } satisfies IndexFragment, candidates.length ? [] : ["no component URLs matched in sitemap"]);
+          const entries = sitemapEntries(body, doc.url);
+          return frag({ type: "index", source: "sitemap", stamp, ...entries } satisfies IndexFragment, entries.values?.length ? [] : ["sitemap lists no URLs"]);
         }
-        case DOC_KINDS.nav: {
-          const links = extractNavLinks(body, result.finalUrl || doc.url, t.navSelector);
-          return frag({ type: "index", strategy: "nav", stamp, candidates: selectCandidates(links, c, { distinctPages: true }) } satisfies IndexFragment);
-        }
+        case DOC_KINDS.nav:
+          return frag({ type: "index", source: "nav", stamp, outline: navOutline(body), base: result.finalUrl || doc.url } satisfies IndexFragment);
         case DOC_KINDS.listing: {
           const repo = (doc.meta as { repo?: IndexFragment["repo"] } | undefined)?.repo;
-          const candidates = selectCandidates(parseListing(body).map((p) => ({ value: p })), c);
-          return frag({ type: "index", strategy: "repo-listing", stamp, candidates, repo } satisfies IndexFragment);
+          return frag({ type: "index", source: "repo-listing", stamp, values: parseListing(body), repo } satisfies IndexFragment);
         }
         case DOC_KINDS.page: {
-          const m = (doc.meta ?? {}) as { key?: string; segment?: string };
-          if (!m.key || !m.segment) return null;
           const meta = isMarkdownDoc(doc.url, result.contentType) ? parseMarkdownMeta(body) : parsePageMeta(body, result.finalUrl || doc.url);
-          return frag({ type: "page", key: m.key, segment: m.segment, stamp, finalUrl: result.finalUrl || doc.url, status: result.status, meta } satisfies PageFragment);
+          return frag({ type: "page", stamp, finalUrl: result.finalUrl || doc.url, status: result.status, meta } satisfies PageFragment);
         }
         default:
           ctx.log.warn(`generic: unknown docKind ${doc.docKind}`);

@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/atlas/empty-state";
 import { PageContainer } from "@/components/atlas/page-header";
 import { Button } from "@/components/ui/button";
 
-export default function CompareError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function CompareError({ error, retry }: { error: Error & { digest?: string }; retry: () => void }) {
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -24,7 +24,7 @@ export default function CompareError({ error, reset }: { error: Error & { digest
         }
         action={
           <div className="flex gap-2">
-            <Button size="sm" variant="outline" onClick={reset}>
+            <Button size="sm" variant="outline" onClick={() => retry()}>
               Try again
             </Button>
             <Button size="sm" variant="ghost" asChild>

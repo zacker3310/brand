@@ -356,7 +356,7 @@ export function navOutline(html: string): string {
   };
   reduce($.root().get(0));
   $("*").each((_, el) => {
-    for (const [k, v] of Object.entries(el.attribs ?? {})) {
+    for (const [k, v] of Object.entries((el as { attribs?: Record<string, string> }).attribs ?? {})) {
       if (k === "style" || k.startsWith("on") || (k !== "href" && v.length > OUTLINE_ATTR_MAX)) $(el).removeAttr(k);
     }
   });
