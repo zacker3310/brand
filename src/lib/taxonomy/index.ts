@@ -133,7 +133,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   // Overlays
   t("dialog", "Dialog", "overlays", "A window overlaid on the page that requires interaction.", ["dialog", "modal dialog", "alert dialog", "confirm dialog", "dialogue", "confirmation dialog"], ["modal", "sheet"], "dialog-modal"),
   t("modal", "Modal", "overlays", "A blocking overlay that disables the content beneath it.", ["modal", "modal window", "lightbox"], ["dialog", "sheet"], "dialog-modal"),
-  t("sheet", "Sheet", "overlays", "A surface that slides in from an edge of the screen.", ["sheet", "bottom sheet", "side sheet", "drawer", "panel", "side panel", "flyout", "off canvas", "offcanvas", "slide over", "tearsheet"], ["dialog", "navigation drawer"], "dialog-modal"),
+  t("sheet", "Sheet", "overlays", "A surface that slides in from an edge of the screen.", ["sheet", "bottom sheet", "side sheet", "drawer", "side panel", "flyout", "off canvas", "offcanvas", "slide over", "tearsheet"], ["dialog", "navigation drawer", "panel"], "dialog-modal"),
   t("popover", "Popover", "overlays", "Non-modal floating content anchored to a trigger.", ["popover", "pop over", "popup", "overlay", "flyout panel", "callout bubble"], ["tooltip", "dropdown", "toggletip"], "dialog-modal"),
   t("dropdown", "Dropdown", "overlays", "A generic floating list or panel revealed from a trigger.", ["dropdown"], ["menu", "select", "combobox", "popover"]),
   t("context-menu", "Context menu", "overlays", "A menu revealed by right-click or long press.", ["context menu", "contextmenu", "right click menu"], ["menu"], "menubar"),
@@ -141,7 +141,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
 
   // Layout
   t("container", "Container", "layout", "Constrains content width and provides consistent padding.", ["container", "page container", "content container", "wrapper", "page layout", "page", "section"], ["box"]),
-  t("box", "Box", "layout", "A generic styled primitive for composing layout.", ["box", "view", "surface", "paper", "sheet surface", "well", "panel"], ["container", "card"]),
+  t("box", "Box", "layout", "A generic styled primitive for composing layout.", ["box", "view", "surface", "paper", "sheet surface", "well"], ["container", "card", "panel"]),
   t("stack", "Stack", "layout", "Arranges children in one direction with consistent spacing.", ["stack", "vstack", "hstack", "inline", "space", "spacer stack", "layout stack", "column", "columns", "inline stack", "block stack"], ["flex"]),
   t("grid", "Grid", "layout", "A two-dimensional layout primitive based on columns and rows.", ["grid", "layout grid", "simple grid", "css grid", "row", "col", "grid layout"], ["data grid"]),
   t("flex", "Flex", "layout", "A flexible box layout primitive.", ["flex", "flexbox", "flex layout"], ["stack"]),
@@ -378,6 +378,9 @@ const ALIAS_INDEX: Map<string, string> = (() => {
   return m;
 })();
 
+/** Head nouns too generic to classify by containment ("Exit this page", "Inset text", "Hero section"). */
+const GENERIC_HEADS = new Set(["page", "text", "section", "view", "panel", "box", "item", "items", "content", "area", "block", "group", "wrapper", "layout", "type", "title", "header", "footer"]);
+
 export interface Classification {
   slug: string;
   method: string;
@@ -416,7 +419,7 @@ export function classifyComponentName(name: string): Classification | null {
   // "Page actions" is not a container, but "Overflow menu" is a menu.
   let best: { slug: string; alias: string } | null = null;
   for (const [alias, slug] of ALIAS_INDEX) {
-    if (alias.length < 4) continue;
+    if (alias.length < 4 || GENERIC_HEADS.has(alias)) continue;
     const re = new RegExp(`(^| )${alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`);
     if (re.test(n) && (!best || alias.length > best.alias.length)) best = { slug, alias };
   }

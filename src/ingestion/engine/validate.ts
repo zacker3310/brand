@@ -269,7 +269,8 @@ function patternChecks(e: ValidatedEntity, componentSlugs: Set<string>): void {
   const p = e.payload as unknown as NormalizedPattern;
   const k = e.key;
   const sus = suspiciousName(p.name);
-  if (sus && sus.reason !== "name looks like site navigation or marketing text") e.issues.push({ entityKind: "pattern", entityKey: k, code: "SUSPICIOUS", message: `${sus.reason}: "${p.name.slice(0, 80)}"`, severity: sus.severity, path: "name" });
+  // Pattern titles are naturally sentence-length ("There is a problem with the service pages"): skip the length rule.
+  if (sus && sus.reason !== "name looks like site navigation or marketing text" && !sus.reason.startsWith("name is unusually long")) e.issues.push({ entityKind: "pattern", entityKey: k, code: "SUSPICIOUS", message: `${sus.reason}: "${p.name.slice(0, 80)}"`, severity: sus.severity, path: "name" });
   e.issues.push(...urlIssues("pattern", k, [["docsUrl", p.docsUrl], ...evidenceUrls(p.evidence)]));
   if (p.canonicalType && !PATTERN_TYPE_SLUGS.has(p.canonicalType)) e.issues.push({ entityKind: "pattern", entityKey: k, code: "UNKNOWN_TYPE", message: `canonicalType "${p.canonicalType}" is not an ATLAS pattern type`, severity: "warning", path: "canonicalType" });
   const missing = p.componentSlugs.filter((s) => !componentSlugs.has(s));

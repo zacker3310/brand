@@ -1288,7 +1288,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Components are distributed as many per-component @atlaskit/* npm packages; latestVersion tracks @atlaskit/button as a representative package (no single system version). Source is published as a read-only Bitbucket mirror (repository field of the npm packages). License: see license.notes — custom agreement with field-of-use restriction vs Apache-2.0 on npm; isOpenSource left null as conflicting. atlassian.design is client-rendered; Figma libraries page exists but no figma.com link was extracted, so figmaUrl is null. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
+    "notes": "Components are distributed as many per-component @atlaskit/* npm packages; latestVersion tracks @atlaskit/button as a representative package (no single system version). Source is published as a read-only Bitbucket mirror (repository field of the npm packages). License: see license.notes — custom agreement with field-of-use restriction vs Apache-2.0 on npm; isOpenSource left null as conflicting. atlassian.design pages are server-rendered (props tables and lozenges are in the static HTML, confirmed by the ATLAS atlassian adapter on 2026-11-05); no figma.com link was extracted, so figmaUrl is null. audited 2026-11-05: all recorded URLs and npm packages re-checked with check.ts (statuses, final URLs, versions and dates reproduced); organization websiteUrl checked; no field changes.",
     "checks": [
       {
         "field": "homepageUrl",

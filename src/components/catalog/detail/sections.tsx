@@ -439,6 +439,8 @@ const REL_LABEL: Record<string, string> = {
   alternative: "Alternatives",
   related: "Related",
   "see-also": "See also",
+  "replaced-by": "Replaced by",
+  replaces: "Replaces",
 };
 
 export function RelationshipsBlock({ rels, systemSlug }: { rels: ComponentRelationshipRow[]; systemSlug: string }) {

@@ -26,7 +26,8 @@
     "links": "tsx scripts/check-links.ts",
     "search:reindex": "tsx scripts/search-reindex.ts",
     "registry:validate": "tsx scripts/registry/validate.ts",
-    "registry:check": "tsx scripts/registry/check.ts"
+    "registry:check": "tsx scripts/registry/check.ts",
+    "collections:seed": "tsx scripts/seed-collections.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.106.0",
