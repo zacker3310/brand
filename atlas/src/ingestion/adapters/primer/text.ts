@@ -1,11 +1,10 @@
 /** Small, pure text helpers shared by the Primer parsers. */
 
 /** Strip lightweight Markdown (code ticks, emphasis, links, HTML tags) and collapse whitespace. */
-export function stripMarkdown(s: string): string {
-  return s
-    .replace(/<[^>]+>/g, " ")
-    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-    .replace(/`([^`]*)`/g, "$1")
+export function stripMarkdown(s: string, opts: { keepCode?: boolean } = {}): string {
+  let t = s.replace(/\[([^\]]+)\]\([^)]*\)/g, "$1");
+  if (!opts.keepCode) t = t.replace(/<[^>]+>/g, " ").replace(/`([^`]*)`/g, "$1");
+  return t
     .replace(/\*\*([^*]+)\*\*/g, "$1")
     .replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, "$1$2")
     .replace(/(^|[\s(])_([^_\s][^_]*)_/g, "$1$2")

@@ -1826,5 +1826,780 @@
     ],
     "confidence": 0.95,
     "verifiedAt": "2026-11-05T03:58:06.821Z"
+  },
+  {
+    "rank": 11,
+    "slug": "sap-fiori",
+    "name": "SAP Fiori",
+    "aliases": [
+      "SAP Fiori Design Guidelines",
+      "SAP Design System",
+      "Fiori"
+    ],
+    "organization": {
+      "slug": "sap",
+      "name": "SAP",
+      "websiteUrl": "https://www.sap.com/"
+    },
+    "category": "design-system",
+    "summary": "SAP's design system for business applications, with SAP Fiori guidelines for web, iOS and Android; web implementations include UI5 Web Components (with a React wrapper), SAPUI5/OpenUI5 and Fundamental Library Styles.",
+    "homepageUrl": "https://www.sap.com/design-system",
+    "docsUrl": "https://www.sap.com/design-system/fiori-design-web",
+    "repositoryUrl": "https://github.com/UI5/webcomponents",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@ui5/webcomponents",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents"
+      },
+      {
+        "name": "@ui5/webcomponents-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents-react"
+      },
+      {
+        "name": "fundamental-styles",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/fundamental-styles"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/UI5/webcomponents/main/LICENSE.txt",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Applies to the open-source implementations (UI5 Web Components, UI5 Web Components for React, fundamental-styles: all Apache-2.0 on npm). The Fiori guideline content on sap.com is SAP copyrighted; its terms were not verified."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.28.1",
+    "latestReleaseAt": "2026-10-21T08:29:23.695Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@ui5/webcomponents",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@ui5/webcomponents-react",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "fundamental-styles",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "tags": [
+      "enterprise",
+      "data-dense",
+      "web-components",
+      "open-source",
+      "theming",
+      "accessibility"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "experience.sap.com/fiori-design* now redirects to www.sap.com/design-system (recorded final URLs). IMPORTANT for ingestion: www.sap.com/robots.txt disallows all user agents except a whitelist of search bots (robotsAllowed=false in checks), so guideline pages must not be crawled; use UI5 Web Components repo/npm instead. repositoryUrl = UI5/webcomponents (github.com/SAP/ui5-webcomponents redirects there). iOS/Android platforms evidenced by the 'SAP Fiori for iOS/Android' pages; native SDKs not catalogued here. latestVersion = @ui5/webcomponents. SAPUI5/OpenUI5 (UI5/openui5) is another implementation (UI5 framework not in ATLAS framework list). No Figma link verified.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://experience.sap.com/fiori-design/",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.532Z",
+        "method": "http-check",
+        "note": "redirects to https://www.sap.com/design-system; title 'SAP Design System'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://www.sap.com/design-system",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:40.668Z",
+        "method": "http-check",
+        "note": "title 'SAP Design System'; robots.txt disallows non-whitelisted crawlers"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://experience.sap.com/fiori-design-web/",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-web",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.833Z",
+        "method": "http-check",
+        "note": "redirects to sap.com/design-system/fiori-design-web; title 'SAP Fiori for Web'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.sap.com/design-system/fiori-design-web",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-web",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:40.968Z",
+        "method": "http-check",
+        "note": "title 'SAP Fiori for Web'"
+      },
+      {
+        "field": "platforms",
+        "url": "https://www.sap.com/design-system/fiori-design-ios",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-ios",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.608Z",
+        "method": "http-check",
+        "note": "title 'SAP Fiori for iOS'"
+      },
+      {
+        "field": "platforms",
+        "url": "https://www.sap.com/design-system/fiori-design-android",
+        "status": 200,
+        "finalUrl": "https://www.sap.com/design-system/fiori-design-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.908Z",
+        "method": "http-check",
+        "note": "title 'SAP Fiori for Android'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/SAP/ui5-webcomponents",
+        "status": 200,
+        "finalUrl": "https://github.com/UI5/webcomponents",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:50.913Z",
+        "method": "http-check",
+        "note": "redirects to UI5/webcomponents: 'Build SAP Fiori user interfaces...'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://ui5.github.io/webcomponents/",
+        "status": 200,
+        "finalUrl": "https://ui5.github.io/webcomponents/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.169Z",
+        "method": "http-check",
+        "note": "title 'Enterprise-Grade Web Components | UI5 Web Components'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/UI5/webcomponents-react",
+        "status": 200,
+        "finalUrl": "https://github.com/UI5/webcomponents-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:36.284Z",
+        "method": "http-check",
+        "note": "React wrapper of UI5 Web Components compliant with SAP Fiori guidelines"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://sap.github.io/fundamental-styles/",
+        "status": 200,
+        "finalUrl": "https://sap.github.io/fundamental-styles/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.353Z",
+        "method": "http-check",
+        "note": "Fundamental Library Styles storybook (npm homepage of fundamental-styles)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://openui5.org/",
+        "status": 200,
+        "finalUrl": "https://openui5.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.110Z",
+        "method": "http-check",
+        "note": "title 'OpenUI5': open-source JS framework from SAP"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/UI5/webcomponents/main/LICENSE.txt",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/UI5/webcomponents/main/LICENSE.txt",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:16.866Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@ui5/webcomponents",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:02.679Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.28.1 published 2026-10-21; license Apache-2.0; deprecated: no; repo git+https://github.com/UI5/webcomponents.git"
+      },
+      {
+        "field": "package:@ui5/webcomponents-react",
+        "url": "https://www.npmjs.com/package/@ui5/webcomponents-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:03.095Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.28.2 published 2026-10-27; license Apache-2.0; deprecated: no; repo git+https://github.com/UI5/webcomponents-react.git"
+      },
+      {
+        "field": "package:fundamental-styles",
+        "url": "https://www.npmjs.com/package/fundamental-styles",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:03.401Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.42.0 published 2026-10-19; license Apache-2.0; deprecated: no; repo git+https://github.com/SAP/fundamental-styles.git"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:02:36.284Z"
+  },
+  {
+    "rank": 12,
+    "slug": "oracle-redwood",
+    "name": "Oracle Redwood",
+    "aliases": [
+      "Redwood Design System",
+      "Oracle Redwood Design System",
+      "Redwood theme"
+    ],
+    "organization": {
+      "slug": "oracle",
+      "name": "Oracle",
+      "websiteUrl": "https://www.oracle.com/"
+    },
+    "category": "design-system",
+    "summary": "Oracle's design system used across Oracle Cloud applications; its web implementation is the Redwood theme and components of Oracle JET (JavaScript Extension Toolkit), documented on docs.oracle.com.",
+    "homepageUrl": "https://redwood.oracle.com/",
+    "docsUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
+    "repositoryUrl": "https://github.com/oracle/oraclejet",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@oracle/oraclejet",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@oracle/oraclejet"
+      }
+    ],
+    "license": {
+      "slug": "upl-1.0",
+      "spdxId": "UPL-1.0",
+      "name": "Universal Permissive License 1.0",
+      "url": null,
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "From npm metadata of @oracle/oraclejet (the JET implementation). No LICENSE file found at oracle/oraclejet master root; Redwood guideline content terms unknown."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "21.0.3",
+    "latestReleaseAt": "2026-11-04T03:29:18.810Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@oracle/oraclejet",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "data-dense",
+      "design-tokens",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "redwood.oracle.com answers 200 but is an Oracle Visual Builder app that renders only with JavaScript (empty <title>, loads JET Redwood CSS); its guideline content could not be inspected, so docsUrl points to the public JET theming chapter instead. JET 19 version of that chapter states the Redwood theme 'implements Oracle Redwood Design System'. Redwood-specific pattern components for Fusion/Visual Builder apps may require Oracle cloud access (not verified). Framework recorded as web-components because JET components are custom elements. Lower confidence because the design-system site itself is opaque to static checks.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://redwood.oracle.com/",
+        "status": 200,
+        "finalUrl": "https://redwood.oracle.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.467Z",
+        "method": "page-content",
+        "note": "200; Oracle Visual Builder app (HTML comment 'Copyright (c) 2024, Oracle', loads JET Redwood CSS); content requires JavaScript"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://www.oracle.com/redwood/",
+        "status": 404,
+        "finalUrl": "https://www.oracle.com/redwood/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:59:51.144Z",
+        "method": "http-check",
+        "note": "404 on oracle.com (not used)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://docs.oracle.com/en/middleware/developer-tools/jet/19/develop/use-css-themes-oracle-jet-apps.html",
+        "status": 200,
+        "finalUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/19/develop/use-css-themes-oracle-jet-apps.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:40.562Z",
+        "method": "http-check",
+        "note": "description: Oracle JET includes the Redwood theme that ... implements Oracle Redwood Design System"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
+        "status": 200,
+        "finalUrl": "https://docs.oracle.com/en/middleware/developer-tools/jet/21/develop/use-css-themes-oracle-jet-apps.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:36.881Z",
+        "method": "http-check",
+        "note": "JET 21 'Use CSS and Themes in Oracle JET Apps' (current major matches npm 21.x)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.oracle.com/webfolder/technetwork/jet/index.html",
+        "status": 200,
+        "finalUrl": "https://www.oracle.com/webfolder/technetwork/jet/index.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.445Z",
+        "method": "http-check",
+        "note": "title 'Oracle JavaScript Extension Toolkit (JET)'; site styled with oj-redwood CSS"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/oracle/oraclejet",
+        "status": 200,
+        "finalUrl": "https://github.com/oracle/oraclejet",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.213Z",
+        "method": "http-check",
+        "note": "oracle/oraclejet: modular JavaScript Extension Toolkit"
+      },
+      {
+        "field": "blog",
+        "url": "https://blogs.oracle.com/vbcs/post/redwood-intro",
+        "status": 403,
+        "finalUrl": "https://blogs.oracle.com/vbcs/redwood-intro",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:00:45.084Z",
+        "method": "http-check",
+        "note": "Oracle VB blog post on Redwood returned 403 to automated check"
+      },
+      {
+        "field": "package:@oracle/oraclejet",
+        "url": "https://www.npmjs.com/package/@oracle/oraclejet",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:03.577Z",
+        "method": "package-metadata",
+        "note": "npm latest 21.0.3 published 2026-11-04; license UPL-1.0; deprecated: no; repo n/a"
+      }
+    ],
+    "confidence": 0.75,
+    "verifiedAt": "2026-11-05T04:02:36.881Z"
+  },
+  {
+    "rank": 13,
+    "slug": "cloudscape",
+    "name": "Amazon Cloudscape",
+    "aliases": [
+      "Cloudscape Design System",
+      "Cloudscape"
+    ],
+    "organization": {
+      "slug": "amazon-web-services",
+      "name": "Amazon Web Services",
+      "websiteUrl": "https://aws.amazon.com/"
+    },
+    "category": "design-system",
+    "summary": "Open-source design system from AWS for building web applications, with interface guidelines, design resources and a React component library; it originated as the system behind AWS service consoles.",
+    "homepageUrl": "https://cloudscape.design/",
+    "docsUrl": "https://cloudscape.design/components/",
+    "repositoryUrl": "https://github.com/cloudscape-design/components",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@cloudscape-design/components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/components"
+      },
+      {
+        "name": "@cloudscape-design/design-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/design-tokens"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/cloudscape-design/components/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.0.1409",
+    "latestReleaseAt": "2026-11-03T15:56:55.861Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@cloudscape-design/components",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "data-dense",
+      "developer-tools",
+      "saas",
+      "design-tokens",
+      "accessibility"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Components page states components are built with React. latestVersion = @cloudscape-design/components (continuous patch releases). AWS origin stated per ATLAS knowledge of the project and the AWS-run GitHub org; the homepage meta describes guidelines, components, design resources and tooling. No Figma link verified.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://cloudscape.design/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.183Z",
+        "method": "http-check",
+        "note": "title 'Cloudscape Design System'; guidelines, front-end components, design resources, dev tools"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://cloudscape.design/components/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.471Z",
+        "method": "http-check",
+        "note": "title 'Components - Cloudscape Design System'; 'Components are built with React'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://cloudscape.design/get-started/",
+        "status": 200,
+        "finalUrl": "https://cloudscape.design/get-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.170Z",
+        "method": "http-check",
+        "note": "title 'Get started - Cloudscape Design System'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/cloudscape-design/components",
+        "status": 200,
+        "finalUrl": "https://github.com/cloudscape-design/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.531Z",
+        "method": "http-check",
+        "note": "cloudscape-design/components: React components for Cloudscape Design System"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/cloudscape-design/components/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/cloudscape-design/components/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:17.167Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@cloudscape-design/components",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:03.933Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.0.1409 published 2026-11-03; license Apache-2.0; deprecated: no; repo git+https://github.com/cloudscape-design/components.git"
+      },
+      {
+        "field": "package:@cloudscape-design/design-tokens",
+        "url": "https://www.npmjs.com/package/@cloudscape-design/design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:04.269Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.0.117 published 2026-10-28; license Apache-2.0; deprecated: no; repo git+https://github.com/cloudscape-design/components.git"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T04:02:17.167Z"
+  },
+  {
+    "rank": 14,
+    "slug": "base-web",
+    "name": "Uber Base Web",
+    "aliases": [
+      "Base Web",
+      "baseui",
+      "Base design system"
+    ],
+    "organization": {
+      "slug": "uber",
+      "name": "Uber",
+      "websiteUrl": "https://www.uber.com/"
+    },
+    "category": "component-library",
+    "summary": "Uber's React component library (npm package baseui) implementing the Base design system, styled with Styletron; Uber now limits external engagement while mirroring internal development.",
+    "homepageUrl": "https://baseweb.design/",
+    "docsUrl": "https://baseweb.design/components/",
+    "repositoryUrl": "https://github.com/uber/baseweb",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "baseui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/baseui"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/uber/baseweb/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "maintenance",
+    "latestVersion": "18.2.0",
+    "latestReleaseAt": "2026-07-02T19:52:13.968Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "baseui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "css-in-js",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library: Base Web is the React implementation of Uber's (internal) Base design system. maintenanceStatus 'maintenance' because the README carries an explicit 'Maintenance status' notice (limited engagement, mirroring internal development) even though npm releases continue (18.2.0 on 2026-07-02). Docs site is client-rendered (no <title> in static HTML); identity confirmed via the repo README linking baseweb.design as Documentation. Component catalog is Ladle (baseweb.design/ladle), not Storybook, so storybookUrl null. Styletron as styling engine per page markup (styletron hydrate class).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://baseweb.design/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.236Z",
+        "method": "page-content",
+        "note": "200; client-rendered docs site (no static title); linked as Documentation from uber/baseweb README"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://baseweb.design/components/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.461Z",
+        "method": "http-check",
+        "note": "components index (200)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://baseweb.design/getting-started/setup/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/getting-started/setup/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:45.160Z",
+        "method": "http-check",
+        "note": "setup guide (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/uber/baseweb",
+        "status": 200,
+        "finalUrl": "https://github.com/uber/baseweb",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.813Z",
+        "method": "http-check",
+        "note": "uber/baseweb: React Component library implementing the Base design language"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/uber/baseweb/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/uber/baseweb/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:17.766Z",
+        "method": "repo-metadata",
+        "note": "README: 'Maintenance status. We are limiting our engagement with this repository while still mirroring our internal development.'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://baseweb.design/blog/open-source-engagement/",
+        "status": 200,
+        "finalUrl": "https://baseweb.design/blog/open-source-engagement/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:36.433Z",
+        "method": "http-check",
+        "note": "'Open Source Engagement and Future' post linked from README (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/uber/baseweb/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/uber/baseweb/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:17.466Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Uber Technologies, Inc."
+      },
+      {
+        "field": "package:baseui",
+        "url": "https://www.npmjs.com/package/baseui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:04.867Z",
+        "method": "package-metadata",
+        "note": "npm latest 18.2.0 published 2026-07-02; license MIT; deprecated: no; repo git+https://github.com/uber/baseweb.git"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:02:36.433Z"
+  },
+  {
+    "rank": 15,
+    "slug": "airbnb-dls",
+    "name": "Airbnb DLS",
+    "aliases": [
+      "Airbnb Design Language System",
+      "DLS"
+    ],
+    "organization": {
+      "slug": "airbnb",
+      "name": "Airbnb",
+      "websiteUrl": "https://www.airbnb.com/"
+    },
+    "category": "design-system",
+    "summary": "Airbnb's internal Design Language System, described publicly only in design blog articles; Airbnb has not published component documentation, packages or a public repository for it.",
+    "homepageUrl": "https://airbnb.design/",
+    "docsUrl": null,
+    "repositoryUrl": null,
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [],
+    "license": null,
+    "docAccess": "private",
+    "maintenanceStatus": "unknown",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [],
+    "platforms": [],
+    "tags": [
+      "internal"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "rejected",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Rejected: no public documentation. airbnb.design (former Airbnb Design site that hosted DLS articles) now redirects to the airbnb.com booking homepage, and the 'building-a-visual-language' article URL redirects to airbnb.com/404. The Medium copy of the article returned 403 (bot challenge). Neither the Airbnb GitHub org nor the tech blog exposes a DLS component catalog, package or token set, so there is nothing for ATLAS to index. Unrelated Airbnb open-source (e.g. Lottie, react-dates) is not the DLS. license null: none published.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://airbnb.design/",
+        "status": 200,
+        "finalUrl": "https://www.airbnb.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.536Z",
+        "method": "http-check",
+        "note": "redirects to https://www.airbnb.com/ (booking homepage, not design docs)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://airbnb.design/building-a-visual-language/",
+        "status": 404,
+        "finalUrl": "https://www.airbnb.com/404",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:59:51.836Z",
+        "method": "http-check",
+        "note": "former DLS article URL now redirects to airbnb.com/404 (404)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://medium.com/airbnb-design/building-a-visual-language-behind-the-scenes-of-our-airbnb-design-system-224748775e4e",
+        "status": 403,
+        "finalUrl": "https://medium.com/airbnb-design/building-a-visual-language-behind-the-scenes-of-our-airbnb-design-system-224748775e4e",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:02:18.652Z",
+        "method": "http-check",
+        "note": "Medium article copy: 403 bot challenge; an article, not documentation"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/airbnb",
+        "status": 200,
+        "finalUrl": "https://github.com/airbnb",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:18.541Z",
+        "method": "http-check",
+        "note": "Airbnb GitHub org exists; no DLS repository identified"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://airbnb.tech/",
+        "status": 200,
+        "finalUrl": "https://airbnb.tech/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:18.634Z",
+        "method": "http-check",
+        "note": "Airbnb tech blog (airbnb.io redirects here); not DLS documentation"
+      }
+    ],
+    "confidence": 0.85,
+    "verifiedAt": "2026-11-05T04:02:18.652Z"
   }
 ]

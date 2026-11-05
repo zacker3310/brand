@@ -221,7 +221,11 @@ export function parseMwcDoc(markdown: string, file: string): MwcDoc {
       if (lastSection && !lastSection.firstParagraph) lastSection.firstParagraph = text;
       if (h2 === "Accessibility" && doc.accessibility) {
         doc.accessibility.paragraphs.push({ heading: h3, text });
-        for (const m of text.matchAll(/role="([a-z]+)"/g)) doc.accessibility.roles.push(m[1]!);
+        // Only roles the docs state the component has by default (not roles authors are told to add).
+        for (const sentence of text.split(/(?<=[.!?])\s+/)) {
+          if (!/\bby default\b/i.test(sentence)) continue;
+          for (const m of sentence.matchAll(/role="([a-z]+)"/g)) doc.accessibility.roles.push(m[1]!);
+        }
         doc.accessibility.keyboard.push(...keyboardFrom(text, `${file}#${githubAnchor(h3 ?? "Accessibility")}`));
       }
       continue;
