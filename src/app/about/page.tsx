@@ -37,7 +37,7 @@ export default async function MethodologyPage() {
     <PageContainer>
       <header className="border-b pb-10">
         <div className="max-w-3xl space-y-4">
-        <p className="type-eyebrow">Methodology</p>
+        <p className="type-eyebrow text-muted-foreground">Methodology</p>
         <h1 className="type-display text-4xl sm:text-6xl">How ATLAS knows what it shows.</h1>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
           Every number on this page is computed from the live index
@@ -52,7 +52,7 @@ export default async function MethodologyPage() {
             {SECTIONS.map(([id, label], i) => (
               <li key={id}>
                 <a href={`#${id}`} className="-ml-px block border-l border-transparent py-1 pl-3 text-muted-foreground transition-colors hover:border-foreground hover:text-foreground">
-                  <span className="mr-2 font-mono text-[11px] text-subtle-foreground">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="mr-2 font-mono text-[11px] text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
                   {label}
                 </a>
               </li>
@@ -154,7 +154,7 @@ export default async function MethodologyPage() {
                     <CoverageChip state={st as CoverageState} />
                     <span className="text-sm text-muted-foreground">{COVERAGE_META[st as CoverageState].description}</span>
                     <span className="tabular text-right font-mono text-xs text-muted-foreground">
-                      {formatCount(n)} <span className="text-subtle-foreground">({coverageTotal ? Math.round((n / coverageTotal) * 100) : 0}%)</span>
+                      {formatCount(n)} <span className="text-muted-foreground">({coverageTotal ? Math.round((n / coverageTotal) * 100) : 0}%)</span>
                     </span>
                   </li>
                 );
@@ -223,7 +223,7 @@ export default async function MethodologyPage() {
                 ["Replacement", "Each rejected or duplicate slot was filled by a distinct, verified system so the published registry stays at 100."],
               ].map(([k, v], i) => (
                 <li key={k} className="rounded-xl border bg-card p-4">
-                  <p className="font-mono text-[11px] text-subtle-foreground">STEP {i + 1}</p>
+                  <p className="font-mono text-[11px] text-muted-foreground">STEP {i + 1}</p>
                   <p className="mt-1 text-sm font-medium">{k}</p>
                   <p className="mt-1 text-sm text-muted-foreground">{v}</p>
                 </li>
@@ -242,8 +242,8 @@ export default async function MethodologyPage() {
                   {s.replacements.map((r) => (
                     <li key={r.toSlug} className="flex flex-wrap items-center gap-2 px-4 py-2 text-sm">
                       <span className="text-muted-foreground line-through decoration-subtle-foreground/60">{r.from}</span>
-                      <span className="font-mono text-[11px] text-subtle-foreground">{r.reason}</span>
-                      <ArrowRightIcon className="size-3.5 text-subtle-foreground" aria-label="replaced by" />
+                      <span className="font-mono text-[11px] text-muted-foreground">{r.reason}</span>
+                      <ArrowRightIcon className="size-3.5 text-muted-foreground" aria-label="replaced by" />
                       <Link href={`/systems/${r.toSlug}`} className="font-medium hover:underline">
                         {r.to}
                       </Link>
@@ -276,7 +276,7 @@ function Block({ id, n, title, children }: { id: string; n: number; title: strin
   return (
     <section id={id} aria-labelledby={`${id}-title`} className="scroll-mt-24 space-y-5">
       <h2 id={`${id}-title`} className="flex items-baseline gap-3 text-xl font-semibold tracking-tight">
-        <span className="font-mono text-xs font-normal text-subtle-foreground">{String(n).padStart(2, "0")}</span>
+        <span className="font-mono text-xs font-normal text-muted-foreground">{String(n).padStart(2, "0")}</span>
         {title}
       </h2>
       {children}

@@ -33,7 +33,7 @@ export function AddToCollectionForm({
             <label key={c.id} className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm has-[:disabled]:cursor-not-allowed has-[:disabled]:opacity-60">
               <input type="radio" name="collectionId" value={c.id} disabled={c.contains} defaultChecked={c.id === firstFree?.id} className="accent-[var(--primary)]" />
               <span className="min-w-0 flex-1 truncate">{c.name}</span>
-              <span className="text-xs text-subtle-foreground">{c.contains ? "Already added" : `${c.itemCount} items`}</span>
+              <span className="text-xs text-muted-foreground">{c.contains ? "Already added" : `${c.itemCount} items`}</span>
             </label>
           ))}
           <label className="flex cursor-pointer items-center gap-3 px-3 py-2.5 text-sm">
@@ -45,7 +45,7 @@ export function AddToCollectionForm({
       </fieldset>
       <div className="space-y-1.5">
         <Label htmlFor={`${id}-note`}>
-          Note <span className="font-normal text-subtle-foreground">(optional)</span>
+          Note <span className="font-normal text-muted-foreground">(optional)</span>
         </Label>
         <Textarea id={`${id}-note`} name="note" maxLength={LIMITS.note} rows={2} className="min-h-16" />
       </div>

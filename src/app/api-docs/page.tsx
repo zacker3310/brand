@@ -61,7 +61,7 @@ export default async function ApiDocsPage() {
     <PageContainer>
       <header className="border-b pb-10">
         <div className="max-w-3xl space-y-4">
-        <p className="type-eyebrow">Developers</p>
+        <p className="type-eyebrow text-muted-foreground">Developers</p>
         <h1 className="type-display text-4xl sm:text-6xl">REST API</h1>
         <p className="text-[15px] leading-relaxed text-muted-foreground">
           The same data, labels and provenance as the site, as JSON. {API_ENDPOINTS.length} endpoints, generated from one route registry: parameters below are read from the Zod schemas
@@ -89,7 +89,7 @@ export default async function ApiDocsPage() {
             </a>
             {byGroup.map(({ group, eps }) => (
               <div key={group} className="space-y-1.5">
-                <a href={`#${groupId(group)}`} className="type-eyebrow block hover:text-foreground">
+                <a href={`#${groupId(group)}`} className="type-eyebrow text-muted-foreground block hover:text-foreground">
                   {group}
                 </a>
                 <ul className="space-y-1">
@@ -170,18 +170,18 @@ function Endpoint({ ep, example, capturedAt }: { ep: Ep; example?: { body: unkno
         <p className="text-sm text-muted-foreground">{ep.description}</p>
         <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
           <span title={auth.hint}>
-            <span className="text-subtle-foreground">Auth</span> {auth.label}
+            <span className="text-muted-foreground">Auth</span> {auth.label}
           </span>
           <span>
-            <span className="text-subtle-foreground">Returns</span> <code className="font-mono">{ep.returns}</code>
+            <span className="text-muted-foreground">Returns</span> <code className="font-mono">{ep.returns}</code>
           </span>
           {ep.errors.length > 0 && (
             <span>
-              <span className="text-subtle-foreground">Errors</span> <span className="font-mono">{ep.errors.join(" · ")}</span>
+              <span className="text-muted-foreground">Errors</span> <span className="font-mono">{ep.errors.join(" · ")}</span>
             </span>
           )}
           <span>
-            <span className="text-subtle-foreground">Cache</span> <span className="font-mono">{ep.cache}</span>
+            <span className="text-muted-foreground">Cache</span> <span className="font-mono">{ep.cache}</span>
           </span>
         </p>
       </header>
@@ -207,8 +207,8 @@ function Endpoint({ ep, example, capturedAt }: { ep: Ep; example?: { body: unkno
             ) : (
               <div className="space-y-1.5">
                 <p className="flex flex-wrap items-baseline justify-between gap-2 text-xs font-medium text-muted-foreground">
-                  <span>Live response {ep.example?.note ? <span className="font-normal text-subtle-foreground">· {ep.example.note}</span> : null}</span>
-                  <span className="font-normal text-subtle-foreground">
+                  <span>Live response {ep.example?.note ? <span className="font-normal text-muted-foreground">· {ep.example.note}</span> : null}</span>
+                  <span className="font-normal text-muted-foreground">
                     captured <time dateTime={capturedAt.toISOString()}>{capturedAt.toISOString().slice(11, 19)} UTC</time> · abbreviated
                   </span>
                 </p>
@@ -294,7 +294,7 @@ function ParamTable({ title, rows }: { title: string; rows: ParamRow[] }) {
           <li key={`${r.in}-${r.name}`} className="space-y-1 px-3 py-2">
             <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
               <code className="font-mono text-[12.5px] font-medium">{r.name}</code>
-              <span className="font-mono text-[11px] text-subtle-foreground">{r.in}</span>
+              <span className="font-mono text-[11px] text-muted-foreground">{r.in}</span>
               <span className="font-mono text-[11px] break-all text-info">{r.type}</span>
               {r.required ? <span className="text-[11px] font-medium text-foreground/80">required</span> : null}
               {r.def !== null && <span className="font-mono text-[11px] text-muted-foreground">default {r.def}</span>}

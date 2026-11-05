@@ -68,7 +68,7 @@ export default async function SourcesPage() {
                       <td className={`${td} text-xs`}>
                         <Time at={s.newest} />
                       </td>
-                      <td className={`${td} tabular text-right font-mono text-xs ${s.notActive ? "text-inferred" : "text-subtle-foreground"}`}>{s.notActive}</td>
+                      <td className={`${td} tabular text-right font-mono text-xs ${s.notActive ? "text-inferred" : "text-muted-foreground"}`}>{s.notActive}</td>
                     </tr>
                   ))
                 )}
@@ -154,7 +154,7 @@ export default async function SourcesPage() {
                       <SourceLink href={b.url} className="max-w-full truncate text-xs">
                         {b.label ?? b.url.replace(/^https?:\/\//, "")}
                       </SourceLink>
-                      <div className="text-[11px] text-subtle-foreground">via {b.discoveredBy}</div>
+                      <div className="text-[11px] text-muted-foreground">via {b.discoveredBy}</div>
                     </td>
                     <td className={td}>{b.systemName}</td>
                     <td className={td}>

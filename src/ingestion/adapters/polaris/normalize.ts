@@ -345,6 +345,11 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
     }
     if (relationships.length) ev((pf ?? sub?.page)!.stamp, "relationships", METHOD.devMd, { location: sub && !pf ? `## ${sub.section.heading}` : "intro / subcomponent sections", excerpt: relationships.map((r) => `${r.kind}: ${r.targetSlug}`).join(", ") });
 
+    // responsive values: properties typed MaybeResponsive<…> (base value or `@container` query string)
+    const responsiveProps = el.properties.filter((p) => /\bMaybeResponsive</.test(p.type ?? "")).map((p) => p.name);
+    const responsiveGuidance = responsiveProps.length ? clip(`Responsive properties (MaybeResponsive: a base value or an @container query string): ${responsiveProps.join(", ")}.`, 800) : null;
+    if (responsiveGuidance) ev(w.cem.stamp, "responsive", METHOD.cem, { location: `${cemLoc}/members`, excerpt: responsiveGuidance });
+
     const cls = classify([name, el.className], null, { subcomponent: !!sub });
     const coverage: CoverageMap = {
       description: description ? "documented" : "not-documented",
@@ -354,7 +359,7 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
       properties: props.length ? "documented" : "not-documented",
       accessibility: a11y ? "documented" : page ? "not-documented" : "not-extracted",
       keyboard: keyboard.length ? "documented" : page ? "not-documented" : "not-extracted",
-      responsive: "not-extracted",
+      responsive: responsiveGuidance ? "documented" : "not-documented",
       tokens: "not-documented",
       examples: examples.length ? "documented" : page ? "not-documented" : "not-extracted",
       frameworks: "documented",
@@ -379,7 +384,7 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
       examples,
       relationships,
       tokenUsages: [],
-      responsiveGuidance: null,
+      responsiveGuidance,
       coverage,
       evidence: evidenceList,
     });
@@ -402,6 +407,8 @@ interface ReactContext {
   readme: Frag<"archive-readme"> | null;
   wcSlugs: Set<string>;
   redirects: Map<string, string>;
+  css: Frag<"react-css"> | null;
+  tokenNames: Set<string>;
   runStartedAt: string;
 }
 
@@ -548,6 +555,15 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
     }
     if (doc.related.length) push(m.stamp, "relationships", METHOD.mdx, { location: `${mdxLoc}#related-components`, excerpt: doc.related.map((x) => x.text).join(" / ") });
 
+    // token usage from the compiled stylesheet (rules whose subject is `.Polaris-<Dir>`)
+    const usages = dir && r.css ? (r.css.usages[dir] ?? []).filter((u) => r.tokenNames.has(u.tokenName)) : [];
+    if (usages.length && r.css) push(r.css.stamp, "tokens", METHOD.reactCss, { location: `${r.css.file} .Polaris-${dir}`, excerpt: `${uniq(usages.map((u) => u.tokenName)).length} Polaris tokens referenced via var(--p-*) in ${usages.length} declarations`, state: "inferred", confidence: 0.8 });
+
+    // responsive props (ResponsiveProp<…> values per breakpoint)
+    const responsiveProps = props.filter((p) => /\bResponsiveProp\b|\bResponsive[A-Z]\w*/.test(p.type ?? "")).map((p) => p.name);
+    const responsiveGuidance = responsiveProps.length ? clip(`Responsive props (type ResponsiveProp, values per breakpoint alias): ${responsiveProps.join(", ")}.`, 800) : null;
+    if (responsiveGuidance && dts) push(dts.stamp, "responsive", METHOD.dts, { location: `${dts.file}#${dts.propsName}`, excerpt: responsiveGuidance });
+
     const cls = classify([doc.title, ...(dir ? [dir] : [])], a?.ariaPattern ?? null);
     const coverage: CoverageMap = {
       description: description ? "documented" : "not-documented",
@@ -557,8 +573,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       properties: props.length ? "documented" : dts?.found ? "not-documented" : "not-extracted",
       accessibility: accessibility ? "documented" : "not-documented",
       keyboard: a?.keyboard.length ? "documented" : a?.keyboardText ? "not-extracted" : "not-documented",
-      responsive: "not-extracted",
-      tokens: "not-extracted",
+      responsive: responsiveGuidance ? "documented" : dts?.found ? "not-documented" : "not-extracted",
+      tokens: usages.length ? "inferred" : r.css && dir ? "not-documented" : "not-extracted",
       examples: examples.length ? "documented" : "not-documented",
       frameworks: frameworks.length ? "documented" : "not-extracted",
       relationships: relationships.length ? "documented" : "not-documented",
@@ -581,8 +597,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       accessibility,
       examples: dedupeExamples(examples),
       relationships,
-      tokenUsages: [],
-      responsiveGuidance: null,
+      tokenUsages: usages.map((u) => ({ tokenName: u.tokenName, property: u.property })),
+      responsiveGuidance,
       coverage,
       evidence: ev,
     });
@@ -726,6 +742,8 @@ export function normalizePolaris(fragments: PolarisFragmentData[], opts: Normali
   }
   const dtsByDoc = new Map<string, Frag<"react-dts">>();
   for (const d of sortBy(dtsFrags, (x) => x.file)) if (d.docPath && !dtsByDoc.has(d.docPath)) dtsByDoc.set(d.docPath, d);
+  const tokenSets = buildTokenSets(first("tokens-css"), of("tokens-meta"), of("license").find((l) => l.key === "tokens") ?? first("license"));
+  const tokenNames = new Set(tokenSets.flatMap((s) => s.tokens.map((t) => t.name)));
   const react = buildReactComponents(
     {
       mdx: of("react-mdx"),
@@ -737,13 +755,14 @@ export function normalizePolaris(fragments: PolarisFragmentData[], opts: Normali
       readme,
       wcSlugs,
       redirects: new Map((first("redirects")?.redirects ?? []).map((x) => [x.source, x.destination])),
+      css: first("react-css"),
+      tokenNames,
       runStartedAt: opts.runStartedAt,
     },
     opts.limit,
   );
 
   const patterns = buildPatterns(of("pattern-page"), wcSlugs, opts.limit);
-  const tokenSets = buildTokenSets(first("tokens-css"), of("tokens-meta"), of("license").find((l) => l.key === "tokens") ?? first("license"));
   const facts = buildFacts({ typesNpm, overview, versioning, readme, runStartedAt: opts.runStartedAt });
 
   return {

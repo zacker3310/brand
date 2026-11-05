@@ -21,6 +21,9 @@ import { SB_REACT, clip, evidence, firstSentence, humanize, lifecycleFromVersion
 
 type Example = NormalizedComponent["examples"][number];
 
+/** Upstream placeholder TSDoc ("Breadcrumb component - TODO: add more docs"). */
+export const PLACEHOLDER = /\bTODO\b|add (more )?docs/i;
+
 export interface ReactNormalizeResult {
   components: NormalizedComponent[];
   warnings: string[];
@@ -138,7 +141,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
       description = describingSentence(p.description.text);
       if (description) ev.push(evidence(p.description.prov, "description", "story-description-md", { excerpt: description }));
     }
-    if (!description && comp?.summary && dts) {
+    if (!description && comp?.summary && dts && !PLACEHOLDER.test(comp.summary)) {
       description = firstSentence(comp.summary);
       if (description) ev.push(evidence(dts.prov, "description", "dts-tsdoc", { location: `dist/index.d.ts#L${comp.line}`, excerpt: description }));
     }
@@ -147,7 +150,7 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     // properties / variants / sizes / states
     const properties = buildProps(comp, p.page.pkg, version);
     if (comp && dts) {
-      coverage.properties = properties.length ? "documented" : comp.unresolved.length ? "not-extracted" : "not-documented";
+      coverage.properties = properties.length ? "documented" : comp.unresolved.length || comp.primarySlots.length ? "not-extracted" : "not-documented";
       ev.push(
         evidence(dts.prov, "properties", "dts-props", {
           location: `dist/index.d.ts#L${comp.line}`,
@@ -272,12 +275,12 @@ export function normalizeReact(frags: FluentFragment[], opts: { limit?: number }
     const owner = s.owners[0]!;
     const ev: EvidenceInput[] = [evidence(dts.prov, "*", "dts-props", { location: `dist/index.d.ts#L${s.comp.line}`, excerpt: `${name}: ${s.comp.propsType}` })];
     const coverage = baseCoverage("not-extracted");
-    const description = firstSentence(s.comp.summary);
+    const description = s.comp.summary && !PLACEHOLDER.test(s.comp.summary) ? firstSentence(s.comp.summary) : null;
     coverage.description = description ? "documented" : "not-documented";
     if (description) ev.push(evidence(dts.prov, "description", "dts-tsdoc", { location: `dist/index.d.ts#L${s.comp.line}`, excerpt: description }));
     const url = npmFile(s.pkg, dts.version, "dist/index.d.ts");
     const properties = sortBy(s.comp.props, (p) => p.name).map((p) => toProperty(p, "react", url));
-    coverage.properties = properties.length ? "documented" : s.comp.unresolved.length ? "not-extracted" : "not-documented";
+    coverage.properties = properties.length ? "documented" : s.comp.unresolved.length || s.comp.primarySlots.length ? "not-extracted" : "not-documented";
     if (properties.length) ev.push(evidence(dts.prov, "properties", "dts-props", { location: `dist/index.d.ts#${s.comp.propsType}`, excerpt: `${s.comp.propsType}: ${properties.length} props${s.comp.unresolved.length ? `; also extends ${s.comp.unresolved.slice(0, 4).join(", ")} (not resolved)` : ""}` }));
     const variants = variantsFromProps(s.comp.props, url, "dist/index.d.ts");
     const sizes = sizesFromProps(s.comp.props);

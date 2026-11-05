@@ -20,7 +20,7 @@ export default async function AddToCollectionPage({ searchParams }: { searchPara
   const membership = await entityMembership(await getOwnerId(), ref.data);
   return (
     <PageContainer className="max-w-2xl">
-      <PageHeader eyebrow={<Link href="/collections">Collections</Link>} title="Add to collection" />
+      <PageHeader eyebrow={<Link href="/collections" className="text-muted-foreground hover:text-foreground">Collections</Link>} title="Add to collection" />
       <ul className="mt-6 rounded-xl border bg-card">
         <EntityRow entity={entity} />
       </ul>

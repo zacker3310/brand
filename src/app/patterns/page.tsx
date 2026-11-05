@@ -32,7 +32,7 @@ export default async function PatternsPage() {
         <Stat value={totals.patterns} label="Documented patterns" />
         <Stat value={totals.systems} label="Systems with patterns" />
         <Stat value={`${formatCount(totals.typesCovered)} / ${formatCount(totals.types)}`} label="Pattern types covered" />
-        <Stat value={totals.patterns - totals.classified} label="Unclassified" hint="Not mapped to a type" />
+        <Stat value={totals.patterns - totals.classified} label="Unclassified (no type match)" />
       </div>
 
       {totals.patterns === 0 ? (

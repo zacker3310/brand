@@ -37,7 +37,7 @@ export function CreateCollectionForm({ autoFocus = false }: { autoFocus?: boolea
       </div>
       <div className="space-y-1.5">
         <Label htmlFor={`${id}-desc`}>
-          Description <span className="font-normal text-subtle-foreground">(optional)</span>
+          Description <span className="font-normal text-muted-foreground">(optional)</span>
         </Label>
         <Textarea
           id={`${id}-desc`}

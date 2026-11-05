@@ -64,7 +64,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
               ["Duration", formatDuration(run.durationMs)],
             ].map(([k, v]) => (
               <div key={k as string}>
-                <dt className="text-subtle-foreground">{k}</dt>
+                <dt className="text-muted-foreground">{k}</dt>
                 <dd className="tabular font-medium">{v}</dd>
               </div>
             ))}
@@ -91,7 +91,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                       state === "done" && "text-verified",
                       state === "current" && "text-info",
                       state === "failed" && "text-conflicting",
-                      state === "pending" && "text-subtle-foreground",
+                      state === "pending" && "text-muted-foreground",
                     )}
                   >
                     {state}
@@ -188,7 +188,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                     <td className={`${td} tabular font-mono text-xs`}>
                       {j.attempts}/{j.maxAttempts}
                     </td>
-                    <td className={`${td} max-w-md`}>{j.lastError ? <ErrorText text={j.lastError} /> : <span className="text-subtle-foreground">—</span>}</td>
+                    <td className={`${td} max-w-md`}>{j.lastError ? <ErrorText text={j.lastError} /> : <span className="text-muted-foreground">—</span>}</td>
                     <td className={`${td} text-xs text-muted-foreground`}>
                       <Time at={j.finishedAt} fallback="—" />
                     </td>
@@ -231,7 +231,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                 <div className="min-w-0 space-y-0.5">
                   <Mono className="font-medium">{e.code}</Mono>
                   <p className="text-[13px] break-words text-muted-foreground">{e.message}</p>
-                  {e.url && <p className="truncate font-mono text-[11px] text-subtle-foreground">{e.url}</p>}
+                  {e.url && <p className="truncate font-mono text-[11px] text-muted-foreground">{e.url}</p>}
                 </div>
                 <div className="text-xs text-muted-foreground">{e.resolvedAt ? "resolved" : <Time at={e.createdAt} />}</div>
               </li>
@@ -274,7 +274,7 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
               <Mono>{s.entityKind}</Mono>
               <StatusPill status={s.validation} />
               <span className="tabular font-mono">{s.n}</span>
-              <span className="text-subtle-foreground">{s.published} published</span>
+              <span className="text-muted-foreground">{s.published} published</span>
             </span>
           ))}
         </div>
@@ -315,20 +315,20 @@ export default async function RunDetailPage({ params, searchParams }: Props) {
                     <td className={td}>
                       <StatusPill status={x.validation} />
                     </td>
-                    <td className={`${td} text-xs`}>{x.published ? "yes" : <span className="text-subtle-foreground">no</span>}</td>
+                    <td className={`${td} text-xs`}>{x.published ? "yes" : <span className="text-muted-foreground">no</span>}</td>
                     <td className={`${td} max-w-xl`}>
                       {x.issues.length ? (
                         <ul className="space-y-0.5">
                           {x.issues.slice(0, 4).map((i, k) => (
                             <li key={k} className="text-xs">
                               <Mono className={i.severity === "error" ? "text-conflicting" : "text-inferred"}>{i.code}</Mono> <span className="text-muted-foreground">{i.message}</span>
-                              {i.path && <Mono className="text-subtle-foreground"> @{i.path}</Mono>}
+                              {i.path && <Mono className="text-muted-foreground"> @{i.path}</Mono>}
                             </li>
                           ))}
-                          {x.issues.length > 4 && <li className="text-[11px] text-subtle-foreground">+{x.issues.length - 4} more</li>}
+                          {x.issues.length > 4 && <li className="text-[11px] text-muted-foreground">+{x.issues.length - 4} more</li>}
                         </ul>
                       ) : (
-                        <span className="text-subtle-foreground">—</span>
+                        <span className="text-muted-foreground">—</span>
                       )}
                     </td>
                   </tr>

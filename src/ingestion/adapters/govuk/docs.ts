@@ -1,24 +1,28 @@
 /**
- * Parsers for GOV.UK Design System docs sources (alphagov/govuk-design-system Markdown pages,
- * data/colours.json, the homepage template, sitemap.xml) and the GOV.UK Content API page for the
- * Government Design Principles. Pure functions: text in, JSON-serializable data out.
+ * Parsers for docs sources of the GOV.UK Frontend family:
+ *  - GOV.UK: alphagov/govuk-design-system Markdown pages, data/colours.json, the homepage template,
+ *    sitemap.xml, and the GOV.UK Content API page for the Government Design Principles.
+ *  - NHS: nhsuk/nhsuk-service-manual Nunjucks page templates (static HTML inside `{% block bodyContent %}`),
+ *    design principles page, sitemap.xml.
+ * Both page formats are reduced to one intermediate representation (DocIR) so the same extraction rules
+ * apply. Pure functions: text in, JSON-serializable data out. Templates are never rendered.
  */
+import * as cheerio from "cheerio";
 import type { Nodes, RootContent } from "mdast";
 import {
   clip,
   collapse,
   firstSentences,
-  fm,
   inlineCodes,
   introNodes,
   linksIn,
   ownNodes,
   parsePage,
-  proseBlocks,
   sections,
   splitSentences,
+  stripNunjucks,
   textOf,
-  type Section,
+  type LinkRef,
 } from "./markdown";
 
 /* ------------------------------- shared types ------------------------------ */
@@ -97,39 +101,196 @@ export interface PatternDoc {
 /* ---------------------------------- links ---------------------------------- */
 
 const ALTERNATIVE_RE = /\binstead\b|\bconsider (using )?(a|an|the)\b|\buse (a|an|the) \[?[a-z]/i;
-const DOCS_HOST_RE = /^https?:\/\/design-system\.service\.gov\.uk/;
+const DOCS_HOST_RE = /^https?:\/\/(?:design-system\.service\.gov\.uk|service-manual\.nhs\.uk)/;
 
-/** "/components/text-input/#hint" -> { section: "components", slug: "text-input" } */
+/**
+ * "/components/text-input/#hint" -> { section: "components", slug: "text-input" };
+ * NHS: "/design-system/components/buttons" -> { section: "components", slug: "buttons" }.
+ */
 export function docsLinkTarget(url: string): { section: string; slug: string } | null {
-  const u = url.replace(DOCS_HOST_RE, "");
+  const u = url.replace(DOCS_HOST_RE, "").replace(/^\/design-system(?=\/)/, "");
   const m = /^\/(components|patterns|styles)\/([a-z0-9-]+)\/?(?:[#?].*)?$/.exec(u);
   return m ? { section: m[1]!, slug: m[2]! } : null;
 }
 
-function collectLinks(secs: Section[], intro: RootContent[]): { components: DocLink[]; patterns: DocLink[] } {
-  const components: DocLink[] = [];
-  const patterns: DocLink[] = [];
-  const add = (nodes: RootContent[], section: string | null) => {
-    const notToUse = !!section && /^when not to use\b/i.test(section);
-    const visit = (block: Nodes) => {
-      if (block.type === "paragraph" || block.type === "listItem") {
-        const text = collapse(textOf(block));
-        for (const l of linksIn([block])) {
-          const t = docsLinkTarget(l.url);
-          if (!t) continue;
-          const list = t.section === "components" ? components : t.section === "patterns" ? patterns : null;
-          if (!list || list.some((x) => x.slug === t.slug && x.section === section)) continue;
-          const alternative = notToUse && ALTERNATIVE_RE.test(text);
-          list.push(alternative ? { slug: t.slug, section, alternative } : { slug: t.slug, section });
-        }
+/* ------------------------------ intermediate form ----------------------------- */
+
+export interface IrBlock {
+  text: string;
+  links: LinkRef[];
+  codes: string[];
+}
+
+export interface IrSection {
+  title: string;
+  depth: number;
+  parents: string[];
+  /** Blocks before the next heading of any depth. */
+  blocks: IrBlock[];
+}
+
+export interface DocIR {
+  fm: Record<string, unknown>;
+  intro: IrBlock[];
+  sections: IrSection[];
+  examples: DocExample[];
+}
+
+function mdBlocks(nodes: RootContent[]): IrBlock[] {
+  const out: IrBlock[] = [];
+  const visit = (n: Nodes) => {
+    if (n.type === "paragraph") {
+      const text = collapse(textOf(n));
+      if (text) out.push({ text, links: linksIn([n]), codes: inlineCodes([n]) });
+    } else if (n.type === "list") {
+      for (const li of n.children) for (const c of li.children) visit(c);
+    } else if (n.type === "blockquote") {
+      for (const c of n.children) visit(c);
+    }
+  };
+  (nodes as Nodes[]).forEach(visit);
+  return out;
+}
+
+/** GOV.UK Markdown page -> DocIR. */
+export function markdownToIR(text: string): DocIR {
+  const page = parsePage(text);
+  const secs = sections(page.tree);
+  return {
+    fm: page.frontmatter,
+    intro: mdBlocks(introNodes(page.tree)),
+    sections: secs.map((sec) => ({ title: sec.title, depth: sec.depth, parents: sec.parents, blocks: mdBlocks(ownNodes(sec)) })),
+    examples: dedupeExamples(page.examples),
+  };
+}
+
+const NJK_SET_RE = /\{%-?\s*set\s+([A-Za-z_][\w]*)\s*=\s*(["'])((?:\\.|(?!\2).)*)\2\s*-?%\}/g;
+
+/** `designExample({ group, item, type })` calls (NHS service manual). */
+function findDesignExamples(text: string): { group: string | null; item: string | null; example: string; line: number }[] {
+  const out: { group: string | null; item: string | null; example: string; line: number }[] = [];
+  for (const m of text.matchAll(/\{\{-?\s*designExample\(\s*(\{[\s\S]*?\})\s*\)\s*-?\}\}/g)) {
+    const arg = (k: string) => new RegExp(`\\b${k}\\s*:\\s*(["'])([^"']*)\\1`).exec(m[1]!)?.[2] ?? null;
+    const example = arg("type") ?? arg("example");
+    if (!example) continue;
+    out.push({ group: arg("group"), item: arg("item"), example, line: text.slice(0, m.index).split("\n").length });
+  }
+  return out;
+}
+
+/**
+ * NHS service manual page template -> DocIR. `{% set k = "v" %}` string assignments become front matter;
+ * the static HTML of `{% block bodyContent %}` is read with cheerio after removing every Nunjucks tag.
+ */
+export function njkToIR(text: string): DocIR {
+  const fmv: Record<string, unknown> = {};
+  for (const m of text.matchAll(NJK_SET_RE)) fmv[m[1]!] = m[3]!.replace(/\\(["'])/g, "$1");
+  const body = /\{%-?\s*block\s+bodyContent\s*-?%\}([\s\S]*?)\{%-?\s*endblock\s*-?%\}/.exec(text)?.[1] ?? text;
+  const calls = findDesignExamples(body);
+  const html = stripNunjucks(body);
+  const $ = cheerio.load(html, null, false);
+  const intro: IrBlock[] = [];
+  const secs: IrSection[] = [];
+  const stack: { depth: number; title: string }[] = [];
+  const headingsByLine: { line: number; title: string }[] = [];
+  let current: IrSection | null = null;
+  const block = (el: cheerio.Cheerio<never>): IrBlock | null => {
+    const t = collapse(el.text());
+    if (!t) return null;
+    const links = el
+      .find("a[href]")
+      .toArray()
+      .map((a) => ({ url: $(a).attr("href") ?? "", text: collapse($(a).text()) }));
+    const codes = el
+      .find("code")
+      .toArray()
+      .map((c) => collapse($(c).text()));
+    return { text: t, links, codes };
+  };
+  const push = (b: IrBlock | null) => {
+    if (!b) return;
+    (current ? current.blocks : intro).push(b);
+  };
+  const lineOf = (needle: string) => {
+    const i = html.indexOf(needle);
+    return i < 0 ? 0 : html.slice(0, i).split("\n").length;
+  };
+  const walk = (nodes: cheerio.Cheerio<never>) => {
+    nodes.each((_, n) => {
+      const el = $(n as never) as cheerio.Cheerio<never>;
+      const tag = ((n as { tagName?: string }).tagName ?? "").toLowerCase();
+      const hm = /^h([2-4])$/.exec(tag);
+      if (hm) {
+        const depth = Number(hm[1]);
+        const title = collapse(el.text());
+        if (!title) return;
+        while (stack.length && stack[stack.length - 1]!.depth >= depth) stack.pop();
+        current = { title, depth, parents: stack.map((x) => x.title), blocks: [] };
+        stack.push({ depth, title });
+        secs.push(current);
+        const id = el.attr("id");
+        headingsByLine.push({ line: lineOf(id ? `id="${id}"` : title), title });
         return;
       }
-      if ("children" in block && Array.isArray(block.children)) (block.children as Nodes[]).forEach(visit);
-    };
-    (nodes as Nodes[]).forEach(visit);
+      if (tag === "p") return push(block(el));
+      if (tag === "ul" || tag === "ol") {
+        el.children("li").each((__, li) => {
+          const liEl = $(li as never) as cheerio.Cheerio<never>;
+          const nested = liEl.children("ul,ol");
+          if (nested.length) {
+            const own = liEl.clone();
+            own.children("ul,ol").remove();
+            push(block(own as cheerio.Cheerio<never>));
+            walk(nested as cheerio.Cheerio<never>);
+          } else push(block(liEl));
+        });
+        return;
+      }
+      if (["table", "pre", "script", "style", "figure", "img", "svg", "iframe"].includes(tag)) return;
+      if ((n as { type?: string }).type === "tag") walk(el.contents() as cheerio.Cheerio<never>);
+    });
   };
-  add(intro, null);
-  for (const s of secs) add(ownNodes(s), s.title);
+  walk($.root().contents() as cheerio.Cheerio<never>);
+  const examples = calls.map((c) => {
+    let heading: string | null = null;
+    // Example calls were removed from `html` with line structure preserved; compare by line.
+    for (const h of headingsByLine) if (h.line && h.line <= c.line) heading = h.title;
+    return { example: c.example, item: c.item, group: c.group, titleSuffix: null, heading };
+  });
+  return { fm: fmv, intro, sections: secs, examples: dedupeExamples(examples) };
+}
+
+const fmStr = (ir: DocIR, ...keys: string[]): string | null => {
+  for (const k of keys) {
+    const v = ir.fm[k];
+    if (typeof v === "string" && v.trim()) return v.trim();
+  }
+  return null;
+};
+const fmList = (ir: DocIR, key: string): string[] => {
+  const v = ir.fm[key];
+  if (Array.isArray(v)) return v.filter((x): x is string => typeof x === "string" && !!x.trim()).map((x) => x.trim());
+  return typeof v === "string" && v.trim() ? v.split(",").map((x) => x.trim()).filter(Boolean) : [];
+};
+
+function collectLinks(ir: DocIR): { components: DocLink[]; patterns: DocLink[] } {
+  const components: DocLink[] = [];
+  const patterns: DocLink[] = [];
+  const add = (blocks: IrBlock[], section: string | null) => {
+    const notToUse = !!section && /^when not to use\b/i.test(section);
+    for (const b of blocks) {
+      for (const l of b.links) {
+        const t = docsLinkTarget(l.url);
+        if (!t) continue;
+        const list = t.section === "components" ? components : t.section === "patterns" ? patterns : null;
+        if (!list || list.some((x) => x.slug === t.slug && x.section === section)) continue;
+        const alternative = notToUse && ALTERNATIVE_RE.test(b.text);
+        list.push(alternative ? { slug: t.slug, section, alternative } : { slug: t.slug, section });
+      }
+    }
+  };
+  add(ir.intro, null);
+  for (const s of ir.sections) add(s.blocks, s.title);
   return { components, patterns };
 }
 
@@ -200,11 +361,12 @@ export function keyboardSentences(blocksBySection: { section: string | null; blo
 
 /* ---------------------------- component doc pages --------------------------- */
 
-const sectionText = (secs: Section[], re: RegExp, max = 400): { text: string | null; title: string | null } => {
-  const s = secs.find((x) => x.depth === 2 && re.test(x.title));
-  if (!s) return { text: null, title: null };
-  const blocks = proseBlocks(ownNodes(s));
-  return { text: blocks.length ? firstSentences(blocks.join(" "), max) : null, title: s.title };
+const texts = (blocks: IrBlock[]) => blocks.map((b) => b.text);
+
+const sectionText = (ir: DocIR, re: RegExp, max = 400): string | null => {
+  const s = ir.sections.find((x) => x.depth === 2 && re.test(x.title));
+  if (!s) return null;
+  return s.blocks.length ? firstSentences(texts(s.blocks).join(" "), max) : null;
 };
 
 function statusOf(frontmatter: Record<string, unknown>): { type: string | null; date: string | null } {
@@ -217,49 +379,48 @@ function statusOf(frontmatter: Record<string, unknown>): { type: string | null; 
   return { type: null, date: null };
 }
 
-export function parseComponentDoc(text: string): ComponentDoc {
-  const page = parsePage(text);
-  const secs = sections(page.tree);
-  const intro = introNodes(page.tree);
-  const introText = proseBlocks(intro)[0] ?? null;
-  const fmDesc = fm.str(page, "description");
-  const description = fmDesc ? firstSentences(fmDesc, 280) : introText ? firstSentences(introText, 280) : null;
-  const status = statusOf(page.frontmatter);
-  const layout = fm.str(page, "layout") ?? "";
-  const links = collectLinks(secs, intro);
-  const allBlocks: { section: string | null; blocks: string[] }[] = [
-    { section: null, blocks: proseBlocks(intro, { ticks: false }) },
-    ...secs.map((s) => ({ section: s.title, blocks: proseBlocks(ownNodes(s)) })),
-  ];
+const WHEN_TO_USE = /^when to use\b/i;
+const WHEN_NOT_TO_USE = /^when not to use\b/i;
+const HOW = /^how (it|they) works?\b|^how to use\b/i;
+const RESEARCH = /^research\b/i;
+
+/** Build ComponentDoc from the intermediate representation (both page formats). */
+export function componentDocFromIR(ir: DocIR): ComponentDoc {
+  const introText = ir.intro[0]?.text ?? null;
+  const fmDesc = fmStr(ir, "description", "pageDescription");
+  const status = statusOf(ir.fm);
+  const layout = fmStr(ir, "layout") ?? "";
+  const links = collectLinks(ir);
+  const allBlocks: { section: string | null; blocks: string[] }[] = [{ section: null, blocks: texts(ir.intro) }, ...ir.sections.map((s) => ({ section: s.title, blocks: texts(s.blocks) }))];
   const flat = allBlocks.flatMap((x) => x.blocks);
-  const guidanceBlocks = allBlocks.filter((x) => !x.section || !NON_GUIDANCE_SECTION_RE.test(x.section) && !secs.find((sec) => sec.title === x.section)?.parents.some((p) => NON_GUIDANCE_SECTION_RE.test(p)));
+  const guidanceBlocks = allBlocks.filter((x) => !x.section || (!NON_GUIDANCE_SECTION_RE.test(x.section) && !ir.sections.find((sec) => sec.title === x.section)?.parents.some((p) => NON_GUIDANCE_SECTION_RE.test(p))));
   const gflat = guidanceBlocks.flatMap((x) => x.blocks);
   const a11ySections = guidanceBlocks.filter((x) => x.blocks.some((b) => A11Y_RE.test(b))).map((x) => x.section ?? "(intro)");
   const wcag = new Set<string>();
   for (const b of flat) for (const m of b.matchAll(WCAG_RE)) wcag.add(m[1]!);
-  const errorSec = sectionText(secs, /^error messages?$/i, 280);
+  const joined = collapse(flat.join(" "));
   return {
-    title: fm.str(page, "title"),
-    description,
+    title: fmStr(ir, "title", "pageTitle"),
+    description: fmDesc ? firstSentences(fmDesc, 280) : introText ? firstSentences(introText, 280) : null,
     descriptionFrom: fmDesc ? "frontmatter" : introText ? "intro" : null,
-    aliases: fm.list(page, "aliases"),
+    aliases: fmList(ir, "aliases"),
     status: status.type,
     statusDate: status.date,
-    archived: /archived/i.test(layout) || page.frontmatter.ignoreInSitemap === true,
-    whenToUse: sectionText(secs, /^when to use\b/i).text,
-    whenNotToUse: sectionText(secs, /^when not to use\b/i).text,
-    howItWorks: sectionText(secs, /^how (it|they) works?\b/i).text,
-    research: sectionText(secs, /^research\b/i).text,
-    errorMessages: errorSec.text,
-    htmlAndNunjucks: /\byou can use HTML or\b[^.]*\bNunjucks\b/i.test(collapse(flat.join(" "))),
-    sections: secs.map((s) => ({
+    archived: /archived/i.test(layout) || ir.fm.ignoreInSitemap === true,
+    whenToUse: sectionText(ir, WHEN_TO_USE),
+    whenNotToUse: sectionText(ir, WHEN_NOT_TO_USE),
+    howItWorks: sectionText(ir, HOW),
+    research: sectionText(ir, RESEARCH),
+    errorMessages: sectionText(ir, /^error messages?$/i, 280),
+    htmlAndNunjucks: /\byou can use HTML or\b[^.]*\bNunjucks\b/i.test(joined) || (/\busing Nunjucks\b/i.test(joined) && /\bFor HTML\b/i.test(joined)),
+    sections: ir.sections.map((s) => ({
       title: s.title,
       depth: s.depth,
       parents: s.parents,
-      firstParagraph: firstSentences(proseBlocks(ownNodes(s))[0] ?? null, 280),
-      codes: [...new Set(inlineCodes(ownNodes(s)))],
+      firstParagraph: firstSentences(s.blocks[0]?.text ?? null, 280),
+      codes: [...new Set(s.blocks.flatMap((b) => b.codes))],
     })),
-    examples: dedupeExamples(page.examples),
+    examples: ir.examples,
     componentLinks: links.components,
     patternLinks: links.patterns,
     a11y: {
@@ -272,6 +433,16 @@ export function parseComponentDoc(text: string): ComponentDoc {
     keyboard: keyboardSentences(allBlocks),
     responsive: sentencesMatching(gflat, RESPONSIVE_RE, 3),
   };
+}
+
+/** GOV.UK Markdown component page. */
+export function parseComponentDoc(text: string): ComponentDoc {
+  return componentDocFromIR(markdownToIR(text));
+}
+
+/** NHS service manual component page template. */
+export function parseNhsComponentDoc(text: string): ComponentDoc {
+  return componentDocFromIR(njkToIR(text));
 }
 
 function dedupeExamples(list: { example: string; item: string | null; group: string | null; titleSuffix: string | null; heading: string | null }[]): DocExample[] {
@@ -288,36 +459,35 @@ function dedupeExamples(list: { example: string; item: string | null; group: str
 
 /* ------------------------------ pattern doc pages ---------------------------- */
 
-export function parsePatternDoc(text: string): PatternDoc {
-  const page = parsePage(text);
-  const secs = sections(page.tree);
-  const intro = introNodes(page.tree);
-  const fmDesc = fm.str(page, "description");
-  const introText = proseBlocks(intro)[0] ?? null;
-  const layout = fm.str(page, "layout") ?? "";
-  const links = collectLinks(secs, intro);
+export function patternDocFromIR(ir: DocIR): PatternDoc {
+  const fmDesc = fmStr(ir, "description", "pageDescription");
+  const introText = ir.intro[0]?.text ?? null;
+  const layout = fmStr(ir, "layout") ?? "";
+  const links = collectLinks(ir);
   const firstOf = (re: RegExp) => {
-    const s = secs.find((x) => re.test(x.title));
+    const s = ir.sections.find((x) => re.test(x.title));
     if (!s) return null;
-    const blocks = proseBlocks(ownNodes(s));
-    return blocks.length ? firstSentences(blocks.join(" "), 400) : null;
+    return s.blocks.length ? firstSentences(texts(s.blocks).join(" "), 400) : null;
   };
   return {
-    title: fm.str(page, "title"),
+    title: fmStr(ir, "title", "pageTitle"),
     description: fmDesc ? firstSentences(fmDesc, 280) : introText ? firstSentences(introText, 280) : null,
-    theme: fm.str(page, "theme"),
-    aliases: fm.list(page, "aliases"),
-    archived: /archived/i.test(layout) || page.frontmatter.ignoreInSitemap === true,
-    whenToUse: firstOf(/^when to use\b/i),
-    whenNotToUse: firstOf(/^when not to use\b/i),
+    theme: fmStr(ir, "theme"),
+    aliases: fmList(ir, "aliases"),
+    archived: /archived/i.test(layout) || ir.fm.ignoreInSitemap === true,
+    whenToUse: firstOf(WHEN_TO_USE),
+    whenNotToUse: firstOf(WHEN_NOT_TO_USE),
     howItWorks: firstOf(/^how (it|this pattern|they) works?\b|^how to use\b/i),
-    research: firstOf(/^research\b/i),
-    headings: secs.filter((s) => s.depth === 2).map((s) => s.title),
-    examples: dedupeExamples(page.examples),
+    research: firstOf(RESEARCH),
+    headings: ir.sections.filter((s) => s.depth === 2).map((s) => s.title),
+    examples: ir.examples,
     componentLinks: links.components,
     patternLinks: links.patterns,
   };
 }
+
+export const parsePatternDoc = (text: string): PatternDoc => patternDocFromIR(markdownToIR(text));
+export const parseNhsPatternDoc = (text: string): PatternDoc => patternDocFromIR(njkToIR(text));
 
 /* ------------------------------ lifecycle page ------------------------------- */
 
@@ -330,8 +500,8 @@ export interface LifecycleRules {
 }
 
 export function parseLifecyclePage(text: string): LifecycleRules {
-  const page = parsePage(text);
-  const blocks = proseBlocks(page.tree.children);
+  const ir = markdownToIR(text);
+  const blocks = [...ir.intro, ...ir.sections.flatMap((x) => x.blocks)].map((b) => b.text);
   const statuses: string[] = [];
   let stableHasNoTag = false;
   let stableExcerpt: string | null = null;
@@ -364,12 +534,13 @@ export function parseSitemapLocs(xml: string): string[] {
   return [...xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => m[1]!.replace(/&amp;/g, "&"));
 }
 
-/** Docs slugs per section from sitemap URLs ("/components/<slug>/"), excluding sub-pages. */
-export function sitemapSlugs(locs: string[], origin: string): Record<"components" | "patterns" | "styles", string[]> {
+/** Docs slugs per section from sitemap URLs ("<base>/components/<slug>/"), excluding sub-pages. */
+export function sitemapSlugs(locs: string[], origin: string, basePath = ""): Record<"components" | "patterns" | "styles", string[]> {
   const out = { components: [] as string[], patterns: [] as string[], styles: [] as string[] };
+  const prefix = `${origin}${basePath}`;
   for (const loc of locs) {
-    if (!loc.startsWith(origin)) continue;
-    const m = /^\/(components|patterns|styles)\/([a-z0-9-]+)\/$/.exec(loc.slice(origin.length));
+    if (!loc.startsWith(`${prefix}/`)) continue;
+    const m = /^\/(components|patterns|styles)\/([a-z0-9-]+)\/?$/.exec(loc.slice(prefix.length));
     if (!m) continue;
     const list = out[m[1] as keyof typeof out];
     if (!list.includes(m[2]!)) list.push(m[2]!);

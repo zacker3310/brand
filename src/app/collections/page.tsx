@@ -29,7 +29,7 @@ export default async function CollectionsPage({ searchParams }: { searchParams: 
   return (
     <PageContainer>
       <PageHeader
-        eyebrow="Library"
+        eyebrow={<span className="text-muted-foreground">Library</span>}
         title="Collections"
         display
         description={
@@ -50,7 +50,7 @@ export default async function CollectionsPage({ searchParams }: { searchParams: 
           id="yours"
           title={
             <span className="inline-flex items-center gap-2">
-              Your collections <span className="tabular font-mono text-xs font-normal text-subtle-foreground">{formatCount(mine.length)}</span>
+              Your collections <span className="tabular font-mono text-xs font-normal text-muted-foreground">{formatCount(mine.length)}</span>
             </span>
           }
           description="Private to this browser."
@@ -86,7 +86,7 @@ export default async function CollectionsPage({ searchParams }: { searchParams: 
         className="mt-14"
         title={
           <span className="inline-flex items-center gap-2">
-            Bookmarks <span className="tabular font-mono text-xs font-normal text-subtle-foreground">{formatCount(bookmarks.length)}</span>
+            Bookmarks <span className="tabular font-mono text-xs font-normal text-muted-foreground">{formatCount(bookmarks.length)}</span>
           </span>
         }
         description="Quick saves from anywhere in ATLAS, newest first."

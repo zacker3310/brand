@@ -17,7 +17,7 @@ export function CollectionCard({ c, className }: { c: CollectionSummary; classNa
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0 space-y-1">
           {c.isCurated && (
-            <p className="type-eyebrow inline-flex items-center gap-1 text-[10px]">
+            <p className="type-eyebrow text-muted-foreground inline-flex items-center gap-1 text-[10px]">
               <SparklesIcon className="size-3" aria-hidden /> Data-derived
             </p>
           )}
@@ -27,14 +27,15 @@ export function CollectionCard({ c, className }: { c: CollectionSummary; classNa
             </Link>
           </h3>
         </div>
-        <span className="tabular shrink-0 rounded-md border bg-surface-1 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground" aria-label={`${c.itemCount} items`}>
-          {c.itemCount}
+        <span className="tabular shrink-0 rounded-md border bg-surface-1 px-1.5 py-0.5 font-mono text-[11px] text-muted-foreground">
+          <span aria-hidden>{c.itemCount}</span>
+          <span className="sr-only">{c.itemCount === 1 ? "1 item" : `${c.itemCount} items`}</span>
         </span>
       </div>
       {c.description ? (
         <p className="mt-2 line-clamp-2 text-[13px] leading-relaxed text-muted-foreground">{c.description}</p>
       ) : (
-        <p className="mt-2 text-[13px] text-subtle-foreground italic">No description</p>
+        <p className="mt-2 text-[13px] text-muted-foreground italic">No description</p>
       )}
       <div className="mt-auto pt-4">
         {c.preview.length > 0 ? (
@@ -54,12 +55,12 @@ export function CollectionCard({ c, className }: { c: CollectionSummary; classNa
                 </li>
               );
             })}
-            {c.itemCount > c.preview.length && <li className="self-center px-1 text-xs text-subtle-foreground">+{c.itemCount - c.preview.length}</li>}
+            {c.itemCount > c.preview.length && <li className="self-center px-1 text-xs text-muted-foreground">+{c.itemCount - c.preview.length}</li>}
           </ul>
         ) : (
-          <p className="text-xs text-subtle-foreground">Empty</p>
+          <p className="text-xs text-muted-foreground">Empty</p>
         )}
-        <div className="mt-3 flex items-center justify-between gap-2 border-t border-dashed pt-3 text-[11px] text-subtle-foreground">
+        <div className="mt-3 flex items-center justify-between gap-2 border-t border-dashed pt-3 text-[11px] text-muted-foreground">
           <span className="truncate">{counts || "No items yet"}</span>
           <span className="inline-flex shrink-0 items-center gap-1">
             <time dateTime={c.updatedAt}>{c.isCurated ? "computed " : "updated "}{relativeTime(c.updatedAt)}</time>

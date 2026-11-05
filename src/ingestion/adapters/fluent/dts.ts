@@ -803,6 +803,7 @@ export function defaultOf(doc: JsDoc | null | undefined): string | null {
 export function memberDescription(doc: JsDoc | null | undefined): string | null {
   if (!doc) return null;
   const s = doc.summary.replace(/\n+/g, " ").trim();
+  if (/\bTODO\b|add (more )?docs/i.test(s)) return null;
   return s || null;
 }
 

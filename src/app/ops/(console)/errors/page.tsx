@@ -84,11 +84,11 @@ export default async function ErrorsPage({ searchParams }: { searchParams: Promi
                   <div className="flex flex-wrap items-center gap-2">
                     <StatusPill status={e.severity} />
                     {e.resolvedAt ? <span className="text-[11px] text-verified">resolved <Time at={e.resolvedAt} /></span> : <span className="text-[11px] text-muted-foreground">open</span>}
-                    <span className="text-[11px] text-subtle-foreground">
+                    <span className="text-[11px] text-muted-foreground">
                       <Time at={e.createdAt} />
                     </span>
                     {e.runId && (
-                      <span className="text-[11px] text-subtle-foreground">
+                      <span className="text-[11px] text-muted-foreground">
                         run <ShortId id={e.runId} href={`/ops/runs/${e.runId}`} />
                       </span>
                     )}
@@ -162,17 +162,17 @@ export default async function ErrorsPage({ searchParams }: { searchParams: Promi
                       <tr key={`${sys}-${g.stage}-${g.code}-${g.severity}`} className="hover:bg-muted/40">
                         <td className={`${td} ${stickyCell}`}>
                           <Link href={drillHref} className="inline-flex items-center gap-1 font-mono text-[12px] font-medium hover:underline">
-                            {g.code} <ChevronRightIcon className="size-3 text-subtle-foreground" aria-hidden />
+                            {g.code} <ChevronRightIcon className="size-3 text-muted-foreground" aria-hidden />
                           </Link>
                           <div className="mt-1">
                             <StatusPill status={g.severity} />
                           </div>
                         </td>
-                        <td className={td}>{g.systemName ?? <span className="text-subtle-foreground">(no system)</span>}</td>
+                        <td className={td}>{g.systemName ?? <span className="text-muted-foreground">(no system)</span>}</td>
                         <td className={td}>
                           <Mono className="text-muted-foreground">{g.stage}</Mono>
                         </td>
-                        <td className={`${td} tabular text-right font-mono text-xs ${g.open ? (g.severity === "error" ? "text-conflicting" : "text-inferred") : "text-subtle-foreground"}`}>{g.open}</td>
+                        <td className={`${td} tabular text-right font-mono text-xs ${g.open ? (g.severity === "error" ? "text-conflicting" : "text-inferred") : "text-muted-foreground"}`}>{g.open}</td>
                         <td className={`${td} tabular text-right font-mono text-xs text-muted-foreground`}>{g.resolved}</td>
                         <td className={`${td} max-w-md`}>
                           <p className="line-clamp-2 text-xs text-muted-foreground">{g.sampleMessage}</p>
@@ -187,8 +187,8 @@ export default async function ErrorsPage({ searchParams }: { searchParams: Promi
                               <input type="hidden" name="stage" value={g.stage} />
                               <input type="hidden" name="code" value={g.code} />
                               <input type="hidden" name="returnTo" value={here} />
-                              <Button type="submit" size="xs" variant="outline" aria-label={`Mark ${g.open} open ${g.code} errors resolved`}>
-                                <CheckIcon aria-hidden /> Resolve
+                              <Button type="submit" size="xs" variant="outline">
+                                <CheckIcon aria-hidden /> Resolve<span className="sr-only">{` ${g.open} open ${g.code} errors`}</span>
                               </Button>
                             </form>
                           )}

@@ -12,12 +12,12 @@ export function JobActions({ jobId, status, returnTo }: { jobId: string; status:
       <input type="hidden" name="jobId" value={jobId} />
       <input type="hidden" name="returnTo" value={returnTo} />
       {canRetry ? (
-        <Button type="submit" size="xs" variant="outline" aria-label={`Retry job ${jobId.slice(0, 8)}`}>
-          <RotateCcwIcon aria-hidden /> Retry
+        <Button type="submit" size="xs" variant="outline">
+          <RotateCcwIcon aria-hidden /> Retry<span className="sr-only">{` job ${jobId.slice(0, 8)}`}</span>
         </Button>
       ) : (
-        <Button type="submit" size="xs" variant="outline" className="hover:text-destructive" aria-label={`Cancel job ${jobId.slice(0, 8)}`}>
-          <XIcon aria-hidden /> Cancel
+        <Button type="submit" size="xs" variant="outline" className="hover:text-destructive">
+          <XIcon aria-hidden /> Cancel<span className="sr-only">{` job ${jobId.slice(0, 8)}`}</span>
         </Button>
       )}
     </form>

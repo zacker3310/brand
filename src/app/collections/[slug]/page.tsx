@@ -76,11 +76,11 @@ export default async function CollectionPage({ params, searchParams }: Props) {
       <PageHeader
         eyebrow={
           c.isCurated ? (
-            <span className="inline-flex items-center gap-1.5">
+            <span className="inline-flex items-center gap-1.5 text-muted-foreground">
               <SparklesIcon className="size-3" aria-hidden /> Curated by ATLAS · data-derived
             </span>
           ) : (
-            "Your collection · private"
+            <span className="text-muted-foreground">Your collection · private</span>
           )
         }
         title={c.name}
@@ -88,7 +88,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
           c.isCurated ? (
             <span className="block rounded-lg border bg-surface-1 px-3 py-2 text-sm text-foreground/85">{c.description}</span>
           ) : (
-            (c.description ?? <span className="text-subtle-foreground italic">No description</span>)
+            (c.description ?? <span className="text-muted-foreground italic">No description</span>)
           )
         }
         actions={
@@ -132,17 +132,17 @@ export default async function CollectionPage({ params, searchParams }: Props) {
       {c.itemCount > 0 && (
         <nav aria-label="Filter items" className="mt-8 flex flex-wrap items-center gap-2">
           <FilterChip href={`/collections/${c.slug}${qs({ type: null })}`} active={!type}>
-            All <span className="tabular text-subtle-foreground">{c.itemCount}</span>
+            All <span className="tabular text-muted-foreground">{c.itemCount}</span>
           </FilterChip>
           {ENTITY_TYPES.filter((t) => c.typeCounts[t]).map((t) => (
             <FilterChip key={t} href={`/collections/${c.slug}${qs({ type: t })}`} active={type === t}>
-              {ENTITY_TYPE_LABELS[t].many} <span className="tabular text-subtle-foreground">{c.typeCounts[t]}</span>
+              {ENTITY_TYPE_LABELS[t].many} <span className="tabular text-muted-foreground">{c.typeCounts[t]}</span>
             </FilterChip>
           ))}
           {c.tags.length > 0 && <span className="mx-1 h-4 w-px bg-border" aria-hidden />}
           {c.tags.slice(0, 12).map((t) => (
             <FilterChip key={t.tag} href={`/collections/${c.slug}${qs({ tag: tag === t.tag ? null : t.tag })}`} active={tag === t.tag} mono>
-              #{t.tag} <span className="tabular text-subtle-foreground">{t.n}</span>
+              #{t.tag} <span className="tabular text-muted-foreground">{t.n}</span>
             </FilterChip>
           ))}
         </nav>
@@ -244,7 +244,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
         )}
       </section>
 
-      <footer className="mt-8 flex flex-col gap-1 text-xs text-subtle-foreground sm:flex-row sm:justify-between">
+      <footer className="mt-8 flex flex-col gap-1 text-xs text-muted-foreground sm:flex-row sm:justify-between">
         <p>{EXPORT_DISCLAIMER}</p>
         <p>Data from each item’s official documentation, linked above.</p>
       </footer>

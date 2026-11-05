@@ -257,6 +257,18 @@ describe("generic planning and normalization", () => {
     expect(by.get("display-text")!.evidence.map((e) => e.field)).toEqual(["name"]);
   });
 
+  it("treats a re-parsed 304 (cached body) like a fresh 200", () => {
+    const c = compileTarget(sitemapTarget);
+    const smUrl = "https://ds.example.com/sitemap-0.xml";
+    const index: IndexFragment = { type: "index", strategy: "sitemap", stamp: stamp(smUrl), candidates: sitemapCandidates(fx("sitemap-0.xml"), smUrl, c) };
+    const url = "https://ds.example.com/components/button/";
+    const mk = (status: number): PageFragment => ({ type: "page", key: "button", segment: "button", stamp: stamp(url), finalUrl: url, status, meta: parsePageMeta(fx("page-button.html"), url) });
+    const fresh = normalizeGeneric([index, mk(200)], { systemSlug: "example-ds", target: sitemapTarget });
+    const cached = normalizeGeneric([index, mk(304)], { systemSlug: "example-ds", target: sitemapTarget });
+    expect(JSON.stringify(cached)).toBe(JSON.stringify(fresh));
+    expect(cached.components.find((x) => x.slug === "button")!.description).toBeTruthy();
+  });
+
   it("drops constructed docs URLs that no page confirmed", () => {
     const t: GenericTarget = { slug: "x", strategy: "repo-listing", include: "^c/([a-z]+)/index\\.js$", repo: { kind: "npm", name: "p", ref: "1.0.0", docsUrlTemplate: "https://docs.example.com/{segment}/" }, notes: "" };
     const index: IndexFragment = { type: "index", strategy: "repo-listing", stamp: stamp("https://data.jsdelivr.com/x"), candidates: [{ key: "alpha", segment: "alpha", matched: "c/alpha/index.js" }, { key: "beta", segment: "beta", matched: "c/beta/index.js" }], repo: { kind: "npm", name: "p", ref: "1.0.0" } };

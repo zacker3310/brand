@@ -432,6 +432,7 @@ function normalizeBundle(ctx: AdapterContext, frags: FluentFragment[]): Normaliz
     const ev: EvidenceInput[] = [];
     if (idx) {
       ev.push(npmEvidence(idx.npm, "latestVersion", `dist-tags.latest = ${idx.npm.version}${idx.npm.publishedAt ? `, published ${idx.npm.publishedAt}` : ""}`, ctx.runStartedAt));
+      if (idx.npm.publishedAt) ev.push(npmEvidence(idx.npm, "latestReleaseAt", `time["${idx.npm.version}"] = ${idx.npm.publishedAt}`, ctx.runStartedAt));
       ev.push(evidence(idx.prov, "frameworks", "dts-reexports", { location: "dist/index.d.ts", excerpt: `${Object.keys(idx.reexports).length} exports re-exported from ${uniq(Object.values(idx.reexports)).length} @fluentui packages` }));
     }
     const philosophy = reactPhilosophy(readme?.statements ?? null);
@@ -455,6 +456,7 @@ function normalizeBundle(ctx: AdapterContext, frags: FluentFragment[]): Normaliz
     const ev: EvidenceInput[] = [];
     if (d) {
       ev.push(npmEvidence(d.npm, "latestVersion", `dist-tags.latest = ${d.npm.version}${d.npm.publishedAt ? `, published ${d.npm.publishedAt}` : ""}`, ctx.runStartedAt));
+      if (d.npm.publishedAt) ev.push(npmEvidence(d.npm, "latestReleaseAt", `time["${d.npm.version}"] = ${d.npm.publishedAt}`, ctx.runStartedAt));
       ev.push(evidence(d.prov, "frameworks", "dts-custom-element", { location: "dist/web-components.d.ts", excerpt: `${d.elements.length} custom element definitions` }));
     }
     const st = readme?.statements ?? {};

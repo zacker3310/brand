@@ -52,7 +52,7 @@ export function formatDate(iso: string | null | undefined): string | null {
 
 const REDIST_META: Record<Redistribution, { label: string; className: string }> = {
   permitted: { label: "Redistribution permitted", className: "border-verified/30 bg-verified-soft text-verified" },
-  conditional: { label: "Redistribution conditional", className: "border-inferred/30 bg-inferred-soft text-inferred" },
+  conditional: { label: "Redistribution conditional", className: "border-inferred/30 bg-inferred-soft text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]" },
   restricted: { label: "Redistribution restricted", className: "border-conflicting/30 bg-conflicting-soft text-conflicting" },
   unknown: { label: "Redistribution unknown", className: "border-dashed border-unavailable/50 text-unavailable" },
 };
@@ -343,7 +343,6 @@ export function AliasStats({ m }: { m: ExplorerModel }) {
                 className={cn(
                   "inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-xs transition-colors hover:bg-accent",
                   active ? "bg-accent text-accent-foreground" : "text-muted-foreground",
-                  counts[k] === 0 && !active && "opacity-60",
                 )}
               >
                 <span aria-hidden className={cn("size-2 rounded-sm", ALIAS_STATE_META[k].bar)} />
@@ -511,7 +510,7 @@ export function TierMark({ tier, tierState, plain = false }: { tier: string | nu
       <span>{tier}</span>
       {tierState === "inferred" &&
         (plain ? (
-          <span title={TIER_INFERRED} className="rounded-full border border-inferred/25 bg-inferred-soft px-1.5 py-px text-[10px] leading-none font-medium text-inferred">
+          <span title={TIER_INFERRED} className="rounded-full border border-inferred/25 bg-inferred-soft px-1.5 py-px text-[10px] leading-none font-medium text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]">
             Inferred
           </span>
         ) : (

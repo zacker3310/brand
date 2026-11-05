@@ -38,8 +38,9 @@ export function OpsNav({ counts }: { counts?: Partial<Record<string, number>> })
               >
                 {s.label}
                 {n ? (
-                  <span className="tabular rounded-full bg-conflicting-soft px-1.5 py-px font-mono text-[10px] leading-4 text-conflicting" aria-label={`${n} need attention`}>
-                    {n}
+                  <span className="tabular rounded-full border border-conflicting/30 bg-conflicting-soft px-1.5 py-px font-mono text-[10px] leading-4 text-foreground">
+                    <span aria-hidden>{n}</span>
+                    <span className="sr-only">{`, ${n} need attention`}</span>
                   </span>
                 ) : null}
               </Link>

@@ -49,7 +49,7 @@ export function FontStatus({ family, stack }: { family: string | null; stack?: s
   const families = (stack ?? family).split(",").map((f) => f.trim().replace(/^['"]|['"]$/g, ""));
   const fallback = families.length > 1 ? "the next available font in the stack is shown" : "the stack declares no fallback, so your browser's default font is shown";
   return (
-    <span className="text-[11px] text-inferred">
+    <span className="text-[11px] text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]">
       {family} is not installed here; {fallback}. <span className="text-muted-foreground">(detected by text metrics)</span>
     </span>
   );

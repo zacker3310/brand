@@ -36,7 +36,7 @@ export const ALIAS_STATE_META: Record<AliasStateName, { label: string; short: st
     label: "Unresolved",
     short: "Unresolved",
     description: "References a token ATLAS could not find. No value is shown rather than a guess.",
-    className: "border-inferred/30 bg-inferred-soft text-inferred",
+    className: "border-inferred/30 bg-inferred-soft text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]",
     bar: "bg-inferred",
   },
   cycle: {

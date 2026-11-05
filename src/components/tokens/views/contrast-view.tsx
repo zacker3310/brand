@@ -140,7 +140,7 @@ export function ContrastView({
                       <Pass ok={r.result.nonText} label="UI 3:1" />
                     </div>
                     {(r.result.fgComposited || r.result.bgComposited) && (
-                      <p className="text-[11px] text-inferred">
+                      <p className="text-[11px] text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]">
                         Translucent color composited{r.result.backdrop ? ` over ${r.result.backdrop}` : ""}; the real ratio depends on what is behind it.
                       </p>
                     )}
@@ -233,7 +233,7 @@ export function ContrastView({
                     <td className="tabular px-3 py-1.5 text-right font-mono font-medium">
                       {p.ratio.toFixed(2)}
                       {p.approximate && (
-                        <span className="ml-0.5 text-inferred" title="Translucent color composited; approximate">
+                        <span className="ml-0.5 text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]" title="Translucent color composited; approximate">
                           ≈
                         </span>
                       )}

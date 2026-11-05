@@ -28,7 +28,7 @@ export function EntityRow({
   return (
     <li className={cn("group/row relative grid gap-x-4 gap-y-2 px-4 py-3.5 sm:grid-cols-[minmax(0,1fr)_auto]", missing && "hatch", className)}>
       <div className="flex min-w-0 gap-3">
-        {index !== undefined && <span className="tabular w-6 shrink-0 pt-0.5 text-right font-mono text-[11px] text-subtle-foreground">{index + 1}</span>}
+        {index !== undefined && <span className="tabular w-6 shrink-0 pt-0.5 text-right font-mono text-[11px] text-muted-foreground">{index + 1}</span>}
         <span className="mt-0.5 shrink-0">
           {entity.entityType === "system" && entity.systemSlug && !missing ? (
             <SystemMark name={entity.title} slug={entity.systemSlug} size="sm" />
@@ -47,7 +47,7 @@ export function EntityRow({
             ) : (
               <span className={cn("truncate text-sm font-medium", missing && "text-muted-foreground")}>{entity.title}</span>
             )}
-            <span className="font-mono text-[10.5px] tracking-wide text-subtle-foreground uppercase">{ENTITY_TYPE_LABELS[entity.entityType].one}</span>
+            <span className="font-mono text-[10.5px] tracking-wide text-muted-foreground uppercase">{ENTITY_TYPE_LABELS[entity.entityType].one}</span>
             {missing && (
               <span className="rounded border border-dashed px-1.5 py-0.5 text-[11px] text-muted-foreground" title="The referenced record was removed from the ATLAS index.">
                 No longer in the index
@@ -74,7 +74,7 @@ export function EntityRow({
             </SourceLink>
           ) : (
             !missing && (
-              <p className="text-xs text-subtle-foreground">{entity.entityType === "component-type" || entity.entityType === "comparison" ? "ATLAS-authored record" : "No official source URL recorded"}</p>
+              <p className="text-xs text-muted-foreground">{entity.entityType === "component-type" || entity.entityType === "comparison" ? "ATLAS-authored record" : "No official source URL recorded"}</p>
             )
           )}
           {children}

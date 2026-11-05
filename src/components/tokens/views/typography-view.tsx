@@ -49,7 +49,7 @@ function Specimen({ spec, children, notes }: { spec: TypographySpec; children: R
         <FontStatus family={primaryFamily(spec.fontFamily)} stack={spec.fontFamily} />
         {capped && <span className="text-[11px] text-muted-foreground">Shown at {MAX_PX}px (authored {spec.fontSize}).</span>}
         {spec.unevaluated.length > 0 && (
-          <span className="text-[11px] text-inferred">Not applied (unevaluated in source): {spec.unevaluated.join(", ")}.</span>
+          <span className="text-[11px] text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]">Not applied (unevaluated in source): {spec.unevaluated.join(", ")}.</span>
         )}
         {notes}
       </div>

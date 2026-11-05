@@ -29,10 +29,11 @@ export function ItemEditor({ itemId, slug, note, tags, title }: { itemId: string
     <details ref={ref} className="group/edit" onToggle={(e) => setOpen((e.target as HTMLDetailsElement).open)}>
       <summary
         className="inline-flex h-7 cursor-pointer list-none items-center gap-1.5 rounded-md px-2 text-xs text-muted-foreground transition-colors select-none hover:bg-muted hover:text-foreground [&::-webkit-details-marker]:hidden"
-        aria-label={`${open ? "Close editor for" : "Edit note and tags for"} ${title}`}
+        aria-expanded={open}
       >
         <PencilIcon className="size-3.5" aria-hidden />
         <span>{note || tags.length ? "Edit note" : "Add note"}</span>
+        <span className="sr-only">{` and tags for ${title}`}</span>
       </summary>
       <form action={action} className="mt-2 space-y-3 rounded-lg border bg-surface-1 p-3">
         <input type="hidden" name="itemId" value={itemId} />
@@ -45,7 +46,7 @@ export function ItemEditor({ itemId, slug, note, tags, title }: { itemId: string
         </div>
         <div className="space-y-1.5">
           <Label htmlFor={`${id}-tags`} className="text-xs">
-            Tags <span className="font-normal text-subtle-foreground">comma-separated</span>
+            Tags <span className="font-normal text-muted-foreground">comma-separated</span>
           </Label>
           <Input id={`${id}-tags`} name="tags" defaultValue={tags.join(", ")} className="h-8 bg-background font-mono text-xs" placeholder="review, a11y" />
         </div>

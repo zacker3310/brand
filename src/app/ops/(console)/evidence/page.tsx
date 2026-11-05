@@ -54,7 +54,7 @@ export default async function EvidencePage({ searchParams }: { searchParams: Pro
               <div key={g.key} className="space-y-1.5">
                 <p className="flex flex-wrap items-center gap-2 text-sm">
                   <span className="font-medium">{g.label ?? "Unknown subject"}</span>
-                  <Mono className="text-[11px] text-subtle-foreground">
+                  <Mono className="text-[11px] text-muted-foreground">
                     {g.subjectType.replace(/_/g, " ")}
                     {g.system ? ` · ${g.system}` : ""}
                   </Mono>

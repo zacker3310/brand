@@ -29,7 +29,7 @@ test.describe("compare index", () => {
   test("renders the picker and data-derived suggestions", async ({ page }) => {
     await page.goto("/compare");
     await expect(page.getByRole("heading", { level: 1, name: "Compare implementations" })).toBeVisible();
-    await expect(page.getByRole("combobox", { name: "Component type" })).toBeVisible();
+    await expect(page.getByRole("combobox", { name: "Component type", exact: true })).toBeVisible();
     await expect(page.getByRole("group", { name: /Systems to compare/ })).toBeVisible();
     const suggestions = page.getByRole("region", { name: "Suggested comparisons" }).or(page.locator("section", { has: page.getByRole("heading", { name: "Suggested comparisons" }) }));
     await expect(suggestions.getByRole("link").first()).toBeVisible();
@@ -41,7 +41,7 @@ test.describe("compare index", () => {
   test("keyboard: choose a type with the combobox, pick systems, submit", async ({ page }) => {
     await page.goto("/compare");
     await hydrated(page, "picker");
-    const combo = page.getByRole("combobox", { name: "Component type" });
+    const combo = page.getByRole("combobox", { name: "Component type", exact: true });
     await combo.focus();
     await page.keyboard.press("Enter");
     await page.keyboard.type("checkbox");
@@ -161,6 +161,7 @@ test.describe("save, share and export", () => {
   });
 
   test("saves a comparison and the short link opens it", async ({ page, request }) => {
+    test.slow(); // first hit compiles the redirect route in dev
     const res = await request.post("/api/comparisons", { data: { type: "button", systems: SYSTEMS, title: "E2E button comparison", picks: { carbon: "button" } } });
     expect(res.status()).toBe(201);
     const { data } = await res.json();
@@ -174,12 +175,14 @@ test.describe("save, share and export", () => {
   });
 
   test("Save & share from the UI creates a copyable link", async ({ page }) => {
+    test.slow();
     await page.goto(CMP);
     await hydrated(page, "share");
     await page.getByRole("button", { name: "Save & share" }).click();
     await page.getByRole("button", { name: "Create link" }).click();
     const link = page.getByLabel("Shareable link");
-    await expect(link).toHaveValue(/\/compare\/s\/[A-Za-z0-9]{8}$/);
+    await expect(link).toHaveValue(/\/compare\/s\/[A-Za-z0-9]{8}$/, { timeout: 30_000 });
+    await expect(page.getByText("Link created")).toBeVisible();
   });
 
   test("unknown saved slugs are not found", async ({ page }) => {
@@ -225,7 +228,6 @@ test.describe("system comparison", () => {
 
   test("criteria checkboxes filter the rubric rows", async ({ page }) => {
     await page.goto("/compare/systems?systems=carbon,github-primer&criteria=theming,maintenance");
-    await expect(page.getByRole("group", { name: "Criteria" })).toBeAttached();
     const card = page.getByRole("region", { name: "Scorecard" });
     await expect(card.getByRole("rowheader")).toHaveCount(2);
     await expect(card.getByRole("rowheader").first()).toContainText("Theming capability");

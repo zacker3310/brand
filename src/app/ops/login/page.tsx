@@ -30,7 +30,7 @@ export default async function OpsLoginPage({ searchParams }: { searchParams: Pro
             {reason === "signed-out" && <p className="text-sm text-muted-foreground" role="status">You are signed out.</p>}
             {reason === "login-required" && <p className="text-sm text-muted-foreground" role="status">Sign in to continue.</p>}
             <OpsLoginForm next={next} />
-            <p className="text-xs text-subtle-foreground">The session cookie is httpOnly, scoped to /ops, signed with the token and expires after 12 hours. API clients send Authorization: Bearer.</p>
+            <p className="text-xs text-muted-foreground">The session cookie is httpOnly, scoped to /ops, signed with the token and expires after 12 hours. API clients send Authorization: Bearer.</p>
           </div>
         ) : mode === "localhost" ? (
           <div className="space-y-2 rounded-xl border bg-card p-5 text-sm" role="alert">

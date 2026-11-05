@@ -228,7 +228,7 @@ export function SearchHits({ result, state, systemNames }: { result: SearchResul
           const total = result.facets.entityType?.find((e) => e.value === g.type)?.count;
           return (
             <section key={g.type} aria-labelledby={`grp-${g.type}`}>
-              <div className="flex items-baseline justify-between gap-2 border-b border-border/70 px-3 pb-1.5">
+              <div className="mx-3 flex items-baseline justify-between gap-2 border-b border-border/70 pb-1.5">
                 <h2 id={`grp-${g.type}`} className="text-xs font-medium text-muted-foreground">
                   {ENTITY_LABELS[g.type].many}
                   {total !== undefined && <span className="tabular"> · {formatCount(total)}</span>}

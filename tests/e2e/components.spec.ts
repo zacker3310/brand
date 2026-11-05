@@ -8,8 +8,8 @@ import { expect, test, type Page } from "@playwright/test";
  */
 
 // Dev-server compiles on a shared 4-core box can be slow; data assertions still run against the real DB.
-test.describe.configure({ timeout: 90_000 });
-expect.configure({ timeout: 20_000 });
+test.describe.configure({ timeout: 150_000 });
+expect.configure({ timeout: 45_000 });
 
 async function expectNoSeriousA11yViolations(page: Page) {
   const results = await new AxeBuilder({ page })

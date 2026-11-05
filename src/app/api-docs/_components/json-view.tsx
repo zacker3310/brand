@@ -17,7 +17,7 @@ const K = "text-foreground";
 const S = "text-verified";
 const N = "text-info";
 const L = "text-inferred";
-const C = "text-subtle-foreground italic";
+const C = "text-muted-foreground italic";
 const P = "text-muted-foreground";
 
 function render(v: unknown, depth: number, indent: string, o: Opts, out: ReactNode[], key: { n: number }) {

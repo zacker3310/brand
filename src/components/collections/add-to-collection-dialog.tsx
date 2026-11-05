@@ -126,9 +126,10 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
       cloneElement(trigger, { onClick: onTriggerClick })
     ) : (
       <Button asChild variant="outline" size="sm" className={className}>
-        <Link href={href} onClick={onTriggerClick} aria-haspopup="dialog" aria-label={`Add ${label} to a collection`}>
+        <Link href={href} onClick={onTriggerClick} aria-haspopup="dialog">
           <FolderPlusIcon aria-hidden />
           <span>Collect</span>
+          <span className="sr-only">{` ${label} into a collection`}</span>
         </Link>
       </Button>
     );
@@ -141,7 +142,7 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
           <DialogHeader className="border-b px-5 pt-5 pb-4">
             <DialogTitle className="text-base">Add to collection</DialogTitle>
             <DialogDescription className="truncate">
-              <span className="text-subtle-foreground">{ENTITY_TYPE_LABELS[entityType].one} · </span>
+              <span className="text-muted-foreground">{ENTITY_TYPE_LABELS[entityType].one} · </span>
               <span className="text-foreground">{label}</span>
             </DialogDescription>
           </DialogHeader>
@@ -178,7 +179,7 @@ export function AddToCollectionDialog({ entityType, entityId, label, trigger, cl
                       >
                         <Checkbox id={id} checked={c.contains} onCheckedChange={() => toggle(c)} disabled={busyId === c.id} />
                         <span className="min-w-0 flex-1 truncate">{c.name}</span>
-                        <span className="tabular text-xs text-subtle-foreground">{formatCount(c.itemCount)}</span>
+                        <span className="tabular text-xs text-muted-foreground">{formatCount(c.itemCount)}</span>
                       </label>
                     </li>
                   );

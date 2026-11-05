@@ -1,0 +1,33 @@
+<!-- AUTO-GENERATED FILE, DO NOT EDIT -->
+# Atlassian Design System Components
+
+## @atlaskit/button Package
+### ButtonGroup component
+- **Keywords:** button, group, container, layout, spacing
+- **Categories:** form
+- **Status:** general-availability
+#### Example
+#### Props
+#### Usage Guidelines
+#### Content Guidelines
+### Button component
+- **Keywords:** button, action, click, submit, form, interactive, cta
+- **Categories:** form
+- **Status:** general-availability
+#### Example
+#### Example
+#### Example
+#### Props
+#### Usage Guidelines
+#### Content Guidelines
+#### Accessibility Guidelines
+
+#### Example
+```tsx
+### Fake component
+- **Status:** deprecated
+```
+## @atlaskit/tabs Package
+### Tabs component
+- **Categories:** navigation
+- **Status:** general-availability

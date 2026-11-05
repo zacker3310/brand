@@ -38,7 +38,7 @@ function NameCell({ t, p, label, sub }: { t: ExplorerToken; p: ViewProps; label:
 
 function Flag({ children, tone = "muted" }: { children: React.ReactNode; tone?: "muted" | "inferred" }) {
   return (
-    <span className={cn("rounded border px-1 py-px font-sans text-[10px] leading-none whitespace-nowrap", tone === "inferred" ? "border-inferred/30 bg-inferred-soft text-inferred" : "text-muted-foreground")}>
+    <span className={cn("rounded border px-1 py-px font-sans text-[10px] leading-none whitespace-nowrap", tone === "inferred" ? "border-inferred/30 bg-inferred-soft text-[color:color-mix(in_oklch,var(--inferred)_70%,var(--foreground))]" : "text-muted-foreground")}>
       {children}
     </span>
   );

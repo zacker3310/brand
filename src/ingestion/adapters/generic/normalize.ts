@@ -213,7 +213,8 @@ export function normalizeGeneric(fragments: GenericFragment[], opts: NormalizeOp
     const src = sourceOf.get(p.key);
     if (!src) continue;
     const page = pages.get(p.key) ?? null;
-    let pageOk = !!page && page.status >= 200 && page.status < 300 && !page.meta.soft404;
+    // 304: the engine re-parses the cached body of an unchanged page (e.g. after an adapter version bump).
+    let pageOk = !!page && ((page.status >= 200 && page.status < 300) || page.status === 304) && !page.meta.soft404;
     if (page && !pageOk) opts.log?.(`${p.key}: page ${page.stamp.url} ${page.meta.soft404 ? "looks like a not-found page" : `HTTP ${page.status}`}`);
     // Client-rendered shells answer 200 for any path: a page only counts when it names something
     // (an h1, or a title that names the segment).
@@ -227,7 +228,10 @@ export function normalizeGeneric(fragments: GenericFragment[], opts: NormalizeOp
     const fetchedIsDocs = !!p.fetchUrl && p.fetchUrl === p.docsUrl;
     if (pageOk) {
       const final = page!.finalUrl || page!.stamp.url;
-      if (sameDoc(final, page!.stamp.url)) {
+      const canonical = page!.meta.canonical;
+      if (fetchedIsDocs && canonical && normalizeHttp(canonical) && sameDoc(canonical, page!.stamp.url)) {
+        docsUrl = canonical; // stable across fresh fetches and cached (304) re-parses
+      } else if (sameDoc(final, page!.stamp.url)) {
         if (fetchedIsDocs && final !== docsUrl && normalizeHttp(final)) docsUrl = final; // e.g. trailing-slash redirect: keep the resolved URL
       } else if (!fetchedIsDocs) {
         // Raw file fetched for a GitHub blob docs URL: a redirect means the file moved.

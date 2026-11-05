@@ -107,7 +107,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                           <Link href={`/systems/${r.slug}`} className="block max-w-48 truncate font-medium hover:underline">
                             {r.name}
                           </Link>
-                          <Mono className="text-[11px] text-subtle-foreground">{adapter ? `adapter: ${adapter}` : "no adapter"}</Mono>
+                          <Mono className="text-[11px] text-muted-foreground">{adapter ? `adapter: ${adapter}` : "no adapter"}</Mono>
                         </div>
                       </div>
                     </td>
@@ -134,13 +134,13 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                           </abbr>
                         </span>
                       ) : (
-                        <span className="text-subtle-foreground">{ingested ? "none published" : "not extracted"}</span>
+                        <span className="text-muted-foreground">{ingested ? "none published" : "not extracted"}</span>
                       )}
                     </td>
                     <Num v={r.tokens} sub={r.tokenSets ? `${r.tokenSets} sets` : undefined} ingested={ingested} />
                     <Num v={r.patterns} ingested={ingested} />
                     <Num v={r.evidence} />
-                    <td className={`${td} tabular text-right font-mono text-xs ${r.openErrors ? "text-conflicting" : "text-subtle-foreground"}`}>
+                    <td className={`${td} tabular text-right font-mono text-xs ${r.openErrors ? "text-conflicting" : "text-muted-foreground"}`}>
                       {r.openErrors ? (
                         <Link href={`/ops/errors?system=${r.slug}`} className="hover:underline">
                           {r.openErrors}
@@ -158,7 +158,7 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                           <StatusPill status={r.lastRun.status} /> <Time at={r.lastRun.createdAt} className="text-muted-foreground" />
                         </Link>
                       ) : (
-                        <span className="text-subtle-foreground">no runs</span>
+                        <span className="text-muted-foreground">no runs</span>
                       )}
                     </td>
                     <td className={`${td} text-right`}>
@@ -171,13 +171,12 @@ export default async function OpsSystemsPage({ searchParams }: { searchParams: P
                             size="xs"
                             variant="outline"
                             disabled={r.lastRun?.status === "running" || r.lastRun?.status === "pending"}
-                            aria-label={`Enqueue an ingestion run for ${r.name}`}
                           >
-                            <PlayIcon aria-hidden /> Enqueue run
+                            <PlayIcon aria-hidden /> Enqueue run<span className="sr-only">{` for ${r.name}`}</span>
                           </Button>
                         </form>
                       ) : (
-                        <span className="text-[11px] text-subtle-foreground">metadata only</span>
+                        <span className="text-[11px] text-muted-foreground">metadata only</span>
                       )}
                     </td>
                   </tr>
@@ -197,16 +196,16 @@ const NOT_INGESTED = new Set(["not_started", "queued", "metadata_only", "unsuppo
 function Num({ v, sub, ingested = true }: { v: number; sub?: string; ingested?: boolean }) {
   if (!v && !ingested)
     return (
-      <td className={`${td} text-right text-xs text-subtle-foreground`}>
+      <td className={`${td} text-right text-xs text-muted-foreground`}>
         <span title="Not extracted: this system has not been deeply ingested" aria-label="not extracted">
           –
         </span>
       </td>
     );
   return (
-    <td className={`${td} tabular text-right font-mono text-xs ${v ? "" : "text-subtle-foreground/70"}`}>
+    <td className={`${td} tabular text-right font-mono text-xs ${v ? "" : "text-muted-foreground"}`}>
       {formatCount(v)}
-      {sub && <div className="text-[10px] text-subtle-foreground">{sub}</div>}
+      {sub && <div className="text-[10px] text-muted-foreground">{sub}</div>}
     </td>
   );
 }

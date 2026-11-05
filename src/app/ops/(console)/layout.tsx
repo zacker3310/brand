@@ -31,7 +31,7 @@ export default async function OpsLayout({ children }: { children: React.ReactNod
     <PageContainer className="pt-6">
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <p className="type-eyebrow">Internal · Operations</p>
+          <p className="type-eyebrow text-muted-foreground">Internal · Operations</p>
           {access.ok && (
             <span className="inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] text-muted-foreground">
               {access.mode === "token" ? <ShieldCheckIcon className="size-3 text-verified" aria-hidden /> : <ShieldAlertIcon className="size-3 text-inferred" aria-hidden />}

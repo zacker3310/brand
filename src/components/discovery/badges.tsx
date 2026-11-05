@@ -135,7 +135,7 @@ export function RedistributionNote({ value, className }: { value: Redistribution
 /** Small neutral chip (frameworks, platforms, tags). */
 export function Chip({ children, className, title }: { children: React.ReactNode; className?: string; title?: string }) {
   return (
-    <span title={title} className={cn("inline-flex items-center rounded-md border border-border/80 bg-surface-1 px-1.5 py-0.5 text-[11px] leading-none text-muted-foreground", className)}>
+    <span title={title} className={cn("inline-flex items-center rounded-md border border-border/80 bg-surface-1 px-1.5 py-0.5 text-[11px] leading-none whitespace-nowrap text-muted-foreground", className)}>
       {children}
     </span>
   );

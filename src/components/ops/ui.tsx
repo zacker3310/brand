@@ -8,13 +8,14 @@ import { cn, formatCount, relativeTime } from "@/lib/utils";
 
 type Tone = "ok" | "active" | "warn" | "bad" | "muted" | "neutral";
 
+/** Text stays high-contrast; the tone is carried by the dot, border and tint. */
 const TONE: Record<Tone, string> = {
-  ok: "border-verified/25 bg-verified-soft text-verified",
-  active: "border-info/25 bg-info-soft text-info",
-  warn: "border-inferred/30 bg-inferred-soft text-inferred",
-  bad: "border-conflicting/30 bg-conflicting-soft text-conflicting",
-  muted: "border-dashed border-unavailable/40 bg-transparent text-unavailable",
-  neutral: "border-border bg-muted text-muted-foreground",
+  ok: "border-verified/30 bg-verified-soft text-foreground [&>[data-dot]]:bg-verified",
+  active: "border-info/30 bg-info-soft text-foreground [&>[data-dot]]:bg-info",
+  warn: "border-inferred/35 bg-inferred-soft text-foreground [&>[data-dot]]:bg-inferred",
+  bad: "border-conflicting/35 bg-conflicting-soft text-foreground [&>[data-dot]]:bg-conflicting",
+  muted: "border-dashed border-unavailable/50 bg-transparent text-muted-foreground [&>[data-dot]]:bg-unavailable",
+  neutral: "border-border bg-muted text-muted-foreground [&>[data-dot]]:bg-muted-foreground",
 };
 
 const STATUS_TONE: Record<string, Tone> = {
@@ -56,7 +57,7 @@ export function StatusPill({ status, className, label }: { status: string; class
   const tone = STATUS_TONE[status] ?? "neutral";
   return (
     <span className={cn("inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap", TONE[tone], className)}>
-      <span aria-hidden className={cn("size-1.5 rounded-full bg-current", status === "running" && "animate-pulse")} />
+      <span aria-hidden data-dot className={cn("size-1.5 rounded-full", status === "running" && "animate-pulse")} />
       {label ?? status.replace(/_/g, " ")}
     </span>
   );
@@ -94,7 +95,7 @@ export function Tile({
       >
         {typeof value === "number" ? formatCount(value) : value}
       </p>
-      {hint && <div className="mt-1 text-[11px] text-subtle-foreground">{hint}</div>}
+      {hint && <div className="mt-1 text-[11px] text-muted-foreground">{hint}</div>}
     </>
   );
   const cls = cn("block rounded-xl border bg-card p-4 transition-colors", href && "hover:border-foreground/20 focus-visible:border-ring", className);
@@ -146,7 +147,7 @@ export function Meter({ value, max, className, tone = "neutral", label }: { valu
 }
 
 export function Time({ at, className, fallback = "never" }: { at: string | null; className?: string; fallback?: string }) {
-  if (!at) return <span className={cn("text-subtle-foreground", className)}>{fallback}</span>;
+  if (!at) return <span className={cn("text-muted-foreground", className)}>{fallback}</span>;
   return (
     <time dateTime={at} title={new Date(at).toISOString().replace("T", " ").slice(0, 19) + " UTC"} className={cn("whitespace-nowrap", className)}>
       {relativeTime(at)}
@@ -287,7 +288,7 @@ export function SectionTitle({ children, count, id, description, actions }: { ch
       <div className="space-y-0.5">
         <h2 id={id} className="flex items-center gap-2 text-sm font-semibold tracking-tight">
           {children}
-          {count !== undefined && <span className="tabular font-mono text-xs font-normal text-subtle-foreground">{formatCount(count)}</span>}
+          {count !== undefined && <span className="tabular font-mono text-xs font-normal text-muted-foreground">{formatCount(count)}</span>}
         </h2>
         {description && <p className="text-xs text-muted-foreground">{description}</p>}
       </div>

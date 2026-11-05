@@ -103,7 +103,7 @@ test.describe("Collections", () => {
       await page.getByRole("button", { name: "Add to collection" }).click();
       await expect(page).toHaveURL(new RegExp(`/collections/${slug}\\?added=1`));
     }
-    const items = page.locator("ol > li");
+    const items = page.locator('section[aria-labelledby="items-title"] ol > li');
     await expect(items).toHaveCount(2);
     await expect(items.nth(0)).toContainText(c1.name);
 
@@ -120,7 +120,7 @@ test.describe("Collections", () => {
     await expect(items.nth(0).getByText("Compare keyboard model")).toBeVisible();
     await expect(page.getByRole("link", { name: /#review/ }).first()).toBeVisible();
     await page.goto(`/collections/${slug}?tag=a11y`);
-    await expect(page.locator("ol > li")).toHaveCount(1);
+    await expect(page.locator('section[aria-labelledby="items-title"] ol > li')).toHaveCount(1);
     await axe(page);
 
     const csv = await page.request.get(`/api/collections/${slug}/export?format=csv`);
@@ -153,7 +153,7 @@ test.describe("Collections", () => {
     expect(res.status()).toBe(200);
     await page.reload();
     const bookmarks = page.locator("#bookmarks");
-    await expect(bookmarks.getByRole("link", { name: c.name })).toBeVisible();
+    await expect(bookmarks.getByRole("link", { name: c.name, exact: true })).toBeVisible();
     const toggle = bookmarks.getByRole("button", { name: `Remove bookmark: ${c.name}` });
     await expect(toggle).toHaveAttribute("aria-pressed", "true");
     await toggle.click();
@@ -168,7 +168,7 @@ test.describe("Collections", () => {
     await page.goto("/collections");
     await page.request.post("/api/bookmarks", { data: { entityType: "component", entityId: c.id, bookmarked: true } });
     await page.reload();
-    await page.locator("#bookmarks").getByRole("link", { name: `Add ${c.name} to a collection` }).click();
+    await page.locator("#bookmarks").getByRole("link", { name: `Collect ${c.name} into a collection` }).click();
     const dialog = page.getByRole("dialog", { name: "Add to collection" });
     await expect(dialog).toBeVisible();
     await dialog.getByLabel("New collection").fill("Dialog made");
@@ -208,7 +208,7 @@ test.describe("Operations (localhost mode)", () => {
 
   test("enqueue a run, then cancel its job (never ingests in the request)", async ({ page }) => {
     await page.goto("/ops/systems?q=material");
-    const enqueue = page.getByRole("button", { name: /Enqueue an ingestion run for/ }).first();
+    const enqueue = page.locator("button:enabled", { hasText: "Enqueue run" }).first();
     await expect(enqueue).toBeVisible();
     await enqueue.click();
     await expect(page.getByRole("status")).toContainText(/enqueued|already has an active run/);

@@ -12,6 +12,7 @@ import { componentPathFromLink, componentPathsFromRedirects, kbdKeys, parseReact
 import { assignReactSlugs, classify, normalizePolaris, valueNotes, wcSlugFromUrl } from "@/ingestion/adapters/polaris/normalize";
 import { firstSentence, kebab, literalMembers, literalUnion, splitUnion, type Stamp } from "@/ingestion/adapters/polaris/text";
 import { parseTokenDescriptions, parseTokensCss, themeTokens, tokenTier, toPolarisToken } from "@/ingestion/adapters/polaris/tokens";
+import { parseReactCssUsages } from "@/ingestion/adapters/polaris/react-css";
 import { validatePolarisBundle } from "@/ingestion/adapters/polaris/validate";
 import type { FetchResult } from "@/ingestion/http";
 import type { AdapterContext } from "@/ingestion/types";
@@ -268,6 +269,28 @@ describe("polaris tokens", () => {
   });
 });
 
+const REACT_CSS = `:root,.p-theme-light{--p-color-bg:rgba(241, 241, 241, 1)}
+/* comment */
+.Polaris-Button{--pc-button-bg:var(--p-color-bg-surface);border-radius:var(--p-border-radius-100)}
+@media (min-width:48em){.Polaris-Card .Polaris-Button__Icon{margin:var(--p-space-100) var(--p-space-400, 1rem)}}
+.Polaris-Button--variantPrimary:hover{background:var(--pc-private);color:var(--p-color-text)}
+.Polaris-Card{padding:var(--p-space-400)}`;
+
+describe("polaris React compiled CSS", () => {
+  it("attributes var(--p-*) usages to the rightmost .Polaris-<Component> class", () => {
+    const u = parseReactCssUsages(REACT_CSS);
+    expect(Object.keys(u)).toEqual(["Button", "Card"]);
+    expect(u.Button).toEqual([
+      { tokenName: "border-radius-100", property: "border-radius" },
+      { tokenName: "color-bg-surface", property: "--pc-button-bg" },
+      { tokenName: "color-text", property: "color" },
+      { tokenName: "space-100", property: "margin" },
+      { tokenName: "space-400", property: "margin" },
+    ]);
+    expect(u.Card).toEqual([{ tokenName: "space-400", property: "padding" }]);
+  });
+});
+
 describe("polaris normalize", () => {
   function fragments(): PolarisFragmentData[] {
     const cem = parsePolarisCem(fx("custom-elements.json"));
@@ -305,6 +328,7 @@ describe("polaris normalize", () => {
         stamp: stamp("https://storybook.polaris.shopify.dev/index.json"),
         stories: [{ title: "All components/Button", id: "all-components-button--all", name: "All", importPath: "./src/components/Button/Button.stories.tsx" }],
       },
+      { type: "react-css", stamp: stamp("https://cdn.jsdelivr.net/npm/@shopify/polaris@13.9.5/build/esm/styles.css"), npm: reactNpm, file: "build/esm/styles.css", usages: parseReactCssUsages(REACT_CSS) },
       // react-dts appended asynchronously below
     ];
   }
@@ -347,6 +371,19 @@ describe("polaris normalize", () => {
     expect(c.evidence.every((e) => e.extractionMethod.startsWith("adapter:polaris:"))).toBe(true);
   });
 
+  it("derives responsive guidance from MaybeResponsive-typed manifest properties", async () => {
+    const frags = fragments();
+    const cem = frags.find((f) => f.type === "cem") as Extract<PolarisFragmentData, { type: "cem" }>;
+    const table = cem.elements.find((e) => e.tagName === "s-table")!;
+    table.properties.push({ name: "padding", attribute: "padding", type: "MaybeResponsive<\"none\" | \"base\">", default: null, description: "Padding." });
+    const b = normalizePolaris(frags, { systemSlug: "shopify-polaris", runStartedAt: T });
+    const c = b.components.find((x) => x.slug === "table")!;
+    expect(c.responsiveGuidance).toBe("Responsive properties (MaybeResponsive: a base value or an @container query string): padding.");
+    expect(c.coverage.responsive).toBe("documented");
+    expect(c.evidence.some((e) => e.field === "responsive")).toBe(true);
+    expect(b.components.find((x) => x.slug === "button")!.coverage.responsive).toBe("not-documented");
+  });
+
   it("links documented subcomponents to their parent and keeps undocumented elements unknown", async () => {
     const b = await bundle();
     const table = b.components.find((x) => x.slug === "table")!;
@@ -376,6 +413,10 @@ describe("polaris normalize", () => {
     expect(c.examples[0]!.url).toBe("https://github.com/Shopify/polaris-react-archive/blob/main/polaris.shopify.com/pages/examples/button-default.tsx");
     expect(c.examples.every((e) => !e.code)).toBe(true);
     expect(c.evidence.find((e) => e.field === "lifecycle" && e.extractionMethod === "adapter:polaris:npm-metadata")!.excerpt).toMatch(/deprecated/);
+    // token usage only for names that exist in the bundle's token sets (fixture: border-radius-100, color-bg-surface, color-text, space-100, space-400)
+    expect(c.tokenUsages.map((t) => t.tokenName)).toEqual(["border-radius-100", "color-bg-surface", "color-text", "space-100", "space-400"]);
+    expect(c.coverage.tokens).toBe("inferred");
+    expect(c.coverage.responsive).toBe("not-documented");
   });
 
   it("classifies from an explicitly named ARIA pattern as verified; React without declarations stays not-extracted", async () => {

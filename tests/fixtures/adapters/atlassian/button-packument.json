@@ -1,0 +1,86 @@
+{
+ "name": "@atlaskit/button",
+ "dist-tags": {
+  "latest": "25.7.0"
+ },
+ "time": {
+  "25.7.0": "2026-11-02T01:55:12.806Z",
+  "25.6.0": "2026-10-20T00:00:00.000Z"
+ },
+ "versions": {
+  "25.7.0": {
+   "name": "@atlaskit/button",
+   "version": "25.7.0",
+   "description": "A button triggers an event or action. They let users know what will happen next.",
+   "license": "Apache-2.0",
+   "homepage": "https://atlassian.design/components/button/",
+   "repository": {
+    "url": "git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git",
+    "type": "git"
+   },
+   "atlassian": {
+    "website": {
+     "name": "Button",
+     "tags": [
+      "platform-labs"
+     ],
+     "category": "Forms and input",
+     "subPages": [
+      {
+       "id": "icon-button",
+       "title": "Icon button",
+       "sortKey": 1
+      },
+      {
+       "id": "link-button",
+       "title": "Link button",
+       "sortKey": 2
+      },
+      {
+       "id": "link-icon-button",
+       "title": "Link icon button",
+       "sortKey": 3
+      },
+      {
+       "id": "split-button",
+       "title": "Split button",
+       "sortKey": 4
+      },
+      {
+       "id": "filter-button",
+       "title": "Filter button",
+       "sortKey": 5
+      },
+      {
+       "id": "button-group",
+       "title": "Button group",
+       "sortKey": 6
+      },
+      {
+       "id": "button-legacy",
+       "title": "Button (legacy)",
+       "status": {
+        "type": "intent-to-deprecate",
+        "actions": [
+         {
+          "href": "/components/button/button-legacy/migration-guide",
+          "text": "View the migration guide"
+         }
+        ],
+        "description": "Legacy buttons will soon be deprecated. Please use the new [button](/components/button), [icon button](/components/button/icon-button), [link button](/components/button/link-button), or [link icon button](/components/button/link-icon-button). Migrate from legacy buttons using our codemod."
+       },
+       "sortKey": 7
+      }
+     ]
+    }
+   },
+   "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0"
+   }
+  },
+  "25.6.0": {
+   "name": "@atlaskit/button",
+   "version": "25.6.0"
+  }
+ }
+}

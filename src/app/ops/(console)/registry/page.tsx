@@ -79,7 +79,7 @@ export default async function RegistryPage() {
           {r.replacements.map((e) => (
             <li key={e.slug} className="flex items-center gap-2 rounded-lg border bg-card px-3 py-2 text-sm">
               <span className="truncate text-muted-foreground line-through decoration-subtle-foreground/60">{e.replaces?.name ?? e.replaces?.slug}</span>
-              <ArrowRightIcon className="size-3.5 shrink-0 text-subtle-foreground" aria-label="replaced by" />
+              <ArrowRightIcon className="size-3.5 shrink-0 text-muted-foreground" aria-label="replaced by" />
               <span className="truncate font-medium">{e.name}</span>
               <Mono className="ml-auto shrink-0 text-xs text-muted-foreground">{e.confidence.toFixed(2)}</Mono>
             </li>
@@ -122,7 +122,7 @@ function EntryList({ rows }: { rows: RegistryEntryRow[] }) {
             <p className="font-medium">{e.name}</p>
             <div className="flex flex-wrap items-center gap-2">
               <StatusPill status={e.status} />
-              {e.rank !== null && <Mono className="text-[11px] text-subtle-foreground">rank #{e.rank}</Mono>}
+              {e.rank !== null && <Mono className="text-[11px] text-muted-foreground">rank #{e.rank}</Mono>}
             </div>
             {e.homepageUrl && (
               <SourceLink href={e.homepageUrl} className="text-xs text-muted-foreground">
@@ -131,7 +131,7 @@ function EntryList({ rows }: { rows: RegistryEntryRow[] }) {
             )}
           </div>
           <div className="min-w-0 space-y-1.5 text-[13px]">
-            <p className="text-foreground/85">{e.notes ?? <span className="text-subtle-foreground">No reason recorded.</span>}</p>
+            <p className="text-foreground/85">{e.notes ?? <span className="text-muted-foreground">No reason recorded.</span>}</p>
             <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
               {e.duplicateOf && (
                 <span>

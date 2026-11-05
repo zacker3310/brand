@@ -53,14 +53,14 @@ export function RunsTable({ rows, emptyText = "No ingestion runs yet. Enqueue on
                   <Link href={`/ops/runs/${r.id}`} className="font-medium hover:underline">
                     {r.systemName ?? r.system ?? "—"}
                   </Link>
-                  <div className="text-[11px] text-subtle-foreground">
+                  <div className="text-[11px] text-muted-foreground">
                     <Mono>{r.adapterId ?? "no adapter"}</Mono>
-                    {r.adapterVersion && <Mono className="text-subtle-foreground"> @{r.adapterVersion}</Mono>}
+                    {r.adapterVersion && <Mono className="text-muted-foreground"> @{r.adapterVersion}</Mono>}
                   </div>
                 </td>
                 <td className={td}>
                   <ShortId id={r.id} href={`/ops/runs/${r.id}`} />
-                  <div className="text-[11px] text-subtle-foreground">
+                  <div className="text-[11px] text-muted-foreground">
                     {r.kind} · {r.triggeredBy}
                   </div>
                 </td>
@@ -73,12 +73,12 @@ export function RunsTable({ rows, emptyText = "No ingestion runs yet. Enqueue on
                 <td className={`${td} tabular text-right font-mono text-xs`}>{n(r.stats.discovered)}</td>
                 <td className={`${td} tabular text-right font-mono text-xs`}>
                   {n(r.stats.fetched)}
-                  {typeof r.stats.notModified === "number" && r.stats.notModified > 0 && <div className="text-[10px] text-subtle-foreground">{formatCount(r.stats.notModified)} 304</div>}
+                  {typeof r.stats.notModified === "number" && r.stats.notModified > 0 && <div className="text-[10px] text-muted-foreground">{formatCount(r.stats.notModified)} 304</div>}
                 </td>
                 <td className={`${td} tabular text-right font-mono text-xs`}>
                   {n(r.stats.published)}
                   {(r.stats.created || r.stats.updated) ? (
-                    <div className="text-[10px] text-subtle-foreground">
+                    <div className="text-[10px] text-muted-foreground">
                       +{r.stats.created ?? 0} ~{r.stats.updated ?? 0}
                     </div>
                   ) : null}
@@ -88,15 +88,15 @@ export function RunsTable({ rows, emptyText = "No ingestion runs yet. Enqueue on
                     <span className="inline-flex flex-col items-end gap-0.5">
                       {r.errors > 0 && <span className="text-conflicting">{r.errors} err</span>}
                       {r.quarantined > 0 && <span className="text-inferred">{r.quarantined} quar.</span>}
-                      {r.warnings > 0 && <span className="text-subtle-foreground">{r.warnings} warn</span>}
+                      {r.warnings > 0 && <span className="text-muted-foreground">{r.warnings} warn</span>}
                     </span>
                   ) : (
-                    <span className="text-subtle-foreground">0</span>
+                    <span className="text-muted-foreground">0</span>
                   )}
                 </td>
                 <td className={`${td} tabular text-right font-mono text-xs`}>
                   {formatDuration(r.durationMs)}
-                  {r.queueWaitMs !== null && r.queueWaitMs > 1000 && <div className="text-[10px] text-subtle-foreground">waited {formatDuration(r.queueWaitMs)}</div>}
+                  {r.queueWaitMs !== null && r.queueWaitMs > 1000 && <div className="text-[10px] text-muted-foreground">waited {formatDuration(r.queueWaitMs)}</div>}
                 </td>
                 <td className={`${td} text-xs text-muted-foreground`}>
                   <Time at={r.createdAt} />

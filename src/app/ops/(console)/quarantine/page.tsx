@@ -88,7 +88,7 @@ export default async function QuarantinePage({ searchParams }: { searchParams: P
                   <tr key={x.id} className="align-top">
                     <td className={`${td} ${stickyCell}`}>
                       <Mono className="font-medium">{x.entityKey}</Mono>
-                      <div className="text-[11px] text-subtle-foreground">{x.entityKind}</div>
+                      <div className="text-[11px] text-muted-foreground">{x.entityKind}</div>
                     </td>
                     <td className={td}>{x.systemName}</td>
                     <td className={td}>
@@ -100,17 +100,17 @@ export default async function QuarantinePage({ searchParams }: { searchParams: P
                           {x.issues.map((i, k) => (
                             <li key={k} className="text-xs">
                               <Mono className={i.severity === "error" ? "text-conflicting" : "text-inferred"}>{i.code}</Mono> <span className="text-foreground/85">{i.message}</span>
-                              {i.path && <Mono className="text-subtle-foreground"> at {i.path}</Mono>}
+                              {i.path && <Mono className="text-muted-foreground"> at {i.path}</Mono>}
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <span className="text-xs text-subtle-foreground">No issue detail recorded</span>
+                        <span className="text-xs text-muted-foreground">No issue detail recorded</span>
                       )}
                     </td>
                     <td className={`${td} text-xs`}>
                       <ShortId id={x.runId} href={`/ops/runs/${x.runId}`} />
-                      <div className="text-[11px] text-subtle-foreground">
+                      <div className="text-[11px] text-muted-foreground">
                         <Time at={x.runCreatedAt} />
                       </div>
                     </td>

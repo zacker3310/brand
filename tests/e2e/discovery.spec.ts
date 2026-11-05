@@ -235,3 +235,15 @@ test.describe("search (/search)", () => {
     await expect(page.getByText("This search link has invalid parameters")).toBeVisible();
   });
 });
+
+test.describe("responsive", () => {
+  test("no horizontal page scroll at 390px on any discovery route", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    for (const path of ["/", "/systems", "/systems?view=list", "/systems?registry=all", "/systems/carbon", "/systems/ant-design", "/search?q=button", "/search?q=color&view=grouped"]) {
+      await page.goto(path);
+      await page.locator("#main h1").first().waitFor();
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      expect(overflow, path).toBeLessThanOrEqual(1);
+    }
+  });
+});

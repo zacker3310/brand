@@ -9,7 +9,8 @@
  *    subcomponents, deprecations, example titles, best practices), App Home patterns, versioning.
  *  - Polaris React (deprecated): archived polaris.shopify.com MDX content in
  *    Shopify/polaris-react-archive (raw.githubusercontent.com; legacy redirects.js seeds discovery,
- *    page links close it), `@shopify/polaris` type declarations (props), Storybook index.json.
+ *    page links close it), `@shopify/polaris` type declarations (props) and compiled stylesheet
+ *    build/esm/styles.css (var(--p-*) token usage per `.Polaris-<Component>`), Storybook index.json.
  *  - `@shopify/polaris-tokens` dist/css/styles.css (four themes) + ESM metadata descriptions.
  * License: Polaris License (field-of-use restricted) -> token sets "restricted"; no code is stored.
  * Static parsing only; nothing fetched is executed.
@@ -45,6 +46,7 @@ import { DtsResolver } from "./polaris/dts";
 import type { NpmInfo, PolarisDocMeta, PolarisFragmentData, ReactProp, StoryRef } from "./polaris/fragments";
 import { componentPathFromLink, componentPathsFromRedirects, mdxFileForPath, parseReactMdx, parseRedirects } from "./polaris/mdx";
 import { normalizePolaris, wcSlugFromUrl } from "./polaris/normalize";
+import { parseReactCssUsages } from "./polaris/react-css";
 import { clip, collapse, sentences, type Stamp } from "./polaris/text";
 import { parseTokenDescriptions, parseTokensCss } from "./polaris/tokens";
 import { validatePolarisBundle } from "./polaris/validate";
@@ -54,6 +56,7 @@ const TOKENS_CSS = "dist/css/styles.css";
 /** Token groups whose ESM metadata modules carry descriptions. */
 const TOKEN_META_GROUPS = ["breakpoints", "color", "motion"];
 const REACT_INDEX = "build/ts/src/index.d.ts";
+const REACT_CSS = "build/esm/styles.css";
 const MAX_MDX = 250;
 
 /** Bodies fetched during discover(), handed to fetch() once to avoid duplicate downloads in one run. */
@@ -118,7 +121,7 @@ export const adapter: SourceAdapter = {
   version: "1.0.0",
   systems: [SYSTEM_SLUG],
   description:
-    "Shopify Polaris: web components from @shopify/polaris-types custom-elements.json + shopify.dev App Home reference Markdown (components, patterns, versioning); deprecated Polaris React from the archived polaris.shopify.com MDX, @shopify/polaris type declarations and Storybook index; @shopify/polaris-tokens CSS themes (license-restricted, no code stored).",
+    "Shopify Polaris: web components from @shopify/polaris-types custom-elements.json + shopify.dev App Home reference Markdown (components, patterns, versioning); deprecated Polaris React from the archived polaris.shopify.com MDX, @shopify/polaris type declarations, compiled CSS (token usage) and Storybook index; @shopify/polaris-tokens CSS themes (license-restricted, no code stored).",
 
   async discover(ctx) {
     const [react, tokens, types] = await Promise.all([npmInfo(ctx, REACT_PKG), npmInfo(ctx, TOKENS_PKG), npmInfo(ctx, TYPES_PKG)]);
@@ -215,6 +218,11 @@ export const adapter: SourceAdapter = {
       const url = npmFileUrl(REACT_PKG, react.version, file);
       if (dtsDocs.some((d) => d.url === url)) continue;
       dtsDocs.push({ url, docKind: DOC_KINDS.reactDts, source: reactSource, title: file, evidenceUrl: url, meta: { npm: react, file, dir, docPath: m.docPath, propsName: `${dir}Props` } satisfies PolarisDocMeta });
+    }
+
+    if (!listing.files.length || listing.files.includes(REACT_CSS)) {
+      const url = npmFileUrl(REACT_PKG, react.version, REACT_CSS);
+      docs.push({ url, docKind: DOC_KINDS.reactCss, source: reactSource, title: `${REACT_PKG}@${react.version} ${REACT_CSS}`, evidenceUrl: url, meta: { npm: react, file: REACT_CSS } satisfies PolarisDocMeta, priority: 3 });
     }
 
     // Storybook (React stories), tokens.
@@ -333,6 +341,8 @@ export const adapter: SourceAdapter = {
         }
         return frag({ type: "storybook", stamp, stories });
       }
+      case DOC_KINDS.reactCss:
+        return frag({ type: "react-css", stamp, npm: meta.npm!, file: meta.file ?? REACT_CSS, usages: parseReactCssUsages(body) });
       case DOC_KINDS.tokensCss:
         return frag({ type: "tokens-css", stamp, npm: meta.npm!, file: meta.file ?? TOKENS_CSS, blocks: parseTokensCss(body) });
       case DOC_KINDS.tokensMeta:

@@ -74,7 +74,7 @@ export default async function QueuePage({ searchParams }: { searchParams: Promis
                         className={cn(
                           td,
                           "tabular text-right font-mono text-xs",
-                          !m.counts[s] && "text-subtle-foreground/60",
+                          !m.counts[s] && "text-muted-foreground",
                           (s === "failed" || s === "dead") && m.counts[s] && "text-conflicting",
                         )}
                       >
@@ -179,21 +179,21 @@ function JobTable({ rows, returnTo, empty, showError, showLock, showRunAt }: { r
               <tr key={j.id} className="hover:bg-muted/40">
                 <td className={`${td} ${stickyCell}`}>
                   <Mono className="font-medium">{j.kind}</Mono>
-                  <div className="text-[11px] text-subtle-foreground">
+                  <div className="text-[11px] text-muted-foreground">
                     <ShortId id={j.id} /> · prio {j.priority}
                   </div>
                 </td>
                 <td className={td}>
-                  {j.system ?? <span className="text-subtle-foreground">—</span>}
+                  {j.system ?? <span className="text-muted-foreground">—</span>}
                   {j.runId && (
-                    <div className="text-[11px] text-subtle-foreground">
+                    <div className="text-[11px] text-muted-foreground">
                       run <ShortId id={j.runId} href={`/ops/runs/${j.runId}`} />
                     </div>
                   )}
                 </td>
                 <td className={td}>
                   <StatusPill status={j.status} />
-                  <div className="mt-1 text-[11px] text-subtle-foreground">
+                  <div className="mt-1 text-[11px] text-muted-foreground">
                     <Time at={j.updatedAt} />
                   </div>
                 </td>
@@ -208,14 +208,14 @@ function JobTable({ rows, returnTo, empty, showError, showLock, showRunAt }: { r
                         <pre className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{j.lastError}</pre>
                       </details>
                     ) : (
-                      <span className="text-xs text-subtle-foreground">no error recorded</span>
+                      <span className="text-xs text-muted-foreground">no error recorded</span>
                     )}
                   </td>
                 )}
                 {showLock && (
                   <td className={`${td} text-xs`}>
                     <Mono>{j.lockedBy ?? "—"}</Mono>
-                    <div className="text-[11px] text-subtle-foreground">
+                    <div className="text-[11px] text-muted-foreground">
                       since <Time at={j.lockedAt} fallback="—" />
                     </div>
                   </td>

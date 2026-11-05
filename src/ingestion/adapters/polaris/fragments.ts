@@ -3,6 +3,7 @@ import type { WcElement } from "./cem";
 import type { IndexPage, PatternPage, SystemPage, WcPage } from "./devdocs";
 import type { DtsMember } from "./dts";
 import type { ReactMdxDoc, Redirect } from "./mdx";
+import type { CssTokenUsage } from "./react-css";
 import type { Stamp } from "./text";
 import type { ThemeBlock } from "./tokens";
 
@@ -39,6 +40,7 @@ export type PolarisFragmentData =
   | { type: "react-index"; stamp: Stamp; npm: NpmInfo; file: string; exports: Record<string, string> }
   | { type: "react-dts"; stamp: Stamp; npm: NpmInfo; docPath: string | null; dir: string; file: string; propsName: string; found: boolean; props: ReactProp[]; unresolved: string[]; files: string[] }
   | { type: "storybook"; stamp: Stamp; stories: StoryRef[] }
+  | { type: "react-css"; stamp: Stamp; npm: NpmInfo; file: string; usages: Record<string, CssTokenUsage[]> }
   | { type: "tokens-css"; stamp: Stamp; npm: NpmInfo; file: string; blocks: ThemeBlock[] }
   | { type: "tokens-meta"; stamp: Stamp; npm: NpmInfo; file: string; descriptions: Record<string, string> }
   | { type: "license"; stamp: Stamp; key: string; copyright: string | null; fieldOfUse: boolean }
