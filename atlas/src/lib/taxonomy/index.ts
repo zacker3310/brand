@@ -56,7 +56,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("link", "Link", "actions", "Navigates to another location or resource.", ["link", "anchor", "hyperlink", "text link", "inline link"], ["button"], "link"),
   t("menu-button", "Menu button", "actions", "A button that opens a menu of actions.", ["menu button", "menubutton", "action menu", "dropdown button", "overflow menu", "kebab menu"], ["dropdown", "split button"], "menu-button"),
   t("button-group", "Button group", "actions", "A set of related buttons presented together.", ["button group", "buttongroup", "button set", "segmented button"], ["toggle group", "segmented control"]),
-  t("toggle-button", "Toggle button", "actions", "A two-state button that can be pressed or unpressed.", ["toggle button", "togglebutton", "toggle"], ["switch", "segmented control"], "button"),
+  t("toggle-button", "Toggle button", "actions", "A two-state button that can be pressed or unpressed.", ["toggle button", "togglebutton"], ["switch", "segmented control", "toggle"], "button"),
 
   // Inputs
   t("text-field", "Text field", "inputs", "Single-line free-text input.", ["text field", "textfield", "text input", "input", "textinput", "input field", "text box", "textbox"], ["search field"], "textbox"),
@@ -66,7 +66,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("password-field", "Password field", "inputs", "Text input for secrets with masked entry.", ["password field", "password input", "passwordinput"], ["text field"]),
   t("checkbox", "Checkbox", "inputs", "Toggles a single option on or off, or selects multiple options from a set.", ["checkbox", "check box", "checkbox group"], ["switch"], "checkbox"),
   t("radio", "Radio", "inputs", "Selects exactly one option from a set.", ["radio", "radio button", "radio group", "radiogroup", "radiobutton"], ["segmented control"], "radio"),
-  t("switch", "Switch", "inputs", "Toggles a setting on or off with immediate effect.", ["switch", "toggle switch", "toggle"], ["checkbox", "toggle button"], "switch"),
+  t("switch", "Switch", "inputs", "Toggles a setting on or off with immediate effect.", ["switch", "toggle switch"], ["checkbox", "toggle button", "toggle"], "switch"),
   t("slider", "Slider", "inputs", "Selects a value or range by moving a thumb along a track.", ["slider", "range slider", "range", "range input"], [], "slider"),
   t("select", "Select", "inputs", "Chooses one value from a collapsed list of options.", ["select", "native select", "select field", "picker", "selectfield"], ["dropdown", "combobox", "listbox"], "listbox"),
   t("combobox", "Combobox", "inputs", "A text input combined with a popup list of suggested values.", ["combobox", "combo box", "autocomplete input", "typeahead", "filterable select", "searchable select"], ["autocomplete", "select", "dropdown", "search field"], "combobox"),
@@ -401,6 +401,16 @@ export function classifyComponentName(name: string): Classification | null {
     .trim();
   const s = ALIAS_INDEX.get(stripped);
   if (s) return { slug: s, method: `alias-stripped:${stripped}`, confidence: 0.75 };
+  // plural page titles ("Buttons", "Icon buttons", "Date pickers") -> singular alias
+  const singular = (w: string) => w.replace(/(ches|shes|xes)$/, (m) => m.slice(0, -2)).replace(/ies$/, "y").replace(/(?<!s)s$/, "");
+  for (const cand of [n, stripped]) {
+    const words = cand.split(" ");
+    const sg = [...words.slice(0, -1), singular(words[words.length - 1] ?? "")].join(" ");
+    if (sg !== cand) {
+      const hit = ALIAS_INDEX.get(sg);
+      if (hit) return { slug: hit, method: `alias-singular:${sg}`, confidence: 0.85 };
+    }
+  }
   // token containment (longest alias contained in name), e.g. "Overflow Menu" -> menu-button via alias
   let best: { slug: string; alias: string } | null = null;
   for (const [alias, slug] of ALIAS_INDEX) {
