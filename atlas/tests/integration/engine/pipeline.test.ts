@@ -194,7 +194,8 @@ describe("pipeline: idempotency", () => {
     expect(await ids("verification_evidence")).toEqual(evIds);
     expect(second.stats).toMatchObject({ created: 0, updated: 0, removed: 0, unchanged: 8, fetched: 0, notModified: 8, parsed: 0, parseReused: 8, tokensAdded: 0, tokensUpdated: 0, tokensRemoved: 0 });
     expect(adapter.parseCalls.length).toBe(parseCallsBefore); // nothing re-parsed
-    const docRequests = site.requests.filter((r) => r.path !== "/robots.txt");
+    // discover re-reads the manifest (adapter's own request); every document is a conditional 304
+    const docRequests = site.requests.filter((r) => r.path !== "/robots.txt" && r.path !== "/manifest.json");
     expect(docRequests.length).toBeGreaterThan(0);
     expect(docRequests.every((r) => r.conditional && r.status === 304)).toBe(true);
     const comps = await db().select().from(s.components).where(eq(s.components.designSystemId, systemId));
@@ -373,7 +374,7 @@ describe("pipeline: resumability", () => {
     const perPath = new Map<string, number>();
     for (const x of docFetches) perPath.set(x.path, (perPath.get(x.path) ?? 0) + 1);
     expect([...perPath.values()].every((n) => n === 1)).toBe(true); // each document fetched exactly once
-    expect(perPath.size).toBe(7);
+    expect(perPath.size).toBe(8);
     const c = await counts();
     expect(c.source_snapshot).toBe(8);
     expect(c.component).toBe(4);

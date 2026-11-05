@@ -330,3 +330,29 @@ describe("resolveTokenGraph — robustness", () => {
     expect(embedValue({ a: 1 })).toBeNull();
   });
 });
+
+describe("persistence helpers", () => {
+  it("resolutionColumns / tokenAliasRows", async () => {
+    const { resolutionColumns, tokenAliasRows } = await import("@/lib/tokens/resolve");
+    const r = resolveTokenGraph(dtcg);
+    expect(resolutionColumns(r.get("color.white"))).toEqual({ resolvedValue: { colorSpace: "srgb", components: [1, 1, 1], hex: "#ffffff" }, isAlias: false, aliasState: null, depth: 0 });
+    expect(resolutionColumns(r.get("border.focus"))).toMatchObject({ isAlias: true, aliasState: "resolved", depth: 2 });
+    expect(resolutionColumns(r.get("broken.missing"))).toEqual({ resolvedValue: null, isAlias: true, aliasState: "external", depth: null });
+    expect(resolutionColumns(undefined)).toEqual({ resolvedValue: null, isAlias: false, aliasState: null, depth: null });
+    const rows = tokenAliasRows(r.get("shadow.raised"));
+    expect(rows.map((x) => x.targetRef).sort()).toEqual(["{color.shadow}", "{size.1}", "{size.2}"]);
+    expect(rows.every((x) => x.state === "resolved" && x.targetName !== null)).toBe(true);
+    expect(tokenAliasRows(r.get("broken.partial"))).toEqual([
+      { targetRef: "{size.1}", targetName: "size.1", state: "resolved", depth: 1 },
+      { targetRef: "{size.nope}", targetName: null, state: "external", depth: null },
+    ]);
+  });
+
+  it("resolves slash-separated refs to dotted names", () => {
+    const r = resolveTokenGraph([
+      { name: "color.blue.500", rawValue: "#00f", references: [] },
+      { name: "link", rawValue: "{color/blue/500}", references: [] },
+    ]);
+    expect(r.get("link")!.resolvedValue).toBe("#00f");
+  });
+});

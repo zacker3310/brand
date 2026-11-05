@@ -26,7 +26,7 @@
  * Duplicate names: the LAST occurrence wins (cascade / Style Dictionary override semantics); reported as an issue.
  */
 import { collectValueReferences, findStringReferences, type RefSyntax, type ValueReference } from "./refs";
-import { toCssColor, isDtcgColorObject } from "./color";
+import { toCssColor, toHex, isAlphaColorObject, isDtcgColorObject } from "./color";
 
 export interface ResolvableToken {
   name: string;
@@ -191,6 +191,7 @@ export function analyzeTokenReferences(input: readonly ResolvableToken[], opts: 
       if (v) return v;
     }
     const n = sepNormalize(ref.replace(/\.(\$?value)$/, ""));
+    if (names.has(n)) return n;
     const hit = normIndex.get(n);
     return hit ?? null;
   };
@@ -358,7 +359,8 @@ export function embedValue(v: unknown): string | null {
   }
   if (isObj(v)) {
     if ((typeof v.value === "number" || typeof v.value === "string") && typeof v.unit === "string" && Object.keys(v).length <= 2) return `${v.value}${v.unit}`;
-    if (isDtcgColorObject(v)) return typeof v.hex === "string" ? v.hex : toCssColor(v);
+    if (isDtcgColorObject(v)) return typeof v.hex === "string" && (v.alpha === undefined || v.alpha === 1) ? v.hex : toCssColor(v);
+    if (isAlphaColorObject(v)) return toHex(v);
   }
   return null;
 }
@@ -740,4 +742,54 @@ export function countResolutionStates(map: Map<string, ResolvedTokenInfo>): Reco
   const out: Record<ResolutionState, number> = { literal: 0, resolved: 0, external: 0, cycle: 0, unresolved: 0 };
   for (const v of map.values()) out[v.state]++;
   return out;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Persistence helpers (token / token_alias columns)                           */
+/* -------------------------------------------------------------------------- */
+
+export interface ResolutionColumns {
+  /** null unless fully resolved (or filled by authored var() fallbacks). */
+  resolvedValue: unknown;
+  isAlias: boolean;
+  /** null for literals; otherwise the resolution state. */
+  aliasState: Exclude<ResolutionState, "literal"> | null;
+  /** Chain length to a concrete value; null when not resolvable. */
+  depth: number | null;
+}
+
+/** Map a resolution result to the `token` table's resolution columns. */
+export function resolutionColumns(info: ResolvedTokenInfo | undefined | null): ResolutionColumns {
+  if (!info) return { resolvedValue: null, isAlias: false, aliasState: null, depth: null };
+  const isAlias = info.state !== "literal";
+  const value = info.resolvedValue === undefined ? null : info.resolvedValue;
+  return {
+    resolvedValue: value,
+    isAlias,
+    aliasState: isAlias ? (info.state as Exclude<ResolutionState, "literal">) : null,
+    depth: value === null && isAlias ? null : info.depth,
+  };
+}
+
+export interface TokenAliasRow {
+  /** Raw reference as authored (unique per token). */
+  targetRef: string;
+  /** Target token name in the set (map to target_token_id), or null. */
+  targetName: string | null;
+  state: RefState;
+  depth: number | null;
+}
+
+/** One row per distinct raw reference (token_alias is unique on (token_id, target_ref)). */
+export function tokenAliasRows(info: ResolvedTokenInfo | undefined | null): TokenAliasRow[] {
+  if (!info) return [];
+  const rank: Record<RefState, number> = { cycle: 3, unresolved: 2, external: 1, resolved: 0 };
+  const byRaw = new Map<string, TokenAliasRow>();
+  for (const r of info.refs) {
+    const row: TokenAliasRow = { targetRef: r.raw, targetName: r.target, state: r.state, depth: r.depth };
+    const prev = byRaw.get(r.raw);
+    // Keep the worst state if the same raw ref occurs several times (e.g. in multiple shadow layers).
+    if (!prev || rank[row.state] > rank[prev.state]) byRaw.set(r.raw, row);
+  }
+  return [...byRaw.values()];
 }

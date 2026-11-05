@@ -270,3 +270,27 @@ describe("validateTokenValue", () => {
     expect(v("elevation", { a: 1 })).toMatchObject({ ok: true, code: "UNCHECKED" });
   });
 });
+
+describe("alpha-modifier colors ({ value, alpha }, as emitted by the Primer adapter)", () => {
+  it("parses, formats, validates and categorizes", async () => {
+    const { resolveTokenGraph } = await import("@/lib/tokens/resolve");
+    const { categorizeToken } = await import("@/lib/tokens/categorize");
+    const r = resolveTokenGraph([
+      { name: "base.color.blue.5", rawValue: "#0969da", references: [] },
+      { name: "bgColor.accent.muted", rawValue: { value: "{base.color.blue.5}", alpha: 0.4 }, references: ["base.color.blue.5"] },
+      { name: "shadow.inset", rawValue: "inset 0 0 0 1px {bgColor.accent.muted}", references: [] },
+    ]);
+    const muted = r.get("bgColor.accent.muted")!;
+    expect(muted).toMatchObject({ state: "resolved", resolvedValue: { value: "#0969da", alpha: 0.4 } });
+    expect(r.get("shadow.inset")!.resolvedValue).toBe("inset 0 0 0 1px #0969da66");
+    expect(toHex(muted.resolvedValue)).toBe("#0969da66");
+    expect(formatTokenValue(muted.resolvedValue, "color")).toBe("#0969da66");
+    expect(formatTokenValue(muted.resolvedValue)).toBe("#0969da66");
+    expect(validateTokenValue("color", muted.resolvedValue)).toEqual({ ok: true });
+    expect(validateTokenValue("color", { value: "{base.color.blue.5}", alpha: 0.4 })).toMatchObject({ ok: true, code: "REFERENCE" });
+    expect(validateTokenValue("color", { value: "#0969da", alpha: 4 })).toMatchObject({ ok: false, code: "INVALID_COLOR" });
+    expect(validateTokenValue("color", { value: "nope", alpha: 0.5 })).toMatchObject({ ok: false, code: "INVALID_COLOR" });
+    expect(categorizeToken("x", null, { value: "#fff", alpha: 0.5 }).category).toBe("color");
+    expect(checkContrast({ value: "#000", alpha: 0.5 }, "#fff")!.fgComposited).toBe(true);
+  });
+});

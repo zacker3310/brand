@@ -119,6 +119,17 @@ describe("parseCssCustomProperties — robustness", () => {
   it("ignores custom-property-looking text outside rules and in regular properties", () => {
     const out = parseCssCustomProperties("--top: 1px; .a { color: var(--x); content: '--y: 2px'; }");
     expect(out).toEqual([]);
+    // the stray top-level statement must not leak into the next rule's selector
+    const next = parseCssCustomProperties("--top: 1px; :root { --a: 1px; }");
+    expect(next).toEqual([expect.objectContaining({ selector: ":root", name: "--a", scope: "root" })]);
+  });
+
+  it("supports @media nested inside a style rule (CSS nesting)", () => {
+    const out = parseCssCustomProperties(":root { --a: 1px; @media (prefers-color-scheme: dark) { --a: 2px; } }");
+    expect(out.map((d) => [d.value, d.theme, d.media])).toEqual([
+      ["1px", null, null],
+      ["2px", "dark", "(prefers-color-scheme: dark)"],
+    ]);
   });
 
   it("handles minified CSS and multiple rules", () => {

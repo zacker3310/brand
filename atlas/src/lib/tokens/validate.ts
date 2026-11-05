@@ -9,7 +9,7 @@
  * Composite values (shadow, typography, border, transition, gradient) validate each present field;
  * fields that are references are skipped.
  */
-import { colorValueKind, isDtcgColorObject, parseColor } from "./color";
+import { colorValueKind, isAlphaColorObject, isDtcgColorObject, parseColor } from "./color";
 import { hasReferences, isWholeReference } from "./refs";
 import { parseDimension } from "./format";
 
@@ -135,6 +135,10 @@ function checkDimension(v: unknown, label = "dimension"): TokenValidationResult 
 }
 
 function checkColor(v: unknown): TokenValidationResult {
+  if (isAlphaColorObject(v)) {
+    if (!Number.isFinite(v.alpha) || v.alpha < 0 || v.alpha > 1) return bad("INVALID_COLOR", "Alpha must be within [0, 1]");
+    return checkColor(v.value);
+  }
   if (isRef(v)) return ok("REFERENCE", "Contains a reference");
   if (typeof v === "string") {
     const t = v.trim();
@@ -417,7 +421,7 @@ function checkGradient(v: unknown): TokenValidationResult {
 function checkByCategory(category: string, v: unknown): TokenValidationResult | null {
   switch (category) {
     case "color":
-      return isObj(v) && !isDtcgColorObject(v) && typeof v.hex !== "string" ? ok("UNCHECKED", "Composite color-category value") : checkColor(v);
+      return isObj(v) && !isDtcgColorObject(v) && !isAlphaColorObject(v) && typeof v.hex !== "string" ? ok("UNCHECKED", "Composite color-category value") : checkColor(v);
     case "spacing":
     case "layout":
       return isObj(v) && !("unit" in v) ? ok("UNCHECKED", "Composite value") : checkDimension(v);

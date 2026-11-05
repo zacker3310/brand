@@ -115,10 +115,23 @@ export function isDtcgColorObject(v: unknown): v is { colorSpace: string; compon
   return isObj(v) && typeof v.colorSpace === "string" && Array.isArray(v.components);
 }
 
+/**
+ * Color with an alpha modifier: { value: <color>, alpha: 0..1 } (Primer primitives' `alpha` sibling,
+ * as preserved by the Primer adapter). `alpha` replaces the base color's alpha channel.
+ */
+export function isAlphaColorObject(v: unknown): v is { value: unknown; alpha: number } {
+  return isObj(v) && "value" in v && typeof v.alpha === "number" && Object.keys(v).every((k) => k === "value" || k === "alpha");
+}
+
 /** Parse any supported color value to a culori Color; null when not statically parseable. */
 export function parseColor(value: unknown): Color | null {
   try {
     if (typeof value === "string") return parseCssColor(value);
+    if (isAlphaColorObject(value)) {
+      const base = parseColor(value.value);
+      if (!base || !Number.isFinite(value.alpha)) return null;
+      return { ...base, alpha: Math.min(1, Math.max(0, value.alpha)) };
+    }
     if (isObj(value)) {
       if (isDtcgColorObject(value) || typeof value.hex === "string") return dtcgToCulori(value) ?? null;
       // culori Color object passthrough

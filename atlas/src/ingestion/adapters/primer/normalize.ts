@@ -154,6 +154,16 @@ export function sitemapPageType(url: string): "overview" | "guidelines" | "acces
 }
 
 /**
+ * Components where the shared taxonomy's name match is known to be wrong for Primer's documented
+ * behavior (left unclassified rather than mis-classified).
+ */
+const COMPONENT_CLASSIFICATION_SKIP: Record<string, string> = {
+  KeybindingHint: "Renders keyboard shortcut keys (kbd); the 'hint' alias match to tooltip is wrong.",
+  PageHeader: "Page title/context region; the 'header' alias match to navigation-bar is wrong.",
+  AriaStatus: "Visually hidden role=status live region; not a visual status indicator.",
+};
+
+/**
  * Pattern pages where the shared taxonomy's alias match is known to be wrong for Primer's page
  * (left unclassified rather than mis-classified).
  */
@@ -412,7 +422,9 @@ function propertiesFrom(c: PrimerDocsComponent, url: string): NormalizedComponen
     });
   for (const p of c.props) push(p, null);
   for (const s of c.subcomponents) for (const p of s.props) push(p, s.name);
-  return out;
+  // docs.json occasionally lists a prop twice (e.g. DataTable aria-labelledby); keep the first entry.
+  const seen = new Set<string>();
+  return out.filter((p) => (seen.has(p.name) ? false : (seen.add(p.name), true)));
 }
 
 function storyTitle(id: string): string {
@@ -452,8 +464,8 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   if (reactImpl?.status && DOCS_STATUS[reactImpl.status]) lifecycle = DOCS_STATUS[reactImpl.status]!;
   else if (c.status && DOCSJSON_STATUS[c.status]) lifecycle = DOCSJSON_STATUS[c.status]!;
 
-  // Classification
-  const cls = classifyComponentName(c.name);
+  // Classification (inferred from the name; verified only when the a11y page links the matching APG pattern)
+  const cls = COMPONENT_CLASSIFICATION_SKIP[c.name] ? null : classifyComponentName(c.name);
   let classification: NormalizedComponent["classification"] = null;
   if (cls) {
     const def = componentTypeBySlug.get(cls.slug);

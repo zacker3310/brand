@@ -223,6 +223,37 @@ export function extractRoles(text: string): string[] {
 }
 
 const KEY_WORDS = /\b(Enter|Space|Spacebar|Tab|Esc|Escape|Arrow ?(?:Up|Down|Left|Right)|Home|End|Page ?(?:Up|Down))\b/;
+/** A <code>/<kbd> text that names a key or chord ("Enter", "Shift+Tab", "ArrowDown", "Esc", "→"). */
+const KEY_CODE_RE =
+  /^(?:(?:Shift|Ctrl|Control|Alt|Option|Cmd|Command|Meta|Mod)\s*\+\s*)*(?:Enter|Return|Space|Spacebar|Tab|Esc|Escape|Backspace|Delete|Home|End|Page ?Up|Page ?Down|PageUp|PageDown|Arrow ?(?:Up|Down|Left|Right)|Up|Down|Left|Right|[←→↑↓]|[A-Za-z0-9])$/i;
+/** Prose key mentions without code formatting. */
+const KEY_PHRASE_RE = /\b(arrow keys|cursor keys|Shift ?\+ ?Tab|Enter|Space(?:bar)?|Tab|Esc(?:ape)?|Backspace|Delete|Home|End|Page ?Up|Page ?Down)\b/g;
+const CONDITIONAL_RE = /\b(if|should|intended|in the case|for (?:a|the) split)\b/i;
+
+/** Keep only the sentences that mention one of the keys (falls back to the whole text). */
+function sentencesMentioning(text: string, keys: string[]): string {
+  const sentences = text.split(/(?<=[.!?])\s+(?=[A-Z0-9"'“(`<])/);
+  const lower = keys.map((k) => k.toLowerCase().replace(/^arrow keys$/, "arrow"));
+  const hit = sentences.filter((s) => lower.some((k) => s.toLowerCase().includes(k) || (k === "arrow" && /cursor keys/i.test(s))));
+  return hit.length ? hit.join(" ") : text;
+}
+
+function keysMentioned($: CheerioAPI, el: Sel, text: string): string[] {
+  const coded = el
+    .find("code, kbd")
+    .map((_, c) => clean($(c).text()))
+    .get()
+    .filter((t) => t.length <= 24 && KEY_CODE_RE.test(t) && !/^[A-Za-z0-9]$/.test(t));
+  if (coded.length) return uniq(coded);
+  const out: string[] = [];
+  for (const m of text.matchAll(KEY_PHRASE_RE)) {
+    const k = m[1]!;
+    // "Tab"/"Space"/"Home"/"End"/"Delete" are ordinary words too; require key context nearby.
+    if (/^(tab|space|home|end|delete|enter)$/i.test(k) && !/\bkey|\bpress/i.test(text)) continue;
+    out.push(/^(arrow|cursor) keys$/i.test(k) ? "Arrow keys" : k);
+  }
+  return uniq(out);
+}
 
 function parseA11y($: CheerioAPI, content: Sel, blocks: Block[]): ParsedA11y {
   const keyboard: KeyboardRow[] = [];
@@ -233,6 +264,8 @@ function parseA11y($: CheerioAPI, content: Sel, blocks: Block[]): ParsedA11y {
   let screenReader: ParsedA11y["screenReader"] = null;
   const stack: { level: number; text: string; id: string | null; el: Sel }[] = [];
   let pendingKeyHeading: { keys: string; context: string | null; anchor: string | null } | null = null;
+  /** Prose requirements in "Keyboard" sections (used only when no table / key-heading rows exist). */
+  const proseKeyboard: KeyboardRow[] = [];
   let wantFocus: string | null | undefined; // anchor of focus heading awaiting first paragraph
   let wantSr: string | null | undefined;
 
@@ -290,8 +323,15 @@ function parseA11y($: CheerioAPI, content: Sel, blocks: Block[]): ParsedA11y {
       screenReader = { text: shortText(b.text, 280)!, anchor: wantSr };
       wantSr = undefined;
     }
-    if (inSection(/built-in accessibility|component tests/i)) roles.push(...extractRoles(b.text));
+    if (inSection(/keyboard/i) && !pendingKeyHeading) {
+      const keys = keysMentioned($, b.el, b.text);
+      const action = keys.length ? shortText(sentencesMentioning(b.text, keys), 240) : null;
+      if (action) proseKeyboard.push({ keys: keys.join(" / ").slice(0, 120), action, context: null, anchor: anchorOf() });
+    }
+    // Roles: only statements about what the component renders (skip conditional / recommendation sentences).
+    if (inSection(/built-in accessibility|component tests/i) && !CONDITIONAL_RE.test(b.text)) roles.push(...extractRoles(b.text));
   }
+  if (!keyboard.length) keyboard.push(...proseKeyboard);
 
   const apgPatterns: string[] = [];
   const wcag: string[] = [];

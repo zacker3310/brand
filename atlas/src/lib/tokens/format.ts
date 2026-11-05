@@ -9,7 +9,7 @@
  *
  * dimensionToPx(value, {remBase}) converts px/rem/em/pt (and DTCG dimension objects) to px numbers.
  */
-import { isDtcgColorObject, toCssColor, toHex, toOklchString } from "./color";
+import { isAlphaColorObject, isDtcgColorObject, toCssColor, toHex, toOklchString } from "./color";
 
 const isObj = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
 
@@ -77,6 +77,10 @@ function formatColor(v: unknown, opts: FormatOptions): string | null {
     if (opts.colorFormat === "hex") return toHex(t) ?? t;
     if (opts.colorFormat === "oklch") return toOklchString(t) ?? t;
     return t;
+  }
+  if (isAlphaColorObject(v)) {
+    if (opts.colorFormat === "oklch") return toOklchString(v);
+    return toHex(v) ?? `${fallbackString(v.value, opts)} / alpha ${formatNumber(v.alpha)}`;
   }
   if (isDtcgColorObject(v) || (isObj(v) && typeof v.hex === "string")) {
     if (opts.colorFormat === "oklch") return toOklchString(v);
@@ -298,7 +302,7 @@ function formatByShape(value: unknown, opts: FormatOptions): string {
     return fallbackString(value, opts);
   }
   if (isObj(value)) {
-    if (isDtcgColorObject(value)) return formatColor(value, opts) ?? fallbackString(value, opts);
+    if (isDtcgColorObject(value) || isAlphaColorObject(value)) return formatColor(value, opts) ?? fallbackString(value, opts);
     if ((typeof value.value === "number" || typeof value.value === "string") && typeof value.unit === "string") return formatDimension(value)!;
     if (isShadowObject(value)) return formatShadow(value, opts) ?? fallbackString(value, opts);
     if (isTypographyObject(value)) return formatTypography(value, opts) ?? fallbackString(value, opts);

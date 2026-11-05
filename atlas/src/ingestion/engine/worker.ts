@@ -228,7 +228,8 @@ export async function processRunInline(runId: string, opts: InlineOptions = {}):
     if (opts.maxWaitMs !== undefined && Date.now() - started > opts.maxWaitMs) return run;
     const queued = live.filter((j) => j.status === "queued");
     const nextAt = queued.length ? Math.min(...queued.map((j) => j.runAt.getTime())) : Date.now() + 1000;
-    const wait = Math.min(5_000, Math.max(200, nextAt - Date.now()));
+    const remaining = opts.maxWaitMs !== undefined ? Math.max(0, opts.maxWaitMs - (Date.now() - started)) : Infinity;
+    const wait = Math.min(5_000, remaining, Math.max(200, nextAt - Date.now()));
     if (queued.length && nextAt - Date.now() > 2000) engineConfig().log.info(`waiting ${Math.round((nextAt - Date.now()) / 1000)}s for backoff of ${queued[0]!.kind} job`);
     await sleep(wait, opts.signal);
   }

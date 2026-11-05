@@ -274,7 +274,7 @@ function parseBlock(sc: Scanner, start: number, end: number, ctx: Ctx, out: CssC
       }
     }
     // Either a regular declaration (inside a rule) or a (nested) style rule.
-    const stop = sc.readUntil(i, ctx.selector !== null ? ";{}" : "{}", end, false);
+    const stop = sc.readUntil(i, ";{}", end, false);
     if (stop >= end) break;
     if (s[stop] === "{") {
       const close = Math.min(sc.matchBrace(stop), end);
@@ -542,12 +542,11 @@ export function cssThemeTokens(
 ): (ResolvableToken & { cssVar: string; declaration: CssCustomProperty; inherited: boolean })[] {
   const byName = new Map<string, { d: CssCustomProperty; inherited: boolean }>();
   const includeDefault = opts.includeDefault !== false;
-  for (const d of decls) {
-    if (d.scope === "scoped" && !opts.includeScoped) continue;
-    if (d.theme === null && (theme === null || includeDefault)) {
+  // Pass 1: default scope (theme null). Later declarations win unless an earlier one is !important.
+  if (theme === null || includeDefault) {
+    for (const d of decls) {
+      if (d.theme !== null || (d.scope === "scoped" && !opts.includeScoped)) continue;
       const prev = byName.get(d.name);
-      // Do not let a default declaration override an earlier theme-specific one.
-      if (prev && !prev.inherited && theme !== null) continue;
       if (prev && prev.d.important && !d.important) continue;
       byName.set(d.name, { d, inherited: theme !== null });
     }

@@ -10,7 +10,7 @@
  * Every non-explicit result is a heuristic: callers must store it as "inferred".
  */
 import type { TokenCategory } from "@/lib/contracts";
-import { isColorValue, isDtcgColorObject } from "./color";
+import { isAlphaColorObject, isColorValue, isDtcgColorObject } from "./color";
 import { isWholeReference } from "./refs";
 
 export type TokenSubcategory =
@@ -168,11 +168,13 @@ function byValue(value: unknown): [Cat, string, number] | null {
   }
   if (isObj(value)) {
     if (isDtcgColorObject(value)) return [["color", "color"], "value:color-object", 0.9];
+    if (isAlphaColorObject(value) && (isColorValue(value.value, { allowNonConcrete: false }) || isWholeReference(value.value))) return [["color", "color"], "value:alpha-color", 0.8];
     if (("offsetX" in value || "x" in value) && ("offsetY" in value || "y" in value)) return [["elevation", "shadow"], "value:shadow", 0.85];
     if (["fontFamily", "fontSize", "fontWeight", "lineHeight"].filter((k) => k in value).length >= 2) return [["typography", "typography"], "value:typography", 0.85];
     if ("duration" in value && "timingFunction" in value) return [["motion", "transition"], "value:transition", 0.85];
     if ("width" in value && "style" in value && "color" in value) return [["shape", "border"], "value:border", 0.85];
-    if (typeof value.unit === "string" && /^(ms|s)$/i.test(value.unit)) return [["motion", "duration"], "value:duration", 0.8];
+    const unit = (value as Record<string, unknown>).unit;
+    if (typeof unit === "string" && /^(ms|s)$/i.test(unit)) return [["motion", "duration"], "value:duration", 0.8];
   }
   return null;
 }
