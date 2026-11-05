@@ -73,6 +73,8 @@ interface HostState {
 
 interface RobotsEntry {
   fetchedAt: number;
+  /** robots.txt could not be fetched (5xx/network). Treated as disallow-all, but only briefly cached. */
+  unreachable?: string;
   allowAll: boolean;
   disallowAll: boolean;
   parser: ReturnType<typeof robotsParser> | null;
@@ -85,6 +87,8 @@ export interface PoliteFetcherOptions {
   hostConcurrency?: number;
   cacheDir?: string | null;
   robotsTtlMs?: number;
+  /** Cache lifetime of an "unreachable robots.txt => disallow all" verdict (default 30 s), so retries re-check. */
+  robotsUnreachableTtlMs?: number;
   maxCrawlDelayMs?: number;
   /** Injected fetch for tests. */
   fetchImpl?: typeof fetch;
@@ -97,6 +101,7 @@ export class PoliteFetcher {
   private hostConcurrency: number;
   private cacheDir: string | null;
   private robotsTtlMs: number;
+  private robotsUnreachableTtlMs: number;
   private maxCrawlDelayMs: number;
   private fetchImpl: typeof fetch;
   private hosts = new Map<string, HostState>();
@@ -111,6 +116,7 @@ export class PoliteFetcher {
     this.hostConcurrency = opts.hostConcurrency ?? Number(process.env.ATLAS_HOST_CONCURRENCY ?? 2);
     this.cacheDir = opts.cacheDir === undefined ? (process.env.ATLAS_CACHE_DIR ?? ".cache/sources") : opts.cacheDir;
     this.robotsTtlMs = opts.robotsTtlMs ?? 6 * 60 * 60 * 1000;
+    this.robotsUnreachableTtlMs = opts.robotsUnreachableTtlMs ?? 30_000;
     this.maxCrawlDelayMs = opts.maxCrawlDelayMs ?? 10_000;
     this.fetchImpl = opts.fetchImpl ?? fetch;
     this.log = opts.log ?? (() => {});
@@ -123,8 +129,10 @@ export class PoliteFetcher {
     const res = await this.rawFetch(robotsUrl, { skipRobots: true, maxRetries: 1, timeoutMs: 10_000, accept: "text/plain,*/*" });
     const now = Date.now();
     if (res.error || res.status >= 500) {
-      // RFC 9309 2.3.1.4: unreachable => assume complete disallow.
-      return { fetchedAt: now, allowAll: false, disallowAll: true, parser: null, crawlDelayMs: 0 };
+      // RFC 9309 2.3.1.4: unreachable => assume complete disallow. Cached only briefly (robotsUnreachableTtlMs):
+      // a transient failure must not block a host for the whole process lifetime (all job retries).
+      this.log(`robots.txt unreachable for ${origin} (${res.error ?? `HTTP ${res.status}`}); treating as disallow-all`);
+      return { fetchedAt: now, unreachable: res.error ?? `HTTP ${res.status}`, allowAll: false, disallowAll: true, parser: null, crawlDelayMs: 0 };
     }
     if (res.status >= 400) return { fetchedAt: now, allowAll: true, disallowAll: false, parser: null, crawlDelayMs: 0 };
     const ct = res.contentType ?? "";
@@ -149,7 +157,7 @@ export class PoliteFetcher {
     const cached = this.robots.get(origin);
     if (cached) {
       return cached.then((e) => {
-        if (Date.now() - e.fetchedAt < this.robotsTtlMs) return e;
+        if (Date.now() - e.fetchedAt < (e.unreachable ? this.robotsUnreachableTtlMs : this.robotsTtlMs)) return e;
         this.robots.delete(origin);
         return this.robotsFor(origin);
       });
