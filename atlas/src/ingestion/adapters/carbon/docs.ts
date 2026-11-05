@@ -111,12 +111,19 @@ const PLAIN_KEY_RE = /\b(arrow keys|tab key|enter key|space ?bar|escape key|esc 
 export function keyboardFromSections(secs: Section[], rootTitle: string): DocKeyboard[] {
   const out: DocKeyboard[] = [];
   const seen = new Set<string>();
+  const GENERIC_PARENTS = /^(universal behaviors|interactions|overview|accessibility|what carbon provides|behaviors?)$/i;
   for (const sec of secs) {
-    let context: string | null = null;
-    let location = `${rootTitle} > ${sec.title}`;
+    // When a page has several keyboard sections (one per variant), the nearest meaningful
+    // ancestor heading (e.g. "Clickable") disambiguates them.
+    const ancestor = [...sec.parents].reverse().find((p) => !GENERIC_PARENTS.test(p)) ?? null;
+    const baseContext = secs.length > 1 && ancestor ? ancestor : null;
+    let context: string | null = baseContext;
+    let location = `${rootTitle} > ${[...sec.parents, sec.title].join(" > ")}`;
     const process = (nodes: RootContent[]) => {
       for (const block of proseBlocks(nodes, { ticks: true })) {
-        for (const sentence of splitSentences(block)) {
+        for (const rawSentence of splitSentences(block)) {
+          // `Shift` + `Tab` -> `Shift+Tab`
+          const sentence = rawSentence.replace(/`([^`]+)`\s*\+\s*`([^`]+)`/g, "`$1+$2`");
           const keys = new Set<string>();
           for (const m of sentence.matchAll(/`([^`]+)`/g)) {
             const k = keyLabel(m[1]!);
@@ -126,8 +133,9 @@ export function keyboardFromSections(secs: Section[], rootTitle: string): DocKey
             const k = keyLabel(m[1]!.replace(/ key$/i, ""));
             if (k) keys.add(k);
           }
+          if ([...keys].some((k) => /^Arrow(Up|Down|Left|Right)$/.test(k))) keys.delete("Arrow keys");
           if (!keys.size) continue;
-          const plain = collapse(sentence.replace(/`/g, ""));
+          const plain = collapse(rawSentence.replace(/`/g, ""));
           const action = firstSentences(context ? `${context}: ${plain}` : plain, 220)!;
           const dedupe = action.toLowerCase();
           if (seen.has(dedupe)) continue;
@@ -143,7 +151,7 @@ export function keyboardFromSections(secs: Section[], rootTitle: string): DocKey
         process(buf);
         buf = [];
         context = collapse(textOf(n));
-        location = `${rootTitle} > ${sec.title} > ${context}`;
+        location = `${rootTitle} > ${[...sec.parents, sec.title, context].join(" > ")}`;
         continue;
       }
       buf.push(n);

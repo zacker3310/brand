@@ -1,0 +1,20 @@
+/*
+ * Excerpt from @primer/primitives@11.10.0 dist/css/functional/themes/dark.css — MIT License,
+ * Copyright (c) GitHub Inc. Trimmed for tests.
+ */
+[data-color-mode="dark"][data-dark-theme="dark"],
+[data-color-mode="auto"][data-light-theme="dark"] {
+  --fgColor-accent: #4493f8; /** Accent text for links and interactive elements */
+  --bgColor-default: #0d1117; /** Default background color for pages and main content areas */
+  --bgColor-muted: #151b23; /** Muted background for secondary content areas and subtle grouping */
+  --borderColor-default: #3d444d; /** Default border color for most UI elements */
+  --fgColor-default: #f0f6fc; /** Default text color for primary content and headings */
+  --fgColor-muted: #9198a1; /** Muted text for secondary content and less important information */
+  --codeMirror-gutterMarker-fgColor-default: var(--bgColor-default);
+  --header-fgColor-default: #ffffffb3;
+}
+@media (prefers-color-scheme: dark) {
+  [data-color-mode][data-color-mode="auto"][data-dark-theme="dark"] {
+    --fgColor-default: #f0f6fc; /** Default text color for primary content and headings */
+  }
+}

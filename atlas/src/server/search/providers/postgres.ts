@@ -104,7 +104,8 @@ function buildTextQueries(p: Params, q: ParsedQuery): TextQueries | null {
   const softWords = q.softTerms.filter((w) => SAFE_WORD.test(w));
   const soft = softWords.length ? or(softWords.map((w) => wordQ(p, w))) : null;
   const fuzzyText = q.terms.join(" ");
-  const fuzzy = fuzzyText.length >= 4 && q.terms.length <= 3 ? p.add(fuzzyText) : null;
+  // Trigram fallback for typos; not for literal (quoted) queries.
+  const fuzzy = fuzzyText.length >= 4 && q.terms.length <= 3 && !lastQuoted && !q.text.includes('"') ? p.add(fuzzyText) : null;
   return {
     strict,
     main,
@@ -275,10 +276,23 @@ export function buildSearchSql(q: ParsedQuery): { text: string; values: unknown[
   const where: string[] = [];
   const hasText = !!tq && !!tq.main;
 
-  if (hasText) {
-    const matchQ = or([tq!.strict, tq!.main, ...(tq!.exp ? [tq!.exp] : [])]);
-    where.push(tq!.fuzzy ? `(d.tsv @@ ${matchQ} or d.title % ${tq!.fuzzy})` : `d.tsv @@ ${matchQ}`);
-  }
+  // websearch(strict) ⊆ main (AND, last term prefixed) ⊆ exp (each unit OR'd with its synonyms),
+  // so in "all" mode exp alone (or main) is the match set: one small tsquery for the GIN index.
+  // A "quoted phrase" is literal: the websearch query (with its phrase operator) is then required too.
+  const baseQ = hasText ? (tq!.exp ? (q.matchMode === "all" ? tq!.exp : or([tq!.main, tq!.exp])) : tq!.main) : "";
+  const matchQ = hasText && q.text.includes('"') && q.matchMode === "all" ? `(${baseQ} && ${tq!.strict})` : baseQ;
+  // Candidate set. FTS and trigram matches are separate UNION branches rather than one OR:
+  // prefix lexemes get a flat ~2% selectivity estimate and OR-ing the trigram predicate doubles
+  // it, which tips the planner into a seq scan; as branches, each uses its own GIN index.
+  const COLS = "d.id, d.entity_type, d.entity_id, d.system_slug, d.title, d.subtitle, d.body, d.url, d.facets, d.boost, d.tsv";
+  let source = "search_document d";
+  if (hasText && tq!.fuzzy) {
+    source = `(
+    select ${COLS} from search_document d where d.tsv @@ ${matchQ}
+    union all
+    select ${COLS} from search_document d where d.title % ${tq!.fuzzy} and not (d.tsv @@ ${matchQ})
+  ) d`;
+  } else if (hasText) where.push(`d.tsv @@ ${matchQ}`);
   if (tq?.neg) where.push(`not (d.tsv @@ ${tq.neg})`);
 
   const f = q.filters;
@@ -343,7 +357,7 @@ export function buildSearchSql(q: ParsedQuery): { text: string; values: unknown[
 
   // Short bodies (most descriptions) are highlighted whole; long ones get one fragment.
   const highlight = hasText
-    ? `case when d.body is not null and d.body <> '' then ts_headline('english'::regconfig, d.body, ${or([tq!.strict, tq!.main, ...(tq!.exp ? [tq!.exp] : [])])},
+    ? `case when d.body is not null and d.body <> '' then ts_headline('english'::regconfig, d.body, ${matchQ},
          case when length(d.body) <= ${HL_WHOLE_MAX} then ${p.add(`StartSel=${HL_START}, StopSel=${HL_STOP}, HighlightAll=true`)}
               else ${p.add(`StartSel=${HL_START}, StopSel=${HL_STOP}, MaxWords=26, MinWords=10, ShortWord=2, MaxFragments=1`)} end) end`
     : `null::text`;
@@ -356,8 +370,8 @@ export function buildSearchSql(q: ParsedQuery): { text: string; values: unknown[
 
   const text = `
 with matched_all as (
-  select d.id, d.entity_type, d.entity_id, d.system_slug, d.title, d.subtitle, d.body, d.url, d.facets, d.boost, d.tsv
-  from search_document d
+  select ${COLS}
+  from ${source}
   where ${where.length ? where.join("\n    and ") : "true"}
 ),
 matched as (

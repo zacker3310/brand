@@ -107,17 +107,21 @@ export async function claim(workerId: string, opts: ClaimOptions = {}, db: DB = 
 }
 
 /** Mark a running job succeeded. Returns false if the job was no longer running (cancelled/reaped). */
-export async function complete(jobId: string, result: Record<string, unknown> = {}, db: DB = getDb()): Promise<boolean> {
+export async function complete(jobId: string, result: Record<string, unknown> = {}, opts: { workerId?: string } = {}, db: DB = getDb()): Promise<boolean> {
+  const conds = [eq(ingestionJobs.id, jobId), eq(ingestionJobs.status, "running")];
+  if (opts.workerId) conds.push(eq(ingestionJobs.lockedBy, opts.workerId));
   const rows = await db
     .update(ingestionJobs)
     .set({ status: "succeeded", result, finishedAt: sql`now()`, lockedAt: null, lockedBy: null, lastError: null, updatedAt: sql`now()` })
-    .where(and(eq(ingestionJobs.id, jobId), eq(ingestionJobs.status, "running")))
+    .where(and(...conds))
     .returning({ id: ingestionJobs.id });
   return rows.length > 0;
 }
 
 export interface FailOptions {
   retryable?: boolean;
+  /** Only fail the job if this worker still holds its lock. */
+  workerId?: string;
 }
 
 /**
@@ -127,6 +131,8 @@ export interface FailOptions {
 export async function fail(jobId: string, error: unknown, opts: FailOptions = {}, db: DB = getDb()): Promise<Job | null> {
   const message = errorMessage(error).slice(0, 4000);
   const retryable = opts.retryable ?? true;
+  const conds = [eq(ingestionJobs.id, jobId), eq(ingestionJobs.status, "running")];
+  if (opts.workerId) conds.push(eq(ingestionJobs.lockedBy, opts.workerId));
   const rows = await db
     .update(ingestionJobs)
     .set({
@@ -142,7 +148,7 @@ export async function fail(jobId: string, error: unknown, opts: FailOptions = {}
       lockedBy: null,
       updatedAt: sql`now()`,
     })
-    .where(and(eq(ingestionJobs.id, jobId), eq(ingestionJobs.status, "running")))
+    .where(and(...conds))
     .returning();
   return rows[0] ?? null;
 }
@@ -208,7 +214,9 @@ export async function heartbeat(jobId: string, workerId?: string, db: DB = getDb
 /**
  * Release a running job back to the queue without counting the attempt (graceful shutdown).
  */
-export async function release(jobId: string, db: DB = getDb()): Promise<boolean> {
+export async function release(jobId: string, workerId?: string, db: DB = getDb()): Promise<boolean> {
+  const conds = [eq(ingestionJobs.id, jobId), eq(ingestionJobs.status, "running")];
+  if (workerId) conds.push(eq(ingestionJobs.lockedBy, workerId));
   const rows = await db
     .update(ingestionJobs)
     .set({
@@ -220,7 +228,7 @@ export async function release(jobId: string, db: DB = getDb()): Promise<boolean>
       lastError: "released by worker shutdown",
       updatedAt: sql`now()`,
     })
-    .where(and(eq(ingestionJobs.id, jobId), eq(ingestionJobs.status, "running")))
+    .where(and(...conds))
     .returning({ id: ingestionJobs.id });
   return rows.length > 0;
 }

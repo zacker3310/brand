@@ -1,0 +1,65 @@
+/* Synthetic fixture (ATLAS): exercises parser edge cases. Not from a real system. */
+@charset "utf-8";
+@import url("https://example.com/reset.css");
+@layer reset, tokens;
+
+@layer tokens {
+  :root {
+    --space-1: 4px;
+    --space-2: calc(var(--space-1) * 2);
+    --radius-md: 8px; /* medium radius */
+    --font-sans: "Inter Var", "Helvetica Neue", Arial, sans-serif;
+    --color-white: #fff;
+    --color-gray-900: #111827;
+    --color-blue-500: oklch(62% 0.19 255);
+    --color-bg: var(--color-white);
+    --color-fg: var(--color-gray-900);
+    --color-link: var(--brand-link, var(--color-blue-500));
+    --shadow-focus: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-blue-500);
+    --content: "a;b{c}"; /* string with delimiters */
+    --empty-fallback: var(--not-defined,);
+    --semi-in-url: url("data:image/svg+xml;utf8,<svg></svg>");
+    --important-thing: 1px !important;
+    --json-like: { "a": 1 };
+    --color-dup: red;
+    --color-dup: blue;
+  }
+
+  [data-theme="dark"] {
+    --color-bg: var(--color-gray-900);
+    --color-fg: var(--color-white);
+  }
+
+  .theme-high-contrast {
+    --color-fg: #000;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --color-bg: #000;
+    }
+  }
+
+  @media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+    :root {
+      --color-fg: #fff;
+    }
+  }
+}
+
+/* Component-scoped */
+.Button {
+  color: var(--color-fg);
+  --button-bg: var(--color-blue-500);
+  &:hover {
+    --button-bg: var(--color-gray-900);
+  }
+  .Icon { --icon-size: 16px; }
+}
+
+@keyframes spin { from { --rotation: 0deg; } to { --rotation: 360deg; } }
+@font-face { font-family: X; src: url(x.woff2); }
+@supports (color: oklch(0 0 0)) {
+  :root { --color-accent: oklch(70% 0.2 30); }
+}
+.cds--g100 { --cds-background: #161616; }

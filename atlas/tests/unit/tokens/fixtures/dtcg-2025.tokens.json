@@ -1,0 +1,61 @@
+{
+  "$description": "Synthetic DTCG 2025.10-style fixture (ATLAS). Not from a real system.",
+  "color": {
+    "$type": "color",
+    "white": { "$value": { "colorSpace": "srgb", "components": [1, 1, 1], "hex": "#ffffff" } },
+    "black": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 1, "hex": "#000000" } },
+    "blue": {
+      "500": { "$value": { "colorSpace": "oklch", "components": [0.62, 0.19, 255] } },
+      "700": { "$value": { "colorSpace": "srgb", "components": [0.1, 0.3, 0.7], "hex": "#1a4db3" } }
+    },
+    "shadow": { "$value": { "colorSpace": "srgb", "components": [0, 0, 0], "alpha": 0.2, "hex": "#000000" } },
+    "bg": { "default": { "$value": "{color.white}" } },
+    "fg": { "default": { "$value": "{color.black}" }, "link": { "$value": "{color.blue.700}" } },
+    "accent": { "$value": { "$ref": "#/color/blue/500" } }
+  },
+  "size": {
+    "$type": "dimension",
+    "1": { "$value": { "value": 4, "unit": "px" } },
+    "2": { "$value": { "value": 8, "unit": "px" } },
+    "4": { "$value": { "value": 1, "unit": "rem" } },
+    "control": { "$value": "{size.4}" }
+  },
+  "space": {
+    "inset": { "$type": "dimension", "$value": "{size.1} {size.2}" }
+  },
+  "duration": { "fast": { "$type": "duration", "$value": { "value": 120, "unit": "ms" } } },
+  "easing": { "standard": { "$type": "cubicBezier", "$value": [0.2, 0, 0, 1] } },
+  "font": {
+    "family": { "sans": { "$type": "fontFamily", "$value": ["Inter", "Helvetica Neue", "sans-serif"] } },
+    "weight": { "bold": { "$type": "fontWeight", "$value": 700 } }
+  },
+  "shadow": {
+    "raised": {
+      "$type": "shadow",
+      "$value": [
+        { "color": "{color.shadow}", "offsetX": "{size.1}", "offsetY": { "value": 1, "unit": "px" }, "blur": { "value": 2, "unit": "px" }, "spread": { "value": 0, "unit": "px" } },
+        { "color": "{color.shadow}", "offsetX": { "value": 0, "unit": "px" }, "offsetY": "{size.2}", "blur": "{size.2}", "spread": { "value": 0, "unit": "px" }, "inset": true }
+      ]
+    }
+  },
+  "typography": {
+    "body": {
+      "$type": "typography",
+      "$value": { "fontFamily": "{font.family.sans}", "fontSize": "{size.4}", "fontWeight": "{font.weight.bold}", "lineHeight": 1.5, "letterSpacing": { "value": 0, "unit": "px" } }
+    }
+  },
+  "border": { "focus": { "$type": "border", "$value": { "color": "{color.fg.link}", "width": "{size.1}", "style": "solid" } } },
+  "transition": { "emphasis": { "$type": "transition", "$value": { "duration": "{duration.fast}", "delay": { "value": 0, "unit": "ms" }, "timingFunction": "{easing.standard}" } } },
+  "gradient": { "brand": { "$type": "gradient", "$value": [ { "color": "{color.blue.700}", "position": 0 }, { "color": "{color.white}", "position": 1 } ] } },
+  "broken": {
+    "$type": "color",
+    "missing": { "$value": "{color.does.not.exist}" },
+    "transitive": { "$value": "{broken.missing}" },
+    "partial": { "$type": "dimension", "$value": "{size.1} {size.nope}" },
+    "cycleA": { "$value": "{broken.cycleB}" },
+    "cycleB": { "$value": "{broken.cycleC}" },
+    "cycleC": { "$value": "{broken.cycleA}" },
+    "self": { "$value": "{broken.self}" },
+    "onCycle": { "$value": "{broken.cycleA}" }
+  }
+}

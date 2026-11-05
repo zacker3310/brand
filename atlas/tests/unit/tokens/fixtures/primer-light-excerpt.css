@@ -1,0 +1,27 @@
+/*
+ * Excerpt (a few declarations) from @primer/primitives@11.10.0
+ * dist/css/functional/themes/light.css — MIT License, Copyright (c) GitHub Inc.
+ * https://cdn.jsdelivr.net/npm/@primer/primitives@11.10.0/dist/css/functional/themes/light.css
+ * Trimmed for tests; structure (selectors, trailing comments, var() aliases, @media block) preserved.
+ */
+/**
+ * @spec See /DESIGN_TOKENS_SPEC.md for naming logic and semantic pairings.
+ * @rule Never use raw values (hex/px). Use semantic tokens ONLY.
+ */
+[data-color-mode="light"][data-light-theme="light"],
+[data-color-mode="auto"][data-light-theme="light"] {
+  --bgColor-success-emphasis: #1f883d; /** Strong success background for prominent positive actions */
+  --fgColor-danger: #d1242f; /** Danger text for errors and destructive actions */
+  --bgColor-open-emphasis: var(--bgColor-success-emphasis); /** Strong background for open state badges and labels */
+  --button-danger-fgColor-rest: var(--fgColor-danger);
+  --fgColor-muted: #59636e; /** Muted text for secondary content and less important information */
+  --bgColor-muted: #f6f8fa; /** Muted background for secondary content areas and subtle grouping */
+  --bgColor-default: #ffffff; /** Default background color for pages and main content areas */
+  --fgColor-default: #1f2328; /** Default text color for primary content and headings */
+}
+@media (prefers-color-scheme: dark) {
+  [data-color-mode][data-color-mode="auto"][data-dark-theme="light"] {
+    --bgColor-success-emphasis: #1f883d; /** Strong success background for prominent positive actions */
+    --fgColor-default: #1f2328; /** Default text color for primary content and headings */
+  }
+}

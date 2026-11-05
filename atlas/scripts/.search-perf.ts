@@ -13,7 +13,7 @@ const comps = Array.from({ length: 300 }, (_, i) => {
   return { slug: `stress-${i}`, name: `${t.name} ${i}`, type: t.slug, description: `Synthetic ${t.name.toLowerCase()} number ${i} for load testing.` };
 });
 const cats = ["color", "spacing", "typography", "shape", "motion"];
-const mk = (theme: string) => Array.from({ length: 2000 }, (_, i) => ({ name: `stress.${cats[i % 5]}.${theme}.item${i}`, category: cats[i % 5]!, tier: (i % 3 === 0 ? "primitive" : "semantic") as "primitive" | "semantic", value: `${i}px` }));
+const mk = (theme: string) => Array.from({ length: Number(process.env.PERF_TOKENS ?? 2000) }, (_, i) => ({ name: `stress.${cats[i % 5]}.${theme}.item${i}`, category: cats[i % 5]!, tier: (i % 3 === 0 ? "primitive" : "semantic") as "primitive" | "semantic", value: `${i}px` }));
 await fx.insertSystem(pool, tax, { slug: "stress", name: "Stress Fixture", org: "Stress Org", summary: "Synthetic stress-test system with many records.", frameworks: ["react"], components: comps, tokenSets: [ { slug: "light", name: "Light", theme: "light", tokens: mk("light") }, { slug: "dark", name: "Dark", theme: "dark", tokens: mk("dark") } ] });
 console.log("reindexAll", await reindexAll());
 console.log("reindexAll again", await reindexAll());

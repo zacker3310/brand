@@ -1,0 +1,46 @@
+// Excerpt from @carbon/themes@11.85.0 scss/generated/_themes.scss and
+// scss/generated/_button-tokens.scss (trimmed for tests).
+//
+// Copyright IBM Corp. 2018, 2023
+//
+// This source code is licensed under the Apache-2.0 license found in the
+// LICENSE file in the root directory of this source tree.
+//
+
+@use 'sass:map';
+@use 'sass:string';
+@use '@carbon/layout';
+@use '@carbon/type';
+@use '../utilities';
+
+$white: (
+  ai-aura-end: rgba(255, 255, 255, 0),
+  ai-aura-hover-background: #edf5ff,
+  background: #ffffff,
+  background-active: rgba(141, 141, 141, 0.5),
+  background-brand: #0f62fe,
+  border-subtle-00: #e0e0e0,
+  text-primary: #161616,
+  text-secondary: #525252,
+  color-scheme: string.unquote('light'),
+) !default;
+$white: utilities.merge(
+  $white,
+  layout.$spacing,
+  layout.$fluid-spacing,
+  type.$tokens
+);
+
+$button-danger-secondary: (
+  white-theme: #da1e28,
+  g-10: #da1e28,
+  g-90: #ff8389,
+  g-100: #fa4d56,
+) !default;
+
+$button-disabled: (
+  white-theme: #c6c6c6,
+  g-10: #c6c6c6,
+  g-90: rgba(141, 141, 141, 0.3),
+  g-100: rgba(141, 141, 141, 0.3),
+) !default;

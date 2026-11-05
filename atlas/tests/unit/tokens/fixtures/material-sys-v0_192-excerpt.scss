@@ -1,0 +1,39 @@
+//
+// Copyright 2023 Google LLC
+// SPDX-License-Identifier: Apache-2.0
+//
+// Excerpt from @material/web@2.5.0 tokens/versions/v0_192/_md-sys-color.scss (trimmed for tests).
+//
+// !!! THIS FILE WAS AUTOMATICALLY GENERATED !!!
+
+@use 'sass:map';
+
+@use './md-ref-palette';
+
+$_default-dark: (
+  'md-ref-palette': md-ref-palette.values(),
+);
+
+@function values-dark($deps: $_default-dark) {
+  @return (
+    'background': map.get($deps, 'md-ref-palette', 'neutral6'),
+    'error': map.get($deps, 'md-ref-palette', 'error80'),
+    'on-primary': map.get($deps, 'md-ref-palette', 'primary20'),
+    'shadow': map.get($deps, 'md-ref-palette', 'neutral0'),
+  );
+}
+
+$supported-tokens: (
+  // go/keep-sorted start
+  'background',
+  'error',
+  // go/keep-sorted end
+);
+
+.selector {
+  $local: 1px;
+}
+
+@mixin theme($tokens) {
+  $resolved: map.merge($tokens, ());
+}
