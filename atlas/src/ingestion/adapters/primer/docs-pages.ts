@@ -234,8 +234,14 @@ const CONDITIONAL_RE = /\b(if|should|intended|in the case|for (?:a|the) split)\b
 function sentencesMentioning(text: string, keys: string[]): string {
   const sentences = text.split(/(?<=[.!?])\s+(?=[A-Z0-9"'“(`<])/);
   const lower = keys.map((k) => k.toLowerCase().replace(/^arrow keys$/, "arrow"));
-  const hit = sentences.filter((s) => lower.some((k) => s.toLowerCase().includes(k) || (k === "arrow" && /cursor keys/i.test(s))));
-  return hit.length ? hit.join(" ") : text;
+  const keep = new Set<number>();
+  sentences.forEach((s, i) => {
+    if (!lower.some((k) => s.toLowerCase().includes(k) || (k === "arrow" && /cursor keys/i.test(s)))) return;
+    keep.add(i);
+    // Keep the condition a dependent sentence refers back to ("When X ... . Instead, ...").
+    if (i > 0 && /^(Instead|However|Then|Also|Otherwise|Additionally|This|It|They)\b/.test(s)) keep.add(i - 1);
+  });
+  return keep.size ? sentences.filter((_, i) => keep.has(i)).join(" ") : text;
 }
 
 function keysMentioned($: CheerioAPI, el: Sel, text: string): string[] {

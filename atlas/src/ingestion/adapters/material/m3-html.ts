@@ -69,10 +69,12 @@ export function titleMatchesSlug(name: string, slug: string): boolean {
       .replace(/[^a-z0-9]+/g, " ")
       .trim()
       .split(" ")
-      .map((w) => w.replace(/(es|s)$/, ""))
+      .map((w) => (w.endsWith("ss") ? w : w.replace(/(x|z|ch|sh)es$/, "$1").replace(/s$/, "")))
       .join(" ");
   const a = norm(name);
   const b = norm(slug.replace(/-/g, " "));
+  // initialism ("FAB" ~ "floating-action-button")
+  if (/^[A-Z]{2,6}$/.test(name.trim()) && b.split(" ").map((w) => w[0]).join("") === name.trim().toLowerCase()) return true;
   // word-sequence containment either way ("Top app bar" ~ "app-bars"; "FAB menu" ~ "fab-menu")
   const contains = (x: string, y: string) => ` ${x} `.includes(` ${y} `);
   return a === b || contains(a, b) || contains(b, a);
