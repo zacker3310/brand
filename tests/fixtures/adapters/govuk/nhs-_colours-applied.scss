@@ -1,0 +1,45 @@
+@use "../helpers/colour" as *;
+
+////
+/// NHS colour variables
+///
+/// @group settings/colours
+///
+
+// =========================================================
+// Generic
+// =========================================================
+
+/// Brand colour
+///
+/// @type Colour
+
+$nhsuk-brand-colour: nhsuk-colour("blue") !default;
+
+/// Text colour
+///
+/// @type Colour
+
+$nhsuk-text-colour: nhsuk-colour("black") !default;
+
+/// Text colour (reverse)
+///
+/// @type Colour
+
+$nhsuk-reverse-text-colour: nhsuk-colour("white") !default;
+
+/// Template background colour
+///
+/// Used by components that want to give the illusion of extending
+/// the template background (such as the footer).
+///
+/// @type Colour
+
+$nhsuk-template-background-colour: nhsuk-colour("grey-4") !default;
+
+/// Body background colour
+///
+/// @type Colour
+
+$nhsuk-body-background-colour: nhsuk-colour("grey-5") !default;
+

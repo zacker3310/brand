@@ -32,7 +32,7 @@ const KNOWN_PATTERN_TYPES = new Set(PATTERN_TYPES.map((p) => p.slug));
 
 export interface PublishSummary {
   runStatus: "succeeded" | "partial" | "failed";
-  ingestionStatus: "indexed" | "partial" | "failed";
+  ingestionStatus: "indexed" | "inventory" | "partial" | "failed";
   stats: RunStats;
   bundleIssues: ValidationIssue[];
 }
@@ -243,7 +243,9 @@ export async function publishStage(sc: StageContext): Promise<PublishSummary> {
   const publishedNow = coverage.components + coverage.tokens;
   const fatal = v.blockRemovals;
   const fetchParseErrors = fstats.fetchErrors + pstats.parseErrors;
-  const ingestionStatus: PublishSummary["ingestionStatus"] = publishedNow === 0 ? "failed" : fatal || fetchParseErrors > 0 ? "partial" : "indexed";
+  // Metadata-level adapters (generic) produce an inventory, not a deep index: say so.
+  const deep: PublishSummary["ingestionStatus"] = sc.adapter.id === "generic" ? "inventory" : "indexed";
+  const ingestionStatus: PublishSummary["ingestionStatus"] = publishedNow === 0 ? "failed" : fatal || fetchParseErrors > 0 ? (deep === "inventory" ? "inventory" : "partial") : deep;
   const { tok, comps, pats, facts } = result;
   const promotedCount = comps.promotedKeys.size + tok.promotedKeys.size + pats.promotedKeys.size + (facts && facts !== "failed" ? 1 : 0);
   const runStatus: PublishSummary["runStatus"] =

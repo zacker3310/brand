@@ -1,0 +1,96 @@
+{% extends "layouts/app-layout.njk" %}
+
+{% set pageTitle = "Buttons" %}
+{% set pageSection = "Design system" %}
+{% set subSection = "Components" %}
+{% set pageDescription = "Use buttons to help users carry out an action on a page like starting an application or saving their progress." %}
+{% set theme = "Form elements" %}
+{% set dateUpdated = "November 2026" %}
+{% set backlog_issue_id = "7" %}
+
+{% block beforeContent %}
+  {% include "design-system/components/_breadcrumb.njk" %}
+{% endblock %}
+
+{% block bodyContent %}
+
+  <h2 id="when-to-use-buttons">When to use buttons</h2>
+  <p>Use buttons to start transactional journeys and carry out actions, like saving information.</p>
+
+  <h2 id="when-not-to-use-buttons">When not to use buttons</h2>
+  <p>Do not use buttons as links:
+  <ul>
+    <li>to pages which are not part of your user journey</li>
+    <li>from 1 flat content page to another</li>
+    <li>to external websites</li>
+  </ul>
+  <p>Try not to have multiple buttons on a page. Follow <a href="https://www.gov.uk/service-manual/design/form-structure#start-with-one-thing-per-page">GOV.UK guidance on structuring forms and starting with one thing per page</a>.</p>
+
+  <h2 id="how-to-use-buttons">How to use buttons</h2>
+  <p>We have 5 kinds of button:</p>
+    <ul>
+    <li><a href="#primary-buttons">primary buttons</a></li>
+    <li><a href="#secondary-buttons">secondary buttons</a></li>
+    <li><a href="#warning-buttons">warning buttons</a></li>
+    <li><a href="#smaller-buttons">smaller buttons</a></li>
+    <li><a href="#disabled-buttons">disabled buttons</a></li>
+  </ul>
+
+  <p>Align the primary action button to the left edge of your form.</p>
+  <p>On smaller screens, such as on mobile, buttons stretch across the screen's width. This makes them easier to press for users holding a phone in their right hand.</p>
+  <p>Do not decrease the height of buttons to less than our <a href="#smaller-buttons">smaller buttons</a>.</p>
+
+  <h3 id="primary-buttons">Primary buttons</h3>
+  <p>There are 2 versions of the primary button: the default version and the reverse version.</p>
+
+  {{ designExample({
+    group: "components",
+    item: "buttons",
+    type: "default"
+  }) }}
+
+  <h4 id="when-to-use-a-primary-button">When to use a primary button</h4>
+  <p>Use a primary button for the main call to action on a page, for example to help users start an application or save their progress.</p>
+  <p>Use only 1 primary button on a page. Having more than 1 reduces their impact and makes it harder for users to know what to do next.</p>
+
+  <h4 id="primary-buttons-on-dark-backgrounds">Primary buttons on dark backgrounds</h4>
+  <p>To show a white button on dark backgrounds, add the <code>variant: "reverse"</code> option using Nunjucks. For HTML add the <code>nhsuk-button--reverse</code> class to the button.</p>
+  <p>Make sure all users can see the button. The background colour must have a contrast ratio of at least 3:1 with white to meet <a href="https://www.w3.org/WAI/WCAG22/Understanding/non-text-contrast">WCAG 2.2 success criterion 1.4.11 Non-text Contrast, level AA (W3C)</a>.</p>
+
+  {{ designExample({
+    group: "components",
+    item: "buttons",
+    type: "reverse"
+  }) }}
+
+  <h3 id="secondary-buttons">Secondary buttons</h3>
+  <p>There are 2 versions of the secondary button.</p>
+  <p>By default, the secondary button is transparent and has no colour. Use it on the page background colour (<code>nhsuk-colour("grey-5")</code>).</p>
+
+  {{ designExample({
+    group: "components",
+    item: "buttons",
+    type: "secondary"
+  }) }}
+  <p>You can make the button white when you use it on darker backgrounds. Use the <code>variant: "secondary-solid"</code> Nunjucks option to maintain colour contrast, or in HTML add the <code>nhsuk-button--secondary-solid</code> class.</p>
+
+  {{ designExample({
+    group: "components",
+    item: "buttons",
+    type: "secondary-solid"
+  }) }}
+
+  <h4 id="when-to-use-a-secondary-button">When to use a secondary button</h4>
+  <p>Use a secondary button either:</p>
+  <ul>
+    <li>for secondary actions on a page</li>
+    <li>when an action needs less prominence, for example because it is optional</li>
+  </ul>
+
+  <p>Pages with too many calls to action make it hard for users to know what to do next. Before adding lots of secondary buttons, try to simplify the page or break the content down across multiple pages.</p>
+
+  
+  <h2 id="research">Research</h2>
+  <p>We based our buttons on the GOV.UK designs.</p>
+
+{% endblock %}

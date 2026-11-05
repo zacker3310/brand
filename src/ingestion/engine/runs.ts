@@ -50,7 +50,7 @@ export interface RunCheckpoint {
   discover?: { docs: CheckpointDoc[]; gone: number; completedAt: string };
   fetch?: { done: Record<string, FetchOutcome> };
   parse?: { done: Record<string, ParseOutcome> };
-  publish?: { ingestionStatus: "indexed" | "partial" | "failed"; completedAt: string };
+  publish?: { ingestionStatus: "indexed" | "inventory" | "partial" | "failed"; completedAt: string };
 }
 
 export async function getRun(runId: string, db: DB = getDb()): Promise<Run | null> {
@@ -174,7 +174,7 @@ export async function restoreSystemStatus(systemId: string, db: DB = getDb()) {
          order by r.finished_at desc nulls last limit 1) as last_status,
       exists (select 1 from ingestion_run r where r.design_system_id = ${systemId} and r.status = 'failed') as any_failed`);
   const row = res.rows[0] as { published: boolean; last_status: string | null; any_failed: boolean };
-  const status = row.published ? (row.last_status === "indexed" || row.last_status === "partial" ? row.last_status : "partial") : row.any_failed ? "failed" : "not_started";
+  const status = row.published ? (row.last_status === "indexed" || row.last_status === "partial" || row.last_status === "inventory" ? row.last_status : "partial") : row.any_failed ? "failed" : "not_started";
   await db.execute(sql`update design_system set ingestion_status = ${status}::ingestion_status where id = ${systemId} and ingestion_status in ('queued', 'running')`);
 }
 

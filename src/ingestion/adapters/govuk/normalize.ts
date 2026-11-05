@@ -157,7 +157,7 @@ const STATE_MODIFIERS: Record<string, { name: string; canonical: string }> = {
 };
 const NON_VARIANT_MODIFIER = /^(js-|no-js|hidden$|visually-hidden|visible$|with-|has-|is-)/;
 const SIZE_MODIFIER = /^(small|large|s|m|l|xl|width-.+|fixed-width.*|full-width)$/;
-const TONE_MODIFIER = /^(grey|green|turquoise|teal|blue|light-blue|purple|pink|magenta|red|orange|yellow|brown|black|white)$/;
+const TONE_MODIFIER = /^(dark-|pale-|light-)?(grey|green|turquoise|teal|blue|purple|pink|magenta|red|orange|yellow|warm-yellow|aqua-green|brown|black|white)$/;
 
 function variantAxis(mod: string): string {
   if (SIZE_MODIFIER.test(mod)) return "size";
@@ -227,9 +227,13 @@ function buildComponent(item: PlanItem, f: ByComponent, cx: Ctx): NormalizedComp
   }
   coverage.description = description ? "documented" : f.docs || f.readme ? "not-documented" : "not-extracted";
 
-  // Lifecycle: docs status tag; no tag = stable per the documented lifecycle rule.
+  // Lifecycle: docs status tag; no tag = stable per the documented lifecycle rule; a page stating the
+  // component no longer exists = deprecated.
   let lifecycle: NormalizedComponent["lifecycle"] = "unknown";
-  if (doc?.status) {
+  if (doc?.withdrawn) {
+    lifecycle = "deprecated";
+    ev.push(evidence("lifecycle", f.docs!.ev, "docs-markdown", 0.9, { location: `${f.docs!.ev.location}#intro`, excerpt: doc.withdrawn }));
+  } else if (doc?.status) {
     lifecycle = lifecycleFromStatus(doc.status);
     ev.push(evidence("lifecycle", f.docs!.ev, "docs-markdown", 0.95, { location: `${f.docs!.ev.location}#frontmatter.status`, excerpt: `status.type: ${doc.status}${doc.statusDate ? ` (${doc.statusDate})` : ""}` }));
   } else if (doc && cx.lifecycle?.rules.stableHasNoTag) {

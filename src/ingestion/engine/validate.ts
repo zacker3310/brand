@@ -54,14 +54,19 @@ const FRAMEWORK_SLUGS = new Set(FRAMEWORKS.map((f) => f.slug));
 
 /** Site-navigation / marketing strings that are never component names. */
 const NAV_TEXT =
-  /^(overview|introduction|intro|getting started|get started|start here|learn more|read more|see more|view all|show more|home|homepage|blog|pricing|plans|about|about us|contact|contact us|changelog|change log|release notes|releases|whats new|what's new|faq|faqs|docs|documentation|support|help center|community|careers|jobs|privacy|privacy policy|terms|terms of use|terms of service|cookies|cookie policy|cookie settings|download|downloads|resources|showcase|contributing|contribute|roadmap|news|sponsor|sponsors|team|license|all components|components|component overview|foundations|patterns|guidelines|design tokens|tokens|usage|examples|playground|best practices|principles|templates|sign up|sign up for free|try it free|try for free|subscribe|follow us|github|twitter|discord|slack|toggle navigation|skip to main content|on this page|table of contents|previous|next|edit this page|search docs|search documentation)$/i;
+  /^(overview|introduction|intro|getting started|get started|start here|home|homepage|blog|pricing|plans|about|about us|contact|contact us|changelog|change log|release notes|releases|whats new|what's new|faq|faqs|docs|documentation|support|help center|community|careers|jobs|privacy|privacy policy|terms|terms of use|terms of service|cookies|cookie policy|cookie settings|resources|showcase|contributing|contribute|roadmap|news|sponsor|sponsors|team|license|all components|components|component overview|foundations|patterns|guidelines|design tokens|tokens|usage|examples|playground|best practices|principles|templates|sign up|sign up for free|try it free|try for free|follow us|github|twitter|discord|slack|toggle navigation|edit this page|search docs|search documentation)$/i;
+
+/** Navigation-like phrases that are also legitimate component names in some systems: warn, never quarantine. */
+const NAV_TEXT_AMBIGUOUS = /^(learn more|read more|see more|view all|show more|download|downloads|table of contents|on this page|previous|next|skip to main content|subscribe)$/i;
 
 export function suspiciousName(name: string): { severity: "error" | "warning"; reason: string } | null {
   const n = name.trim().replace(/\s+/g, " ");
   if (!n) return { severity: "error", reason: "empty name" };
   if (/<[a-z][^>]*>/i.test(n)) return { severity: "error", reason: "name contains HTML markup" };
   if (/https?:\/\/|www\./i.test(n)) return { severity: "error", reason: "name contains a URL" };
-  if (NAV_TEXT.test(n.replace(/[.!?:→›»]+$/u, "").trim())) return { severity: "error", reason: "name looks like site navigation or marketing text" };
+  const bare = n.replace(/[.!?:→›»]+$/u, "").trim();
+  if (NAV_TEXT.test(bare)) return { severity: "error", reason: "name looks like site navigation or marketing text" };
+  if (NAV_TEXT_AMBIGUOUS.test(bare)) return { severity: "warning", reason: "name resembles navigation text (also a real component name in some systems)" };
   if (/[©®™]|[!?]$|→|›|»/u.test(n)) return { severity: "warning", reason: "name contains marketing/navigation punctuation" };
   const words = n.split(" ").length;
   if (words > 6 || n.length > 60) return { severity: "warning", reason: "name is unusually long for a component" };

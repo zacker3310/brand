@@ -7,9 +7,14 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { COMPONENT_FIELDS, NormalizedBundle } from "@/lib/contracts";
 import { adapter, parseListing } from "@/ingestion/adapters/govuk";
+import { NHS } from "@/ingestion/adapters/govuk/constants";
+import { defaultFixtureHtml } from "@/ingestion/adapters/govuk";
 import {
   docsLinkTarget,
   keyboardSentences,
+  parseNhsComponentDoc,
+  parseNhsHome,
+  parseNhsPrinciples,
   lifecycleFromStatus,
   parseComponentDoc,
   parseDocsColours,
@@ -22,7 +27,7 @@ import {
   sitemapSlugs,
 } from "@/ingestion/adapters/govuk/docs";
 import { findExampleCalls, stripNunjucks } from "@/ingestion/adapters/govuk/markdown";
-import { humanizeMethod, parseAllMjs, parseComponentJs, parsePrototypeKitConfig, parseTemplate } from "@/ingestion/adapters/govuk/markup";
+import { humanizeMethod, parseAllMjs, parseComponentJs, parseMacroNjk, parsePrototypeKitConfig, parseTemplate } from "@/ingestion/adapters/govuk/markup";
 import { makeRefFixer, normalizeGovuk, planComponents, type Ev, type GovukFragment } from "@/ingestion/adapters/govuk/normalize";
 import { defaultFromDescription, optionToComponent, parseMacroOptionsJson, parseParamsYaml, statesFromExamples, statesFromParams } from "@/ingestion/adapters/govuk/params";
 import { analyseComponentScss, declaredCustomProperties, parseSassDoc, parseSettingsFile, rewriteScssValue, unwrapDoubleParens } from "@/ingestion/adapters/govuk/scss";
@@ -443,5 +448,121 @@ describe("govuk normalize", () => {
   it("declares the registry slug it handles", () => {
     expect(adapter.id).toBe("govuk");
     expect(adapter.systems).toContain("govuk-design-system");
+  });
+});
+
+/* ---------------------------------- NHS ----------------------------------- */
+
+describe("nhs profile", () => {
+  const NHS_ORIGIN = "https://service-manual.nhs.uk";
+
+  it("parses NHS service manual page templates (set variables, static HTML sections, designExample calls)", () => {
+    const d = parseNhsComponentDoc(fx("nhs-buttons-index.njk"));
+    expect(d.title).toBe("Buttons");
+    expect(d.description).toBe("Use buttons to help users carry out an action on a page like starting an application or saving their progress.");
+    expect(d.whenToUse).toBe("Use buttons to start transactional journeys and carry out actions, like saving information.");
+    expect(d.sections.map((s) => [s.depth, s.title]).slice(0, 4)).toEqual([
+      [2, "When to use buttons"],
+      [2, "When not to use buttons"],
+      [2, "How to use buttons"],
+      [3, "Primary buttons"],
+    ]);
+    expect(d.sections.find((s) => s.title === "Primary buttons on dark backgrounds")?.codes).toContain("nhsuk-button--reverse");
+    expect(d.examples.map((e) => [e.example, e.heading]).slice(0, 2)).toEqual([
+      ["default", "Primary buttons"],
+      ["reverse", "Primary buttons on dark backgrounds"],
+    ]);
+    expect(d.a11y.wcag).toEqual(["1.4.11"]);
+    expect(d.htmlAndNunjucks).toBe(true);
+    expect(d.withdrawn).toBeNull();
+  });
+
+  it("detects withdrawn components and reads principles and the landing page description", () => {
+    expect(parseNhsComponentDoc(fx("nhs-review-date-index.njk")).withdrawn).toBe("We no longer have a review date component.");
+    const p = parseNhsPrinciples(fx("nhs-design-principles.njk"));
+    expect(p.title).toBe("Design principles");
+    expect(p.principles).toEqual([
+      { name: "Put people at the heart of everything you do", anchor: "put-people-at-the-heart-of-everything-you-do" },
+      { name: "Design for the outcome", anchor: "design-for-the-outcome" },
+    ]);
+    expect(parseNhsHome(fx("nhs-design-system-index.njk")).description).toMatch(/^Build consistent, accessible NHS services/);
+  });
+
+  it("maps NHS docs links and sitemap slugs under /design-system", () => {
+    expect(docsLinkTarget("/design-system/patterns/know-that-a-page-is-up-to-date")).toEqual({ section: "patterns", slug: "know-that-a-page-is-up-to-date" });
+    const s = sitemapSlugs(parseSitemapLocs(fx("nhs-sitemap.xml")), NHS_ORIGIN, "/design-system");
+    expect(s.components).toEqual(["buttons", "hint-text", "review-date", "text-input"]);
+    expect(s.patterns).toEqual(["check-answers"]);
+  });
+
+  it("parses NHS settings (flat palette, applied colours, global settings) with the nhsuk prefix", () => {
+    const pal = parseSettingsFile(fx("nhs-_colours-palette.scss"), { prefix: "nhsuk" });
+    expect(pal.tokens.map((t) => t.name)).toContain("nhsuk-colours.blue");
+    expect(pal.tokens.some((t) => /aliases|deprecated/.test(t.name))).toBe(false);
+    const ap = parseSettingsFile(fx("nhs-_colours-applied.scss"), { prefix: "nhsuk" });
+    expect(ap.tokens[0]).toMatchObject({ name: "nhsuk-brand-colour", rawValue: "{nhsuk-colours.blue}", references: ["nhsuk-colours.blue"], doc: "Brand colour" });
+    const g = parseSettingsFile(fx("nhs-_globals.scss"), { prefix: "nhsuk" });
+    expect(g.tokens.find((t) => t.name === "nhsuk-font-family")).toMatchObject({ rawValue: "{nhsuk-font}, {nhsuk-font-fallback}", references: ["nhsuk-font", "nhsuk-font-fallback"] });
+    expect(g.tokens.some((t) => /-path$/.test(t.name))).toBe(false);
+    expect(g.skipped.map((x) => x.reason)).toContain("configuration path or interpolated string");
+    expect(rewriteScssValue("nhsuk-spacing(3)", { prefix: "nhsuk" }).references).toEqual(["nhsuk-spacing-points.3"]);
+  });
+
+  it("reads modifiers, macro names and default fixture HTML from nhsuk-frontend files", () => {
+    const a = analyseComponentScss(fx("nhs-button-index.scss"), "nhsuk");
+    expect(a.modifiers.map((m) => m.modifier)).toEqual(["secondary", "secondary-solid", "reverse", "warning", "brand", "login"]);
+    expect(a.usages.some((u) => u.tokenName === "nhsuk-border-width-form-element" && u.property === "border")).toBe(true);
+    expect(parseMacroNjk(fx("nhs-button-macro.njk"))).toBe("button");
+    expect(defaultFixtureHtml(fx("nhs-button-fixtures.json"))).toMatch(/^<button class="nhsuk-button"/);
+    const l = parseListing(fx("nhs-listing.json"), NHS);
+    expect(l.components.map((c) => c.name)).toEqual(["button", "hint", "input"]);
+    expect(l.settingsFiles).toEqual(["_colours-palette.scss", "_spacing.scss"]);
+  });
+
+  it("normalizes an NHS bundle: docs slugs as component slugs, deprecated lifecycle, cssVar from compiled CSS", () => {
+    const l = parseListing(fx("nhs-listing.json"), NHS);
+    const s = sitemapSlugs(parseSitemapLocs(fx("nhs-sitemap.xml")), NHS_ORIGIN, "/design-system");
+    const e = (u: string) => ev(u, u.replace(/^https:\/\/[^/]+\/[^/]+\/[^/]+\/(blob\/[^/]+\/)?/, ""));
+    const frags: { data: GovukFragment }[] = [
+      { t: "pkg", name: "nhsuk-frontend", version: "10.7.1", license: "MIT", publishedAt: "2026-10-29T12:31:41.146Z", ev: e("https://www.npmjs.com/package/nhsuk-frontend/v/10.7.1") },
+      { t: "listing", version: "10.7.1", ...l, ev: e("https://www.jsdelivr.com/package/npm/nhsuk-frontend?version=10.7.1") },
+      { t: "sitemap", ...s, ev: e(`${NHS_ORIGIN}/sitemap.xml`) },
+      { t: "docs-component", docSlug: "buttons", data: parseNhsComponentDoc(fx("nhs-buttons-index.njk")), ev: e("https://github.com/nhsuk/nhsuk-service-manual/blob/main/app/views/design-system/components/buttons/index.njk") },
+      { t: "docs-component", docSlug: "review-date", data: parseNhsComponentDoc(fx("nhs-review-date-index.njk")), ev: e("https://github.com/nhsuk/nhsuk-service-manual/blob/main/app/views/design-system/components/review-date/index.njk") },
+      { t: "params", name: "button", data: parseMacroOptionsJson(fx("nhs-button-macro-options.json")), fromTag: false, version: "10.7.1", ev: e("https://cdn.jsdelivr.net/npm/nhsuk-frontend@10.7.1/dist/nhsuk/components/button/macro-options.json") },
+      { t: "template", name: "button", data: parseTemplate('<button class="nhsuk-button">'), fromTag: true, ev: e("https://github.com/nhsuk/nhsuk-frontend/blob/v10.7.1/packages/nhsuk-frontend/src/nhsuk/components/button/template.njk") },
+      { t: "macro", name: "button", macroName: parseMacroNjk(fx("nhs-button-macro.njk")), ev: e("https://cdn.jsdelivr.net/npm/nhsuk-frontend@10.7.1/dist/nhsuk/components/button/macro.njk") },
+      { t: "styles", name: "button", file: "dist/nhsuk/components/button/_index.scss", data: analyseComponentScss(fx("nhs-button-index.scss"), "nhsuk"), ev: e("https://cdn.jsdelivr.net/npm/nhsuk-frontend@10.7.1/dist/nhsuk/components/button/_index.scss") },
+      { t: "settings", file: "_colours-palette.scss", set: "colour-palette", order: 0, data: parseSettingsFile(fx("nhs-_colours-palette.scss"), { prefix: "nhsuk" }), version: "10.7.1", ev: e("https://cdn.jsdelivr.net/npm/nhsuk-frontend@10.7.1/dist/nhsuk/core/settings/_colours-palette.scss") },
+      { t: "settings", file: "_colours-applied.scss", set: "applied-colours", order: 0, data: parseSettingsFile(fx("nhs-_colours-applied.scss"), { prefix: "nhsuk" }), version: "10.7.1", ev: e("https://cdn.jsdelivr.net/npm/nhsuk-frontend@10.7.1/dist/nhsuk/core/settings/_colours-applied.scss") },
+      { t: "css", customProperties: ["--nhsuk-blue-colour", "--nhsuk-brand-colour"], ev: e("https://cdn.jsdelivr.net/npm/nhsuk-frontend@10.7.1/dist/nhsuk/nhsuk-frontend.min.css") },
+      { t: "home", data: parseNhsHome(fx("nhs-design-system-index.njk")), ev: e("https://github.com/nhsuk/nhsuk-service-manual/blob/main/app/views/design-system/index.njk") },
+      { t: "principles", ...parseNhsPrinciples(fx("nhs-design-principles.njk")), ev: e("https://github.com/nhsuk/nhsuk-service-manual/blob/main/app/views/design-system/design-principles.njk") },
+    ].map((data) => ({ data: data as GovukFragment }));
+    const { bundle } = normalizeGovuk("nhs-design-system", frags);
+    expect(NormalizedBundle.safeParse(bundle).success).toBe(true);
+    // Planned components without any parsed source document (hint-text, text-input here) are skipped.
+    expect(bundle.components.map((c) => c.slug)).toEqual(["buttons", "review-date"]);
+    const b = bundle.components.find((c) => c.slug === "buttons")!;
+    expect(b).toMatchObject({ name: "Buttons", docsUrl: `${NHS_ORIGIN}/design-system/components/buttons`, lifecycle: "unknown", canonicalType: "button" });
+    expect(b.sourceCodeUrl).toBe("https://github.com/nhsuk/nhsuk-frontend/tree/v10.7.1/packages/nhsuk-frontend/src/nhsuk/components/button");
+    expect(b.frameworks.map((f) => [f.slug, f.packageName, f.importName])).toEqual([
+      ["nunjucks", "nhsuk-frontend", "button"],
+      ["html-css", "nhsuk-frontend", "nhsuk-button"],
+    ]);
+    expect(b.variants.find((v) => v.name === "reverse")?.description).toMatch(/nhsuk-button--reverse/);
+    expect(b.examples[0]!.url).toBe(`${NHS_ORIGIN}/design-example/components/buttons/default`);
+    expect(bundle.components.find((c) => c.slug === "review-date")?.lifecycle).toBe("deprecated");
+    const ap = bundle.tokenSets.find((x) => x.slug === "applied-colours")!;
+    expect(ap.tokens[0]).toMatchObject({ name: "nhsuk-brand-colour", cssVar: "--nhsuk-brand-colour", tier: "semantic", type: "color" });
+    expect(bundle.tokenSets.find((x) => x.slug === "colour-palette")?.tokens.find((t) => t.name === "nhsuk-colours.blue")?.cssVar).toBe("--nhsuk-blue-colour");
+    for (const set of bundle.tokenSets) expect(set).toMatchObject({ packageName: "nhsuk-frontend", license: { slug: "mit" }, theme: null });
+    expect(bundle.facts?.principles?.[0]?.sourceUrl).toBe(`${NHS_ORIGIN}/design-system/design-principles#put-people-at-the-heart-of-everything-you-do`);
+    expect(bundle.facts?.philosophy).toMatch(/^ATLAS summary/);
+    expect(validateGovuk(bundle, { limit: 4, profile: NHS }).filter((i) => i.severity === "error")).toEqual([]);
+  });
+
+  it("handles both registry systems", () => {
+    expect(adapter.systems).toEqual(["govuk-design-system", "nhs-design-system"]);
   });
 });

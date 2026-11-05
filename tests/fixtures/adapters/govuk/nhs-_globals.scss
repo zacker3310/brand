@@ -1,0 +1,97 @@
+@use "sass:list";
+@use "sass:math";
+
+////
+/// Globals
+///
+/// @group settings/globals
+////
+
+// =========================================================
+// Asset paths
+// =========================================================
+
+/// Path to the assets directory, with trailing slash.
+///
+/// @type String
+
+$nhsuk-assets-path: "/assets/" !default;
+
+/// Path or URL to the images folder, with trailing slash.
+///
+/// @type String
+
+$nhsuk-images-path: "#{$nhsuk-assets-path}images/" !default;
+
+/// Path or URL to the fonts folder, with trailing slash.
+///
+/// @type String
+
+$nhsuk-fonts-path: "https://assets.nhs.uk/fonts/" !default;
+
+// =========================================================
+// Font families
+// =========================================================
+
+// @deprecated To be removed in v11.0
+$nhsuk-font: "Frutiger W01" !default;
+
+// @deprecated To be removed in v11.0
+$nhsuk-font-fallback: arial, sans-serif !default;
+
+// @deprecated To be removed in v11.0
+$nhsuk-include-font-face: true !default;
+
+/// Font families to use for all typography on screen media
+///
+/// @type List
+
+$nhsuk-font-family: $nhsuk-font, $nhsuk-font-fallback !default;
+
+/// Font families to use for print media
+///
+/// We recommend that you use system fonts when printing. This will avoid issues
+/// with some printer drivers and operating systems.
+///
+/// @type List
+
+$nhsuk-font-family-print: sans-serif !default;
+
+/// Include the default @font-face declarations
+///
+/// Defaults to true if "Frutiger W01" appears in the $nhsuk-font-family
+/// setting.
+///
+/// @type Boolean
+
+$nhsuk-include-default-font-face: $nhsuk-include-font-face !default;
+
+@if not list.index($nhsuk-font-family, "Frutiger W01") {
+  $nhsuk-include-default-font-face: false;
+}
+
+// =========================================================
+// Font weights
+// =========================================================
+
+// @deprecated To be removed in v11.0
+$nhsuk-font-normal: 400 !default;
+
+// @deprecated To be removed in v11.0
+$nhsuk-font-bold: 600 !default;
+
+/// Font weight for normal typography
+///
+/// @type Number
+
+$nhsuk-font-weight-normal: $nhsuk-font-normal !default;
+
+/// Font weight for bold typography
+///
+/// @type Number
+
+$nhsuk-font-weight-bold: $nhsuk-font-bold !default;
+
+/// Feature flag for Apple Dynamic Type
+///
+/// When set to true, 

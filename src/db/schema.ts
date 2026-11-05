@@ -96,6 +96,7 @@ export const ingestionStatus = pgEnum("ingestion_status", [
   "queued",
   "running",
   "metadata_only", // registry facts verified, no deep adapter
+  "inventory", // component inventory (names + docs links) from the generic adapter; no deep fields
   "partial", // some documents ingested, coverage incomplete
   "indexed", // adapter completed and published component/token data
   "failed",

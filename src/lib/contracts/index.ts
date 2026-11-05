@@ -60,6 +60,7 @@ export const INGESTION_STATUSES = [
   "queued",
   "running",
   "metadata_only",
+  "inventory",
   "partial",
   "indexed",
   "failed",

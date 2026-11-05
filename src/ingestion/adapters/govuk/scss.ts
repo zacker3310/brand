@@ -279,6 +279,7 @@ export function parseSettingsFile(text: string, opts: { entryComments?: boolean;
         return;
       }
       if (val.kind === "map") {
+        if (!val.entries.length) return;
         const depMsg = val.entries.find((e) => e.key === "deprecation-message" && e.value.kind === "scalar");
         for (const e of val.entries) {
           if (e === depMsg) continue;
@@ -291,6 +292,8 @@ export function parseSettingsFile(text: string, opts: { entryComments?: boolean;
         }
         return;
       }
+      // Empty maps/lists (e.g. `$nhsuk-colours-aliases: () !default;`) are extension points, not tokens.
+      if (val.kind === "list" && val.items.length === 0) return;
       const rawText = val.kind === "scalar" ? val.raw : listText(val);
       const { rawValue, references } = rewriteScssValue(rawText, { prefix });
       tokens.push({ ...base, name: path.join("."), path, rawValue, references, comment: opts.entryComments && depth > 0 ? commentAbove(lines, line) : null, line });

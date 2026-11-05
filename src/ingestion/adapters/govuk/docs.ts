@@ -66,6 +66,8 @@ export interface ComponentDoc {
   status: string | null;
   statusDate: string | null;
   archived: boolean;
+  /** Sentence stating the component was withdrawn ("We no longer have a review date component."). */
+  withdrawn: string | null;
   whenToUse: string | null;
   whenNotToUse: string | null;
   howItWorks: string | null;
@@ -383,6 +385,7 @@ const WHEN_TO_USE = /^when to use\b/i;
 const WHEN_NOT_TO_USE = /^when not to use\b/i;
 const HOW = /^how (it|they) works?\b|^how to use\b/i;
 const RESEARCH = /^research\b/i;
+const WITHDRAWN_RE = /\b(we )?no longer (have|recommend|support|maintain)\b[^.]*\bcomponent\b|\bthis component (has been|is) (deprecated|removed|retired)\b/i;
 
 /** Build ComponentDoc from the intermediate representation (both page formats). */
 export function componentDocFromIR(ir: DocIR): ComponentDoc {
@@ -399,6 +402,8 @@ export function componentDocFromIR(ir: DocIR): ComponentDoc {
   const wcag = new Set<string>();
   for (const b of flat) for (const m of b.matchAll(WCAG_RE)) wcag.add(m[1]!);
   const joined = collapse(flat.join(" "));
+  const lead = [fmDesc, introText].filter((x): x is string => !!x).flatMap((t) => splitSentences(t));
+  const withdrawn = lead.find((x) => WITHDRAWN_RE.test(x)) ?? null;
   return {
     title: fmStr(ir, "title", "pageTitle"),
     description: fmDesc ? firstSentences(fmDesc, 280) : introText ? firstSentences(introText, 280) : null,
@@ -407,6 +412,7 @@ export function componentDocFromIR(ir: DocIR): ComponentDoc {
     status: status.type,
     statusDate: status.date,
     archived: /archived/i.test(layout) || ir.fm.ignoreInSitemap === true,
+    withdrawn: withdrawn ? clip(withdrawn, 280) : null,
     whenToUse: sectionText(ir, WHEN_TO_USE),
     whenNotToUse: sectionText(ir, WHEN_NOT_TO_USE),
     howItWorks: sectionText(ir, HOW),
