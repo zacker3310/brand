@@ -416,6 +416,18 @@ export const NormalizedBundle = z.object({
 });
 export type NormalizedBundle = z.infer<typeof NormalizedBundle>;
 
+/**
+ * token.resolved_value for alias_state "theme-dependent": a theme-agnostic token (e.g. a component token)
+ * whose target only exists in themed sets resolves to a different value per themed set.
+ * Keys are themed token set slugs (e.g. "m3-sys-color-light", "theme-g100").
+ */
+export interface ThemeDependentValue {
+  $themes: Record<string, unknown>;
+}
+export function isThemeDependentValue(v: unknown): v is ThemeDependentValue {
+  return !!v && typeof v === "object" && !Array.isArray(v) && "$themes" in v && typeof (v as ThemeDependentValue).$themes === "object";
+}
+
 export interface ValidationIssue {
   entityKind: "component" | "token-set" | "token" | "pattern" | "system-facts" | "bundle";
   entityKey: string;

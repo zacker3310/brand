@@ -1,0 +1,1465 @@
+[
+  {
+    "rank": null,
+    "slug": "gitlab-pajamas",
+    "name": "Pajamas Design System",
+    "aliases": [
+      "Pajamas",
+      "GitLab Pajamas",
+      "GitLab UI"
+    ],
+    "organization": {
+      "slug": "gitlab",
+      "name": "GitLab Inc.",
+      "websiteUrl": "https://about.gitlab.com/"
+    },
+    "category": "design-system",
+    "summary": "GitLab's design system for the GitLab product and brand, combining product and brand guidelines, design tokens and a Figma UI kit with GitLab UI, a Vue component library published as @gitlab/ui.",
+    "homepageUrl": "https://design.gitlab.com/",
+    "docsUrl": "https://design.gitlab.com/components/",
+    "repositoryUrl": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com",
+    "figmaUrl": "https://www.figma.com/community/file/781156790581391771/",
+    "storybookUrl": "https://design.gitlab.com/storybook/",
+    "packages": [
+      {
+        "name": "@gitlab/ui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gitlab/ui"
+      },
+      {
+        "name": "@gitlab/svgs",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@gitlab/svgs"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/raw/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Monorepo LICENSE is the MIT permission text, 'Copyright GitLab Inc.'; npm @gitlab/ui and @gitlab/svgs declare MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "138.11.0",
+    "latestReleaseAt": "2026-11-04T13:50:05.187Z",
+    "frameworks": [
+      {
+        "slug": "vue",
+        "packageName": "@gitlab/ui",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "design-tokens",
+      "figma-kit",
+      "developer-tools"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "airbnb-dls",
+    "replacedBy": null,
+    "notes": "Replacement for airbnb-dls (rejected: no public documentation). Distinct verified system: GitLab's own first-party design system; no existing registry entry matches its name, aliases, organization or URLs. Components ship as GitLab UI (@gitlab/ui, Vue); the former standalone gitlab-org/gitlab-ui project now states that development moved into the design.gitlab.com monorepo, which is recorded as repositoryUrl (hosted on gitlab.com, not GitHub). Vue support from the Develop page: 'yarn create @gitlab/ui' starter uses Vue 3 via @vue/compat by default and Vue 2 is also supported. figmaUrl comes from the homepage resource link 'Pajamas UI Kit (Figma)' (figma.com itself answered 403); the repo README links a separate Figma design file for the same UI kit. storybookUrl is the Storybook linked from the homepage. Maintenance 'active': @gitlab/ui 138.11.0 published 2026-11-04. latestVersion = @gitlab/ui.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://design.gitlab.com/",
+        "status": 200,
+        "finalUrl": "https://design.gitlab.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:28.127Z",
+        "method": "http-check",
+        "note": "title 'Pajamas Design System'; meta 'Resources, components, and design guidelines behind GitLab'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design.gitlab.com/components/overview",
+        "status": 200,
+        "finalUrl": "https://design.gitlab.com/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:28.427Z",
+        "method": "http-check",
+        "note": "redirects to /components/; title 'Component collection | Pajamas Design System'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://design.gitlab.com/get-started/develop/",
+        "status": 200,
+        "finalUrl": "https://design.gitlab.com/get-started/develop/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:07.121Z",
+        "method": "page-content",
+        "note": "Develop page: 'yarn create @gitlab/ui' starter; uses Vue 3 (@vue/compat) by default, 'Vue 2 is also supported'"
+      },
+      {
+        "field": "tags",
+        "url": "https://design.gitlab.com/product-foundations/design-tokens",
+        "status": 200,
+        "finalUrl": "https://design.gitlab.com/product-foundations/design-tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:09.457Z",
+        "method": "http-check",
+        "note": "title 'Design tokens overview | Pajamas Design System'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com",
+        "status": 200,
+        "finalUrl": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:27.960Z",
+        "method": "http-check",
+        "note": "title 'GitLab.org / gitlab-services / Pajamas Design System'; description 'GitLab's open source Design System...'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://gitlab.com/gitlab-org/gitlab-ui",
+        "status": 200,
+        "finalUrl": "https://gitlab.com/gitlab-org/gitlab-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:27.660Z",
+        "method": "http-check",
+        "note": "former GitLab UI project; description 'Development of this project has moved to https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com'"
+      },
+      {
+        "field": "license",
+        "url": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/raw/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/raw/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:38.377Z",
+        "method": "repo-metadata",
+        "note": "LICENSE: MIT permission text, 'Copyright GitLab Inc.'"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://design.gitlab.com/",
+        "status": 200,
+        "finalUrl": "https://design.gitlab.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:13.982Z",
+        "method": "page-content",
+        "note": "official homepage resources list links 'Pajamas UI Kit (Figma)' to https://www.figma.com/community/file/781156790581391771/"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/781156790581391771/",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/781156790581391771/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:39:01.771Z",
+        "method": "http-check",
+        "note": "figma.com returned 403 (CloudFront) to the automated check; URL recorded from the official homepage link"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/raw/main/README.md",
+        "status": 200,
+        "finalUrl": "https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/raw/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:38.677Z",
+        "method": "repo-metadata",
+        "note": "README: Pajamas pulls components from GitLab UI (packages/gitlab-ui); links 'Figma UI kit' as https://www.figma.com/file/qEddyqCrI7kPSBjGmwkZzQ/Pajamas-UI-Kit (design file, not recorded)"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://design.gitlab.com/storybook",
+        "status": 200,
+        "finalUrl": "https://design.gitlab.com/storybook/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:08.857Z",
+        "method": "http-check",
+        "note": "title 'Storybook'; linked as 'Storybook' from the homepage resources list"
+      },
+      {
+        "field": "package:@gitlab/ui",
+        "url": "https://www.npmjs.com/package/@gitlab/ui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:29.561Z",
+        "method": "package-metadata",
+        "note": "npm latest 138.11.0 published 2026-11-04; license MIT; deprecated: no; repo git+https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com.git; release within 12 months => active"
+      },
+      {
+        "field": "package:@gitlab/svgs",
+        "url": "https://www.npmjs.com/package/@gitlab/svgs",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:30.044Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.171.0 published 2026-10-30; license MIT; deprecated: no; repo git+https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com.git; SVG icons and illustrations"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://about.gitlab.com/",
+        "status": 200,
+        "finalUrl": "https://about.gitlab.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:32:27.653Z",
+        "method": "http-check",
+        "note": "GitLab corporate site (title 'GitLab - Speed with control for agentic software engineering')"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:43:07.121Z"
+  },
+  {
+    "rank": null,
+    "slug": "skyscanner-backpack",
+    "name": "Backpack",
+    "aliases": [
+      "Skyscanner Backpack",
+      "Backpack Design System"
+    ],
+    "organization": {
+      "slug": "skyscanner",
+      "name": "Skyscanner",
+      "websiteUrl": "https://www.skyscanner.net/about-us"
+    },
+    "category": "design-system",
+    "summary": "Skyscanner's design system, documenting guidelines, foundations and components for Web (React), iOS (UIKit and SwiftUI) and Android (Android Views and Jetpack Compose) at skyscanner.design.",
+    "homepageUrl": "https://www.skyscanner.design/",
+    "docsUrl": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+    "repositoryUrl": "https://github.com/Skyscanner/backpack",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@skyscanner/backpack-web",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@skyscanner/backpack-web"
+      },
+      {
+        "name": "Backpack",
+        "registry": "cocoapods",
+        "url": "https://cocoapods.org/pods/Backpack"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/Skyscanner/backpack/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Web (Skyscanner/backpack) and iOS (backpack-ios) LICENSE files are Apache License 2.0; GitHub reports Apache-2.0 for backpack-android; npm @skyscanner/backpack-web declares Apache-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@skyscanner/backpack-web",
+        "support": "official"
+      },
+      {
+        "slug": "uikit",
+        "packageName": "Backpack",
+        "support": "official"
+      },
+      {
+        "slug": "swiftui",
+        "packageName": "Backpack",
+        "support": "official"
+      },
+      {
+        "slug": "android-views",
+        "packageName": "net.skyscanner.backpack:backpack-android",
+        "support": "official"
+      },
+      {
+        "slug": "jetpack-compose",
+        "packageName": "net.skyscanner.backpack:backpack-compose",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "tags": [
+      "open-source",
+      "travel",
+      "mobile",
+      "cross-platform"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "tailwind-plus",
+    "replacedBy": null,
+    "notes": "Replacement for tailwind-plus (rejected: no public documentation). Distinct verified system: Skyscanner's first-party design system, not in the registry under any name, alias or URL. Mixed maintenance picture, recorded honestly: the web repo (Skyscanner/backpack) was archived on 2026-08-05 and its README says no further public releases (it names 43.16.0 as final, yet npm latest is 43.19.0 of 2026-08-04); backpack-ios and backpack-android are not archived and shipped releases 94.2.0 (2026-11-04) and 85.6.0 (2026-11-02), so status is 'active' for the system. Public package channels lag: CocoaPods shows 92.1.0 and Maven Central's latest is 71.0.0 (metadata last updated 2025-06-23), so Maven artifacts are named in frameworks but not listed in packages. latestVersion null: no single release stream. repositoryUrl is the canonical web repo (archived, still readable). Docs (Supernova-hosted) describe Figma libraries for internal use only; no public Figma link, figmaUrl null. backpack.github.io redirects to skyscanner.design.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.skyscanner.design/",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.design/latest",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:20.547Z",
+        "method": "http-check",
+        "note": "redirects to /latest; title 'Welcome to Backpack'; meta 'Backpack is Skyscanner's design system, a collection of guidelines, components and tools...'"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://backpack.github.io/",
+        "status": 200,
+        "finalUrl": "https://backpack.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:17.529Z",
+        "method": "http-check",
+        "note": "former site; title 'Backpack — Skyscanner's Design System'; page redirects via script/meta refresh to https://www.skyscanner.design"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:40:29.831Z",
+        "method": "http-check",
+        "note": "title 'Libraries'; lists Web, iOS and Android libraries; 'Page last updated on Aug 4, 2026'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.design/latest/getting-started/backpack-in-code/libraries-6HhtEQiC",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:56.001Z",
+        "method": "page-content",
+        "note": "Web components consumable as React components on npm; iOS CocoaPod 'available for UIKit and SwiftUI'; Android Gradle package targeting 'Android View system and Jetpack Compose'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.skyscanner.design/latest/components/accordion/web-sEshz9Z5",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.design/latest/components/accordion/web-sEshz9Z5",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:34:37.924Z",
+        "method": "http-check",
+        "note": "component page title 'Web | Accordion'"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.skyscanner.design/latest/getting-started/backpack-in-figma/using-our-libraries-tFSeSo5y",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.design/latest/getting-started/backpack-in-figma/using-our-libraries-tFSeSo5y",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:40:30.130Z",
+        "method": "http-check",
+        "note": "Figma libraries page describes internally enabled core libraries; no public figma.com link found in the docs HTML, so figmaUrl null"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/Skyscanner/backpack",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:17.454Z",
+        "method": "http-check",
+        "note": "title 'Backpack Design System for the Web'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Skyscanner/backpack",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:37.859Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":true; banner 'archived by the owner on Aug 5, 2026'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/Skyscanner/backpack/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Skyscanner/backpack/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:18.039Z",
+        "method": "repo-metadata",
+        "note": "README: 'This repository has been archived and is no longer maintained'; names @skyscanner/backpack-web@43.16.0 as final public release; internal users continue in a 'design-system' repository"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/Skyscanner/backpack-ios",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack-ios",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:17.754Z",
+        "method": "http-check",
+        "note": "iOS repo 'Skyscanner/backpack-ios: Backpack Design System'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Skyscanner/backpack-ios",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack-ios",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:38.736Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Skyscanner/backpack-ios/releases/tag/94.2.0",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack-ios/releases/tag/94.2.0",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:52.847Z",
+        "method": "page-content",
+        "note": "Release 94.2.0 published 2026-11-04T10:34:18Z (release within 12 months)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/Skyscanner/backpack-android",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:18.054Z",
+        "method": "http-check",
+        "note": "Android repo 'Skyscanner/backpack-android: Backpack Design System'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Skyscanner/backpack-android",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack-android",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:39.665Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Skyscanner/backpack-android/releases/tag/85.6.0",
+        "status": 200,
+        "finalUrl": "https://github.com/Skyscanner/backpack-android/releases/tag/85.6.0",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:53.616Z",
+        "method": "page-content",
+        "note": "Release 85.6.0 published 2026-11-02T13:47:45Z (release within 12 months)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Skyscanner/backpack/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Skyscanner/backpack/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:17.708Z",
+        "method": "repo-metadata",
+        "note": "web repo LICENSE: Apache License Version 2.0 text"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Skyscanner/backpack-ios/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Skyscanner/backpack-ios/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:07.625Z",
+        "method": "repo-metadata",
+        "note": "iOS repo LICENSE: Apache License Version 2.0 text"
+      },
+      {
+        "field": "package:@skyscanner/backpack-web",
+        "url": "https://www.npmjs.com/package/@skyscanner/backpack-web",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:33:21.342Z",
+        "method": "package-metadata",
+        "note": "npm latest 43.19.0 published 2026-08-04; license Apache-2.0; deprecated: no; repo git+ssh://git@github.com/Skyscanner/backpack.git; newer than the 43.16.0 that the archived README calls final; published a day before the repo was archived"
+      },
+      {
+        "field": "package:Backpack",
+        "url": "https://cocoapods.org/pods/Backpack",
+        "status": 200,
+        "finalUrl": "https://cocoapods.org/pods/Backpack",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:54.678Z",
+        "method": "package-metadata",
+        "note": "CocoaPods page: 'Backpack 92.1.0', maintained by 'Backpack Squad' (lags the 94.2.0 GitHub release)"
+      },
+      {
+        "field": "packages",
+        "url": "https://repo1.maven.org/maven2/net/skyscanner/backpack/backpack-compose/maven-metadata.xml",
+        "status": 200,
+        "finalUrl": "https://repo1.maven.org/maven2/net/skyscanner/backpack/backpack-compose/maven-metadata.xml",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:07.676Z",
+        "method": "package-metadata",
+        "note": "Maven Central backpack-compose latest/release 71.0.0, lastUpdated 2025-06-23 (stale vs GitHub 85.6.0); not listed in packages"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.skyscanner.net/about-us",
+        "status": 200,
+        "finalUrl": "https://www.skyscanner.net/about-us",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:34:35.070Z",
+        "method": "http-check",
+        "note": "Skyscanner about page (title 'We're the travel company who puts you first')"
+      }
+    ],
+    "confidence": 0.84,
+    "verifiedAt": "2026-11-05T04:42:56.001Z"
+  },
+  {
+    "rank": null,
+    "slug": "red-hat-design-system",
+    "name": "Red Hat Design System",
+    "aliases": [
+      "RHDS",
+      "@rhds/elements"
+    ],
+    "organization": {
+      "slug": "red-hat",
+      "name": "Red Hat",
+      "websiteUrl": "https://www.redhat.com/en"
+    },
+    "category": "design-system",
+    "summary": "Red Hat's design system for branded web experiences such as redhat.com and the Red Hat Customer Portal, providing brand-based guidelines, design tokens and a library of framework-agnostic web components (@rhds/elements).",
+    "homepageUrl": "https://ux.redhat.com/",
+    "docsUrl": "https://ux.redhat.com/elements/",
+    "repositoryUrl": "https://github.com/RedHat-UX/red-hat-design-system",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@rhds/elements",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@rhds/elements"
+      },
+      {
+        "name": "@rhds/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@rhds/tokens"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/RedHat-UX/red-hat-design-system/main/LICENCE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Repo license file is LICENCE.md (British spelling): MIT, Copyright 2022 Red Hat, Inc. npm @rhds/elements declares MIT; @rhds/tokens npm metadata declares no license."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.0.0",
+    "latestReleaseAt": "2026-10-08T14:47:53.549Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@rhds/elements",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "design-tokens",
+      "marketing-sites"
+    ],
+    "relatedSlugs": [
+      "patternfly"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "intuit-design-system",
+    "replacedBy": null,
+    "notes": "Replacement for intuit-design-system (rejected: internal-only docs). Distinct verified system, not a duplicate of patternfly: both are Red Hat, but RHDS (ux.redhat.com, RedHat-UX/red-hat-design-system, @rhds/*) targets Red Hat web properties and describes PatternFly as its foundational design language, while its Figma-library page directs product UI work to PatternFly; separate repo, packages and catalog, hence relatedSlugs patternfly. Ships web components only (installation via Red Hat CDN import map, npm or jsDelivr; no framework wrappers documented). Figma library is internal (needs a Figma license and an @redhat.com email), so figmaUrl null. Maintenance 'active': @rhds/elements 5.0.0 published 2026-10-08; repo not archived. latestVersion = @rhds/elements.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ux.redhat.com/",
+        "status": 200,
+        "finalUrl": "https://ux.redhat.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:41.988Z",
+        "method": "http-check",
+        "note": "title 'Home | Red Hat design system'"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://ux.redhat.com/",
+        "status": 200,
+        "finalUrl": "https://ux.redhat.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:41.988Z",
+        "method": "http-check",
+        "note": "meta: 'Using Red Hat brand standards and PatternFly as our foundational design language... branded experiences across redhat.com, Red Hat Customer Portal, and beyond'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ux.redhat.com/elements/",
+        "status": 200,
+        "finalUrl": "https://ux.redhat.com/elements/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:42.289Z",
+        "method": "http-check",
+        "note": "title 'All elements | Red Hat design system'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://ux.redhat.com/get-started/developers/installation/",
+        "status": 200,
+        "finalUrl": "https://ux.redhat.com/get-started/developers/installation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:42.650Z",
+        "method": "http-check",
+        "note": "Installation: three ways to install the RHDS Web Components (Red Hat CDN, npm, jsDelivr); base import map for 5.0.0"
+      },
+      {
+        "field": "tags",
+        "url": "https://ux.redhat.com/tokens/",
+        "status": 200,
+        "finalUrl": "https://ux.redhat.com/tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:06.654Z",
+        "method": "http-check",
+        "note": "design tokens overview page"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/RedHat-UX/red-hat-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/RedHat-UX/red-hat-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:41.747Z",
+        "method": "http-check",
+        "note": "title 'RedHat-UX/red-hat-design-system: Red Hat's Design System'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/RedHat-UX/red-hat-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/RedHat-UX/red-hat-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:40.627Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false; default branch main"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/RedHat-UX/red-hat-design-system/main/LICENCE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/RedHat-UX/red-hat-design-system/main/LICENCE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:06.523Z",
+        "method": "repo-metadata",
+        "note": "LICENCE.md: MIT permission text, Copyright 2022 Red Hat, Inc. (LICENSE and LICENSE.md return 404)"
+      },
+      {
+        "field": "package:@rhds/elements",
+        "url": "https://www.npmjs.com/package/@rhds/elements",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:43.221Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.0.0 published 2026-10-08; license MIT; deprecated: no; repo git+https://github.com/RedHat-UX/red-hat-design-system.git; release within 12 months => active"
+      },
+      {
+        "field": "package:@rhds/tokens",
+        "url": "https://www.npmjs.com/package/@rhds/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:43.617Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.2.0 published 2026-10-01; license not declared; deprecated: no; repo None"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://ux.redhat.com/get-started/designers/figma-library.html",
+        "status": 200,
+        "finalUrl": "https://ux.redhat.com/get-started/designers/figma-library.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:14.506Z",
+        "method": "page-content",
+        "note": "Figma library page: 'You need a Figma license and a @redhat.com email address in order to access our Figma library'; lists PatternFly for 'creating product user interfaces'. No public Figma URL"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.redhat.com/en",
+        "status": 200,
+        "finalUrl": "https://www.redhat.com/en",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:35:41.796Z",
+        "method": "http-check",
+        "note": "Red Hat corporate site"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:43:14.506Z"
+  },
+  {
+    "rank": null,
+    "slug": "hpe-design-system",
+    "name": "HPE Design System",
+    "aliases": [
+      "Hewlett Packard Enterprise Design System"
+    ],
+    "organization": {
+      "slug": "hpe",
+      "name": "Hewlett Packard Enterprise",
+      "websiteUrl": "https://developer.hpe.com/"
+    },
+    "category": "design-system",
+    "summary": "Hewlett Packard Enterprise's design system, with foundations, component guidance, templates and design tokens for HPE web applications built on the Grommet React framework with the grommet-theme-hpe theme.",
+    "homepageUrl": "https://design-system.hpe.design/",
+    "docsUrl": "https://design-system.hpe.design/components",
+    "repositoryUrl": "https://github.com/grommet/hpe-design-system",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "hpe-design-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/hpe-design-tokens"
+      },
+      {
+        "name": "grommet-theme-hpe",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/grommet-theme-hpe"
+      },
+      {
+        "name": "grommet",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/grommet"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "hpe-design-system LICENSE (default branch master) is Apache License 2.0; npm hpe-design-tokens, grommet-theme-hpe and grommet declare Apache-2.0."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.4.0",
+    "latestReleaseAt": "2026-09-30T17:41:34.018Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "grommet",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "enterprise",
+      "design-tokens",
+      "theming",
+      "react"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "mailchimp-pattern-library",
+    "replacedBy": null,
+    "notes": "Replacement for mailchimp-pattern-library (rejected: docs unreachable). Distinct verified system: HPE's first-party design system; no registry entry matches it. Grommet (React framework, same grommet GitHub org) has no entry; HPE Design System is the HPE-specific layer (guidance, hpe-design-tokens, grommet-theme-hpe). The docs site is a client-rendered Next.js export, so static HTML has no text; __NEXT_DATA__ page values (/components, /foundation, /design-tokens) show real routes, not the 404 page. Content source is apps/docs (MDX) in the repo, whose package.json depends on grommet, grommet-theme-hpe, hpe-design-tokens and react. latestVersion = hpe-design-tokens (published from this repo). Maintenance 'active': npm releases in Sep-Oct 2026, repo not archived. hpe.com returned 503 to automated checks, so organization.websiteUrl is HPE's developer portal. No Figma link verifiable in static HTML; figmaUrl null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://design-system.hpe.design/",
+        "status": 200,
+        "finalUrl": "https://design-system.hpe.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:25.263Z",
+        "method": "page-content",
+        "note": "200; client-rendered Next.js export, __NEXT_DATA__ page '/'; repo README names this URL as the HPE Design System site"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design-system.hpe.design/components",
+        "status": 200,
+        "finalUrl": "https://design-system.hpe.design/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:26.022Z",
+        "method": "page-content",
+        "note": "200; __NEXT_DATA__ page '/components' (component index route, not the 404 page)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://design-system.hpe.design/foundation",
+        "status": 200,
+        "finalUrl": "https://design-system.hpe.design/foundation",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:26.794Z",
+        "method": "page-content",
+        "note": "200; __NEXT_DATA__ page '/foundation'"
+      },
+      {
+        "field": "tags",
+        "url": "https://design-system.hpe.design/design-tokens",
+        "status": 200,
+        "finalUrl": "https://design-system.hpe.design/design-tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:27.509Z",
+        "method": "page-content",
+        "note": "200; __NEXT_DATA__ page '/design-tokens'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/grommet/hpe-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/grommet/hpe-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:37.589Z",
+        "method": "http-check",
+        "note": "title 'grommet/hpe-design-system: HPE Design System'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/grommet/hpe-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/grommet/hpe-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:41.537Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false; default branch master"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:46:11.955Z",
+        "method": "repo-metadata",
+        "note": "README: monorepo with docs site (apps/docs) and hpe-design-tokens source; site URL https://design-system.hpe.design/"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/apps/docs/package.json",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/apps/docs/package.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:18.846Z",
+        "method": "repo-metadata",
+        "note": "docs app 'Website documentation for HPE Design System' depends on grommet, grommet-theme-hpe, hpe-design-tokens, react, styled-components"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/grommet/grommet",
+        "status": 200,
+        "finalUrl": "https://github.com/grommet/grommet",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:30.029Z",
+        "method": "http-check",
+        "note": "Grommet: 'a react-based framework that provides accessibility, modularity, responsiveness, and theming'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/grommet/grommet-theme-hpe",
+        "status": 200,
+        "finalUrl": "https://github.com/grommet/grommet-theme-hpe",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:29.729Z",
+        "method": "http-check",
+        "note": "'Hewlett Packard Enterprise grommet theme'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/grommet/hpe-design-system/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:37.574Z",
+        "method": "repo-metadata",
+        "note": "LICENSE: Apache License Version 2.0 text"
+      },
+      {
+        "field": "package:hpe-design-tokens",
+        "url": "https://www.npmjs.com/package/hpe-design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:39.943Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.4.0 published 2026-09-30; license Apache-2.0; deprecated: no; repo git+https://github.com/grommet/hpe-design-system.git; homepage https://design-system.hpe.design/; release within 12 months => active"
+      },
+      {
+        "field": "package:grommet-theme-hpe",
+        "url": "https://www.npmjs.com/package/grommet-theme-hpe",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:39.612Z",
+        "method": "package-metadata",
+        "note": "npm latest 8.2.0 published 2026-09-16; license Apache-2.0; deprecated: no; repo git+https://github.com/grommet/grommet-theme-hpe.git"
+      },
+      {
+        "field": "package:grommet",
+        "url": "https://www.npmjs.com/package/grommet",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:36:40.232Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.58.0 published 2026-10-22; license Apache-2.0; deprecated: no; repo git+https://github.com/grommet/grommet.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.hpe.com/",
+        "status": 503,
+        "finalUrl": "https://www.hpe.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:36:38.516Z",
+        "method": "http-check",
+        "note": "hpe.com answered 503 (upstream reset) to the automated check; not used as websiteUrl"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://developer.hpe.com/",
+        "status": 200,
+        "finalUrl": "https://developer.hpe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.073Z",
+        "method": "http-check",
+        "note": "title 'Home | HPE Developer Portal' (official HPE site)"
+      }
+    ],
+    "confidence": 0.86,
+    "verifiedAt": "2026-11-05T04:46:11.955Z"
+  },
+  {
+    "rank": null,
+    "slug": "web-awesome",
+    "name": "Web Awesome",
+    "aliases": [
+      "Web Awesome Pro",
+      "@awesome.me/webawesome"
+    ],
+    "organization": {
+      "slug": "font-awesome",
+      "name": "Font Awesome (Fonticons, Inc.)",
+      "websiteUrl": "https://fontawesome.com/"
+    },
+    "category": "web-components",
+    "summary": "Font Awesome's library of framework-agnostic web components with built-in themes and CSS design tokens. The core is MIT-licensed; a paid Pro tier adds items such as patterns and a Figma design kit. It is the successor product to Shoelace.",
+    "homepageUrl": "https://webawesome.com/",
+    "docsUrl": "https://webawesome.com/docs/components/",
+    "repositoryUrl": "https://github.com/shoelace-style/webawesome",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@awesome.me/webawesome",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@awesome.me/webawesome"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/shoelace-style/webawesome/next/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "LICENSE.md: MIT, Copyright (c) 2023 Fonticons, Inc.; npm declares MIT. Covers the open-source core only; Web Awesome Pro is sold separately (webawesome.com/purchase) and its terms were not reviewed."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.14.0",
+    "latestReleaseAt": "2026-09-24T15:15:58.538Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@awesome.me/webawesome",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@awesome.me/webawesome",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": null,
+        "support": "official"
+      },
+      {
+        "slug": "svelte",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "theming",
+      "design-tokens",
+      "commercial"
+    ],
+    "relatedSlugs": [
+      "shoelace"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "australian-government-design-system",
+    "replacedBy": null,
+    "notes": "Replacement for australian-government-design-system (rejected: decommissioned, docs gone). Distinct verified system, not a duplicate of shoelace: Shoelace is sunset and archived, and Web Awesome is the successor product from Font Awesome with its own package (@awesome.me/webawesome vs @shoelace-style/shoelace), repo, docs site, component catalog and a paid Pro tier; the official 'Migrating from Shoelace' guide documents component-by-component changes. relatedSlugs shoelace; shoelace.replacedBy lives in another file and is not edited here. React 19+ uses the custom elements directly; wrappers for React 18 and below ship in the package (dist/react); Vue 3, Angular and Svelte have official usage guides. The Figma Design Kit is marked Pro in the docs nav, so no public figmaUrl. Maintenance 'active': 3.14.0 published 2026-09-24 and listed in the changelog; repo (default branch next) not archived.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://webawesome.com/",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.330Z",
+        "method": "http-check",
+        "note": "title 'Web Awesome'; meta 'the biggest open source library of ... framework-agnostic UI components'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://webawesome.com/docs/components/",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.931Z",
+        "method": "http-check",
+        "note": "title 'Browse Components | Web Awesome'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://webawesome.com/docs/",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.630Z",
+        "method": "http-check",
+        "note": "title 'Installation | Web Awesome'"
+      },
+      {
+        "field": "tags",
+        "url": "https://webawesome.com/docs/components/",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:45:53.184Z",
+        "method": "page-content",
+        "note": "docs nav marks 'Figma Design Kit' with a Pro badge ('This requires access to Web Awesome Pro') and 'Patterns require access to Web Awesome Pro'"
+      },
+      {
+        "field": "tags",
+        "url": "https://webawesome.com/docs/themes",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/themes",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:18.973Z",
+        "method": "http-check",
+        "note": "title 'Built-in Themes | Web Awesome'"
+      },
+      {
+        "field": "tags",
+        "url": "https://webawesome.com/docs/tokens/",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/tokens/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:19.273Z",
+        "method": "http-check",
+        "note": "title 'Design Tokens | Web Awesome'; CSS custom properties controlling every component"
+      },
+      {
+        "field": "tags",
+        "url": "https://webawesome.com/purchase",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/purchase",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:53.652Z",
+        "method": "http-check",
+        "note": "title 'Purchase Web Awesome Pro | Web Awesome' (paid tier)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/shoelace-style/webawesome",
+        "status": 200,
+        "finalUrl": "https://github.com/shoelace-style/webawesome",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.014Z",
+        "method": "http-check",
+        "note": "title: 'the open source library of web components from Font Awesome. Upgrade to Pro...'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/shoelace-style/webawesome",
+        "status": 200,
+        "finalUrl": "https://github.com/shoelace-style/webawesome",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:42.390Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false; default branch next"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://webawesome.com/docs/resources/changelog",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/resources/changelog",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:45:44.090Z",
+        "method": "page-content",
+        "note": "changelog: newest section heading 3.14.0, followed by 3.13.0"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/shoelace-style/webawesome/next/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/shoelace-style/webawesome/next/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:40.918Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md: MIT permission text, Copyright (c) 2023 Fonticons, Inc."
+      },
+      {
+        "field": "package:@awesome.me/webawesome",
+        "url": "https://www.npmjs.com/package/@awesome.me/webawesome",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:42.555Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.14.0 published 2026-09-24; license MIT; deprecated: no; repo git+https://github.com/shoelace-style/webawesome.git; release within 12 months => active"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://webawesome.com/docs/frameworks/react",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/frameworks/react",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:55.397Z",
+        "method": "page-content",
+        "note": "React guide: React 19+ supports custom elements natively; 'Legacy React Wrappers (React 18 & Below)' imported from @awesome.me/webawesome/dist/react"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://webawesome.com/docs/frameworks/vue",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/frameworks/vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:52.752Z",
+        "method": "http-check",
+        "note": "title 'Vue 3 | Web Awesome'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://webawesome.com/docs/frameworks/angular",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/frameworks/angular",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:53.052Z",
+        "method": "http-check",
+        "note": "title 'Angular | Web Awesome'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://webawesome.com/docs/frameworks/svelte",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/frameworks/svelte",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:53.352Z",
+        "method": "http-check",
+        "note": "title 'Svelte | Web Awesome'"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://webawesome.com/docs/resources/migrating-from-shoelace",
+        "status": 200,
+        "finalUrl": "https://webawesome.com/docs/resources/migrating-from-shoelace",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:42.230Z",
+        "method": "http-check",
+        "note": "title 'Migrating from Shoelace'; 'A complete, component-by-component guide for moving from Shoelace 2.x to Web Awesome'"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://fontawesome.com/",
+        "status": 200,
+        "finalUrl": "https://fontawesome.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:37:41.043Z",
+        "method": "http-check",
+        "note": "title 'Font Awesome'"
+      }
+    ],
+    "confidence": 0.92,
+    "verifiedAt": "2026-11-05T04:45:53.184Z"
+  },
+  {
+    "rank": null,
+    "slug": "esri-calcite",
+    "name": "Calcite Design System",
+    "aliases": [
+      "Esri Calcite",
+      "Calcite",
+      "Calcite Components",
+      "@esri/calcite-components"
+    ],
+    "organization": {
+      "slug": "esri",
+      "name": "Esri",
+      "websiteUrl": "https://www.esri.com/en-us/home"
+    },
+    "category": "design-system",
+    "summary": "Esri's design system for ArcGIS and other Esri web apps, comprising Figma UI kits, icons, design tokens and Calcite Components, a web component library with a React wrapper package.",
+    "homepageUrl": "https://developers.arcgis.com/calcite-design-system/",
+    "docsUrl": "https://developers.arcgis.com/calcite-design-system/components/",
+    "repositoryUrl": "https://github.com/Esri/calcite-design-system",
+    "figmaUrl": "https://www.figma.com/community/file/1360396942288069891",
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@esri/calcite-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@esri/calcite-components"
+      },
+      {
+        "name": "@esri/calcite-components-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@esri/calcite-components-react"
+      },
+      {
+        "name": "@esri/calcite-design-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@esri/calcite-design-tokens"
+      }
+    ],
+    "license": {
+      "slug": "esri-mla",
+      "spdxId": null,
+      "name": "Esri Master License Agreement (proprietary)",
+      "url": "https://raw.githubusercontent.com/Esri/calcite-design-system/dev/LICENSE.md",
+      "isOpenSource": false,
+      "redistribution": "conditional",
+      "notes": "LICENSE.md: all rights reserved; licensed under the Esri MLA; redistribution and use without modification allowed if MLA terms are followed and the copyright notice kept. Licensing page: use needs an ArcGIS Online, Enterprise or Location Platform account (free tier available) under the Esri Master Services Agreement. npm: 'SEE LICENSE.md'."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.2.1",
+    "latestReleaseAt": "2026-11-04T22:33:05.251Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@esri/calcite-components",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "@esri/calcite-components-react",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "web-components",
+      "design-tokens",
+      "figma-kit",
+      "source-available",
+      "enterprise"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": "audi-ui",
+    "replacedBy": null,
+    "notes": "Replacement for audi-ui (rejected: no public documentation reachable). Distinct verified system: Esri's first-party design system; no registry entry matches its name, aliases, organization or URLs. Source is public on GitHub but not open source: LICENSE.md applies the Esri Master License Agreement (GitHub reports NOASSERTION), and the docs licensing page requires an ArcGIS account under the Esri Master Services Agreement, hence redistribution 'conditional' and tag source-available. Homepage shows 'Current version: @esri/calcite-components 5.2 (October 2026)'. React support via the @esri/calcite-components-react package and React 19 typings. figmaUrl comes from the UI Kit page link 'Web UI Kit' (figma.com answered 403); a separate UI Icons kit is also linked. Maintenance 'active': 5.2.1 published 2026-11-04; repo (default branch dev) not archived. latestVersion = @esri/calcite-components.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://developers.arcgis.com/calcite-design-system/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:10.413Z",
+        "method": "http-check",
+        "note": "title 'Calcite Design System | Esri Developer'"
+      },
+      {
+        "field": "latestVersion",
+        "url": "https://developers.arcgis.com/calcite-design-system/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:07.796Z",
+        "method": "page-content",
+        "note": "homepage: 'Current version: @esri/calcite-components : 5.2 (October 2026)'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://developers.arcgis.com/calcite-design-system/components/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:10.726Z",
+        "method": "http-check",
+        "note": "title 'Components | Calcite Design System'; 'Calcite components is a web component library'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://developers.arcgis.com/calcite-design-system/get-started/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/get-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:27.400Z",
+        "method": "http-check",
+        "note": "title 'Get started | Calcite Design System | Esri Developer'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://developers.arcgis.com/calcite-design-system/resources/frameworks/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/resources/frameworks/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:27.041Z",
+        "method": "http-check",
+        "note": "title 'Framework integration'; TypeScript reference directives for React 19+ and Preact"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/Esri/calcite-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/Esri/calcite-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:10.276Z",
+        "method": "http-check",
+        "note": "title 'A monorepo containing the packages for Esri's Calcite Design System'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://github.com/Esri/calcite-design-system",
+        "status": 200,
+        "finalUrl": "https://github.com/Esri/calcite-design-system",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:42:43.277Z",
+        "method": "repo-metadata",
+        "note": "repository page reports \"isArchived\":false; default branch dev"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Esri/calcite-design-system/dev/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Esri/calcite-design-system/dev/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:10.224Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md: 'All rights reserved'; licensed under the Esri Master License Agreement (MLA); may redistribute without modification under MLA terms"
+      },
+      {
+        "field": "license",
+        "url": "https://developers.arcgis.com/calcite-design-system/resources/licensing/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/resources/licensing/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:43:06.521Z",
+        "method": "page-content",
+        "note": "Licensing: available with an ArcGIS Online, ArcGIS Enterprise or ArcGIS Location Platform account (free Location Platform signup); use subject to the Esri Master Services Agreement"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://developers.arcgis.com/calcite-design-system/resources/ui-kit/",
+        "status": 200,
+        "finalUrl": "https://developers.arcgis.com/calcite-design-system/resources/ui-kit/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:39:14.726Z",
+        "method": "page-content",
+        "note": "official UI Kit page links 'Web UI Kit' (A Figma kit of Calcite components) to https://www.figma.com/community/file/1360396942288069891"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1360396942288069891",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1360396942288069891",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:39:01.471Z",
+        "method": "http-check",
+        "note": "figma.com returned 403 (CloudFront) to the automated check; URL recorded from the official UI Kit page link"
+      },
+      {
+        "field": "package:@esri/calcite-components",
+        "url": "https://www.npmjs.com/package/@esri/calcite-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:11.232Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.2.1 published 2026-11-04; license SEE LICENSE.md; deprecated: no; repo git+https://github.com/Esri/calcite-design-system.git; release within 12 months => active"
+      },
+      {
+        "field": "package:@esri/calcite-components-react",
+        "url": "https://www.npmjs.com/package/@esri/calcite-components-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:11.677Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.2.1 published 2026-11-04; license SEE LICENSE.md; deprecated: no; repo git+https://github.com/Esri/calcite-design-system.git; React wrapper package"
+      },
+      {
+        "field": "package:@esri/calcite-design-tokens",
+        "url": "https://www.npmjs.com/package/@esri/calcite-design-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:11.851Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.2.0 published 2026-10-20; license SEE LICENSE.md; deprecated: no; repo git://github.com/Esri/calcite-design-system.git"
+      },
+      {
+        "field": "organization.websiteUrl",
+        "url": "https://www.esri.com/",
+        "status": 200,
+        "finalUrl": "https://www.esri.com/en-us/home",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:38:10.422Z",
+        "method": "http-check",
+        "note": "redirects to https://www.esri.com/en-us/home (Esri corporate site)"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T04:43:07.796Z"
+  }
+]

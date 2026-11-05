@@ -192,6 +192,45 @@ interface ScopeToken {
   aliasState: string | null;
 }
 
+interface ThemeVariant {
+  label: string; // themed set slug, e.g. "m3-sys-color-dark", "theme-g100"
+  graph: Map<string, TokenResolution>;
+  byName: Map<string, ScopeToken>;
+}
+
+/**
+ * For a theme-agnostic set S, one resolution context per themed set T:
+ * S, then theme-agnostic sets, then T, then T's sibling sets of the same theme.
+ */
+function themedVariants(
+  s: { id: string; theme: string | null; slug: string },
+  sets: { id: string; theme: string | null; slug: string }[],
+  bySet: Map<string, ScopeToken[]>,
+): ThemeVariant[] {
+  const themed = sets.filter((o) => o.theme !== null && (bySet.get(o.id)?.length ?? 0) > 0);
+  if (!themed.length) return [];
+  const base = sets.filter((o) => o.id !== s.id && o.theme === null);
+  return themed
+    .sort((a, b) => a.slug.localeCompare(b.slug))
+    .map((t) => {
+      const siblings = themed.filter((o) => o.id !== t.id && o.theme === t.theme);
+      const scope: ScopeToken[] = [];
+      const taken = new Set<string>();
+      for (const g of [s, ...base, t, ...siblings]) {
+        for (const tok of bySet.get(g.id) ?? []) {
+          if (taken.has(tok.name)) continue;
+          taken.add(tok.name);
+          scope.push(tok);
+        }
+      }
+      return {
+        label: t.slug,
+        graph: resolveTokenGraph(scope.map((x): GraphTokenInput => ({ name: x.name, rawValue: x.rawValue, references: x.references, cssVar: x.cssVar }))),
+        byName: new Map(scope.map((x) => [x.name, x])),
+      };
+    });
+}
+
 /** Resolve aliases for every published token of the system and diff-sync results. */
 export async function resolveSystemTokens(pc: PromoteContext, refsBySet: Map<string, Map<string, string[]>>) {
   const tx = pc.tx;
@@ -245,15 +284,53 @@ export async function resolveSystemTokens(pc: PromoteContext, refsBySet: Map<str
     }
     const byName = new Map(scope.map((t) => [t.name, t]));
     const graph = resolveTokenGraph(scope.map((t): GraphTokenInput => ({ name: t.name, rawValue: t.rawValue, references: t.references, cssVar: t.cssVar })));
+    // Theme-agnostic sets (e.g. component tokens) often reference semantic tokens that only exist in themed sets
+    // (light/dark). Those are not "external": they resolve differently per theme. Resolve them once per themed set.
+    const variants = s.theme === null ? themedVariants(s, sets, bySet) : [];
     for (const t of own) {
       const res: TokenResolution | undefined = graph.get(t.name);
       const cols = resolutionColumns(res);
-      const resolvedValue = res ? (cols.resolvedValue ?? null) : (t.rawValue ?? null);
+      let resolvedValue = res ? (cols.resolvedValue ?? null) : (t.rawValue ?? null);
       const isAlias = res ? cols.isAlias : false;
-      const aliasState = res ? cols.aliasState : null;
-      const valueText = formatTokenValue(resolvedValue, t.type);
+      let aliasState = res ? cols.aliasState : null;
+      let valueText = formatTokenValue(resolvedValue, t.type);
+      let themedTarget: { byName: Map<string, ScopeToken>; res: TokenResolution } | null = null;
+      if (variants.length && res && (cols.aliasState === "external" || cols.aliasState === "unresolved")) {
+        const perTheme: { label: string; value: unknown; byName: Map<string, ScopeToken>; res: TokenResolution }[] = [];
+        for (const v of variants) {
+          const vr = v.graph.get(t.name);
+          if (vr && vr.state === "resolved" && vr.resolvedValue !== undefined) perTheme.push({ label: v.label, value: vr.resolvedValue, byName: v.byName, res: vr });
+        }
+        if (perTheme.length) {
+          const distinct = new Set(perTheme.map((p) => contentHash(p.value)));
+          if (distinct.size === 1 && perTheme.length === variants.length) {
+            resolvedValue = perTheme[0]!.value as typeof resolvedValue;
+            aliasState = "resolved";
+            valueText = formatTokenValue(resolvedValue, t.type);
+          } else {
+            resolvedValue = { $themes: Object.fromEntries(perTheme.map((p) => [p.label, p.value])) } as typeof resolvedValue;
+            aliasState = "theme-dependent" as typeof aliasState;
+            valueText = perTheme.map((p) => `${p.label}: ${formatTokenValue(p.value, t.type) ?? "?"}`).join(" · ");
+          }
+          themedTarget = { byName: perTheme[0]!.byName, res: perTheme[0]!.res };
+        }
+      }
       if (contentHash([t.resolvedValue ?? null, t.valueText ?? null, t.isAlias, t.aliasState ?? null]) !== contentHash([resolvedValue, valueText ?? null, isAlias, aliasState])) {
         updates.push({ id: t.id, resolved_value: resolvedValue, value_text: valueText, is_alias: isAlias, alias_state: aliasState });
+      }
+      if (themedTarget) {
+        // Link alias rows to the first themed variant's target; state records that the target is per-theme.
+        for (const row of tokenAliasRows(themedTarget.res)) {
+          const target = row.targetName ? (byName.get(row.targetName) ?? themedTarget.byName.get(row.targetName)) : undefined;
+          desiredAliases.set(`${t.id}|${row.targetRef}`, {
+            tokenId: t.id,
+            targetRef: row.targetRef,
+            targetTokenId: target?.id ?? null,
+            state: row.state === "resolved" && aliasState === "theme-dependent" ? "theme-dependent" : row.state,
+            depth: row.depth,
+          });
+        }
+        continue;
       }
       for (const row of tokenAliasRows(res)) {
         const target = row.targetName ? byName.get(row.targetName) : undefined;

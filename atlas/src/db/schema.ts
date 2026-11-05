@@ -778,7 +778,7 @@ export const tokens = pgTable(
     resolvedValue: jsonb("resolved_value").$type<unknown>(), // after alias resolution (null if unresolved)
     valueText: text("value_text"), // display string of resolved value
     isAlias: boolean("is_alias").notNull().default(false),
-    aliasState: text("alias_state"), // literal | resolved | unresolved | cycle | external | null
+    aliasState: text("alias_state"), // resolved | theme-dependent | unresolved | cycle | external | null (literal)
     description: text("description"),
     deprecated: boolean("deprecated").notNull().default(false),
     location: text("location"), // file path + JSON pointer
