@@ -379,6 +379,7 @@ interface Ctx {
   cycleMembers: Set<string>;
   self: string;
   selfScc: Set<string> | null;
+  maxDepth: number;
 }
 
 const MAX_VALUE_DEPTH = 24;
@@ -392,12 +393,12 @@ function resolveTargetOutcome(target: string, ctx: Ctx): RefOutcome {
     // Should not happen (deps are processed first); be defensive.
     return { ok: false, value: null, depth: 0, chain: [target], usedFallback: false, missing: [], failKinds: ["dependency-unresolved"] };
   }
-  const chain = [target, ...info.chain];
+  const chain = [target, ...info.chain].slice(0, ctx.maxDepth + 1);
   if (info.resolvedValue !== null && info.resolvedValue !== undefined && (info.state === "resolved" || info.state === "literal" || info.state === "external")) {
-    return { ok: true, value: info.resolvedValue, depth: info.depth + 1, chain, usedFallback: info.usedFallback, missing: info.missing, failKinds: [] };
+    return { ok: true, value: info.resolvedValue, depth: chain.length, chain, usedFallback: info.usedFallback, missing: info.missing, failKinds: [] };
   }
   const kind: ResolutionIssueKind = info.state === "cycle" ? "cycle-dependency" : info.state === "unresolved" && info.issues.some((i) => i.kind === "cycle" || i.kind === "cycle-dependency") ? "cycle-dependency" : "dependency-unresolved";
-  return { ok: false, value: null, depth: info.depth + 1, chain, usedFallback: info.usedFallback, missing: info.missing, failKinds: [kind] };
+  return { ok: false, value: null, depth: chain.length, chain, usedFallback: info.usedFallback, missing: info.missing, failKinds: [kind] };
 }
 
 /** Resolve a fallback string (may contain nested var()/refs). */
@@ -408,7 +409,7 @@ function resolveFallbackText(text: string, ctx: Ctx, nest: number): RefOutcome {
     value: sub.ok ? sub.value : null,
     depth: sub.depth,
     chain: sub.chain,
-    usedFallback: true,
+    usedFallback: sub.ok,
     missing: sub.missing,
     failKinds: sub.failKinds,
   };
@@ -461,7 +462,7 @@ function substituteString(s: string, ctx: Ctx, nest: number, topLevel: SubResult
     if (target) o = resolveTargetOutcome(target, ctx);
     else if (r.syntax === "css-var" && r.fallback !== null && ctx.useFallbacks) {
       const fb = resolveFallbackText(r.fallback, ctx, nest);
-      fallbackUsed = true;
+      fallbackUsed = fb.ok;
       o = { ...fb, missing: [r.ref, ...fb.missing], failKinds: fb.failKinds };
     } else {
       o = { ok: false, value: null, depth: 0, chain: [], usedFallback: false, missing: [r.ref], failKinds: ["missing-target"] };
@@ -646,7 +647,7 @@ function resolveOne(
     return { resolvedValue: t.rawValue ?? null, state: "literal", depth: 0, targets: [], chain: [], refs: [], missing: [], issues, usedFallback: false, partialValue: t.rawValue ?? null };
   }
 
-  const ctx: Ctx = { results, lookup: index.lookup, useFallbacks, cycleMembers, self: t.name, selfScc: scc };
+  const ctx: Ctx = { results, lookup: index.lookup, useFallbacks, cycleMembers, self: t.name, selfScc: scc, maxDepth };
 
   if (scc) {
     const chain = cyclePath(t.name, scc, index.byName);
