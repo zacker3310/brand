@@ -9,7 +9,7 @@ import type { FetchResult } from "../../http";
 import type { ParsedFragment } from "../../types";
 import { readCachedBody } from "../cache";
 import { engineConfig } from "../config";
-import { toJson } from "../hash";
+import { docKey, toJson } from "../hash";
 import { checkpointDoc, mergeStats, recordError, type CheckpointDoc, type FetchOutcome, type ParseOutcome } from "../runs";
 import { pool, throwIfAborted, type StageContext } from "./context";
 
@@ -81,10 +81,10 @@ export async function parseStage(sc: StageContext): Promise<ReturnType<typeof pa
   const existing = new Map<string, number>();
   if (pending.length) {
     const rows = await db
-      .select({ docId: parsedFragments.sourceDocumentId, hash: parsedFragments.contentHash, n: sql<number>`jsonb_array_length(${parsedFragments.fragments})::int` })
+      .select({ docId: parsedFragments.sourceDocumentId, hash: parsedFragments.contentHash, key: parsedFragments.docKey, n: sql<number>`jsonb_array_length(${parsedFragments.fragments})::int` })
       .from(parsedFragments)
       .where(and(eq(parsedFragments.adapterId, adapter.id), eq(parsedFragments.adapterVersion, adapter.version), inArray(parsedFragments.sourceDocumentId, pending.map((x) => x.cd.id))));
-    for (const r of rows) existing.set(`${r.docId}:${r.hash}`, r.n);
+    for (const r of rows) existing.set(`${r.docId}:${r.hash}:${r.key}`, r.n);
   }
   sc.log.info(`parsing ${pending.length} documents (${docs.length - pending.length} already checkpointed)`);
   const cfg = engineConfig();
@@ -94,14 +94,15 @@ export async function parseStage(sc: StageContext): Promise<ReturnType<typeof pa
     cfg.parseConcurrency,
     async ({ cd, fo }) => {
       let outcome: ParseOutcome;
-      const reuse = existing.get(`${cd.id}:${fo.hash}`);
+      const key = docKey(cd.doc);
+      const reuse = existing.get(`${cd.id}:${fo.hash}:${key}`);
       if (reuse !== undefined) {
         outcome = { outcome: "reused", hash: fo.hash, fragments: reuse };
       } else {
         try {
           const loaded = await loadBody(sc, cd, fo);
           if (!loaded) throw Object.assign(new Error("document body unavailable (cache miss and refetch failed)"), { code: "PARSE_NO_BODY" });
-          const reuse2 = loaded.hash !== fo.hash ? undefined : existing.get(`${cd.id}:${loaded.hash}`);
+          const reuse2 = loaded.hash !== fo.hash ? undefined : existing.get(`${cd.id}:${loaded.hash}:${key}`);
           if (reuse2 !== undefined) {
             outcome = { outcome: "reused", hash: loaded.hash, fragments: reuse2 };
           } else {
@@ -111,8 +112,8 @@ export async function parseStage(sc: StageContext): Promise<ReturnType<typeof pa
             const json = toJson(list);
             await db
               .insert(parsedFragments)
-              .values({ sourceDocumentId: cd.id, adapterId: adapter.id, adapterVersion: adapter.version, contentHash: loaded.hash, fragments: json })
-              .onConflictDoNothing({ target: [parsedFragments.sourceDocumentId, parsedFragments.adapterId, parsedFragments.adapterVersion, parsedFragments.contentHash] });
+              .values({ sourceDocumentId: cd.id, adapterId: adapter.id, adapterVersion: adapter.version, contentHash: loaded.hash, docKey: key, fragments: json })
+              .onConflictDoNothing({ target: [parsedFragments.sourceDocumentId, parsedFragments.adapterId, parsedFragments.adapterVersion, parsedFragments.contentHash, parsedFragments.docKey] });
             outcome = { outcome: "parsed", hash: loaded.hash, fragments: json.length };
           }
         } catch (e) {

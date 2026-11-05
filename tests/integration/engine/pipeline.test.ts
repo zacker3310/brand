@@ -1,6 +1,6 @@
 import { and, eq, sql } from "drizzle-orm";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from "vitest";
-import { applySpec, baseSpec, createFakeAdapter, createFakeSite, fakeFetch, siteFiles, type FakeSite } from "../../fixtures/engine/fake-adapter";
+import { applySpec, baseSpec, createFakeAdapter, createFakeSite, FAKE_ORIGIN, fakeFetch, setFile, siteFiles, type FakeSite } from "../../fixtures/engine/fake-adapter";
 import { prepareTestDb, silentLog, tempCacheDir, truncateAll } from "./helpers";
 
 await prepareTestDb();
@@ -209,6 +209,19 @@ describe("pipeline: idempotency", () => {
     expect(second.status).toBe("succeeded");
     expect(await counts()).toEqual(before);
     expect(second.stats).toMatchObject({ created: 0, updated: 0, removed: 0, fetched: 0, notModified: 8 });
+  });
+
+  it("re-parses a document whose discovered role changed even when its bytes did not", async () => {
+    await runOnce();
+    const manifest = JSON.parse(site.files.get("/manifest.json")!) as { docs: { path: string; kind: string }[] };
+    const moved = manifest.docs.find((d) => d.kind === "component")!;
+    moved.kind = "unused-kind"; // same URL and bytes, different docKind (e.g. a page that became the nav index)
+    setFile(site, "/manifest.json", manifest);
+    const callsBefore = adapter.parseCalls.length;
+    const run = await runOnce();
+    expect(run.status).toBe("succeeded");
+    expect(adapter.parseCalls.slice(callsBefore)).toEqual([`${FAKE_ORIGIN}${moved.path}`]);
+    expect(run.stats).toMatchObject({ parsed: 1, parseReused: 7, removed: 1 });
   });
 
   it("enqueueSystemRun is idempotent while a run is active", async () => {

@@ -3,28 +3,14 @@
  * tests only and never reach the product DB). Taxonomy rows come from @/lib/taxonomy.
  */
 import pg from "pg";
+import { ensureMigratedTestDatabase } from "../test-db";
 import { COMPONENT_GROUPS, COMPONENT_TYPES, FRAMEWORKS, PATTERN_TYPES, PLATFORMS } from "@/lib/taxonomy";
 
 export const TEST_DB_URL = process.env.ATLAS_SEARCH_TEST_DATABASE_URL ?? "postgres://postgres:postgres@localhost:5432/atlas_search_test";
 
-/** Create the test database from atlas_template if it does not exist. Refuses to touch "atlas". */
+/** Create (from atlas_template) and migrate the test database. Refuses to touch "atlas". */
 export async function ensureTestDatabase(url = TEST_DB_URL): Promise<void> {
-  const u = new URL(url);
-  const dbName = u.pathname.replace(/^\//, "");
-  if (!dbName || dbName === "atlas" || dbName === "atlas_template" || dbName === "postgres") {
-    throw new Error(`refusing to run search integration tests against database "${dbName}"`);
-  }
-  if (!/^[a-z0-9_]+$/.test(dbName)) throw new Error(`unexpected test database name ${dbName}`);
-  const admin = new URL(url);
-  admin.pathname = "/postgres";
-  const c = new pg.Client({ connectionString: admin.toString() });
-  await c.connect();
-  try {
-    const exists = await c.query("select 1 from pg_database where datname = $1", [dbName]);
-    if (!exists.rowCount) await c.query(`create database ${dbName} template atlas_template`);
-  } finally {
-    await c.end();
-  }
+  await ensureMigratedTestDatabase(url);
 }
 
 type Q = pg.Pool;

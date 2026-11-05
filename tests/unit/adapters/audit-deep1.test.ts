@@ -253,6 +253,11 @@ describe("gov.uk guidance excerpts keep their subject", () => {
     expect(out[2]).toBe(blocks[2]);
   });
 
+  it("walks back over a chain of dependent sentences (Cookie banner)", () => {
+    const b = "Do not make the Cookie banner component ‘sticky’ to the top of the page by using position: fixed or any other method. This is to make sure it does not cover or obscure any content which has a focus applied. This is to comply with WCAG 2.2 success criterion 2.4.11 Focus not obscured (minimum).";
+    expect(sentencesMatching([b], /\bwcag\b/i, 6)).toEqual([b]);
+  });
+
   it("does not repeat a context sentence that was already emitted", () => {
     const out = sentencesMatching(["Screen readers announce the error. This helps screen reader users."], /screen readers?/i, 6);
     expect(out).toEqual(["Screen readers announce the error.", "This helps screen reader users."]);

@@ -320,8 +320,11 @@ export function sentencesMatching(blocks: string[], re: RegExp, max: number): st
     const sentences = splitSentences(b);
     for (const [i, s] of sentences.entries()) {
       if (!re.test(s) || CALL_FOR_RESEARCH_RE.test(s)) continue;
-      const prev = i > 0 ? sentences[i - 1]! : null;
-      const withContext = prev && DEPENDENT_START_RE.test(s) && !out.some((x) => x.endsWith(prev)) ? `${prev} ${s}` : s;
+      // Walk back over a chain of dependent sentences (at most two) to the one that names the subject.
+      let start = i;
+      while (start > 0 && i - start < 2 && DEPENDENT_START_RE.test(sentences[start]!)) start--;
+      const prev = start < i ? sentences.slice(start, i).join(" ") : null;
+      const withContext = prev && !out.some((x) => x.endsWith(prev)) ? `${prev} ${s}` : s;
       const c = clip(withContext, 400)!;
       if (!out.some((x) => x.toLowerCase() === c.toLowerCase())) out.push(c);
       if (out.length >= max) return out;

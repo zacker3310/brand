@@ -15,7 +15,7 @@ import type { ParsedFragment } from "../../types";
 import { engineConfig } from "../config";
 import { computeSystemCoverage, coverageChanged } from "../coverage";
 import { buildSnapshotLookup, type Tx } from "../evidence";
-import { contentHash, toJson } from "../hash";
+import { contentHash, docKey, toJson } from "../hash";
 import { finishRun, mergeStats, recordError, setCheckpointKey } from "../runs";
 import { validateBundle, type ValidatedEntity } from "../validate";
 import { NonRetryableError, type StageContext } from "./context";
@@ -48,7 +48,7 @@ async function loadFragments(sc: StageContext): Promise<ParsedFragment[]> {
   for (let i = 0; i < docs.length; i += 500) {
     rows.push(
       ...(await sc.db
-        .select({ docId: parsedFragments.sourceDocumentId, hash: parsedFragments.contentHash, fragments: parsedFragments.fragments })
+        .select({ docId: parsedFragments.sourceDocumentId, hash: parsedFragments.contentHash, key: parsedFragments.docKey, fragments: parsedFragments.fragments })
         .from(parsedFragments)
         .where(
           and(
@@ -59,9 +59,9 @@ async function loadFragments(sc: StageContext): Promise<ParsedFragment[]> {
         )),
     );
   }
-  const byKey = new Map(rows.map((r) => [`${r.docId}:${r.hash}`, r.fragments as ParsedFragment[]]));
+  const byKey = new Map(rows.map((r) => [`${r.docId}:${r.hash}:${r.key}`, r.fragments as ParsedFragment[]]));
   // Discovery order (priority, then URL) keeps normalize input deterministic across runs.
-  return docs.flatMap((cd) => byKey.get(`${cd.id}:${parseDone[cd.id]!.hash}`) ?? []);
+  return docs.flatMap((cd) => byKey.get(`${cd.id}:${parseDone[cd.id]!.hash}:${docKey(cd.doc)}`) ?? []);
 }
 
 function recomputeValidation(e: ValidatedEntity) {

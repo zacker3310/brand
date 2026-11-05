@@ -486,10 +486,16 @@ export const parsedFragments = pgTable(
     adapterId: text("adapter_id").notNull(),
     adapterVersion: text("adapter_version").notNull(),
     contentHash: text("content_hash").notNull(),
+    /**
+     * Hash of the discovered document descriptor parse() receives besides the body (docKind, meta,
+     * title, evidenceUrl, source). A URL whose role changes between runs (e.g. a page that becomes
+     * the nav index) must be re-parsed even when its bytes are unchanged.
+     */
+    docKey: text("doc_key").notNull().default(""),
     fragments: jsonb("fragments").$type<unknown[]>().notNull(),
     createdAt: createdAt(),
   },
-  (t) => [uniqueIndex("parsed_fragment_uq").on(t.sourceDocumentId, t.adapterId, t.adapterVersion, t.contentHash)],
+  (t) => [uniqueIndex("parsed_fragment_uq").on(t.sourceDocumentId, t.adapterId, t.adapterVersion, t.contentHash, t.docKey)],
 );
 
 /**

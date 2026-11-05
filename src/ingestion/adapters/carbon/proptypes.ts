@@ -236,7 +236,7 @@ function callArgs(expr: string, calleeLen: number): string[] | null {
 export function mapPropType(exprIn: string, consts: Map<string, string[]>): MappedType {
   let expr = exprIn.replace(/\s+/g, " ").trim().replace(/\/\*#__PURE__\*\/\s*/g, "");
   let required: boolean | null = false;
-  let deprecated = false;
+  const deprecated = false;
   if (/\.isRequired$/.test(expr)) {
     required = true;
     expr = expr.replace(/\.isRequired$/, "");

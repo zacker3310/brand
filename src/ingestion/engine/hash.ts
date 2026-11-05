@@ -34,3 +34,12 @@ export function contentHash(payload: unknown): string {
 export function toJson<T>(v: T): T {
   return JSON.parse(JSON.stringify(v ?? null)) as T;
 }
+
+/**
+ * Parse-cache key for a discovered document: everything parse() receives besides the body. Two
+ * observations of the same URL share parsed fragments only when both this key and the content hash
+ * match, so a URL whose role changes (docKind/meta) is re-parsed even when its bytes are unchanged.
+ */
+export function docKey(doc: { docKind: string; meta?: unknown; title?: string; evidenceUrl?: string; source?: unknown }): string {
+  return contentHash({ docKind: doc.docKind, meta: doc.meta ?? null, title: doc.title ?? null, evidenceUrl: doc.evidenceUrl ?? null, source: doc.source ?? null });
+}

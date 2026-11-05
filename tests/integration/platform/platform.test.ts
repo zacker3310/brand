@@ -4,6 +4,7 @@
  */
 import pg from "pg";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { ensureMigratedTestDatabase } from "../test-db";
 
 const TEST_DB_URL = process.env.ATLAS_PLATFORM_TEST_DB ?? "postgres://postgres:postgres@localhost:5432/atlas_platform_test";
 process.env.DATABASE_URL = TEST_DB_URL;
@@ -39,10 +40,7 @@ async function admin<T>(fn: (c: pg.Client) => Promise<T>, url = TEST_DB_URL.repl
 beforeAll(async () => {
   const name = new URL(TEST_DB_URL).pathname.slice(1);
   if (name === "atlas") throw new Error("refusing to run against the dev database");
-  await admin(async (c) => {
-    const { rows } = await c.query("select 1 from pg_database where datname = $1", [name]);
-    if (!rows.length) await c.query(`create database "${name}" template atlas_template`);
-  });
+  await ensureMigratedTestDatabase(TEST_DB_URL);
   await admin(async (c) => {
     const { rows } = await c.query<{ tablename: string }>("select tablename from pg_tables where schemaname = 'public'");
     await c.query(`truncate ${rows.map((r) => `"${r.tablename}"`).join(", ")} restart identity cascade`);

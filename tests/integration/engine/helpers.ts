@@ -6,6 +6,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import pg from "pg";
+import { ensureMigratedTestDatabase } from "../test-db";
 
 export const TEST_DB_URL = process.env.ATLAS_ENGINE_TEST_DB ?? "postgres://postgres:postgres@localhost:5432/atlas_engine_test";
 
@@ -18,14 +19,7 @@ export async function prepareTestDb() {
   if (prepared) return;
   const dbName = new URL(TEST_DB_URL).pathname.slice(1);
   if (dbName === "atlas") throw new Error("refusing to run engine tests against the dev database");
-  const admin = new pg.Client({ connectionString: TEST_DB_URL.replace(/\/[^/]+$/, "/postgres") });
-  await admin.connect();
-  try {
-    const { rows } = await admin.query("select 1 from pg_database where datname = $1", [dbName]);
-    if (!rows.length) await admin.query(`create database "${dbName}" template atlas_template`);
-  } finally {
-    await admin.end();
-  }
+  await ensureMigratedTestDatabase(TEST_DB_URL);
   prepared = true;
 }
 
