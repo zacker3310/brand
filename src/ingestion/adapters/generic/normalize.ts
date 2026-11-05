@@ -50,24 +50,43 @@ export interface PageFragment {
 export type GenericFragment = IndexFragment | PageFragment;
 
 export interface PlannedComponent extends Candidate {
-  /** Docs URL candidate (matched URL, or docsUrlTemplate applied to the segment). */
+  /** Human docs URL candidate (matched URL, or docsUrlTemplate applied). */
   docsUrl: string | null;
+  /** URL fetched for page metadata (raw file for GitHub blob docs URLs; otherwise docsUrl). */
+  fetchUrl: string | null;
   /** docsUrl was constructed from a template (must be confirmed by a successful page fetch). */
   constructed: boolean;
   /** A page fetch is planned for this component. */
   fetchPage: boolean;
 }
 
-export function applyTemplate(template: string, segment: string): string {
-  return template.replace(/\{segment\}/g, segment);
+/** Placeholders: {segment} (captured segment), {path} (matched file path, repo-listing), {ref} (resolved repo ref/version). */
+export function applyTemplate(template: string, vars: { segment: string; path?: string; ref?: string }): string {
+  return template
+    .replace(/\{segment\}/g, vars.segment)
+    .replace(/\{path\}/g, vars.path ?? vars.segment)
+    .replace(/\{ref\}/g, vars.ref ?? "");
+}
+
+const FILE_HOSTS = new Set(["github.com", "raw.githubusercontent.com", "cdn.jsdelivr.net"]);
+
+/** GitHub blob URL -> raw file URL (fetched for metadata); other URLs unchanged. */
+export function rawFileUrl(url: string): string {
+  const m = /^https:\/\/github\.com\/([^/]+)\/([^/]+)\/blob\/(.+)$/.exec(url);
+  return m ? `https://raw.githubusercontent.com/${m[1]}/${m[2]}/${m[3]}` : url;
 }
 
 /**
- * Merge candidates from every index source, dedupe by key (first source in sorted order wins),
+ * Merge candidates from every index source, dedupe by key (shortest matched value wins),
  * cap to maxComponents (and ctx.limit) and mark which components get a page fetch.
  * Used identically by discover() and normalize() so both agree on the selection.
  */
-export function planComponents(target: GenericTarget, candidateLists: Candidate[][], limit?: number): { planned: PlannedComponent[]; total: number; truncated: number } {
+export function planComponents(
+  target: GenericTarget,
+  candidateLists: Candidate[][],
+  limit?: number,
+  repoRef?: string,
+): { planned: PlannedComponent[]; total: number; truncated: number } {
   const byKey = new Map<string, Candidate>();
   for (const list of candidateLists) {
     for (const c of list) {
@@ -80,13 +99,24 @@ export function planComponents(target: GenericTarget, candidateLists: Candidate[
   const cap = Math.min(target.maxComponents ?? DEFAULT_MAX_COMPONENTS, limit && limit > 0 ? limit : Infinity);
   const selected = keys.slice(0, cap);
   const template = target.repo?.docsUrlTemplate ?? target.docsUrlTemplate ?? null;
+  const listing = target.strategy === "repo-listing";
+  const ref = repoRef ?? target.repo?.ref;
   const pageCap = Math.min(target.maxPages ?? DEFAULT_MAX_PAGES, cap);
   const planned = selected.map((key, i): PlannedComponent => {
     const c = byKey.get(key)!;
-    const fromTemplate = template ? applyTemplate(template, c.segment) : null;
-    const docsUrl = fromTemplate ?? (target.strategy === "repo-listing" ? null : c.matched);
-    const constructed = !!fromTemplate && fromTemplate !== c.matched;
-    return { ...c, docsUrl, constructed, fetchPage: target.fetchPages !== false && !!docsUrl && i < pageCap };
+    const fromTemplate = template ? applyTemplate(template, { segment: c.segment, path: listing ? c.matched : undefined, ref }) : null;
+    const docsUrl = fromTemplate ?? (listing ? null : c.matched);
+    let host = "";
+    try {
+      host = docsUrl ? new URL(docsUrl).host : "";
+    } catch {
+      /* invalid template output: treated as constructed and dropped unless confirmed */
+    }
+    // A URL to the listed file itself is proven by the listing; any other template output is constructed.
+    const listingProven = listing && !!template?.includes("{path}") && FILE_HOSTS.has(host);
+    const constructed = !!fromTemplate && fromTemplate !== c.matched && !listingProven;
+    const fetchUrl = docsUrl ? rawFileUrl(docsUrl) : null;
+    return { ...c, docsUrl, fetchUrl, constructed, fetchPage: target.fetchPages !== false && !!fetchUrl && i < pageCap };
   });
   return { planned, total: keys.length, truncated: keys.length - selected.length };
 }
@@ -142,7 +172,8 @@ export function normalizeGeneric(fragments: GenericFragment[], opts: NormalizeOp
   for (const p of fragments.filter((f): f is PageFragment => f.type === "page")) pages.set(p.key, p);
   const boilerplate = siteWideDescriptions([...pages.values()]);
 
-  const { planned } = planComponents(target, indexes.map((f) => f.candidates), opts.limit);
+  const repoRef = indexes.find((f) => f.repo)?.repo?.ref;
+  const { planned } = planComponents(target, indexes.map((f) => f.candidates), opts.limit, repoRef);
   // The index source that listed the selected candidate (evidence for existence).
   const sourceOf = new Map<string, { frag: IndexFragment; cand: Candidate }>();
   const wanted = new Map(planned.map((p) => [p.key, p.matched]));
@@ -163,13 +194,24 @@ export function normalizeGeneric(fragments: GenericFragment[], opts: NormalizeOp
     const page = pages.get(p.key) ?? null;
     let pageOk = !!page && page.status >= 200 && page.status < 300 && !page.meta.soft404;
     if (page && !pageOk) opts.log?.(`${p.key}: page ${page.stamp.url} ${page.meta.soft404 ? "looks like a not-found page" : `HTTP ${page.status}`}`);
+    // Client-rendered shells answer 200 for any path: a page only counts when it names something
+    // (an h1, or a title that names the segment).
+    if (pageOk && !page!.meta.h1 && !(page!.meta.title && relatesToSegment(page!.meta.title, p.segment))) {
+      opts.log?.(`${p.key}: page ${page!.stamp.url} has no h1 and a generic title (client-rendered shell?); page metadata ignored`);
+      pageOk = false;
+    }
 
     // Docs URL: matched URLs come from the source; constructed ones need a confirming fetch.
     let docsUrl: string | null = p.docsUrl;
+    const fetchedIsDocs = !!p.fetchUrl && p.fetchUrl === p.docsUrl;
     if (pageOk) {
       const final = page!.finalUrl || page!.stamp.url;
       if (sameDoc(final, page!.stamp.url)) {
-        if (final !== docsUrl && normalizeHttp(final)) docsUrl = final; // e.g. trailing-slash redirect: keep the resolved URL
+        if (fetchedIsDocs && final !== docsUrl && normalizeHttp(final)) docsUrl = final; // e.g. trailing-slash redirect: keep the resolved URL
+      } else if (!fetchedIsDocs) {
+        // Raw file fetched for a GitHub blob docs URL: a redirect means the file moved.
+        opts.log?.(`${p.key}: ${page!.stamp.url} redirected to ${final}; page metadata ignored`);
+        pageOk = false;
       } else {
         // Redirected: adopt the final URL only when it is still this component's page.
         const finalSeg = matchOne(final, c);

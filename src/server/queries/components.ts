@@ -115,6 +115,10 @@ export interface CatalogFacets {
   class: FacetCount[];
   /** Components matching every active filter. */
   matching: number;
+  /** Components matching every filter except group (the "All groups" option). */
+  groupAll: number;
+  /** Canonical types with at least one implementation matching every active filter. */
+  typesMatching: number;
   /** All published components. */
   universe: number;
   /** Published systems with at least one published component. */
@@ -157,6 +161,10 @@ export async function getCatalogFacets(f: CatalogParams): Promise<CatalogFacets>
     union all
     select 'total', 'matching', null, (count(*) filter (where ${conditions(f)}))::int from base b
     union all
+    select 'total', 'typesMatching', null, (count(distinct b.type_slug) filter (where ${conditions(f)}))::int from base b
+    union all
+    select 'total', 'groupAll', null, (count(*) filter (where ${conditions(f, "group")}))::int from base b
+    union all
     select 'total', 'universe', null, count(*)::int from base b
     union all
     select 'total', 'systemsWithComponents', null, count(distinct b.system_slug)::int from base b
@@ -178,6 +186,8 @@ export async function getCatalogFacets(f: CatalogParams): Promise<CatalogFacets>
     has: [],
     class: [],
     matching: 0,
+    groupAll: 0,
+    typesMatching: 0,
     universe: 0,
     systemsWithComponents: 0,
     systemsPublished: 0,

@@ -17,7 +17,7 @@ import { stableStringify } from "@/lib/utils";
 import type { FetchResult } from "../http";
 import { sha256 } from "../http";
 import type { AdapterContext, DiscoveredDocument, FetchedDocument, ParsedFragment, SourceAdapter } from "../types";
-import { compileTarget, extractNavLinks, normalizeUrl, parseListing, parsePageMeta, parseSitemapXml, selectCandidates, type Candidate } from "./generic/extract";
+import { compileTarget, extractNavLinks, isMarkdownDoc, normalizeUrl, parseListing, parseMarkdownMeta, parsePageMeta, parseSitemapXml, parseStorybookIndex, selectCandidates, type Candidate } from "./generic/extract";
 import {
   ADAPTER_ID,
   DOC_KINDS,
@@ -100,6 +100,17 @@ async function prefetch(ctx: AdapterContext, url: string, maxBytes?: number): Pr
   return res;
 }
 
+/** Candidates from a sitemap document: XML urlset, or a Storybook index.json/stories.json. */
+export function sitemapCandidates(body: string, url: string, c: ReturnType<typeof compileTarget>): Candidate[] {
+  const sm = parseSitemapXml(body);
+  if (sm.kind === "urlset") return selectCandidates(sm.locs.map((u) => ({ value: normalizeUrl(u) ?? u })), c, { distinctPages: true });
+  if (/^\s*[{[]/.test(body)) {
+    const sb = parseStorybookIndex(body, url);
+    if (sb) return selectCandidates(sb, c, { distinctPages: true });
+  }
+  return [];
+}
+
 interface IndexDoc {
   doc: DiscoveredDocument;
   candidates: Candidate[];
@@ -139,7 +150,7 @@ async function discoverSitemaps(ctx: AdapterContext, t: GenericTarget): Promise<
         if (depth < MAX_SITEMAP_DEPTH) next.push(...sm.locs.map((u) => ({ url: u, depth: depth + 1 })));
         continue;
       }
-      const candidates = selectCandidates(sm.locs.map((u) => ({ value: normalizeUrl(u) ?? u })), c);
+      const candidates = sitemapCandidates(res.body, url, c);
       if (!candidates.length) {
         prefetched.delete(url);
         continue;
@@ -162,7 +173,7 @@ async function discoverNav(ctx: AdapterContext, t: GenericTarget): Promise<Index
     throw new Error(`generic: ${t.slug}: nav page ${t.navUrl} unavailable (${res.blockedByRobots ? "robots.txt disallows" : `HTTP ${res.status} ${res.error ?? ""}`})`);
   }
   const links = extractNavLinks(res.body, res.finalUrl || t.navUrl, t.navSelector);
-  const candidates = selectCandidates(links, compileTarget(t));
+  const candidates = selectCandidates(links, compileTarget(t), { distinctPages: true });
   return [{ doc: { url: t.navUrl, docKind: DOC_KINDS.nav, source: { kind: "docs", url: t.navUrl, label: `${new URL(t.navUrl).host} docs index` }, title: t.navUrl, evidenceUrl: t.navUrl, priority: 0 }, candidates }];
 }
 
@@ -211,24 +222,27 @@ export const adapter: SourceAdapter = {
   async discover(ctx) {
     const t = requireTarget(ctx.systemSlug);
     const indexDocs = t.strategy === "sitemap" ? await discoverSitemaps(ctx, t) : t.strategy === "nav" ? await discoverNav(ctx, t) : await discoverListing(ctx, t);
-    const { planned, total, truncated } = planComponents(t, indexDocs.map((d) => d.candidates), ctx.limit);
+    const repoRef = (indexDocs[0]?.doc.meta as { repo?: { ref?: string } } | undefined)?.repo?.ref;
+    const { planned, total, truncated } = planComponents(t, indexDocs.map((d) => d.candidates), ctx.limit, repoRef);
     truncatedBySystem.set(ctx.systemSlug, truncated);
     ctx.log.info(`generic: ${t.slug}: ${t.strategy} enumerated ${total} components (${planned.length} selected, ${planned.filter((p) => p.fetchPage).length} pages to fetch)`);
     if (!total) ctx.log.warn(`generic: ${t.slug}: no URLs/paths matched the include rule`);
     const docs: DiscoveredDocument[] = indexDocs.map((d) => d.doc);
     let i = 0;
     for (const p of planned) {
-      if (!p.fetchPage || !p.docsUrl) continue;
-      let host = "docs";
+      if (!p.fetchPage || !p.fetchUrl || !p.docsUrl) continue;
+      let origin: string;
       try {
-        host = new URL(p.docsUrl).host;
+        origin = new URL(p.docsUrl).origin;
+        new URL(p.fetchUrl);
       } catch {
         continue;
       }
+      const isRepoFile = p.fetchUrl !== p.docsUrl;
       docs.push({
-        url: p.docsUrl,
+        url: p.fetchUrl,
         docKind: DOC_KINDS.page,
-        source: { kind: "docs", url: new URL(p.docsUrl).origin + "/", label: host },
+        source: isRepoFile && t.repo ? { kind: t.repo.kind === "gh" ? "repository" : "package", url: (indexDocs[0]?.doc.source.url ?? origin + "/"), label: indexDocs[0]?.doc.source.label } : { kind: "docs", url: `${origin}/`, label: new URL(origin).host },
         title: p.docsUrl,
         evidenceUrl: p.docsUrl,
         meta: { key: p.key, segment: p.segment },
@@ -258,13 +272,12 @@ export const adapter: SourceAdapter = {
     const frag = (data: GenericFragment, warnings?: string[]): ParsedFragment => ({ docUrl: doc.url, docKind: doc.docKind, data, warnings: warnings?.length ? warnings : undefined });
     switch (doc.docKind) {
       case DOC_KINDS.sitemap: {
-        const sm = parseSitemapXml(body);
-        const candidates = selectCandidates(sm.locs.map((u) => ({ value: normalizeUrl(u) ?? u })), c);
-        return frag({ type: "index", strategy: "sitemap", stamp, candidates } satisfies IndexFragment, sm.kind === "urlset" ? [] : [`not a urlset sitemap (${sm.kind})`]);
+        const candidates = sitemapCandidates(body, doc.url, c);
+        return frag({ type: "index", strategy: "sitemap", stamp, candidates } satisfies IndexFragment, candidates.length ? [] : ["no component URLs matched in sitemap"]);
       }
       case DOC_KINDS.nav: {
         const links = extractNavLinks(body, result.finalUrl || doc.url, t.navSelector);
-        return frag({ type: "index", strategy: "nav", stamp, candidates: selectCandidates(links, c) } satisfies IndexFragment);
+        return frag({ type: "index", strategy: "nav", stamp, candidates: selectCandidates(links, c, { distinctPages: true }) } satisfies IndexFragment);
       }
       case DOC_KINDS.listing: {
         const repo = (doc.meta as { repo?: IndexFragment["repo"] } | undefined)?.repo;
@@ -274,7 +287,7 @@ export const adapter: SourceAdapter = {
       case DOC_KINDS.page: {
         const m = (doc.meta ?? {}) as { key?: string; segment?: string };
         if (!m.key || !m.segment) return null;
-        const meta = parsePageMeta(body, result.finalUrl || doc.url);
+        const meta = isMarkdownDoc(doc.url, result.contentType) ? parseMarkdownMeta(body) : parsePageMeta(body, result.finalUrl || doc.url);
         return frag({ type: "page", key: m.key, segment: m.segment, stamp, finalUrl: result.finalUrl || doc.url, status: result.status, meta } satisfies PageFragment);
       }
       default:

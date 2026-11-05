@@ -185,7 +185,10 @@ export interface ComponentDetail {
     coverage: CoverageMap;
   } | null;
   frameworks: { slug: string; name: string; packageName: string | null; importName: string | null }[];
+  /** First few linked examples per kind (docs-link, storybook-link, code-snippet…). */
   examples: { kind: string; title: string; url: string | null }[];
+  /** Total examples per kind. */
+  exampleCounts: Record<string, number>;
   tokens: ComponentTokenView[];
   evidence: { count: number; sources: number; lastRetrievedAt: string | null; methods: string[]; hosts: string[] };
 }

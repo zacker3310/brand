@@ -25,6 +25,8 @@ const decodeEntities = (s: string): string =>
 /** "date-picker" | "date_picker" | "DatePicker" | "forms/date-picker" -> "Date Picker" (last path part). */
 export function humanizeSegment(segment: string): string {
   const last = segment.split("/").filter(Boolean).pop() ?? segment;
+  // PascalCase identifiers (component directory names such as "AutoComplete") are already names.
+  if (/^[A-Z][a-z0-9]+(?:[A-Z][a-z0-9]*)*$/.test(last) && /[a-z]/.test(last)) return last;
   return clean(
     decodeURIComponent(last)
       .replace(/\.[a-z0-9]+$/i, "")
@@ -72,6 +74,33 @@ export function parseSitemapXml(xml: string): ParsedSitemap {
     if (/^https?:\/\//i.test(v)) locs.push(v);
   }
   return { kind, locs };
+}
+
+/**
+ * Storybook index (index.json v4/v5 "entries", stories.json v3 "stories"): a machine-readable
+ * listing of every docs/story entry of a Storybook, used like a sitemap. Values are Storybook URLs
+ * (`<base>/?path=/docs/<id>` or `/story/<id>`); text is the entry title ("Components/Button").
+ */
+export function parseStorybookIndex(json: string, indexUrl: string): { value: string; text: string }[] | null {
+  let data: unknown;
+  try {
+    data = JSON.parse(json);
+  } catch {
+    return null;
+  }
+  const d = data as { entries?: unknown; stories?: unknown };
+  const map = (d && typeof d === "object" ? (d.entries ?? d.stories) : null) as Record<string, unknown> | null;
+  if (!map || typeof map !== "object") return null;
+  const base = indexUrl.replace(/(index|stories)\.json(\?.*)?$/, "");
+  const out: { value: string; text: string }[] = [];
+  for (const raw of Object.values(map)) {
+    const e = raw as { id?: unknown; title?: unknown; kind?: unknown; type?: unknown };
+    if (!e || typeof e.id !== "string") continue;
+    const title = typeof e.title === "string" ? e.title : typeof e.kind === "string" ? e.kind : "";
+    const kind = e.type === "docs" ? "docs" : "story";
+    out.push({ value: `${base}?path=/${kind}/${e.id}`, text: title });
+  }
+  return out;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -192,7 +221,8 @@ export function selectCandidates(values: { value: string; text?: string | null }
   const pick = (hits: Hit[]): Hit => {
     let best = hits[0]!;
     for (const h of hits.slice(1)) if (better(h, best)) best = h;
-    const text = best.text ?? hits.find((h) => h.text)?.text ?? null;
+    const texts = hits.filter((h) => h.value === best.value && h.text).map((h) => h.text!);
+    const text = texts.sort((a, b) => a.length - b.length || (a < b ? -1 : 1))[0] ?? hits.find((h) => h.text)?.text ?? null;
     return { ...best, text };
   };
   const out = new Map<string, Candidate>();
@@ -310,6 +340,94 @@ export function parsePageMeta(html: string, pageUrl: string): PageMeta {
   return { title, h1, h1Own: h1Own && h1Own !== h1 ? h1Own : null, metaDescription: desc, canonical, lang, soft404 };
 }
 
+const stripMdInline = (s: string) =>
+  clean(
+    s
+      .replace(/<[^>]+>/g, " ")
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+      .replace(/[`*_~]+/g, "")
+      .replace(/\{#[^}]*\}\s*$/, ""),
+  );
+
+/** Unquote a simple YAML scalar ("Button", 'Button', Button). */
+const yamlScalar = (v: string) => clean(v.replace(/^(["'])(.*)\1$/, "$2"));
+
+/**
+ * Static metadata from a Markdown/MDX docs source file: frontmatter title/description, the first
+ * level-1 heading, and the first prose paragraph directly under it (before any sub-heading,
+ * skipping lists, tables, admonitions (:::), HTML/JSX, imports and code fences).
+ */
+export function parseMarkdownMeta(md: string): PageMeta {
+  let body = md.replace(/^\uFEFF/, "");
+  let fmTitle: string | null = null;
+  let fmDesc: string | null = null;
+  const fm = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/.exec(body);
+  if (fm) {
+    for (const line of fm[1]!.split(/\r?\n/)) {
+      const m = /^(title|description)\s*:\s*(.+)$/.exec(line);
+      if (m && m[1] === "title") fmTitle = yamlScalar(m[2]!) || null;
+      if (m && m[1] === "description") fmDesc = yamlScalar(m[2]!) || null;
+    }
+    body = body.slice(fm[0].length);
+  }
+  const lines = body.split(/\r?\n/);
+  let h1: string | null = null;
+  let h1Line = -1;
+  let fence = false;
+  for (let i = 0; i < lines.length; i++) {
+    const l = lines[i]!;
+    if (/^\s*```/.test(l) && !/^\s*`{4,}/.test(l)) fence = !fence; // 4+ backtick wrappers (e.g. Arco headers) are transparent
+    if (fence) continue;
+    const m = /^#\s+(.+?)\s*#*\s*$/.exec(l);
+    if (m) {
+      h1 = stripMdInline(m[1]!) || null;
+      h1Line = i;
+      break;
+    }
+  }
+  let para: string | null = null;
+  if (h1Line >= 0) {
+    let inAdmonition = false;
+    let inFence = false;
+    const buf: string[] = [];
+    for (let i = h1Line + 1; i < lines.length && i < h1Line + 40; i++) {
+      const l = lines[i]!.trim();
+      if (/^`{3}/.test(l)) {
+        inFence = !inFence;
+        if (buf.length) break;
+        continue;
+      }
+      if (inFence) continue;
+      if (/^`{4,}/.test(l)) {
+        if (buf.length) break;
+        continue;
+      }
+      if (/^:::/.test(l)) {
+        inAdmonition = !inAdmonition && l !== ":::";
+        if (buf.length) break;
+        continue;
+      }
+      if (inAdmonition) continue;
+      if (/^#{1,6}\s/.test(l)) break;
+      if (!l) {
+        if (buf.length) break;
+        continue;
+      }
+      if (/^([-*+]\s|\d+\.\s|\||<|>|!|\[|import\s|export\s|\{|%%|---|===)/.test(l)) {
+        if (buf.length) break;
+        continue;
+      }
+      buf.push(l);
+    }
+    para = buf.length ? stripMdInline(buf.join(" ")) : null;
+  }
+  return { title: fmTitle, h1, h1Own: null, metaDescription: fmDesc ?? para, canonical: null, lang: null, soft404: false };
+}
+
+/** Markdown/MDX by URL extension or content type. */
+export const isMarkdownDoc = (url: string, contentType: string | null) => /\.mdx?$/i.test(new URL(url).pathname) || /markdown/i.test(contentType ?? "");
+
 const MAX_NAME_CHARS = 60;
 const MAX_NAME_WORDS = 6;
 
@@ -368,6 +486,9 @@ export function chooseName(
     if (rel(title)) return { name: title, from: "title" };
     if (rel(h1Own)) return { name: h1Own, from: "h1" };
   }
+  // Link texts may be breadcrumbs ("Components/DataTable/Basic"): use the deepest part naming the segment.
+  const linkParts = (linkText ?? "").split(/\s*[/›»>]\s*/).map((x) => strip(x, null)).filter((x): x is string => !!x).reverse();
+  for (const part of linkParts.length > 1 ? linkParts : []) if (rel(part)) return { name: part, from: "link" };
   const link = strip(linkText, null);
   if (rel(link)) return { name: link, from: "link" };
   return { name: humanizeSegment(segment), from: "segment" };
@@ -377,7 +498,7 @@ export function chooseName(
 export function shortDescription(s: string | null | undefined, max = 300): string | null {
   const t = clean(s);
   // Too short to be a description ("Text field", "Not in SB", "Building block only").
-  if (t.length < 20 || t.split(" ").length < 4) return null;
+  if (t.length < 20 || t.split(" ").length < 3) return null;
   if (t.length <= max) return t;
   const sentences = t.match(/[^.!?。]+[.!?。]+(\s|$)/g) ?? [];
   let out = "";
