@@ -2322,5 +2322,821 @@
     ],
     "confidence": 0.96,
     "verifiedAt": "2026-11-05T03:59:26.972Z"
+  },
+  {
+    "rank": 36,
+    "slug": "panda-css",
+    "name": "Panda CSS",
+    "aliases": [],
+    "organization": {
+      "slug": "chakra-ui",
+      "name": "Chakra UI (Chakra Systems Inc.)",
+      "websiteUrl": "https://chakra-ui.com/"
+    },
+    "category": "styling-engine",
+    "summary": "Panda CSS is an open-source, build-time CSS-in-JS styling engine with type-safe style functions, design tokens and recipes, from the Chakra UI team. It generates static CSS and works across JavaScript frameworks.",
+    "homepageUrl": "https://panda-css.com/",
+    "docsUrl": "https://panda-css.com/docs",
+    "repositoryUrl": "https://github.com/chakra-ui/panda",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@pandacss/dev",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@pandacss/dev"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/chakra-ui/panda/main/LICENSE.md",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2023 Segun Adebayo. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "2.5.0",
+    "latestReleaseAt": "2026-11-02T22:09:19.120Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "svelte",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "solid",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "qwik",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "preact",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      },
+      {
+        "slug": "ember",
+        "packageName": "@pandacss/dev",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "css-in-js",
+      "design-tokens",
+      "theming",
+      "zero-runtime",
+      "multi-framework"
+    ],
+    "relatedSlugs": [
+      "park-ui",
+      "ark-ui",
+      "chakra-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified styling-engine: it ships no component catalog; Park UI provides components on top of it. Frameworks map the official framework guides to taxonomy slugs (Next.js/Remix/React Router/Gatsby/Redwood -> react; Vue/Nuxt -> vue; plus svelte, angular, solid, qwik, preact, ember). All use the same @pandacss/dev package. Astro, Vite and Rsbuild are build tools or meta-frameworks without a taxonomy slug. No component Figma kit applies.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://panda-css.com",
+        "status": 200,
+        "finalUrl": "https://panda-css.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.229Z",
+        "method": "http-check",
+        "note": "title: Panda CSS - Build modern websites using build time and type-safe CSS-in-JS; npm @pandacss/dev homepage field = https://panda-css.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://panda-css.com/docs",
+        "status": 200,
+        "finalUrl": "https://panda-css.com/docs",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:38.852Z",
+        "method": "http-check",
+        "note": "title: Welcome to Panda - Panda CSS; public docs; footer 'Proudly made by the Chakra team'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://panda-css.com/docs/get-started/framework-guides",
+        "status": 200,
+        "finalUrl": "https://panda-css.com/docs/get-started/framework-guides",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:01:12.770Z",
+        "method": "http-check",
+        "note": "official framework guides: Next.js, Vite, Astro, Vue, Nuxt, Svelte, Remix, React Router, Angular, Gatsby, Solid, Qwik, Preact, Rsbuild, Ember, Redwood"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/chakra-ui/panda",
+        "status": 200,
+        "finalUrl": "https://github.com/chakra-ui/panda",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.117Z",
+        "method": "http-check",
+        "note": "official repo chakra-ui/panda: 'Universal, Type-Safe, CSS-in-JS Framework for Design Systems'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/chakra-ui/panda/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/chakra-ui/panda/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:50.399Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md on main: MIT License, Copyright (c) 2023 Segun Adebayo"
+      },
+      {
+        "field": "package:@pandacss/dev",
+        "url": "https://www.npmjs.com/package/@pandacss/dev",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.000Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.5.0 published 2026-11-02; license MIT; not deprecated; repo git+https://github.com/chakra-ui/panda.git; release 3 days before the research date => active"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:01:12.770Z"
+  },
+  {
+    "rank": 37,
+    "slug": "react-aria",
+    "name": "React Aria",
+    "aliases": [
+      "React Aria Components",
+      "Adobe React Aria"
+    ],
+    "organization": {
+      "slug": "adobe",
+      "name": "Adobe",
+      "websiteUrl": null
+    },
+    "category": "headless-library",
+    "summary": "React Aria is Adobe's open-source library of unstyled, accessible React components (react-aria-components) and lower-level behavior hooks (react-aria), with built-in interactions and internationalization. It is developed in the adobe/react-spectrum monorepo.",
+    "homepageUrl": "https://react-aria.adobe.com/",
+    "docsUrl": "https://react-aria.adobe.com/getting-started",
+    "repositoryUrl": "https://github.com/adobe/react-spectrum",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "react-aria-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/react-aria-components"
+      },
+      {
+        "name": "react-aria",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/react-aria"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright Adobe. Apache-2.0: retain license/NOTICE, state changes; includes patent grant."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.22.1",
+    "latestReleaseAt": "2026-10-09T20:23:49.939Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "react-aria-components",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "headless",
+      "accessibility-first",
+      "unstyled",
+      "i18n"
+    ],
+    "relatedSlugs": [
+      "react-spectrum",
+      "adobe-spectrum",
+      "heroui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Canonical entry for React Aria (hooks) and React Aria Components; 'adobe-react-aria' (rank 90) is duplicateOf this slug per integrator decision. Distinct from react-spectrum, which is Adobe's styled Spectrum implementation built on React Aria. Docs moved from react-spectrum.adobe.com/react-aria/ to react-aria.adobe.com (redirect verified). latestVersion refers to react-aria-components; the react-aria hooks package is versioned separately (3.x). organization.websiteUrl is null because no Adobe corporate page was checked.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://react-spectrum.adobe.com/react-aria/",
+        "status": 200,
+        "finalUrl": "https://react-aria.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.223Z",
+        "method": "http-check",
+        "note": "former docs URL redirects to https://react-aria.adobe.com/ (title: React Aria)"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://react-aria.adobe.com",
+        "status": 200,
+        "finalUrl": "https://react-aria.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.518Z",
+        "method": "http-check",
+        "note": "title: React Aria; homepage links github.com/adobe/react-spectrum and npm react-aria-components"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://react-aria.adobe.com/getting-started",
+        "status": 200,
+        "finalUrl": "https://react-aria.adobe.com/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:38.699Z",
+        "method": "http-check",
+        "note": "title: Getting started | React Aria; install command: npm install react-aria-components"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/adobe/react-spectrum",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/react-spectrum",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.418Z",
+        "method": "http-check",
+        "note": "official Adobe monorepo adobe/react-spectrum (hosts React Aria, React Stately, React Spectrum)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:40.098Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: Apache License 2.0"
+      },
+      {
+        "field": "package:react-aria-components",
+        "url": "https://www.npmjs.com/package/react-aria-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.183Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.22.1 published 2026-10-09; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; release about 4 weeks before the research date => active"
+      },
+      {
+        "field": "package:react-aria",
+        "url": "https://www.npmjs.com/package/react-aria",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.550Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.53.1 published 2026-10-09; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; hooks package"
+      }
+    ],
+    "confidence": 0.97,
+    "verifiedAt": "2026-11-05T04:00:40.098Z"
+  },
+  {
+    "rank": 38,
+    "slug": "react-spectrum",
+    "name": "React Spectrum",
+    "aliases": [
+      "React Spectrum S2"
+    ],
+    "organization": {
+      "slug": "adobe",
+      "name": "Adobe",
+      "websiteUrl": null
+    },
+    "category": "component-library",
+    "summary": "React Spectrum is Adobe's open-source React implementation of the Spectrum design system, built on React Aria. The current Spectrum 2 package is @react-spectrum/s2, and the v3 package @adobe/react-spectrum is still published.",
+    "homepageUrl": "https://react-spectrum.adobe.com/",
+    "docsUrl": "https://react-spectrum.adobe.com/getting-started",
+    "repositoryUrl": "https://github.com/adobe/react-spectrum",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@react-spectrum/s2",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@react-spectrum/s2"
+      },
+      {
+        "name": "@adobe/react-spectrum",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@adobe/react-spectrum"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright Adobe. Apache-2.0: retain license/NOTICE, state changes; includes patent grant."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.8.2",
+    "latestReleaseAt": "2026-10-15T23:31:33.590Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@react-spectrum/s2",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "enterprise",
+      "accessibility-first",
+      "theming",
+      "i18n"
+    ],
+    "relatedSlugs": [
+      "adobe-spectrum",
+      "react-aria"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Distinct implementation with its own component catalog, verified separately from adobe-spectrum (the design system/guidelines) and react-aria (the headless layer it builds on). The site root now documents Spectrum 2, and v3 docs live under /v3/ (legacy URLs redirect there). latestVersion refers to @react-spectrum/s2; @adobe/react-spectrum (v3) was released 2026-10-09. No official Figma link was verified for this entry; any Spectrum Figma kits belong to adobe-spectrum.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://react-spectrum.adobe.com",
+        "status": 200,
+        "finalUrl": "https://react-spectrum.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.570Z",
+        "method": "http-check",
+        "note": "title: React Spectrum; root now documents Spectrum 2 (links npm @react-spectrum/s2)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://react-spectrum.adobe.com/getting-started",
+        "status": 200,
+        "finalUrl": "https://react-spectrum.adobe.com/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:38.681Z",
+        "method": "http-check",
+        "note": "title: Getting started | React Spectrum; install command: npm install @react-spectrum/s2"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://react-spectrum.adobe.com/react-spectrum/getting-started.html",
+        "status": 200,
+        "finalUrl": "https://react-spectrum.adobe.com/v3/getting-started.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.840Z",
+        "method": "http-check",
+        "note": "legacy v3 docs path redirects to https://react-spectrum.adobe.com/v3/getting-started.html (title: Getting Started – V3)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://react-spectrum.adobe.com/v3/index.html",
+        "status": 200,
+        "finalUrl": "https://react-spectrum.adobe.com/v3/index.html",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:39.001Z",
+        "method": "http-check",
+        "note": "v3 docs still served under /v3/ (title: React Spectrum)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/adobe/react-spectrum",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/react-spectrum",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.418Z",
+        "method": "http-check",
+        "note": "official Adobe monorepo adobe/react-spectrum"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:40.098Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: Apache License 2.0"
+      },
+      {
+        "field": "package:@react-spectrum/s2",
+        "url": "https://www.npmjs.com/package/@react-spectrum/s2",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:52.303Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.8.2 published 2026-10-15; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; Spectrum 2 implementation; release about 3 weeks before the research date => active"
+      },
+      {
+        "field": "package:@adobe/react-spectrum",
+        "url": "https://www.npmjs.com/package/@adobe/react-spectrum",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:51.926Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.47.7 published 2026-10-09; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; v3 package, still released"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:00:40.098Z"
+  },
+  {
+    "rank": 39,
+    "slug": "fluent-ui-react",
+    "name": "Fluent UI React",
+    "aliases": [
+      "Fluent UI React v9",
+      "Fluent UI React Components",
+      "Office UI Fabric React"
+    ],
+    "organization": {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "websiteUrl": null
+    },
+    "category": "component-library",
+    "summary": "Fluent UI React is Microsoft's open-source React implementation of the Fluent design system. v9 (@fluentui/react-components) is the current line used by Microsoft 365, and v8 (@fluentui/react, formerly Office UI Fabric React) remains maintained.",
+    "homepageUrl": "https://storybooks.fluentui.dev/react/",
+    "docsUrl": "https://storybooks.fluentui.dev/react/",
+    "repositoryUrl": "https://github.com/microsoft/fluentui",
+    "figmaUrl": null,
+    "storybookUrl": "https://storybooks.fluentui.dev/react/",
+    "packages": [
+      {
+        "name": "@fluentui/react-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/react-components"
+      },
+      {
+        "name": "@fluentui/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@fluentui/react"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Code is MIT (c) Microsoft Corporation. Per the repo README, the fonts and icons referenced by Fluent UI React are under a separate assets license (aka.ms/fluentui-assets-license, not checked by ATLAS), so do not redistribute those assets under MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "9.75.1",
+    "latestReleaseAt": "2026-11-02T13:26:55.110Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@fluentui/react-components",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "enterprise",
+      "accessibility-first",
+      "design-tokens",
+      "css-in-js"
+    ],
+    "relatedSlugs": [
+      "fluent-2",
+      "fluent-ui-web-components",
+      "microsoft-fast"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Covers the React implementations in microsoft/fluentui (v9 primary, v8 included). Fluent UI Web Components (same repo) is a separate entry (fluent-ui-web-components), and the Fluent 2 design language is fluent-2. Official v9 docs are a Storybook, so homepageUrl, docsUrl and storybookUrl share the canonical storybooks.fluentui.dev/react/ URL that react.fluentui.dev redirects to. The v8 site is developer.microsoft.com/en-us/fluentui. latestVersion refers to @fluentui/react-components. No Figma link was verified here; Fluent 2 kits belong to fluent-2.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://react.fluentui.dev",
+        "status": 200,
+        "finalUrl": "https://storybooks.fluentui.dev/react/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.324Z",
+        "method": "http-check",
+        "note": "official v9 docs domain (per repo README) redirects to https://storybooks.fluentui.dev/react/ (title: Fluent UI React v9)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://storybooks.fluentui.dev/react/",
+        "status": 200,
+        "finalUrl": "https://storybooks.fluentui.dev/react/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.204Z",
+        "method": "http-check",
+        "note": "Storybook-based official v9 documentation (200)"
+      },
+      {
+        "field": "docs",
+        "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:38.610Z",
+        "method": "repo-metadata",
+        "note": "repo README: React Components v9 docs at react.fluentui.dev (npm @fluentui/react-components); React v8 docs at aka.ms/fluentui-react (npm @fluentui/react); all repo files MIT; fonts/icons under a separate assets license"
+      },
+      {
+        "field": "docs",
+        "url": "https://aka.ms/fluentui-react",
+        "status": 200,
+        "finalUrl": "https://developer.microsoft.com/en-us/fluentui",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:38.858Z",
+        "method": "http-check",
+        "note": "v8 docs short link redirects to https://developer.microsoft.com/en-us/fluentui (title: Home - Fluent UI)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fluentui",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fluentui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.839Z",
+        "method": "http-check",
+        "note": "official repo microsoft/fluentui: utilities, React components and Web Components"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:40.699Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master: MIT License, Copyright (c) Microsoft Corporation"
+      },
+      {
+        "field": "package:@fluentui/react-components",
+        "url": "https://www.npmjs.com/package/@fluentui/react-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:52.609Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.75.1 published 2026-11-02; license MIT; not deprecated; repo git+https://github.com/microsoft/fluentui.git; v9; release 3 days before the research date => active"
+      },
+      {
+        "field": "package:@fluentui/react",
+        "url": "https://www.npmjs.com/package/@fluentui/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:53.824Z",
+        "method": "package-metadata",
+        "note": "npm latest 8.125.10 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/microsoft/fluentui.git; v8 (mature line), still released"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:00:40.699Z"
+  },
+  {
+    "rank": 40,
+    "slug": "blueprint",
+    "name": "Blueprint",
+    "aliases": [
+      "Palantir Blueprint",
+      "BlueprintJS"
+    ],
+    "organization": {
+      "slug": "palantir",
+      "name": "Palantir Technologies",
+      "websiteUrl": null
+    },
+    "category": "component-library",
+    "summary": "Blueprint is Palantir's open-source React UI toolkit, optimized for complex, data-dense web interfaces in desktop-browser applications. It ships as @blueprintjs/core plus separate datetime, select, table and icons packages.",
+    "homepageUrl": "https://blueprintjs.com/",
+    "docsUrl": "https://blueprintjs.com/docs/",
+    "repositoryUrl": "https://github.com/palantir/blueprint",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@blueprintjs/core",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/core"
+      },
+      {
+        "name": "@blueprintjs/datetime",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/datetime"
+      },
+      {
+        "name": "@blueprintjs/select",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/select"
+      },
+      {
+        "name": "@blueprintjs/table",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/table"
+      },
+      {
+        "name": "@blueprintjs/icons",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@blueprintjs/icons"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Apache-2.0: retain license/NOTICE, state changes; includes patent grant."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "6.22.0",
+    "latestReleaseAt": "2026-11-02T17:02:04.897Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@blueprintjs/core",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "data-dense",
+      "enterprise",
+      "developer-tools"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Canonical entry for Palantir Blueprint; 'palantir-blueprint' (rank 65) is duplicateOf this slug per integrator decision. Targets desktop-browser web apps (README), so the platform is 'web' only, not native 'desktop'. Package list and descriptions come from the README on develop; all five listed packages were released 2026-11-02 under Apache-2.0. latestVersion refers to @blueprintjs/core. No official Figma link was recorded.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://blueprintjs.com",
+        "status": 200,
+        "finalUrl": "https://blueprintjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.158Z",
+        "method": "http-check",
+        "note": "title: Blueprint – A React-based UI toolkit for the web"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://blueprintjs.com/docs/",
+        "status": 200,
+        "finalUrl": "https://blueprintjs.com/docs/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:48.517Z",
+        "method": "http-check",
+        "note": "title: Blueprint – Documentation; public docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/palantir/blueprint",
+        "status": 200,
+        "finalUrl": "https://github.com/palantir/blueprint",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:49.018Z",
+        "method": "http-check",
+        "note": "official repo palantir/blueprint: 'A React-based UI toolkit for the web'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:00:40.999Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on develop: Apache License 2.0"
+      },
+      {
+        "field": "package:@blueprintjs/core",
+        "url": "https://www.npmjs.com/package/@blueprintjs/core",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:53.899Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.22.0 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git; release 3 days before the research date => active"
+      },
+      {
+        "field": "summary",
+        "url": "https://raw.githubusercontent.com/palantir/blueprint/develop/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/palantir/blueprint/develop/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:21.394Z",
+        "method": "repo-metadata",
+        "note": "README: 'optimized for building complex, data-dense web interfaces for desktop applications which run in modern browsers'; lists @blueprintjs/core, datetime, icons, select, table, colors packages"
+      },
+      {
+        "field": "package:@blueprintjs/datetime",
+        "url": "https://www.npmjs.com/package/@blueprintjs/datetime",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:21.647Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.3.1 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      },
+      {
+        "field": "package:@blueprintjs/select",
+        "url": "https://www.npmjs.com/package/@blueprintjs/select",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:22.029Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.4.1 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      },
+      {
+        "field": "package:@blueprintjs/table",
+        "url": "https://www.npmjs.com/package/@blueprintjs/table",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:22.393Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.3.1 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      },
+      {
+        "field": "package:@blueprintjs/icons",
+        "url": "https://www.npmjs.com/package/@blueprintjs/icons",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:02:22.542Z",
+        "method": "package-metadata",
+        "note": "npm latest 6.15.0 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T04:02:22.542Z"
   }
 ]

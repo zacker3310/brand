@@ -23,7 +23,6 @@ import {
   FRAMEWORK_QUERY_WORDS,
   PATTERN_TYPES,
   SEARCH_SYNONYMS,
-  normalizeName,
 } from "@/lib/taxonomy";
 import type { ParsedQuery, QueryUnit } from "./types";
 
