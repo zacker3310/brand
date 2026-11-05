@@ -94,6 +94,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("menu", "Menu", "navigation", "A list of actions or options presented in a popup.", ["menu", "action list", "actionlist", "dropdown menu", "menu list", "menubar", "popup menu"], ["dropdown", "context menu", "select"], "menu"),
   t("command-palette", "Command palette", "navigation", "A searchable launcher for commands and destinations.", ["command palette", "command menu", "command bar", "cmdk", "spotlight", "quick open"], ["search field", "combobox"], "combobox"),
   t("stepper", "Stepper", "navigation", "Shows progress through a sequence of steps.", ["stepper", "steps", "step indicator", "progress indicator steps", "wizard", "progress tracker", "progress stepper"], ["progress indicator"]),
+  t("page-header", "Page header", "navigation", "The title area of a page or view, with context, metadata and primary actions.", ["page header", "pageheader", "page title", "title bar", "page heading"], ["navigation bar", "breadcrumbs"]),
   t("toolbar", "Toolbar", "navigation", "A container grouping a set of controls.", ["toolbar", "tool bar", "action bar", "actionbar"], ["navigation bar", "button group"], "toolbar"),
   t("skip-link", "Skip link", "navigation", "Lets keyboard users bypass repeated content.", ["skip link", "skiplink", "skip to content", "skip navigation"], ["link"]),
   t("anchor-navigation", "Anchor navigation", "navigation", "In-page links to sections of the current page.", ["anchor navigation", "table of contents", "in page navigation", "on this page", "jump links", "anchor"], ["sidebar"]),
@@ -108,7 +109,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("badge", "Badge", "data-display", "A small indicator of count or status attached to another element.", ["badge", "counter", "count badge", "notification badge", "indicator", "counter label"], ["tag", "status"]),
   t("tag", "Tag", "data-display", "A compact label for categorization or filtering, sometimes removable.", ["tag", "chip", "pill", "token", "label tag", "lozenge", "issue label"], ["badge"]),
   t("avatar", "Avatar", "data-display", "Represents a person or entity with an image, initials or icon.", ["avatar", "user avatar", "profile picture", "avatar group", "avatar stack", "persona"], []),
-  t("tooltip", "Tooltip", "data-display", "A brief label shown on hover or focus to describe an element.", ["tooltip", "tool tip", "hint", "info tip"], ["popover", "toggletip"], "tooltip"),
+  t("tooltip", "Tooltip", "data-display", "A brief label shown on hover or focus to describe an element.", ["tooltip", "tool tip", "info tip"], ["popover", "toggletip"], "tooltip"),
   t("toggletip", "Toggletip", "data-display", "A disclosure of supplemental info triggered by click, not hover.", ["toggletip", "toggle tip", "info button"], ["tooltip", "popover"]),
   t("accordion", "Accordion", "data-display", "Vertically stacked headers that expand to reveal content.", ["accordion", "expansion panel", "collapse", "collapsible", "disclosure", "details", "expander"], [], "accordion"),
   t("timeline", "Timeline", "data-display", "Presents events in chronological order.", ["timeline", "activity feed", "time line"], []),
@@ -126,6 +127,7 @@ export const COMPONENT_TYPES: ComponentTypeDef[] = [
   t("spinner", "Spinner", "feedback", "An indeterminate indicator that something is loading.", ["spinner", "loader", "loading", "loading indicator", "activity indicator", "busy indicator", "inline loading"], ["progress indicator", "skeleton"]),
   t("skeleton", "Skeleton", "feedback", "A placeholder preview of content while it loads.", ["skeleton", "skeleton loader", "placeholder", "shimmer", "skeleton text"], ["spinner"]),
   t("empty-state", "Empty state", "feedback", "Content shown when there is no data to display.", ["empty state", "emptystate", "blank slate", "blankslate", "zero state", "no results", "empty", "empty content"], []),
+  t("live-region", "Live region", "feedback", "Announces dynamic content changes to assistive technology without moving focus.", ["live region", "aria live", "aria status", "aria alert", "announcer", "status announcer", "visually hidden announcement"], ["alert", "toast"], "alert"),
   t("validation-message", "Validation message", "feedback", "Communicates errors or guidance for a form field.", ["validation message", "error message", "field error", "inline validation", "helper text", "form validation", "error summary", "validation"], ["alert"]),
 
   // Overlays
@@ -192,7 +194,8 @@ export const PATTERN_TYPES: PatternTypeDef[] = [
   { slug: "navigation", name: "Navigation", description: "Structuring and moving between the destinations of a product.", aliases: ["navigation", "wayfinding", "menus", "information architecture"] },
   { slug: "search", name: "Search", description: "Helping users find content via queries, suggestions and results.", aliases: ["search", "find", "search results"] },
   { slug: "filtering", name: "Filtering", description: "Narrowing a collection by criteria, facets or tokens.", aliases: ["filter", "filtering", "facets", "sorting"] },
-  { slug: "data-tables", name: "Data tables", description: "Displaying, sorting, selecting and acting on tabular data.", aliases: ["data table", "tables", "data display", "data visualization"] },
+  { slug: "data-tables", name: "Data tables", description: "Displaying, sorting, selecting and acting on tabular data.", aliases: ["data table", "tables", "data display"] },
+  { slug: "data-visualization", name: "Data visualization", description: "Guidance for charts, graphs and visual encodings of data.", aliases: ["data visualization", "data viz", "dataviz", "charts", "charting"] },
   { slug: "forms", name: "Forms", description: "Collecting, validating and submitting user input.", aliases: ["forms", "form", "question pages", "form design", "input", "inputs"] },
   { slug: "empty-states", name: "Empty states", description: "What to show when there is no content yet or no results.", aliases: ["empty state", "empty states", "zero state", "blank slate", "no results"] },
   { slug: "error-recovery", name: "Error recovery", description: "Preventing, communicating and recovering from errors.", aliases: ["errors", "error messages", "validation", "error handling", "problem pages", "error page"] },
@@ -218,7 +221,7 @@ export const CANONICAL_STATES: Record<string, string[]> = {
   hover: ["hover", "hovered", "mouseover"],
   focus: ["focus", "focused", "focus-visible", "keyboard focus"],
   active: ["active", "pressed", "press", "down"],
-  disabled: ["disabled", "inactive", "unavailable"],
+  disabled: ["disabled", "unavailable"],
   loading: ["loading", "busy", "pending", "in progress"],
   selected: ["selected", "checked", "on", "current"],
   indeterminate: ["indeterminate", "mixed", "partially checked"],
@@ -230,7 +233,7 @@ export const CANONICAL_STATES: Record<string, string[]> = {
   collapsed: ["collapsed", "closed"],
   dragged: ["dragged", "dragging"],
   skeleton: ["skeleton"],
-  inactive: [],
+  inactive: ["inactive"],
 };
 
 /**
@@ -301,6 +304,8 @@ export const FRAMEWORK_QUERY_WORDS: Record<string, string> = {
   preact: "preact",
   qwik: "qwik",
   html: "html-css",
+  rails: "rails",
+  viewcomponent: "rails",
   css: "html-css",
 };
 
@@ -325,6 +330,7 @@ export const FRAMEWORKS: { slug: string; name: string; kind: string; websiteUrl:
   { slug: "jetpack-compose", name: "Jetpack Compose", kind: "native", websiteUrl: "https://developer.android.com/compose" },
   { slug: "android-views", name: "Android Views", kind: "native", websiteUrl: "https://developer.android.com/develop/ui/views" },
   { slug: "winui", name: "WinUI", kind: "native", websiteUrl: "https://learn.microsoft.com/windows/apps/winui/" },
+  { slug: "rails", name: "Ruby on Rails (ViewComponent)", kind: "web", websiteUrl: "https://rubyonrails.org" },
   { slug: "nunjucks", name: "Nunjucks", kind: "web", websiteUrl: "https://mozilla.github.io/nunjucks/" },
   { slug: "asp-net", name: "ASP.NET", kind: "web", websiteUrl: "https://dotnet.microsoft.com/apps/aspnet" },
   { slug: "dotnet-maui", name: ".NET MAUI", kind: "mobile", websiteUrl: "https://dotnet.microsoft.com/apps/maui" },

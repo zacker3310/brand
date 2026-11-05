@@ -50,7 +50,7 @@ export interface RunCheckpoint {
   discover?: { docs: CheckpointDoc[]; gone: number; completedAt: string };
   fetch?: { done: Record<string, FetchOutcome> };
   parse?: { done: Record<string, ParseOutcome> };
-  publish?: { startedAt: string };
+  publish?: { ingestionStatus: "indexed" | "partial" | "failed"; completedAt: string };
 }
 
 export async function getRun(runId: string, db: DB = getDb()): Promise<Run | null> {
@@ -156,15 +156,26 @@ export async function markRunFailed(runId: string, stage: string, message: strin
   if (!run || run.status === "succeeded" || run.status === "partial" || run.status === "cancelled" || run.status === "failed") return;
   await recordError({ runId, jobId, designSystemId: run.designSystemId, stage, code: "STAGE_FAILED", message }, db);
   await finishRun(runId, "failed", db);
-  if (run.designSystemId) {
-    await db.execute(sql`
-      update design_system ds set ingestion_status = case
-        when exists (select 1 from component c where c.design_system_id = ds.id and c.publish_state = 'published')
-          or exists (select 1 from token_set s where s.design_system_id = ds.id and s.publish_state = 'published')
-        then (case when ds.ingestion_status in ('queued','running') then 'partial'::ingestion_status else ds.ingestion_status end)
-        else 'failed'::ingestion_status end
-      where ds.id = ${run.designSystemId}`);
-  }
+  if (run.designSystemId) await restoreSystemStatus(run.designSystemId, db);
+}
+
+/**
+ * After a run is cancelled or fails, replace the transient 'queued'/'running' ingestion status
+ * with what the published data supports: the outcome of the last completed publish when records
+ * are published, otherwise 'failed' (a run failed) or 'not_started'.
+ */
+export async function restoreSystemStatus(systemId: string, db: DB = getDb()) {
+  const res = await db.execute(sql`
+    select
+      exists (select 1 from component c where c.design_system_id = ${systemId} and c.publish_state = 'published')
+        or exists (select 1 from token_set s where s.design_system_id = ${systemId} and s.publish_state = 'published') as published,
+      (select coalesce(r.checkpoint -> 'publish' ->> 'ingestionStatus', case r.status when 'succeeded' then 'indexed' else 'partial' end)
+         from ingestion_run r where r.design_system_id = ${systemId} and r.status in ('succeeded', 'partial')
+         order by r.finished_at desc nulls last limit 1) as last_status,
+      exists (select 1 from ingestion_run r where r.design_system_id = ${systemId} and r.status = 'failed') as any_failed`);
+  const row = res.rows[0] as { published: boolean; last_status: string | null; any_failed: boolean };
+  const status = row.published ? (row.last_status === "indexed" || row.last_status === "partial" ? row.last_status : "partial") : row.any_failed ? "failed" : "not_started";
+  await db.execute(sql`update design_system set ingestion_status = ${status}::ingestion_status where id = ${systemId} and ingestion_status in ('queued', 'running')`);
 }
 
 export async function setSystemIngestionStatus(systemId: string, status: (typeof designSystems.$inferSelect)["ingestionStatus"], db: DB = getDb()) {

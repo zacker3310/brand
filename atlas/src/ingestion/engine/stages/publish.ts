@@ -16,7 +16,7 @@ import { engineConfig } from "../config";
 import { computeSystemCoverage, coverageChanged } from "../coverage";
 import { buildSnapshotLookup, type Tx } from "../evidence";
 import { contentHash, toJson } from "../hash";
-import { finishRun, mergeStats, recordError } from "../runs";
+import { finishRun, mergeStats, recordError, setCheckpointKey } from "../runs";
 import { validateBundle, type ValidatedEntity } from "../validate";
 import { NonRetryableError, type StageContext } from "./context";
 import { fetchStats } from "./fetch";
@@ -258,6 +258,7 @@ export async function publishStage(sc: StageContext): Promise<PublishSummary> {
     })
     .where(eq(designSystems.id, system.id));
 
+  await setCheckpointKey(run.id, "publish", { ingestionStatus, completedAt: runDate.toISOString() }, db);
   const sum = (k: "created" | "updated" | "unchanged" | "removed") => tok.counters[k] + comps.counters[k] + pats.counters[k];
   const promotedTokens = promotable("token-set")
     .filter((e) => tok.promotedKeys.has(e.key))

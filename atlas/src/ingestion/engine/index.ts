@@ -6,9 +6,9 @@ import { and, desc, eq, inArray, sql } from "drizzle-orm";
 import { getDb, type DB } from "@/db/client";
 import { designSystems, ingestionJobs, ingestionRuns } from "@/db/schema";
 import { engineConfig } from "./config";
-import { enqueueStage, JOB_KINDS, STAGES } from "./pipeline";
+import { enqueueStage, STAGES } from "./pipeline";
 import { cancel, enqueue, expedite, type Job } from "./queue";
-import { getRun, liveJobs, recordError, type RunCheckpoint } from "./runs";
+import { getRun, liveJobs, recordError, restoreSystemStatus, type RunCheckpoint } from "./runs";
 
 export interface RunOptions {
   kind?: "full" | "incremental";
@@ -106,10 +106,7 @@ export async function cancelRun(runId: string, db: DB = getDb()): Promise<{ canc
   for (const j of live) if (await cancel(j.id, db)) n++;
   await db.update(ingestionRuns).set({ status: "cancelled", finishedAt: sql`now()` }).where(and(eq(ingestionRuns.id, runId), inArray(ingestionRuns.status, ["pending", "running"])));
   const run = await getRun(runId, db);
-  if (run?.designSystemId) {
-    await db.execute(sql`update design_system set ingestion_status = case when last_ingested_at is null then 'not_started'::ingestion_status else 'partial'::ingestion_status end
-      where id = ${run.designSystemId} and ingestion_status in ('queued','running')`);
-  }
+  if (run?.designSystemId) await restoreSystemStatus(run.designSystemId, db);
   return { cancelledJobs: n };
 }
 

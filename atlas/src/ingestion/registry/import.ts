@@ -239,7 +239,7 @@ async function syncTags(tx: Tx, systemId: string, entry: RegistryEntry, out: Lin
   if (add.length || del.length) out.changes.push({ field: "tags", summary: `tags: +${add.length} -${del.length}`, after: [...wanted.keys()].sort() });
 }
 
-async function syncSources(tx: Tx, systemId: string, entry: RegistryEntry, out: LinkSync) {
+async function syncSources(tx: Tx, systemId: string, entry: RegistryEntry) {
   const desired = new Map<string, { kind: string; label: string | null }>();
   const add = (url: string | null, kind: string, label: string | null) => {
     if (url && !desired.has(url)) desired.set(url, { kind, label });
@@ -417,7 +417,7 @@ async function importEntry(
   await syncFrameworks(tx, systemId, entry, ctx.fwIds, links);
   await syncPlatforms(tx, systemId, entry, ctx.plIds, links);
   await syncTags(tx, systemId, entry, links);
-  const src = await syncSources(tx, systemId, entry, links);
+  const src = await syncSources(tx, systemId, entry);
   const ev = await syncEvidence(tx, systemId, entry);
   if (kind !== "created") {
     changes.push(...links.changes);

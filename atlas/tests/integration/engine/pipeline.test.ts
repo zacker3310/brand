@@ -432,6 +432,36 @@ describe("pipeline: resumability", () => {
     expect(jobs.find((j) => j.kind === "discover")!.status).toBe("dead");
   });
 
+  it("cancelRun cancels live jobs; a cancelled run is never processed further", async () => {
+    const e = await engine.enqueueSystemRun(SLUG);
+    const r = await engine.cancelRun(e.runId);
+    expect(r.cancelledJobs).toBe(1);
+    const run = await engine.processRunInline(e.runId, { heartbeatMs: 60_000 });
+    expect(run.status).toBe("cancelled");
+    expect((await db().select().from(s.components)).length).toBe(0);
+    const [ds] = await db().select().from(s.designSystems).where(eq(s.designSystems.id, systemId));
+    expect(ds!.ingestionStatus).toBe("not_started");
+    // a new run can be started afterwards
+    const next = await engine.enqueueSystemRun(SLUG);
+    expect(next.deduped).toBe(false);
+    expect((await engine.processRunInline(next.runId, { heartbeatMs: 60_000 })).status).toBe("succeeded");
+  });
+
+  it("cancelling a queued run restores the published system's ingestion status", async () => {
+    await runOnce();
+    const status = async () => (await db().select().from(s.designSystems).where(eq(s.designSystems.id, systemId)))[0]!.ingestionStatus;
+    expect(await status()).toBe("indexed");
+    const e = await engine.enqueueSystemRun(SLUG);
+    expect(await status()).toBe("queued");
+    await engine.cancelRun(e.runId);
+    expect(await status()).toBe("indexed");
+  });
+
+  it("resumeRun on a finished run is a no-op", async () => {
+    const run = await runOnce();
+    expect(await engine.resumeRun(run.id)).toMatchObject({ jobId: null, status: "succeeded" });
+  });
+
   it("limited runs never retire or mark documents gone", async () => {
     await runOnce();
     const run = await runOnce({ limit: 2 });
