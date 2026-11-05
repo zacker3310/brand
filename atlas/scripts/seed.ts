@@ -38,6 +38,12 @@ async function main() {
     if (w.length > 50) console.log(`  ... ${w.length - 50} more warnings`);
   }
   if (report.invalid.length) process.exitCode = 2;
+  // Taxonomy / framework / category search documents exist only after a reindex.
+  if (!process.argv.includes("--no-reindex")) {
+    const { reindexAll } = await import("../src/server/search");
+    const r = await reindexAll();
+    if (!json) console.log(`search index: ${JSON.stringify(r)}`);
+  }
 }
 
 main()

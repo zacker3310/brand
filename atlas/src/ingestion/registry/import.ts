@@ -363,6 +363,9 @@ async function importEntry(
   const values = {
     slug: entry.slug,
     name: entry.name,
+    aliases: entry.aliases ?? [],
+    relatedSlugs: entry.relatedSlugs ?? [],
+    replacedBySlug: entry.replacedBy ?? null,
     organizationId,
     category: entry.category,
     summary: entry.summary,

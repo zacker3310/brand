@@ -93,6 +93,7 @@ interface SystemRow {
   id: string;
   slug: string;
   name: string;
+  aliases: string[];
   category: SystemCategory;
   summary: string | null;
   philosophy: string | null;
@@ -175,7 +176,7 @@ export async function buildSystemDocuments(db: Queryable, opts: { systemSlug?: s
   const slug = opts.systemSlug ?? null;
   const systems = (
     await db.query<SystemRow>(
-      `select s.id, s.slug, s.name, s.category::text as category, s.summary, s.philosophy,
+      `select s.id, s.slug, s.name, s.aliases, s.category::text as category, s.summary, s.philosophy,
               s.maintenance_status::text as maintenance, s.doc_access::text as doc_access, s.is_featured,
               s.ingestion_status::text as ingestion_status, o.name as org_name, l.slug as license_slug,
               array(select f.slug from design_system_framework x join framework f on f.id = x.framework_id
@@ -270,6 +271,7 @@ function systemDocument(s: SystemRow): SearchDocument {
     body: joinBody([s.summary, s.philosophy]),
     keywords: keywordString([
       slugWords(s.slug),
+      ...(s.aliases ?? []),
       ...s.tag_slugs.map(slugWords),
       ...s.tag_names,
       ...s.framework_slugs,

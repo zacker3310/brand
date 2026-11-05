@@ -7,6 +7,7 @@
  * "{group.token}"; CSS var() references are handled in css.ts.
  */
 import type { NormalizedToken, TokenCategory, TokenTier } from "@/lib/contracts";
+import { categorizeToken } from "./categorize";
 
 export interface FlattenOptions {
   /** "dtcg" requires $value; "style-dictionary" accepts value; "auto" accepts both. */
@@ -141,24 +142,13 @@ const TYPE_TO_CATEGORY: Record<string, TokenCategory> = {
 const COLOR_VALUE = /^(#[0-9a-f]{3,8}|rgba?\(|hsla?\(|oklch\(|oklab\(|lab\(|lch\(|color\()/i;
 const DURATION_VALUE = /^-?\d*\.?\d+(ms|s)$/i;
 
-/** Infer token category. Returns category and whether it came from an explicit $type. */
+/**
+ * Infer token category. Returns category and whether it came from an explicit $type.
+ * Delegates to categorize.ts (more precise rules: lineHeight vs spacing, z-index, breakpoints, border shorthands).
+ */
 export function inferTokenCategory(name: string, type: string | null, value: unknown): { category: TokenCategory; explicit: boolean } {
-  if (type && TYPE_TO_CATEGORY[type]) {
-    const byType = TYPE_TO_CATEGORY[type]!;
-    // "dimension" is ambiguous: decide by name.
-    return { category: byType, explicit: true };
-  }
-  if (type === "dimension" || type === "number") {
-    for (const [re, cat] of NAME_HINTS) if (re.test(name) && cat !== "color") return { category: cat, explicit: false };
-    return { category: type === "dimension" ? "spacing" : "other", explicit: false };
-  }
-  if (typeof value === "string") {
-    if (COLOR_VALUE.test(value.trim())) return { category: "color", explicit: false };
-    if (DURATION_VALUE.test(value.trim())) return { category: "motion", explicit: false };
-    if (/cubic-bezier\(/i.test(value)) return { category: "motion", explicit: false };
-  }
-  for (const [re, cat] of NAME_HINTS) if (re.test(name)) return { category: cat, explicit: false };
-  return { category: "other", explicit: false };
+  const r = categorizeToken(name, type, value);
+  return { category: r.category, explicit: r.explicit };
 }
 
 /** Infer tier (primitive/semantic/component). Always inferred unless the source declares it. */

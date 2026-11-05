@@ -222,6 +222,7 @@ export const designSystems = pgTable(
     id: uuid("id").primaryKey().defaultRandom(),
     slug: text("slug").notNull().unique(),
     name: text("name").notNull(),
+    aliases: text("aliases").array().notNull().default(sql`'{}'::text[]`), // former / alternate names ("NextUI")
     organizationId: uuid("organization_id").references(() => organizations.id),
     category: systemCategory("category").notNull(),
     summary: text("summary"), // ATLAS-authored, concise, factual
@@ -247,6 +248,8 @@ export const designSystems = pgTable(
     registryNotes: text("registry_notes"), // classification / dedup reasoning
     duplicateOfSlug: text("duplicate_of_slug"),
     replacesSlug: text("replaces_slug"), // this entry replaced a rejected candidate
+    replacedBySlug: text("replaced_by_slug"), // rejected/duplicate entry -> its replacement
+    relatedSlugs: text("related_slugs").array().notNull().default(sql`'{}'::text[]`), // e.g. react-spectrum -> adobe-spectrum
     registryEvidence: jsonb("registry_evidence").$type<RegistryEvidenceSummary>(),
 
     ingestionStatus: ingestionStatus("ingestion_status").notNull().default("not_started"),
@@ -514,6 +517,7 @@ export const extractions = pgTable(
   (t) => [
     uniqueIndex("extraction_run_entity_uq").on(t.runId, t.entityKind, t.entityKey),
     index("extraction_system_idx").on(t.designSystemId, t.validation),
+    index("extraction_lookup_idx").on(t.designSystemId, t.entityKind, t.entityKey, t.published, t.createdAt),
   ],
 );
 
@@ -774,7 +778,7 @@ export const tokens = pgTable(
     resolvedValue: jsonb("resolved_value").$type<unknown>(), // after alias resolution (null if unresolved)
     valueText: text("value_text"), // display string of resolved value
     isAlias: boolean("is_alias").notNull().default(false),
-    aliasState: text("alias_state"), // resolved | unresolved | cycle | null
+    aliasState: text("alias_state"), // literal | resolved | unresolved | cycle | external | null
     description: text("description"),
     deprecated: boolean("deprecated").notNull().default(false),
     location: text("location"), // file path + JSON pointer

@@ -23,7 +23,10 @@
     "ingest": "tsx scripts/ingest.ts",
     "worker": "tsx scripts/worker.ts",
     "quality": "tsx scripts/quality-report.ts",
-    "links": "tsx scripts/check-links.ts"
+    "links": "tsx scripts/check-links.ts",
+    "search:reindex": "tsx scripts/search-reindex.ts",
+    "registry:validate": "tsx scripts/registry/validate.ts",
+    "registry:check": "tsx scripts/registry/check.ts"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.106.0",
