@@ -191,7 +191,7 @@ function ScalarRow({ t, p, label }: { t: ExplorerToken; p: ViewProps; label: str
             {display || "—"}
           </span>
         </span>
-        <span className="hidden min-w-0 overflow-hidden sm:block">{preview ?? <span className="text-[11px] text-subtle-foreground">{field ? "Not previewable" : "No preview for this property"}</span>}</span>
+        <span className="hidden min-w-0 overflow-hidden sm:block">{preview ?? <span className="text-[11px] text-muted-foreground">{field ? "Not previewable" : "No preview for this property"}</span>}</span>
         <span className="flex justify-end">{t.aliasState && t.aliasState !== "resolved" && <AliasStateBadge state={t.aliasState} compact tooltip={false} />}</span>
       </TokenAnchor>
     </li>

@@ -9,10 +9,18 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
 const SYSTEMS = ["github-primer", "carbon", "material-web"];
+
+/** Enhanced controls replace their no-JS fallbacks after hydration; wait for that before interacting. */
+async function hydrated(page: Page, what: "picker" | "matrix" | "share") {
+  if (what === "picker") await expect(page.locator('button[role="combobox"]').first()).toBeVisible({ timeout: 30_000 });
+  if (what === "matrix") await expect(page.locator('button[role="switch"]')).toBeVisible({ timeout: 30_000 });
+  if (what === "share") await expect(page.getByRole("button", { name: "Save & share" })).toHaveAttribute("aria-haspopup", "dialog", { timeout: 30_000 });
+}
 const CMP = `/compare?type=button&systems=${SYSTEMS.join(",")}`;
 
+/** axe on this area's content (<main>); the shared shell is covered by its own owner's specs. */
 async function expectNoSeriousA11yViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  const results = await new AxeBuilder({ page }).include("main").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
 }
@@ -32,6 +40,7 @@ test.describe("compare index", () => {
 
   test("keyboard: choose a type with the combobox, pick systems, submit", async ({ page }) => {
     await page.goto("/compare");
+    await hydrated(page, "picker");
     const combo = page.getByRole("combobox", { name: "Component type" });
     await combo.focus();
     await page.keyboard.press("Enter");
@@ -82,6 +91,7 @@ test.describe("component comparison", () => {
 
   test("show differences only hides identical rows and updates the URL", async ({ page }) => {
     await page.goto(CMP);
+    await hydrated(page, "matrix");
     const table = page.getByRole("table").first();
     const sameRow = table.getByRole("row").filter({ hasText: "Same in all columns" }).first();
     await expect(sameRow).toBeVisible();
@@ -101,6 +111,7 @@ test.describe("component comparison", () => {
 
   test("expands the long tail of aligned props", async ({ page }) => {
     await page.goto(CMP);
+    await hydrated(page, "matrix");
     const more = page.getByRole("button", { name: /Show \d+ more aligned props/ }).first();
     await expect(more).toBeVisible();
     await more.click();
@@ -110,7 +121,9 @@ test.describe("component comparison", () => {
 
   test("lets the user pick which component fills a column", async ({ page }) => {
     await page.goto(CMP);
-    const select = page.getByLabel("IBM Carbon Design System component to compare").first();
+    await hydrated(page, "matrix");
+    const select = page.locator("#pick-carbon"); // desktop column header (the mobile list has its own select)
+    await expect(select).toHaveAccessibleName("IBM Carbon Design System component to compare");
     await expect(select).toBeVisible();
     await select.selectOption({ label: "Copy button" });
     await page.waitForURL(/pick=carbon:copy-button/);
@@ -162,6 +175,7 @@ test.describe("save, share and export", () => {
 
   test("Save & share from the UI creates a copyable link", async ({ page }) => {
     await page.goto(CMP);
+    await hydrated(page, "share");
     await page.getByRole("button", { name: "Save & share" }).click();
     await page.getByRole("button", { name: "Create link" }).click();
     const link = page.getByLabel("Shareable link");
@@ -211,6 +225,7 @@ test.describe("system comparison", () => {
 
   test("criteria checkboxes filter the rubric rows", async ({ page }) => {
     await page.goto("/compare/systems?systems=carbon,github-primer&criteria=theming,maintenance");
+    await expect(page.getByRole("group", { name: "Criteria" })).toBeAttached();
     const card = page.getByRole("region", { name: "Scorecard" });
     await expect(card.getByRole("rowheader")).toHaveCount(2);
     await expect(card.getByRole("rowheader").first()).toContainText("Theming capability");

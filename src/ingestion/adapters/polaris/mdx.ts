@@ -201,7 +201,8 @@ export function keyName(raw: string): string {
   return KEY_NAMES[k] ?? collapse(raw).replace(/^\w/, (c) => c.toUpperCase());
 }
 
-const ARROW_PHRASE = /\b(up|down|left|right)(?:\s*(?:and|or|\/|,)\s*(up|down|left|right))?\s+arrow\s+keys?\b/i;
+/** "up and down or left and right arrow keys" -> every direction named right before "arrow key(s)". */
+const ARROW_PHRASE = /((?:\b(?:up|down|left|right)\b(?:\s*(?:,|\/|and|or)\s*)?)+)\s*arrow\s+keys?\b/i;
 const KEY_PHRASES: [RegExp, string][] = [
   [/\b(?:the\s+)?(?:esc|escape)\s+key\b/i, "Escape"],
   [/\b(?:the\s+)?tab\s+key\b/i, "Tab"],
@@ -231,7 +232,10 @@ export function kbdKeys(src: string): string | null {
 export function phraseKeys(text: string): string | null {
   const keys: string[] = [];
   const a = ARROW_PHRASE.exec(text);
-  if (a) keys.push([a[1], a[2]].filter(Boolean).map((d) => KEY_NAMES[d!.toLowerCase()]!).join(" / "));
+  if (a) {
+    const dirs = [...new Set((a[1]!.match(/\b(up|down|left|right)\b/gi) ?? []).map((d) => KEY_NAMES[d.toLowerCase()]!))];
+    if (dirs.length) keys.push(dirs.join(" / "));
+  }
   for (const [re, k] of KEY_PHRASES) if (re.test(text) && !keys.includes(k)) keys.push(k);
   return keys.length ? keys.join(", ") : null;
 }

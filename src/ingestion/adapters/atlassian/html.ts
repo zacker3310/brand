@@ -240,13 +240,13 @@ function sectionItems($: CheerioAPI, els: El[]): SectionItem[] {
       .find("li")
       .addBack("li")
       .each((_, li) => {
-        let strong = $(li).children("strong,b").first();
-        if (!strong.length) strong = $(li).children("p").first().children("strong,b").first();
+        // "<strong>Term:</strong> text" (possibly wrapped in div/p); the term must lead the item.
+        const strong = $(li).find("strong,b").first();
         if (!strong.length) return;
         const strongText = text($, strong);
         const term = strongText.replace(/:$/, "").trim();
         const full = text($, li);
-        if (!term || term.length > 60) return;
+        if (!term || term.length > 60 || !full.startsWith(strongText)) return;
         const rest = full.slice(strongText.length).replace(/^[:\s–-]+/, "").trim();
         items.push({ term, text: rest });
       });

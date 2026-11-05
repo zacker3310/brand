@@ -27,7 +27,7 @@ export default async function SystemPatternsPage({ params }: Props) {
     <PageContainer>
       <PageHeader
         eyebrow={
-          <Link href={`/systems/${encodeURIComponent(system.slug)}`} className="hover:text-foreground">
+          <Link href={`/systems/${encodeURIComponent(system.slug)}`} className="text-muted-foreground hover:text-foreground">
             {system.name}
           </Link>
         }

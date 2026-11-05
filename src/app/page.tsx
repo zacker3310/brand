@@ -1,4 +1,5 @@
 import { PageContainer } from "@/components/atlas";
+import { STATUS_CONTRAST_FIX } from "@/components/discovery/badges";
 import {
   ComponentGroups,
   CuratedCollections,
@@ -22,7 +23,7 @@ export default async function HomePage() {
     getCuratedCollections(6),
   ]);
   return (
-    <PageContainer className="space-y-16 sm:space-y-20">
+    <PageContainer className={`space-y-16 sm:space-y-20 ${STATUS_CONTRAST_FIX}`}>
       <Hero stats={stats} />
       <FeaturedSystems rows={pickFeatured(featured, 8)} />
       <ComponentGroups groups={groups} indexedSystems={stats.systemsIndexed + stats.systemsPartial} />

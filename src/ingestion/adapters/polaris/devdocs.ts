@@ -113,6 +113,8 @@ export interface WcPage {
   examples: { title: string; description: string | null }[];
   bestPractices: string[];
   limitations: string[];
+  /** Prose of other guidance sections ("Content guidelines", "Useful for"), paragraphs and list items. */
+  guidelines: string[];
   /** Links in the intro prose (e.g. "use [link](…/actions/link)"). */
   introLinks: { url: string; text: string }[];
 }
@@ -209,6 +211,7 @@ export function parseWcPage(md: string): WcPage {
     examples: [],
     bestPractices: [],
     limitations: [],
+    guidelines: [],
     introLinks: [],
   };
   const titleKey = norm(title);
@@ -247,6 +250,11 @@ export function parseWcPage(md: string): WcPage {
     }
     const main = h === "properties" || h === titleKey;
     const sec = apiSection(main ? "" : collapse(stripZw(s.heading)), main, s.nodes, s.line);
+    if (!main && !sec.props.length && !sec.events.length && !sec.slots.length) {
+      // Not an API section: keep its prose as guidance (bounded) instead of a phantom subcomponent.
+      page.guidelines.push(...[...paragraphs(s.nodes), ...listItems(s.nodes).map((x) => x.text)].slice(0, 12));
+      continue;
+    }
     const existing = main ? page.api.find((a) => a.main) : undefined;
     if (existing) {
       existing.props.push(...sec.props);

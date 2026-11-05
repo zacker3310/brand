@@ -13,6 +13,15 @@ export const INFERRED_TEXT = "text-[oklch(0.5_0.11_65)]! dark:text-inferred!";
 /** Same for --conflicting on --conflicting-soft at 11px (axe measures it below 4.5:1 in light mode). */
 export const CONFLICTING_TEXT = "text-[oklch(0.48_0.17_25)]! dark:text-conflicting!";
 
+/**
+ * Container-level fix for the kit's light-mode status text colors (inferred 3.9:1, unavailable 4.4:1,
+ * conflicting 4.5:1 on their soft backgrounds at 11px). Applied to discovery page roots so kit
+ * components rendered inside (VerificationBadge, CoverageChip, EvidenceList) meet WCAG AA too.
+ * Dark mode keeps the original tokens (they pass). Remove once the tokens are darkened (requested).
+ */
+export const STATUS_CONTRAST_FIX =
+  "[&_.text-inferred]:text-[oklch(0.5_0.11_65)] [&_.text-unavailable]:text-[oklch(0.47_0.012_260)] [&_.text-conflicting]:text-[oklch(0.48_0.17_25)] dark:[&_.text-inferred]:text-inferred dark:[&_.text-unavailable]:text-unavailable dark:[&_.text-conflicting]:text-conflicting";
+
 const MAINTENANCE_META: Record<MaintenanceStatus, { icon: LucideIcon; className: string; description: string }> = {
   active: {
     icon: CircleDotIcon,

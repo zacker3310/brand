@@ -57,7 +57,7 @@ export async function ComparePage({ raw }: { raw: Raw }) {
     <PageContainer>
       <PageHeader
         eyebrow={
-          <Link href="/tokens" className="hover:text-foreground">
+          <Link href="/tokens" className="text-muted-foreground hover:text-foreground">
             Token explorer
           </Link>
         }
@@ -78,7 +78,7 @@ export async function ComparePage({ raw }: { raw: Raw }) {
 
       <Form action="/tokens/compare" className="mt-6 grid gap-5 rounded-xl border bg-card p-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <fieldset className="min-w-0 space-y-2">
-          <legend className="type-eyebrow mb-2">Systems (up to {MAX_SYSTEMS})</legend>
+          <legend className="type-eyebrow text-muted-foreground mb-2">Systems (up to {MAX_SYSTEMS})</legend>
           <div className="flex flex-wrap gap-2">
             {available.map((s) => {
               const checked = slugs.includes(s.slug);
@@ -101,7 +101,7 @@ export async function ComparePage({ raw }: { raw: Raw }) {
         </fieldset>
         <div className="flex flex-wrap items-end gap-4">
           <fieldset className="space-y-2">
-            <legend className="type-eyebrow mb-2">Scale</legend>
+            <legend className="type-eyebrow text-muted-foreground mb-2">Scale</legend>
             <div className="flex rounded-md border p-0.5">
               {COMPARE_CATEGORIES.map((c) => (
                 <label key={c} className="cursor-pointer rounded px-2.5 py-1 text-xs has-[:checked]:bg-accent has-[:checked]:font-medium has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-ring">
@@ -209,7 +209,7 @@ function ScaleSection({
       {total === 0 ? (
         <EmptyState icon={RulerIcon} title={`No ${v.label.toLowerCase()} tokens to align`} description="None of the selected systems has numeric tokens of this kind in its indexed token sets." />
       ) : (
-        <div className="overflow-x-auto rounded-xl border">
+        <div className="relative overflow-x-auto rounded-xl border">
           <table className="w-full min-w-[640px] border-collapse text-left text-[12.5px] [&_td]:px-3 [&_td]:py-2 [&_th]:px-3 [&_th]:py-2">
             <caption className="sr-only">{`${v.label}: tokens aligned by numeric value`}</caption>
             <thead>
@@ -239,7 +239,7 @@ function ScaleSection({
                     {r.cells.map((cell, i) => (
                       <td key={systems[i]!.slug}>
                         {cell.length === 0 ? (
-                          <span className="text-subtle-foreground" aria-label="No token with this value">
+                          <span className="text-muted-foreground" aria-label="No token with this value">
                             —
                           </span>
                         ) : (

@@ -153,7 +153,7 @@ export function CellView({ value }: { value: CellValue }) {
                   {t.valueText ? (
                     <span className="block font-mono text-[10.5px] leading-4 break-words text-muted-foreground">{t.valueText}</span>
                   ) : (
-                    <span className="block text-[10.5px] leading-4 text-unavailable">{ALIAS_TEXT[t.aliasState ?? ""] ?? "value not resolved"}</span>
+                    <span className="block text-[10.5px] leading-4 text-muted-foreground italic">{ALIAS_TEXT[t.aliasState ?? ""] ?? "value not resolved"}</span>
                   )}
                 </span>
               </li>

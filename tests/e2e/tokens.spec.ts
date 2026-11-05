@@ -115,8 +115,8 @@ test.describe("token explorer", () => {
 
   test("contrast checker measures a manual pair and lists name-paired tokens", async ({ page }) => {
     await page.goto("/tokens?system=github-primer&set=primitives-theme-light&category=color&view=contrast");
-    await page.getByLabel("Foreground").fill("#ffffff");
-    await page.getByLabel("Background").fill("#000000");
+    await page.getByLabel("Foreground", { exact: true }).fill("#ffffff");
+    await page.getByLabel("Background", { exact: true }).fill("#000000");
     await page.getByRole("button", { name: "Check contrast" }).click();
     await expect(page.getByText("21.00")).toBeVisible();
     await expect(page.getByRole("heading", { name: /pairs found by name/ })).toBeVisible();

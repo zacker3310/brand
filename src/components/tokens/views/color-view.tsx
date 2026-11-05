@@ -41,7 +41,7 @@ function RampRow({ ramp, p, group }: { ramp: Ramp<TokenIndexRow>; p: ViewProps; 
       <p className="truncate pt-3 font-mono text-xs text-muted-foreground" title={`${group.label}.${ramp.label}`}>
         {ramp.label}
       </p>
-      <div className="overflow-x-auto pb-1">
+      <div className="relative overflow-x-auto pb-1">
         <ol className="flex min-w-max gap-px sm:min-w-0" aria-label={`${group.label} ${ramp.label} ramp, ${ramp.steps.length} steps`}>
           {ramp.steps.map((s, i) => {
             const t = p.tokens.get(s.row.id);
@@ -52,7 +52,7 @@ function RampRow({ ramp, p, group }: { ramp: Ramp<TokenIndexRow>; p: ViewProps; 
                 <TokenAnchor
                   id={s.row.id}
                   href={p.hrefFor(s.row.id)}
-                  label={`${s.row.name}: ${label || "no static value"}`}
+                  label={`${s.stepLabel}: ${s.row.name}, ${label || "no static value"}`}
                   title={`${s.row.name}\n${label}`}
                   className="group block rounded-md"
                 >
@@ -90,7 +90,7 @@ function ColorItem({ t, p, label }: { t: ExplorerToken; p: ViewProps; label: str
               <>
                 <span aria-hidden>→ </span>
                 {chain}
-                {value ? <span className="text-subtle-foreground"> → {value}</span> : null}
+                {value ? <span className="text-muted-foreground"> → {value}</span> : null}
               </>
             ) : (
               (value ?? <span className="font-sans">no static value</span>)
@@ -118,7 +118,7 @@ function ThemedMatrix({ rows, p, group }: { rows: TokenIndexRow[]; p: ViewProps;
       <p className="text-xs text-muted-foreground">
         Theme-dependent: each token resolves to a different value in every themed set.{p.theme ? ` Showing ${p.theme} sets only.` : ""}
       </p>
-      <div className="overflow-x-auto rounded-lg border">
+      <div className="relative overflow-x-auto rounded-lg border">
         <table className="w-full min-w-max border-collapse text-left">
           <caption className="sr-only">{`${group.label}: values per themed set`}</caption>
           <thead>
@@ -152,7 +152,7 @@ function ThemedMatrix({ rows, p, group }: { rows: TokenIndexRow[]; p: ViewProps;
                     return (
                       <td key={c} className="px-3 py-1.5">
                         {v === undefined ? (
-                          <span className="text-xs text-subtle-foreground" title="No value for this themed set">
+                          <span className="text-xs text-muted-foreground" title="No value for this themed set">
                             —
                           </span>
                         ) : (

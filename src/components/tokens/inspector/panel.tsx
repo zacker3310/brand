@@ -99,7 +99,7 @@ function InspectorBody({ state, onClose, contrastHref }: { state: State; onClose
       </p>
       {state.status === "idle" && (
         <div className="space-y-2 p-5 text-sm text-muted-foreground">
-          <p className="type-eyebrow">Inspector</p>
+          <p className="type-eyebrow text-muted-foreground">Inspector</p>
           <p>Select a token to see its authored value, alias chain, the tokens that reference it and the components that use it.</p>
         </div>
       )}
@@ -187,7 +187,7 @@ function EdgeTree({ fromId, edges, depth = 0, seen }: { fromId: string; edges: C
         return (
           <li key={`${e.fromId}-${e.ref}`} className="min-w-0">
             <div className="flex min-w-0 items-start gap-2">
-              <CornerDownRightIcon className="mt-0.5 size-3 shrink-0 text-subtle-foreground" aria-hidden />
+              <CornerDownRightIcon className="mt-0.5 size-3 shrink-0 text-muted-foreground" aria-hidden />
               {e.targetId && swatchColor(e.targetResolved) && <Swatch value={e.targetResolved} className="mt-0.5 size-3.5" />}
               <span className="min-w-0 flex-1">
                 <TokenButton id={e.targetId} name={e.targetName ?? e.ref} sub={e.targetSetSlug} />
@@ -230,7 +230,7 @@ function InspectorContent({ data, onClose, contrastHref }: { data: InspectorData
     <div className="divide-y">
       <div className="space-y-3 p-5">
         <div className="flex items-start justify-between gap-3">
-          <p className="type-eyebrow">
+          <p className="type-eyebrow text-muted-foreground">
             {t.category} · {data.set.name}
           </p>
           <button type="button" onClick={onClose} className="-mt-1 -mr-1 rounded p-1 text-muted-foreground hover:bg-accent hover:text-foreground" aria-label="Close inspector">

@@ -129,8 +129,8 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
       </Form>
 
       <nav aria-label="Token sets" className="hidden space-y-1 lg:block">
-        <p className="type-eyebrow mb-2">Token sets</p>
-        {suffix && <p className="mb-2 text-[11px] text-subtle-foreground">All from {suffix}</p>}
+        <p className="type-eyebrow text-muted-foreground mb-2">Token sets</p>
+        {suffix && <p className="mb-2 text-[11px] text-muted-foreground">All from {suffix}</p>}
         <ul className="space-y-0.5">
           <li>
             <SetLink href={nav(m, { set: undefined })} active={!m.selectedSet} title="All sets" count={allCount} />
@@ -145,7 +145,7 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
 
       {!m.selectedSet && m.themes.length > 0 && (
         <nav aria-label="Theme filter" className="space-y-2">
-          <p className="type-eyebrow">Theme</p>
+          <p className="type-eyebrow text-muted-foreground">Theme</p>
           <div className="flex flex-wrap gap-1.5">
             {[undefined, ...m.themes].map((t) => {
               const active = m.params.theme === t;
@@ -164,7 +164,7 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
               );
             })}
           </div>
-          <p className="text-[11px] leading-relaxed text-subtle-foreground">A theme keeps theme-agnostic sets and drops sets authored for other themes.</p>
+          <p className="text-[11px] leading-relaxed text-muted-foreground">A theme keeps theme-agnostic sets and drops sets authored for other themes.</p>
         </nav>
       )}
     </div>
@@ -364,7 +364,7 @@ export function AliasStats({ m }: { m: ExplorerModel }) {
 
 export function CategoryTabs({ m }: { m: ExplorerModel }) {
   return (
-    <nav aria-label="Token categories" className="-mx-4 overflow-x-auto px-4 sm:mx-0 sm:px-0">
+    <nav aria-label="Token categories" className="-mx-4 relative overflow-x-auto px-4 sm:mx-0 sm:px-0">
       <ul className="flex min-w-max gap-1 border-b">
         {TOKEN_CATEGORIES.map((c) => {
           const n = m.stats.categories[c];
@@ -378,7 +378,7 @@ export function CategoryTabs({ m }: { m: ExplorerModel }) {
                 className={cn(
                   "relative -mb-px inline-flex items-center gap-1.5 border-b-2 px-3 py-2 text-sm transition-colors",
                   active ? "border-primary font-medium text-foreground" : "border-transparent text-muted-foreground hover:text-foreground",
-                  n === 0 && !active && "text-subtle-foreground",
+                  n === 0 && !active && "text-muted-foreground",
                 )}
               >
                 {CATEGORY_LABELS[c]}
@@ -505,7 +505,7 @@ export function Pagination({ m, page, pages, label }: { m: ExplorerModel; page: 
 const TIER_INFERRED = "Tier inferred by ATLAS from naming and alias structure; the source does not declare it.";
 
 export function TierMark({ tier, tierState, plain = false }: { tier: string | null; tierState: string; plain?: boolean }) {
-  if (!tier) return <span className="text-subtle-foreground" title="Tier not recorded">—</span>;
+  if (!tier) return <span className="text-muted-foreground" title="Tier not recorded">—</span>;
   return (
     <span className="inline-flex items-center gap-1">
       <span>{tier}</span>

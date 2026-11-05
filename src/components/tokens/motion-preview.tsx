@@ -102,7 +102,7 @@ export function MotionAllToggle() {
     >
       {state ? <PauseIcon className="size-3.5" aria-hidden /> : <PlayIcon className="size-3.5" aria-hidden />}
       {state ? "Pause all" : "Play all"}
-      {reduced && <span className="text-subtle-foreground">(reduced motion)</span>}
+      {reduced && <span className="text-muted-foreground">(reduced motion)</span>}
     </button>
   );
 }

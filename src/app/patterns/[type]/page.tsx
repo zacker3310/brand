@@ -27,7 +27,7 @@ export default async function PatternTypePage({ params }: Props) {
     <PageContainer>
       <PageHeader
         eyebrow={
-          <Link href="/patterns" className="hover:text-foreground">
+          <Link href="/patterns" className="text-muted-foreground hover:text-foreground">
             Pattern library
           </Link>
         }
@@ -86,7 +86,7 @@ export default async function PatternTypePage({ params }: Props) {
 
           {systems.length >= 2 && (
             <Section id="comparison" title="Side by side" description="How each system scopes this pattern. Coverage chips separate “not documented” from “not extracted”.">
-              <div className="overflow-x-auto rounded-xl border">
+              <div className="relative overflow-x-auto rounded-xl border">
                 <table className="w-full min-w-[880px] border-collapse text-left text-sm [&_td]:px-3 [&_td]:py-3 [&_th]:px-3 [&_th]:py-2">
                   <caption className="sr-only">{`${t.name}: documented patterns compared across systems`}</caption>
                   <thead>

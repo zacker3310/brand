@@ -81,7 +81,7 @@ export async function TokenExplorer({ raw }: { raw: Raw }) {
   if (!systems.length) {
     return (
       <PageContainer>
-        <PageHeader eyebrow="Token explorer" title="Design tokens" display />
+        <PageHeader eyebrow={<span className="text-muted-foreground">Token explorer</span>} title="Design tokens" display />
         <EmptyState
           className="mt-8"
           icon={PaletteIcon}
@@ -99,7 +99,7 @@ export async function TokenExplorer({ raw }: { raw: Raw }) {
   if (!sets.length) {
     return (
       <PageContainer>
-        <PageHeader eyebrow="Token explorer" title={system.name} display description="No token sets have been extracted for this system." />
+        <PageHeader eyebrow={<span className="text-muted-foreground">Token explorer</span>} title={system.name} display description="No token sets have been extracted for this system." />
         <div className="mt-8 grid gap-6 lg:grid-cols-[16rem_minmax(0,1fr)]">
           <Form action="/tokens" className="flex items-end gap-2">
             <NativeSelect name="system" label="Design system" defaultValue="" options={[{ value: "", label: "Choose a system…" }, ...systems.map((s) => ({ value: s.slug, label: `${s.name} · ${formatCount(s.tokenCount)}` }))]} className="flex-1" />
@@ -247,7 +247,7 @@ export async function TokenExplorer({ raw }: { raw: Raw }) {
   return (
     <PageContainer>
       <PageHeader
-        eyebrow="Token explorer"
+        eyebrow={<span className="text-muted-foreground">Token explorer</span>}
         title={system.name}
         display
         description={

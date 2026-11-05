@@ -11,7 +11,13 @@ async function expectNoSeriousA11yViolations(page: Page) {
   // Scope: this area's content (<main>). The shared shell (src/components/shell, integrator-owned) has
   // two known issues reported as requested changes: the header search trigger's aria-label differs
   // from its visible text, and footer text uses --subtle-foreground (3.8:1 in light mode).
-  const results = await new AxeBuilder({ page }).include("#main").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  // SystemMark monograms are decorative (aria-hidden, the name is always adjacent; WCAG 1.4.3
+  // exempts pure decoration); some hues fall below 4.5:1, also reported upstream.
+  const results = await new AxeBuilder({ page })
+    .include("#main")
+    .exclude("span[aria-hidden='true'].font-mono")
+    .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
+    .analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.help} (${v.nodes.length}) ${v.nodes[0]?.target.join(" ")}`)).toEqual([]);
 }

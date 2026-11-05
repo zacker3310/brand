@@ -44,7 +44,7 @@ export function ThemeCompareView({
       {rows.length === 0 ? (
         <EmptyState title="Nothing to compare" description="These two sets share no color token names, and no theme-dependent token resolves in both." />
       ) : (
-        <div className="overflow-x-auto rounded-xl border">
+        <div className="relative overflow-x-auto rounded-xl border">
           <table className="w-full min-w-[640px] border-collapse text-left text-[12.5px]">
             <caption className="sr-only">{`Color tokens in ${a.name} and ${b.name}`}</caption>
             <thead>

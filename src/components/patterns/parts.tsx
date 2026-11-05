@@ -74,7 +74,7 @@ export function PatternCard({ p, showType = false, className }: { p: PatternReco
       {showType && p.type && <p className="text-xs text-muted-foreground">ATLAS type: {p.type.name}</p>}
       {desc ? <p className="text-sm leading-relaxed text-muted-foreground">{desc}</p> : <CoverageChip state={(p.coverage.description as CoverageState) ?? "not-extracted"} label="Description" />}
       <div className="space-y-1.5">
-        <p className="type-eyebrow">Related components</p>
+        <p className="type-eyebrow text-muted-foreground">Related components</p>
         <ComponentChips system={p.system.slug} components={p.components} coverage={p.coverage.components as CoverageState | undefined} max={6} />
       </div>
       <div className="mt-auto flex flex-wrap items-center justify-between gap-2 border-t pt-3">
@@ -85,7 +85,7 @@ export function PatternCard({ p, showType = false, className }: { p: PatternReco
         ) : (
           <CoverageChip state="not-extracted" label="Docs link" />
         )}
-        {section && <span className="truncate font-mono text-[11px] text-subtle-foreground">{section}</span>}
+        {section && <span className="truncate font-mono text-[11px] text-muted-foreground">{section}</span>}
       </div>
     </article>
   );

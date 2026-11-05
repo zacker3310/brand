@@ -77,20 +77,6 @@ export async function SystemComparisonView({ params: p }: { params: SystemCompar
             “Insufficient data”, never a low score, and systems known only from registry metadata are not scored on component or token data.
           </>
         }
-        children={
-          ready ? (
-            <ul className="flex flex-wrap gap-1.5 pt-1" aria-label="Compared systems">
-              {scored.map((s) => (
-                <li key={s.slug}>
-                  <Link href={`/systems/${s.slug}`} className="inline-flex items-center gap-1.5 rounded-md border bg-card py-1 pr-2 pl-1 text-xs font-medium hover:bg-accent">
-                    <SystemMark name={s.name} slug={s.slug} size="sm" className="size-5 text-[8px]" />
-                    {s.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : undefined
-        }
         actions={
           ready ? (
             <>
@@ -108,7 +94,20 @@ export async function SystemComparisonView({ params: p }: { params: SystemCompar
             </>
           ) : undefined
         }
-      />
+      >
+        {ready ? (
+            <ul className="flex flex-wrap gap-1.5 pt-1" aria-label="Compared systems">
+              {scored.map((s) => (
+                <li key={s.slug}>
+                  <Link href={`/systems/${s.slug}`} className="inline-flex items-center gap-1.5 rounded-md border bg-card py-1 pr-2 pl-1 text-xs font-medium hover:bg-accent">
+                    <SystemMark name={s.name} slug={s.slug} size="sm" className="size-5 text-[8px]" />
+                    {s.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : undefined}
+      </PageHeader>
 
       {!ready ? (
         <div className="mt-8 space-y-8">

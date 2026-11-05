@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { STATUS_CONTRAST_FIX } from "@/components/discovery/badges";
 import Form from "next/form";
 import Link from "next/link";
 import { AlertTriangleIcon, ListIcon, RowsIcon, SearchIcon, SearchXIcon } from "lucide-react";
@@ -74,7 +75,7 @@ export default async function SearchPage({ searchParams }: Props) {
 
   if (!parsed.ok) {
     return (
-      <PageContainer className="space-y-6">
+      <PageContainer className={`space-y-6 ${STATUS_CONTRAST_FIX}`}>
         <h1 className="text-2xl font-semibold tracking-tight">Search</h1>
         <SearchBox state={state} />
         <EmptyState
@@ -114,7 +115,7 @@ export default async function SearchPage({ searchParams }: Props) {
   const systemNames = slugs.size ? await getSystemNames([...slugs]) : {};
 
   return (
-    <PageContainer className="space-y-6">
+    <PageContainer className={`space-y-6 ${STATUS_CONTRAST_FIX}`}>
       <header className="space-y-4 border-b border-border/70 pb-6">
         <p className="font-mono text-[11px] font-medium tracking-[0.12em] uppercase text-muted-foreground">Search</p>
         <h1 className="text-2xl font-semibold tracking-tight break-words sm:text-3xl">

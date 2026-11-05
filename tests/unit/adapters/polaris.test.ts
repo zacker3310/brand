@@ -171,6 +171,7 @@ describe("polaris archive MDX", () => {
     expect(kbdKeys("Close with <kbd>esc</kbd>")).toBe("Escape");
     expect(phraseKeys("Press the escape key to close")).toBe("Escape");
     expect(phraseKeys("Move with the left or right arrow keys")).toBe("ArrowLeft / ArrowRight");
+    expect(phraseKeys("use the up and down or left and right arrow keys to move the thumb")).toBe("ArrowUp / ArrowDown / ArrowLeft / ArrowRight");
     expect(phraseKeys("Keep focus on the task")).toBeNull();
   });
 });
@@ -397,7 +398,7 @@ describe("polaris normalize", () => {
       expect(s.license!.slug).toBe("polaris-license");
     }
     const p = b.patterns[0]!;
-    expect(p).toMatchObject({ slug: "account-connection", name: "Account connection", componentSlugs: ["button", "table", "text"].filter((x) => ["button", "text"].includes(x)) });
+    expect(p).toMatchObject({ slug: "account-connection", name: "Account connection", componentSlugs: ["button", "text"] });
     expect(b.facts!.latestVersion).toBe("2.0.0");
     expect(new Set(b.facts!.evidence.map((e) => e.field))).toEqual(new Set(["latestVersion", "latestReleaseAt", "frameworks", "philosophy"]));
     expect(b.facts!.philosophy).toMatch(/^ATLAS summary:/);

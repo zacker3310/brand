@@ -9,7 +9,7 @@ import { TokenAnchor } from "./shared";
 /** Dense token table: horizontally scrollable inside its own container, sticky name column. */
 export function TableView({ tokens, hrefFor, setById, sourceFor }: { tokens: ExplorerToken[]; hrefFor: (id: string) => string; setById: Map<string, TokenSetInfo>; sourceFor: (t: ExplorerToken) => string }) {
   return (
-    <div className="overflow-x-auto rounded-xl border">
+    <div className="relative overflow-x-auto rounded-xl border">
       <table className="w-full min-w-[1100px] border-collapse text-left text-[12.5px] [&_td]:px-3 [&_td]:py-2 [&_th]:px-3 [&_th]:py-2">
         <caption className="sr-only">Tokens in the current scope</caption>
         <thead>
@@ -53,8 +53,8 @@ export function TableView({ tokens, hrefFor, setById, sourceFor }: { tokens: Exp
                     {t.name}
                   </TokenAnchor>
                 </th>
-                <td className="max-w-[14rem] font-mono break-all text-muted-foreground">{t.cssVar ?? <span className="text-subtle-foreground">—</span>}</td>
-                <td className="max-w-[16rem] font-mono break-all">{authoredLabel(t.rawValue, t.type) || <span className="text-subtle-foreground">—</span>}</td>
+                <td className="max-w-[14rem] font-mono break-all text-muted-foreground">{t.cssVar ?? <span className="text-muted-foreground">—</span>}</td>
+                <td className="max-w-[16rem] font-mono break-all">{authoredLabel(t.rawValue, t.type) || <span className="text-muted-foreground">—</span>}</td>
                 <td className="max-w-[16rem]">
                   {tv.length ? (
                     <span className="flex items-center gap-2">
@@ -76,7 +76,7 @@ export function TableView({ tokens, hrefFor, setById, sourceFor }: { tokens: Exp
                 <td className="whitespace-nowrap">
                   <TierMark tier={t.tier} tierState={t.tierState} plain />
                 </td>
-                <td>{t.deprecated ? <span className="text-conflicting">Yes</span> : <span className="text-subtle-foreground">No</span>}</td>
+                <td>{t.deprecated ? <span className="text-conflicting">Yes</span> : <span className="text-muted-foreground">No</span>}</td>
                 <td className="max-w-[18rem]">
                   <span className="block truncate text-muted-foreground" title={set?.name}>
                     {set?.slug ?? t.setSlug}
@@ -86,7 +86,7 @@ export function TableView({ tokens, hrefFor, setById, sourceFor }: { tokens: Exp
                       <span className="font-mono break-all">{t.location}</span>
                     </SourceLink>
                   ) : (
-                    <span className="text-[11.5px] text-subtle-foreground">Location not recorded</span>
+                    <span className="text-[11.5px] text-muted-foreground">Location not recorded</span>
                   )}
                 </td>
               </tr>

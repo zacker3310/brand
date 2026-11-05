@@ -18,9 +18,9 @@ function InputRow({ i }: { i: RubricInput }) {
         {informational ? "info" : `w ${i.weight}`}
         {!informational && known && ` · ${Math.round((i.value as number) * 100)}%`}
       </span>
-      <span className={cn("col-span-2 text-xs leading-snug break-words", known || informational ? "text-muted-foreground" : "text-unavailable")}>
+      <span className={cn("col-span-2 text-xs leading-snug break-words", known || informational ? "text-muted-foreground" : "text-muted-foreground italic")}>
         {i.display}
-        {!known && !informational && <span className="ml-1 rounded border border-dashed border-unavailable/50 px-1 text-[10px]">unknown · excluded from score</span>}
+        {!known && !informational && <span className="ml-1 rounded border border-dashed border-unavailable/50 px-1 text-[10px] not-italic">unknown · excluded from score</span>}
         {known && !informational && i.coverage < 1 && (
           <span className={cn("ml-1 rounded border border-inferred/30 bg-inferred-soft px-1 text-[10px]", INFERRED_TEXT)}>
             {i.value === 0 ? "not found; weak evidence" : `observed for ${Math.round(i.coverage * 100)}%`}

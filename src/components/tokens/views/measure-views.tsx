@@ -280,7 +280,7 @@ export function MotionView(p: ViewProps) {
                   ) : duration !== null && kind ? (
                     <MotionPreview durationMs={duration} easing={easing} label={t.name} />
                   ) : (
-                    <span className="text-[11px] text-subtle-foreground">Not a duration or easing; not animated.</span>
+                    <span className="text-[11px] text-muted-foreground">Not a duration or easing; not animated.</span>
                   )}
                 </span>
                 <span className="flex items-center justify-end gap-1.5 font-mono text-[12px]">
@@ -322,7 +322,7 @@ export function LayoutView(p: ViewProps) {
                 <div className="relative h-24" role="img" aria-label={`Ruler: ${marks.map((x) => `${relName(x.t.name, g.label)} at ${Math.round(x.d.px)}px`).join(", ")}`}>
                   <div className="absolute inset-x-0 bottom-5 h-px bg-border" />
                   {[0, 0.25, 0.5, 0.75, 1].map((f) => (
-                    <span key={f} className="absolute bottom-0 -translate-x-1/2 font-mono text-[10px] text-subtle-foreground" style={{ left: `${f * 100}%` }}>
+                    <span key={f} className="absolute bottom-0 -translate-x-1/2 font-mono text-[10px] text-muted-foreground" style={{ left: `${f * 100}%` }}>
                       {Math.round(scaleMax * f)}
                     </span>
                   ))}
@@ -395,7 +395,7 @@ export function OtherView(p: ViewProps) {
           {tokensOf(g, p).map((t) => (
             <li key={t.id}>
               <TokenAnchor id={t.id} href={p.hrefFor(t.id)} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-md px-3 py-2 hover:bg-accent/60">
-                <NameCell t={t} p={p} label={g.label} sub={t.type ? <span className="ml-1 text-subtle-foreground">({t.type})</span> : null} />
+                <NameCell t={t} p={p} label={g.label} sub={t.type ? <span className="ml-1 text-muted-foreground">({t.type})</span> : null} />
                 <span className="flex items-center gap-1.5 font-mono text-[12px]">
                   <StateBadge t={t} />
                   <span className="max-w-[18rem] truncate" title={displayOf(t)}>

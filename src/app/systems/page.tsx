@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { STATUS_CONTRAST_FIX } from "@/components/discovery/badges";
 import Link from "next/link";
 import { LayoutGridIcon, ListIcon, SearchIcon, SearchXIcon, SlidersHorizontalIcon, XIcon } from "lucide-react";
 import { EmptyState, PageContainer, PageHeader } from "@/components/atlas";
@@ -51,7 +52,7 @@ export default async function SystemsPage({ searchParams }: { searchParams: Prom
   const defaultSort: DirectorySort = params.q ? "relevance" : "coverage";
 
   return (
-    <PageContainer className="space-y-6">
+    <PageContainer className={`space-y-6 ${STATUS_CONTRAST_FIX}`}>
       <PageHeader
         eyebrow={<span className="text-muted-foreground">Directory</span>}
         title="Design systems"

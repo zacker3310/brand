@@ -33,7 +33,7 @@ export function NativeSelect({
   const sid = id ?? `sel-${name}`;
   return (
     <div className={cn("flex min-w-0 flex-col gap-1.5", className)}>
-      <label htmlFor={sid} className={cn("type-eyebrow", hideLabel && "sr-only")}>
+      <label htmlFor={sid} className={cn("type-eyebrow text-muted-foreground", hideLabel && "sr-only")}>
         {label}
       </label>
       <div className="relative min-w-0">

@@ -32,7 +32,7 @@ export function ScoreValue({ r, size = "md" }: { r: RubricResult; size?: "md" | 
   if (r.score === null) {
     const notIndexed = r.status === "not-indexed";
     return (
-      <span className={cn("inline-flex items-center rounded border border-dashed px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap", notIndexed ? "text-unavailable" : "hatch text-muted-foreground")}>
+      <span className={cn("inline-flex items-center rounded border border-dashed px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap", notIndexed ? "border-unavailable/50 text-muted-foreground" : "hatch text-muted-foreground")}>
         {notIndexed ? "Not indexed" : "Insufficient data"}
       </span>
     );
@@ -76,10 +76,6 @@ export function ConfidenceLine({ r }: { r: RubricResult }) {
 }
 
 function ScoreCell({ r, system }: { r: RubricResult; system: string }) {
-  const label =
-    r.score === null
-      ? `${r.status === "not-indexed" ? "Not indexed" : "Insufficient data"}. ${Math.round(r.evidenceCoverage * 100)}% evidence coverage.`
-      : `${r.score} of 100, ${CONF_LABEL[r.confidence].toLowerCase()} confidence, ${Math.round(r.evidenceCoverage * 100)}% evidence coverage.`;
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -89,11 +85,12 @@ function ScoreCell({ r, system }: { r: RubricResult; system: string }) {
             "block space-y-1.5 rounded-md p-2 transition-colors hover:bg-accent/60 focus-visible:bg-accent/60 focus-visible:outline-none",
             r.score === null && "opacity-90",
           )}
-          aria-label={`${RUBRIC_DEFINITIONS[r.criterion].label}: ${label} Show evidence.`}
         >
+          <span className="sr-only">{RUBRIC_DEFINITIONS[r.criterion].label}: </span>
           <ScoreValue r={r} />
           <ScoreBar score={r.score} />
           <ConfidenceLine r={r} />
+          <span className="sr-only"> Show evidence.</span>
         </Link>
       </TooltipTrigger>
       <TooltipContent className="max-w-xs text-xs">{r.explanation}</TooltipContent>
@@ -107,7 +104,7 @@ export function IngestionTag({ status }: { status: string }) {
     <span
       className={cn(
         "inline-flex items-center rounded border px-1.5 py-0.5 text-[10px] leading-none font-medium whitespace-nowrap",
-        indexed ? "border-verified/30 bg-verified-soft text-verified" : "border-dashed border-unavailable/50 text-unavailable",
+        indexed ? "border-verified/30 bg-verified-soft text-verified" : "border-dashed border-unavailable/50 text-muted-foreground",
       )}
     >
       {indexed ? (status === "partial" ? "Partially indexed" : "Indexed") : "Metadata only"}

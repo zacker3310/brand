@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { STATUS_CONTRAST_FIX } from "@/components/discovery/badges";
 import { notFound } from "next/navigation";
 import { PageContainer, Section } from "@/components/atlas";
 import { ComponentsSection } from "@/components/discovery/detail/components-section";
@@ -72,7 +73,7 @@ export default async function SystemDetailPage({ params, searchParams }: Props) 
   );
 
   return (
-    <PageContainer className="space-y-8">
+    <PageContainer className={`space-y-8 ${STATUS_CONTRAST_FIX}`}>
       <SystemHeader detail={detail} />
       <div className="lg:grid lg:grid-cols-[176px_minmax(0,1fr)] lg:gap-10">
         <div className="sticky top-14 z-20 -mx-4 border-b border-border/70 bg-background/90 backdrop-blur sm:-mx-6 lg:top-20 lg:mx-0 lg:self-start lg:border-0 lg:bg-transparent lg:backdrop-blur-none">

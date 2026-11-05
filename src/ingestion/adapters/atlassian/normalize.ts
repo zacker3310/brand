@@ -374,7 +374,6 @@ const KEY_PATTERNS: [RegExp, string][] = [
   [/\bspace ?bar\b|\bspace key\b|\bpress(?:ing|es)? space\b|\benter or space\b|\bspace or enter\b/i, "Space"],
   [/\b(?:esc|escape) key\b|\bpress(?:ing|es)? (?:the )?(?:esc|escape)\b|\bESC\b|\bEscape\b/i, "Escape"],
   [/\bdelete key\b|\bpress(?:ing|es)? delete\b|\bbackspace\b/i, "Delete"],
-  [/\bctrl\s*\+\s*([a-z])\b/i, "Ctrl+A"],
   [/\bhome (?:and end )?keys?\b|\bhome and end\b/i, "Home / End"],
   [/\bpage up\b|\bpage down\b/i, "PageUp / PageDown"],
 ];
@@ -387,6 +386,11 @@ export function extractKeyboard(textBlock: string): { keys: string; action: stri
     if (!/\bkey(?:s|board)?\b|\bpress|\barrow\b|\btab(?:bing)?\b|\bescape\b|\besc\b/i.test(sentence)) continue;
     const keys: string[] = [];
     for (const [re, k] of KEY_PATTERNS) if (re.test(sentence) && !keys.includes(k)) keys.push(k);
+    for (const m of sentence.matchAll(/\b(ctrl|cmd|command|alt|option)\s*\+\s*([a-z0-9])\b/gi)) {
+      const mod = m[1]!.toLowerCase() === "ctrl" ? "Ctrl" : m[1]!.toLowerCase() === "alt" || m[1]!.toLowerCase() === "option" ? "Alt" : "Cmd";
+      const k = `${mod}+${m[2]!.toUpperCase()}`;
+      if (!keys.includes(k)) keys.push(k);
+    }
     // "Arrow keys" is redundant when a specific arrow pair was found.
     const specific = keys.filter((k) => !(k === "Arrow keys" && keys.some((x) => x.startsWith("Arrow") && x !== "Arrow keys")));
     if (!specific.length) continue;
@@ -573,7 +577,8 @@ function buildComponent(a: BuildArgs): NormalizedComponent {
   for (const p of mainProps) {
     const axis = VARIANT_AXIS_PROPS[p.name];
     if (!axis || p.deprecated) continue;
-    for (const v of parseStringLiteralUnion(p.type) ?? []) addVariant(axis, v, codeUrl ? `${codeUrl}${p.anchor ? `#${p.anchor}` : ""}` : null, `props table: ${p.name}`);
+    // Values that are token names (Heading color="color.text") are token choices, not variants.
+    for (const v of parseStringLiteralUnion(p.type) ?? []) if (!/^[a-z]+\.[a-z]/.test(v)) addVariant(axis, v, codeUrl ? `${codeUrl}${p.anchor ? `#${p.anchor}` : ""}` : null, `props table: ${p.name}`);
   }
   let variantSource: "props" | "examples" | null = variants.length ? "props" : null;
   if (!variants.length && examples) {

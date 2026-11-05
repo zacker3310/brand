@@ -82,15 +82,13 @@ export function SystemPicker({
   };
 
   return (
-    <fieldset className="min-w-0 space-y-2.5" aria-describedby={`${uid}-hint`}>
-      <div className="flex items-baseline justify-between gap-3">
-        <legend className="text-sm font-medium">{legend}</legend>
-        <span id={`${uid}-hint`} className="tabular text-xs text-muted-foreground" aria-live="polite">
-          {hydrated ? `${selected.length} of ${max} selected` : `Choose 2 to ${max}`}
-          {hydrated && full ? " · limit reached" : ""}
-        </span>
-      </div>
-
+    <fieldset className="min-w-0" aria-describedby={`${uid}-hint`}>
+      <legend className="float-left text-sm font-medium">{legend}</legend>
+      <span id={`${uid}-hint`} className="tabular float-right pt-0.5 text-xs text-muted-foreground" aria-live="polite">
+        {hydrated ? `${selected.length} of ${max} selected` : `Choose 2 to ${max}`}
+        {hydrated && full ? " · limit reached" : ""}
+      </span>
+      <div className="clear-both space-y-2.5 pt-2.5">
       {hydrated && (
         <div className="flex min-h-8 flex-wrap items-center gap-1.5" aria-label="Selected systems">
           {selected.length === 0 && <span className="text-xs text-muted-foreground">Nothing selected yet. Columns follow selection order.</span>}
@@ -174,6 +172,7 @@ export function SystemPicker({
             );
           })}
         </div>
+      </div>
       </div>
     </fieldset>
   );

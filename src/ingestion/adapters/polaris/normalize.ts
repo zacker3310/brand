@@ -231,7 +231,7 @@ function docOnlyProp(d: DocProp, docsUrl: string | null): NormalizedProperty {
 
 function wcAccessibility(page: WcPage | null, docsUrl: string | null): { a11y: NormalizedComponent["accessibility"]; keyboard: KeyboardInteraction[]; items: string[] } {
   if (!page) return { a11y: null, keyboard: [], items: [] };
-  const items = [...page.bestPractices, ...page.limitations].filter((t) => A11Y_RE.test(t));
+  const items = [...page.bestPractices, ...page.limitations, ...(page.guidelines ?? [])].filter((t) => A11Y_RE.test(t));
   if (!items.length) return { a11y: null, keyboard: [], items };
   const keyboard: KeyboardInteraction[] = [];
   for (const t of items) {
@@ -328,7 +328,7 @@ function buildWebComponents(w: WcContext, limit: number | undefined, log: (m: st
 
     // accessibility
     const { a11y, keyboard } = wcAccessibility(page, docsUrl);
-    if (a11y && pf) ev(pf.stamp, "accessibility", METHOD.devMd, { location: "Best practices / Limitations", excerpt: a11y.guidance });
+    if (a11y && pf) ev(pf.stamp, "accessibility", METHOD.devMd, { location: "Best practices / Limitations / guidelines", excerpt: a11y.guidance });
     if (keyboard.length && pf) ev(pf.stamp, "keyboard", METHOD.devMd, { location: "Best practices / Limitations", excerpt: keyboard.map((k) => `${k.keys}: ${k.action}`).join("; ") });
 
     // examples (titles + docs link only; no code)
@@ -605,7 +605,7 @@ function buildPatterns(pages: Frag<"pattern-page">[], wcSlugs: Set<string>, limi
     const cls = classifyPatternName(name);
     const ev: EvidenceInput[] = [evidence(pf.stamp, "name", METHOD.devMd, { location: "frontmatter.title", excerpt: `${pf.group ? `${pf.group}: ` : ""}${name}` })];
     if (description) ev.push(evidence(pf.stamp, "description", METHOD.devMd, { location: "frontmatter.description", excerpt: description }));
-    if (componentSlugs.length) ev.push(evidence(pf.stamp, "componentSlugs", METHOD.devMd, { location: "Supported components", excerpt: p.components.map((c) => c.title).join(", ") }));
+    if (componentSlugs.length) ev.push(evidence(pf.stamp, "components", METHOD.devMd, { location: "Supported components", excerpt: p.components.map((c) => c.title).join(", ") }));
     return {
       slug: slugify(pf.slug),
       name,

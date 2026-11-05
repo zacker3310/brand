@@ -32,12 +32,12 @@ export default async function SystemPatternPage({ params }: Props) {
     <PageContainer>
       <PageHeader
         eyebrow={
-          <span className="flex flex-wrap items-center gap-1.5">
-            <Link href={`/systems/${encodeURIComponent(p.system.slug)}`} className="hover:text-foreground">
+          <span className="flex flex-wrap items-center gap-1.5 text-muted-foreground">
+            <Link href={`/systems/${encodeURIComponent(p.system.slug)}`} className="text-muted-foreground hover:text-foreground">
               {p.system.name}
             </Link>
             <span aria-hidden>/</span>
-            <Link href={`/systems/${encodeURIComponent(p.system.slug)}/patterns`} className="hover:text-foreground">
+            <Link href={`/systems/${encodeURIComponent(p.system.slug)}/patterns`} className="text-muted-foreground hover:text-foreground">
               Patterns
             </Link>
           </span>
@@ -60,7 +60,7 @@ export default async function SystemPatternPage({ params }: Props) {
               ATLAS type: {p.type.name} <ArrowRightIcon className="size-3" aria-hidden />
             </Link>
           ) : null}
-          {section && <span className="font-mono text-[11px] text-subtle-foreground">{section}</span>}
+          {section && <span className="font-mono text-[11px] text-muted-foreground">{section}</span>}
         </div>
       </PageHeader>
 
@@ -118,13 +118,13 @@ export default async function SystemPatternPage({ params }: Props) {
 
         <aside className="space-y-6 lg:sticky lg:top-20 lg:self-start" aria-label="Classification">
           <div className="space-y-3 rounded-xl border bg-card p-4">
-            <p className="type-eyebrow">Classification</p>
+            <p className="type-eyebrow text-muted-foreground">Classification</p>
             <p className="text-sm font-medium">{p.type ? p.type.name : "Not mapped to a type"}</p>
             <p className="text-xs leading-relaxed text-muted-foreground">{info.detail}</p>
           </div>
           {p.type && (
             <div className="space-y-3 rounded-xl border bg-card p-4">
-              <p className="type-eyebrow">{p.type.name} elsewhere</p>
+              <p className="type-eyebrow text-muted-foreground">{p.type.name} elsewhere</p>
               {p.siblings.length ? (
                 <ul className="space-y-2">
                   {p.siblings.map((s) => (

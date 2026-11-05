@@ -18,7 +18,7 @@ export default async function PatternsPage() {
   return (
     <PageContainer>
       <PageHeader
-        eyebrow="Pattern library"
+        eyebrow={<span className="text-muted-foreground">Pattern library</span>}
         title="Patterns"
         display
         description={
@@ -105,7 +105,7 @@ export default async function PatternsPage() {
             {unclassified.length === 0 ? (
               <p className="text-sm text-muted-foreground">Every indexed pattern maps to a type.</p>
             ) : (
-              <div className="overflow-x-auto rounded-xl border">
+              <div className="relative overflow-x-auto rounded-xl border">
                 <table className="w-full min-w-[720px] border-collapse text-left text-sm [&_td]:px-3 [&_td]:py-2.5 [&_th]:px-3 [&_th]:py-2">
                   <caption className="sr-only">Unclassified patterns</caption>
                   <thead>

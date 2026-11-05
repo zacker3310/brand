@@ -111,11 +111,11 @@ export const TARGETS_4: GenericTarget[] = [
     slug: "skyscanner-backpack",
     strategy: "sitemap",
     sitemapUrl: "https://www.skyscanner.design/latest/sitemap.xml",
-    include: "^https://www\\.skyscanner\\.design/latest/components/(?:[a-z0-9-]+/)?([a-z0-9-]+)/[a-z0-9-]+-[A-Za-z0-9]{8}$",
-    exclude: ["/components/utility-components/(?:theming|z-index)/"],
+    include: "^https://www\\.skyscanner\\.design/latest/components/(?:[a-z0-9-]+/){0,2}([a-z0-9-]+)/[a-z0-9-]+-[A-Za-z0-9]{8}$",
+    exclude: ["/components/utility-components/(?:theming|z-index)/", "/components/chat-ui/chat-ui/"],
     titleSuffix: "^[^|]+\\|\\s+",
     notes:
-      "skyscanner.design is a client-rendered Supernova site (sidebar not in static HTML); its /latest/sitemap.xml lists every page. /robots.txt redirects to an HTML page, i.e. no rules (allowed). Component pages are /latest/components/[<group>/]<component>/<tab>-<id> with one page per tab (overview, usage, web, compose, swift-ui, ...); the include rule captures the component directory so the tabs collapse to one component, using the shortest tab URL as the docs URL. Groups (cells/, chat-ui/, compare/, utility-components/) are skipped in the capture; foundations are outside the rule. Excluded: utility-components/theming (a theming guide) and utility-components/z-index (Sass tokens); 104 components remain. Known adapter effect: components with several tab pages get keys prefixed with their parent path part (e.g. 'components-button'), see the workstream report. Titles read '<Tab> | <Component>' (the titleSuffix strips the tab). Pages carry <meta name=robots content=nofollow> (no noindex); the sitemap is the enumeration source, links are not followed. Frameworks unset: pages document web (React) and native (iOS/Android) implementations.",
+      "skyscanner.design is a client-rendered Supernova site (sidebar not in static HTML); its /latest/sitemap.xml lists every page. /robots.txt redirects to an HTML page, i.e. no rules (allowed). Component pages are /latest/components/[<group>/]<component>/<tab>-<id> with one page per tab (overview, usage, web, compose, swift-ui, ...); the include rule captures the component directory so the tabs collapse to one component, using the shortest tab URL as the docs URL. Groups (cells/, chat-ui/, compare/, utility-components/[interactive/]) are skipped in the capture; foundations are outside the rule. Excluded: utility-components/theming (a theming guide), utility-components/z-index (Sass tokens) and chat-ui/chat-ui (a composition demo of the chat components). Known adapter effect: components with several tab pages get keys prefixed with their parent path part (e.g. 'components-button'), see the workstream report. Titles read '<Tab> | <Component>' (the titleSuffix strips the tab). Pages carry <meta name=robots content=nofollow> (no noindex); the sitemap is the enumeration source, links are not followed. Frameworks unset: pages document web (React) and native (iOS/Android) implementations.",
   },
   {
     slug: "syncfusion-essential-studio",
@@ -210,7 +210,7 @@ export const TARGETS_4: GenericTarget[] = [
     include: "^packages/docs/src/pages/en/components/([a-z0-9-]+)\\.md$",
     exclude: ["/components/all\\.md$"],
     frameworks: ["vue"],
-    maxPages: 100,
+    maxPages: 110,
     notes:
       "vuetifyjs.com is a client-rendered SPA (robots.txt allows all, but /sitemap.xml returns the SPA shell), so components are enumerated from the docs sources in the official repo: packages/docs/src/pages/en/components/<page>.md, which the docs router serves at /en/components/<page>/. Listed via jsDelivr at the release tag of the latest npm version (v{npm:vuetify}, v4.3.2 on 2026-11-05): jsDelivr's cached 'master' listing was stale (88 vs 106 pages, missing e.g. avatar-groups, hotkeys, split-buttons). Docs URL = GitHub blob of the page source (proven by the listing; the vuetifyjs.com route cannot be confirmed statically because the SPA answers 200 for any path); name = its '# Heading' (page titles are plural, e.g. 'Buttons'), description = first paragraph. Excluded: all.md (the 'All components' index). Not covered: the multi-page Data tables section (data-tables/*.md) and the component explorer.",
   },

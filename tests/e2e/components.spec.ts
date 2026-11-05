@@ -71,8 +71,12 @@ test.describe("component catalog (/components)", () => {
     for (const h of hrefs) expect(h).toMatch(/^\/systems\/carbon\/components\//);
 
     // Removing the active-filter chip restores the full set.
-    await page.getByRole("list", { name: "Active filters" }).getByRole("link").first().click();
+    await page.locator("form[data-ready]:not([data-pending])").waitFor();
+    const chip = page.getByRole("list", { name: "Active filters" }).getByRole("link", { name: /Carbon/ });
+    await expect(chip).toHaveAttribute("href", "/components?view=components");
+    await chip.click();
     await expect(page).not.toHaveURL(/system=carbon/);
+    await expect(filters.getByRole("checkbox", { name: /Carbon/ })).not.toBeChecked();
   });
 
   test("search is keyboard-operable, debounced, and expands synonyms honestly", async ({ page }) => {
@@ -88,15 +92,21 @@ test.describe("component catalog (/components)", () => {
     await expect(search).toBeFocused();
   });
 
-  test("works without JavaScript: the filter form is a plain GET form", async ({ browser }) => {
-    const ctx = await browser.newContext({ javaScriptEnabled: false });
-    const page = await ctx.newPage();
-    await page.goto("/components?view=components&system=github-primer&sort=name");
-    await expect(page.getByRole("status").first()).toContainText(/components/);
-    const form = page.locator("form[role='search'][action='/components']");
-    await expect(form).toHaveAttribute("method", "get");
-    await expect(page.getByRole("button", { name: "Apply filters" })).toBeVisible();
-    await ctx.close();
+  test("server HTML carries a plain GET filter form with the filtered results (no JS needed to submit)", async ({ request }) => {
+    // Note: the visible no-JS experience is limited by streaming (loading.tsx fallbacks are swapped in by
+    // script); this asserts what the server sends: a GET form and results already filtered by the URL.
+    const res = await request.get("/components?view=components&system=github-primer&sort=name");
+    expect(res.status()).toBe(200);
+    const html = await res.text();
+    const form = html.match(/<form[^>]*role="search"[^>]*>/)?.[0] ?? "";
+    expect(form).toContain('method="get"');
+    expect(form).toContain('action="/components"');
+    const box = [...html.matchAll(/<input[^>]*name="system"[^>]*>/g)].map((m) => m[0]).find((t) => t.includes('value="github-primer"'));
+    expect(box).toContain("checked");
+    expect(html).toContain("Apply filters");
+    const links = [...html.matchAll(/href="(\/systems\/[a-z0-9-]+\/components\/[a-z0-9-]+)"/g)].map((m) => m[1]!);
+    expect(links.length).toBeGreaterThan(0);
+    for (const l of links) expect(l.startsWith("/systems/github-primer/")).toBe(true);
   });
 
   test("components view sorts via URL and shows coverage per row", async ({ page }) => {

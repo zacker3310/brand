@@ -86,7 +86,7 @@ export function ContrastView({
           <input type="hidden" name="category" value="color" />
           <input type="hidden" name="view" value="contrast" />
           <label className="flex min-w-0 flex-col gap-1.5">
-            <span className="type-eyebrow">Foreground</span>
+            <span className="type-eyebrow text-muted-foreground">Foreground</span>
             <input
               name="fg"
               defaultValue={m.params.fg ?? ""}
@@ -97,7 +97,7 @@ export function ContrastView({
             />
           </label>
           <label className="flex min-w-0 flex-col gap-1.5">
-            <span className="type-eyebrow">Background</span>
+            <span className="type-eyebrow text-muted-foreground">Background</span>
             <input
               name="bg"
               defaultValue={m.params.bg ?? ""}
@@ -177,7 +177,7 @@ export function ContrastView({
             description="ATLAS only pairs tokens whose names follow a recognizable foreground/background convention (on-X, X-foreground, fg/bg role swaps). Use the checker above for any pair."
           />
         ) : (
-          <div className="overflow-x-auto rounded-xl border">
+          <div className="relative overflow-x-auto rounded-xl border">
             <table className="w-full min-w-[760px] border-collapse text-left text-[12.5px]">
               <caption className="sr-only">Contrast ratios of name-paired tokens</caption>
               <thead>
