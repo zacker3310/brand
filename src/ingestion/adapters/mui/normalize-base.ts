@@ -92,7 +92,8 @@ function buildComponent(b: BuildCtx, entry: FragOf<"base-index">["entries"][numb
   if (description) ev.push(page ? evidence(page.prov, "description", PARSERS.basePage, { location: `${page.prov.file} <Subtitle>`, excerpt: description }) : evidence(indexFrag.prov, "description", PARSERS.baseIndex, { location: `${indexFrag.prov.file}#${slug}`, excerpt: description }));
 
   const lifecycle: NormalizedComponent["lifecycle"] = isPrerelease(b.pin.version) ? "unknown" : "stable";
-  if (lifecycle === "stable") ev.push(b.npm("lifecycle", `documented in ${b.pin.pkg}@${b.pin.version} (stable, non-prerelease release)`));
+  // Derived from the package's stable (non-prerelease) release, not a per-component status claim.
+  if (lifecycle === "stable") ev.push({ ...b.npm("lifecycle", `documented in ${b.pin.pkg}@${b.pin.version} (stable, non-prerelease release)`), state: "inferred", confidence: 0.8 });
 
   const cls = classifyFor("base-ui", entry.name, classifyComponentName);
   const frameworks: NormalizedComponent["frameworks"] = [{ slug: "react", packageName: p?.importPath ?? b.pin.pkg, importName: importName ?? entry.name.replace(/\s+/g, ""), sourceUrl: docsUrl }];

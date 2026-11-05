@@ -585,6 +585,8 @@ export function parseDocsColours(text: string): DocColour[] {
 export interface HomeData {
   principlesText: string | null;
   principleLinks: { text: string; url: string }[];
+  /** Page description (NHS design system landing page `pageDescription`). */
+  description: string | null;
 }
 
 const stripTags = (html: string) =>
@@ -593,13 +595,33 @@ const stripTags = (html: string) =>
 /** src/index.njk: the "Principles we follow" block (static HTML inside the Nunjucks template). */
 export function parseHome(text: string): HomeData {
   const m = /<h2[^>]*>\s*Principles we follow\s*<\/h2>([\s\S]*?)(?:<hr\b|<h2\b)/i.exec(text);
-  if (!m) return { principlesText: null, principleLinks: [] };
+  if (!m) return { principlesText: null, principleLinks: [], description: null };
   const block = m[1]!;
   const firstP = /<p[^>]*>([\s\S]*?)<\/p>/i.exec(block);
   const links = [...block.matchAll(/<a[^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/gi)]
     .map((x) => ({ url: x[1]!, text: stripTags(x[2]!) }))
     .filter((l) => /^https:\/\//.test(l.url));
-  return { principlesText: firstP ? clip(stripTags(firstP[1]!), 300) : null, principleLinks: links };
+  return { principlesText: firstP ? clip(stripTags(firstP[1]!), 300) : null, principleLinks: links, description: null };
+}
+
+/** NHS design system landing page template: `{% set pageDescription = "..." %}`. */
+export function parseNhsHome(text: string): HomeData {
+  const ir = njkToIR(text);
+  return { principlesText: null, principleLinks: [], description: fmStr(ir, "pageDescription") };
+}
+
+/** NHS design principles page template: `<h2 id="...">Principle</h2>` headings. */
+export function parseNhsPrinciples(text: string): { title: string | null; updatedAt: string | null; principles: Principle[] } {
+  const title = /\{%-?\s*set\s+pageTitle\s*=\s*"([^"]+)"/.exec(text)?.[1] ?? null;
+  const body = /\{%-?\s*block\s+bodyContent\s*-?%\}([\s\S]*?)\{%-?\s*endblock\s*-?%\}/.exec(text)?.[1] ?? text;
+  const principles: Principle[] = [];
+  for (const m of stripNunjucks(body).matchAll(/<h2\b([^>]*)>([\s\S]*?)<\/h2>/gi)) {
+    const anchor = /\sid="([^"]+)"/.exec(m[1]!)?.[1] ?? null;
+    // Headings carry a visible number badge ("<span>1</span> Put people at the heart ...").
+    const name = stripTags(m[2]!).replace(/^\d{1,2}\.?\s+/, "");
+    if (name && !principles.some((p) => p.name === name)) principles.push({ name, anchor });
+  }
+  return { title, updatedAt: null, principles };
 }
 
 /* ------------------------------ GOV.UK principles ----------------------------- */

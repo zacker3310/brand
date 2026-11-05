@@ -197,7 +197,7 @@ function Endpoint({ ep, example, capturedAt }: { ep: Ep; example?: { body: unkno
               <p className="text-xs font-medium text-muted-foreground">Request</p>
               <CopyButton text={curl.replace("$ATLAS", "")} label={`Copy request for ${ep.summary}`} />
             </div>
-            <pre className="overflow-x-auto rounded-lg border bg-surface-1 p-3 font-mono text-[12px] leading-relaxed">
+            <pre tabIndex={0} aria-label={`Request for ${ep.summary}`} className="overflow-x-auto rounded-lg border bg-surface-1 p-3 font-mono text-[12px] leading-relaxed focus-visible:outline-2">
               <code>{curl}</code>
             </pre>
           </div>
@@ -325,7 +325,7 @@ function Convention({ title, code }: { title: string; code: string }) {
   return (
     <div className="space-y-1.5">
       <p className="text-xs font-medium text-muted-foreground">{title}</p>
-      <pre className="overflow-x-auto rounded-lg border bg-surface-1 p-3 font-mono text-[12px] leading-relaxed">
+      <pre tabIndex={0} aria-label={`${title} envelope`} className="overflow-x-auto rounded-lg border bg-surface-1 p-3 font-mono text-[12px] leading-relaxed focus-visible:outline-2">
         <code>{code}</code>
       </pre>
     </div>

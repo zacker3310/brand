@@ -104,3 +104,8 @@ export function parseAllMjs(text: string): Record<string, string> {
   for (const m of text.matchAll(/export\s*\{\s*([A-Za-z]+)\s*\}\s*from\s*['"]\.\/components\/([a-z0-9-]+)\/[a-z0-9-]+\.mjs['"]/g)) out[m[2]!] = m[1]!;
   return out;
 }
+
+/** macro.njk -> macro name (`{% macro button(params) %}` -> "button"). */
+export function parseMacroNjk(text: string): string | null {
+  return /\{%-?\s*macro\s+([A-Za-z_][\w]*)\s*\(/.exec(text)?.[1] ?? null;
+}

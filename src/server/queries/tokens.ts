@@ -554,7 +554,7 @@ export async function getTokenInspector(id: string): Promise<InspectorData | nul
       redistribution: x.set_redist as Redistribution,
     },
     edges: all,
-    setThemes: Object.fromEntries(sets.rows.map((s) => [s.slug, { name: s.name, theme: s.theme }])),
+    setThemes: Object.fromEntries(sortSets(sets.rows).map((s) => [s.slug, { name: s.name, theme: s.theme }])),
     dependents: {
       total: d0 ? num(d0.total) : 0,
       direct: d0 ? num(d0.direct) : 0,

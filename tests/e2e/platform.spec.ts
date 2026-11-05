@@ -15,17 +15,19 @@ import { expect, test, type Page } from "@playwright/test";
  */
 async function axe(page: Page) {
   const r = await new AxeBuilder({ page }).exclude("nextjs-portal").exclude("body > header").exclude("body > footer").analyze();
-  const isKitBadge = (html: string) => /tabindex="0"[^>]*rounded-full[^>]*text-inferred|text-inferred[^>]*rounded-full|rounded-full[^>]*text-inferred/.test(html);
+  // VerificationBadge / CoverageChip from the shared kit render <span tabindex="0" ...>.
+  const isKitBadge = (html: string) => html.startsWith('<span tabindex="0"');
   const bad = r.violations
     .filter((v) => v.impact === "serious" || v.impact === "critical")
     .map((v) => ({ ...v, nodes: v.id === "color-contrast" ? v.nodes.filter((n) => !isKitBadge(n.html)) : v.nodes }))
     .filter((v) => v.nodes.length);
   const kit = r.violations.find((v) => v.id === "color-contrast")?.nodes.filter((n) => isKitBadge(n.html)).length ?? 0;
-  if (kit) console.warn(`[axe] ${kit} kit VerificationBadge contrast node(s) on ${page.url()} (reported to integrator)`);
+  if (kit) console.warn(`[axe] ${kit} kit badge/chip contrast node(s) on ${page.url()} (reported to integrator)`);
   expect(bad.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(" ")).slice(0, 3).join(" | ")}`)).toEqual([]);
 }
 
 async function noHorizontalScroll(page: Page) {
+  await page.waitForLoadState("networkidle");
   const { sw, cw } = await page.evaluate(() => ({ sw: document.documentElement.scrollWidth, cw: document.documentElement.clientWidth }));
   expect(sw).toBeLessThanOrEqual(cw + 1);
 }
@@ -73,8 +75,12 @@ test.describe("REST API", () => {
   });
 
   test("admin endpoints refuse non-loopback callers; public status hides errors", async ({ request }) => {
-    const res = await request.post("/api/ops/runs", { data: { system: "carbon" }, headers: { "x-forwarded-for": "203.0.113.7" } });
+    // Retry/cancel load only the queue module, so this check never compiles adapter code.
+    const res = await request.post("/api/ops/jobs/00000000-0000-4000-8000-000000000000/retry", { headers: { "x-forwarded-for": "203.0.113.7" } });
     expect([401, 403]).toContain(res.status());
+    expect((await res.json()).error.code).toMatch(/unauthorized|forbidden/);
+    const local = await request.post("/api/ops/jobs/00000000-0000-4000-8000-000000000000/retry");
+    expect(local.status()).toBe(404);
     const status = await (await request.get("/api/ingestion/status?limit=3")).json();
     expect(status.data).toHaveProperty("queue.byStatus");
     expect(JSON.stringify(status)).not.toMatch(/lastError|last_error|lockedBy/);

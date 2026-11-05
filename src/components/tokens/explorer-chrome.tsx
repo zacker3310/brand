@@ -137,7 +137,14 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
           </li>
           {m.sets.map((s) => (
             <li key={s.id}>
-              <SetLink href={nav(m, { set: s.slug, theme: undefined })} active={m.selectedSet?.id === s.id} title={shortSetName(s.name, suffix)} count={s.tokenCount} theme={s.theme} />
+              <SetLink
+                href={nav(m, { set: s.slug, theme: undefined })}
+                active={m.selectedSet?.id === s.id}
+                title={shortSetName(s.name, suffix)}
+                count={s.tokenCount}
+                theme={s.theme}
+                meta={s}
+              />
             </li>
           ))}
         </ul>
@@ -171,7 +178,26 @@ export function ScopeRail({ m }: { m: ExplorerModel }) {
   );
 }
 
-function SetLink({ href, active, title, count, theme }: { href: string; active: boolean; title: string; count: number; theme?: string | null }) {
+function SetLink({
+  href,
+  active,
+  title,
+  count,
+  theme,
+  meta,
+}: {
+  href: string;
+  active: boolean;
+  title: string;
+  count: number;
+  theme?: string | null;
+  meta?: Pick<TokenSetInfo, "format" | "packageName" | "packageVersion" | "license" | "redistribution">;
+}) {
+  const detail = meta
+    ? [meta.format, meta.packageName ? `${meta.packageName}${meta.packageVersion ? `@${meta.packageVersion}` : ""}` : null, meta.license?.spdxId ?? meta.license?.name, `redistribution ${meta.redistribution}`]
+        .filter(Boolean)
+        .join(" · ")
+    : undefined;
   return (
     <Link
       href={href}
@@ -181,9 +207,20 @@ function SetLink({ href, active, title, count, theme }: { href: string; active: 
         active ? "bg-accent text-accent-foreground" : "text-foreground/85",
       )}
     >
-      <span className="min-w-0 flex-1">
+      <span className="min-w-0 flex-1" title={detail}>
         <span className="line-clamp-2 leading-snug">{title}</span>
-        {theme && <ThemeChip theme={theme} className="mt-1" />}
+        {meta && (
+          <span className="mt-1 flex flex-wrap items-center gap-1">
+            {theme && <ThemeChip theme={theme} />}
+            <span className="font-mono text-[10.5px] leading-none text-muted-foreground">{meta.format}</span>
+            {meta.redistribution !== "permitted" && (
+              <span className="inline-flex items-center gap-0.5 font-mono text-[10.5px] leading-none text-muted-foreground">
+                <LockIcon className="size-2.5" aria-hidden />
+                {meta.redistribution}
+              </span>
+            )}
+          </span>
+        )}
       </span>
       <span className="tabular shrink-0 pt-px font-mono text-[11px] text-muted-foreground">{formatCount(count)}</span>
     </Link>

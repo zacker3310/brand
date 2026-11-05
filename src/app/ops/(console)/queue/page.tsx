@@ -205,7 +205,7 @@ function JobTable({ rows, returnTo, empty, showError, showLock, showRunAt }: { r
                     {j.lastError ? (
                       <details className="text-xs">
                         <summary className="cursor-pointer truncate text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]">{j.lastError.split("\n")[0]}</summary>
-                        <pre className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{j.lastError}</pre>
+                        <pre tabIndex={0} className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{j.lastError}</pre>
                       </details>
                     ) : (
                       <span className="text-xs text-muted-foreground">no error recorded</span>

@@ -83,7 +83,7 @@ export function CommandPaletteTrigger() {
       size="sm"
       onClick={() => setOpen(true)}
       className="h-8 gap-2 border-border/80 bg-surface-1 px-2.5 text-muted-foreground hover:text-foreground sm:w-64 sm:justify-start lg:w-72"
-      aria-label="Search ATLAS"
+      aria-label="Search systems, components, tokens and patterns"
       aria-keyshortcuts="Meta+K Control+K"
     >
       <SearchIcon className="size-3.5" aria-hidden />

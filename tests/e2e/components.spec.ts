@@ -12,7 +12,8 @@ test.describe.configure({ timeout: 150_000 });
 expect.configure({ timeout: 45_000 });
 
 async function expectNoSeriousA11yViolations(page: Page) {
-  const results = await new AxeBuilder({ page })
+  // @axe-core/playwright types its Page against a different playwright-core version than @playwright/test.
+  const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0])
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
     // Shell search trigger (integrator-owned): aria-label "Search ATLAS" vs visible placeholder text.
     .exclude("button[aria-keyshortcuts]")

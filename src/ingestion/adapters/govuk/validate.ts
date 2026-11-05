@@ -2,12 +2,33 @@
  * GOV.UK adapter-specific sanity checks (the engine runs generic validation too).
  */
 import type { NormalizedBundle, ValidationIssue } from "@/lib/contracts";
-import { ADAPTER_ID, DOCS_ORIGIN, FRONTEND_REPO_URL } from "./constants";
+import { ADAPTER_ID, GOVUK, frontendRepoUrl, type FrontendProfile } from "./constants";
+
+const EXPECT: Record<FrontendProfile["id"], { components: string[]; minComponents: number; minPatterns: number; sets: string[]; tokens: string[] }> = {
+  govuk: {
+    components: ["button", "text-input", "radios", "checkboxes", "summary-list", "error-summary", "date-input"],
+    minComponents: 30,
+    minPatterns: 20,
+    sets: ["colour-palette", "functional-colours", "spacing", "typography", "layout"],
+    tokens: ["govuk-palette.blue.primary", "govuk-functional-colours.brand", "govuk-spacing-points.3", "govuk-breakpoints.tablet"],
+  },
+  nhs: {
+    components: ["buttons", "text-input", "radios", "checkboxes", "summary-list", "error-summary", "date-input"],
+    minComponents: 35,
+    minPatterns: 10,
+    sets: ["colour-palette", "applied-colours", "spacing", "typography", "layout"],
+    tokens: ["nhsuk-colours.blue", "nhsuk-brand-colour", "nhsuk-spacing-points.3", "nhsuk-breakpoints.tablet"],
+  },
+};
 
 /** Colour cross-check results recorded by normalize (functional colour default vs docs colour table). */
 export const colourChecks = new WeakMap<NormalizedBundle, { name: string; source: string; docs: string }[]>();
 
-export function validateGovuk(bundle: NormalizedBundle, opts: { limit?: number }): ValidationIssue[] {
+export function validateGovuk(bundle: NormalizedBundle, opts: { limit?: number; profile?: FrontendProfile }): ValidationIssue[] {
+  const P = opts.profile ?? GOVUK;
+  const X = EXPECT[P.id];
+  const docsOrigin = P.docs.origin;
+  const repoUrl = frontendRepoUrl(P);
   const issues: ValidationIssue[] = [];
   const push = (i: ValidationIssue) => issues.push(i);
   const slugs = new Map<string, number>();
@@ -26,8 +47,8 @@ export function validateGovuk(bundle: NormalizedBundle, opts: { limit?: number }
       ex.add(e.slug);
       if (e.code && !e.attribution) push({ entityKind: "component", entityKey: c.slug, code: "MISSING_ATTRIBUTION", message: `example ${e.slug} has code without attribution`, severity: "error" });
     }
-    if (c.docsUrl && !c.docsUrl.startsWith(`${DOCS_ORIGIN}/`)) push({ entityKind: "component", entityKey: c.slug, code: "SUSPICIOUS", message: `docsUrl outside ${DOCS_ORIGIN}: ${c.docsUrl}`, severity: "warning" });
-    if (c.sourceCodeUrl && !c.sourceCodeUrl.startsWith(`${FRONTEND_REPO_URL}/`)) push({ entityKind: "component", entityKey: c.slug, code: "SUSPICIOUS", message: `sourceCodeUrl outside govuk-frontend: ${c.sourceCodeUrl}`, severity: "warning" });
+    if (c.docsUrl && !c.docsUrl.startsWith(`${docsOrigin}/`)) push({ entityKind: "component", entityKey: c.slug, code: "SUSPICIOUS", message: `docsUrl outside ${docsOrigin}: ${c.docsUrl}`, severity: "warning" });
+    if (c.sourceCodeUrl && !c.sourceCodeUrl.startsWith(`${repoUrl}/`)) push({ entityKind: "component", entityKey: c.slug, code: "SUSPICIOUS", message: `sourceCodeUrl outside ${P.frontend.repo}: ${c.sourceCodeUrl}`, severity: "warning" });
     if (c.description && c.description.length > 280) push({ entityKind: "component", entityKey: c.slug, code: "SUSPICIOUS", message: `description ${c.description.length} chars (> 280)`, severity: "warning" });
     if (!c.properties.length && c.frameworks.some((f) => f.slug === "nunjucks")) push({ entityKind: "component", entityKey: c.slug, code: "SUSPICIOUS", message: "Nunjucks macro without parsed options", severity: "warning" });
   }
@@ -35,11 +56,11 @@ export function validateGovuk(bundle: NormalizedBundle, opts: { limit?: number }
 
   const full = !opts.limit;
   if (full) {
-    for (const must of ["button", "text-input", "radios", "checkboxes", "summary-list", "error-summary", "date-input"]) {
+    for (const must of X.components) {
       if (!slugs.has(must)) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "REQUIRED_FIELD", message: `well-known component missing: ${must}`, severity: "error" });
     }
-    if (bundle.components.length < 30) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "SUSPICIOUS", message: `only ${bundle.components.length} components`, severity: "warning" });
-    if (bundle.patterns.length < 20) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "SUSPICIOUS", message: `only ${bundle.patterns.length} patterns`, severity: "warning" });
+    if (bundle.components.length < X.minComponents) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "SUSPICIOUS", message: `only ${bundle.components.length} components`, severity: "warning" });
+    if (bundle.patterns.length < X.minPatterns) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "SUSPICIOUS", message: `only ${bundle.patterns.length} patterns`, severity: "warning" });
     const withProps = bundle.components.filter((c) => c.properties.length).length;
     if (withProps < bundle.components.length * 0.8) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "SUSPICIOUS", message: `only ${withProps}/${bundle.components.length} components have macro options`, severity: "warning" });
   }
@@ -60,10 +81,10 @@ export function validateGovuk(bundle: NormalizedBundle, opts: { limit?: number }
     }
   }
   if (full) {
-    for (const req of ["colour-palette", "functional-colours", "spacing", "typography", "layout"]) {
+    for (const req of X.sets) {
       if (!setSlugs.has(req)) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "REQUIRED_FIELD", message: `token set missing: ${req}`, severity: "error" });
     }
-    for (const t of ["govuk-palette.blue.primary", "govuk-functional-colours.brand", "govuk-spacing-points.3", "govuk-breakpoints.tablet"]) {
+    for (const t of X.tokens) {
       if (!tokenNames.has(t)) push({ entityKind: "bundle", entityKey: ADAPTER_ID, code: "REQUIRED_FIELD", message: `well-known token missing: ${t}`, severity: "warning" });
     }
   }

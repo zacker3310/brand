@@ -1,4 +1,5 @@
-Trimmed fixtures for tests/unit/adapters/mui.test.ts (no network in tests).
+Trimmed fixtures for tests/unit/adapters/mui.test.ts (no network in tests). Source-code excerpts carry a
+`.txt` suffix so the TypeScript/ESLint project never compiles or lints them; they are read as text only.
 
 - `*.api.json`, `*.tr.json`, `pages.ts`, `pagesApi.js`, `react-button.js`, `buttons.md`, `speed-dial.md`,
   `skeleton.md`, `progress.md`: excerpts of github.com/mui/material-ui at tag v9.5.0

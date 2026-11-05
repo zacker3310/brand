@@ -172,7 +172,8 @@ function lifecycleOf(c: Ctx, api: ApiDoc): { lifecycle: Lifecycle; ev: EvidenceI
     };
   }
   if (/^Unstable_/.test(api.name)) return { lifecycle: "experimental", ev: null };
-  if (!isPrerelease(c.pin.version)) return { lifecycle: "stable", ev: c.npmEv("lifecycle", `exported by ${api.packageName ?? c.pin.pkg}@${c.pin.version} (stable, non-prerelease release)`) };
+  // Derived from the package's stable (non-prerelease) release, not a per-component status claim.
+  if (!isPrerelease(c.pin.version)) return { lifecycle: "stable", ev: { ...c.npmEv("lifecycle", `exported by ${api.packageName ?? c.pin.pkg}@${c.pin.version} (stable, non-prerelease release)`), state: "inferred", confidence: 0.8 } };
   return { lifecycle: "unknown", ev: null };
 }
 

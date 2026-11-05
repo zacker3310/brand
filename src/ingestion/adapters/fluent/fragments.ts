@@ -6,7 +6,7 @@ import type { CoverageState, NormalizedComponent, NormalizedTokenSet } from "@/l
 import { canonicalState } from "@/lib/taxonomy";
 import type { F2ComponentEntry, F2NavGroup, F2Page } from "./f2-html";
 import type { A11ySpec, BestPractices } from "./markdown";
-import type { A11ySpecPage, ReactDocPage, SbEntry, StoriesMeta, WcDocPage } from "./storybook";
+import type { A11ySpecPage, ReactDocPage, SbEntry, StoriesMeta } from "./storybook";
 import { clip, sortBy, type Prov } from "./shared";
 
 export interface NpmInfo {

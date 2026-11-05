@@ -570,7 +570,8 @@ function buildReactComponents(r: ReactContext, limit: number | undefined): Norma
       variants: variants.length ? "documented" : dts?.found ? "not-documented" : "not-extracted",
       states: states.length ? "inferred" : dts?.found ? "not-documented" : "not-extracted",
       sizes: sizes.length ? "documented" : dts?.found ? "not-documented" : "not-extracted",
-      properties: props.length ? "documented" : dts?.found ? "not-documented" : "not-extracted",
+      // A props declaration with no members is an explicit "no props" (absent capability).
+      properties: props.length ? "documented" : dts?.found ? "documented-none" : "not-extracted",
       accessibility: accessibility ? "documented" : "not-documented",
       keyboard: a?.keyboard.length ? "documented" : a?.keyboardText ? "not-extracted" : "not-documented",
       responsive: responsiveGuidance ? "documented" : dts?.found ? "not-documented" : "not-extracted",

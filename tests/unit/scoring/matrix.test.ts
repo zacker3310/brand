@@ -176,6 +176,6 @@ describe("buildComponentMatrix", () => {
     const json = componentComparisonJson(TYPE, columns, m, { url: "https://atlas.test/compare?type=button", generatedAt: "2026-11-05T00:00:00.000Z" });
     expect(json.atlas.disclaimer).toMatch(/belong to their respective owners/);
     const hoverJson = json.groups.find((g) => g.id === "states")!.rows.find((r) => r.id === "state:hover")!;
-    expect(hoverJson.cells).toEqual({ a: { coverage: null, value: "Hover" }, b: { coverage: "not-documented", value: null } });
+    expect("cells" in hoverJson ? hoverJson.cells : null).toEqual({ a: { coverage: null, value: "Hover" }, b: { coverage: "not-documented", value: null } });
   });
 });

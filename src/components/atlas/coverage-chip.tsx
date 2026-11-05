@@ -41,9 +41,38 @@ export const COVERAGE_META: Record<CoverageState, { label: string; short: string
   },
 };
 
-export function CoverageChip({ state, className, label }: { state: CoverageState | undefined | null; className?: string; label?: string }) {
+export function CoverageChip({
+  state,
+  className,
+  label,
+  note,
+  focusable = true,
+}: {
+  state: CoverageState | undefined | null;
+  className?: string;
+  label?: string;
+  /** Extra context shown in the tooltip (e.g. "system not deeply indexed"). */
+  note?: string;
+  /**
+   * Dense tables: set false to avoid one tab stop per cell. The explanation is then exposed as
+   * accessible text (title + sr-only) instead of a focus-triggered tooltip.
+   */
+  focusable?: boolean;
+}) {
   const s: CoverageState = state ?? "not-extracted";
   const meta = COVERAGE_META[s];
+  if (!focusable) {
+    return (
+      <span
+        title={`${meta.label}: ${meta.description}${note ? ` ${note}` : ""}`}
+        className={cn("inline-flex items-center rounded border px-1.5 py-0.5 text-[11px] leading-none font-medium whitespace-nowrap", meta.className, className)}
+      >
+        {label ? `${label}: ` : ""}
+        {meta.short}
+        <span className="sr-only">. {meta.description}</span>
+      </span>
+    );
+  }
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -58,6 +87,7 @@ export function CoverageChip({ state, className, label }: { state: CoverageState
       <TooltipContent className="max-w-xs text-xs">
         <p className="font-medium">{meta.label}</p>
         <p className="opacity-80">{meta.description}</p>
+        {note && <p className="mt-1 opacity-80">{note}</p>}
       </TooltipContent>
     </Tooltip>
   );

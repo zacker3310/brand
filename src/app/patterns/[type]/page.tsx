@@ -114,8 +114,8 @@ export default async function PatternTypePage({ params }: Props) {
                   <tbody>
                     {t.patterns.map((p) => (
                       <tr key={p.id} className="border-b border-border/60 align-top last:border-0">
-                        <th scope="row" className="sticky left-0 z-10 bg-card text-left font-normal">
-                          <span className="inline-flex items-center gap-2 whitespace-nowrap">
+                        <th scope="row" className="sticky left-0 z-10 w-36 bg-card text-left font-normal sm:w-auto">
+                          <span className="inline-flex items-center gap-2 sm:whitespace-nowrap">
                             <SystemMark name={p.system.name} slug={p.system.slug} size="sm" className="size-6 text-[9px]" />
                             {p.system.name}
                           </span>

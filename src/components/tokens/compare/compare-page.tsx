@@ -168,7 +168,10 @@ function ScaleSection({
   categoryNoun: string;
 }) {
   const total = v.perSystem.reduce((a, s) => a + s.steps.length, 0);
-  const maxPx = Math.max(0, ...v.rows.filter((r) => r.unit === "px").map((r) => Math.abs(r.value)));
+  // Bars are proportional up to 512px; sentinel values such as 9999px ("full" radius) are drawn off-scale.
+  const pxValues = v.rows.filter((r) => r.unit === "px").map((r) => Math.abs(r.value));
+  const inScale = pxValues.filter((x) => x <= 512);
+  const maxPx = Math.max(0, ...(inScale.length ? inScale : pxValues));
   const id = `scale-${v.key}`;
   return (
     <section aria-labelledby={id} className="space-y-4">
@@ -232,7 +235,12 @@ function ScaleSection({
                     <th scope="row" className="sticky left-0 z-10 bg-card text-left font-normal">
                       <span className="tabular block font-mono text-[13px] font-medium">{formatScaleValue(r.value, r.unit)}</span>
                       {r.unit === "px" && maxPx > 0 && (
-                        <span aria-hidden className={cn("mt-1 block h-1.5 rounded-sm", r.value < 0 ? "hatch border border-primary/50" : "bg-primary/60")} style={{ width: `${Math.max(2, (Math.abs(r.value) / maxPx) * 120)}px` }} />
+                        <span
+                          aria-hidden
+                          title={Math.abs(r.value) > maxPx ? "Off scale" : undefined}
+                          className={cn("mt-1 block h-1.5 rounded-sm", r.value < 0 || Math.abs(r.value) > maxPx ? "hatch border border-primary/50" : "bg-primary/60")}
+                          style={{ width: `${Math.max(2, (Math.min(Math.abs(r.value), maxPx) / maxPx) * 120)}px` }}
+                        />
                       )}
                       {systems.length > 1 && <span className="mt-1 block text-[10.5px] text-muted-foreground">{all ? "in all systems" : `in ${r.sharedBy} of ${systems.length}`}</span>}
                     </th>

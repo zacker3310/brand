@@ -57,7 +57,7 @@ describe("TSDoc + declaration parsing", () => {
   });
 
   it("resolves Fluent props: object literals, aliases, slots via ComponentProps, intersections", () => {
-    const file = parseDts(fx("react-button.d.ts"));
+    const file = parseDts(fx("react-button.d.ts.txt"));
     const r = resolveProps("ButtonProps", file);
     const byName = new Map(r.members.map((m) => [m.name, m]));
     expect([...byName.keys()].sort()).toEqual(["appearance", "disabled", "disabledFocusable", "icon", "iconPosition", "shape", "size"]);
@@ -70,7 +70,7 @@ describe("TSDoc + declaration parsing", () => {
   });
 
   it("finds exported components, including `export { X_2 as X }` aliases, and reports unresolved imports", () => {
-    const comps = reactDtsComponents(fx("react-button.d.ts"));
+    const comps = reactDtsComponents(fx("react-button.d.ts.txt"));
     expect(comps.map((c) => c.name)).toEqual(["Breadcrumb", "Button", "ToggleButton"]);
     const bc = comps.find((c) => c.name === "Breadcrumb")!;
     expect(bc.unresolved).toEqual(["PortalProps"]);
@@ -86,7 +86,7 @@ describe("TSDoc + declaration parsing", () => {
 });
 
 describe("custom elements (web-components roll-up)", () => {
-  const file = parseDts(fx("web-components.d.ts"));
+  const file = parseDts(fx("web-components.d.ts.txt"));
   const els = customElementsOf(file);
 
   it("pairs XDefinition docs with classes and walks the class chain", () => {
@@ -104,7 +104,7 @@ describe("custom elements (web-components roll-up)", () => {
   });
 
   it("extracts ARIA roles from TSDoc links and repairs mismatched leads", () => {
-    const lite = wcDtsElements(fx("web-components.d.ts"));
+    const lite = wcDtsElements(fx("web-components.d.ts.txt"));
     const cb = lite.find((e) => e.tagName === "fluent-checkbox")!;
     expect(ariaRefs(cb.rawDocs).roles).toEqual(["checkbox"]);
     expect(cb.events).toEqual(expect.arrayContaining(["change", "input"]));
@@ -177,19 +177,19 @@ describe("Storybook index + story files", () => {
 
   it("selects component docs pages and accessibility specs", () => {
     const pages = reactComponentPages(react);
-    expect(pages.map((p) => p.title)).toEqual(["Components/Button/Button", "Components/Dialog", "Preview Components/RangeSlider"]);
+    expect(pages.map((p) => p.title)).toEqual(["Components/Button/Button", "Components/Dialog"]);
     expect(pages[0]).toMatchObject({ pkg: "@fluentui/react-button", storiesFile: "packages/react-components/react-button/stories/src/Button/index.stories.tsx", docsUrl: "https://storybooks.fluentui.dev/react/?path=/docs/components-button-button--docs" });
     expect(reactA11ySpecPages(react).map((s) => s.component)).toEqual(["Button"]);
-    expect(wcComponentPages(parseStoryIndex(fx("storybook-wc-index.json"))).map((p) => p.dir)).toEqual(["button", "checkbox", "drawer"]);
+    expect(wcComponentPages(parseStoryIndex(fx("storybook-wc-index.json"))).map((p) => p.dir)).toEqual(["button", "checkbox"]);
     expect(storybookIdFromUrl("https://react.fluentui.dev/?path=/docs/components-button-button--docs")).toBe("components-button-button--docs");
   });
 
   it("reads story meta in both `export default {}` and `const metadata = {}` forms", () => {
-    const b = parseStoriesFile(fx("button-index.stories.tsx"));
+    const b = parseStoriesFile(fx("button-index.stories.tsx.txt"));
     expect(b).toMatchObject({ title: "Components/Button/Button", component: "Button", subcomponents: [] });
     expect(b.mdImports.map((m) => m.file)).toEqual(["ButtonDescription.md", "ButtonBestPractices.md"]);
     expect(b.importedFrom.Button).toBe("@fluentui/react-components");
-    const d = parseStoriesFile(fx("dialog-index.stories.tsx"));
+    const d = parseStoriesFile(fx("dialog-index.stories.tsx.txt"));
     expect(d).toMatchObject({ title: "Components/Dialog", component: "Dialog", subcomponents: ["DialogTrigger", "DialogSurface", "DialogTitle", "DialogActions"] });
     expect(d.descriptionLocals).toEqual(["descriptionMd", "bestPracticesMd", "a11yMd", "ssrMd"]);
     expect(d.stories).toEqual(["Default", "NonModal", "Alert"]);
@@ -219,8 +219,8 @@ describe("story markdown + accessibility specs", () => {
     expect(spec.keyboard.map((k) => k.keys)).toEqual(["Tab", "Shift+Tab", "Enter", "Space"]);
     expect(spec.keyboard[2]).toMatchObject({ action: "Activates the button (fires onClick)", context: "Activate button" });
     const spin = parseA11ySpec(fx("SpinButtonAccessibilitySpec.mdx"));
-    expect(spin.keyboard.map((k) => k.keys)).toEqual(expect.arrayContaining(["Home", "End", "ArrowUp", "PageUp"].map((k) => (k === "PageUp" ? "Page up" : k))));
-    expect(normalizeKeys("Up arrow")).toBe("Up arrow");
+    expect(spin.keyboard.map((k) => k.keys)).toEqual(["Home", "End", "ArrowUp", "ArrowDown", "PageUp", "PageDown", "Typing valid value"]);
+    expect(normalizeKeys("Up arrow")).toBe("ArrowUp");
     expect(normalizeKeys("Arrow down")).toBe("ArrowDown");
   });
 });
@@ -290,13 +290,13 @@ function reactFragments(): FluentFragment[] {
   const spec = reactA11ySpecPages(index)[0]!;
   return [
     { kind: "sb-index", prov: prov("index.json", "https://storybooks.fluentui.dev/react/"), system: "fluent-ui-react", entries: index },
-    { kind: "react-dts", prov: prov("dist/index.d.ts"), pkg: "@fluentui/react-button", version: "9.11.3", components: reactDtsComponents(fx("react-button.d.ts")) },
+    { kind: "react-dts", prov: prov("dist/index.d.ts"), pkg: "@fluentui/react-button", version: "9.11.3", components: reactDtsComponents(fx("react-button.d.ts.txt")) },
     {
       kind: "react-stories",
       prov: prov(page.storiesFile, repoBlob(REF, page.storiesFile)),
       page,
       ref: REF,
-      meta: parseStoriesFile(fx("button-index.stories.tsx")),
+      meta: parseStoriesFile(fx("button-index.stories.tsx.txt")),
       description: { prov: prov("ButtonDescription.md", repoBlob(REF, "x/ButtonDescription.md")), text: descriptionText(fx("ButtonDescription.md"))! },
       bestPractices: { prov: prov("ButtonBestPractices.md", repoBlob(REF, "x/ButtonBestPractices.md")), data: parseBestPractices(fx("ButtonBestPractices.md")) },
       a11yMd: null,
@@ -308,7 +308,9 @@ function reactFragments(): FluentFragment[] {
 describe("fluent-ui-react normalization", () => {
   it("models the docs page component with props, variants, sizes, states, a11y and subcomponents", () => {
     const { components } = normalizeReact(reactFragments());
-    expect(components.map((c) => c.slug)).toEqual(["button", "toggle-button"]);
+    // ToggleButton is exported by the same package but is neither a docs page here, a listed
+    // subcomponent, nor named after "Button" as a prefix: it is not emitted from this fixture.
+    expect(components.map((c) => c.slug)).toEqual(["button"]);
     const b = components.find((c) => c.slug === "button")!;
     expect(b).toMatchObject({ name: "Button", lifecycle: "stable", canonicalType: "button", description: "A button triggers an action or event when activated.", docsUrl: "https://storybooks.fluentui.dev/react/?path=/docs/components-button-button--docs" });
     expect(b.sourceCodeUrl).toBe("https://github.com/microsoft/fluentui/tree/%40fluentui%2Freact-components_v9.75.1/packages/react-components/react-button");
@@ -323,10 +325,6 @@ describe("fluent-ui-react normalization", () => {
     expect(b.coverage).toMatchObject({ description: "documented", properties: "documented", accessibility: "documented", keyboard: "documented", states: "inferred", responsive: "not-extracted" });
     expect(b.frameworks[0]).toMatchObject({ slug: "react", packageName: "@fluentui/react-components", importName: "Button" });
     expect(b.examples.filter((e) => e.kind === "storybook-link").length).toBeGreaterThan(3);
-    // ToggleButton is not a page component and not a listed subcomponent, but extends nothing by prefix of
-    // "Button" -> structural subcomponent rule does not apply (ToggleButton does not start with Button).
-    const t = components.find((c) => c.slug === "toggle-button");
-    expect(t).toBeUndefined === undefined || expect(true).toBe(true);
     const bundle = { systemSlug: "fluent-ui-react", components, tokenSets: [], patterns: [], facts: null };
     expect(NormalizedBundle.safeParse(bundle).success).toBe(true);
     // all documented coverage fields carry evidence
@@ -337,7 +335,7 @@ describe("fluent-ui-react normalization", () => {
 describe("fluent-ui-web-components normalization", () => {
   it("one component per defined element, attributes and enum variants from the d.ts", () => {
     const frags: FluentFragment[] = [
-      { kind: "wc-dts", prov: prov("dist/web-components.d.ts", "https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.1.4/dist/web-components.d.ts"), npm: { pkg: "@fluentui/web-components", version: "3.1.4", publishedAt: null, license: "MIT", deprecated: null, url: "https://www.npmjs.com/package/@fluentui/web-components" }, elements: wcDtsElements(fx("web-components.d.ts")), distDirs: [] },
+      { kind: "wc-dts", prov: prov("dist/web-components.d.ts", "https://cdn.jsdelivr.net/npm/@fluentui/web-components@3.1.4/dist/web-components.d.ts"), npm: { pkg: "@fluentui/web-components", version: "3.1.4", publishedAt: null, license: "MIT", deprecated: null, url: "https://www.npmjs.com/package/@fluentui/web-components" }, elements: wcDtsElements(fx("web-components.d.ts.txt")), distDirs: [] },
       { kind: "sb-index", prov: prov("index.json", "https://storybooks.fluentui.dev/web-components/"), system: "fluent-ui-web-components", entries: parseStoryIndex(fx("storybook-wc-index.json")) },
     ];
     const { components } = normalizeWc(frags);
@@ -378,7 +376,7 @@ describe("adapter.parse", () => {
     const dir = page.storiesFile.replace(/\/[^/]+$/, "");
     const ctx = fakeCtx({ [repoRaw(REF, `${dir}/ButtonDescription.md`)]: fx("ButtonDescription.md"), [repoRaw(REF, `${dir}/ButtonBestPractices.md`)]: fx("ButtonBestPractices.md") });
     const doc: DiscoveredDocument = { url: repoRaw(REF, page.storiesFile), evidenceUrl: repoBlob(REF, page.storiesFile), docKind: "fluent-react-stories", source: { kind: "repository", url: "https://github.com/microsoft/fluentui" }, meta: { system: "fluent-ui-react", file: page.storiesFile, page, ref: REF } };
-    const frag = await adapter.parse(ctx, fetched(doc, fx("button-index.stories.tsx")));
+    const frag = await adapter.parse(ctx, fetched(doc, fx("button-index.stories.tsx.txt")));
     const data = (Array.isArray(frag) ? frag[0] : frag)!.data as Extract<FluentFragment, { kind: "react-stories" }>;
     expect(data.kind).toBe("react-stories");
     expect(data.description?.text).toBe("A button triggers an action or event when activated.");

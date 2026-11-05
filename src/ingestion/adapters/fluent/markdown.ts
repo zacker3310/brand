@@ -150,6 +150,8 @@ export function normalizeKeys(cell: string): string {
   return collapse(cell)
     .replace(/\s*\+\s*/g, "+")
     .replace(/\bArrow\s+(Up|Down|Left|Right)\b/gi, (_, d: string) => `Arrow${d[0]!.toUpperCase()}${d.slice(1).toLowerCase()}`)
+    .replace(/\b(Up|Down|Left|Right)\s+arrow\b/gi, (_, d: string) => `Arrow${d[0]!.toUpperCase()}${d.slice(1).toLowerCase()}`)
+    .replace(/\bPage\s+(up|down)\b/gi, (_, d: string) => `Page${d[0]!.toUpperCase()}${d.slice(1).toLowerCase()}`)
     .replace(/\bSpacebar\b/gi, "Space")
     .replace(/\bEsc\b/g, "Escape");
 }

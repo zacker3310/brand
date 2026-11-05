@@ -173,6 +173,11 @@ export function typographyFieldOf(lastSegment: string, type: string | null | und
   if (KEYMAP[t]) return KEYMAP[t]!;
   const s = lastSegment.toLowerCase().replace(/[-_]/g, "");
   if (KEYMAP[s]) return KEYMAP[s]!;
+  // "weight-bold", "size-large": a property name followed by a qualifier
+  for (const k of ["fontweight", "fontsize", "lineheight", "letterspacing", "fontfamily", "weight", "size", "tracking"]) {
+    if (s.startsWith(k) && s.length > k.length) return KEYMAP[k]!;
+  }
+  if (path?.some((seg) => seg.toLowerCase() === "typeface" || seg.toLowerCase() === "fontfamily")) return "fontFamily";
   // "base.text.lineHeight.loose": the property is named by an ancestor segment
   for (const seg of [...(path ?? [])].reverse().slice(1)) {
     const k = seg.toLowerCase().replace(/[-_]/g, "");

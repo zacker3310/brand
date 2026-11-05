@@ -55,13 +55,13 @@ describe("shared text helpers", () => {
 
 describe("js-literal (static object literal reader)", () => {
   it("reads color palette objects with comments and references", () => {
-    const v = findValue(fx("blue.mjs"), /const\s+blue\s*=\s*/)!.value;
+    const v = findValue(fx("blue.mjs.txt"), /const\s+blue\s*=\s*/)!.value;
     const flat = flattenObject(v, ["blue"]);
     expect(flat.find((f) => f.path.join(".") === "blue.700")!.value).toEqual({ t: "string", v: "#1976d2" });
     expect(flat).toHaveLength(14);
   });
   it("reads function return literals per mode branch and keeps member references", () => {
-    const src = fx("createPalette.mjs");
+    const src = fx("createPalette.mjs.txt");
     const prim = functionReturns(src, "getDefaultPrimary");
     expect(prim.map((p) => p.mode)).toEqual(["dark", "default"]);
     const light = flattenObject(prim[1]!.value);
@@ -80,7 +80,7 @@ describe("js-literal (static object literal reader)", () => {
 
 describe("nav files", () => {
   it("lists component pages with sections, including non react-* pages in the Components group", () => {
-    const pages = parseNavPages(fx("pages.ts"), "material-ui");
+    const pages = parseNavPages(fx("pages.ts.txt"), "material-ui");
     const paths = pages.map((p) => p.pathname);
     expect(paths).toContain("/material-ui/react-button");
     expect(paths).toContain("/material-ui/icons");
@@ -91,8 +91,8 @@ describe("nav files", () => {
     expect(pages.find((p) => p.pathname === "/material-ui/react-number-field")!.newFeature).toBe(true);
   });
   it("reads API slugs, page markdown paths and demos links", () => {
-    expect(parsePagesApi(fx("pagesApi.js"), "material-ui")).toEqual(["button", "button-base", "circular-progress", "icon-button", "skeleton", "speed-dial"]);
-    expect(pageMarkdownPath(fx("react-button.js"))).toBe("docs/data/material/components/buttons/buttons.md");
+    expect(parsePagesApi(fx("pagesApi.js.txt"), "material-ui")).toEqual(["button", "button-base", "circular-progress", "icon-button", "skeleton", "speed-dial"]);
+    expect(pageMarkdownPath(fx("react-button.js.txt"))).toBe("docs/data/material/components/buttons/buttons.md");
     expect(parseDemosHtml('<ul><li><a href="/material-ui/react-button/">Button</a></li></ul>')).toEqual([{ pathname: "/material-ui/react-button", title: "Button" }]);
   });
 });
@@ -189,12 +189,12 @@ describe("classification corrections", () => {
 
 describe("tokens", () => {
   const files = [
-    { data: parseTokenFile("mui-color", "colors/blue.mjs", fx("blue.mjs"), "blue"), prov: prov("colors/blue.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/colors/blue.mjs" },
-    { data: parseTokenFile("mui-color", "colors/common.mjs", fx("common.mjs"), "common"), prov: prov("colors/common.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/colors/common.mjs" },
-    { data: parseTokenFile("mui-color", "colors/orange.mjs", fx("orange.mjs"), "orange"), prov: prov("colors/orange.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/colors/orange.mjs" },
-    { data: parseTokenFile("mui-palette", "styles/createPalette.mjs", fx("createPalette.mjs")), prov: prov("styles/createPalette.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/styles/createPalette.mjs" },
-    { data: parseTokenFile("mui-transitions", "styles/createTransitions.mjs", fx("createTransitions.mjs")), prov: prov("styles/createTransitions.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/styles/createTransitions.mjs" },
-    { data: parseTokenFile("mui-zindex", "styles/zIndex.mjs", fx("zIndex.mjs")), prov: prov("styles/zIndex.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/styles/zIndex.mjs" },
+    { data: parseTokenFile("mui-color", "colors/blue.mjs", fx("blue.mjs.txt"), "blue"), prov: prov("colors/blue.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/colors/blue.mjs" },
+    { data: parseTokenFile("mui-color", "colors/common.mjs", fx("common.mjs.txt"), "common"), prov: prov("colors/common.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/colors/common.mjs" },
+    { data: parseTokenFile("mui-color", "colors/orange.mjs", fx("orange.mjs.txt"), "orange"), prov: prov("colors/orange.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/colors/orange.mjs" },
+    { data: parseTokenFile("mui-palette", "styles/createPalette.mjs", fx("createPalette.mjs.txt")), prov: prov("styles/createPalette.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/styles/createPalette.mjs" },
+    { data: parseTokenFile("mui-transitions", "styles/createTransitions.mjs", fx("createTransitions.mjs.txt")), prov: prov("styles/createTransitions.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/styles/createTransitions.mjs" },
+    { data: parseTokenFile("mui-zindex", "styles/zIndex.mjs", fx("zIndex.mjs.txt")), prov: prov("styles/zIndex.mjs"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/material@9.5.0/styles/zIndex.mjs" },
   ];
   const { sets } = buildMuiTokenSets({ pkg: "@mui/material", version: "9.5.0", files, license: null });
   const set = (slug: string) => sets.find((s) => s.slug === slug)!;
@@ -219,8 +219,8 @@ describe("tokens", () => {
       version: "5.0.0-beta.52",
       license: null,
       files: [
-        { data: parseTokenFile("joy-colors", "colors/colors.js", fx("joy-colors.js")), prov: prov("colors/colors.js"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/joy@5.0.0-beta.52/colors/colors.js" },
-        { data: parseTokenFile("joy-theme", "styles/extendTheme.js", fx("joy-extendTheme.js")), prov: prov("styles/extendTheme.js"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/joy@5.0.0-beta.52/styles/extendTheme.js" },
+        { data: parseTokenFile("joy-colors", "colors/colors.js", fx("joy-colors.js.txt")), prov: prov("colors/colors.js"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/joy@5.0.0-beta.52/colors/colors.js" },
+        { data: parseTokenFile("joy-theme", "styles/extendTheme.js", fx("joy-extendTheme.js.txt")), prov: prov("styles/extendTheme.js"), npmUrl: "https://cdn.jsdelivr.net/npm/@mui/joy@5.0.0-beta.52/styles/extendTheme.js" },
       ],
     });
     const theme = joy.sets.find((s) => s.slug === "joy-theme-defaults")!;
@@ -237,7 +237,7 @@ describe("tokens", () => {
 /* ----------------------------------- normalize ----------------------------------- */
 
 function coreFragments(): MuiFragment[] {
-  const nav = parseNavPages(fx("pages.ts"), "material-ui");
+  const nav = parseNavPages(fx("pages.ts.txt"), "material-ui");
   const md = (file: string, pathname: string) => ({ kind: "md" as const, prov: prov(file), meta: meta(file), pathname, pageUrl: `https://mui.com${pathname}/`, doc: parseMuiMarkdown(fx(file.split("/").pop()!)) });
   const api = (slug: string, file: string) => ({ kind: "api" as const, prov: prov(`docs/pages/material-ui/api/${slug}.json`), meta: meta(`docs/pages/material-ui/api/${slug}.json`, { slug }), slug, api: parseApiJson(fx(file)) });
   const tr = (slug: string, file: string) => ({ kind: "api-tr" as const, prov: prov(`docs/translations/api-docs/${slug}/${slug}.json`), meta: meta(`docs/translations/api-docs/${slug}/${slug}.json`, { slug }), slug, tr: parseApiTranslations(fx(file)) });
@@ -365,6 +365,18 @@ describe("adapter", () => {
   it("is registered for the three MUI systems", () => {
     expect(adapter.id).toBe("mui");
     expect(adapter.systems).toEqual(["mui", "joy-ui", "base-ui"]);
+  });
+
+  it("falls back to raw.githubusercontent.com when jsDelivr refuses the large mui/material-ui repo", async () => {
+    const mk = (url: string, status: number, body: string | null): FetchResult => ({ url, finalUrl: url, status, ok: status === 200, notModified: false, fromCache: false, contentType: "text/plain", etag: null, lastModified: null, body, hash: body ? "h" : null, byteSize: body?.length ?? 0, fetchedAt: AT, attempts: 1, blockedByRobots: false, error: null });
+    const cdn = "https://cdn.jsdelivr.net/gh/mui/material-ui@v9.5.0/docs/pages/material-ui/api/button.json";
+    const raw = "https://raw.githubusercontent.com/mui/material-ui/v9.5.0/docs/pages/material-ui/api/button.json";
+    const http = { get: async (url: string) => (url === cdn ? mk(url, 403, "Package size exceeded the configured limit of 50 MB.") : mk(url, 200, fx("button.api.json"))) } as unknown as PoliteFetcher;
+    const ctx = { systemSlug: "mui", http, log: { info: () => {}, warn: () => {}, error: () => {} }, runStartedAt: AT } as AdapterContext;
+    const r = await adapter.fetch!(ctx, { url: cdn, docKind: "mui-api-json", source: { kind: "repository", url: "https://github.com/mui/material-ui" }, meta: { fallbackUrl: raw } }, {});
+    expect(r.ok).toBe(true);
+    expect(r.finalUrl).toBe(raw);
+    expect(JSON.parse(r.body!).name).toBe("Button");
   });
 
   it("discovers Base UI documents at the verified tag without network (fake fetcher)", async () => {

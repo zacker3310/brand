@@ -20,7 +20,8 @@ const CMP = `/compare?type=button&systems=${SYSTEMS.join(",")}`;
 
 /** axe on this area's content (<main>); the shared shell is covered by its own owner's specs. */
 async function expectNoSeriousA11yViolations(page: Page) {
-  const results = await new AxeBuilder({ page }).include("main").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  // @axe-core/playwright types against its own playwright-core copy; the runtime object is the same Page.
+  const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0]).include("main").withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
   const serious = results.violations.filter((v) => v.impact === "serious" || v.impact === "critical");
   expect(serious.map((v) => `${v.id}: ${v.nodes.slice(0, 3).map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
 }

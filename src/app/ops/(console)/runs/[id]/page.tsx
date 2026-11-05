@@ -352,7 +352,7 @@ function ErrorText({ text }: { text: string }) {
   return (
     <details className="text-xs">
       <summary className="cursor-pointer truncate text-[color-mix(in_oklch,var(--conflicting)_78%,var(--foreground))]">{first}</summary>
-      {rest.length > 0 && <pre className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{rest.join("\n")}</pre>}
+      {rest.length > 0 && <pre tabIndex={0} className="mt-1 overflow-x-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap text-muted-foreground">{rest.join("\n")}</pre>}
     </details>
   );
 }

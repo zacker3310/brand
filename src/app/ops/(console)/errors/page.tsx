@@ -98,7 +98,7 @@ export default async function ErrorsPage({ searchParams }: { searchParams: Promi
                   {e.details && Object.keys(e.details).length > 0 && (
                     <details className="text-xs">
                       <summary className="cursor-pointer text-muted-foreground">Details</summary>
-                      <pre className="mt-1 max-h-60 overflow-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap">{JSON.stringify(e.details, null, 2)}</pre>
+                      <pre tabIndex={0} className="mt-1 max-h-60 overflow-auto rounded bg-muted p-2 font-mono text-[11px] whitespace-pre-wrap">{JSON.stringify(e.details, null, 2)}</pre>
                     </details>
                   )}
                 </div>

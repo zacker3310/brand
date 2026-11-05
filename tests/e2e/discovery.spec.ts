@@ -13,7 +13,7 @@ async function expectNoSeriousA11yViolations(page: Page) {
   // from its visible text, and footer text uses --subtle-foreground (3.8:1 in light mode).
   // SystemMark monograms are decorative (aria-hidden, the name is always adjacent; WCAG 1.4.3
   // exempts pure decoration); some hues fall below 4.5:1, also reported upstream.
-  const results = await new AxeBuilder({ page })
+  const results = await new AxeBuilder({ page } as unknown as ConstructorParameters<typeof AxeBuilder>[0])
     .include("#main")
     .exclude("span[aria-hidden='true'].font-mono")
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])

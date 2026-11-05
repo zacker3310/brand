@@ -246,7 +246,7 @@ function InspectorContent({ data, onClose, contrastHref }: { data: InspectorData
         {isColor && (
           <div className="overflow-hidden rounded-lg">
             {tv.length ? (
-              <div className="flex h-16">
+              <div className="flex h-16 gap-px">
                 {tv.map((v) => (
                   <div key={v.setSlug} className="relative flex-1" title={`${data.setThemes[v.setSlug]?.name ?? v.setSlug}: ${colorLabel(v.value)}`}>
                     <Swatch value={v.value} className="absolute inset-0 size-full rounded-none" />
