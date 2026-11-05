@@ -19,7 +19,16 @@ concrete gap observed, not a hypothetical.
    robots-respecting) vs. staying metadata-level. Today they are honestly marked `not-extracted`.
 4. **More token themes**: Primer dark-dimmed / high-contrast / colorblind; Carbon contextual layers;
    Material Web composite typescale entries; MUI computed theme values (shadows, typography) are code-only.
-5. **Figma resources.** figma.com blocks automated clients (403), so `figmaUrl` is set only when an
+5. **Generic inventory gaps found by the audit** (`docs/audit/generic.md`, 66/74 GOOD): a build-manifest
+   enumeration strategy for Base Web (~90% recall); reviewed per-entry name/link overrides for Flutter
+   Material (3 catalog entries link to `ButtonStyle`/`showDatePicker`) and Syncfusion (`Pivotview` vs
+   "Pivot Table"); a `descriptionStrip` target field for daisyUI's SEO-wrapped meta descriptions; Twilio
+   Paste pages without a same-named package (Form Layout, Status Badge, Status Menu); store DSFR French
+   titles and Storybook group-qualified names as aliases; flag child-element granularity (SAP Fiori 173 vs
+   81 top-level, Esri Calcite 95 vs 59) so cross-system counts compare like with like.
+6. **Ant Design state values**: Steps/Progress `status` values live in prop descriptions; extract them
+   (today coverage is honestly `not-extracted`, audit deep-2 F7).
+7. **Figma resources.** figma.com blocks automated clients (403), so `figmaUrl` is set only when an
    official page links the exact file. Add a manual-review workflow in Ops to confirm official Figma links.
 
 ## 2. Contract & engine
@@ -42,9 +51,12 @@ concrete gap observed, not a hypothetical.
    component frameworks (Carbon Angular/Vue).
 7. **Extraction retention**: `extraction` rows accumulate per run; add a retention job (keep latest N runs
    per system plus quarantined rows) — the lookup index exists (`extraction_lookup_idx`).
-8. **Per-host rate overrides** in `PoliteFetcher` (raw.githubusercontent.com could take a shorter gap;
+8. **Adapter code version on jobs.** Inline runs now use a private queue (audit deep-2 R4), but a
+   long-running worker still keeps the adapter code it loaded at start. Stamp jobs with a hash of the
+   adapter module at enqueue and have workers release jobs whose hash differs from their own.
+9. **Per-host rate overrides** in `PoliteFetcher` (raw.githubusercontent.com could take a shorter gap;
    Fluent React spends most of its 3.5 min waiting on 750 ms spacing).
-9. **Schema additions requested by UI**: `design_pattern.classification_method`,
+10. **Schema additions requested by UI**: `design_pattern.classification_method`,
    `comparison.options jsonb` (component picks, now encoded in `criteria`), `token_set.retrieved_at`,
    index `token(token_set_id, category)`.
 
