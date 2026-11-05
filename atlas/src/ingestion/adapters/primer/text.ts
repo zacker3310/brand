@@ -22,14 +22,14 @@ export function shortText(input: string | null | undefined, max = 280): string |
   const s = input.replace(/\s+/g, " ").trim();
   if (!s) return null;
   if (s.length <= max) return s;
-  const sentences = s.match(/[^.!?]+(?:[.!?]+(?=\s|$)|$)/g) ?? [s];
+  // Split only at "<.!?> <Capital|digit|quote>" so no text is ever dropped (pieces re-join to the input).
+  const sentences = s.split(/(?<=[.!?])\s+(?=[A-Z0-9"'“(`])/);
   let out = "";
   for (const sentence of sentences) {
-    const next = (out + sentence).trim();
+    const next = out ? `${out} ${sentence}` : sentence;
     if (next.length > max) break;
-    out = next + " ";
+    out = next;
   }
-  out = out.trim();
   if (out) return out;
   return `${s.slice(0, max - 1).trimEnd()}…`;
 }

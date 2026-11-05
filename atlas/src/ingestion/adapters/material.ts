@@ -61,30 +61,54 @@ const stemOf = (file: string) => file.split("/").pop()!.replace(/^_/, "").replac
 
 /* ------------------------------- text statements ------------------------------- */
 
-/** Markdown -> plain text (links keep their text; comments, images, code fences and HTML tags dropped). */
-export function plainText(md: string): string {
-  return md
-    .replace(/```[\s\S]*?```/g, " ")
+/**
+ * Markdown -> plain-text blocks (paragraphs and individual list items). Links keep their text;
+ * comments, images, code fences, headings and HTML tags are dropped.
+ */
+export function plainBlocks(md: string): string[] {
+  const cleaned = md
+    .replace(/```[\s\S]*?```/g, "\n\n")
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/`([^`]+)`/g, (_, c: string) => c.replace(/</g, "\u0001").replace(/>/g, "\u0002"))
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
     .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-    .replace(/<[^>]+>/g, " ")
+    .replace(/<[^>\n]+>/g, " ")
     .replace(/\u0001/g, "<")
-    .replace(/\u0002/g, ">")
-    .replace(/[*_]{1,2}([^*_]+)[*_]{1,2}/g, "$1")
-    .replace(/^#+\s.*$/gm, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+    .replace(/\u0002/g, ">");
+  const blocks: string[] = [];
+  for (const para of cleaned.split(/\n\s*\n/)) {
+    let cur: string[] = [];
+    const flush = () => {
+      const t = cur.join(" ").replace(/\*\*|__/g, "").replace(/(^|\s)[*_](\S[^*_]*\S|\S)[*_](?=\s|[.,;:!?]|$)/g, "$1$2").replace(/^>\s*/, "").replace(/\s+/g, " ").trim();
+      if (t) blocks.push(t);
+      cur = [];
+    };
+    for (const line of para.split("\n")) {
+      if (/^\s*#{1,6}\s/.test(line)) {
+        flush();
+        continue;
+      }
+      if (/^\s*([*+-]|\d+\.)\s+/.test(line)) {
+        flush();
+        cur.push(line.replace(/^\s*([*+-]|\d+\.)\s+/, ""));
+        continue;
+      }
+      cur.push(line.replace(/^\s*>\s?/, "").trim());
+    }
+    flush();
+  }
+  return blocks;
 }
 
-export function findSentence(text: string, re: RegExp): string | null {
-  for (const s of text.split(/(?<=[.!?])\s+(?=[A-Z*])/)) if (re.test(s)) return clip(s.trim(), 280);
+export function findSentence(md: string, re: RegExp): string | null {
+  for (const block of plainBlocks(md)) {
+    for (const s of block.split(/(?<=[.!?])\s+(?=[A-Z])/)) if (re.test(s)) return clip(s.trim(), 280);
+  }
   return null;
 }
 
 function statementsFor(role: string, md: string): Record<string, string | null> {
-  const t = plainText(md);
+  const t = md;
   switch (role) {
     case "readme":
       return {
@@ -298,6 +322,7 @@ export const adapter: SourceAdapter = {
         cem: cem ? { prov: cem.prov, elements: cem.elements } : null,
         labsReadme: labs ? { prov: labs.prov, excerpt: labs.statements.experimental ?? null } : null,
         tokenByCssVar: tb.byCssVar,
+        limited: !!(ctx.limit && ctx.limit > 0),
       });
       warn(res.warnings);
       components = res.components;
@@ -447,7 +472,9 @@ export function validateMaterialBundle(system: string, bundle: NormalizedBundle,
   const color = bundle.tokenSets.find((s) => s.slug === colorSet);
   if (!color || color.tokens.length < 40) push({ entityKind: "token-set", entityKey: colorSet, code: "SUSPICIOUS", message: `system color set has ${color?.tokens.length ?? 0} tokens (expected >= 40)` });
   const palette = bundle.tokenSets.find((s) => /ref-palette$/.test(s.slug));
-  if (!palette || palette.tokens.length < 100) push({ entityKind: "token-set", entityKey: "ref-palette", code: "SUSPICIOUS", message: `reference palette has ${palette?.tokens.length ?? 0} tokens (expected >= 100)` });
+  const minPalette = system === "material-web" ? 80 : 300;
+  if (!palette || palette.tokens.length < minPalette)
+    push({ entityKind: "token-set", entityKey: "ref-palette", code: "SUSPICIOUS", message: `reference palette has ${palette?.tokens.length ?? 0} tokens (expected >= ${minPalette})` });
   if (full && total < (system === "material-web" ? 1000 : 5000))
     push({ entityKind: "bundle", entityKey: system, code: "SUSPICIOUS", message: `only ${total} tokens`, severity: "warning" });
   // Unresolvable references (within the bundle) are reported, not fixed.

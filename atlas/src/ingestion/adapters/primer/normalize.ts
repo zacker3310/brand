@@ -153,6 +153,14 @@ export function sitemapPageType(url: string): "overview" | "guidelines" | "acces
   return "other";
 }
 
+/**
+ * Pattern pages where the shared taxonomy's alias match is known to be wrong for Primer's page
+ * (left unclassified rather than mis-classified).
+ */
+const PATTERN_CLASSIFICATION_SKIP: Record<string, string> = {
+  "data-visualization": "Primer's page covers charts/visualizations; the taxonomy alias maps 'data visualization' to data-tables.",
+};
+
 /* ------------------------------------------------------------------------------------------ */
 /* normalize                                                                                   */
 /* ------------------------------------------------------------------------------------------ */
@@ -291,7 +299,7 @@ export function normalizePrimer(fragments: PrimerFragmentData[], opts: Normalize
     if (usedPatternSlugs.has(slug)) slug = `${slug}-${f.section}`;
     if (usedPatternSlugs.has(slug)) continue;
     usedPatternSlugs.add(slug);
-    const cls = classifyPatternName(name);
+    const cls = PATTERN_CLASSIFICATION_SKIP[slug] ? null : classifyPatternName(name);
     const componentSlugs = uniq(p.componentLinks.map((u) => docsToComponent.get(u)).filter((s): s is string => !!s)).sort();
     const description = shortText(p.description, 280);
     patterns.push({
@@ -372,7 +380,10 @@ function statesFrom(c: PrimerDocsComponent, url: string) {
     const key = STATE_BOOLEAN_PROPS[p.name.toLowerCase()];
     if (key && /\bboolean\b/.test(p.type ?? "") && !seen.has(key)) {
       seen.add(key);
-      out.push({ name: p.name, canonical: canonicalState(key) ?? canonicalState(p.name), description: `Documented \`${p.name}\` prop (${p.type}).`, sourceUrl: url });
+      // Primer documents "inactive" as distinct from "disabled" (inactive controls stay focusable and
+      // can respond to input), so it maps to the canonical "inactive" state, not "disabled".
+      const canonical = key === "inactive" ? "inactive" : (canonicalState(key) ?? canonicalState(p.name));
+      out.push({ name: p.name, canonical, description: `Documented \`${p.name}\` prop (${p.type}).`, sourceUrl: url });
     }
     if (p.name === "validationStatus") {
       for (const v of parseStringLiteralUnion(p.type) ?? []) {

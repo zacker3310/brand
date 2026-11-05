@@ -28,11 +28,17 @@ export async function search(query: SearchQuery): Promise<SearchResult> {
   let res = await provider.search(effective);
   const relaxed: string[] = [];
 
-  // Nothing matched: interpreted (never explicit) filters become boosts, then AND becomes OR.
+  // Nothing matched: interpreted (never explicit) filters become boosts, then multi-word typo
+  // matching is enabled, then AND becomes OR. Each step is reported in interpretedFilters.relaxed.
   if (res.total === 0 && hasInterpretedHardFilters(effective)) {
     effective = relaxInterpretedFilters(effective, query.frameworks ?? []);
     res = await provider.search(effective);
     relaxed.push("filters");
+  }
+  if (res.total === 0 && effective.terms.length > 1 && effective.terms.length <= 3) {
+    effective = { ...effective, fuzzyAllTerms: true };
+    res = await provider.search(effective);
+    relaxed.push("fuzzy");
   }
   if (res.total === 0 && effective.units.length > 1) {
     effective = { ...effective, matchMode: "any" };

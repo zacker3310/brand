@@ -42,6 +42,8 @@ export interface MwcContext {
   labsReadme: { prov: Prov; excerpt: string | null } | null;
   /** CSS custom property -> material-web token name (from the token build). */
   tokenByCssVar: Map<string, string>;
+  /** --limit run: docs pages were skipped, so only labs/ and field/ manifest-only elements are emitted. */
+  limited?: boolean;
 }
 
 const GENERIC_SECTIONS = new Set(["types", "usage", "accessibility", "theming", "api", "interactive demo", "icon items", "image items"]);
@@ -72,11 +74,14 @@ export function classifyName(name: string, extra: string[] = []) {
     ...(paren ? ([[paren, "parenthetical+"]] as [string, string][]) : []),
     ...extra.map((e) => [e, "alias+"] as [string, string]),
   ];
+  // Prefer the strongest match across forms (exact alias on the singular beats containment on the plural).
+  let best: { slug: string; method: string; confidence: number; raw: number } | null = null;
   for (const [c, tag] of candidates) {
     const r = classifyComponentName(c);
-    if (r) return { slug: r.slug, method: `${tag}${r.method}`, confidence: tag ? Math.min(r.confidence, 0.8) : r.confidence };
+    if (!r) continue;
+    if (!best || r.confidence > best.raw) best = { slug: r.slug, method: `${tag}${r.method}`, confidence: tag ? Math.min(r.confidence, 0.8) : r.confidence, raw: r.confidence };
   }
-  return null;
+  return best ? { slug: best.slug, method: best.method, confidence: best.confidence } : null;
 }
 
 export function literalUnion(type: string | null | undefined): string[] | null {
@@ -465,7 +470,7 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
 
   // Custom elements without a docs page (manifest only).
   if (ctx.cem) {
-    const undocumented = ctx.cem.elements.filter((e) => !documentedTags.has(e.tagName));
+    const undocumented = ctx.cem.elements.filter((e) => !documentedTags.has(e.tagName) && (!ctx.limited || /^(labs|field)\//.test(e.modulePath)));
     const groups = new Map<string, CemElement[]>();
     for (const e of undocumented) {
       const dir = e.modulePath.split("/").slice(0, -1).join("/");
@@ -484,7 +489,11 @@ export function normalizeMwcComponents(docs: MwcDocInput[], ctx: MwcContext): { 
         const w = displayName(first.className).split(" ").slice(-1)[0]!;
         return w.charAt(0).toUpperCase() + w.slice(1);
       })() : displayName(first.className);
-      const slug = slugify(isFamily ? `${isLabs ? "labs-" : ""}${name}` : `${isLabs ? "labs-" : ""}${first.tagName.replace(/^md-/, "")}`);
+      let slug = slugify(isFamily ? `${isLabs ? "labs-" : ""}${name}` : `${isLabs ? "labs-" : ""}${first.tagName.replace(/^md-/, "")}`);
+      if (components.some((c) => c.slug === slug)) {
+        warnings.push(`manifest-only element group ${key} collides with slug ${slug}; using directory-qualified slug`);
+        slug = slugify(`${dir}-${name}`);
+      }
       const scov = baseCoverage();
       const ev: EvidenceInput[] = [];
       for (const e of els) {

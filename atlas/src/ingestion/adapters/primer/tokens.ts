@@ -50,8 +50,10 @@ function deprecationNote(dep: unknown): string | null {
   return refs.length ? `Deprecated; replaced by ${refs.join(", ")}.` : `Deprecated: ${dep}`.slice(0, 200);
 }
 
-function joinDescription(...parts: (string | null | undefined)[]): string | null {
-  const s = parts.filter((p): p is string => !!p && !!p.trim()).join(" ").replace(/\s+/g, " ").trim();
+function joinDescription(description: string | null | undefined, deprecation: string | null): string | null {
+  const d = description?.replace(/\s+/g, " ").trim() || null;
+  // Skip the generated deprecation note when the authored description already says so.
+  const s = deprecation && !(d && /deprecated/i.test(d)) ? [d, deprecation].filter(Boolean).join(" ") : d;
   return s ? s.slice(0, 600) : null;
 }
 

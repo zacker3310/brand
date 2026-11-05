@@ -130,6 +130,8 @@ const NAME_RULES: [RegExp, Cat, string, number][] = [
   [w("transition|motion|animation|anim"), ["motion", "transition"], "name:motion", 0.6],
   // elevation shadow (after "shadow-color" handled by color rule below)
   [w("shadow|shadows|elevation|drop-shadow|box-shadow|depth"), ["elevation", "shadow"], "name:shadow", 0.7],
+  // bare border / outline / divider (shorthand values); color values were handled before this point
+  [w("border|borders|outline|divider|separator"), ["shape", "border"], "name:border", 0.5],
   // spacing / sizing
   [w("space|spacing|spacer|gap|padding|pad|margin|inset|gutter|stack|inline|offset"), ["spacing", "spacing"], "name:spacing", 0.75],
   [w("size|sizes|sizing|width|height|dimension|icon-size|min-height|min-target|target-size|tap-target"), ["spacing", "sizing"], "name:sizing", 0.6],
@@ -222,11 +224,36 @@ function byValueOnly(value: unknown): TokenCategorization | null {
   return v ? result(v[0], false, v[2], v[1]) : null;
 }
 
+/**
+ * Compound concepts whose words may be spread over path segments ("size.font.small",
+ * "border.width.thin", "--text-body-size"). Evaluated on the set of name words.
+ */
+const COMPOUND_RULES: [(has: (...w: string[]) => boolean) => boolean, Cat, string, number][] = [
+  [(h) => (h("line") && h("height")) || h("leading", "lineheight"), ["typography", "lineHeight"], "name:line-height", 0.85],
+  [(h) => (h("letter") && h("spacing")) || h("tracking", "kerning", "letterspacing"), ["typography", "letterSpacing"], "name:letter-spacing", 0.85],
+  [(h) => h("paragraph") && h("spacing", "indent"), ["typography", "paragraphSpacing"], "name:paragraph-spacing", 0.8],
+  [(h) => (h("z") && h("index")) || h("zindex") || (h("layer", "stack") && h("index", "order")), ["elevation", "zIndex"], "name:z-index", 0.85],
+  [(h) => h("border", "stroke", "outline", "divider", "ring", "hairline") && h("width", "thickness", "weight"), ["shape", "borderWidth"], "name:border-width", 0.85],
+  [(h) => h("thickness"), ["shape", "borderWidth"], "name:thickness", 0.7],
+  [(h) => h("border", "stroke", "outline") && h("style"), ["shape", "strokeStyle"], "name:stroke-style", 0.8],
+  [(h) => h("font", "text", "type", "typography", "typescale", "fontsize") && h("size", "sizes", "fontsize"), ["typography", "fontSize"], "name:font-size", 0.8],
+  [(h) => h("font", "text", "type", "typography", "typescale") && h("weight", "weights"), ["typography", "fontWeight"], "name:font-weight", 0.8],
+  [(h) => h("font", "type", "typography", "typescale") && h("family", "families", "face", "stack"), ["typography", "fontFamily"], "name:font-family", 0.85],
+];
+
 function byName(n: string, value: unknown, nonColor = false): TokenCategorization | null {
   if (!n) return null;
   // Color words first (unless the type is a dimension/number, which can't be a color).
   if (!nonColor) {
     if (COLOR_STRICT.test(n)) return result(["color", "color"], false, 0.8, "name:color");
+  }
+  const words = new Set(n.split(/[.\-_/ ]+/).filter(Boolean));
+  const has = (...ws: string[]) => ws.some((x) => words.has(x));
+  for (const [test, cat, rule, conf] of COMPOUND_RULES) {
+    if (test(has)) {
+      if (!nonColor && typeof value === "string" && isColorValue(value, { allowNonConcrete: false })) return result(["color", "color"], false, 0.85, "value:color");
+      return result(cat, false, conf, rule);
+    }
   }
   for (const [re, cat, rule, conf] of NAME_RULES) {
     // Color-role words (bg, fg, surface, on-primary...) outrank the generic typography words (body, title...).

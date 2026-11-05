@@ -589,6 +589,7 @@ export function parseQuery(input: Partial<SearchQuery> & { q?: string }): Parsed
       themes: themes.length > 0,
     },
     matchMode: "all",
+    fuzzyAllTerms: false,
     limit: input.limit ?? 20,
     offset: input.offset ?? 0,
   };

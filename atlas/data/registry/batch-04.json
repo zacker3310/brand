@@ -64,7 +64,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Classified design-system (guidelines site plus code). The React library is split into per-area npm packages (@zendeskgarden/react-*), released in lockstep (9.16.1 for both checked packages); two representative packages recorded, so frameworks.packageName is null. Storybook is published on the zendeskgarden GitHub org's Pages site. No Figma link was found on the homepage, so figmaUrl is null.",
+    "notes": "Classified design-system (guidelines site plus code). The React library is split into per-area npm packages (@zendeskgarden/react-*), released in lockstep (9.16.1 for both checked packages); two representative packages recorded, so frameworks.packageName is null. Storybook is published on the zendeskgarden GitHub org's Pages site. No Figma link was found on the homepage, so figmaUrl is null. audited 2026-11-05: Storybook provenance confirmed (official repo About link); all URLs and npm metadata re-checked, no other changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -155,10 +155,20 @@
         "checkedAt": "2026-11-05T03:58:01.397Z",
         "method": "http-check",
         "note": "200; Zendesk corporate site"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://github.com/zendeskgarden/react-components",
+        "status": 200,
+        "finalUrl": "https://github.com/zendeskgarden/react-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:47.851Z",
+        "method": "page-content",
+        "note": "Official repo's About 'website' and Pages URL is https://zendeskgarden.github.io/react-components/ (links the Storybook)"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:12.571Z"
+    "verifiedAt": "2026-11-05T04:12:47.851Z"
   },
   {
     "aliases": [
@@ -224,7 +234,7 @@
     "docAccess": "public",
     "maintenanceStatus": "maintenance",
     "registryStatus": "verified",
-    "notes": "paste.twilio.design now redirects to the GitHub repo, so the repo is recorded as homepage. PR #4399 (merged 2026-07-01, 'retire docs site warning') added a retirement banner and pointed the README at in-repo docs (packages/paste-website/src/pages). No package release since @twilio-paste/core 21.5.0 (2025-08-25); later commits are chores (Next upgrade, Cypress removal). No official deprecation found; an unanswered community discussion (#4405, 2026-07-03) asks about the project's future. maintenanceStatus 'maintenance' is inferred from this activity, not from an announcement. paste-dsys.com describes itself as independent documentation and is not treated as official.",
+    "notes": "paste.twilio.design now redirects to the GitHub repo, so the repo is recorded as homepage. PR #4399 (merged 2026-07-01, 'retire docs site warning') added a retirement banner and pointed the README at in-repo docs (packages/paste-website/src/pages). No package release since @twilio-paste/core 21.5.0 (2025-08-25); later commits are chores (Next upgrade, Cypress removal). No official deprecation found; an unanswered community discussion (#4405, 2026-07-03) asks about the project's future. maintenanceStatus 'maintenance' is inferred from this activity, not from an announcement. paste-dsys.com describes itself as independent documentation and is not treated as official. audited 2026-11-05: README's hosted Storybook (Chromatic) is login-walled (401), storybookUrl stays null; PR #4399 merge (2026-07-01) and last commit (2026-08-20, chore) re-confirmed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -335,10 +345,20 @@
         "checkedAt": "2026-11-05T03:58:01.596Z",
         "method": "http-check",
         "note": "200; Twilio corporate site"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://main--5e53448165911c0022e68c74.chromatic.com",
+        "status": 401,
+        "finalUrl": "https://www.chromatic.com/login?redirect=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJyZWRpcmVjdFVybCI6Imh0dHBzOi8vbWFpbi0tNWU1MzQ0ODE2NTkxMWMwMDIyZTY4Yzc0LmNocm9tYXRpYy5jb20vIn0.vILHkFLz-a8QKwKlfGMRmLs3Q1uioliuDc7sCG3sRl8nxp1H_6DPOJ6-kLFJRGyJCLBTQafH1HMCozW6Dwe9Bl3e7BiMxNQCut527a_wiWQ9xSPmRiSfhBUGI3BRbSn-lxCguiwf6ZCL8cyZcweO0Djx7MTpvG4MfVZMusR_K3HKeSZ32l9MnB8QUg97LeFcFa4jBO64oEKMfXoFQ02NfkQz1sJZImbekw1a9BfsNhEb8ezpKcOVQObU9Bf-EIp8FyDQralvnTtOwKI08I7PgQiE1CZWrUAQWoMdU1fIUBmp15_OvVSfOYHWqSJtR70V0_EpR898DR0b-7aatq90PsOwIfpKyj-c_1ogu6-xqGAz-YF4aT_s8UeTiUPWhRhW32a5bOkZXPRhHoj4UwFpYYnGeF4sNUy5O_aArVFverFqgPeLJIPztr9ZQITJYUB-D-xNS4YCDPgMxyIvRZASML9EWqwojPuh2i2-O-rBJ5EqlAh4tqGxgiLIZfqjFvlFxgzpUb1eNvOxdSy5DsFmUItFsfbp9xsGi4_Sj1Ke2qL1WesO2ilwVo3k4hzScdLcZlq213a_PgXLvgBu5q6Fg4d_WlJ9glkBHEEAKu5fccl2wjPpU8vcjauOAe-KngD6NzE2ZUUqiydaSHfvwIYtX6_3DIfJ3wBHaCXO83fSzOs",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.454Z",
+        "method": "http-check",
+        "note": "Hosted Storybook linked from repo README; 401, redirects to Chromatic sign-in: not public, storybookUrl stays null"
       }
     ],
     "confidence": 0.85,
-    "verifiedAt": "2026-11-05T04:01:13.136Z"
+    "verifiedAt": "2026-11-05T04:12:48.454Z"
   },
   {
     "aliases": [
@@ -403,7 +423,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Canonical ATLAS entry for EUI (integrator decision); 'elastic-ui-framework' (rank 87) is recorded as duplicateOf elastic-ui. The docs site links an official Figma community file ('Elastic UI Borealis'), but figma.com returned 403 to the ATLAS checker, so figmaUrl is null. The /docs/ root returns 404; section pages (getting started, components) resolve. Classified design-system because docs include patterns, content and dataviz guidance beyond components.",
+    "notes": "Canonical ATLAS entry for EUI (integrator decision); 'elastic-ui-framework' (rank 87) is recorded as duplicateOf elastic-ui. The docs site links an official Figma community file ('Elastic UI Borealis'), but figma.com returned 403 to the ATLAS checker, so figmaUrl is null. The /docs/ root returns 404; section pages (getting started, components) resolve. Classified design-system because docs include patterns, content and dataviz guidance beyond components. audited 2026-11-05: re-checked all URLs, LICENSE.txt and npm metadata (Borealis Figma file still 403); no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -576,7 +596,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "mongodb.design pages render client-side (no <title> in server HTML); identity confirmed via the official repo README, which links mongodb.design and storybook.mongodb.design. The site itself is the documentation hub (component pages such as /component/button/live-example, foundations such as /foundation/tokens), so docsUrl equals homepageUrl. Packages are versioned independently (@leafygreen-ui/button 25.2.2, @leafygreen-ui/tokens 4.2.3), so latestVersion is null; latestReleaseAt is the most recent publish among checked packages. No Figma link was found on the homepage.",
+    "notes": "mongodb.design pages render client-side (no <title> in server HTML); identity confirmed via the official repo README, which links mongodb.design and storybook.mongodb.design. The site itself is the documentation hub (component pages such as /component/button/live-example, foundations such as /foundation/tokens), so docsUrl equals homepageUrl. Packages are versioned independently (@leafygreen-ui/button 25.2.2, @leafygreen-ui/tokens 4.2.3), so latestVersion is null; latestReleaseAt is the most recent publish among checked packages. The homepage HTML links Figma files (LeafyGreen-Design-System), but the file redirects to figma.com/login for the checker (not publicly viewable), so figmaUrl is null. audited 2026-11-05: Figma note corrected (homepage does link a Figma file, which is login-walled); failed figma check added.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -687,10 +707,20 @@
         "checkedAt": "2026-11-05T03:58:01.698Z",
         "method": "http-check",
         "note": "200; MongoDB corporate site"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/file/4h2VwjCuJUbeZ7hzD2J1rq/LeafyGreen-Design-System",
+        "status": 200,
+        "finalUrl": "https://www.figma.com/login",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:47.989Z",
+        "method": "http-check",
+        "note": "Linked from mongodb.design HTML; redirects to figma.com/login ('Login | Figma'): not publicly viewable; not recorded"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T04:01:14.671Z"
+    "verifiedAt": "2026-11-05T04:12:47.989Z"
   },
   {
     "aliases": [
@@ -761,7 +791,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "duplicate",
-    "notes": "Integrator decision: 'blueprint' (rank 40) is canonical; this rank-65 candidate names the same system (Palantir's Blueprint), so it is recorded as a duplicate and does not count toward the 100. Checks were still run and match the canonical identity (blueprintjs.com, palantir/blueprint, @blueprintjs/core 6.22.0 published 2026-11-02, Apache-2.0).",
+    "notes": "Integrator decision: 'blueprint' (rank 40) is canonical; this rank-65 candidate names the same system (Palantir's Blueprint), so it is recorded as a duplicate and does not count toward the 100. Checks were still run and match the canonical identity (blueprintjs.com, palantir/blueprint, @blueprintjs/core 6.22.0 published 2026-11-02, Apache-2.0). audited 2026-11-05: re-checked; duplicate of blueprint (batch-02) upheld; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -909,7 +939,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "The design-guidelines sites (canvas.workday.com, which canvas.workdaydesign.com redirects to, and design.workday.com/design-system, linked from the repo About section as the 'Workday Sana Canvas Design System') returned HTTP 403 (CloudFront) to the ATLAS checker, so they are not recorded as field values. homepageUrl/docsUrl fall back to the official Canvas Kit Storybook on Workday's GitHub Pages, which the README cites for component docs and guides. Re-verify canvas.workday.com from a browser-like client before promoting it to homepageUrl.",
+    "notes": "The design-guidelines sites (canvas.workday.com, which canvas.workdaydesign.com redirects to, and design.workday.com/design-system, linked from the repo About section as the 'Workday Sana Canvas Design System') returned HTTP 403 (CloudFront) to the ATLAS checker, so they are not recorded as field values. homepageUrl/docsUrl fall back to the official Canvas Kit Storybook on Workday's GitHub Pages, which the README cites for component docs and guides. Re-verify canvas.workday.com from a browser-like client before promoting it to homepageUrl. audited 2026-11-05: canvas.workday.com, canvas.workdaydesign.com and design.workday.com still 403; Storybook fallback kept; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1064,7 +1094,7 @@
     "docAccess": "private",
     "maintenanceStatus": "unknown",
     "registryStatus": "rejected",
-    "notes": "Rejected: no public documentation (internal-only). designsystem.intuit.com redirects to Intuit enterprise SSO (federation.intuit.com), indicating staff-only access. design.intuit.com is a public design blog/hub ('Intuit Design Hub') with no IDS component, token or guideline documentation. Former public QuickBooks design URLs (designsystem.quickbooks.com, design.intuit.com/quickbooks, /quickbooks/brand/ and /quickbooks/brand/resources/qbds-sunset/) all redirect to the hub homepage. homepageUrl records the checked org design hub; docsUrl null. License unknown (no public package or repo found).",
+    "notes": "Rejected: no public documentation (internal-only). designsystem.intuit.com redirects to Intuit enterprise SSO (federation.intuit.com), indicating staff-only access. design.intuit.com is a public design blog/hub ('Intuit Design Hub') with no IDS component, token or guideline documentation. Former public QuickBooks design URLs (designsystem.quickbooks.com, design.intuit.com/quickbooks, /quickbooks/brand/ and /quickbooks/brand/resources/qbds-sunset/) all redirect to the hub homepage. homepageUrl records the checked org design hub; docsUrl null. License unknown (no public package or repo found). audited 2026-11-05: designsystem.intuit.com still redirects to enterprise SSO; @ids-ts/button and @ids-ts/core not on npm (404); rejection stands.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1165,7 +1195,7 @@
     "docAccess": "unknown",
     "maintenanceStatus": "unknown",
     "registryStatus": "rejected",
-    "notes": "Rejected: no public documentation reachable. ux.mailchimp.com/patterns and ux.mailchimp.com returned HTTP 503 'Service Unavailable' in checks about six minutes apart. No official retirement notice and no current official successor were found. styleguide.mailchimp.com is Mailchimp's Content Style Guide (writing guidance), not a UI pattern library, so it is not substituted. Maintenance status unknown; if the host recovers, re-verify before promotion.",
+    "notes": "Rejected: no public documentation reachable. ux.mailchimp.com/patterns and ux.mailchimp.com returned HTTP 503 'Service Unavailable' in checks about six minutes apart. No official retirement notice and no current official successor were found. styleguide.mailchimp.com is Mailchimp's Content Style Guide (writing guidance), not a UI pattern library, so it is not substituted. Maintenance status unknown; if the host recovers, re-verify before promotion. audited 2026-11-05: third 503 recorded; rejection stands.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1216,10 +1246,20 @@
         "checkedAt": "2026-11-05T03:57:05.259Z",
         "method": "http-check",
         "note": "200; Mailchimp corporate site"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://ux.mailchimp.com/patterns",
+        "status": 503,
+        "finalUrl": "https://ux.mailchimp.com/patterns",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.554Z",
+        "method": "http-check",
+        "note": "503 Service Unavailable on audit re-check (~15 min after first checks)"
       }
     ],
     "confidence": 0.7,
-    "verifiedAt": "2026-11-05T03:57:05.568Z"
+    "verifiedAt": "2026-11-05T04:12:48.554Z"
   },
   {
     "aliases": [
@@ -1280,7 +1320,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Homepage describes Protocol as still evolving and used primarily by the Mozilla Marketing Websites team for www.mozilla.org. Latest npm release @mozilla-protocol/core 22.0.0 is from 2025-10-03 (about 13 months before verification), but the repo has commits through 2026-10-29 (dependency and tooling updates), so status is active. Assets (fonts/logos) ship separately as @mozilla-protocol/assets from mozilla/protocol-assets. No Figma link on the homepage.",
+    "notes": "Homepage describes Protocol as still evolving and used primarily by the Mozilla Marketing Websites team for www.mozilla.org. Latest npm release @mozilla-protocol/core 22.0.0 is from 2025-10-03 (about 13 months before verification), but the repo has commits through 2026-10-29 (dependency and tooling updates), so status is active. Assets (fonts/logos) ship separately as @mozilla-protocol/assets from mozilla/protocol-assets. No Figma link on the homepage. audited 2026-11-05: re-checked; commits through 2026-10-29 confirmed; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1420,7 +1460,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Docs site source lives in alphagov/govuk-design-system; component code lives in alphagov/govuk-frontend (recorded as repositoryUrl because it carries the packages). GOV.UK Frontend technical docs are at frontend.design-system.service.gov.uk and describe Nunjucks macro options alongside HTML, Sass and JavaScript APIs. A Figma kit was not verified, so figmaUrl is null.",
+    "notes": "Docs site source lives in alphagov/govuk-design-system; component code lives in alphagov/govuk-frontend (recorded as repositoryUrl because it carries the packages). GOV.UK Frontend technical docs are at frontend.design-system.service.gov.uk and describe Nunjucks macro options alongside HTML, Sass and JavaScript APIs. A Figma kit was not verified, so figmaUrl is null. audited 2026-11-05: re-checked all URLs, LICENSE and npm metadata; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1566,7 +1606,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Organization recorded as GSA because the repository LICENSE attributes modifications to the General Services Administration. Ships HTML/Sass/JS; no official framework wrappers recorded. Design tokens are documented at designsystem.digital.gov/design-tokens/. figmaUrl not verified, left null.",
+    "notes": "Organization recorded as GSA because the repository LICENSE attributes modifications to the General Services Administration. Ships HTML/Sass/JS; no official framework wrappers recorded. Design tokens are documented at designsystem.digital.gov/design-tokens/. figmaUrl not verified, left null. audited 2026-11-05: re-checked all URLs, LICENSE.md and npm metadata; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1661,6 +1701,11 @@
         "slug": "html-css",
         "packageName": "nhsuk-frontend",
         "support": "official"
+      },
+      {
+        "slug": "nunjucks",
+        "packageName": "nhsuk-frontend",
+        "support": "official"
       }
     ],
     "platforms": [
@@ -1684,10 +1729,10 @@
     "organization": {
       "slug": "nhs-england",
       "name": "NHS England",
-      "websiteUrl": "https://www.england.nhs.uk/"
+      "websiteUrl": null
     },
     "category": "design-system",
-    "summary": "The NHS design system, part of the NHS digital service manual, provides styles, components and patterns for building NHS websites and services; its code is published as the nhsuk-frontend package, copyright NHS England.",
+    "summary": "The NHS design system, part of the NHS digital service manual, provides styles, components and patterns for building NHS websites and services; its code is published as the nhsuk-frontend package (HTML, Sass, JavaScript and Nunjucks macros), copyright NHS England.",
     "homepageUrl": "https://service-manual.nhs.uk/design-system",
     "docsUrl": "https://service-manual.nhs.uk/design-system/components",
     "repositoryUrl": "https://github.com/nhsuk/nhsuk-frontend",
@@ -1703,7 +1748,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Guidance lives in the NHS digital service manual; code lives in nhsuk/nhsuk-frontend (examples site at nhsuk.github.io/nhsuk-frontend, which is not a Storybook). Nunjucks support was not confirmed from the checked README, so only html-css is recorded. figmaUrl not verified, left null.",
+    "notes": "Guidance lives in the NHS digital service manual; code lives in nhsuk/nhsuk-frontend (examples site at nhsuk.github.io/nhsuk-frontend, which is not a Storybook). Nunjucks macros are official: component docs (e.g. Buttons) give Nunjucks examples importing '<component>/macro.njk', and nhsuk-frontend 10.7.1 ships 96 macro.njk files. figmaUrl not verified, left null. audited 2026-11-05: added official nunjucks framework (docs + package evidence); org websiteUrl null (england.nhs.uk check was a WAF challenge, not ok); summary mentions Nunjucks.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1767,17 +1812,37 @@
       },
       {
         "field": "organization",
-        "url": "https://www.england.nhs.uk",
+        "url": "https://www.england.nhs.uk/",
         "status": 202,
         "finalUrl": "https://www.england.nhs.uk/",
-        "ok": true,
-        "checkedAt": "2026-11-05T03:58:01.457Z",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.214Z",
         "method": "http-check",
-        "note": "202 response from NHS England site"
+        "note": "202 with empty title: AWS WAF challenge page, not the site; identity not verifiable by checker, websiteUrl set null"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://service-manual.nhs.uk/design-system/components/buttons",
+        "status": 200,
+        "finalUrl": "https://service-manual.nhs.uk/design-system/components/buttons",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:48.116Z",
+        "method": "page-content",
+        "note": "200 'Buttons – NHS digital service manual'; documents Nunjucks options and examples importing 'button/macro.njk' alongside HTML"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://data.jsdelivr.com/v1/packages/npm/nhsuk-frontend@10.7.1?structure=flat",
+        "status": 200,
+        "finalUrl": "https://data.jsdelivr.com/v1/packages/npm/nhsuk-frontend@10.7.1?structure=flat",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:47.922Z",
+        "method": "package-metadata",
+        "note": "jsDelivr file listing of nhsuk-frontend 10.7.1 includes 96 macro.njk files (official Nunjucks macros)"
       }
     ],
     "confidence": 0.94,
-    "verifiedAt": "2026-11-05T04:01:15.572Z"
+    "verifiedAt": "2026-11-05T04:12:48.214Z"
   },
   {
     "aliases": [
@@ -1834,7 +1899,7 @@
     "docAccess": "unknown",
     "maintenanceStatus": "archived",
     "registryStatus": "rejected",
-    "notes": "Rejected: discontinued with docs gone. designsystem.gov.au no longer resolves (DNS failure). The component repo was archived on 2021-08-26 and its README states the system has been decommissioned; @gov.au/core is deprecated on npm with a decommission notice whose community.digital.gov.au link also no longer resolves. A community fork, GOLD Design System, is maintained by Design System AU (designsystemau.org), which is not first-party; gold.designsystemau.org redirected to the designsystemau.org homepage during checks. GOLD could be assessed separately as a replacement candidate. dta.gov.au returned 503, so organization websiteUrl is null.",
+    "notes": "Rejected: discontinued with docs gone. designsystem.gov.au no longer resolves (DNS failure). The component repo was archived on 2021-08-26 and its README states the system has been decommissioned; @gov.au/core is deprecated on npm with a decommission notice whose community.digital.gov.au link also no longer resolves. A community fork, GOLD Design System, is maintained by Design System AU (designsystemau.org), which is not first-party; gold.designsystemau.org redirected to the designsystemau.org homepage during checks. GOLD could be assessed separately as a replacement candidate. dta.gov.au returned 503, so organization websiteUrl is null. audited 2026-11-05: designsystem.gov.au still fails DNS; repo archive (2021-08-26) and README decommission notice re-confirmed; rejection stands.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2008,7 +2073,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "The Angular package's npm metadata declares no license; the repository LICENSE (develop branch; main has none at root) is Apache-2.0 and the other packages declare Apache-2.0. /components/ returns 404; the component index is /components/detail/components.html. All four packages are released in lockstep (9.2.2). figmaUrl not verified, left null.",
+    "notes": "The Angular package's npm metadata declares no license; the repository LICENSE (develop branch; main has none at root) is Apache-2.0 and the other packages declare Apache-2.0. /components/ returns 404; the component index is /components/detail/components.html. All four packages are released in lockstep (9.2.2). figmaUrl not verified, left null. audited 2026-11-05: re-checked; main-branch LICENSE still 404, develop LICENSE Apache-2.0; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2189,7 +2254,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "hds.hel.fi pages render client-side (no <title> in server HTML); identity confirmed via the official repo README, which links hds.hel.fi plus React and Core Storybooks (hds.hel.fi/storybook/react/ recorded; /storybook/core/ also verified). The README points designers to Sketch libraries; no Figma URL recorded. Packages are released in lockstep (6.0.7).",
+    "notes": "hds.hel.fi pages render client-side (no <title> in server HTML); identity confirmed via the official repo README, which links hds.hel.fi plus React and Core Storybooks (hds.hel.fi/storybook/react/ recorded; /storybook/core/ also verified). The README points designers to Sketch libraries; no Figma URL recorded. Packages are released in lockstep (6.0.7). audited 2026-11-05: re-checked all URLs, LICENSE and npm metadata; no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2391,7 +2456,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Docs are public but the package license restricts use to work on behalf of Nordhealth, so ATLAS must treat code as non-redistributable (facts and short excerpts only). @nordhealth/css metadata references github.com/nordhealth/design-system, which returned 404 (private or removed), so repositoryUrl is null. The homepage says components work in plain HTML, React, Vue or any framework via web components; only web-components and html-css are recorded as official targets. The site documents a Tailwind CSS integration and a Figma Toolkit page, but no figma.com URL is recorded. Packages are versioned independently; latestVersion is @nordhealth/components.",
+    "notes": "Docs are public but the package license restricts use to work on behalf of Nordhealth, so ATLAS must treat code as non-redistributable (facts and short excerpts only). @nordhealth/css metadata references github.com/nordhealth/design-system, which returned 404 (private or removed), so repositoryUrl is null. The homepage says components work in plain HTML, React, Vue or any framework via web components; only web-components and html-css are recorded as official targets. The site documents a Tailwind CSS integration and a Figma Toolkit page, but no figma.com URL is recorded. Packages are versioned independently; latestVersion is @nordhealth/components. audited 2026-11-05: added failed check for the linked Figma Toolkit file (403); figmaUrl stays null.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2441,7 +2506,7 @@
         "ok": true,
         "checkedAt": "2026-11-05T03:56:09.248Z",
         "method": "http-check",
-        "note": "200; 'Figma Toolkit' docs page; no figma.com URL recorded"
+        "note": "200; official 'Figma Toolkit' page; links figma.com files (Nord Figma Toolkit v4, Nordicons); none verifiable, figmaUrl null"
       },
       {
         "field": "repositoryUrl",
@@ -2502,10 +2567,20 @@
         "checkedAt": "2026-11-05T03:58:01.720Z",
         "method": "http-check",
         "note": "200; 'Nordhealth | Redefining digital healthcare'"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/design/yarhTRV8eFffff0BIpevi6/Nord-Figma-Toolkit-v4?node-id=1696-298217",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/design/yarhTRV8eFffff0BIpevi6/Nord-Figma-Toolkit-v4?node-id=1696-298217",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.354Z",
+        "method": "http-check",
+        "note": "Figma Toolkit file linked from nordhealth.design; 403 to checker; not recorded"
       }
     ],
     "confidence": 0.9,
-    "verifiedAt": "2026-11-05T04:01:12.034Z"
+    "verifiedAt": "2026-11-05T04:12:48.354Z"
   },
   {
     "aliases": [
@@ -2545,7 +2620,7 @@
     "docAccess": "unknown",
     "maintenanceStatus": "unknown",
     "registryStatus": "rejected",
-    "notes": "Rejected: no public documentation reachable. react.ui.audi (the Storybook linked from storybook.js.org's 'Audi UI React' showcase) returns 404. audi.com/ci user-interface component guide pages return 404, and audi.com/ci now redirects to styleguide.audi.com, a Frontify brand hub whose robots.txt disallows automated access (not crawled). The older vanilla CSS/JS repo github.com/audi/audi-ui returns 404; its npm package @audi/audi-ui was last published as 1.0.0-alpha.2 in 2017. @audi/audi-ui-react is not on npm. License unknown for the React system. Re-check if Audi republishes UI docs on the Frontify hub.",
+    "notes": "Rejected: no public documentation reachable. react.ui.audi (the Storybook linked from storybook.js.org's 'Audi UI React' showcase) returns 404. audi.com/ci user-interface component guide pages return 404, and audi.com/ci now redirects to styleguide.audi.com, a Frontify brand hub whose robots.txt disallows automated access (not crawled). The older vanilla CSS/JS repo github.com/audi/audi-ui returns 404; its npm package @audi/audi-ui was last published as 1.0.0-alpha.2 in 2017. @audi/audi-ui-react is not on npm. License unknown for the React system. Re-check if Audi republishes UI docs on the Frontify hub. audited 2026-11-05: react.ui.audi still 404, CI guide pages still 404; rejection stands.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2734,13 +2809,13 @@
       "name": "Apache License 2.0",
       "url": "https://designsystem.porsche.com/v4/license/",
       "isOpenSource": true,
-      "redistribution": "permitted",
+      "redistribution": "conditional",
       "notes": "Source code is Apache-2.0 (LICENSE.md, Dr. Ing. h.c. F. Porsche AG). Fonts, icons, marque and other assets fall under a separate Porsche Design System Assets License: use only for Porsche-related apps/sites, no modification or redistribution of assets."
     },
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "Root domain redirects to the /v4/ docs. Developing docs list Vanilla JS, Angular, React, Next.js, Remix and Vue (Next.js/Remix use the React package). Licensing is split: code Apache-2.0, brand assets restricted, so license.redistribution is 'conditional' even though the code license is permissive. The site lists public and internal Figma libraries but exposes no figma.com URL in its HTML; figmaUrl null.",
+    "notes": "Root domain redirects to the /v4/ docs. Developing docs list Vanilla JS, Angular, React, Next.js, Remix and Vue (Next.js/Remix use the React package). Licensing is split: code Apache-2.0, brand assets restricted, so license.redistribution is 'conditional' even though the code license is permissive. The v4 homepage links figma.com/@porsche and a Figma design file, but figma.com returned 403 to the checker, so figmaUrl is null. audited 2026-11-05: license.redistribution permitted->conditional (matches assets licence and notes); Figma note corrected (homepage does link figma.com); 2 figma checks added.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2861,10 +2936,30 @@
         "checkedAt": "2026-11-05T03:58:01.602Z",
         "method": "http-check",
         "note": "200; Porsche official website (geo-redirect)"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://figma.com/@porsche",
+        "status": 403,
+        "finalUrl": "https://figma.com/@porsche",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.451Z",
+        "method": "http-check",
+        "note": "Linked from designsystem.porsche.com/v4/ (Porsche Figma community profile); 403 (CloudFront) to checker; not recorded"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://figma.com/design/EkdP468u4ZVuIRwalKCscb/Web-Design-System-v3?node-id=32923-48020",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/design/EkdP468u4ZVuIRwalKCscb/Web-Design-System-v3?node-id=32923-48020",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:12:48.751Z",
+        "method": "http-check",
+        "note": "Figma file linked from the v4 homepage; 403 to checker; not recorded"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:01:14.071Z"
+    "verifiedAt": "2026-11-05T04:12:48.751Z"
   },
   {
     "aliases": [],
@@ -2901,7 +2996,7 @@
     "docAccess": "unknown",
     "maintenanceStatus": "unknown",
     "registryStatus": "rejected",
-    "notes": "Rejected: no public documentation found. Probed hostnames (bmwgroup.design, designsystem.bmwgroup.com, design.bmwgroup.com) do not resolve. The BMW Group GitHub org (github.com/bmwgroup) lists one repository, a C++ fork unrelated to UI. Web search surfaced only unofficial third-party 'DESIGN.md'-style reconstructions (e.g. on shadcn.io and open-design.ai), which are not first-party and were not recorded. An internal system may exist but is not publicly documented. homepageUrl records the checked BMW Group corporate site.",
+    "notes": "Rejected: no public documentation found. Probed hostnames (bmwgroup.design, designsystem.bmwgroup.com, design.bmwgroup.com) do not resolve. The BMW Group GitHub org (github.com/bmwgroup) lists one repository, a C++ fork unrelated to UI. Web search surfaced only unofficial third-party 'DESIGN.md'-style reconstructions (e.g. on shadcn.io and open-design.ai), which are not first-party and were not recorded. An internal system may exist but is not publicly documented. homepageUrl records the checked BMW Group corporate site. audited 2026-11-05: probed hosts still ENOTFOUND; github.com/bmwgroup still lists 1 repo; rejection stands.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3031,7 +3126,7 @@
     "docAccess": "public",
     "maintenanceStatus": "active",
     "registryStatus": "verified",
-    "notes": "designsystem.volvocars.com redirects to /web/. The brand portal (design.volvocars.com redirects to a brand.volvocars.com login) is not public and not recorded. npm metadata lists github.com/volvo-cars/design-system-web, which returns 404 (private), so repositoryUrl is null. Getting-started docs cover HTML and React; React support ships as per-feature packages (e.g. @volvo-cars/react-accordion, @volvo-cars/react-icons) plus hooks, so react packageName is null. @volvo-cars/ui-design-tokens is deprecated on npm ('Package no longer supported'). volvocars.com returned 403 to the checker, so organization websiteUrl is null. figmaUrl null.",
+    "notes": "designsystem.volvocars.com redirects to /web/. The brand portal (design.volvocars.com redirects to a brand.volvocars.com login) is not public and not recorded. npm metadata lists github.com/volvo-cars/design-system-web, which returns 404 (private), so repositoryUrl is null. Getting-started docs cover HTML and React; React support ships as per-feature packages (e.g. @volvo-cars/react-accordion, @volvo-cars/react-icons) plus hooks, so react packageName is null. @volvo-cars/ui-design-tokens is deprecated on npm ('Package no longer supported'). volvocars.com returned 403 to the checker, so organization websiteUrl is null. figmaUrl null. audited 2026-11-05: re-checked all URLs and npm metadata; no changes.",
     "checks": [
       {
         "field": "homepageUrl",

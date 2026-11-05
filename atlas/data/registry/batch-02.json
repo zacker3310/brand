@@ -64,7 +64,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified component-library (styled React components with a theme system). Figma: the site links 'FigPilot' at figma.chakra-ui.com, a separate Chakra product, not a figma.com community file, so figmaUrl is null. Chakra UI Pro (pro.chakra-ui.com) is a separate paid block collection and is not part of this entry. Ark UI, Park UI and Panda CSS come from the same team and are separate entries. Only React is officially supported.",
+    "notes": "Classified component-library (styled React components with a theme system). Figma: the site links 'FigPilot' at figma.chakra-ui.com, a separate Chakra product, not a figma.com community file, so figmaUrl is null. Chakra UI Pro (pro.chakra-ui.com) is a separate paid block collection and is not part of this entry. Ark UI, Park UI and Panda CSS come from the same team and are separate entries. Only React is officially supported. audited 2026-11-05: re-ran all checks (match); added check for figma.chakra-ui.com (FigPilot: Figma-to-code product, not a Figma file); no data changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -72,7 +72,7 @@
         "status": 200,
         "finalUrl": "https://chakra-ui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.523Z",
+        "checkedAt": "2026-11-05T04:05:40.921Z",
         "method": "http-check",
         "note": "title: Chakra UI; first-party site of the chakra-ui project; footer links FigPilot (figma.chakra-ui.com), Chakra UI Pro, Zag.js, Ark UI"
       },
@@ -82,7 +82,7 @@
         "status": 200,
         "finalUrl": "https://chakra-ui.com/docs/get-started/installation",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.848Z",
+        "checkedAt": "2026-11-05T04:05:40.920Z",
         "method": "http-check",
         "note": "title: Installation | Chakra UI; public docs, no login"
       },
@@ -92,7 +92,7 @@
         "status": 200,
         "finalUrl": "https://github.com/chakra-ui/chakra-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.201Z",
+        "checkedAt": "2026-11-05T04:05:39.673Z",
         "method": "http-check",
         "note": "official GitHub repo chakra-ui/chakra-ui (200)"
       },
@@ -102,7 +102,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:13.015Z",
+        "checkedAt": "2026-11-05T04:05:39.587Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: MIT License, Copyright (c) 2019 Chakra Systems Inc."
       },
@@ -112,7 +112,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:37.804Z",
+        "checkedAt": "2026-11-05T04:05:42.911Z",
         "method": "package-metadata",
         "note": "npm latest 3.38.0 published 2026-11-03; license MIT; not deprecated; repo https://github.com/chakra-ui/chakra-ui; maintenance: release within 2 days of research date => active"
       },
@@ -122,13 +122,23 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@chakra-ui/react@3.38.0/package.json",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:26.749Z",
+        "checkedAt": "2026-11-05T04:05:39.617Z",
         "method": "page-content",
         "note": "published package.json dependencies include @ark-ui/react 5.40.0 and @emotion/* packages"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://figma.chakra-ui.com",
+        "status": 200,
+        "finalUrl": "https://figma.chakra-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.596Z",
+        "method": "http-check",
+        "note": "title: Chakra UI - FigPilot; 'Convert your Figma designs to Chakra UI React components' (a Chakra product, not a figma.com file), so figmaUrl stays null"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:59:26.749Z"
+    "verifiedAt": "2026-11-05T04:12:07.596Z"
   },
   {
     "rank": 22,
@@ -186,15 +196,14 @@
       "open-source",
       "react",
       "theming",
-      "accessibility-first",
-      "saas"
+      "accessibility-first"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified component-library. figmaUrl is null because the official getting-started page states 'there are no official Figma or Sketch design files' and links only community kits (Ravn, In The Zone, Devias, AlleyCorp Nord) that the Mantine team does not maintain. Only React is officially supported.",
+    "notes": "Classified component-library. figmaUrl is null because the official getting-started page states 'there are no official Figma or Sketch design files' and links only community kits (Ravn, In The Zone, Devias, AlleyCorp Nord) that the Mantine team does not maintain. Only React is officially supported. audited 2026-11-05: re-ran all checks (match); removed unsupported tag 'saas' (repo/site describe a general-purpose React library).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -202,7 +211,7 @@
         "status": 200,
         "finalUrl": "https://mantine.dev/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.300Z",
+        "checkedAt": "2026-11-05T04:05:41.210Z",
         "method": "http-check",
         "note": "title: Mantine; first-party site (npm @mantine/core homepage field = https://mantine.dev/)"
       },
@@ -212,7 +221,7 @@
         "status": 200,
         "finalUrl": "https://mantine.dev/getting-started/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.600Z",
+        "checkedAt": "2026-11-05T04:05:41.209Z",
         "method": "http-check",
         "note": "title: Getting started | Mantine; public docs. The page says there are no official Figma or Sketch design files and lists community-made ones only"
       },
@@ -222,7 +231,7 @@
         "status": 200,
         "finalUrl": "https://github.com/mantinedev/mantine",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.515Z",
+        "checkedAt": "2026-11-05T04:05:40.315Z",
         "method": "http-check",
         "note": "official GitHub repo mantinedev/mantine (200)"
       },
@@ -232,7 +241,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/mantinedev/mantine/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:13.315Z",
+        "checkedAt": "2026-11-05T04:05:40.284Z",
         "method": "repo-metadata",
         "note": "LICENSE on master: MIT License, Copyright (c) 2021 Vitaly Rtishchev"
       },
@@ -242,7 +251,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:37.973Z",
+        "checkedAt": "2026-11-05T04:05:42.531Z",
         "method": "package-metadata",
         "note": "npm latest 9.7.5 published 2026-11-04; license MIT; not deprecated; repo git+https://github.com/mantinedev/mantine.git; maintenance: published the day before the research date => active"
       },
@@ -252,13 +261,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:35.802Z",
+        "checkedAt": "2026-11-05T04:05:42.825Z",
         "method": "package-metadata",
         "note": "npm latest 9.7.5 published 2026-11-04; license MIT; not deprecated; repo git+https://github.com/mantinedev/mantine.git"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:54:35.802Z"
+    "verifiedAt": "2026-11-05T04:05:42.825Z"
   },
   {
     "rank": 23,
@@ -266,8 +275,7 @@
     "name": "MUI (Material UI)",
     "aliases": [
       "Material UI",
-      "Material-UI",
-      "MUI Core"
+      "Material-UI"
     ],
     "organization": {
       "slug": "mui",
@@ -328,7 +336,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Entry covers Material UI (@mui/material), MIT-licensed. MUI's separate MUI X product line was not researched in this pass and is out of scope. Implements Google's Material Design (see material-design). figmaUrl is null: the official MUI page links an MUI-published Figma community file (id 912837788133317724), but figma.com returned 403 to the checker, so it is unverified. React only.",
+    "notes": "Entry covers Material UI (@mui/material), MIT-licensed. MUI's separate MUI X product line was not researched in this pass and is out of scope. Implements Google's Material Design (see material-design). figmaUrl is null: the official MUI page links an MUI-published Figma community file (id 912837788133317724), but figma.com returned 403 to the checker, so it is unverified. React only. audited 2026-11-05: re-ran all checks (match); removed alias 'MUI Core' (mui.com/core/ shows it is the umbrella for Material UI, Base UI and MUI System).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -336,7 +344,7 @@
         "status": 200,
         "finalUrl": "https://mui.com/material-ui/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.477Z",
+        "checkedAt": "2026-11-05T04:05:40.136Z",
         "method": "http-check",
         "note": "title: Material UI: React components that implement Material Design; first-party MUI site"
       },
@@ -346,7 +354,7 @@
         "status": 200,
         "finalUrl": "https://mui.com/material-ui/getting-started/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.801Z",
+        "checkedAt": "2026-11-05T04:05:40.546Z",
         "method": "http-check",
         "note": "title: Overview - Material UI; public docs"
       },
@@ -356,7 +364,7 @@
         "status": 200,
         "finalUrl": "https://github.com/mui/material-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.802Z",
+        "checkedAt": "2026-11-05T04:05:40.105Z",
         "method": "http-check",
         "note": "official GitHub repo mui/material-ui (200)"
       },
@@ -366,7 +374,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:13.615Z",
+        "checkedAt": "2026-11-05T04:05:40.039Z",
         "method": "repo-metadata",
         "note": "LICENSE on master: MIT License, Copyright (c) 2014 Call-Em-All"
       },
@@ -376,7 +384,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:38.304Z",
+        "checkedAt": "2026-11-05T04:05:42.965Z",
         "method": "package-metadata",
         "note": "npm latest 9.5.0 published 2026-10-09; license MIT; not deprecated; repo git+https://github.com/mui/material-ui.git; maintenance: release about 4 weeks before the research date => active"
       },
@@ -386,7 +394,7 @@
         "status": 200,
         "finalUrl": "https://mui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:23.226Z",
+        "checkedAt": "2026-11-05T04:05:41.745Z",
         "method": "http-check",
         "note": "title: MUI: The React component library you always wanted; MUI company site"
       },
@@ -396,7 +404,7 @@
         "status": 200,
         "finalUrl": "https://mui.com/material-ui/design-resources/material-ui-for-figma/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:11.781Z",
+        "checkedAt": "2026-11-05T04:05:42.061Z",
         "method": "http-check",
         "note": "official 'Material UI for Figma' page links figma.com/community/file/912837788133317724 (official MUI kit)"
       },
@@ -406,13 +414,23 @@
         "status": 403,
         "finalUrl": "https://www.figma.com/community/file/912837788133317724/material-ui-for-figma-and-mui-x",
         "ok": false,
-        "checkedAt": "2026-11-05T03:50:11.895Z",
+        "checkedAt": "2026-11-05T04:05:40.545Z",
         "method": "http-check",
         "note": "figma.com returned 403 (CDN block) to the ATLAS checker, so the link could not be verified; figmaUrl left null"
+      },
+      {
+        "field": "aliases",
+        "url": "https://mui.com/core/",
+        "status": 200,
+        "finalUrl": "https://mui.com/core/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:13:36.183Z",
+        "method": "http-check",
+        "note": "title: MUI Core: Ready-to-use React components, free forever. The MUI Core product menu lists Material UI, Base UI and MUI System, so 'MUI Core' is an umbrella name, not an alias of Material UI"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:54:33.802Z"
+    "verifiedAt": "2026-11-05T04:13:36.183Z"
   },
   {
     "rank": 24,
@@ -475,7 +493,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Distinct from Material UI: own component catalog and design language. maintenanceStatus 'maintenance' is the closest fit, not a formal deprecation: the official docs say it is in beta with development on hold and recommend Material UI for new projects. The last npm release is 5.0.0-beta.52 (2025-03-18), and the docs now live on the legacy v7.mui.com host. The package source was removed from master and remains on the v7.x branch. No official Figma link was recorded.",
+    "notes": "Distinct from Material UI: own component catalog and design language. maintenanceStatus 'maintenance' is the closest fit, not a formal deprecation: the official docs say it is in beta with development on hold and recommend Material UI for new projects. The last npm release is 5.0.0-beta.52 (2025-03-18), and the docs now live on the legacy v7.mui.com host. The package source was removed from master and remains on the v7.x branch. No patch release has shipped since 2025-03-18 and the docs say maintainers are focused on other projects, so 'maintenance' here means on hold with docs online, not ongoing patches. No official Figma link was recorded. audited 2026-11-05: re-ran all checks (match); relabelled the master-404 / v7.x-200 source-path checks from repositoryUrl to maintenance (the failing check no longer sits on a set field); clarified that no patch release has shipped since 2025-03-18.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -483,7 +501,7 @@
         "status": 200,
         "finalUrl": "https://v7.mui.com/joy-ui/getting-started/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:34.078Z",
+        "checkedAt": "2026-11-05T04:05:41.824Z",
         "method": "http-check",
         "note": "mui.com/joy-ui/getting-started/ redirects to legacy docs host v7.mui.com (title: Overview - Joy UI). Page states Joy UI is in beta and development is currently on hold; recommends Material UI for new projects"
       },
@@ -493,7 +511,7 @@
         "status": 200,
         "finalUrl": "https://v7.mui.com/joy-ui/getting-started/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:11.810Z",
+        "checkedAt": "2026-11-05T04:05:41.095Z",
         "method": "http-check",
         "note": "canonical final URL, 200, title: Overview - Joy UI"
       },
@@ -503,7 +521,7 @@
         "status": 200,
         "finalUrl": "https://v7.mui.com/joy-ui/getting-started/installation/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:12.082Z",
+        "checkedAt": "2026-11-05T04:05:41.845Z",
         "method": "http-check",
         "note": "redirects to https://v7.mui.com/joy-ui/getting-started/installation/ (title: Installation - Joy UI)"
       },
@@ -513,27 +531,27 @@
         "status": 200,
         "finalUrl": "https://github.com/mui/material-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.802Z",
+        "checkedAt": "2026-11-05T04:05:40.105Z",
         "method": "http-check",
         "note": "official monorepo mui/material-ui (200)"
       },
       {
-        "field": "repositoryUrl",
+        "field": "maintenance",
         "url": "https://github.com/mui/material-ui/tree/master/packages/mui-joy",
         "status": 404,
         "finalUrl": "https://github.com/mui/material-ui/tree/master/packages/mui-joy",
         "ok": false,
-        "checkedAt": "2026-11-05T03:50:11.671Z",
+        "checkedAt": "2026-11-05T04:05:41.825Z",
         "method": "http-check",
         "note": "404: Joy UI package source is no longer on the master branch"
       },
       {
-        "field": "repositoryUrl",
+        "field": "maintenance",
         "url": "https://github.com/mui/material-ui/tree/v7.x/packages/mui-joy",
         "status": 200,
         "finalUrl": "https://github.com/mui/material-ui/tree/v7.x/packages/mui-joy",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:23.195Z",
+        "checkedAt": "2026-11-05T04:05:42.367Z",
         "method": "http-check",
         "note": "200: Joy UI source present on the v7.x branch"
       },
@@ -543,7 +561,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/mui/material-ui/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:13.615Z",
+        "checkedAt": "2026-11-05T04:05:40.039Z",
         "method": "repo-metadata",
         "note": "repo LICENSE: MIT License, Copyright (c) 2014 Call-Em-All"
       },
@@ -553,13 +571,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:38.680Z",
+        "checkedAt": "2026-11-05T04:05:43.463Z",
         "method": "package-metadata",
         "note": "npm latest 5.0.0-beta.52 published 2025-03-18; license MIT; not deprecated; repo git+https://github.com/mui/material-ui.git; maintenance: last release 2025-03-18 (more than 12 months before the research date), still a beta version; docs say development is on hold"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T03:54:34.078Z"
+    "verifiedAt": "2026-11-05T04:05:43.463Z"
   },
   {
     "rank": 25,
@@ -623,7 +641,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified headless-library (unstyled behavior and accessibility primitives). The current package is @base-ui/react. The earlier @base-ui-components/react is deprecated as renamed, and the legacy @mui/base is deprecated as replaced by @base-ui/react, so legacy MUI Base is treated as this system's predecessor, not a separate entry. radix-primitives is related by maintainer lineage, per the repo description. React only.",
+    "notes": "Classified headless-library (unstyled behavior and accessibility primitives). The current package is @base-ui/react. The earlier @base-ui-components/react is deprecated as renamed, and the legacy @mui/base is deprecated as replaced by @base-ui/react, so legacy MUI Base is treated as this system's predecessor, not a separate entry. radix-primitives is related by maintainer lineage, per the repo description. React only. audited 2026-11-05: re-ran check.ts on every recorded URL, LICENSE (--raw) and npm package; all results match, no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -631,7 +649,7 @@
         "status": 200,
         "finalUrl": "https://base-ui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.475Z",
+        "checkedAt": "2026-11-05T04:05:40.778Z",
         "method": "http-check",
         "note": "title: Unstyled UI components for accessible design systems · Base UI; npm homepage field = https://base-ui.com"
       },
@@ -641,7 +659,7 @@
         "status": 200,
         "finalUrl": "https://base-ui.com/react/overview/quick-start",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.801Z",
+        "checkedAt": "2026-11-05T04:05:40.488Z",
         "method": "http-check",
         "note": "title: Quick start · Base UI; public docs"
       },
@@ -651,7 +669,7 @@
         "status": 200,
         "finalUrl": "https://github.com/mui/base-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:34.101Z",
+        "checkedAt": "2026-11-05T04:05:40.094Z",
         "method": "http-check",
         "note": "official repo mui/base-ui; description: 'From the creators of Radix, Floating UI, and Material UI'"
       },
@@ -661,7 +679,7 @@
         "status": 200,
         "finalUrl": "https://github.com/mui/base-ui/releases",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:23.795Z",
+        "checkedAt": "2026-11-05T04:05:40.489Z",
         "method": "http-check",
         "note": "releases page reachable (200)"
       },
@@ -671,7 +689,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/mui/base-ui/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:50:13.916Z",
+        "checkedAt": "2026-11-05T04:05:39.942Z",
         "method": "repo-metadata",
         "note": "LICENSE on master: MIT License, Copyright (c) 2019 Material-UI SAS"
       },
@@ -681,7 +699,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:38.833Z",
+        "checkedAt": "2026-11-05T04:05:42.732Z",
         "method": "package-metadata",
         "note": "npm latest 1.9.0 published 2026-10-09; license MIT; not deprecated; repo git+https://github.com/mui/base-ui.git; stable 1.x; release about 4 weeks before the research date => active"
       },
@@ -691,7 +709,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:39.130Z",
+        "checkedAt": "2026-11-05T04:06:46.147Z",
         "method": "package-metadata",
         "note": "npm latest 1.0.0-rc.0 published 2025-12-04; license MIT; DEPRECATED: Package was renamed to @base-ui/react; repo git+https://github.com/mui/base-ui.git; former package name; deprecated in favor of @base-ui/react"
       },
@@ -701,13 +719,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:49:39.447Z",
+        "checkedAt": "2026-11-05T04:06:46.348Z",
         "method": "package-metadata",
         "note": "npm latest 5.0.0-beta.70 published 2025-03-17; license MIT; DEPRECATED: This package has been replaced by @base-ui/react; repo git+https://github.com/mui/material-ui.git; legacy MUI Base package; deprecated as replaced by @base-ui/react"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:54:34.101Z"
+    "verifiedAt": "2026-11-05T04:06:46.348Z"
   },
   {
     "rank": 26,
@@ -717,7 +735,7 @@
     "organization": {
       "slug": "workos",
       "name": "WorkOS (Radix)",
-      "websiteUrl": null
+      "websiteUrl": "https://workos.com/"
     },
     "category": "component-library",
     "summary": "Radix Themes is an open-source, pre-styled React component library built on Radix Primitives, with a theme configured via a Theme component (accent/gray colors, radius, scaling). It is maintained by WorkOS.",
@@ -770,7 +788,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "A styled layer distinct from radix-primitives (unstyled), with its own catalog and docs, so it is a separate verified entry. homepageUrl is the radix-ui.com root because /themes redirects there. figmaUrl is null: the official Resources page says the Figma library is unofficial and community-made. organization.websiteUrl is null because the WorkOS site was not checked; maintainership comes from the repo description ('Maintained by @workos') and the LICENSE holder.",
+    "notes": "A styled layer distinct from radix-primitives (unstyled), with its own catalog and docs, so it is a separate verified entry. homepageUrl is the radix-ui.com root because /themes redirects there. figmaUrl is null: the official Resources page says the Figma library is unofficial and community-made. Maintainership comes from the repo description ('Maintained by @workos') and the LICENSE holder. audited 2026-11-05: re-ran all checks (match); set organization.websiteUrl to https://workos.com/ (verified).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -778,7 +796,7 @@
         "status": 200,
         "finalUrl": "https://www.radix-ui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.407Z",
+        "checkedAt": "2026-11-05T04:05:41.085Z",
         "method": "http-check",
         "note": "radix-ui.com/themes redirects to the Radix site root https://www.radix-ui.com/ (title: Radix UI), which presents Themes"
       },
@@ -788,7 +806,7 @@
         "status": 200,
         "finalUrl": "https://www.radix-ui.com/themes/docs/overview/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.707Z",
+        "checkedAt": "2026-11-05T04:05:40.620Z",
         "method": "http-check",
         "note": "title: Getting started – Radix Themes; public docs"
       },
@@ -798,7 +816,7 @@
         "status": 200,
         "finalUrl": "https://github.com/radix-ui/themes",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.324Z",
+        "checkedAt": "2026-11-05T04:05:40.153Z",
         "method": "http-check",
         "note": "official repo radix-ui/themes; description says 'Maintained by @workos'"
       },
@@ -808,7 +826,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/radix-ui/themes/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:54.718Z",
+        "checkedAt": "2026-11-05T04:05:40.054Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: MIT License, Copyright (c) 2023 WorkOS"
       },
@@ -818,7 +836,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:36.162Z",
+        "checkedAt": "2026-11-05T04:05:41.919Z",
         "method": "package-metadata",
         "note": "npm latest 3.3.0 published 2026-01-31; license MIT; not deprecated; repo git+https://github.com/radix-ui/themes.git; maintenance: last release 2026-01-31, within 12 months of the research date => active"
       },
@@ -828,7 +846,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@radix-ui/themes@3.3.0/package.json",
         "ok": true,
-        "checkedAt": "2026-11-05T04:03:21.996Z",
+        "checkedAt": "2026-11-05T04:05:40.056Z",
         "method": "page-content",
         "note": "published package.json dependencies include radix-ui ^1.1.3 (Radix Primitives) and @radix-ui/colors"
       },
@@ -838,7 +856,7 @@
         "status": 200,
         "finalUrl": "https://www.radix-ui.com/themes/docs/overview/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.707Z",
+        "checkedAt": "2026-11-05T04:05:40.620Z",
         "method": "http-check",
         "note": "getting-started shows configuration via <Theme accentColor grayColor radius scaling> and a ThemePanel"
       },
@@ -848,13 +866,23 @@
         "status": 200,
         "finalUrl": "https://www.radix-ui.com/themes/docs/overview/resources",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.516Z",
+        "checkedAt": "2026-11-05T04:05:41.175Z",
         "method": "http-check",
         "note": "Resources page lists the Figma library as 'Unofficial Radix Themes components for Figma, by Victor Allegret'. It is community-made, so figmaUrl is null"
+      },
+      {
+        "field": "organization",
+        "url": "https://workos.com",
+        "status": 200,
+        "finalUrl": "https://workos.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.409Z",
+        "method": "http-check",
+        "note": "title: WorkOS — Your app, Enterprise Ready.; WorkOS is the maintainer named in the repo description ('Maintained by @workos') and LICENSE holder"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:03:21.996Z"
+    "verifiedAt": "2026-11-05T04:12:07.409Z"
   },
   {
     "rank": 27,
@@ -867,7 +895,7 @@
     "organization": {
       "slug": "workos",
       "name": "WorkOS (Radix)",
-      "websiteUrl": null
+      "websiteUrl": "https://workos.com/"
     },
     "category": "headless-library",
     "summary": "Radix Primitives is an open-source library of unstyled, accessible React UI primitives (dialog, popover, menu, tabs and others) for building design systems. It is maintained by WorkOS and ships as per-component @radix-ui/react-* packages plus a unified radix-ui package.",
@@ -927,7 +955,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified headless-library (unstyled behavior primitives). shadcn/ui builds on these primitives (and on Base UI), and Radix Themes is the styled layer on top. Packages lists the unified 'radix-ui' package and one per-component example; there are many more @radix-ui/react-* packages. Ports to other frameworks (e.g. Radix Vue / Reka UI, Radix Svelte) are community projects outside this entry. No official Figma file was recorded.",
+    "notes": "Classified headless-library (unstyled behavior primitives). shadcn/ui offers these primitives as one of its component bases (alongside Base UI, its default since July 2026, and React Aria), and Radix Themes is the styled layer on top. Packages lists the unified 'radix-ui' package and one per-component example; there are many more @radix-ui/react-* packages. Ports to other frameworks (e.g. Radix Vue / Reka UI, Radix Svelte) are community projects outside this entry. No official Figma file was recorded. audited 2026-11-05: re-ran all checks (match); set organization.websiteUrl to https://workos.com/ (verified); corrected the shadcn/ui relationship note (Radix is one of three bases; Base UI is the default since July 2026).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -935,7 +963,7 @@
         "status": 200,
         "finalUrl": "https://www.radix-ui.com/primitives",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:06.029Z",
+        "checkedAt": "2026-11-05T04:05:40.836Z",
         "method": "http-check",
         "note": "title: Radix Primitives; npm homepage field = https://radix-ui.com/primitives"
       },
@@ -945,7 +973,7 @@
         "status": 200,
         "finalUrl": "https://www.radix-ui.com/primitives/docs/overview/introduction",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:06.307Z",
+        "checkedAt": "2026-11-05T04:05:41.649Z",
         "method": "http-check",
         "note": "title: Introduction – Radix Primitives; public docs"
       },
@@ -955,7 +983,7 @@
         "status": 200,
         "finalUrl": "https://github.com/radix-ui/primitives",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.634Z",
+        "checkedAt": "2026-11-05T04:05:40.799Z",
         "method": "http-check",
         "note": "official repo radix-ui/primitives; description says 'Maintained by @workos'"
       },
@@ -965,7 +993,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/radix-ui/primitives/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:55.018Z",
+        "checkedAt": "2026-11-05T04:05:40.745Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: MIT License, Copyright (c) 2022 WorkOS"
       },
@@ -975,7 +1003,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:36.366Z",
+        "checkedAt": "2026-11-05T04:05:42.290Z",
         "method": "package-metadata",
         "note": "npm latest 1.8.1 published 2026-10-12; license MIT; not deprecated; repo git+https://github.com/radix-ui/primitives.git; unified package re-exporting all primitives; release about 3 weeks before the research date => active"
       },
@@ -985,13 +1013,23 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:36.698Z",
+        "checkedAt": "2026-11-05T04:05:42.639Z",
         "method": "package-metadata",
         "note": "npm latest 1.3.1 published 2026-10-12; license MIT; not deprecated; repo git+https://github.com/radix-ui/primitives.git; example per-primitive package"
+      },
+      {
+        "field": "organization",
+        "url": "https://workos.com",
+        "status": 200,
+        "finalUrl": "https://workos.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.409Z",
+        "method": "http-check",
+        "note": "title: WorkOS — Your app, Enterprise Ready.; WorkOS is the maintainer named in the repo description ('Maintained by @workos') and LICENSE holder"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:54:55.018Z"
+    "verifiedAt": "2026-11-05T04:12:07.409Z"
   },
   {
     "rank": 28,
@@ -1006,7 +1044,7 @@
       "websiteUrl": null
     },
     "category": "component-library",
-    "summary": "shadcn/ui is an open-source collection of accessible React components styled with Tailwind CSS, distributed as source code copied into projects by the 'shadcn' CLI and registry rather than as a component package. It is built by shadcn at Vercel and uses Radix or Base UI primitives underneath.",
+    "summary": "shadcn/ui is an open-source collection of accessible React components styled with Tailwind CSS, distributed as source code copied into projects by the 'shadcn' CLI and registry rather than as a component package. It is built by shadcn at Vercel; components can be generated on Base UI (the default since July 2026), Radix or React Aria primitives.",
     "homepageUrl": "https://ui.shadcn.com/",
     "docsUrl": "https://ui.shadcn.com/docs",
     "repositoryUrl": "https://github.com/shadcn-ui/ui",
@@ -1046,19 +1084,19 @@
       "open-source",
       "react",
       "tailwind",
-      "headless",
       "theming",
       "copy-paste"
     ],
     "relatedSlugs": [
       "radix-primitives",
-      "base-ui"
+      "base-ui",
+      "react-aria"
     ],
     "registryStatus": "verified",
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified component-library although it calls itself 'not a component library': it is a curated, documented catalog of styled components distributed as code. The 'shadcn' npm package is the CLI. Installation guides cover React frameworks only (Next.js, Vite, TanStack Start, React Router, Astro, Laravel with React), so only React is listed. Vue/Svelte ports (shadcn-vue, shadcn-svelte) are community projects. The docs changelog includes 'January 2026 - Base UI Documentation' alongside Radix. figmaUrl is null because the official Figma page says its kits are community-contributed.",
+    "notes": "Classified component-library although it calls itself 'not a component library': it is a curated, documented catalog of styled components distributed as code. The 'shadcn' npm package is the CLI. Installation guides cover React frameworks only (Next.js, Vite, TanStack Start, React Router, Astro, Laravel with React), so only React is listed. Vue/Svelte ports (shadcn-vue, shadcn-svelte) are community projects. Docs changelog: 'January 2026 - Base UI Documentation', 'July 2026 - Base UI as the Default' (Radix still fully supported) and 'July 2026 - React Aria' (new component base). figmaUrl is null because the official Figma page says its kits are community-contributed. audited 2026-11-05: re-ran all checks (match); summary corrected: Base UI is the default base since July 2026 and React Aria was added July 2026 (was 'Radix or Base UI'); removed tag 'headless' (components are styled); added relatedSlugs react-aria; added 3 checks.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1066,7 +1104,7 @@
         "status": 200,
         "finalUrl": "https://ui.shadcn.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.544Z",
+        "checkedAt": "2026-11-05T04:05:41.007Z",
         "method": "http-check",
         "note": "title: shadcn/ui - The Foundation for your Design System; npm 'shadcn' homepage field = https://ui.shadcn.com"
       },
@@ -1076,7 +1114,7 @@
         "status": 200,
         "finalUrl": "https://ui.shadcn.com/docs",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.865Z",
+        "checkedAt": "2026-11-05T04:05:41.006Z",
         "method": "http-check",
         "note": "title: Introduction - shadcn/ui; docs say 'This is not a component library. It is how you build your component library.' Footer: 'Built by shadcn at Vercel'"
       },
@@ -1086,7 +1124,7 @@
         "status": 200,
         "finalUrl": "https://github.com/shadcn-ui/ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.923Z",
+        "checkedAt": "2026-11-05T04:05:39.553Z",
         "method": "http-check",
         "note": "official repo shadcn-ui/ui (200)"
       },
@@ -1096,7 +1134,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/shadcn-ui/ui/main/LICENSE.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:55.319Z",
+        "checkedAt": "2026-11-05T04:05:39.487Z",
         "method": "repo-metadata",
         "note": "LICENSE.md on main: MIT License, Copyright (c) 2023 shadcn"
       },
@@ -1106,7 +1144,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:36.961Z",
+        "checkedAt": "2026-11-05T04:05:43.186Z",
         "method": "package-metadata",
         "note": "npm latest 4.23.0 published 2026-10-27; license MIT; not deprecated; repo git+https://github.com/shadcn-ui/ui.git; CLI that copies component source into projects; release about 9 days before the research date => active"
       },
@@ -1116,7 +1154,7 @@
         "status": 200,
         "finalUrl": "https://ui.shadcn.com/docs/theming",
         "ok": true,
-        "checkedAt": "2026-11-05T04:03:22.212Z",
+        "checkedAt": "2026-11-05T04:05:41.757Z",
         "method": "http-check",
         "note": "theming docs: CSS-variable tokens mapped into Tailwind utilities (bg-background, text-foreground), components.json 'tailwind' config"
       },
@@ -1126,13 +1164,43 @@
         "status": 200,
         "finalUrl": "https://ui.shadcn.com/docs/figma",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.380Z",
+        "checkedAt": "2026-11-05T04:05:42.388Z",
         "method": "http-check",
         "note": "Figma page states 'The Figma files are contributed by the community' (e.g. by Sitsiilia Bergmann, Pietro Schirano), so figmaUrl is null"
+      },
+      {
+        "field": "summary",
+        "url": "https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default",
+        "status": 200,
+        "finalUrl": "https://ui.shadcn.com/docs/changelog/2026-07-base-ui-default",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.598Z",
+        "method": "http-check",
+        "note": "title: July 2026 - Base UI as the Default; 'New projects now use Base UI by default. Radix is still fully supported.'"
+      },
+      {
+        "field": "summary",
+        "url": "https://ui.shadcn.com/docs/changelog/2026-07-react-aria",
+        "status": 200,
+        "finalUrl": "https://ui.shadcn.com/docs/changelog/2026-07-react-aria",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.898Z",
+        "method": "http-check",
+        "note": "title: July 2026 - React Aria; 'React Aria is now available as a component base in shadcn/ui.'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://ui.shadcn.com/docs/installation",
+        "status": 200,
+        "finalUrl": "https://ui.shadcn.com/docs/installation",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:08.199Z",
+        "method": "http-check",
+        "note": "title: Installation - shadcn/ui; framework paths: Next.js, Vite, TanStack Start, Laravel, React Router, Astro, Manual (all React-based)"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:03:22.212Z"
+    "verifiedAt": "2026-11-05T04:12:08.199Z"
   },
   {
     "rank": 29,
@@ -1183,7 +1251,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Rebrand verified: tailwindui.com redirects to Tailwind Plus, and the official blog (2025-03-04) announced the rename. REJECTED because no public documentation remains: every tailwindcss.com/plus path checked (product page, UI-blocks docs, license) 302-redirects to /plus/login. The official 2026-09-09 post says sign-ups for new customers are closed. Not a duplicate or a replacement; replacedBy null. maintenanceStatus is 'unknown' because the announcement promises continued access but says nothing about updates. Frameworks are left empty because no public docs could be verified (the blog mentions React, Vue and HTML). Integrator: needs a replacement candidate.",
+    "notes": "Rebrand verified: tailwindui.com redirects to Tailwind Plus, and the official blog (2025-03-04) announced the rename. REJECTED because no public documentation remains: every tailwindcss.com/plus path checked (product page, UI-blocks docs, license) 302-redirects to /plus/login. The official 2026-09-09 post says sign-ups for new customers are closed. Not a duplicate or a replacement; replacedBy null. maintenanceStatus is 'unknown' because the announcement promises continued access but says nothing about updates. Frameworks are left empty because no public docs could be verified (the blog mentions React, Vue and HTML). Integrator: needs a replacement candidate. audited 2026-11-05: re-ran check.ts on every recorded URL, LICENSE (--raw) and npm package; all results match, no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1191,7 +1259,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/plus/login",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:06.122Z",
+        "checkedAt": "2026-11-05T04:05:40.325Z",
         "method": "http-check",
         "note": "302 to https://tailwindcss.com/plus/login (title: Login - Tailwind Plus). The product page is no longer public to unauthenticated visitors"
       },
@@ -1201,7 +1269,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/plus/login",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.453Z",
+        "checkedAt": "2026-11-05T04:05:39.793Z",
         "method": "http-check",
         "note": "former Tailwind UI domain redirects to https://tailwindcss.com/plus/login: the Tailwind UI to Tailwind Plus rebrand is confirmed"
       },
@@ -1211,7 +1279,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/blog/tailwind-plus",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:34.152Z",
+        "checkedAt": "2026-11-05T04:05:41.826Z",
         "method": "http-check",
         "note": "official blog 'Tailwind UI is now Tailwind Plus' (2025-03-04): Tailwind UI renamed Tailwind Plus; one-time purchase, lifetime access; includes components, templates and the Catalyst UI kit"
       },
@@ -1221,7 +1289,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/plus/login",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:34.451Z",
+        "checkedAt": "2026-11-05T04:05:41.826Z",
         "method": "http-check",
         "note": "UI-blocks documentation redirects to /plus/login: no public docs"
       },
@@ -1231,7 +1299,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/plus/login",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:34.751Z",
+        "checkedAt": "2026-11-05T04:05:41.960Z",
         "method": "http-check",
         "note": "license terms page redirects to /plus/login: terms not publicly readable"
       },
@@ -1241,7 +1309,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/blog/tailwind-is-joining-shopify",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.851Z",
+        "checkedAt": "2026-11-05T04:05:42.242Z",
         "method": "http-check",
         "note": "official blog 2026-09-09 'Tailwind Labs is joining Shopify': existing customers keep access to Tailwind Plus, but sign-ups for new customers are closed; the company will no longer grow the commercial business"
       },
@@ -1251,13 +1319,13 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/blog/vanilla-js-support-for-tailwind-plus",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:35.051Z",
+        "checkedAt": "2026-11-05T04:05:42.544Z",
         "method": "http-check",
         "note": "official blog 2025-07-25: UI blocks offered for React, Vue and plain HTML; plain-HTML interactivity via the customer-only @tailwindplus/elements library"
       }
     ],
     "confidence": 0.9,
-    "verifiedAt": "2026-11-05T03:54:35.051Z"
+    "verifiedAt": "2026-11-05T04:05:42.544Z"
   },
   {
     "rank": 30,
@@ -1330,7 +1398,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified headless-library. The React package is on v2 (latest 2026-04-07), while the Vue package remains on v1 (last release 2024-09-09) with docs under /v1/vue, so Vue support is official but lags. latestVersion/latestReleaseAt refer to @headlessui/react. Tailwind Labs joined Shopify in September 2026 and stated that its open-source projects continue unchanged.",
+    "notes": "Classified headless-library. The React package is on v2 (latest 2026-04-07), while the Vue package remains on v1 (last release 2024-09-09) with docs under /v1/vue, so Vue support is official but lags. latestVersion/latestReleaseAt refer to @headlessui/react. Tailwind Labs joined Shopify in September 2026 and stated that its open-source projects continue unchanged. audited 2026-11-05: re-ran check.ts on every recorded URL, LICENSE (--raw) and npm package; all results match, no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1338,7 +1406,7 @@
         "status": 200,
         "finalUrl": "https://headlessui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:05.593Z",
+        "checkedAt": "2026-11-05T04:05:40.862Z",
         "method": "http-check",
         "note": "title: Headless UI - Unstyled, fully accessible UI components; first-party Tailwind Labs site"
       },
@@ -1348,7 +1416,7 @@
         "status": 200,
         "finalUrl": "https://headlessui.com/react/menu",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:54.938Z",
+        "checkedAt": "2026-11-05T04:05:40.341Z",
         "method": "http-check",
         "note": "title: Dropdown Menu - Headless UI; public React docs (v2)"
       },
@@ -1358,7 +1426,7 @@
         "status": 200,
         "finalUrl": "https://headlessui.com/v1/vue",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:55.250Z",
+        "checkedAt": "2026-11-05T04:05:41.267Z",
         "method": "http-check",
         "note": "Vue docs are served under /v1/vue (Vue package remains on v1)"
       },
@@ -1368,7 +1436,7 @@
         "status": 200,
         "finalUrl": "https://github.com/tailwindlabs/headlessui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:52:06.237Z",
+        "checkedAt": "2026-11-05T04:05:39.892Z",
         "method": "http-check",
         "note": "official repo tailwindlabs/headlessui (200)"
       },
@@ -1378,7 +1446,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/tailwindlabs/headlessui/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:55.618Z",
+        "checkedAt": "2026-11-05T04:05:39.773Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: MIT License, Copyright (c) 2020 Tailwind Labs"
       },
@@ -1388,7 +1456,7 @@
         "status": 200,
         "finalUrl": "https://tailwindcss.com/blog/tailwind-is-joining-shopify",
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:33.851Z",
+        "checkedAt": "2026-11-05T04:05:42.242Z",
         "method": "http-check",
         "note": "2026-09-09: 'Nothing changes with Tailwind CSS or any of our other open-source projects... will always be MIT-licensed'; the team continues to maintain them with Shopify's support"
       },
@@ -1398,7 +1466,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:37.317Z",
+        "checkedAt": "2026-11-05T04:05:42.761Z",
         "method": "package-metadata",
         "note": "npm latest 2.2.10 published 2026-04-07; license MIT; not deprecated; repo git+https://github.com/tailwindlabs/headlessui.git; last release 2026-04-07, within 12 months => active"
       },
@@ -1408,13 +1476,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:54:37.608Z",
+        "checkedAt": "2026-11-05T04:05:43.051Z",
         "method": "package-metadata",
         "note": "npm latest 1.7.23 published 2024-09-09; license MIT; not deprecated; repo git+https://github.com/tailwindlabs/headlessui.git; last release 2024-09-09 (v1 line); older than 12 months"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:54:55.618Z"
+    "verifiedAt": "2026-11-05T04:05:43.051Z"
   },
   {
     "rank": 31,
@@ -1477,7 +1545,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified css-framework: a Tailwind CSS plugin that emits component classes, with no JavaScript components. Framework support is html-css because the output is plain CSS usable from any framework, and no framework-specific official packages were verified. No figma.com link was found on the homepage, so figmaUrl is null.",
+    "notes": "Classified css-framework: a Tailwind CSS plugin that emits component classes, with no JavaScript components. Framework support is html-css because the output is plain CSS usable from any framework, and no framework-specific official packages were verified. No figma.com link was found on the homepage, so figmaUrl is null. audited 2026-11-05: re-ran check.ts on every recorded URL, LICENSE (--raw) and npm package; all results match, no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1485,7 +1553,7 @@
         "status": 200,
         "finalUrl": "https://daisyui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.885Z",
+        "checkedAt": "2026-11-05T04:05:41.195Z",
         "method": "http-check",
         "note": "title: daisyUI - Tailwind CSS Component Library; homepage: 'daisyUI adds class names to Tailwind CSS for all common UI components. Class names like btn, card, toggle'; lists built-in themes"
       },
@@ -1495,7 +1563,7 @@
         "status": 200,
         "finalUrl": "https://daisyui.com/docs/install/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.200Z",
+        "checkedAt": "2026-11-05T04:05:40.285Z",
         "method": "http-check",
         "note": "title: Install daisyUI as a Tailwind plugin; public docs"
       },
@@ -1505,7 +1573,7 @@
         "status": 200,
         "finalUrl": "https://github.com/saadeghi/daisyui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:19.806Z",
+        "checkedAt": "2026-11-05T04:05:39.950Z",
         "method": "http-check",
         "note": "official repo saadeghi/daisyui (200)"
       },
@@ -1515,7 +1583,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/saadeghi/daisyui/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:50.992Z",
+        "checkedAt": "2026-11-05T04:05:39.918Z",
         "method": "repo-metadata",
         "note": "LICENSE on master: MIT License, Copyright (c) 2020 Pouya Saadeghi"
       },
@@ -1525,13 +1593,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.637Z",
+        "checkedAt": "2026-11-05T04:05:42.795Z",
         "method": "package-metadata",
         "note": "npm latest 5.7.50 published 2026-10-13; license MIT; not deprecated; repo git+https://github.com/saadeghi/daisyui.git; release about 3 weeks before the research date => active"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:56:50.992Z"
+    "verifiedAt": "2026-11-05T04:05:42.795Z"
   },
   {
     "rank": 32,
@@ -1544,7 +1612,7 @@
       "websiteUrl": "https://flowbite.com/"
     },
     "category": "component-library",
-    "summary": "Flowbite is an open-source UI component library built on Tailwind CSS, with vanilla JavaScript interactivity in its core package plus official React, Vue and Svelte component libraries. It is maintained by Themesberg (Bergside Inc.).",
+    "summary": "Flowbite is an open-source UI component library built on Tailwind CSS, with vanilla JavaScript interactivity in its core package plus official React, Vue, Svelte and Angular component libraries. It is maintained by Themesberg (Bergside Inc.).",
     "homepageUrl": "https://flowbite.com/",
     "docsUrl": "https://flowbite.com/docs/getting-started/introduction/",
     "repositoryUrl": "https://github.com/themesberg/flowbite",
@@ -1570,6 +1638,11 @@
         "name": "flowbite-svelte",
         "registry": "npm",
         "url": "https://www.npmjs.com/package/flowbite-svelte"
+      },
+      {
+        "name": "flowbite-angular",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/flowbite-angular"
       }
     ],
     "license": {
@@ -1605,6 +1678,11 @@
         "slug": "svelte",
         "packageName": "flowbite-svelte",
         "support": "official"
+      },
+      {
+        "slug": "angular",
+        "packageName": "flowbite-angular",
+        "support": "official"
       }
     ],
     "platforms": [
@@ -1621,7 +1699,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified component-library (Tailwind classes plus a JS behavior layer and framework ports). Framework packages count as official only where the repos are in the themesberg org and are described as 'Official ... components'. The docs' integration guides (Angular, Laravel, Django, Blazor, ...) cover using the core package and are not separate libraries. Open-source docs are public. A 'Pro version' is linked from the docs nav, but it was not reviewed. figmaUrl is null: flowbite.com/figma/ promotes a Figma design system, but no figma.com URL was verified. latestVersion is the core 'flowbite' package.",
+    "notes": "Classified component-library (Tailwind classes plus a JS behavior layer and framework ports). Framework packages count as official only where the repos are in the themesberg org and are described as 'Official ... components'. Most docs integration guides (Laravel, Django, ...) use the core package; Angular also has its own official library (themesberg/flowbite-angular). themesberg/flowbite-blazor is not labelled official and was not added; flowbite-qwik is a community repo (qwikerx). Open-source docs are public. A 'Pro version' is linked from the docs nav, but it was not reviewed. figmaUrl is null: flowbite.com/figma/ promotes a Figma design system, but no figma.com URL was verified. latestVersion is the core 'flowbite' package. audited 2026-11-05: re-ran all checks (match); added missing official Angular library: framework angular (flowbite-angular), package flowbite-angular (npm 21.0.0, 2026-01-13, MIT, repo themesberg/flowbite-angular); summary/notes updated.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1629,7 +1707,7 @@
         "status": 200,
         "finalUrl": "https://flowbite.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.203Z",
+        "checkedAt": "2026-11-05T04:05:41.919Z",
         "method": "http-check",
         "note": "200 at https://flowbite.com/ (title tag empty in server HTML); npm 'flowbite' homepage field = https://flowbite.com"
       },
@@ -1639,7 +1717,7 @@
         "status": 200,
         "finalUrl": "https://flowbite.com/docs/getting-started/introduction/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.503Z",
+        "checkedAt": "2026-11-05T04:05:40.603Z",
         "method": "http-check",
         "note": "title: Flowbite - Tailwind CSS component library; docs list integration guides (React, Vue, Svelte, Angular, Laravel, Django, Blazor, ...)"
       },
@@ -1649,7 +1727,7 @@
         "status": 200,
         "finalUrl": "https://github.com/themesberg/flowbite",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.106Z",
+        "checkedAt": "2026-11-05T04:05:40.244Z",
         "method": "http-check",
         "note": "official repo themesberg/flowbite: 'Open-source UI component library and front-end development framework'"
       },
@@ -1659,7 +1737,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/themesberg/flowbite/main/LICENSE.md",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:07.809Z",
+        "checkedAt": "2026-11-05T04:05:40.137Z",
         "method": "repo-metadata",
         "note": "LICENSE.md on main: MIT License, Copyright (c) 2023 Bergside Inc."
       },
@@ -1669,7 +1747,7 @@
         "status": 200,
         "finalUrl": "https://flowbite.com/docs/getting-started/license/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:54.027Z",
+        "checkedAt": "2026-11-05T04:05:41.644Z",
         "method": "http-check",
         "note": "official license page: released code is MIT, Copyright (c) Themesberg (Bergside Inc.); Flowbite name/logos are trademarks of Bergside Inc."
       },
@@ -1679,7 +1757,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:22.908Z",
+        "checkedAt": "2026-11-05T04:05:43.213Z",
         "method": "package-metadata",
         "note": "npm latest 4.0.2 published 2026-05-13; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite.git; core package (Tailwind plugin + vanilla JS); last release 2026-05-13 => active"
       },
@@ -1689,7 +1767,7 @@
         "status": 200,
         "finalUrl": "https://flowbite.com/docs/getting-started/react/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:50.840Z",
+        "checkedAt": "2026-11-05T04:05:42.288Z",
         "method": "http-check",
         "note": "title: Tailwind CSS React - Flowbite"
       },
@@ -1699,7 +1777,7 @@
         "status": 200,
         "finalUrl": "https://github.com/themesberg/flowbite-react",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.414Z",
+        "checkedAt": "2026-11-05T04:05:40.550Z",
         "method": "http-check",
         "note": "repo description: 'Official React components built for Flowbite and Tailwind CSS'"
       },
@@ -1709,7 +1787,7 @@
         "status": 429,
         "finalUrl": "https://flowbite-react.com/",
         "ok": false,
-        "checkedAt": "2026-11-05T03:56:21.024Z",
+        "checkedAt": "2026-11-05T04:05:41.898Z",
         "method": "http-check",
         "note": "flowbite-react.com returned 429 (Vercel Security Checkpoint) to the checker; not used as a URL value"
       },
@@ -1719,7 +1797,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:23.221Z",
+        "checkedAt": "2026-11-05T04:05:43.541Z",
         "method": "package-metadata",
         "note": "npm latest 0.12.17 published 2026-02-09; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-react.git"
       },
@@ -1729,7 +1807,7 @@
         "status": 200,
         "finalUrl": "https://github.com/themesberg/flowbite-vue",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:54.322Z",
+        "checkedAt": "2026-11-05T04:05:41.563Z",
         "method": "http-check",
         "note": "repo description: 'Official Vue 3 components built for Flowbite and Tailwind CSS'"
       },
@@ -1739,7 +1817,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:54.037Z",
+        "checkedAt": "2026-11-05T04:05:43.828Z",
         "method": "package-metadata",
         "note": "npm latest 0.4.0 published 2026-07-27; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-vue.git"
       },
@@ -1749,7 +1827,7 @@
         "status": 200,
         "finalUrl": "https://github.com/themesberg/flowbite-svelte",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:54.623Z",
+        "checkedAt": "2026-11-05T04:05:42.283Z",
         "method": "http-check",
         "note": "repo description: 'Official Svelte components built for Flowbite and Tailwind CSS'"
       },
@@ -1759,13 +1837,43 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:54.631Z",
+        "checkedAt": "2026-11-05T04:05:44.269Z",
         "method": "package-metadata",
         "note": "npm latest 1.33.1 published 2026-04-07; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-svelte.git"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/themesberg/flowbite-angular",
+        "status": 200,
+        "finalUrl": "https://github.com/themesberg/flowbite-angular",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.274Z",
+        "method": "http-check",
+        "note": "repo description: 'Official Angular components built for Flowbite and Tailwind CSS'"
+      },
+      {
+        "field": "package:flowbite-angular",
+        "url": "https://www.npmjs.com/package/flowbite-angular",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:18.974Z",
+        "method": "package-metadata",
+        "note": "npm latest 21.0.0 published 2026-01-13; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-angular.git"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/themesberg/flowbite-blazor",
+        "status": 200,
+        "finalUrl": "https://github.com/themesberg/flowbite-blazor",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:18.223Z",
+        "method": "http-check",
+        "note": "repo description: 'Blazor components built for Flowbite and Tailwind CSS' (not labelled official; blazor not added)"
       }
     ],
     "confidence": 0.94,
-    "verifiedAt": "2026-11-05T03:57:54.623Z"
+    "verifiedAt": "2026-11-05T04:12:18.974Z"
   },
   {
     "rank": 33,
@@ -1776,11 +1884,11 @@
     ],
     "organization": {
       "slug": "heroui",
-      "name": "HeroUI Inc. (formerly NextUI Inc.)",
+      "name": "HeroUI (NextUI Inc.)",
       "websiteUrl": "https://heroui.com/"
     },
     "category": "component-library",
-    "summary": "HeroUI, formerly NextUI, is an open-source React UI component library from HeroUI Inc. Version 3 builds on React Aria and Tailwind CSS. A companion HeroUI Native library targets React Native.",
+    "summary": "HeroUI, formerly NextUI, is an open-source React UI component library maintained by the HeroUI team (the site footer names NextUI Inc.). Version 3 builds on React Aria and Tailwind CSS. A companion HeroUI Native library targets React Native.",
     "homepageUrl": "https://heroui.com/",
     "docsUrl": "https://heroui.com/en/docs/react/getting-started",
     "repositoryUrl": "https://github.com/heroui-inc/heroui",
@@ -1843,7 +1951,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Rename verified: nextui.org redirects to heroui.com, and @nextui-org/react is deprecated in favor of @heroui/react. Licensing changed across major versions (v2 MIT, v3 Apache-2.0); see license notes. ios/android platforms come from HeroUI Native, a separate official package and repo. figmaUrl is null because the figma.com link on heroui.com returned 403. latestVersion refers to @heroui/react.",
+    "notes": "Rename verified: nextui.org redirects to heroui.com, and @nextui-org/react is deprecated in favor of @heroui/react. Licensing changed across major versions (v2 MIT, v3 Apache-2.0); see license notes. ios/android platforms come from HeroUI Native, a separate official package and repo. figmaUrl is null because the figma.com link on heroui.com returned 403. latestVersion refers to @heroui/react. audited 2026-11-05: re-ran all checks (match); organization.name 'HeroUI Inc. (formerly NextUI Inc.)' -> 'HeroUI (NextUI Inc.)' and summary reworded: heroui.com footer names NextUI Inc., no 'HeroUI Inc.' found; added README check for ios/android platforms.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1851,7 +1959,7 @@
         "status": 200,
         "finalUrl": "https://heroui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.417Z",
+        "checkedAt": "2026-11-05T04:05:40.647Z",
         "method": "http-check",
         "note": "redirects to https://heroui.com/ (title: HeroUI v3 (Previously NextUI) ...)"
       },
@@ -1861,7 +1969,7 @@
         "status": 200,
         "finalUrl": "https://heroui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.418Z",
+        "checkedAt": "2026-11-05T04:05:40.529Z",
         "method": "http-check",
         "note": "former NextUI domain redirects to https://heroui.com/: the rename is confirmed"
       },
@@ -1871,7 +1979,7 @@
         "status": 200,
         "finalUrl": "https://heroui.com/en/docs/react/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:50.790Z",
+        "checkedAt": "2026-11-05T04:05:41.097Z",
         "method": "http-check",
         "note": "title: Introduction to HeroUI v3 – React UI Library; states 'HeroUI is a React component library built on Tailwind CSS v4 and React Aria Components'; public docs"
       },
@@ -1881,7 +1989,7 @@
         "status": 200,
         "finalUrl": "https://heroui.com/en/docs/react/migration",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.717Z",
+        "checkedAt": "2026-11-05T04:05:41.098Z",
         "method": "http-check",
         "note": "legacy v2 docs path redirects to https://heroui.com/en/docs/react/migration"
       },
@@ -1891,7 +1999,7 @@
         "status": 200,
         "finalUrl": "https://github.com/heroui-inc/heroui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.801Z",
+        "checkedAt": "2026-11-05T04:05:40.432Z",
         "method": "http-check",
         "note": "official repo heroui-inc/heroui: '(Previously NextUI)'"
       },
@@ -1901,7 +2009,7 @@
         "status": 200,
         "finalUrl": "https://github.com/heroui-inc/heroui/tree/v3",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:53.722Z",
+        "checkedAt": "2026-11-05T04:05:40.739Z",
         "method": "http-check",
         "note": "v3 branch exists (200)"
       },
@@ -1911,7 +2019,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/heroui-inc/heroui/v3/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:07.209Z",
+        "checkedAt": "2026-11-05T04:05:40.324Z",
         "method": "repo-metadata",
         "note": "LICENSE on v3 branch: Apache License 2.0"
       },
@@ -1921,7 +2029,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@heroui/react@3.2.7/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:06.945Z",
+        "checkedAt": "2026-11-05T04:05:40.371Z",
         "method": "repo-metadata",
         "note": "published @heroui/react@3.2.7 ships Apache License 2.0"
       },
@@ -1931,7 +2039,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/heroui-inc/heroui/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:50.692Z",
+        "checkedAt": "2026-11-05T04:05:40.624Z",
         "method": "repo-metadata",
         "note": "LICENSE on main branch (v2 line): MIT License, Copyright (c) 2020 Next UI Inc."
       },
@@ -1941,7 +2049,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:23.560Z",
+        "checkedAt": "2026-11-05T04:05:43.521Z",
         "method": "package-metadata",
         "note": "npm latest 3.2.7 published 2026-10-28; license Apache-2.0; not deprecated; repo git+https://github.com/heroui-inc/heroui.git; release about 1 week before the research date => active"
       },
@@ -1951,7 +2059,7 @@
         "status": 200,
         "finalUrl": "https://heroui.com/en/docs/react/releases/v3-2-7",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:53.837Z",
+        "checkedAt": "2026-11-05T04:05:42.302Z",
         "method": "http-check",
         "note": "release notes v3.2.7 mention React Aria 1.22.1, a new Sheet component, Slider marks"
       },
@@ -1961,7 +2069,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.009Z",
+        "checkedAt": "2026-11-05T04:06:46.855Z",
         "method": "package-metadata",
         "note": "npm latest 2.6.11 published 2025-01-05; license MIT; DEPRECATED: This package has been deprecated. Please use @heroui/react instead.; repo git+https://github.com/nextui-org/nextui.git; former NextUI package; deprecated in favor of @heroui/react"
       },
@@ -1971,7 +2079,7 @@
         "status": 200,
         "finalUrl": "https://heroui.com/en/docs/native/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:51.091Z",
+        "checkedAt": "2026-11-05T04:05:43.099Z",
         "method": "http-check",
         "note": "HeroUI Native docs (title: Introduction | HeroUI), linked from heroui.com"
       },
@@ -1981,7 +2089,7 @@
         "status": 200,
         "finalUrl": "https://github.com/heroui-inc/heroui-native",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:54.021Z",
+        "checkedAt": "2026-11-05T04:05:41.975Z",
         "method": "http-check",
         "note": "official repo heroui-inc/heroui-native: React Native UI library"
       },
@@ -1991,7 +2099,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:53.312Z",
+        "checkedAt": "2026-11-05T04:05:43.718Z",
         "method": "package-metadata",
         "note": "npm latest 1.0.11 published 2026-10-20; license Apache-2.0; not deprecated; repo git+https://github.com/heroui-inc/heroui-native.git"
       },
@@ -2001,13 +2109,33 @@
         "status": 403,
         "finalUrl": "https://www.figma.com/community/file/1546526812159103429",
         "ok": false,
-        "checkedAt": "2026-11-05T03:56:50.888Z",
+        "checkedAt": "2026-11-05T04:05:41.062Z",
         "method": "http-check",
         "note": "heroui.com links this Figma community file, but figma.com returned 403 to the checker; figmaUrl left null"
+      },
+      {
+        "field": "organization",
+        "url": "https://heroui.com/",
+        "status": 200,
+        "finalUrl": "https://heroui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:05:40.464Z",
+        "method": "page-content",
+        "note": "page-content: site footer reads '© 2026 NextUI Inc. All rights reserved.'; GitHub org is heroui-inc. No 'HeroUI Inc.' entity found on first-party pages"
+      },
+      {
+        "field": "platforms",
+        "url": "https://raw.githubusercontent.com/heroui-inc/heroui-native/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/heroui-inc/heroui-native/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:27.609Z",
+        "method": "repo-metadata",
+        "note": "README: 'Beautiful, fast and modern React Native UI library'; official preview app on the iOS App Store, Android 'coming soon' (platforms ios/android follow from React Native)"
       }
     ],
     "confidence": 0.94,
-    "verifiedAt": "2026-11-05T03:57:54.021Z"
+    "verifiedAt": "2026-11-05T04:10:27.609Z"
   },
   {
     "rank": 34,
@@ -2063,7 +2191,6 @@
     ],
     "tags": [
       "open-source",
-      "headless",
       "theming",
       "design-tokens",
       "copy-paste"
@@ -2077,7 +2204,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified component-library (styled recipes over Ark UI headless components). 'active' is borderline: the last CLI release (2025-11-20) and the latest changelog entry ('11 months ago') fall just inside 12 months. Re-check soon. Only React and Solid have install paths on the official installation page, so Vue is omitted even though the meta description mentions it. The org is chakra-ui because the repo is in that GitHub org and the npm repository field points to cschroeter/park-ui. The site nav links a Figma community file, but figma.com is not verifiable from the checker, so figmaUrl is null.",
+    "notes": "Classified component-library (styled recipes over Ark UI headless components). 'active' is borderline: the last CLI release (2025-11-20) and the latest changelog entry ('11 months ago') fall just inside 12 months. Re-check soon. Only React and Solid have install paths on the official installation page, so Vue is omitted even though the meta description mentions it. The org is chakra-ui because the repo is in that GitHub org and the npm repository field points to cschroeter/park-ui. The site nav links a Figma community file, but figma.com is not verifiable from the checker, so figmaUrl is null. audited 2026-11-05: re-ran all checks (match); removed tag 'headless' (Park UI ships styled recipes; Ark UI is the headless layer).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2085,7 +2212,7 @@
         "status": 200,
         "finalUrl": "https://park-ui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.307Z",
+        "checkedAt": "2026-11-05T04:05:41.554Z",
         "method": "http-check",
         "note": "title: Home | Park UI; npm homepage field = https://park-ui.com"
       },
@@ -2095,7 +2222,7 @@
         "status": 200,
         "finalUrl": "https://park-ui.com/docs/introduction",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:51.034Z",
+        "checkedAt": "2026-11-05T04:05:42.078Z",
         "method": "http-check",
         "note": "redirects to https://park-ui.com/docs/introduction (title: Introduction | Park UI); built with Panda CSS"
       },
@@ -2105,7 +2232,7 @@
         "status": 200,
         "finalUrl": "https://park-ui.com/docs/installation",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:54.493Z",
+        "checkedAt": "2026-11-05T04:05:42.719Z",
         "method": "http-check",
         "note": "installation shows React and Solid paths (npm install @ark-ui/react / @ark-ui/solid; npx @park-ui/cli init); the meta description also mentions Vue, but no Vue install path appears"
       },
@@ -2115,7 +2242,7 @@
         "status": 200,
         "finalUrl": "https://github.com/chakra-ui/park-ui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:21.061Z",
+        "checkedAt": "2026-11-05T04:05:39.485Z",
         "method": "http-check",
         "note": "official repo chakra-ui/park-ui: 'Beautifully designed components built with Ark UI and Panda CSS'"
       },
@@ -2125,7 +2252,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/chakra-ui/park-ui/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:51.592Z",
+        "checkedAt": "2026-11-05T04:05:39.381Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: MIT License, Copyright (c) 2025 cschroeter"
       },
@@ -2135,7 +2262,7 @@
         "status": 200,
         "finalUrl": "https://park-ui.com/changelog",
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:54.194Z",
+        "checkedAt": "2026-11-05T04:05:43.395Z",
         "method": "http-check",
         "note": "latest changelog entry dated '11 months ago': 'Park UI Gets a Major Upgrade', retiring @park-ui/panda-preset in favor of recipes copied into the codebase"
       },
@@ -2145,7 +2272,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:53.909Z",
+        "checkedAt": "2026-11-05T04:05:43.893Z",
         "method": "package-metadata",
         "note": "npm latest 1.0.1 published 2025-11-20; license MIT; not deprecated; repo git+https://github.com/cschroeter/park-ui.git; current distribution tool; last release 2025-11-20 (about 11.5 months before the research date)"
       },
@@ -2155,13 +2282,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.199Z",
+        "checkedAt": "2026-11-05T04:06:47.077Z",
         "method": "package-metadata",
         "note": "npm latest 0.43.1 published 2024-11-22; license MIT; not deprecated; repo git+https://github.com/cschroeter/park-ui.git; retired per the official changelog; last release 2024-11-22"
       }
     ],
     "confidence": 0.9,
-    "verifiedAt": "2026-11-05T03:57:54.493Z"
+    "verifiedAt": "2026-11-05T04:06:47.077Z"
   },
   {
     "rank": 35,
@@ -2256,7 +2383,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified headless-library. All four framework packages are in the chakra-ui/ark repo and were released within the past week (svelte 5.25.1, others 5.40.0). The Zag.js foundation and Chakra-team maintainership come from the official About page. Chakra UI v3 depends on @ark-ui/react (verified via its package.json). The 'Plus' link on the site navigation (Ark UI Plus) was not verified and is out of scope. No official Figma link was recorded.",
+    "notes": "Classified headless-library. All four framework packages are in the chakra-ui/ark repo and were released within the past week (svelte 5.25.1, others 5.40.0). The Zag.js foundation and Chakra-team maintainership come from the official About page. Chakra UI v3 depends on @ark-ui/react (verified via its package.json). The 'Plus' link on the site navigation (Ark UI Plus) was not verified and is out of scope. No official Figma link was recorded. audited 2026-11-05: re-ran check.ts on every recorded URL, LICENSE (--raw) and npm package; all results match, no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2264,7 +2391,7 @@
         "status": 200,
         "finalUrl": "https://ark-ui.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:20.246Z",
+        "checkedAt": "2026-11-05T04:05:41.642Z",
         "method": "http-check",
         "note": "title: Ark UI; npm homepage field = https://ark-ui.com"
       },
@@ -2274,7 +2401,7 @@
         "status": 200,
         "finalUrl": "https://ark-ui.com/docs/overview/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:50.761Z",
+        "checkedAt": "2026-11-05T04:05:41.321Z",
         "method": "http-check",
         "note": "title: Getting Started | Ark UI; framework switcher React / Solid / Vue / Svelte"
       },
@@ -2284,7 +2411,7 @@
         "status": 200,
         "finalUrl": "https://ark-ui.com/docs/overview/about",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:26.972Z",
+        "checkedAt": "2026-11-05T04:05:42.298Z",
         "method": "http-check",
         "note": "About page: Ark UI is built on top of Zag.js (finite state machines), supports React, Solid, Vue and Svelte, and is built and maintained by the team behind Chakra UI"
       },
@@ -2294,7 +2421,7 @@
         "status": 200,
         "finalUrl": "https://github.com/chakra-ui/ark",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:21.361Z",
+        "checkedAt": "2026-11-05T04:05:40.206Z",
         "method": "http-check",
         "note": "official repo chakra-ui/ark: 'Unstyled, accessible UI components for your design System'"
       },
@@ -2304,7 +2431,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/chakra-ui/ark/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:51.892Z",
+        "checkedAt": "2026-11-05T04:05:40.186Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: MIT License, Copyright (c) 2024 Chakra Systems Inc."
       },
@@ -2314,7 +2441,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:24.494Z",
+        "checkedAt": "2026-11-05T04:05:43.081Z",
         "method": "package-metadata",
         "note": "npm latest 5.40.0 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git; release about 1 week before the research date => active"
       },
@@ -2324,7 +2451,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:25.011Z",
+        "checkedAt": "2026-11-05T04:05:43.418Z",
         "method": "package-metadata",
         "note": "npm latest 5.40.0 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git"
       },
@@ -2334,7 +2461,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:25.347Z",
+        "checkedAt": "2026-11-05T04:05:43.666Z",
         "method": "package-metadata",
         "note": "npm latest 5.40.0 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git"
       },
@@ -2344,13 +2471,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:56:25.524Z",
+        "checkedAt": "2026-11-05T04:05:43.904Z",
         "method": "package-metadata",
         "note": "npm latest 5.25.1 published 2026-11-02; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:59:26.972Z"
+    "verifiedAt": "2026-11-05T04:05:43.904Z"
   },
   {
     "rank": 36,
@@ -2451,7 +2578,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Classified styling-engine: it ships no component catalog; Park UI provides components on top of it. Frameworks map the official framework guides to taxonomy slugs (Next.js/Remix/React Router/Gatsby/Redwood -> react; Vue/Nuxt -> vue; plus svelte, angular, solid, qwik, preact, ember). All use the same @pandacss/dev package. Astro, Vite and Rsbuild are build tools or meta-frameworks without a taxonomy slug. No component Figma kit applies.",
+    "notes": "Classified styling-engine: it ships no component catalog; Park UI provides components on top of it. Frameworks map the official framework guides to taxonomy slugs (Next.js/Remix/React Router/Gatsby/Redwood -> react; Vue/Nuxt -> vue; plus svelte, angular, solid, qwik, preact, ember). All use the same @pandacss/dev package. Astro, Vite and Rsbuild are build tools or meta-frameworks without a taxonomy slug. No component Figma kit applies. audited 2026-11-05: re-ran check.ts on every recorded URL, LICENSE (--raw) and npm package; all results match, no changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2459,7 +2586,7 @@
         "status": 200,
         "finalUrl": "https://panda-css.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.229Z",
+        "checkedAt": "2026-11-05T04:05:42.318Z",
         "method": "http-check",
         "note": "title: Panda CSS - Build modern websites using build time and type-safe CSS-in-JS; npm @pandacss/dev homepage field = https://panda-css.com"
       },
@@ -2469,7 +2596,7 @@
         "status": 200,
         "finalUrl": "https://panda-css.com/docs",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:38.852Z",
+        "checkedAt": "2026-11-05T04:05:41.616Z",
         "method": "http-check",
         "note": "title: Welcome to Panda - Panda CSS; public docs; footer 'Proudly made by the Chakra team'"
       },
@@ -2479,7 +2606,7 @@
         "status": 200,
         "finalUrl": "https://panda-css.com/docs/get-started/framework-guides",
         "ok": true,
-        "checkedAt": "2026-11-05T04:01:12.770Z",
+        "checkedAt": "2026-11-05T04:05:42.341Z",
         "method": "http-check",
         "note": "official framework guides: Next.js, Vite, Astro, Vue, Nuxt, Svelte, Remix, React Router, Angular, Gatsby, Solid, Qwik, Preact, Rsbuild, Ember, Redwood"
       },
@@ -2489,7 +2616,7 @@
         "status": 200,
         "finalUrl": "https://github.com/chakra-ui/panda",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.117Z",
+        "checkedAt": "2026-11-05T04:05:40.470Z",
         "method": "http-check",
         "note": "official repo chakra-ui/panda: 'Universal, Type-Safe, CSS-in-JS Framework for Design Systems'"
       },
@@ -2499,7 +2626,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/chakra-ui/panda/main/LICENSE.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:50.399Z",
+        "checkedAt": "2026-11-05T04:05:40.418Z",
         "method": "repo-metadata",
         "note": "LICENSE.md on main: MIT License, Copyright (c) 2023 Segun Adebayo"
       },
@@ -2509,13 +2636,13 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:51.000Z",
+        "checkedAt": "2026-11-05T04:05:43.203Z",
         "method": "package-metadata",
         "note": "npm latest 2.5.0 published 2026-11-02; license MIT; not deprecated; repo git+https://github.com/chakra-ui/panda.git; release 3 days before the research date => active"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T04:01:12.770Z"
+    "verifiedAt": "2026-11-05T04:05:43.203Z"
   },
   {
     "rank": 37,
@@ -2528,7 +2655,7 @@
     "organization": {
       "slug": "adobe",
       "name": "Adobe",
-      "websiteUrl": null
+      "websiteUrl": "https://www.adobe.com/"
     },
     "category": "headless-library",
     "summary": "React Aria is Adobe's open-source library of unstyled, accessible React components (react-aria-components) and lower-level behavior hooks (react-aria), with built-in interactions and internationalization. It is developed in the adobe/react-spectrum monorepo.",
@@ -2589,7 +2716,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Canonical entry for React Aria (hooks) and React Aria Components; 'adobe-react-aria' (rank 90) is duplicateOf this slug per integrator decision. Distinct from react-spectrum, which is Adobe's styled Spectrum implementation built on React Aria. Docs moved from react-spectrum.adobe.com/react-aria/ to react-aria.adobe.com (redirect verified). latestVersion refers to react-aria-components; the react-aria hooks package is versioned separately (3.x). organization.websiteUrl is null because no Adobe corporate page was checked.",
+    "notes": "Canonical entry for React Aria (hooks) and React Aria Components; 'adobe-react-aria' (rank 90) is duplicateOf this slug per integrator decision. Distinct from react-spectrum, which is Adobe's styled Spectrum implementation built on React Aria. Docs moved from react-spectrum.adobe.com/react-aria/ to react-aria.adobe.com (redirect verified). latestVersion refers to react-aria-components; the react-aria hooks package is versioned separately (3.x). audited 2026-11-05: re-ran all checks (match); set organization.websiteUrl to https://www.adobe.com/ (verified).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2597,7 +2724,7 @@
         "status": 200,
         "finalUrl": "https://react-aria.adobe.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.223Z",
+        "checkedAt": "2026-11-05T04:05:39.833Z",
         "method": "http-check",
         "note": "former docs URL redirects to https://react-aria.adobe.com/ (title: React Aria)"
       },
@@ -2607,7 +2734,7 @@
         "status": 200,
         "finalUrl": "https://react-aria.adobe.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.518Z",
+        "checkedAt": "2026-11-05T04:05:42.375Z",
         "method": "http-check",
         "note": "title: React Aria; homepage links github.com/adobe/react-spectrum and npm react-aria-components"
       },
@@ -2617,7 +2744,7 @@
         "status": 200,
         "finalUrl": "https://react-aria.adobe.com/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:38.699Z",
+        "checkedAt": "2026-11-05T04:05:40.108Z",
         "method": "http-check",
         "note": "title: Getting started | React Aria; install command: npm install react-aria-components"
       },
@@ -2627,7 +2754,7 @@
         "status": 200,
         "finalUrl": "https://github.com/adobe/react-spectrum",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.418Z",
+        "checkedAt": "2026-11-05T04:05:40.038Z",
         "method": "http-check",
         "note": "official Adobe monorepo adobe/react-spectrum (hosts React Aria, React Stately, React Spectrum)"
       },
@@ -2637,7 +2764,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:40.098Z",
+        "checkedAt": "2026-11-05T04:05:39.917Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: Apache License 2.0"
       },
@@ -2647,7 +2774,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:51.183Z",
+        "checkedAt": "2026-11-05T04:05:43.488Z",
         "method": "package-metadata",
         "note": "npm latest 1.22.1 published 2026-10-09; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; release about 4 weeks before the research date => active"
       },
@@ -2657,13 +2784,23 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:51.550Z",
+        "checkedAt": "2026-11-05T04:05:43.838Z",
         "method": "package-metadata",
         "note": "npm latest 3.53.1 published 2026-10-09; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; hooks package"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.adobe.com",
+        "status": 200,
+        "finalUrl": "https://www.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.377Z",
+        "method": "http-check",
+        "note": "title: Adobe: Creative, marketing and document management solutions; Adobe corporate site (repo owner github.com/adobe)"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T04:00:40.098Z"
+    "verifiedAt": "2026-11-05T04:12:07.377Z"
   },
   {
     "rank": 38,
@@ -2675,7 +2812,7 @@
     "organization": {
       "slug": "adobe",
       "name": "Adobe",
-      "websiteUrl": null
+      "websiteUrl": "https://www.adobe.com/"
     },
     "category": "component-library",
     "summary": "React Spectrum is Adobe's open-source React implementation of the Spectrum design system, built on React Aria. The current Spectrum 2 package is @react-spectrum/s2, and the v3 package @adobe/react-spectrum is still published.",
@@ -2735,7 +2872,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Distinct implementation with its own component catalog, verified separately from adobe-spectrum (the design system/guidelines) and react-aria (the headless layer it builds on). The site root now documents Spectrum 2, and v3 docs live under /v3/ (legacy URLs redirect there). latestVersion refers to @react-spectrum/s2; @adobe/react-spectrum (v3) was released 2026-10-09. No official Figma link was verified for this entry; any Spectrum Figma kits belong to adobe-spectrum.",
+    "notes": "Distinct implementation with its own component catalog, verified separately from adobe-spectrum (the design system/guidelines) and react-aria (the headless layer it builds on). The site root now documents Spectrum 2, and v3 docs live under /v3/ (legacy URLs redirect there). latestVersion refers to @react-spectrum/s2; @adobe/react-spectrum (v3) was released 2026-10-09. No official Figma link was verified for this entry; any Spectrum Figma kits belong to adobe-spectrum. audited 2026-11-05: re-ran all checks (match); set organization.websiteUrl to https://www.adobe.com/ (verified).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2743,7 +2880,7 @@
         "status": 200,
         "finalUrl": "https://react-spectrum.adobe.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.570Z",
+        "checkedAt": "2026-11-05T04:05:41.583Z",
         "method": "http-check",
         "note": "title: React Spectrum; root now documents Spectrum 2 (links npm @react-spectrum/s2)"
       },
@@ -2753,7 +2890,7 @@
         "status": 200,
         "finalUrl": "https://react-spectrum.adobe.com/getting-started",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:38.681Z",
+        "checkedAt": "2026-11-05T04:05:40.299Z",
         "method": "http-check",
         "note": "title: Getting started | React Spectrum; install command: npm install @react-spectrum/s2"
       },
@@ -2763,7 +2900,7 @@
         "status": 200,
         "finalUrl": "https://react-spectrum.adobe.com/v3/getting-started.html",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.840Z",
+        "checkedAt": "2026-11-05T04:05:43.076Z",
         "method": "http-check",
         "note": "legacy v3 docs path redirects to https://react-spectrum.adobe.com/v3/getting-started.html (title: Getting Started – V3)"
       },
@@ -2773,7 +2910,7 @@
         "status": 200,
         "finalUrl": "https://react-spectrum.adobe.com/v3/index.html",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:39.001Z",
+        "checkedAt": "2026-11-05T04:05:43.323Z",
         "method": "http-check",
         "note": "v3 docs still served under /v3/ (title: React Spectrum)"
       },
@@ -2783,7 +2920,7 @@
         "status": 200,
         "finalUrl": "https://github.com/adobe/react-spectrum",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.418Z",
+        "checkedAt": "2026-11-05T04:05:40.038Z",
         "method": "http-check",
         "note": "official Adobe monorepo adobe/react-spectrum"
       },
@@ -2793,7 +2930,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/adobe/react-spectrum/main/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:40.098Z",
+        "checkedAt": "2026-11-05T04:05:39.917Z",
         "method": "repo-metadata",
         "note": "LICENSE on main: Apache License 2.0"
       },
@@ -2803,7 +2940,7 @@
         "status": 200,
         "finalUrl": "https://cdn.jsdelivr.net/npm/@react-spectrum/s2@1.8.2/package.json",
         "ok": true,
-        "checkedAt": "2026-11-05T04:03:22.295Z",
+        "checkedAt": "2026-11-05T04:05:39.929Z",
         "method": "page-content",
         "note": "published package.json dependencies include react-aria 3.53.1 and react-aria-components 1.22.1 (built on React Aria)"
       },
@@ -2813,7 +2950,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:52.303Z",
+        "checkedAt": "2026-11-05T04:05:43.793Z",
         "method": "package-metadata",
         "note": "npm latest 1.8.2 published 2026-10-15; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; Spectrum 2 implementation; release about 3 weeks before the research date => active"
       },
@@ -2823,13 +2960,23 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:51.926Z",
+        "checkedAt": "2026-11-05T04:05:44.008Z",
         "method": "package-metadata",
         "note": "npm latest 3.47.7 published 2026-10-09; license Apache-2.0; not deprecated; repo git+https://github.com/adobe/react-spectrum.git; v3 package, still released"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.adobe.com",
+        "status": 200,
+        "finalUrl": "https://www.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.377Z",
+        "method": "http-check",
+        "note": "title: Adobe: Creative, marketing and document management solutions; Adobe corporate site (repo owner github.com/adobe)"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T04:03:22.295Z"
+    "verifiedAt": "2026-11-05T04:12:07.377Z"
   },
   {
     "rank": 39,
@@ -2843,7 +2990,7 @@
     "organization": {
       "slug": "microsoft",
       "name": "Microsoft",
-      "websiteUrl": null
+      "websiteUrl": "https://www.microsoft.com/en-us"
     },
     "category": "component-library",
     "summary": "Fluent UI React is Microsoft's open-source React implementation of the Fluent design system. v9 (@fluentui/react-components) is the current line used by Microsoft 365, and v8 (@fluentui/react, formerly Office UI Fabric React) remains maintained.",
@@ -2904,7 +3051,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Covers the React implementations in microsoft/fluentui (v9 primary, v8 included). Fluent UI Web Components (same repo) is a separate entry (fluent-ui-web-components), and the Fluent 2 design language is fluent-2. Official v9 docs are a Storybook, so homepageUrl, docsUrl and storybookUrl share the canonical storybooks.fluentui.dev/react/ URL that react.fluentui.dev redirects to. The v8 site is developer.microsoft.com/en-us/fluentui. latestVersion refers to @fluentui/react-components. No Figma link was verified here; Fluent 2 kits belong to fluent-2.",
+    "notes": "Covers the React implementations in microsoft/fluentui (v9 primary, v8 included). Fluent UI Web Components (same repo) is a separate entry (fluent-ui-web-components), and the Fluent 2 design language is fluent-2. Official v9 docs are a Storybook, so homepageUrl, docsUrl and storybookUrl share the canonical storybooks.fluentui.dev/react/ URL that react.fluentui.dev redirects to. The v8 site is developer.microsoft.com/en-us/fluentui. latestVersion refers to @fluentui/react-components. No Figma link was verified here; Fluent 2 kits belong to fluent-2. audited 2026-11-05: re-ran all checks (match); set organization.websiteUrl to https://www.microsoft.com/en-us (verified); README confirms v9 'Used By: Microsoft 365'.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2912,7 +3059,7 @@
         "status": 200,
         "finalUrl": "https://storybooks.fluentui.dev/react/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.324Z",
+        "checkedAt": "2026-11-05T04:05:40.104Z",
         "method": "http-check",
         "note": "official v9 docs domain (per repo README) redirects to https://storybooks.fluentui.dev/react/ (title: Fluent UI React v9)"
       },
@@ -2922,7 +3069,7 @@
         "status": 200,
         "finalUrl": "https://storybooks.fluentui.dev/react/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.204Z",
+        "checkedAt": "2026-11-05T04:05:39.895Z",
         "method": "http-check",
         "note": "Storybook-based official v9 documentation (200)"
       },
@@ -2932,7 +3079,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:38.610Z",
+        "checkedAt": "2026-11-05T04:05:40.070Z",
         "method": "repo-metadata",
         "note": "repo README: React Components v9 docs at react.fluentui.dev (npm @fluentui/react-components); React v8 docs at aka.ms/fluentui-react (npm @fluentui/react); all repo files MIT; fonts/icons under a separate assets license"
       },
@@ -2942,7 +3089,7 @@
         "status": 200,
         "finalUrl": "https://developer.microsoft.com/en-us/fluentui",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:38.858Z",
+        "checkedAt": "2026-11-05T04:05:39.896Z",
         "method": "http-check",
         "note": "v8 docs short link redirects to https://developer.microsoft.com/en-us/fluentui (title: Home - Fluent UI)"
       },
@@ -2952,7 +3099,7 @@
         "status": 200,
         "finalUrl": "https://github.com/microsoft/fluentui",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.839Z",
+        "checkedAt": "2026-11-05T04:05:39.780Z",
         "method": "http-check",
         "note": "official repo microsoft/fluentui: utilities, React components and Web Components"
       },
@@ -2962,7 +3109,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/microsoft/fluentui/master/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:40.699Z",
+        "checkedAt": "2026-11-05T04:05:39.709Z",
         "method": "repo-metadata",
         "note": "LICENSE on master: MIT License, Copyright (c) Microsoft Corporation"
       },
@@ -2972,7 +3119,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:52.609Z",
+        "checkedAt": "2026-11-05T04:05:42.123Z",
         "method": "package-metadata",
         "note": "npm latest 9.75.1 published 2026-11-02; license MIT; not deprecated; repo git+https://github.com/microsoft/fluentui.git; v9; release 3 days before the research date => active"
       },
@@ -2982,13 +3129,23 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:53.824Z",
+        "checkedAt": "2026-11-05T04:05:43.356Z",
         "method": "package-metadata",
         "note": "npm latest 8.125.10 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/microsoft/fluentui.git; v8 (mature line), still released"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.microsoft.com",
+        "status": 200,
+        "finalUrl": "https://www.microsoft.com/en-us",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.390Z",
+        "method": "http-check",
+        "note": "redirects to https://www.microsoft.com/en-us (title: Microsoft – AI, Cloud, Productivity, Computing, Gaming & Apps); repo owner github.com/microsoft"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T04:00:40.699Z"
+    "verifiedAt": "2026-11-05T04:12:07.390Z"
   },
   {
     "rank": 40,
@@ -3001,7 +3158,7 @@
     "organization": {
       "slug": "palantir",
       "name": "Palantir Technologies",
-      "websiteUrl": null
+      "websiteUrl": "https://www.palantir.com/"
     },
     "category": "component-library",
     "summary": "Blueprint is Palantir's open-source React UI toolkit, optimized for complex, data-dense web interfaces in desktop-browser applications. It ships as @blueprintjs/core plus separate datetime, select, table and icons packages.",
@@ -3064,15 +3221,14 @@
       "open-source",
       "react",
       "data-dense",
-      "enterprise",
-      "developer-tools"
+      "enterprise"
     ],
     "relatedSlugs": [],
     "registryStatus": "verified",
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Canonical entry for Palantir Blueprint; 'palantir-blueprint' (rank 65) is duplicateOf this slug per integrator decision. Targets desktop-browser web apps (README), so the platform is 'web' only, not native 'desktop'. Package list and descriptions come from the README on develop; all five listed packages were released 2026-11-02 under Apache-2.0. latestVersion refers to @blueprintjs/core. No official Figma link was recorded.",
+    "notes": "Canonical entry for Palantir Blueprint; 'palantir-blueprint' (rank 65) is duplicateOf this slug per integrator decision. Targets desktop-browser web apps (README), so the platform is 'web' only, not native 'desktop'. Package list and descriptions come from the README on develop; all five listed packages were released 2026-11-02 under Apache-2.0. latestVersion refers to @blueprintjs/core. No official Figma link was recorded. audited 2026-11-05: re-ran all checks (match); set organization.websiteUrl to https://www.palantir.com/ (verified); removed unsupported tag 'developer-tools' (README targets data-dense desktop-browser apps).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3080,7 +3236,7 @@
         "status": 200,
         "finalUrl": "https://blueprintjs.com/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.158Z",
+        "checkedAt": "2026-11-05T04:05:40.756Z",
         "method": "http-check",
         "note": "title: Blueprint – A React-based UI toolkit for the web"
       },
@@ -3090,7 +3246,7 @@
         "status": 200,
         "finalUrl": "https://blueprintjs.com/docs/",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:48.517Z",
+        "checkedAt": "2026-11-05T04:05:39.869Z",
         "method": "http-check",
         "note": "title: Blueprint – Documentation; public docs"
       },
@@ -3100,7 +3256,7 @@
         "status": 200,
         "finalUrl": "https://github.com/palantir/blueprint",
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:49.018Z",
+        "checkedAt": "2026-11-05T04:05:39.565Z",
         "method": "http-check",
         "note": "official repo palantir/blueprint: 'A React-based UI toolkit for the web'"
       },
@@ -3110,7 +3266,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/palantir/blueprint/develop/LICENSE",
         "ok": true,
-        "checkedAt": "2026-11-05T04:00:40.999Z",
+        "checkedAt": "2026-11-05T04:05:39.479Z",
         "method": "repo-metadata",
         "note": "LICENSE on develop: Apache License 2.0"
       },
@@ -3120,7 +3276,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:59:53.899Z",
+        "checkedAt": "2026-11-05T04:05:41.237Z",
         "method": "package-metadata",
         "note": "npm latest 6.22.0 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git; release 3 days before the research date => active"
       },
@@ -3130,7 +3286,7 @@
         "status": 200,
         "finalUrl": "https://raw.githubusercontent.com/palantir/blueprint/develop/README.md",
         "ok": true,
-        "checkedAt": "2026-11-05T04:02:21.394Z",
+        "checkedAt": "2026-11-05T04:05:39.780Z",
         "method": "repo-metadata",
         "note": "README: 'optimized for building complex, data-dense web interfaces for desktop applications which run in modern browsers'; lists @blueprintjs/core, datetime, icons, select, table, colors packages"
       },
@@ -3140,7 +3296,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T04:02:21.647Z",
+        "checkedAt": "2026-11-05T04:05:41.457Z",
         "method": "package-metadata",
         "note": "npm latest 6.3.1 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
       },
@@ -3150,7 +3306,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T04:02:22.029Z",
+        "checkedAt": "2026-11-05T04:05:41.939Z",
         "method": "package-metadata",
         "note": "npm latest 6.4.1 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
       },
@@ -3160,7 +3316,7 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T04:02:22.393Z",
+        "checkedAt": "2026-11-05T04:05:42.282Z",
         "method": "package-metadata",
         "note": "npm latest 6.3.1 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
       },
@@ -3170,12 +3326,22 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T04:02:22.542Z",
+        "checkedAt": "2026-11-05T04:05:42.498Z",
         "method": "package-metadata",
         "note": "npm latest 6.15.0 published 2026-11-02; license Apache-2.0; not deprecated; repo git@github.com:palantir/blueprint.git"
+      },
+      {
+        "field": "organization",
+        "url": "https://www.palantir.com",
+        "status": 200,
+        "finalUrl": "https://www.palantir.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:07.400Z",
+        "method": "http-check",
+        "note": "title: Home | Palantir; Palantir corporate site (repo owner github.com/palantir)"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T04:02:22.542Z"
+    "verifiedAt": "2026-11-05T04:12:07.400Z"
   }
 ]

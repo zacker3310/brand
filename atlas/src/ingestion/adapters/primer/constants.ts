@@ -55,8 +55,8 @@ export interface TokenSetSpec {
  * per theme in `original`.
  */
 export const TOKEN_SETS: TokenSetSpec[] = [
-  { slug: "primitives-base-color-light", name: "Base color scale (light)", theme: "light", kind: "json5", files: ["src/tokens/base/color/light/light.json5"], sourcePath: "src/tokens/base/color/light/light.json5" },
-  { slug: "primitives-base-color-dark", name: "Base color scale (dark)", theme: "dark", kind: "json5", files: ["src/tokens/base/color/dark/dark.json5"], sourcePath: "src/tokens/base/color/dark/dark.json5" },
+  { slug: "primitives-base-color-light", name: "Base color scale (light)", theme: "light", kind: "json5", files: ["src/tokens/base/color/light/light.json5", "src/tokens/base/color/light/display-light.json5"], sourcePath: "src/tokens/base/color/light/" },
+  { slug: "primitives-base-color-dark", name: "Base color scale (dark)", theme: "dark", kind: "json5", files: ["src/tokens/base/color/dark/dark.json5", "src/tokens/base/color/dark/display-dark.json5"], sourcePath: "src/tokens/base/color/dark/" },
   { slug: "primitives-base-size", name: "Base size", theme: null, kind: "docs-json", files: ["dist/docs/base/size/size.json", "dist/docs/base/size/z-index.json"], sourcePath: "dist/docs/base/size/" },
   { slug: "primitives-base-typography", name: "Base typography", theme: null, kind: "docs-json", files: ["dist/docs/base/typography/typography.json"], sourcePath: "dist/docs/base/typography/typography.json" },
   { slug: "primitives-base-motion", name: "Base motion", theme: null, kind: "docs-json", files: ["dist/docs/base/motion/motion.json"], sourcePath: "dist/docs/base/motion/motion.json" },

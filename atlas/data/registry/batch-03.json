@@ -60,7 +60,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "css-framework: CSS/Sass toolkit with optional JS plugins; no framework bindings are published by twbs. React ports are separate projects in other GitHub organizations (react-bootstrap, reactstrap) and have their own entries. docsUrl is pinned to the v5.3 docs (latest stable); npm 'next' dist-tag is 6.0.0-alpha.1 (2026-10-08). No official Figma kit or Storybook link was found on getbootstrap.com, so figmaUrl/storybookUrl are null.",
+    "notes": "css-framework: CSS/Sass toolkit with optional JS plugins; no framework bindings are published by twbs. React ports are separate projects in other GitHub organizations (react-bootstrap, reactstrap) and have their own entries. docsUrl is pinned to the v5.3 docs (latest stable); npm 'next' dist-tag is 6.0.0-alpha.1 (2026-10-08). No official Figma kit or Storybook link was found on getbootstrap.com, so figmaUrl/storybookUrl are null. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -131,10 +131,20 @@
         "checkedAt": "2026-11-05T03:58:56.709Z",
         "method": "package-metadata",
         "note": "dist-tags: latest 5.3.8 (2025-08-26), next 6.0.0-alpha.1 (2026-10-08), latest-4 4.6.2, latest-3 3.4.1 => release within 12 months: active"
+      },
+      {
+        "field": "audit",
+        "url": "https://getbootstrap.com/",
+        "status": 200,
+        "finalUrl": "https://getbootstrap.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:07.809Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:58:56.709Z"
+    "verifiedAt": "2026-11-05T04:09:07.809Z"
   },
   {
     "rank": 42,
@@ -149,7 +159,7 @@
       "websiteUrl": "https://react-bootstrap.github.io/"
     },
     "category": "component-library",
-    "summary": "React implementation of Bootstrap's components, maintained by the react-bootstrap GitHub organization independently of the Bootstrap core team. The 2.x line is current stable and 3.0 is in beta.",
+    "summary": "React implementation of Bootstrap's components, maintained in the react-bootstrap GitHub organization, which is separate from the twbs organization that publishes Bootstrap. The 2.x line is current stable and 3.0 is in beta.",
     "homepageUrl": "https://react-bootstrap.github.io/",
     "docsUrl": "https://react-bootstrap.github.io/docs/getting-started/introduction/",
     "repositoryUrl": "https://github.com/react-bootstrap/react-bootstrap",
@@ -197,7 +207,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Distinct implementation with its own component catalog and docs, so verified rather than a duplicate of bootstrap. npm dist-tags map Bootstrap 3 to 0.33.x ('bs3') and Bootstrap 4 to 1.6.x ('bs4'); latest stable 2.10.10 (2025-05-11); 'next' 3.0.0-beta.6 published 2026-10-22 (basis for 'active'). No official Figma or Storybook link found.",
+    "notes": "Distinct implementation with its own component catalog and docs, so verified rather than a duplicate of bootstrap. npm dist-tags map Bootstrap 3 to 0.33.x ('bs3') and Bootstrap 4 to 1.6.x ('bs4'); latest stable 2.10.10 (2025-05-11); 'next' 3.0.0-beta.6 published 2026-10-22 (basis for 'active'). No official Figma or Storybook link found. audited 2026-11-05: summary reworded: 'independently of the Bootstrap core team' replaced by the verifiable org separation (react-bootstrap vs twbs).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -268,10 +278,20 @@
         "checkedAt": "2026-11-05T03:58:57.009Z",
         "method": "package-metadata",
         "note": "dist-tags: latest 2.10.10 (2025-05-11), next 3.0.0-beta.6 (2026-10-22), bs4 1.6.7, bs3 0.33.1 => prerelease within 12 months: active"
+      },
+      {
+        "field": "audit",
+        "url": "https://react-bootstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://react-bootstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:08.658Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:58:57.009Z"
+    "verifiedAt": "2026-11-05T04:09:08.658Z"
   },
   {
     "rank": 43,
@@ -334,7 +354,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Distinct React implementation of Bootstrap with its own docs, separate from react-bootstrap. The official docs at reactstrap.github.io are a Storybook (page title 'Storybook'), and the repo README links to them as Documentation, so the same URL is homepage, docs and storybookUrl. maintenanceStatus 'unknown': last npm release 9.2.3 on 2024-09-26 (>12 months), repo not archived, and no deprecation or maintenance-mode notice found. It is not marked deprecated without an official statement.",
+    "notes": "Distinct React implementation of Bootstrap with its own docs, separate from react-bootstrap. The official docs at reactstrap.github.io are a Storybook (page title 'Storybook'), and the repo README links to them as Documentation, so the same URL is homepage, docs and storybookUrl. maintenanceStatus 'unknown': last npm release 9.2.3 on 2024-09-26 (>12 months), repo not archived, and no deprecation or maintenance-mode notice found. It is not marked deprecated without an official statement. audited 2026-11-05: releases check note corrected (2024-11-07 was a commit-signature timestamp, newest release is 2024-09-26); explicit storybookUrl check added.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -392,9 +412,9 @@
         "status": 200,
         "finalUrl": null,
         "ok": true,
-        "checkedAt": "2026-11-05T03:57:32.317Z",
+        "checkedAt": "2026-11-05T04:09:38.271Z",
         "method": "repo-metadata",
-        "note": "releases page: newest timestamps 2024-11-07; no 2025/2026 releases"
+        "note": "releases page: newest release is 'released this' 2024-09-26 (9.2.3, matches npm); no 2025/2026 releases. Earlier note cited 2024-11-07, which is a commit-signature 'Verified' timestamp on the page, not a release date"
       },
       {
         "field": "package:reactstrap",
@@ -405,10 +425,30 @@
         "checkedAt": "2026-11-05T03:49:56.528Z",
         "method": "package-metadata",
         "note": "npm latest 9.2.3 published 2024-09-26; license \"MIT\"; deprecated: no; repository git+ssh://git@github.com/reactstrap/reactstrap.git. No npm release in the 12 months before 2026-11-05"
+      },
+      {
+        "field": "audit",
+        "url": "https://reactstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://reactstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:09.489Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://reactstrap.github.io/",
+        "status": 200,
+        "finalUrl": "https://reactstrap.github.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:07.212Z",
+        "method": "http-check",
+        "note": "official docs site is a Storybook build (page title 'Storybook'); linked as Documentation from the repo README"
       }
     ],
     "confidence": 0.93,
-    "verifiedAt": "2026-11-05T04:02:49.781Z"
+    "verifiedAt": "2026-11-05T04:09:38.271Z"
   },
   {
     "rank": 44,
@@ -423,7 +463,7 @@
       "websiteUrl": "https://semantic-ui.com/"
     },
     "category": "css-framework",
-    "summary": "Theme-able UI component framework that uses natural-language-style class names and jQuery-based behaviors, published by Semantic Org. An official React integration (Semantic UI React) is maintained in the same GitHub organization.",
+    "summary": "Theme-able UI component framework that uses natural-language-style class names and jQuery-based behaviors, published by Semantic Org. An official React integration (Semantic UI React) is published from the same GitHub organization.",
     "homepageUrl": "https://semantic-ui.com/",
     "docsUrl": "https://semantic-ui.com/introduction/getting-started.html",
     "repositoryUrl": "https://github.com/Semantic-Org/Semantic-UI",
@@ -490,7 +530,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "The getting-started docs tell users to load jQuery alongside semantic.min.js, hence the jquery framework entry. The React integration lives at react.semantic-ui.com / Semantic-Org/Semantic-UI-React (repo titled 'The official Semantic-UI-React integration'; npm latest 2.1.5 2023-12-10, 3.0.0-beta.2 2023-12-30). maintenanceStatus 'unknown': last release 2.5.0 on 2022-10-06 (npm and GitHub releases), repo not archived, no deprecation notice found. Fomantic-UI calls itself the official community fork; separate entry, not a duplicate.",
+    "notes": "The getting-started docs tell users to load jQuery alongside semantic.min.js, hence the jquery framework entry. The React integration lives at react.semantic-ui.com / Semantic-Org/Semantic-UI-React (repo titled 'The official Semantic-UI-React integration'; npm latest 2.1.5 2023-12-10, 3.0.0-beta.2 2023-12-30). maintenanceStatus 'unknown': last release 2.5.0 on 2022-10-06 (npm and GitHub releases), repo not archived, no deprecation notice found. Fomantic-UI calls itself the official community fork; separate entry, not a duplicate. audited 2026-11-05: summary: 'is maintained' -> 'is published' (Semantic UI React's last stable release is 2.1.5, 2023-12-10).",
     "checks": [
       {
         "field": "homepageUrl",
@@ -601,10 +641,20 @@
         "checkedAt": "2026-11-05T03:57:05.004Z",
         "method": "package-metadata",
         "note": "npm latest 2.1.5 published 2023-12-10; license \"MIT\"; deprecated: no; repository git+ssh://git@github.com/Semantic-Org/Semantic-UI-React.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://semantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://semantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:10.410Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 6 page URLs, 1 raw file(s), 3 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.93,
-    "verifiedAt": "2026-11-05T03:58:52.775Z"
+    "verifiedAt": "2026-11-05T04:09:10.410Z"
   },
   {
     "rank": 45,
@@ -676,7 +726,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "A fork with its own releases and docs site, so verified, not a duplicate of semantic-ui. jquery framework entry is based on fomantic-ui@2.9.4 package.json, which lists jquery ^3.4.0. Latest stable 2.9.4 (2025-02-23); the npm 'nightly' tag published 2.10.0-beta.129 on 2026-11-04 (basis for 'active'). No official React integration and no Figma/Storybook link found.",
+    "notes": "A fork with its own releases and docs site, so verified, not a duplicate of semantic-ui. jquery framework entry is based on fomantic-ui@2.9.4 package.json, which lists jquery ^3.4.0. Latest stable 2.9.4 (2025-02-23); the npm 'nightly' tag published 2.10.0-beta.129 on 2026-11-04 (basis for 'active'). No official React integration and no Figma/Storybook link found. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -767,10 +817,20 @@
         "checkedAt": "2026-11-05T04:00:52.644Z",
         "method": "repo-metadata",
         "note": "package.json lists jquery ^3.4.0"
+      },
+      {
+        "field": "audit",
+        "url": "https://fomantic-ui.com/",
+        "status": 200,
+        "finalUrl": "https://fomantic-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:11.211Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 2 raw file(s), 2 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T04:00:52.644Z"
+    "verifiedAt": "2026-11-05T04:09:11.211Z"
   },
   {
     "rank": 46,
@@ -832,7 +892,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "github.com/foundation/foundation-sites redirects to foundation/yeti, so the canonical URL is recorded. Announcement issue #15554 'Foundation for Sites is becoming Yeti' (opened 2026-09-12): v6 lives on the v6 branch with bug fixes, foundation-sites on npm keeps publishing 6.x, v6.9.0 is the final planned feature release, and develop is Yeti 7 (alpha, will publish as 7.0.0 at beta). Hence 'maintenance', not deprecated. Foundation for Emails is out of scope. A separate Yeti entry may be warranted once it reaches beta.",
+    "notes": "github.com/foundation/foundation-sites redirects to foundation/yeti, so the canonical URL is recorded. Announcement issue #15554 'Foundation for Sites is becoming Yeti' (opened 2026-09-12): v6 lives on the v6 branch with bug fixes, foundation-sites on npm keeps publishing 6.x, v6.9.0 is the final planned feature release, and develop is Yeti 7 (alpha, will publish as 7.0.0 at beta). Hence 'maintenance', not deprecated. Foundation for Emails is out of scope. A separate Yeti entry may be warranted once it reaches beta. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -933,10 +993,20 @@
         "checkedAt": "2026-11-05T03:58:49.261Z",
         "method": "http-check",
         "note": "redirects to www.foundationcss.com; title 'Foundation', described as home of Inky, Proton and Yeti"
+      },
+      {
+        "field": "audit",
+        "url": "https://get.foundation/",
+        "status": 200,
+        "finalUrl": "https://get.foundation/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:12.079Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 8 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.93,
-    "verifiedAt": "2026-11-05T03:58:55.637Z"
+    "verifiedAt": "2026-11-05T04:09:12.079Z"
   },
   {
     "rank": 47,
@@ -996,7 +1066,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Latest release 1.0.4 (2025-04-19, >12 months ago). 'active' rests on commit evidence: CHANGELOG.md on main has an unreleased 1.1.0 section fixing #4044, an issue opened 2026-05-12, so main received commits after that date. No official framework bindings, Figma kit or Storybook found.",
+    "notes": "Latest release 1.0.4 (2025-04-19, >12 months ago). 'active' rests on commit evidence: CHANGELOG.md on main has an unreleased 1.1.0 section fixing #4044, an issue opened 2026-05-12, so main received commits after that date. No official framework bindings, Figma kit or Storybook found. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1087,10 +1157,20 @@
         "checkedAt": "2026-11-05T03:57:06.191Z",
         "method": "package-metadata",
         "note": "npm latest 1.0.4 published 2025-04-19; license \"MIT\"; deprecated: no; repository git+https://github.com/jgthms/bulma.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://bulma.io/",
+        "status": 200,
+        "finalUrl": "https://bulma.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:12.882Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 5 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.94,
-    "verifiedAt": "2026-11-05T03:58:54.884Z"
+    "verifiedAt": "2026-11-05T04:09:12.882Z"
   },
   {
     "rank": 48,
@@ -1103,7 +1183,7 @@
       "websiteUrl": "https://yootheme.com/"
     },
     "category": "css-framework",
-    "summary": "Lightweight, modular front-end framework of CSS and JavaScript components for web interfaces, developed by YOOtheme GmbH and released as open source.",
+    "summary": "Modular front-end framework of CSS and JavaScript components for building web interfaces, developed by YOOtheme GmbH and published under the MIT license.",
     "homepageUrl": "https://getuikit.com/",
     "docsUrl": "https://getuikit.com/docs/introduction",
     "repositoryUrl": "https://github.com/uikit/uikit",
@@ -1149,7 +1229,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Not to be confused with Apple's UIKit (framework slug 'uikit' in the taxonomy refers to Apple UIKit, not this project). Organization attributed to YOOtheme GmbH per the LICENSE copyright line. npm latest 3.25.29 (2026-11-02), with 'dev' builds on 2026-11-03. No official Figma or Storybook link found.",
+    "notes": "Not to be confused with Apple's UIKit (framework slug 'uikit' in the taxonomy refers to Apple UIKit, not this project). Organization attributed to YOOtheme GmbH per the LICENSE copyright line. npm latest 3.25.29 (2026-11-02), with 'dev' builds on 2026-11-03. No official Figma or Storybook link found. audited 2026-11-05: summary rewritten to drop the near-verbatim repo tagline wording ('lightweight').",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1220,10 +1300,20 @@
         "checkedAt": "2026-11-05T03:57:01.966Z",
         "method": "http-check",
         "note": "title: YOOtheme Pro: The website builder for WordPress and Joomla"
+      },
+      {
+        "field": "audit",
+        "url": "https://getuikit.com/",
+        "status": 200,
+        "finalUrl": "https://getuikit.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:13.807Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:57:24.678Z"
+    "verifiedAt": "2026-11-05T04:09:13.807Z"
   },
   {
     "rank": 49,
@@ -1292,7 +1382,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "repositoryUrl is the React implementation; the HTML/CSS core is github.com/patternfly/patternfly (also verified). latestVersion is @patternfly/react-core; @patternfly/patternfly is also 6.7.0 (2026-10-15). figmaUrl is null: patternfly.org/get-started/design links its 'PatternFly 6 design kit' to https://www.figma.com/@patternfly, but figma.com returned HTTP 403 to the automated check, so the Figma URL is not recorded as verified.",
+    "notes": "repositoryUrl is the React implementation; the HTML/CSS core is github.com/patternfly/patternfly (also verified). latestVersion is @patternfly/react-core; @patternfly/patternfly is also 6.7.0 (2026-10-15). figmaUrl is null: patternfly.org/get-started/design links its 'PatternFly 6 design kit' to https://www.figma.com/@patternfly, but figma.com returned HTTP 403 to the automated check, so the Figma URL is not recorded as verified. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1413,10 +1503,20 @@
         "checkedAt": "2026-11-05T03:57:01.929Z",
         "method": "http-check",
         "note": "title: Red Hat - We make open source technologies for the enterprise"
+      },
+      {
+        "field": "audit",
+        "url": "https://www.patternfly.org/",
+        "status": 200,
+        "finalUrl": "https://www.patternfly.org/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:14.719Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 2 raw file(s), 2 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:58:51.819Z"
+    "verifiedAt": "2026-11-05T04:09:14.719Z"
   },
   {
     "rank": 50,
@@ -1495,7 +1595,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Relationship to Web Awesome: shoelace.style shows a banner 'Shoelace is now Web Awesome' and 'Shoelace Is Sunset with no active development'. The README says Shoelace is sunset, issues/PRs belong to Web Awesome (github.com/shoelace-style/webawesome, described as the web components library from Font Awesome), and it links a migration guide. Repo isArchived:true, so 'archived'. Still 'verified' because the docs remain online. React wrappers ship inside the package (dist/react); Vue/Angular/Svelte have official usage guides only. replacedBy is null because no web-awesome entry exists yet.",
+    "notes": "Relationship to Web Awesome: shoelace.style shows a banner 'Shoelace is now Web Awesome' and 'Shoelace Is Sunset with no active development'. The README says Shoelace is sunset, issues/PRs belong to Web Awesome (github.com/shoelace-style/webawesome, described as the web components library from Font Awesome), and it links a migration guide. Repo isArchived:true, so 'archived'. Still 'verified' because the docs remain online. React wrappers ship inside the package (dist/react); Vue/Angular/Svelte have official usage guides only. replacedBy is null because no web-awesome entry exists yet. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1636,10 +1736,20 @@
         "checkedAt": "2026-11-05T03:58:50.051Z",
         "method": "http-check",
         "note": "title: Svelte"
+      },
+      {
+        "field": "audit",
+        "url": "https://shoelace.style/",
+        "status": 200,
+        "finalUrl": "https://shoelace.style/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:15.705Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 10 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":true"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T03:58:53.383Z"
+    "verifiedAt": "2026-11-05T04:09:15.705Z"
   },
   {
     "rank": 51,
@@ -1654,7 +1764,7 @@
       "websiteUrl": "https://ionic.io/"
     },
     "category": "ui-framework",
-    "summary": "Open-source, cross-platform UI toolkit for building iOS, Android and progressive web apps with HTML, CSS and JavaScript, maintained by the Ionic team. Ships web components (@ionic/core) plus official Angular, React and Vue packages.",
+    "summary": "Open-source UI toolkit maintained by the Ionic team (ionic-team GitHub organization): web components (@ionic/core) plus official Angular, React and Vue packages, used to build iOS, Android and progressive web apps from one web codebase.",
     "homepageUrl": "https://ionicframework.com/",
     "docsUrl": "https://ionicframework.com/docs",
     "repositoryUrl": "https://github.com/ionic-team/ionic-framework",
@@ -1734,7 +1844,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "ui-framework: an app UI toolkit spanning mobile and web targets, not only a component library. Native runtime/tooling (e.g. Capacitor) is a separate product and out of scope. npm latest 9.0.10 (2026-10-28) for core and all three bindings; the v8-lts tag is 8.8.19 (2026-08-19); nightly builds daily. No official Figma or Storybook link verified.",
+    "notes": "ui-framework: an app UI toolkit spanning mobile and web targets, not only a component library. Native runtime/tooling (e.g. Capacitor) is a separate product and out of scope. npm latest 9.0.10 (2026-10-28) for core and all three bindings; the v8-lts tag is 8.8.19 (2026-08-19); nightly builds daily. No official Figma or Storybook link verified. audited 2026-11-05: summary rewritten; it closely paraphrased the repo tagline ('A powerful cross-platform UI toolkit...').",
     "checks": [
       {
         "field": "homepageUrl",
@@ -1845,10 +1955,20 @@
         "checkedAt": "2026-11-05T03:57:02.060Z",
         "method": "http-check",
         "note": "title: Ionic: Enterprise App Platform"
+      },
+      {
+        "field": "audit",
+        "url": "https://ionicframework.com/",
+        "status": 200,
+        "finalUrl": "https://ionicframework.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:16.588Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 4 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:57:26.181Z"
+    "verifiedAt": "2026-11-05T04:09:16.588Z"
   },
   {
     "rank": 52,
@@ -1940,7 +2060,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "The core package is a framework-agnostic JavaScript/HTML library. The taxonomy has no 'vanilla JS' slug, so it is mapped to html-css (approximate). Platforms follow the homepage title (iOS, Android & Desktop apps). All four packages published 9.3.0 on 2026-10-30. No official Figma or Storybook link found.",
+    "notes": "The core package is a framework-agnostic JavaScript/HTML library. The taxonomy has no 'vanilla JS' slug, so it is mapped to html-css (approximate). Platforms follow the homepage title (iOS, Android & Desktop apps). All four packages published 9.3.0 on 2026-10-30. No official Figma or Storybook link found. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2031,10 +2151,20 @@
         "checkedAt": "2026-11-05T03:57:10.648Z",
         "method": "package-metadata",
         "note": "npm latest 9.3.0 published 2026-10-30; license \"MIT\"; deprecated: no; repository git+https://github.com/framework7io/framework7.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://framework7.io/",
+        "status": 200,
+        "finalUrl": "https://framework7.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:17.551Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 1 raw file(s), 4 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.95,
-    "verifiedAt": "2026-11-05T03:57:26.719Z"
+    "verifiedAt": "2026-11-05T04:09:17.551Z"
   },
   {
     "rank": 53,
@@ -2049,7 +2179,7 @@
       "websiteUrl": "https://onsen.io/"
     },
     "category": "ui-framework",
-    "summary": "Open-source HTML5 mobile UI framework built on Web Components for hybrid and progressive web apps, with automatic iOS and Android Material Design styling and bindings for React, Vue and Angular.",
+    "summary": "Open-source HTML5 mobile UI framework built on Web Components for hybrid and progressive web apps. Components switch automatically between iOS styling and Android Material Design styling, with bindings for React, Vue and Angular.",
     "homepageUrl": "https://onsen.io/",
     "docsUrl": "https://onsen.io/v2/guide/",
     "repositoryUrl": "https://github.com/OnsenUI/OnsenUI",
@@ -2131,7 +2261,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Core onsenui 2.12.9 was published 2026-06-16 (basis for 'active'). Binding packages' latest stable releases are old (react-onsenui 1.13.3 2023-06-20, vue-onsenui 3.0.0 2022-07-25, ngx-onsenui 7.1.0 2022-02-28); each got a beta on 2026-06-02. The GitHub releases page has no entries after 2022-12, so npm is the release record. material-design is related because the homepage says components support iOS and Android Material styling automatically.",
+    "notes": "Core onsenui 2.12.9 was published 2026-06-16 (basis for 'active'). Binding packages' latest stable releases are old (react-onsenui 1.13.3 2023-06-20, vue-onsenui 3.0.0 2022-07-25, ngx-onsenui 7.1.0 2022-02-28); each got a beta on 2026-06-02. The GitHub releases page has no entries after 2022-12, so npm is the release record. material-design is related because the homepage says components support iOS and Android Material styling automatically. audited 2026-11-05: summary clarified: styling switches per platform (iOS vs Android Material Design), not 'iOS Material Design'.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2242,10 +2372,20 @@
         "checkedAt": "2026-11-05T03:53:26.787Z",
         "method": "package-metadata",
         "note": "dist-tags: latest 2.12.9 (2026-06-16) => release within 12 months: active"
+      },
+      {
+        "field": "audit",
+        "url": "https://onsen.io/",
+        "status": 200,
+        "finalUrl": "https://onsen.io/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:18.429Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 4 page URLs, 1 raw file(s), 4 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.93,
-    "verifiedAt": "2026-11-05T03:57:31.720Z"
+    "verifiedAt": "2026-11-05T04:09:18.429Z"
   },
   {
     "rank": 54,
@@ -2310,7 +2450,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "ui-framework because it bundles app build modes and tooling (CLI with Vite or Webpack, Vite plugin, UMD), not just components. Platforms follow the homepage description (websites, PWA, SSR, SSG, browser extension, mobile and desktop apps). npm latest 2.35.2 (2026-10-19); legacy v1 tag 1.22.10. No official Figma or Storybook link verified.",
+    "notes": "ui-framework because it bundles app build modes and tooling (CLI with Vite or Webpack, Vite plugin, UMD), not just components. Platforms follow the homepage description (websites, PWA, SSR, SSG, browser extension, mobile and desktop apps). npm latest 2.35.2 (2026-10-19); legacy v1 tag 1.22.10. No official Figma or Storybook link verified. audited 2026-11-05: all claims re-checked (URLs, npm metadata, license files, maintenance evidence); no changes needed.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2381,10 +2521,20 @@
         "checkedAt": "2026-11-05T03:57:12.192Z",
         "method": "package-metadata",
         "note": "npm latest 2.35.2 published 2026-10-19; license \"MIT\"; deprecated: no; repository git+https://github.com/quasarframework/quasar.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://quasar.dev/",
+        "status": 200,
+        "finalUrl": "https://quasar.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:19.297Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 5 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:57:27.720Z"
+    "verifiedAt": "2026-11-05T04:09:19.297Z"
   },
   {
     "rank": 55,
@@ -2436,12 +2586,14 @@
     "tags": [
       "open-source"
     ],
-    "relatedSlugs": [],
+    "relatedSlugs": [
+      "material-design"
+    ],
     "registryStatus": "verified",
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "Material Design is not listed as related because the pages fetched (homepage, installation, README) did not mention it in server-rendered text. figmaUrl null: the UI-kits resources page is client-rendered and no Figma link could be extracted or verified. npm latest 4.3.2 (2026-11-03); v3-stable tag 3.13.7 (2026-10-14).",
+    "notes": "relatedSlugs material-design: the homepage meta keywords describe it as 'material design components' and the package ships an md3 blueprint (README itself does not mention Material). figmaUrl null: the UI-kits resources page is client-rendered and no Figma link could be extracted or verified. npm latest 4.3.2 (2026-11-03); v3-stable tag 3.13.7 (2026-10-14). audited 2026-11-05: note was wrong: the homepage meta keywords say 'material design components' and vuetify@4.3.2 ships lib/blueprints/md3.js; relatedSlugs now material-design, with 2 evidence checks.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2512,10 +2664,40 @@
         "checkedAt": "2026-11-05T03:53:28.288Z",
         "method": "package-metadata",
         "note": "dist-tags: latest 4.3.2 (2026-11-03), v3-stable 3.13.7 (2026-10-14) => active"
+      },
+      {
+        "field": "audit",
+        "url": "https://vuetifyjs.com/",
+        "status": 200,
+        "finalUrl": "https://vuetifyjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:20.172Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://vuetifyjs.com/",
+        "status": 200,
+        "finalUrl": "https://vuetifyjs.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:05.971Z",
+        "method": "page-content",
+        "note": "homepage <meta name=keywords> includes 'material design components' (first-party self-description)"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://cdn.jsdelivr.net/npm/vuetify@4.3.2/lib/blueprints/md3.js",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/vuetify@4.3.2/lib/blueprints/md3.js",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:12:24.004Z",
+        "method": "repo-metadata",
+        "note": "vuetify@4.3.2 ships lib/blueprints/md3.js, an 'md3' (Material Design 3) defaults blueprint"
       }
     ],
     "confidence": 0.96,
-    "verifiedAt": "2026-11-05T03:58:51.518Z"
+    "verifiedAt": "2026-11-05T04:12:24.004Z"
   },
   {
     "rank": 56,
@@ -2575,7 +2757,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "License change: PrimeVue 5 ships under the PrimeUI License (see license.notes). primevue.org redirects to primevue.dev. The public repo primefaces/primevue (MIT) says it is no longer actively developed and gets security fixes only; development moved to PrimeUI. The repo named in v5 npm metadata (primevue-nextchapter) returns 404, so repositoryUrl is the public MIT-era repo. Categorized commercial-suite for current licensing; earlier releases were an MIT component library. npm v4-stable 4.5.5 (2026-04-08). Figma UI kit not verified; figmaUrl null.",
+    "notes": "License change: PrimeVue 5 ships under the PrimeUI License (see license.notes). primevue.org redirects to primevue.dev. The public repo primefaces/primevue (MIT) says it is no longer actively developed and gets security fixes only; development moved to PrimeUI. The repo named in v5 npm metadata (primevue-nextchapter) returns 404, so repositoryUrl is the public MIT-era repo. Categorized commercial-suite for current licensing; earlier releases were an MIT component library. npm v4-stable 4.5.5 (2026-04-08). Figma UI kit not verified; figmaUrl null. audited 2026-11-05: added page-content checks for both PrimeUI license pages and a per-version npm license check (4.5.5 MIT vs 5.0.4 PrimeUI); no field changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2706,10 +2888,50 @@
         "checkedAt": "2026-11-05T03:57:02.196Z",
         "method": "http-check",
         "note": "title PrimeUI: PrimeTek product family site"
+      },
+      {
+        "field": "audit",
+        "url": "https://primevue.dev/",
+        "status": 200,
+        "finalUrl": "https://primevue.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:21.139Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 3 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:09.736Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Commercial License': per-developer perpetual license, 'Last updated July 22, 2026'"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:10.625Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Community License': free license for eligible orgs (fewer than 10 employees, < $1M USD revenue, never > $3M USD capital raised)"
+      },
+      {
+        "field": "license",
+        "url": "https://registry.npmjs.org/primevue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:32.748Z",
+        "method": "package-metadata",
+        "note": "per-version license field: 4.5.5 (v4-stable, 2026-04-08) 'MIT'; 5.0.4 'SEE LICENSE IN LICENSE.md' => pre-5 line is still MIT"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T03:58:49.549Z"
+    "verifiedAt": "2026-11-05T04:14:32.748Z"
   },
   {
     "rank": 57,
@@ -2771,7 +2993,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "License change: PrimeReact 11 ships under the PrimeUI License (see license.notes). primereact.org redirects to primereact.dev. The homepage links four doc tracks: Styled, Tailwind, Primitive, Headless. The public repo primefaces/primereact (MIT) says it gets security fixes only; development moved to PrimeUI, and the repo in v11 npm metadata (primereact-nextchapter) returns 404. Categorized commercial-suite for current licensing. npm v10-stable 10.9.9 (2026-08-27). Figma UI kit not verified; figmaUrl null.",
+    "notes": "License change: PrimeReact 11 ships under the PrimeUI License (see license.notes). primereact.org redirects to primereact.dev. The homepage links four doc tracks: Styled, Tailwind, Primitive, Headless. The public repo primefaces/primereact (MIT) says it gets security fixes only; development moved to PrimeUI, and the repo in v11 npm metadata (primereact-nextchapter) returns 404. Categorized commercial-suite for current licensing. npm v10-stable 10.9.9 (2026-08-27). Figma UI kit not verified; figmaUrl null. audited 2026-11-05: added page-content checks for both PrimeUI license pages and a per-version npm license check (10.9.9 MIT vs 11.2.2 PrimeUI); no field changes.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -2902,10 +3124,50 @@
         "checkedAt": "2026-11-05T03:57:02.196Z",
         "method": "http-check",
         "note": "title PrimeUI: PrimeTek product family site"
+      },
+      {
+        "field": "audit",
+        "url": "https://primereact.dev/",
+        "status": 200,
+        "finalUrl": "https://primereact.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:22.065Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 3 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:09.736Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Commercial License': per-developer perpetual license, 'Last updated July 22, 2026'"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:10.625Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Community License': free license for eligible orgs (fewer than 10 employees, < $1M USD revenue, never > $3M USD capital raised)"
+      },
+      {
+        "field": "license",
+        "url": "https://registry.npmjs.org/primereact",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:33.256Z",
+        "method": "package-metadata",
+        "note": "per-version license field: 10.9.9 (v10-stable, 2026-08-27) 'MIT'; 11.2.2 'SEE LICENSE IN LICENSE.md' => pre-11 line is still MIT"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T03:58:49.850Z"
+    "verifiedAt": "2026-11-05T04:14:33.256Z"
   },
   {
     "rank": 58,
@@ -2938,7 +3200,7 @@
       "url": "https://primeui.dev/licenses/commercial",
       "isOpenSource": false,
       "redistribution": "restricted",
-      "notes": "Applies to PrimeNG 22+ (npm license field 'SEE LICENSE IN LICENSE.md'). Free Community License for individuals, students, non-profits, non-commercial OSS and orgs meeting all of: <$1M revenue, <5 developers, <10 employees, <$3M outside funding; otherwise paid per-developer Commercial License. License key required. Community terms: https://primeui.dev/licenses/community. Releases before 22 remain MIT."
+      "notes": "Applies to PrimeNG 22+ (npm license field 'SEE LICENSE IN LICENSE.md'). Free Community License for individuals, students, non-profits, non-commercial OSS and orgs meeting all of: <$1M revenue, <5 developers, <10 employees, <$3M outside funding; otherwise paid per-developer Commercial License. License key required. Community terms: https://primeui.dev/licenses/community. Before 22, npm license is 'SEE LICENSE IN LICENSE.md' and the shipped LICENSE.md is dual: MIT for community versions, and a separate PrimeTek commercial agreement for '-lts' builds (e.g. 20.5.1-lts). So pre-22 non-LTS releases are MIT; -lts releases are not."
     },
     "docAccess": "public",
     "maintenanceStatus": "active",
@@ -2955,8 +3217,7 @@
       "web"
     ],
     "tags": [
-      "commercial",
-      "enterprise"
+      "commercial"
     ],
     "relatedSlugs": [
       "primevue",
@@ -2966,7 +3227,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "License change: PrimeNG 22 ships under the PrimeUI License (see license.notes). The public repo's LICENSE.md also has a separate commercial agreement for '-lts' builds (e.g. npm v20-lts 20.5.1-lts), alongside MIT for community versions. primeng.org redirects to primeng.dev. Public repo primefaces/primeng gets security fixes only; development moved to PrimeUI, and the repo in v22 npm metadata (primeng-nextchapter) returns 404. Categorized commercial-suite. Figma UI kit not verified; figmaUrl null.",
+    "notes": "License change: PrimeNG 22 ships under the PrimeUI License (see license.notes). The public repo's LICENSE.md also has a separate commercial agreement for '-lts' builds (e.g. npm v20-lts 20.5.1-lts), alongside MIT for community versions. primeng.org redirects to primeng.dev. Public repo primefaces/primeng gets security fixes only; development moved to PrimeUI, and the repo in v22 npm metadata (primeng-nextchapter) returns 404. Categorized commercial-suite. Figma UI kit not verified; figmaUrl null. audited 2026-11-05: license.notes corrected: pre-22 '-lts' builds are under a commercial LTS agreement, so not all pre-22 releases are MIT (verified in primeng@21.1.10 and @20.5.1-lts LICENSE.md); unsupported 'enterprise' tag removed; PrimeUI license page content and per-version npm license checks added.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3107,10 +3368,80 @@
         "checkedAt": "2026-11-05T03:53:29.187Z",
         "method": "package-metadata",
         "note": "dist-tags: latest 22.1.4 (2026-10-22), v21-stable 21.1.10 (2026-09-09), v20-lts 20.5.1-lts (2026-06-04)"
+      },
+      {
+        "field": "audit",
+        "url": "https://primeng.dev/",
+        "status": 200,
+        "finalUrl": "https://primeng.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:22.950Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 9 page URLs, 3 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/commercial",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/commercial",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:09.736Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Commercial License': per-developer perpetual license, 'Last updated July 22, 2026'"
+      },
+      {
+        "field": "license",
+        "url": "https://primeui.dev/licenses/community",
+        "status": 200,
+        "finalUrl": "https://primeui.dev/licenses/community",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:10:10.625Z",
+        "method": "page-content",
+        "note": "page h1 'PrimeUI Community License': free license for eligible orgs (fewer than 10 employees, < $1M USD revenue, never > $3M USD capital raised)"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primeng@21.1.10/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primeng@21.1.10/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:41.898Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md shipped in primeng@21.1.10: '## PRIMENG COMMUNITY VERSIONS LICENSE' (MIT) plus '## PRIMENG LTS VERSIONS LICENSE (Versions with -lts suffix)' (commercial agreement)"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/primeng@20.5.1-lts/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/primeng@20.5.1-lts/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:42.198Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md shipped in primeng@20.5.1-lts: '## PRIMENG COMMUNITY VERSIONS LICENSE' (MIT) plus '## PRIMENG LTS VERSIONS LICENSE (Versions with -lts suffix)' (commercial agreement)"
+      },
+      {
+        "field": "license",
+        "url": "https://registry.npmjs.org/primeng",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T04:14:31.780Z",
+        "method": "package-metadata",
+        "note": "per-version license field is 'SEE LICENSE IN LICENSE.md' for 20.4.0, 21.1.10, 20.5.1-lts and 22.1.4 alike; the file it points to differs (dual MIT/LTS before 22, PrimeUI License from 22)"
+      },
+      {
+        "field": "tags",
+        "url": "https://primeng.dev/",
+        "status": 200,
+        "finalUrl": "https://primeng.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:11:07.034Z",
+        "method": "page-content",
+        "note": "homepage HTML contains no 'enterprise' wording; the 'enterprise' tag had no recorded basis and was removed"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T03:58:50.148Z"
+    "verifiedAt": "2026-11-05T04:14:42.198Z"
   },
   {
     "rank": 59,
@@ -3167,7 +3498,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "During checks, the bare domain https://element-plus.org/ and its robots.txt returned HTTP 526 (Cloudflare origin certificate error) while /en-US/ pages returned 200, so homepageUrl is the /en-US/ page. Robots allowance could not be determined (check.ts reported robotsAllowed false because robots.txt failed); ingestion should re-check robots before crawling. The resources page (possible design-kit links) failed to load, so figmaUrl is null. npm latest 2.14.7 (2026-09-30).",
+    "notes": "During checks, the bare domain https://element-plus.org/ and its robots.txt returned HTTP 526 (Cloudflare origin certificate error) while /en-US/ pages returned 200, so homepageUrl is the /en-US/ page. Robots allowance could not be determined (check.ts reported robotsAllowed false because robots.txt failed); ingestion should re-check robots before crawling. The resources page (possible design-kit links) failed to load, so figmaUrl is null. npm latest 2.14.7 (2026-09-30). audited 2026-11-05: robots.txt re-checked (still 526) and recorded.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3248,10 +3579,30 @@
         "checkedAt": "2026-11-05T03:57:13.902Z",
         "method": "package-metadata",
         "note": "npm latest 2.14.7 published 2026-09-30; license \"MIT\"; deprecated: no; repository git+https://github.com/element-plus/element-plus.git"
+      },
+      {
+        "field": "audit",
+        "url": "https://element-plus.org/en-US/",
+        "status": 200,
+        "finalUrl": "https://element-plus.org/en-US/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:23.831Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 5 page URLs, 1 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "robots",
+        "url": "https://element-plus.org/robots.txt",
+        "status": 526,
+        "finalUrl": "https://element-plus.org/robots.txt",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:11:06.662Z",
+        "method": "http-check",
+        "note": "robots.txt still HTTP 526 at audit time; robots allowance remains undetermined (fetcher treats it as disallowed)"
       }
     ],
     "confidence": 0.92,
-    "verifiedAt": "2026-11-05T03:58:50.264Z"
+    "verifiedAt": "2026-11-05T04:11:06.662Z"
   },
   {
     "rank": 60,
@@ -3310,7 +3661,7 @@
     "duplicateOf": null,
     "replacesSlug": null,
     "replacedBy": null,
-    "notes": "The docs site is a client-rendered SPA at naiveui.com. Deep links such as /en-US/os-theme/docs/introduction return HTTP 404 with the same app shell to non-JS clients, so the root URL (200) is recorded as both homepage and docs, and the repo README links only to www.naiveui.com. Ingestion should prefer the repo's docs sources over crawling the SPA. organization.websiteUrl is null (no verified TuSimple URL). npm latest 2.45.3 (2026-08-27).",
+    "notes": "The docs site is a client-rendered SPA at naiveui.com. Deep links such as /en-US/os-theme/docs/introduction return HTTP 404 with the same app shell to non-JS clients, so the root URL (200) is recorded as both homepage and docs, and the repo README links only to www.naiveui.com. Ingestion should prefer the repo's docs sources over crawling the SPA. organization.websiteUrl is null (no verified TuSimple URL). npm latest 2.45.3 (2026-08-27). audited 2026-11-05: explicit docsUrl check for the root added; two more locale routes confirmed 404.",
     "checks": [
       {
         "field": "homepageUrl",
@@ -3381,9 +3732,49 @@
         "checkedAt": "2026-11-05T03:57:14.250Z",
         "method": "package-metadata",
         "note": "npm latest 2.45.3 published 2026-08-27; license \"MIT\"; deprecated: no; repository https://github.com/tusen-ai/naive-ui"
+      },
+      {
+        "field": "audit",
+        "url": "https://www.naiveui.com/",
+        "status": 200,
+        "finalUrl": "https://www.naiveui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:09:24.676Z",
+        "method": "manual-review",
+        "note": "audit re-run (check.ts): 3 page URLs, 2 raw file(s), 1 npm package(s) re-checked; every recorded status, finalUrl, npm latest version, publish date and license reproduced; repo page re-read: \"isArchived\":false"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/",
+        "status": 200,
+        "finalUrl": "https://www.naiveui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T04:07:07.431Z",
+        "method": "http-check",
+        "note": "root URL 200 (title 'Naive UI') is the only reachable docs entry point; recorded as docsUrl"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/en-US/os-theme",
+        "status": 404,
+        "finalUrl": "https://www.naiveui.com/en-US/os-theme",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:14:21.826Z",
+        "method": "http-check",
+        "note": "locale/theme route also returns HTTP 404 with the SPA shell (client-side routing)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.naiveui.com/zh-CN/os-theme",
+        "status": 404,
+        "finalUrl": "https://www.naiveui.com/zh-CN/os-theme",
+        "ok": false,
+        "checkedAt": "2026-11-05T04:14:22.127Z",
+        "method": "http-check",
+        "note": "locale/theme route also returns HTTP 404 with the SPA shell (client-side routing)"
       }
     ],
     "confidence": 0.9,
-    "verifiedAt": "2026-11-05T04:02:50.080Z"
+    "verifiedAt": "2026-11-05T04:14:22.127Z"
   }
 ]

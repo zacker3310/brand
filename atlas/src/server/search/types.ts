@@ -89,6 +89,8 @@ export interface ParsedQuery {
   interpretedHard: { types: boolean; frameworks: boolean; themes: boolean };
   /** "all" = every unit must match; "any" = relaxed OR semantics. */
   matchMode: "all" | "any";
+  /** Trigram fallback on the whole multi-word text (single-term queries always get it). */
+  fuzzyAllTerms: boolean;
   limit: number;
   offset: number;
 }

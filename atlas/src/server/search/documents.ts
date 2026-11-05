@@ -218,7 +218,8 @@ export async function buildSystemDocuments(db: Queryable, opts: { systemSlug?: s
                   a.guidance is not null or a.screen_reader is not null or a.focus_management is not null
                   or coalesce(cardinality(a.roles), 0) > 0 or coalesce(cardinality(a.wcag_criteria), 0) > 0
                   or (jsonb_typeof(a.keyboard) = 'array' and jsonb_array_length(a.keyboard) > 0)
-                  or exists(select 1 from jsonb_each_text(a.coverage) cv where cv.value = 'documented'))) as has_a11y
+                  or (case when jsonb_typeof(a.coverage) = 'object'
+                           then exists(select 1 from jsonb_each_text(a.coverage) cv where cv.value = 'documented') else false end))) as has_a11y
        from component c
        join design_system s on s.id = c.design_system_id
        left join component_type ct on ct.id = c.component_type_id

@@ -104,8 +104,11 @@ function buildTextQueries(p: Params, q: ParsedQuery): TextQueries | null {
   const softWords = q.softTerms.filter((w) => SAFE_WORD.test(w));
   const soft = softWords.length ? or(softWords.map((w) => wordQ(p, w))) : null;
   const fuzzyText = q.terms.join(" ");
-  // Trigram fallback for typos; not for literal (quoted) queries.
-  const fuzzy = fuzzyText.length >= 4 && q.terms.length <= 3 && !lastQuoted && !q.text.includes('"') ? p.add(fuzzyText) : null;
+  // Trigram fallback for typos: always for one-word queries; for 2-3 words only when the facade
+  // asks (nothing matched), because one exact word already passes the whole-string threshold.
+  // Never for literal (quoted) queries.
+  const fuzzyOk = (q.terms.length === 1 || (q.fuzzyAllTerms && q.terms.length <= 3)) && fuzzyText.length >= 4 && !q.text.includes('"');
+  const fuzzy = fuzzyOk ? p.add(fuzzyText) : null;
   return {
     strict,
     main,

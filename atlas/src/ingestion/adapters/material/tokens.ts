@@ -223,10 +223,10 @@ export function buildMwTokenSets(v0192: V0192Input[], supported: SupportedInput[
   for (const w of sortBy(supported, (s) => s.stem)) {
     for (const mod of w.file.v0192Modules) {
       if (mod.startsWith("md-comp-")) usedComp.add(mod);
-      if (!w.file.customPropertyPrefix || !w.file.supported) continue;
-      const exact = mod === w.stem;
-      const prev = cssSupport.get(mod);
-      if (!prev || (exact && !prev.exact)) cssSupport.set(mod, { prefix: w.file.customPropertyPrefix, keys: new Set(w.file.supported), exact });
+      // Only map CSS custom properties when the wrapper wraps exactly one v0.192 module of the same
+      // name. Wrappers that merge several modules (e.g. FAB) compute values in Sass; ambiguous -> null.
+      if (!w.file.customPropertyPrefix || !w.file.supported || mod !== w.stem) continue;
+      cssSupport.set(mod, { prefix: w.file.customPropertyPrefix, keys: new Set(w.file.supported), exact: true });
     }
   }
   const sets: NormalizedTokenSet[] = [];

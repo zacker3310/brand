@@ -186,7 +186,8 @@ describe("resolveTokenGraph — CSS var()", () => {
   });
 
   it("applies theme overrides on top of the default scope", () => {
-    expect(dark.get("--color-bg")!.resolvedValue).toBe("#111827");
+    // [data-theme="dark"] sets var(--color-gray-900); the later @media (prefers-color-scheme: dark) block sets #000.
+    expect(dark.get("--color-bg")!.resolvedValue).toBe("#000");
     expect(dark.get("--color-fg")!.resolvedValue).toBe("#fff");
     // non-overridden tokens are inherited from :root
     expect(dark.get("--space-1")!.resolvedValue).toBe("4px");

@@ -227,11 +227,17 @@ function classifyV0192(key: string, value: string, line: number): V0192Entry {
   const hard = /^if\(\$exclude-hardcoded-values,\s*null,\s*(.+)\)$/.exec(value);
   if (hard) {
     const inner = hard[1]!.trim();
-    if (!/map\.get|\$|\bif\(|\/\*/.test(inner) && balanced(inner)) return { key, kind: "literal", literal: inner, line };
+    if (!/map\.get|\$|\bif\(|\/\*/.test(inner) && balanced(inner)) return { key, kind: "literal", literal: unwrapList(inner), line };
     return { key, kind: "composite", line };
   }
   if (!/[$(]/.test(value) && value.length) return { key, kind: "literal", literal: value, line };
   return { key, kind: "composite", line };
+}
+
+/** Sass list literal "(Roboto)" / "(16px 16px 0px 0px)" -> its CSS value text. */
+export function unwrapList(s: string): string {
+  const m = /^\((.*)\)$/.exec(s.trim());
+  return m && balanced(m[1]!) ? m[1]!.trim() : s.trim();
 }
 
 function balanced(s: string): boolean {
