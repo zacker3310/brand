@@ -10,7 +10,7 @@
       "websiteUrl": "https://chakra-ui.com/"
     },
     "category": "component-library",
-    "summary": "Chakra UI is an open-source React component library with a theming and style-props system, maintained by the Chakra UI team (Chakra Systems Inc.). Version 3 builds its component logic on Ark UI / Zag.js state machines.",
+    "summary": "Chakra UI is an open-source React component library with a theming and style-props system, maintained by the Chakra UI team (Chakra Systems Inc.). Version 3 is built on the team's Ark UI headless components, with Emotion for styling.",
     "homepageUrl": "https://chakra-ui.com/",
     "docsUrl": "https://chakra-ui.com/docs/get-started/installation",
     "repositoryUrl": "https://github.com/chakra-ui/chakra-ui",
@@ -52,7 +52,8 @@
       "theming",
       "accessibility-first",
       "css-in-js",
-      "design-tokens"
+      "design-tokens",
+      "saas"
     ],
     "relatedSlugs": [
       "ark-ui",
@@ -114,10 +115,20 @@
         "checkedAt": "2026-11-05T03:49:37.804Z",
         "method": "package-metadata",
         "note": "npm latest 3.38.0 published 2026-11-03; license MIT; not deprecated; repo https://github.com/chakra-ui/chakra-ui; maintenance: release within 2 days of research date => active"
+      },
+      {
+        "field": "relatedSlugs",
+        "url": "https://cdn.jsdelivr.net/npm/@chakra-ui/react@3.38.0/package.json",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@chakra-ui/react@3.38.0/package.json",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:26.749Z",
+        "method": "page-content",
+        "note": "published package.json dependencies include @ark-ui/react 5.40.0 and @emotion/* packages"
       }
     ],
     "confidence": 0.97,
-    "verifiedAt": "2026-11-05T03:54:33.848Z"
+    "verifiedAt": "2026-11-05T03:59:26.749Z"
   },
   {
     "rank": 22,
@@ -1374,5 +1385,942 @@
     ],
     "confidence": 0.96,
     "verifiedAt": "2026-11-05T03:54:55.618Z"
+  },
+  {
+    "rank": 31,
+    "slug": "daisyui",
+    "name": "daisyUI",
+    "aliases": [
+      "DaisyUI"
+    ],
+    "organization": {
+      "slug": "daisyui",
+      "name": "daisyUI (Pouya Saadeghi)",
+      "websiteUrl": "https://daisyui.com/"
+    },
+    "category": "css-framework",
+    "summary": "daisyUI is an open-source Tailwind CSS plugin that adds semantic component class names (btn, card, modal and others) and a multi-theme color system. It is framework-agnostic because it outputs CSS only, and it is created and maintained by Pouya Saadeghi.",
+    "homepageUrl": "https://daisyui.com/",
+    "docsUrl": "https://daisyui.com/docs/install/",
+    "repositoryUrl": "https://github.com/saadeghi/daisyui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "daisyui",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/daisyui"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/saadeghi/daisyui/master/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2020 Pouya Saadeghi. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.7.50",
+    "latestReleaseAt": "2026-10-13T11:45:06.890Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "daisyui",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "tailwind",
+      "theming",
+      "css-only",
+      "design-tokens"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified css-framework: a Tailwind CSS plugin that emits component classes, with no JavaScript components. Framework support is html-css because the output is plain CSS usable from any framework, and no framework-specific official packages were verified. No figma.com link was found on the homepage, so figmaUrl is null. Some daisyUI products such as templates and a Figma library may be sold separately; they were not verified and are out of scope.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://daisyui.com",
+        "status": 200,
+        "finalUrl": "https://daisyui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.885Z",
+        "method": "http-check",
+        "note": "title: daisyUI - Tailwind CSS Component Library; npm homepage field = https://daisyui.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://daisyui.com/docs/install/",
+        "status": 200,
+        "finalUrl": "https://daisyui.com/docs/install/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.200Z",
+        "method": "http-check",
+        "note": "title: Install daisyUI as a Tailwind plugin; public docs"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/saadeghi/daisyui",
+        "status": 200,
+        "finalUrl": "https://github.com/saadeghi/daisyui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:19.806Z",
+        "method": "http-check",
+        "note": "official repo saadeghi/daisyui (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/saadeghi/daisyui/master/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/saadeghi/daisyui/master/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:50.992Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on master: MIT License, Copyright (c) 2020 Pouya Saadeghi"
+      },
+      {
+        "field": "package:daisyui",
+        "url": "https://www.npmjs.com/package/daisyui",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.637Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.7.50 published 2026-10-13; license MIT; not deprecated; repo git+https://github.com/saadeghi/daisyui.git; release about 3 weeks before the research date => active"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T03:56:50.992Z"
+  },
+  {
+    "rank": 32,
+    "slug": "flowbite",
+    "name": "Flowbite",
+    "aliases": [],
+    "organization": {
+      "slug": "themesberg",
+      "name": "Themesberg (Bergside Inc.)",
+      "websiteUrl": "https://flowbite.com/"
+    },
+    "category": "component-library",
+    "summary": "Flowbite is an open-source UI component library built on Tailwind CSS, with vanilla JavaScript interactivity in its core package plus official React, Vue and Svelte component libraries. It is maintained by Themesberg (Bergside Inc.), which also sells a commercial Pro tier.",
+    "homepageUrl": "https://flowbite.com/",
+    "docsUrl": "https://flowbite.com/docs/getting-started/introduction/",
+    "repositoryUrl": "https://github.com/themesberg/flowbite",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "flowbite",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/flowbite"
+      },
+      {
+        "name": "flowbite-react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/flowbite-react"
+      },
+      {
+        "name": "flowbite-vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/flowbite-vue"
+      },
+      {
+        "name": "flowbite-svelte",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/flowbite-svelte"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://flowbite.com/docs/getting-started/license/",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Open-source code is MIT (LICENSE.md: Copyright (c) 2023 Bergside Inc.). The Flowbite name and logos are trademarks of Bergside Inc. Flowbite Pro (blocks, Figma design system) is a separate commercial product, not covered by MIT."
+    },
+    "docAccess": "partial",
+    "maintenanceStatus": "active",
+    "latestVersion": "4.0.2",
+    "latestReleaseAt": "2026-05-13T17:26:07.580Z",
+    "frameworks": [
+      {
+        "slug": "html-css",
+        "packageName": "flowbite",
+        "support": "official"
+      },
+      {
+        "slug": "react",
+        "packageName": "flowbite-react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "flowbite-vue",
+        "support": "official"
+      },
+      {
+        "slug": "svelte",
+        "packageName": "flowbite-svelte",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "tailwind",
+      "commercial",
+      "theming",
+      "figma-kit"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library (Tailwind classes plus a JS behavior layer and framework ports). Framework packages count as official only where the repos are in the themesberg org and are described as 'Official ... components'. The docs' integration guides (Angular, Laravel, Django, Blazor, ...) cover using the core package and are not separate libraries. docAccess 'partial' because Pro blocks are paid. figmaUrl is null: flowbite.com/figma/ promotes a Figma design system, but no figma.com URL was verified. latestVersion is the core 'flowbite' package.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://flowbite.com",
+        "status": 200,
+        "finalUrl": "https://flowbite.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.203Z",
+        "method": "http-check",
+        "note": "200 at https://flowbite.com/ (title tag empty in server HTML); npm 'flowbite' homepage field = https://flowbite.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://flowbite.com/docs/getting-started/introduction/",
+        "status": 200,
+        "finalUrl": "https://flowbite.com/docs/getting-started/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.503Z",
+        "method": "http-check",
+        "note": "title: Flowbite - Tailwind CSS component library; docs list integration guides (React, Vue, Svelte, Angular, Laravel, Django, Blazor, ...)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/themesberg/flowbite",
+        "status": 200,
+        "finalUrl": "https://github.com/themesberg/flowbite",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.106Z",
+        "method": "http-check",
+        "note": "official repo themesberg/flowbite: 'Open-source UI component library and front-end development framework'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/themesberg/flowbite/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/themesberg/flowbite/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:07.809Z",
+        "method": "repo-metadata",
+        "note": "LICENSE.md on main: MIT License, Copyright (c) 2023 Bergside Inc."
+      },
+      {
+        "field": "license",
+        "url": "https://flowbite.com/docs/getting-started/license/",
+        "status": 200,
+        "finalUrl": "https://flowbite.com/docs/getting-started/license/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:54.027Z",
+        "method": "http-check",
+        "note": "official license page: released code is MIT, Copyright (c) Themesberg (Bergside Inc.); Flowbite name/logos are trademarks of Bergside Inc."
+      },
+      {
+        "field": "package:flowbite",
+        "url": "https://www.npmjs.com/package/flowbite",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:22.908Z",
+        "method": "package-metadata",
+        "note": "npm latest 4.0.2 published 2026-05-13; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite.git; core package (Tailwind plugin + vanilla JS); last release 2026-05-13 => active"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://flowbite.com/docs/getting-started/react/",
+        "status": 200,
+        "finalUrl": "https://flowbite.com/docs/getting-started/react/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:50.840Z",
+        "method": "http-check",
+        "note": "title: Tailwind CSS React - Flowbite"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/themesberg/flowbite-react",
+        "status": 200,
+        "finalUrl": "https://github.com/themesberg/flowbite-react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.414Z",
+        "method": "http-check",
+        "note": "repo description: 'Official React components built for Flowbite and Tailwind CSS'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://flowbite-react.com",
+        "status": 429,
+        "finalUrl": "https://flowbite-react.com/",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:56:21.024Z",
+        "method": "http-check",
+        "note": "flowbite-react.com returned 429 (Vercel Security Checkpoint) to the checker; not used as a URL value"
+      },
+      {
+        "field": "package:flowbite-react",
+        "url": "https://www.npmjs.com/package/flowbite-react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.221Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.12.17 published 2026-02-09; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-react.git"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/themesberg/flowbite-vue",
+        "status": 200,
+        "finalUrl": "https://github.com/themesberg/flowbite-vue",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:54.322Z",
+        "method": "http-check",
+        "note": "repo description: 'Official Vue 3 components built for Flowbite and Tailwind CSS'"
+      },
+      {
+        "field": "package:flowbite-vue",
+        "url": "https://www.npmjs.com/package/flowbite-vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:54.037Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.4.0 published 2026-07-27; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-vue.git"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/themesberg/flowbite-svelte",
+        "status": 200,
+        "finalUrl": "https://github.com/themesberg/flowbite-svelte",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:54.623Z",
+        "method": "http-check",
+        "note": "repo description: 'Official Svelte components built for Flowbite and Tailwind CSS'"
+      },
+      {
+        "field": "package:flowbite-svelte",
+        "url": "https://www.npmjs.com/package/flowbite-svelte",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:54.631Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.33.1 published 2026-04-07; license MIT; not deprecated; repo git+https://github.com/themesberg/flowbite-svelte.git"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T03:57:54.623Z"
+  },
+  {
+    "rank": 33,
+    "slug": "heroui",
+    "name": "HeroUI",
+    "aliases": [
+      "NextUI"
+    ],
+    "organization": {
+      "slug": "heroui",
+      "name": "HeroUI Inc. (formerly NextUI Inc.)",
+      "websiteUrl": "https://heroui.com/"
+    },
+    "category": "component-library",
+    "summary": "HeroUI, formerly NextUI, is an open-source React UI component library from HeroUI Inc. Version 3 builds on React Aria and Tailwind CSS. A companion HeroUI Native library targets React Native.",
+    "homepageUrl": "https://heroui.com/",
+    "docsUrl": "https://heroui.com/en/docs/react/getting-started",
+    "repositoryUrl": "https://github.com/heroui-inc/heroui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@heroui/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@heroui/react"
+      },
+      {
+        "name": "heroui-native",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/heroui-native"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/heroui-inc/heroui/v3/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Current v3 (@heroui/react 3.x, v3 branch) is Apache-2.0 per npm metadata, the v3 branch LICENSE and the published package LICENSE. The main branch (v2 line) LICENSE is MIT (c) 2020 Next UI Inc., and the deprecated @nextui-org/react was MIT. heroui-native is Apache-2.0 per npm."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.2.7",
+    "latestReleaseAt": "2026-10-28T19:35:57.743Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@heroui/react",
+        "support": "official"
+      },
+      {
+        "slug": "react-native",
+        "packageName": "heroui-native",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "tags": [
+      "open-source",
+      "react",
+      "tailwind",
+      "react-native",
+      "theming",
+      "accessibility-first"
+    ],
+    "relatedSlugs": [
+      "react-aria"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Rename verified: nextui.org redirects to heroui.com, and @nextui-org/react is deprecated in favor of @heroui/react. Licensing changed across major versions (v2 MIT, v3 Apache-2.0); see license notes. ios/android platforms come from HeroUI Native, a separate official package and repo. figmaUrl is null because the figma.com link on heroui.com returned 403. latestVersion refers to @heroui/react.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://www.heroui.com",
+        "status": 200,
+        "finalUrl": "https://heroui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.417Z",
+        "method": "http-check",
+        "note": "redirects to https://heroui.com/ (title: HeroUI v3 (Previously NextUI) ...)"
+      },
+      {
+        "field": "aliases",
+        "url": "https://nextui.org",
+        "status": 200,
+        "finalUrl": "https://heroui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.418Z",
+        "method": "http-check",
+        "note": "former NextUI domain redirects to https://heroui.com/: the rename is confirmed"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://heroui.com/en/docs/react/getting-started",
+        "status": 200,
+        "finalUrl": "https://heroui.com/en/docs/react/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:50.790Z",
+        "method": "http-check",
+        "note": "title: Introduction to HeroUI v3 – React UI Library; public docs (old /docs/guide/introduction path now redirects to a migration page)"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://www.heroui.com/docs/guide/introduction",
+        "status": 200,
+        "finalUrl": "https://heroui.com/en/docs/react/migration",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.717Z",
+        "method": "http-check",
+        "note": "legacy v2 docs path redirects to https://heroui.com/en/docs/react/migration"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/heroui-inc/heroui",
+        "status": 200,
+        "finalUrl": "https://github.com/heroui-inc/heroui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.801Z",
+        "method": "http-check",
+        "note": "official repo heroui-inc/heroui: '(Previously NextUI)'"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/heroui-inc/heroui/tree/v3",
+        "status": 200,
+        "finalUrl": "https://github.com/heroui-inc/heroui/tree/v3",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:53.722Z",
+        "method": "http-check",
+        "note": "v3 branch exists (200)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/heroui-inc/heroui/v3/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/heroui-inc/heroui/v3/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:07.209Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on v3 branch: Apache License 2.0"
+      },
+      {
+        "field": "license",
+        "url": "https://cdn.jsdelivr.net/npm/@heroui/react@3.2.7/LICENSE",
+        "status": 200,
+        "finalUrl": "https://cdn.jsdelivr.net/npm/@heroui/react@3.2.7/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:06.945Z",
+        "method": "repo-metadata",
+        "note": "published @heroui/react@3.2.7 ships Apache License 2.0"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/heroui-inc/heroui/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/heroui-inc/heroui/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:50.692Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main branch (v2 line): MIT License, Copyright (c) 2020 Next UI Inc."
+      },
+      {
+        "field": "package:@heroui/react",
+        "url": "https://www.npmjs.com/package/@heroui/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:23.560Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.2.7 published 2026-10-28; license Apache-2.0; not deprecated; repo git+https://github.com/heroui-inc/heroui.git; release about 1 week before the research date => active"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://heroui.com/en/docs/react/releases/v3-2-7",
+        "status": 200,
+        "finalUrl": "https://heroui.com/en/docs/react/releases/v3-2-7",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:53.837Z",
+        "method": "http-check",
+        "note": "release notes v3.2.7 mention React Aria 1.22.1, a new Sheet component, Slider marks"
+      },
+      {
+        "field": "package:@nextui-org/react",
+        "url": "https://www.npmjs.com/package/@nextui-org/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.009Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.6.11 published 2025-01-05; license MIT; DEPRECATED: This package has been deprecated. Please use @heroui/react instead.; repo git+https://github.com/nextui-org/nextui.git; former NextUI package; deprecated in favor of @heroui/react"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://heroui.com/en/docs/native/getting-started",
+        "status": 200,
+        "finalUrl": "https://heroui.com/en/docs/native/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:51.091Z",
+        "method": "http-check",
+        "note": "HeroUI Native docs (title: Introduction | HeroUI), linked from heroui.com"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/heroui-inc/heroui-native",
+        "status": 200,
+        "finalUrl": "https://github.com/heroui-inc/heroui-native",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:54.021Z",
+        "method": "http-check",
+        "note": "official repo heroui-inc/heroui-native: React Native UI library"
+      },
+      {
+        "field": "package:heroui-native",
+        "url": "https://www.npmjs.com/package/heroui-native",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:53.312Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.0.11 published 2026-10-20; license Apache-2.0; not deprecated; repo git+https://github.com/heroui-inc/heroui-native.git"
+      },
+      {
+        "field": "figmaUrl",
+        "url": "https://www.figma.com/community/file/1546526812159103429",
+        "status": 403,
+        "finalUrl": "https://www.figma.com/community/file/1546526812159103429",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:56:50.888Z",
+        "method": "http-check",
+        "note": "heroui.com links this Figma community file, but figma.com returned 403 to the checker; figmaUrl left null"
+      }
+    ],
+    "confidence": 0.94,
+    "verifiedAt": "2026-11-05T03:57:54.021Z"
+  },
+  {
+    "rank": 34,
+    "slug": "park-ui",
+    "name": "Park UI",
+    "aliases": [],
+    "organization": {
+      "slug": "chakra-ui",
+      "name": "Chakra UI (Chakra Systems Inc.)",
+      "websiteUrl": "https://chakra-ui.com/"
+    },
+    "category": "component-library",
+    "summary": "Park UI is an open-source set of styled, accessible components built on Ark UI and Panda CSS, distributed as source code through the @park-ui/cli tool. It was created by Christian Schröter (cschroeter) and is hosted in the chakra-ui GitHub organization.",
+    "homepageUrl": "https://park-ui.com/",
+    "docsUrl": "https://park-ui.com/docs/introduction",
+    "repositoryUrl": "https://github.com/chakra-ui/park-ui",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@park-ui/cli",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@park-ui/cli"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/chakra-ui/park-ui/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2025 cschroeter. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "1.0.1",
+    "latestReleaseAt": "2025-11-20T19:54:56.752Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@ark-ui/react",
+        "support": "official"
+      },
+      {
+        "slug": "solid",
+        "packageName": "@ark-ui/solid",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "headless",
+      "theming",
+      "design-tokens",
+      "copy-paste"
+    ],
+    "relatedSlugs": [
+      "ark-ui",
+      "panda-css",
+      "chakra-ui"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified component-library (styled recipes over Ark UI headless components). 'active' is borderline: the last CLI release (2025-11-20) and the latest changelog entry ('11 months ago') fall just inside 12 months. Re-check soon. Only React and Solid have install paths on the official installation page, so Vue is omitted even though the meta description mentions it. The org is chakra-ui because the repo is in that GitHub org and the npm repository field points to cschroeter/park-ui. The site nav links a Figma community file, but figma.com is not verifiable from the checker, so figmaUrl is null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://park-ui.com",
+        "status": 200,
+        "finalUrl": "https://park-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.307Z",
+        "method": "http-check",
+        "note": "title: Home | Park UI; npm homepage field = https://park-ui.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://park-ui.com/docs",
+        "status": 200,
+        "finalUrl": "https://park-ui.com/docs/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:51.034Z",
+        "method": "http-check",
+        "note": "redirects to https://park-ui.com/docs/introduction (title: Introduction | Park UI); built with Panda CSS"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://park-ui.com/docs/installation",
+        "status": 200,
+        "finalUrl": "https://park-ui.com/docs/installation",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:54.493Z",
+        "method": "http-check",
+        "note": "installation shows React and Solid paths (npm install @ark-ui/react / @ark-ui/solid; npx @park-ui/cli init); the meta description also mentions Vue, but no Vue install path appears"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/chakra-ui/park-ui",
+        "status": 200,
+        "finalUrl": "https://github.com/chakra-ui/park-ui",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:21.061Z",
+        "method": "http-check",
+        "note": "official repo chakra-ui/park-ui: 'Beautifully designed components built with Ark UI and Panda CSS'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/chakra-ui/park-ui/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/chakra-ui/park-ui/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:51.592Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: MIT License, Copyright (c) 2025 cschroeter"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://park-ui.com/changelog",
+        "status": 200,
+        "finalUrl": "https://park-ui.com/changelog",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:54.194Z",
+        "method": "http-check",
+        "note": "latest changelog entry dated '11 months ago': 'Park UI Gets a Major Upgrade', retiring @park-ui/panda-preset in favor of recipes copied into the codebase"
+      },
+      {
+        "field": "package:@park-ui/cli",
+        "url": "https://www.npmjs.com/package/@park-ui/cli",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:53.909Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.0.1 published 2025-11-20; license MIT; not deprecated; repo git+https://github.com/cschroeter/park-ui.git; current distribution tool; last release 2025-11-20 (about 11.5 months before the research date)"
+      },
+      {
+        "field": "package:@park-ui/panda-preset",
+        "url": "https://www.npmjs.com/package/@park-ui/panda-preset",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.199Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.43.1 published 2024-11-22; license MIT; not deprecated; repo git+https://github.com/cschroeter/park-ui.git; retired per the official changelog; last release 2024-11-22"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T03:57:54.493Z"
+  },
+  {
+    "rank": 35,
+    "slug": "ark-ui",
+    "name": "Ark UI",
+    "aliases": [],
+    "organization": {
+      "slug": "chakra-ui",
+      "name": "Chakra UI (Chakra Systems Inc.)",
+      "websiteUrl": "https://chakra-ui.com/"
+    },
+    "category": "headless-library",
+    "summary": "Ark UI is an open-source headless component library from the Chakra UI team, built on Zag.js state machines, with official React, Vue, Solid and Svelte packages. It underpins Chakra UI v3 and Park UI.",
+    "homepageUrl": "https://ark-ui.com/",
+    "docsUrl": "https://ark-ui.com/docs/overview/getting-started",
+    "repositoryUrl": "https://github.com/chakra-ui/ark",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@ark-ui/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ark-ui/react"
+      },
+      {
+        "name": "@ark-ui/vue",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ark-ui/vue"
+      },
+      {
+        "name": "@ark-ui/solid",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ark-ui/solid"
+      },
+      {
+        "name": "@ark-ui/svelte",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@ark-ui/svelte"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/chakra-ui/ark/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Copyright (c) 2024 Chakra Systems Inc.. MIT: retain copyright and permission notice."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "5.40.0",
+    "latestReleaseAt": "2026-10-29T17:30:25.609Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@ark-ui/react",
+        "support": "official"
+      },
+      {
+        "slug": "vue",
+        "packageName": "@ark-ui/vue",
+        "support": "official"
+      },
+      {
+        "slug": "solid",
+        "packageName": "@ark-ui/solid",
+        "support": "official"
+      },
+      {
+        "slug": "svelte",
+        "packageName": "@ark-ui/svelte",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "headless",
+      "accessibility-first",
+      "unstyled",
+      "multi-framework"
+    ],
+    "relatedSlugs": [
+      "chakra-ui",
+      "park-ui",
+      "panda-css"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Classified headless-library. All four framework packages are in the chakra-ui/ark repo and were released within the past week (svelte 5.25.1, others 5.40.0). The Zag.js foundation and Chakra-team maintainership come from the official About page. Chakra UI v3 depends on @ark-ui/react (verified via its package.json). The 'Plus' link on the site navigation (Ark UI Plus) was not verified and is out of scope. No official Figma link was recorded.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://ark-ui.com",
+        "status": 200,
+        "finalUrl": "https://ark-ui.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:20.246Z",
+        "method": "http-check",
+        "note": "title: Ark UI; npm homepage field = https://ark-ui.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://ark-ui.com/docs/overview/getting-started",
+        "status": 200,
+        "finalUrl": "https://ark-ui.com/docs/overview/getting-started",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:50.761Z",
+        "method": "http-check",
+        "note": "title: Getting Started | Ark UI; framework switcher React / Solid / Vue / Svelte"
+      },
+      {
+        "field": "summary",
+        "url": "https://ark-ui.com/docs/overview/about",
+        "status": 200,
+        "finalUrl": "https://ark-ui.com/docs/overview/about",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:59:26.972Z",
+        "method": "http-check",
+        "note": "About page: Ark UI is built on top of Zag.js (finite state machines), supports React, Solid, Vue and Svelte, and is built and maintained by the team behind Chakra UI"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/chakra-ui/ark",
+        "status": 200,
+        "finalUrl": "https://github.com/chakra-ui/ark",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:21.361Z",
+        "method": "http-check",
+        "note": "official repo chakra-ui/ark: 'Unstyled, accessible UI components for your design System'"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/chakra-ui/ark/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/chakra-ui/ark/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:51.892Z",
+        "method": "repo-metadata",
+        "note": "LICENSE on main: MIT License, Copyright (c) 2024 Chakra Systems Inc."
+      },
+      {
+        "field": "package:@ark-ui/react",
+        "url": "https://www.npmjs.com/package/@ark-ui/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:24.494Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.40.0 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git; release about 1 week before the research date => active"
+      },
+      {
+        "field": "package:@ark-ui/vue",
+        "url": "https://www.npmjs.com/package/@ark-ui/vue",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.011Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.40.0 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git"
+      },
+      {
+        "field": "package:@ark-ui/solid",
+        "url": "https://www.npmjs.com/package/@ark-ui/solid",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.347Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.40.0 published 2026-10-29; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git"
+      },
+      {
+        "field": "package:@ark-ui/svelte",
+        "url": "https://www.npmjs.com/package/@ark-ui/svelte",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:56:25.524Z",
+        "method": "package-metadata",
+        "note": "npm latest 5.25.1 published 2026-11-02; license MIT; not deprecated; repo git+https://github.com/chakra-ui/ark.git"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T03:59:26.972Z"
   }
 ]

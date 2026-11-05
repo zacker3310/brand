@@ -854,5 +854,977 @@
     ],
     "confidence": 0.93,
     "verifiedAt": "2026-11-05T03:53:02.361Z"
+  },
+  {
+    "rank": 6,
+    "slug": "adobe-spectrum",
+    "name": "Adobe Spectrum",
+    "aliases": [
+      "Spectrum",
+      "Spectrum 2",
+      "S2",
+      "Spectrum Design System"
+    ],
+    "organization": {
+      "slug": "adobe",
+      "name": "Adobe",
+      "websiteUrl": "https://www.adobe.com/"
+    },
+    "category": "design-system",
+    "summary": "Adobe's design system for its products, documenting foundations, content guidelines and components, with design data (tokens, component schemas) and implementations in React Spectrum, Spectrum Web Components and Spectrum CSS.",
+    "homepageUrl": "https://spectrum.adobe.com/",
+    "docsUrl": "https://spectrum.adobe.com/getting-started/introduction",
+    "repositoryUrl": "https://github.com/adobe/spectrum-design-data",
+    "figmaUrl": null,
+    "storybookUrl": "https://opensource.adobe.com/spectrum-css/",
+    "packages": [
+      {
+        "name": "@adobe/spectrum-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-tokens"
+      },
+      {
+        "name": "@adobe/spectrum-design-data",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-design-data"
+      },
+      {
+        "name": "@spectrum-web-components/bundle",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@spectrum-web-components/bundle"
+      },
+      {
+        "name": "@spectrum-css/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@spectrum-css/tokens"
+      }
+    ],
+    "license": {
+      "slug": "apache-2.0",
+      "spdxId": "Apache-2.0",
+      "name": "Apache License 2.0",
+      "url": "https://raw.githubusercontent.com/adobe/spectrum-design-data/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "Applies to the design-data repo and the npm implementation packages (all Apache-2.0 on npm). The guideline site content itself states no license in static HTML."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "15.6.0",
+    "latestReleaseAt": "2026-10-16T20:45:24.948Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@react-spectrum/s2",
+        "support": "official"
+      },
+      {
+        "slug": "web-components",
+        "packageName": "@spectrum-web-components/bundle",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@spectrum-css/tokens",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "open-source",
+      "design-tokens",
+      "accessibility",
+      "theming",
+      "web-components"
+    ],
+    "relatedSlugs": [
+      "react-spectrum",
+      "react-aria"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Design-system umbrella; React Spectrum is a distinct implementation with its own entry (react-spectrum), React Aria likewise (react-aria). s2.spectrum.adobe.com now redirects to spectrum.adobe.com, which hosts Spectrum 2 docs incl. /web/rsp/ (React Spectrum) and /web/swc/ (Spectrum Web Components) component pages. repositoryUrl = adobe/spectrum-design-data (tokens + component schemas; adobe/spectrum-tokens redirects there). latestVersion = @adobe/spectrum-tokens. storybookUrl = official Spectrum CSS storybook. @spectrum-css/tokens last published 2025-06-11 (Spectrum CSS release cadence slower than other packages). Site is JS-rendered; no Figma link extracted, figmaUrl null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://spectrum.adobe.com/",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.272Z",
+        "method": "http-check",
+        "note": "title 'Start with Spectrum'; meta: the system behind Adobe's experiences"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://s2.spectrum.adobe.com/",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.269Z",
+        "method": "http-check",
+        "note": "s2 subdomain redirects to spectrum.adobe.com"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://spectrum.adobe.com/getting-started/introduction",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/getting-started/introduction",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.529Z",
+        "method": "http-check",
+        "note": "title 'Spectrum is Adobe's design system'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://spectrum.adobe.com/foundations/design-data/design-tokens",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/foundations/design-data/design-tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.830Z",
+        "method": "http-check",
+        "note": "Design tokens page; links github.com/adobe/spectrum-design-data"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://spectrum.adobe.com/web/rsp/components/accordion",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/web/rsp/components/accordion",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:37.924Z",
+        "method": "http-check",
+        "note": "React Spectrum component docs hosted on spectrum.adobe.com (/web/rsp/)"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://spectrum.adobe.com/web/swc/components/button",
+        "status": 200,
+        "finalUrl": "https://spectrum.adobe.com/web/swc/components/button",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:37.625Z",
+        "method": "http-check",
+        "note": "Spectrum Web Components docs hosted on spectrum.adobe.com (/web/swc/)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/adobe/spectrum-design-data",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/spectrum-design-data",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:56.883Z",
+        "method": "http-check",
+        "note": "adobe/spectrum-design-data: design tokens, component schemas and tooling for Spectrum"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/adobe/spectrum-tokens",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/spectrum-tokens",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.183Z",
+        "method": "http-check",
+        "note": "old repo name; page says it redirects to adobe/spectrum-design-data"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://github.com/adobe/spectrum-web-components",
+        "status": 200,
+        "finalUrl": "https://github.com/adobe/spectrum-web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:37.597Z",
+        "method": "http-check",
+        "note": "adobe/spectrum-web-components repo"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://opensource.adobe.com/spectrum-web-components/",
+        "status": 200,
+        "finalUrl": "https://opensource.adobe.com/spectrum-web-components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.680Z",
+        "method": "http-check",
+        "note": "title 'Spectrum Web Components'"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://opensource.adobe.com/spectrum-css/",
+        "status": 200,
+        "finalUrl": "https://opensource.adobe.com/spectrum-css/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.981Z",
+        "method": "http-check",
+        "note": "Spectrum CSS storybook (Storybook title); npm homepage of @spectrum-css/tokens"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/adobe/spectrum-design-data/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/adobe/spectrum-design-data/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.440Z",
+        "method": "repo-metadata",
+        "note": "Apache License Version 2.0"
+      },
+      {
+        "field": "package:@adobe/spectrum-tokens",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:28.510Z",
+        "method": "package-metadata",
+        "note": "npm latest 15.6.0 published 2026-10-16; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-design-data.git"
+      },
+      {
+        "field": "package:@adobe/spectrum-design-data",
+        "url": "https://www.npmjs.com/package/@adobe/spectrum-design-data",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:28.727Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.8.2 published 2026-11-05; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-design-data.git"
+      },
+      {
+        "field": "package:@spectrum-web-components/bundle",
+        "url": "https://www.npmjs.com/package/@spectrum-web-components/bundle",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:29.237Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.12.5 published 2026-10-14; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-web-components.git"
+      },
+      {
+        "field": "package:@spectrum-css/tokens",
+        "url": "https://www.npmjs.com/package/@spectrum-css/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:29.855Z",
+        "method": "package-metadata",
+        "note": "npm latest 16.0.2 published 2025-06-11; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/spectrum-css.git"
+      },
+      {
+        "field": "package:@react-spectrum/s2",
+        "url": "https://www.npmjs.com/package/@react-spectrum/s2",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:29.498Z",
+        "method": "package-metadata",
+        "note": "npm latest 1.8.2 published 2026-10-15; license Apache-2.0; deprecated: no; repo git+https://github.com/adobe/react-spectrum.git; React Spectrum (S2) implementation; separate entry react-spectrum"
+      }
+    ],
+    "confidence": 0.93,
+    "verifiedAt": "2026-11-05T03:58:37.924Z"
+  },
+  {
+    "rank": 7,
+    "slug": "atlassian",
+    "name": "Atlassian Design System",
+    "aliases": [
+      "ADS",
+      "Atlaskit",
+      "Atlassian Design"
+    ],
+    "organization": {
+      "slug": "atlassian",
+      "name": "Atlassian",
+      "websiteUrl": "https://www.atlassian.com/"
+    },
+    "category": "design-system",
+    "summary": "Atlassian's design system used across Jira, Confluence and other Atlassian products, providing foundations, design tokens and React components published as @atlaskit packages.",
+    "homepageUrl": "https://atlassian.design/",
+    "docsUrl": "https://atlassian.design/components",
+    "repositoryUrl": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@atlaskit/tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@atlaskit/tokens"
+      },
+      {
+        "name": "@atlaskit/primitives",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@atlaskit/primitives"
+      },
+      {
+        "name": "@atlaskit/button",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@atlaskit/button"
+      }
+    ],
+    "license": {
+      "slug": "atlassian-design-system-license",
+      "spdxId": null,
+      "name": "Atlassian Design System License Agreement",
+      "url": "https://atlassian.design/license",
+      "isOpenSource": null,
+      "redistribution": "restricted",
+      "notes": "Conflicting signals: npm metadata of @atlaskit packages says Apache-2.0, but the ADS License Agreement grants a limited license to use ADS (incl. code packages) only to build add-ons that interoperate with Atlassian products, and restricts modification; it defers to OSS terms for OSS-licensed components. Treat reuse outside Atlassian add-ons as restricted."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "25.7.0",
+    "latestReleaseAt": "2026-11-02T01:55:12.806Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@atlaskit/button",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "enterprise",
+      "saas",
+      "design-tokens",
+      "developer-tools",
+      "accessibility"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Components are distributed as many per-component @atlaskit/* npm packages; latestVersion tracks @atlaskit/button as a representative package (no single system version). Source is published as a read-only Bitbucket mirror (repository field of the npm packages). License: see license.notes — custom agreement with field-of-use restriction vs Apache-2.0 on npm; isOpenSource left null as conflicting. atlassian.design is client-rendered; Figma libraries page exists but no figma.com link was extracted, so figmaUrl is null.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://atlassian.design/",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:58.795Z",
+        "method": "http-check",
+        "note": "title 'Atlassian Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://atlassian.design/components",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:59.094Z",
+        "method": "http-check",
+        "note": "title 'Overview - Components - Atlassian Design'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://atlassian.design/get-started/develop",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/get-started/develop",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:08.383Z",
+        "method": "http-check",
+        "note": "Get started > Develop page (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+        "status": 200,
+        "finalUrl": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:56.954Z",
+        "method": "http-check",
+        "note": "Bitbucket mirror; matches repository field of @atlaskit npm packages"
+      },
+      {
+        "field": "license",
+        "url": "https://atlassian.design/license",
+        "status": 200,
+        "finalUrl": "https://atlassian.design/license",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:59.395Z",
+        "method": "page-content",
+        "note": "ADS License Agreement: limited licence for building Atlassian add-ons; restrictions on modification"
+      },
+      {
+        "field": "package:@atlaskit/tokens",
+        "url": "https://www.npmjs.com/package/@atlaskit/tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:29.943Z",
+        "method": "package-metadata",
+        "note": "npm latest 20.9.0 published 2026-11-02; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+      },
+      {
+        "field": "package:@atlaskit/primitives",
+        "url": "https://www.npmjs.com/package/@atlaskit/primitives",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:30.632Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.6.0 published 2026-10-15; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+      },
+      {
+        "field": "package:@atlaskit/button",
+        "url": "https://www.npmjs.com/package/@atlaskit/button",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:30.361Z",
+        "method": "package-metadata",
+        "note": "npm latest 25.7.0 published 2026-11-02; license Apache-2.0; deprecated: no; repo git+https://bitbucket.org/atlassian/atlassian-frontend-mirror.git"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T03:58:08.383Z"
+  },
+  {
+    "rank": 8,
+    "slug": "shopify-polaris",
+    "name": "Shopify Polaris",
+    "aliases": [
+      "Polaris",
+      "Polaris web components",
+      "Polaris React"
+    ],
+    "organization": {
+      "slug": "shopify",
+      "name": "Shopify",
+      "websiteUrl": "https://www.shopify.com/"
+    },
+    "category": "design-system",
+    "summary": "Shopify's design system for building apps and extensions across Shopify surfaces (admin, checkout, customer accounts, POS), now delivered as web components documented on shopify.dev; the earlier React implementation is deprecated.",
+    "homepageUrl": "https://shopify.dev/docs/api/polaris",
+    "docsUrl": "https://shopify.dev/docs/api/polaris",
+    "repositoryUrl": "https://github.com/Shopify/polaris-react-archive",
+    "figmaUrl": null,
+    "storybookUrl": "https://storybook.polaris.shopify.dev/",
+    "packages": [
+      {
+        "name": "@shopify/polaris",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@shopify/polaris"
+      },
+      {
+        "name": "@shopify/polaris-tokens",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@shopify/polaris-tokens"
+      }
+    ],
+    "license": {
+      "slug": "polaris-license",
+      "spdxId": null,
+      "name": "Polaris License (MIT-style with Shopify field-of-use restriction)",
+      "url": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/LICENSE.md",
+      "isOpenSource": false,
+      "redistribution": "conditional",
+      "notes": "MIT-style grant limited to software that integrates or interoperates with Shopify; stand-alone apps must be visually distinct from Shopify products. Applies to the archived React repo/packages; license terms for the current CDN-delivered Polaris web components were not verified."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": null,
+    "latestReleaseAt": null,
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "ecommerce",
+      "saas",
+      "web-components",
+      "design-tokens",
+      "commercial"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "polaris.shopify.com and polaris-react.shopify.com both redirect to shopify.dev/docs/api/polaris, which describes Polaris as Shopify's unified UI framework built on web components; system is active. The React implementation is deprecated: npm @shopify/polaris carries a deprecation message (last 13.9.5, 2025-03-26) and github.com/Shopify/polaris redirects to Shopify/polaris-react-archive ('archived and unmaintained'). repositoryUrl/storybookUrl point to that archived React implementation (no public repo found for the web components). latestVersion null: web components are not versioned via npm here. No Figma link verified.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://polaris.shopify.com/",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/polaris",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.189Z",
+        "method": "http-check",
+        "note": "redirects to https://shopify.dev/docs/api/polaris"
+      },
+      {
+        "field": "homepageUrl",
+        "url": "https://polaris-react.shopify.com/",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/polaris",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.165Z",
+        "method": "http-check",
+        "note": "former React docs domain also redirects to shopify.dev/docs/api/polaris"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://shopify.dev/docs/api/polaris",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/polaris",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.681Z",
+        "method": "page-content",
+        "note": "title 'Polaris references'; page states all app surfaces use Polaris, Shopify's unified UI framework built on web components"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://shopify.dev/docs/api/app-home/polaris-web-components",
+        "status": 200,
+        "finalUrl": "https://shopify.dev/docs/api/app-home/latest/web-components",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.130Z",
+        "method": "http-check",
+        "note": "redirects to shopify.dev/docs/api/app-home/latest/web-components (200)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/Shopify/polaris",
+        "status": 200,
+        "finalUrl": "https://github.com/Shopify/polaris-react-archive",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.483Z",
+        "method": "http-check",
+        "note": "redirects to Shopify/polaris-react-archive: 'React implementation (Deprecated)'"
+      },
+      {
+        "field": "maintenance",
+        "url": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/README.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/README.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:11.641Z",
+        "method": "repo-metadata",
+        "note": "README: 'Polaris React (Archived) - This repository is archived and unmaintained'; points to shopify.dev Polaris"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/LICENSE.md",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/Shopify/polaris-react-archive/main/LICENSE.md",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:11.341Z",
+        "method": "repo-metadata",
+        "note": "MIT-style text with Shopify field-of-use restriction"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://storybook.polaris.shopify.dev/",
+        "status": 200,
+        "finalUrl": "https://storybook.polaris.shopify.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.567Z",
+        "method": "http-check",
+        "note": "Storybook for Polaris React (archive docs URL shopify.github.io/polaris-react-archive redirects here)"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://shopify.github.io/polaris-react-archive/",
+        "status": 200,
+        "finalUrl": "https://storybook.polaris.shopify.dev/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.618Z",
+        "method": "http-check",
+        "note": "archived documentation link from README; redirects to storybook.polaris.shopify.dev"
+      },
+      {
+        "field": "package:@shopify/polaris",
+        "url": "https://www.npmjs.com/package/@shopify/polaris",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:31.263Z",
+        "method": "package-metadata",
+        "note": "npm latest 13.9.5 published 2025-03-26; license SEE LICENSE IN LICENSE.md; deprecated: YES; repo git+https://github.com/Shopify/polaris.git; deprecation message: Polaris React is deprecated; use Polaris web components"
+      },
+      {
+        "field": "package:@shopify/polaris-tokens",
+        "url": "https://www.npmjs.com/package/@shopify/polaris-tokens",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:31.477Z",
+        "method": "package-metadata",
+        "note": "npm latest 9.4.2 published 2025-03-17; license SEE LICENSE IN LICENSE.md; deprecated: no; repo git+https://github.com/Shopify/polaris.git"
+      }
+    ],
+    "confidence": 0.9,
+    "verifiedAt": "2026-11-05T03:58:06.618Z"
+  },
+  {
+    "rank": 9,
+    "slug": "github-primer",
+    "name": "GitHub Primer",
+    "aliases": [
+      "Primer",
+      "Primer Design System"
+    ],
+    "organization": {
+      "slug": "github",
+      "name": "GitHub",
+      "websiteUrl": "https://github.com/"
+    },
+    "category": "design-system",
+    "summary": "GitHub's design system for its product UI, with guidelines, Figma libraries, design tokens (Primer Primitives) and implementations in React, Rails ViewComponents and CSS.",
+    "homepageUrl": "https://primer.style/",
+    "docsUrl": "https://primer.style/product/getting-started/",
+    "repositoryUrl": "https://github.com/primer/react",
+    "figmaUrl": null,
+    "storybookUrl": "https://primer.style/react/storybook/",
+    "packages": [
+      {
+        "name": "@primer/react",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/react"
+      },
+      {
+        "name": "@primer/primitives",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/primitives"
+      },
+      {
+        "name": "@primer/css",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/css"
+      },
+      {
+        "name": "@primer/view-components",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@primer/view-components"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/primer/react/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": "All four npm packages report MIT."
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "38.44.0",
+    "latestReleaseAt": "2026-11-03T16:40:52.057Z",
+    "frameworks": [
+      {
+        "slug": "react",
+        "packageName": "@primer/react",
+        "support": "official"
+      },
+      {
+        "slug": "html-css",
+        "packageName": "@primer/css",
+        "support": "official"
+      },
+      {
+        "slug": "figma",
+        "packageName": null,
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "developer-tools",
+      "design-tokens",
+      "accessibility",
+      "figma-kit",
+      "theming"
+    ],
+    "relatedSlugs": [],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Product UI system (Primer Brand for marketing pages is a separate GitHub project, not covered here). repositoryUrl = primer/react (primary implementation); tokens in primer/primitives. Rails implementation (primer/view_components, npm @primer/view-components) exists but Rails is not in the ATLAS framework list. Figma libraries page states public libraries are available via the Primer Figma Community page (hence figma framework); no figma.com URL verified, so figmaUrl null. latestVersion = @primer/react.",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://primer.style/",
+        "status": 200,
+        "finalUrl": "https://primer.style/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.110Z",
+        "method": "http-check",
+        "note": "title 'Primer'; description 'The Design System for GitHub'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primer.style/product/getting-started/",
+        "status": 200,
+        "finalUrl": "https://primer.style/product/getting-started/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.615Z",
+        "method": "http-check",
+        "note": "title 'Getting started | Primer'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://primer.style/product/components/",
+        "status": 200,
+        "finalUrl": "https://primer.style/product/components/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:07.215Z",
+        "method": "http-check",
+        "note": "title 'Components | Primer'"
+      },
+      {
+        "field": "frameworks",
+        "url": "https://primer.style/product/getting-started/figma/",
+        "status": 200,
+        "finalUrl": "https://primer.style/product/getting-started/figma/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.937Z",
+        "method": "page-content",
+        "note": "title 'Figma libraries | Primer'; public libraries via Primer Figma Community page"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primer/react",
+        "status": 200,
+        "finalUrl": "https://github.com/primer/react",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.782Z",
+        "method": "http-check",
+        "note": "primer/react: implementation of GitHub's Primer Design System using React"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/primer/primitives",
+        "status": 200,
+        "finalUrl": "https://github.com/primer/primitives",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.469Z",
+        "method": "http-check",
+        "note": "primer/primitives: color, typography and spacing primitives"
+      },
+      {
+        "field": "storybookUrl",
+        "url": "https://primer.style/react/storybook",
+        "status": 200,
+        "finalUrl": "https://primer.style/react/storybook/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.410Z",
+        "method": "http-check",
+        "note": "official Primer React Storybook (final URL with trailing slash)"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/primer/react/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/primer/react/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:10.740Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) 2018 GitHub, Inc."
+      },
+      {
+        "field": "package:@primer/react",
+        "url": "https://www.npmjs.com/package/@primer/react",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:32.008Z",
+        "method": "package-metadata",
+        "note": "npm latest 38.44.0 published 2026-11-03; license MIT; deprecated: no; repo git+https://github.com/primer/react.git"
+      },
+      {
+        "field": "package:@primer/primitives",
+        "url": "https://www.npmjs.com/package/@primer/primitives",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:32.556Z",
+        "method": "package-metadata",
+        "note": "npm latest 11.10.0 published 2026-07-30; license MIT; deprecated: no; repo git+https://github.com/primer/primitives.git"
+      },
+      {
+        "field": "package:@primer/css",
+        "url": "https://www.npmjs.com/package/@primer/css",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:33.095Z",
+        "method": "package-metadata",
+        "note": "npm latest 22.3.3 published 2026-10-29; license MIT; deprecated: no; repo git+https://github.com/primer/css.git"
+      },
+      {
+        "field": "package:@primer/view-components",
+        "url": "https://www.npmjs.com/package/@primer/view-components",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:34.230Z",
+        "method": "package-metadata",
+        "note": "npm latest 0.53.5 published 2026-09-11; license MIT; deprecated: no; repo git+https://github.com/primer/view_components.git"
+      }
+    ],
+    "confidence": 0.96,
+    "verifiedAt": "2026-11-05T03:58:07.215Z"
+  },
+  {
+    "rank": 10,
+    "slug": "microsoft-fast",
+    "name": "Microsoft FAST",
+    "aliases": [
+      "FAST",
+      "FAST Element",
+      "fast.design"
+    ],
+    "organization": {
+      "slug": "microsoft",
+      "name": "Microsoft",
+      "websiteUrl": "https://www.microsoft.com/design"
+    },
+    "category": "web-components",
+    "summary": "Microsoft's open-source web components technology: FAST Element, a lightweight library for building standards-based custom elements, plus foundation packages that other systems (including Fluent UI Web Components) build on.",
+    "homepageUrl": "https://fast.design/",
+    "docsUrl": "https://fast.design/docs/3.x/introduction/",
+    "repositoryUrl": "https://github.com/microsoft/fast",
+    "figmaUrl": null,
+    "storybookUrl": null,
+    "packages": [
+      {
+        "name": "@microsoft/fast-element",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-element"
+      },
+      {
+        "name": "@microsoft/fast-foundation",
+        "registry": "npm",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-foundation"
+      }
+    ],
+    "license": {
+      "slug": "mit",
+      "spdxId": "MIT",
+      "name": "MIT License",
+      "url": "https://raw.githubusercontent.com/microsoft/fast/main/LICENSE",
+      "isOpenSource": true,
+      "redistribution": "permitted",
+      "notes": null
+    },
+    "docAccess": "public",
+    "maintenanceStatus": "active",
+    "latestVersion": "3.1.2",
+    "latestReleaseAt": "2026-10-15T04:07:46.661Z",
+    "frameworks": [
+      {
+        "slug": "web-components",
+        "packageName": "@microsoft/fast-element",
+        "support": "official"
+      }
+    ],
+    "platforms": [
+      "web"
+    ],
+    "tags": [
+      "open-source",
+      "web-components",
+      "developer-tools",
+      "theming"
+    ],
+    "relatedSlugs": [
+      "fluent-ui-web-components",
+      "fluent-2"
+    ],
+    "registryStatus": "verified",
+    "duplicateOf": null,
+    "replacesSlug": null,
+    "replacedBy": null,
+    "notes": "Infrastructure-level library rather than a visual design system; classified web-components. Fluent UI Web Components are built on FAST Element (per Fluent 2 Develop page). Docs are versioned (1.x/2.x/3.x); recorded the 3.x introduction. @microsoft/fast-element 3.1.2 published 2026-10-15 (active); @microsoft/fast-foundation last published 2024-10-23 (2.x line).",
+    "checks": [
+      {
+        "field": "homepageUrl",
+        "url": "https://fast.design/",
+        "status": 200,
+        "finalUrl": "https://fast.design/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:57.169Z",
+        "method": "http-check",
+        "note": "title 'FAST'; description 'FAST web components'; links github.com/microsoft/fast and its LICENSE"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fast.design/docs/3.x/introduction",
+        "status": 200,
+        "finalUrl": "https://fast.design/docs/3.x/introduction/",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:58:06.821Z",
+        "method": "http-check",
+        "note": "redirects to /docs/3.x/introduction/; title 'Introduction'"
+      },
+      {
+        "field": "docsUrl",
+        "url": "https://fast.design/docs/getting-started/quick-start",
+        "status": 404,
+        "finalUrl": "https://fast.design/docs/getting-started/quick-start",
+        "ok": false,
+        "checkedAt": "2026-11-05T03:58:06.520Z",
+        "method": "http-check",
+        "note": "nav link returned 404 (not used)"
+      },
+      {
+        "field": "repositoryUrl",
+        "url": "https://github.com/microsoft/fast",
+        "status": 200,
+        "finalUrl": "https://github.com/microsoft/fast",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:55:58.123Z",
+        "method": "http-check",
+        "note": "microsoft/fast repo"
+      },
+      {
+        "field": "license",
+        "url": "https://raw.githubusercontent.com/microsoft/fast/main/LICENSE",
+        "status": 200,
+        "finalUrl": "https://raw.githubusercontent.com/microsoft/fast/main/LICENSE",
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:11.040Z",
+        "method": "repo-metadata",
+        "note": "MIT License, Copyright (c) Microsoft Corporation"
+      },
+      {
+        "field": "package:@microsoft/fast-element",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-element",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:34.291Z",
+        "method": "package-metadata",
+        "note": "npm latest 3.1.2 published 2026-10-15; license MIT; deprecated: no; repo git+https://github.com/Microsoft/fast.git"
+      },
+      {
+        "field": "package:@microsoft/fast-foundation",
+        "url": "https://www.npmjs.com/package/@microsoft/fast-foundation",
+        "status": 200,
+        "finalUrl": null,
+        "ok": true,
+        "checkedAt": "2026-11-05T03:57:34.596Z",
+        "method": "package-metadata",
+        "note": "npm latest 2.50.0 published 2024-10-23; license MIT; deprecated: no; repo git+https://github.com/Microsoft/fast.git"
+      }
+    ],
+    "confidence": 0.95,
+    "verifiedAt": "2026-11-05T03:58:06.821Z"
   }
 ]
